@@ -5,14 +5,25 @@ import {
   Check,
   Copy,
   Download,
+  Key,
   Loader2,
   RotateCcw,
   Send,
+  Settings2,
   Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { AiAssistant } from "@/data/ai-assistants";
+import { PROVIDER_OPTIONS, type AIProvider } from "@/lib/ai-provider";
 
 interface Msg {
   id: string;
@@ -25,14 +36,50 @@ function storageKey(slug: string) {
   return `furtools:ai:${slug}:history:v1`;
 }
 
+const SETTINGS_KEY = "furtools:ai:provider_settings:v1";
+
 export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  
+  // AI Provider state
+  const [provider, setProvider] = useState<AIProvider>("lovable");
+  const [model, setModel] = useState<string>("");
+  const [apiKey, setApiKey] = useState<string>("");
+  const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Load saved provider settings
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(SETTINGS_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.provider) setProvider(parsed.provider);
+        if (parsed.model) setModel(parsed.model);
+        if (parsed.apiKey) setApiKey(parsed.apiKey);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  // Save provider settings when changed
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        SETTINGS_KEY,
+        JSON.stringify({ provider, model, apiKey })
+      );
+    } catch {
+      /* ignore */
+    }
+  }, [provider, model, apiKey]);
 
   // Load history
   useEffect(() => {
@@ -80,6 +127,9 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
         body: JSON.stringify({
           assistant: assistant.slug,
           messages: next.map((m) => ({ role: m.role, content: m.content })),
+          provider,
+          model: model || undefined,
+          apiKey: apiKey.trim() || undefined,
         }),
       });
       const data = (await res.json().catch(() => ({}))) as { content?: string; error?: string };
@@ -144,11 +194,95 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
     }
   }
 
+  const selectedProviderObj = PROVIDER_OPTIONS.find((p) => p.value === provider) || PROVIDER_OPTIONS[0];
+
   const Icon = assistant.icon;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
       <div className="rounded-3xl border border-border bg-card shadow-sm">
+        {/* Top Control Bar: Provider & Model Selector */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-muted/30 px-5 py-3 text-xs">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-semibold text-muted-foreground flex items-center gap-1">
+              <Settings2 className="size-3.5" /> AI Engine:
+            </span>
+            <Select
+              value={provider}
+              onValueChange={(val) => {
+                const p = val as AIProvider;
+                setProvider(p);
+                setModel("");
+              }}
+            >
+              <SelectTrigger className="h-8 w-[160px] text-xs">
+                <SelectValue placeholder="Select Provider" />
+              </SelectTrigger>
+              <SelectContent>
+                {PROVIDER_OPTIONS.map((p) => (
+                  <SelectItem key={p.value} value={p.value}>
+                    {p.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            {selectedProviderObj.models.length > 0 && (
+              <Select
+                value={model || selectedProviderObj.models[0]}
+                onValueChange={(val) => setModel(val)}
+              >
+                <SelectTrigger className="h-8 w-[170px] text-xs">
+                  <SelectValue placeholder="Select Model" />
+                </SelectTrigger>
+                <SelectContent>
+                  {selectedProviderObj.models.map((m) => (
+                    <SelectItem key={m} value={m}>
+                      {m}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="h-8 gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+            onClick={() => setShowKeyInput((v) => !v)}
+          >
+            <Key className="size-3.5" />
+            {apiKey ? "API Key Set ✓" : "Custom API Key"}
+          </Button>
+        </div>
+
+        {/* Custom API Key Collapsible Input */}
+        {showKeyInput && (
+          <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-5 py-2.5">
+            <Key className="size-4 shrink-0 text-muted-foreground" />
+            <Input
+              type="password"
+              placeholder={`Enter custom ${selectedProviderObj.label} API Key (optional)`}
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              className="h-8 text-xs font-mono"
+            />
+            {apiKey && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-8 text-xs"
+                onClick={() => setApiKey("")}
+              >
+                Clear
+              </Button>
+            )}
+          </div>
+        )}
+
         {/* Disclaimer */}
         <div className="flex items-start gap-3 border-b border-border bg-amber-50 px-5 py-3 text-sm text-amber-900 dark:bg-amber-950/30 dark:text-amber-200">
           <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden />
@@ -206,7 +340,7 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
                       {assistant.name}
                     </div>
                     <div className="inline-flex items-center gap-2 rounded-2xl rounded-tl-sm bg-muted/60 px-4 py-3 text-sm text-muted-foreground">
-                      <Loader2 className="size-4 animate-spin" /> Thinking…
+                      <Loader2 className="size-4 animate-spin" /> Thinking… ({selectedProviderObj.label})
                     </div>
                   </div>
                 </li>
@@ -230,7 +364,7 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={onKeyDown}
-              placeholder={`Ask ${assistant.name}…`}
+              placeholder={`Ask ${assistant.name} using ${selectedProviderObj.label}…`}
               className="min-h-[54px] resize-none rounded-2xl bg-background"
               disabled={loading}
             />
@@ -289,7 +423,7 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
           ))}
         </ul>
         <p className="mt-6 text-xs text-muted-foreground">
-          Your conversation is saved on this device only.
+          Your conversation and AI preferences are saved on this device.
         </p>
       </aside>
     </div>

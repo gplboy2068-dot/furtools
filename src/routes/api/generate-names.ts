@@ -1,14 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
+import { executeAICompletion } from "@/lib/ai-provider";
 
 interface RequestBody {
   species?: string;
   vibe?: string;
   count?: number;
   ai?: boolean;
+  provider?: string;
+  apiKey?: string;
+  model?: string;
 }
 
-const MODEL = "google/gemini-3.5-flash";
 const MAX_COUNT = 20;
 const VALID = /^[a-z0-9-]{2,32}$/;
 
@@ -54,46 +57,29 @@ export const Route = createFileRoute("/api/generate-names")({
         if (!wantAi) return json({ names: storedNames, added: 0 });
 
         // 2. Ask AI to generate `count` fresh names, avoiding duplicates
-        const apiKey = process.env.LOVABLE_API_KEY;
-        if (!apiKey) return json({ names: storedNames, added: 0, error: "AI not configured" });
-
         const avoid = storedNames.slice(0, 60).map((n) => n.name).join(", ");
         const systemPrompt = `You generate creative pet names. Reply ONLY with strict JSON of shape {"names":[{"name":"...","meaning":"short 4-8 word note"}, ...]}. No prose, no markdown.`;
         const userPrompt = `Generate ${count} unique, memorable ${vibe} names for a ${species}. Each name must be 1-2 words, easy to call out loud. Include a brief 4-8 word meaning or origin. Avoid these existing names: ${avoid || "none"}.`;
 
-        let upstream: Response;
-        try {
-          upstream = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Lovable-API-Key": apiKey },
-            body: JSON.stringify({
-              model: MODEL,
-              messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: userPrompt },
-              ],
-              temperature: 0.9,
-              response_format: { type: "json_object" },
-            }),
-          });
-        } catch {
-          return json({ names: storedNames, added: 0, error: "Could not reach AI service." }, 200);
-        }
+        const result = await executeAICompletion({
+          provider: body.provider,
+          apiKey: body.apiKey,
+          model: body.model,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          temperature: 0.9,
+          response_format: { type: "json_object" },
+        });
 
-        if (!upstream.ok) {
-          if (upstream.status === 429)
-            return json({ names: storedNames, added: 0, error: "Rate limited — try again in a moment." }, 200);
-          if (upstream.status === 402)
-            return json({ names: storedNames, added: 0, error: "AI credits exhausted." }, 200);
-          return json({ names: storedNames, added: 0, error: `AI error (${upstream.status}).` }, 200);
+        if (result.error || !result.content) {
+          return json({ names: storedNames, added: 0, error: result.error || "AI generation failed" }, 200);
         }
-
-        const data = (await upstream.json()) as { choices?: Array<{ message?: { content?: string } }> };
-        const content = data.choices?.[0]?.message?.content?.trim() ?? "";
 
         let parsed: { names?: Array<{ name?: string; meaning?: string }> } = {};
         try {
-          parsed = JSON.parse(content);
+          parsed = JSON.parse(result.content);
         } catch {
           return json({ names: storedNames, added: 0, error: "AI returned malformed data." }, 200);
         }
@@ -107,7 +93,7 @@ export const Route = createFileRoute("/api/generate-names")({
 
         if (fresh.length === 0) return json({ names: storedNames, added: 0 });
 
-        // 3. Insert into shared pool (dedupe via unique constraint, ignore conflicts)
+        // 3. Insert into shared pool
         const rows = fresh.map((n) => ({ species, vibe, name: n.name, meaning: n.meaning, source: "ai" }));
         const { data: inserted } = await supabase
           .from("generated_names")
