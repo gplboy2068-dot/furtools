@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,7 @@ interface CrudManagerProps<T> {
   defaults?: Record<string, unknown>;
   entityLabel: string;
   emptyMessage?: string;
-  pk?: string; // primary key column name, default "id"
+  pk?: string;
   transformIn?: (raw: Record<string, unknown>) => Record<string, unknown>;
   transformOut?: (row: T) => Record<string, unknown>;
 }
@@ -58,11 +59,12 @@ export function CrudManager<T>({
   orderBy,
   defaults = {},
   entityLabel,
-  emptyMessage = "No records yet.",
+  emptyMessage,
   pk = "id",
   transformIn,
   transformOut,
 }: CrudManagerProps<T>) {
+  const { t } = useTranslation("admin");
   const [rows, setRows] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<T | null>(null);
@@ -107,7 +109,7 @@ export function CrudManager<T>({
     const payload = transformIn ? transformIn(form) : form;
     for (const f of fields) {
       if (f.required && (payload[f.name] === undefined || payload[f.name] === "" || payload[f.name] === null)) {
-        toast.error(`${f.label} is required`);
+        toast.error(t("crud.requiredField", { field: f.label }));
         return;
       }
     }
@@ -116,41 +118,47 @@ export function CrudManager<T>({
     if (editing) {
       const { error } = await loose.update(payload).eq(pk, (editing as Record<string, unknown>)[pk]);
       if (error) return toast.error(error.message);
-      toast.success(`${entityLabel} updated`);
+      toast.success(t("crud.recordUpdated", { entity: entityLabel }));
     } else {
       const { error } = await loose.insert(payload);
       if (error) return toast.error(error.message);
-      toast.success(`${entityLabel} created`);
+      toast.success(t("crud.recordCreated", { entity: entityLabel }));
     }
     setDialogOpen(false);
     await load();
   }
 
   async function remove(id: string) {
-    if (!confirm(`Delete this ${entityLabel.toLowerCase()}?`)) return;
+    if (!confirm(t("crud.deleteConfirm", { entity: entityLabel.toLowerCase() }))) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const loose = supabase.from(table) as any;
     const { error } = await loose.delete().eq("id", id);
     if (error) return toast.error(error.message);
-    toast.success(`${entityLabel} deleted`);
+    toast.success(t("crud.recordDeleted", { entity: entityLabel }));
     await load();
   }
+
+  const defaultEmptyMsg = emptyMessage || t("crud.noRecords");
 
   return (
     <>
       <div className="mb-4 flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
-          {loading ? "Loading…" : `${rows.length} ${entityLabel.toLowerCase()}${rows.length === 1 ? "" : "s"}`}
+          {loading ? t("crud.loading") : `${rows.length} ${entityLabel.toLowerCase()}${rows.length === 1 ? "" : "s"}`}
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="rounded-full" onClick={openNew}>
-              <Plus className="size-4" /> New {entityLabel.toLowerCase()}
+              <Plus className="size-4" /> {t("crud.newRecord", { entity: entityLabel.toLowerCase() })}
             </Button>
           </DialogTrigger>
           <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>{editing ? `Edit ${entityLabel.toLowerCase()}` : `New ${entityLabel.toLowerCase()}`}</DialogTitle>
+              <DialogTitle>
+                {editing
+                  ? t("crud.editRecord", { entity: entityLabel.toLowerCase() })
+                  : t("crud.newRecord", { entity: entityLabel.toLowerCase() })}
+              </DialogTitle>
             </DialogHeader>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {fields.map((f) => (
@@ -162,8 +170,8 @@ export function CrudManager<T>({
               ))}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
-              <Button onClick={save}>{editing ? "Save changes" : "Create"}</Button>
+              <Button variant="outline" onClick={() => setDialogOpen(false)}>{t("crud.cancel")}</Button>
+              <Button onClick={save}>{editing ? t("crud.saveChanges") : t("crud.create")}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -171,7 +179,7 @@ export function CrudManager<T>({
 
       <div className="overflow-hidden rounded-2xl border border-border bg-background">
         {rows.length === 0 && !loading ? (
-          <div className="p-10 text-center text-muted-foreground">{emptyMessage}</div>
+          <div className="p-10 text-center text-muted-foreground">{defaultEmptyMsg}</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -180,7 +188,7 @@ export function CrudManager<T>({
                   {columns.map((c) => (
                     <th key={c.key} className={`px-4 py-3 ${c.className ?? ""}`}>{c.header}</th>
                   ))}
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3 text-right">{t("crud.actions")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -188,7 +196,7 @@ export function CrudManager<T>({
                   <tr key={String((r as Record<string, unknown>)[pk])} className="border-t border-border">
                     {columns.map((c) => (
                       <td key={c.key} className={`px-4 py-3 align-top ${c.className ?? ""}`}>
-                        {c.render ? c.render(r) : formatCell((r as Record<string, unknown>)[c.key])}
+                        {c.render ? c.render(r) : formatCell((r as Record<string, unknown>)[c.key], t)}
                       </td>
                     ))}
                     <td className="px-4 py-3 text-right">
@@ -212,9 +220,9 @@ export function CrudManager<T>({
   );
 }
 
-function formatCell(v: unknown): ReactNode {
+function formatCell(v: unknown, t: (k: string) => string): ReactNode {
   if (v === null || v === undefined) return <span className="text-muted-foreground">—</span>;
-  if (typeof v === "boolean") return <Badge variant={v ? "default" : "secondary"}>{v ? "Yes" : "No"}</Badge>;
+  if (typeof v === "boolean") return <Badge variant={v ? "default" : "secondary"}>{v ? t("crud.yes") : t("crud.no")}</Badge>;
   if (Array.isArray(v)) return v.join(", ");
   if (typeof v === "object") return <code className="text-xs">{JSON.stringify(v).slice(0, 60)}…</code>;
   const s = String(v);
@@ -231,6 +239,8 @@ function FieldInput({
   value: unknown;
   onChange: (v: unknown) => void;
 }) {
+  const { t } = useTranslation("admin");
+
   if (f.type === "textarea") {
     return (
       <Textarea
@@ -282,7 +292,7 @@ function FieldInput({
         onChange={(e) => onChange(e.target.value)}
         className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
       >
-        <option value="">Select…</option>
+        <option value="">{t("crud.select")}</option>
         {f.options?.map((o) => (
           <option key={o.value} value={o.value}>{o.label}</option>
         ))}
