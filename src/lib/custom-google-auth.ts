@@ -18,7 +18,7 @@ const SESSION_KEY = 'furtools_custom_google_session';
 export const DEFAULT_GOOGLE_CLIENT_ID =
   typeof process !== 'undefined' && process.env.VITE_GOOGLE_CLIENT_ID
     ? process.env.VITE_GOOGLE_CLIENT_ID
-    : '718294719283-furtools-custom-google-client-id.apps.googleusercontent.com';
+    : '426028123282-fo5a37hr1r05pia9oh99tu38iuefiqlk.apps.googleusercontent.com';
 
 /**
  * Decode JWT ID Token payload from Google without external library
