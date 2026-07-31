@@ -1,8 +1,28 @@
 {
-  "heroTitle": "Outils Intelligents pour Animaux Heureux et en Bonne Santé",
-  "heroDescription": "Du calcul de l’âge des chiens aux plans de nutrition personnalisés.",
-  "exploreTools": "Explorer les Outils",
-  "popularTools": "Outils Populaires",
-  "featuredBreeds": "Guides de Races",
-  "latestArticles": "Derniers Articles"
+  "heroTitle": "Outils de soins intelligents pour des animaux plus heureux et en meilleure santé",
+  "heroDescription": "De la conversion de l'âge du chien aux plans de nutrition personnalisés, accédez à des calculatrices conçues par des experts et à des assistants de soins IA.",
+  "exploreTools": "Explorer les outils",
+  "popularTools": "Outils populaires",
+  "featuredBreeds": "Guides de races en vedette",
+  "latestArticles": "Derniers articles de soins",
+  "browseAllTools": "Parcourir les {{count}}+ outils",
+  "askAi": "Demander à l'IA",
+  "searchTools": "Rechercher des outils",
+  "seeAll": "Voir tout →",
+  "explore": "Explorer",
+  "open": "Ouvrir",
+  "stats": {
+    "freeTools": "Outils gratuits",
+    "aiAssistants": "Assistants IA",
+    "speciesCovered": "Espèces couvertes",
+    "breedProfiles": "Profils de races"
+  },
+  "categoriesHeading": "Trouvez le bon outil pour votre animal",
+  "everythingOnFurTools": "Tout sur FurTools",
+  "exploreEveryHub": "Explorer chaque hub",
+  "hubDescription": "Une plateforme pour les calculatrices, les conseils en IA, la recherche sur les races, la sécurité alimentaire, l'inspiration pour les noms, la planification des coûts et les carnets de santé complets.",
+  "aiSubheading": "{{count}} assistants IA — jamais diagnostiques, toujours bienveillants",
+  "aiDescription": "Posez des questions sur les soins, l'éducation, le toilettage, la sécurité alimentaire, les voyages ou l'élevage spécifique à une espèce.",
+  "breedHeading": "Plus de 500 profils de races dans toutes les espèces",
+  "browseAllBreeds": "Parcourir toutes les races →"
 }

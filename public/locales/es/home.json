@@ -1,8 +1,28 @@
 {
-  "heroTitle": "Herramientas Inteligentes para Mascotas Más Felices y Saludables",
-  "heroDescription": "Desde calculadora de edad hasta planes de nutrición personalizados.",
+  "heroTitle": "Herramientas de Cuidado Inteligentes para Mascotas Más Felices y Saludables",
+  "heroDescription": "Desde conversión de edad canina hasta planes de nutrición personalizados, accede a calculadoras diseñadas por expertos y asistentes de cuidado de IA.",
   "exploreTools": "Explorar Herramientas",
   "popularTools": "Herramientas Populares",
   "featuredBreeds": "Guías de Razas Destacadas",
-  "latestArticles": "Últimos Artículos"
+  "latestArticles": "Últimos Artículos de Cuidado",
+  "browseAllTools": "Explorar las {{count}}+ herramientas",
+  "askAi": "Preguntar a IA",
+  "searchTools": "Buscar herramientas",
+  "seeAll": "Ver todo →",
+  "explore": "Explorar",
+  "open": "Abrir",
+  "stats": {
+    "freeTools": "Herramientas gratuitas",
+    "aiAssistants": "Asistentes de IA",
+    "speciesCovered": "Especies cubiertas",
+    "breedProfiles": "Perfiles de razas"
+  },
+  "categoriesHeading": "Encuentra la herramienta adecuada para tu mascota",
+  "everythingOnFurTools": "Todo en FurTools",
+  "exploreEveryHub": "Explora cada hub",
+  "hubDescription": "Una plataforma para calculadoras, consejos de IA, investigación de razas, seguridad alimentaria, inspiración de nombres, planificación de costos y registros de salud completos para mascotas.",
+  "aiSubheading": "{{count}} ayudantes de IA — nunca diagnósticos, siempre amables",
+  "aiDescription": "Pregunta sobre cuidados, entrenamiento, aseo, seguridad alimentaria, viajes o cría específica de cada especie.",
+  "breedHeading": "Más de 500 perfiles de razas en todas las especies",
+  "browseAllBreeds": "Explorar todas las razas →"
 }

@@ -1,8 +1,28 @@
 {
-  "heroTitle": "Smart Care Tools for Happier, Healthier Pets",
-  "heroDescription": "From dog age conversion to personalized nutrition plans, access expert-designed calculators and AI care assistants.",
-  "exploreTools": "Explore Tools",
-  "popularTools": "Popular Tools",
-  "featuredBreeds": "Featured Breed Guides",
-  "latestArticles": "Latest Care Articles"
+  "heroTitle": "खुशहाल, स्वस्थ पालतू जानवरों के लिए स्मार्ट देखभाल उपकरण",
+  "heroDescription": "कुत्तों की उम्र बदलने से लेकर व्यक्तिगत पोषण योजनाओं तक, विशेषज्ञ-डिज़ाइन किए गए कैलकुलेटर और AI देखभाल सहायकों तक पहुंचें।",
+  "exploreTools": "उपकरण एक्सप्लोर करें",
+  "popularTools": "लोकप्रिय उपकरण",
+  "featuredBreeds": "विशेष नस्ल गाइड",
+  "latestArticles": "नवीनतम देखभाल लेख",
+  "browseAllTools": "सभी {{count}}+ उपकरण ब्राउज़ करें",
+  "askAi": "AI से पूछें",
+  "searchTools": "उपकरण खोजें",
+  "seeAll": "सभी देखें →",
+  "explore": "एक्सप्लोर करें",
+  "open": "खोलें",
+  "stats": {
+    "freeTools": "मुफ्त उपकरण",
+    "aiAssistants": "AI सहायक",
+    "speciesCovered": "कवर की गई प्रजातियां",
+    "breedProfiles": "नस्ल प्रोफाइल"
+  },
+  "categoriesHeading": "अपने पालतू जानवर के लिए सही उपकरण खोजें",
+  "everythingOnFurTools": "FurTools पर सब कुछ",
+  "exploreEveryHub": "हर हब एक्सप्लोर करें",
+  "hubDescription": "कैलकुलेटर, AI सलाह, नस्ल अनुसंधान, खाद्य सुरक्षा, नाम प्रेरणा, लागत नियोजन और एंड-टू-एंड पालतू स्वास्थ्य रिकॉर्ड के लिए एक मंच।",
+  "aiSubheading": "{{count}} AI सहायक — कभी नैदानिक नहीं, हमेशा दयालु",
+  "aiDescription": "देखभाल, प्रशिक्षण, ग्रूमिंग, खाद्य सुरक्षा, यात्रा, या प्रजाति-विशिष्ट पालन-पोषण के बारे में पूछें।",
+  "breedHeading": "हर प्रजाति में 500+ नस्ल प्रोफाइल",
+  "browseAllBreeds": "सभी नस्लें ब्राउज़ करें →"
 }
