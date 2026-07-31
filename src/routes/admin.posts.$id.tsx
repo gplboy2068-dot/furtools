@@ -92,7 +92,13 @@ function EditPostPage() {
         toast.success("Saved");
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Save failed");
+      const msg =
+        err instanceof Error
+          ? err.message
+          : typeof err === "object" && err && "message" in err
+          ? String((err as { message?: string }).message)
+          : "Save failed";
+      toast.error(msg);
     } finally {
       setSaving(false);
     }

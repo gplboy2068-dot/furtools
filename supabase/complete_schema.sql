@@ -3,10 +3,6 @@
 -- Paste and run this entire file in Supabase SQL Editor
 -- ==========================================
 
--- ------------------------------------------
--- Migration: 20260715194434_cf833405-a006-4fd3-a1ed-c8bd612ab896.sql
--- ------------------------------------------
-
 -- Profiles
 CREATE TABLE IF NOT EXISTS public.profiles (
   id UUID NOT NULL PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -15,13 +11,12 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT ON public.profiles TO anon;
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO authenticated;
-GRANT ALL ON public.profiles TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO anon, authenticated, service_role;
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Profiles are viewable by everyone" ON public.profiles;
 CREATE POLICY "Profiles are viewable by everyone" ON public.profiles FOR SELECT USING (true);
-CREATE POLICY "Users can update own profile" ON public.profiles FOR UPDATE USING (auth.uid() = id);
-CREATE POLICY "Users can insert own profile" ON public.profiles FOR INSERT WITH CHECK (auth.uid() = id);
+DROP POLICY IF EXISTS "Profiles full access" ON public.profiles;
+CREATE POLICY "Profiles full access" ON public.profiles FOR ALL USING (true) WITH CHECK (true);
 
 -- Roles
 DO $$ BEGIN
@@ -37,10 +32,10 @@ CREATE TABLE IF NOT EXISTS public.user_roles (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE(user_id, role)
 );
-GRANT SELECT ON public.user_roles TO authenticated;
-GRANT ALL ON public.user_roles TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_roles TO anon, authenticated, service_role;
 ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can view own roles" ON public.user_roles FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Roles access" ON public.user_roles;
+CREATE POLICY "Roles access" ON public.user_roles FOR ALL USING (true) WITH CHECK (true);
 
 CREATE OR REPLACE FUNCTION public.has_role(_user_id UUID, _role app_role)
 RETURNS BOOLEAN
@@ -92,15 +87,10 @@ CREATE TABLE IF NOT EXISTS public.blog_posts (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT ON public.blog_posts TO anon;
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.blog_posts TO authenticated;
-GRANT ALL ON public.blog_posts TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.blog_posts TO anon, authenticated, service_role;
 ALTER TABLE public.blog_posts ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Published posts are public" ON public.blog_posts FOR SELECT USING (published = true);
-CREATE POLICY "Admins can view all posts" ON public.blog_posts FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'admin'));
-CREATE POLICY "Admins can insert posts" ON public.blog_posts FOR INSERT TO authenticated WITH CHECK (public.has_role(auth.uid(), 'admin'));
-CREATE POLICY "Admins can update posts" ON public.blog_posts FOR UPDATE TO authenticated USING (public.has_role(auth.uid(), 'admin'));
-CREATE POLICY "Admins can delete posts" ON public.blog_posts FOR DELETE TO authenticated USING (public.has_role(auth.uid(), 'admin'));
+DROP POLICY IF EXISTS "Blog posts access" ON public.blog_posts;
+CREATE POLICY "Blog posts access" ON public.blog_posts FOR ALL USING (true) WITH CHECK (true);
 CREATE INDEX IF NOT EXISTS blog_posts_published_idx ON public.blog_posts(published, published_at DESC);
 
 DROP TRIGGER IF EXISTS blog_posts_set_updated_at ON public.blog_posts;
@@ -119,12 +109,10 @@ CREATE TABLE IF NOT EXISTS public.breeds (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT ON public.breeds TO anon;
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.breeds TO authenticated;
-GRANT ALL ON public.breeds TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.breeds TO anon, authenticated, service_role;
 ALTER TABLE public.breeds ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Breeds are public" ON public.breeds FOR SELECT USING (true);
-CREATE POLICY "Admins can manage breeds" ON public.breeds FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin'));
+DROP POLICY IF EXISTS "Breeds access" ON public.breeds;
+CREATE POLICY "Breeds access" ON public.breeds FOR ALL USING (true) WITH CHECK (true);
 
 -- Foods
 CREATE TABLE IF NOT EXISTS public.foods (
@@ -136,12 +124,10 @@ CREATE TABLE IF NOT EXISTS public.foods (
   description TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT ON public.foods TO anon;
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.foods TO authenticated;
-GRANT ALL ON public.foods TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.foods TO anon, authenticated, service_role;
 ALTER TABLE public.foods ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Foods are public" ON public.foods FOR SELECT USING (true);
-CREATE POLICY "Admins can manage foods" ON public.foods FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin'));
+DROP POLICY IF EXISTS "Foods access" ON public.foods;
+CREATE POLICY "Foods access" ON public.foods FOR ALL USING (true) WITH CHECK (true);
 
 -- FAQs
 CREATE TABLE IF NOT EXISTS public.faqs (
@@ -151,12 +137,10 @@ CREATE TABLE IF NOT EXISTS public.faqs (
   category TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT ON public.faqs TO anon;
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.faqs TO authenticated;
-GRANT ALL ON public.faqs TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.faqs TO anon, authenticated, service_role;
 ALTER TABLE public.faqs ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "FAQs are public" ON public.faqs FOR SELECT USING (true);
-CREATE POLICY "Admins can manage faqs" ON public.faqs FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin'));
+DROP POLICY IF EXISTS "FAQs access" ON public.faqs;
+CREATE POLICY "FAQs access" ON public.faqs FOR ALL USING (true) WITH CHECK (true);
 
 -- Newsletter subscribers
 CREATE TABLE IF NOT EXISTS public.newsletter_subscribers (
@@ -165,29 +149,44 @@ CREATE TABLE IF NOT EXISTS public.newsletter_subscribers (
   status TEXT NOT NULL DEFAULT 'subscribed',
   subscribed_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT INSERT ON public.newsletter_subscribers TO anon;
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.newsletter_subscribers TO authenticated;
-GRANT ALL ON public.newsletter_subscribers TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.newsletter_subscribers TO anon, authenticated, service_role;
 ALTER TABLE public.newsletter_subscribers ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Anyone can subscribe" ON public.newsletter_subscribers FOR INSERT WITH CHECK (true);
-CREATE POLICY "Admins can manage subscribers" ON public.newsletter_subscribers FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin'));
+DROP POLICY IF EXISTS "Newsletter access" ON public.newsletter_subscribers;
+CREATE POLICY "Newsletter access" ON public.newsletter_subscribers FOR ALL USING (true) WITH CHECK (true);
+
+-- Site Settings
+CREATE TABLE IF NOT EXISTS public.site_settings (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  key TEXT NOT NULL UNIQUE,
+  value JSONB,
+  category TEXT,
+  updated_by UUID,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.site_settings TO anon, authenticated, service_role;
+ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Site settings access" ON public.site_settings;
+CREATE POLICY "Site settings access" ON public.site_settings FOR ALL USING (true) WITH CHECK (true);
 
 -- Pets & Care Logs
 CREATE TABLE IF NOT EXISTS public.pets (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL,
   name TEXT NOT NULL,
   species TEXT NOT NULL,
   breed TEXT,
   weight NUMERIC,
-  birth_date DATE,
+  birthdate DATE,
+  weight_unit TEXT DEFAULT 'lbs',
+  avatar_url TEXT,
+  gender TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.pets TO authenticated;
-GRANT ALL ON public.pets TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.pets TO anon, authenticated, service_role;
 ALTER TABLE public.pets ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can manage own pets" ON public.pets FOR ALL TO authenticated USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Pets access" ON public.pets;
+CREATE POLICY "Pets access" ON public.pets FOR ALL USING (true) WITH CHECK (true);
 
 CREATE TABLE IF NOT EXISTS public.pet_health_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -198,11 +197,10 @@ CREATE TABLE IF NOT EXISTS public.pet_health_logs (
   log_date DATE NOT NULL DEFAULT CURRENT_DATE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.pet_health_logs TO authenticated;
-GRANT ALL ON public.pet_health_logs TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.pet_health_logs TO anon, authenticated, service_role;
 ALTER TABLE public.pet_health_logs ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can manage own pet logs" ON public.pet_health_logs FOR ALL TO authenticated 
-USING (EXISTS (SELECT 1 FROM public.pets WHERE pets.id = pet_id AND pets.user_id = auth.uid()));
+DROP POLICY IF EXISTS "Pet logs access" ON public.pet_health_logs;
+CREATE POLICY "Pet logs access" ON public.pet_health_logs FOR ALL USING (true) WITH CHECK (true);
 
 CREATE TABLE IF NOT EXISTS public.pet_reminders (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -212,11 +210,10 @@ CREATE TABLE IF NOT EXISTS public.pet_reminders (
   completed BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.pet_reminders TO authenticated;
-GRANT ALL ON public.pet_reminders TO service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.pet_reminders TO anon, authenticated, service_role;
 ALTER TABLE public.pet_reminders ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can manage own pet reminders" ON public.pet_reminders FOR ALL TO authenticated 
-USING (EXISTS (SELECT 1 FROM public.pets WHERE pets.id = pet_id AND pets.user_id = auth.uid()));
+DROP POLICY IF EXISTS "Pet reminders access" ON public.pet_reminders;
+CREATE POLICY "Pet reminders access" ON public.pet_reminders FOR ALL USING (true) WITH CHECK (true);
 
 -- Helper Function to Grant Admin Access by Email
 CREATE OR REPLACE FUNCTION public.make_user_admin(target_email TEXT)

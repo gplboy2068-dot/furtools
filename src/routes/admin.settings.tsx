@@ -352,7 +352,12 @@ function SettingsPage() {
       setInitialValues(next);
       toast.success(`Saved ${rows.length} setting${rows.length === 1 ? "" : "s"} in ${section.label}`);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Unknown error";
+      const msg =
+        e instanceof Error
+          ? e.message
+          : typeof e === "object" && e && "message" in e
+          ? String((e as { message?: string }).message)
+          : String(e);
       toast.error(`Save failed: ${msg}`);
     } finally {
       setSaving(false);
