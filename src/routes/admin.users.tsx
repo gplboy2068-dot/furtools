@@ -194,7 +194,7 @@ function UsersAdmin() {
 
     const userMap = new Map<string, UserRow>();
 
-    ((profiles ?? []) as Array<Record<string, unknown>>).forEach((p) => {
+    ((profiles ?? []) as unknown as Array<Record<string, unknown>>).forEach((p) => {
       const id = String(p.id);
       userMap.set(id, {
         id,
