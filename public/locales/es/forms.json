@@ -1,0 +1,9 @@
+{
+  "petName": "Nombre de la Mascota",
+  "petType": "Tipo de Mascota",
+  "breed": "Raza",
+  "weight": "Peso",
+  "ageYears": "Edad (Años)",
+  "activityLevel": "Nivel de Actividad",
+  "requiredField": "Este campo es obligatorio"
+}

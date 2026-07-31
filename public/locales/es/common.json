@@ -1,0 +1,38 @@
+{
+  "siteName": "FurTools",
+  "tagline": "Herramientas Digitales Esenciales para Dueños de Mascotas y Veterinarios",
+  "nav": {
+    "tools": "Herramientas",
+    "ai": "Asistente IA",
+    "breeds": "Razas",
+    "foods": "Alimentos",
+    "names": "Nombres",
+    "myPets": "Mis Mascotas",
+    "blog": "Blog",
+    "admin": "Admin",
+    "dashboard": "Panel",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "disclaimer": "Aviso Legal"
+  },
+  "actions": {
+    "search": "Buscar herramientas...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "submit": "Enviar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "retry": "Reintentar",
+    "viewAll": "Ver Todo",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "import": "Importar",
+    "language": "Idioma"
+  },
+  "rights": "Hecho con ♥ para las mascotas en todas partes. Las herramientas son informativas."
+}

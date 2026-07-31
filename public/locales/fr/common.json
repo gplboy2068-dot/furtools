@@ -1,0 +1,38 @@
+{
+  "siteName": "FurTools",
+  "tagline": "Outils Numériques Essentiels pour Animaux de Compagnie",
+  "nav": {
+    "tools": "Outils",
+    "ai": "Assistant IA",
+    "breeds": "Races",
+    "foods": "Nourriture",
+    "names": "Noms",
+    "myPets": "Mes Animaux",
+    "blog": "Blog",
+    "admin": "Admin",
+    "dashboard": "Tableau de bord",
+    "about": "À propos",
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "disclaimer": "Avertissement"
+  },
+  "actions": {
+    "search": "Rechercher des outils...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "submit": "Soumettre",
+    "back": "Retour",
+    "next": "Suivant",
+    "retry": "Réessayer",
+    "viewAll": "Voir tout",
+    "filter": "Filtrer",
+    "export": "Exporter",
+    "import": "Importer",
+    "language": "Langue"
+  },
+  "rights": "Fait avec ♥ pour les animaux partout."
+}

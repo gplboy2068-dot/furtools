@@ -103,6 +103,7 @@ export const ADMIN_NAV_SECTIONS: NavSection[] = [
   {
     label: "Administration",
     items: [
+      { to: "/admin/translations", label: "Translations", icon: Globe },
       { to: "/admin/users", label: "Users", icon: Users },
       { to: "/admin/settings", label: "Settings", icon: Settings },
     ],

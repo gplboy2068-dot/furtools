@@ -1,0 +1,9 @@
+{
+  "petName": "Pet Name",
+  "petType": "Pet Type",
+  "breed": "Breed",
+  "weight": "Weight",
+  "ageYears": "Age (Years)",
+  "activityLevel": "Activity Level",
+  "requiredField": "This field is required"
+}

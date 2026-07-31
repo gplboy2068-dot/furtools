@@ -1,0 +1,9 @@
+{
+  "title": "Base de Datos de Razas",
+  "subtitle": "Perfiles detallados, temperamento, cuidados y salud.",
+  "searchPlaceholder": "Buscar razas por nombre...",
+  "temperament": "Temperamento",
+  "origin": "Origen",
+  "lifespan": "Esperanza de vida",
+  "size": "Tamaño y Peso"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Pet Care Dashboard",
+  "welcomeBack": "Welcome back",
+  "addPet": "Add New Pet",
+  "noPets": "No pets added yet. Add your first furry friend to track health and nutrition!",
+  "healthLog": "Health Logs",
+  "vaccinations": "Vaccinations",
+  "reminders": "Reminders"
+}

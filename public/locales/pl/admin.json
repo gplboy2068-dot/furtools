@@ -1,0 +1,10 @@
+{
+  "title": "Admin Console",
+  "dashboard": "Overview",
+  "toolsManager": "Tools Manager",
+  "breedManager": "Breed Manager",
+  "translationManager": "Translation Manager",
+  "usersManager": "Users",
+  "analytics": "Analytics",
+  "settings": "System Settings"
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Consola de Administración",
+  "dashboard": "Visión General",
+  "toolsManager": "Gestor de Herramientas",
+  "breedManager": "Gestor de Razas",
+  "translationManager": "Gestor de Traducciones",
+  "usersManager": "Usuarios",
+  "analytics": "Analítica",
+  "settings": "Ajustes del Sistema"
+}

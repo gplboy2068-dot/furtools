@@ -1,0 +1,9 @@
+{
+  "petName": "اسم الحيوان",
+  "petType": "نوع الحيوان",
+  "breed": "السلالة",
+  "weight": "الوزن",
+  "ageYears": "العمر (سنوات)",
+  "activityLevel": "مستوى النشاط",
+  "requiredField": "هذا الحقل مطلوب"
+}

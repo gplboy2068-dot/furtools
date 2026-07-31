@@ -1,0 +1,10 @@
+{
+  "ageCalculatorTitle": "Calculateur d’Âge pour Animaux",
+  "ageCalculatorDesc": "Convertissez les années humaines en âge réel.",
+  "foodCalculatorTitle": "Calculateur de Portions Alimentaires",
+  "foodCalculatorDesc": "Calculez les calories quotidiennes selon le poids.",
+  "nameGeneratorTitle": "Générateur de Noms IA",
+  "nameGeneratorDesc": "Générez des noms uniques pour vos animaux.",
+  "calculateBtn": "Calculer",
+  "results": "Résultats du Calcul"
+}

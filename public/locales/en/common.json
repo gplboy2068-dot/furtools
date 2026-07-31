@@ -1,0 +1,38 @@
+{
+  "siteName": "FurTools",
+  "tagline": "Essential Digital Tools for Pet Parents & Veterinarians",
+  "nav": {
+    "tools": "Tools",
+    "ai": "AI Assistant",
+    "breeds": "Breeds",
+    "foods": "Foods",
+    "names": "Pet Names",
+    "myPets": "My Pets",
+    "blog": "Blog",
+    "admin": "Admin",
+    "dashboard": "Dashboard",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "disclaimer": "Disclaimer"
+  },
+  "actions": {
+    "search": "Search tools...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "retry": "Try again",
+    "viewAll": "View All",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "language": "Language"
+  },
+  "rights": "Made with ♥ for pets everywhere. Tools are informational and not a substitute for veterinary advice."
+}

@@ -1,25 +1,29 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { Menu, PawPrint, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
+import { LanguageSwitcher } from "./language-switcher";
 import { GlobalSearch } from "./global-search";
 import { SITE } from "@/lib/site";
-
-const NAV = [
-  { to: "/categories", label: "Tools" },
-  { to: "/ai", label: "AI" },
-  { to: "/breeds", label: "Breeds" },
-  { to: "/foods", label: "Foods" },
-  { to: "/names", label: "Names" },
-  { to: "/dashboard", label: "My Pets" },
-  { to: "/blog", label: "Blog" },
-] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation("common");
+
+  const NAV = [
+    { to: "/categories", labelKey: "nav.tools" },
+    { to: "/ai", labelKey: "nav.ai" },
+    { to: "/breeds", labelKey: "nav.breeds" },
+    { to: "/foods", labelKey: "nav.foods" },
+    { to: "/names", labelKey: "nav.names" },
+    { to: "/dashboard", labelKey: "nav.myPets" },
+    { to: "/blog", labelKey: "nav.blog" },
+  ] as const;
+
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
@@ -39,7 +43,7 @@ export function SiteHeader() {
                 activeProps={{ className: "text-foreground bg-accent" }}
                 activeOptions={{ exact: false }}
               >
-                {n.label}
+                {t(n.labelKey)}
               </Link>
             ))}
           </nav>
@@ -48,17 +52,18 @@ export function SiteHeader() {
               variant="ghost"
               size="icon"
               className="rounded-full"
-              aria-label="Search tools"
+              aria-label={t("actions.search")}
               onClick={() => setSearchOpen(true)}
             >
               <Search className="size-5" />
             </Button>
+            <LanguageSwitcher variant="dropdown" />
             <ThemeSwitcher />
             <Button
               variant="ghost"
               size="icon"
               className="rounded-full md:hidden"
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t("actions.close") : t("actions.filter")}
               onClick={() => setOpen((s) => !s)}
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -80,10 +85,13 @@ export function SiteHeader() {
                     activeProps={{ className: "bg-accent" }}
                     activeOptions={{ exact: false }}
                   >
-                    {n.label}
+                    {t(n.labelKey)}
                   </Link>
                 </li>
               ))}
+              <li className="pt-2">
+                <LanguageSwitcher variant="select" className="w-full" />
+              </li>
             </ul>
           </nav>
         )}

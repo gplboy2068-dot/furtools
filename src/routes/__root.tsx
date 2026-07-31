@@ -7,8 +7,11 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
+import i18n from "@/lib/i18n";
+import { generateHreflangTags } from "@/lib/i18n-routes";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
@@ -19,18 +22,19 @@ import { SITE } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 function NotFoundComponent() {
+  const { t } = useTranslation(["errors", "common"]);
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 py-16 text-center">
       <div className="font-display text-7xl font-semibold text-primary">404</div>
-      <h1 className="mt-4 font-display text-2xl font-semibold">This page ran off-leash</h1>
+      <h1 className="mt-4 font-display text-2xl font-semibold">{t("errors:notFoundTitle")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        We couldn't find what you were looking for. Try one of the popular tools instead.
+        {t("errors:notFoundDesc")}
       </p>
       <a
         href="/"
         className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
       >
-        Take me home
+        {t("errors:goHome")}
       </a>
     </div>
   );
@@ -39,14 +43,17 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const { t } = useTranslation(["errors", "common"]);
+
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
+
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 py-16 text-center">
-      <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
+      <h1 className="font-display text-2xl font-semibold">{t("errors:somethingWentWrong")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        The page didn't load. You can retry or head back home.
+        {t("errors:errorDesc")}
       </p>
       <div className="mt-6 flex gap-2">
         <button
@@ -56,13 +63,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           }}
           className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
-          Try again
+          {t("common:actions.retry")}
         </button>
         <a
           href="/"
           className="rounded-full border border-input bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent"
         >
-          Go home
+          {t("errors:goHome")}
         </a>
       </div>
     </div>
@@ -95,6 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "alternate", type: "application/rss+xml", title: `${SITE.name} Blog`, href: "/rss.xml" },
       { rel: "sitemap", type: "application/xml", href: "/sitemap-index.xml" },
+      ...generateHreflangTags("/"),
     ],
     scripts: [
       {
@@ -114,8 +122,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const [lang, setLang] = useState(i18n.language || 'en');
+  const [dir, setDir] = useState(i18n.dir() || 'ltr');
+
+  useEffect(() => {
+    const handleLangChange = (newLang: string) => {
+      setLang(newLang);
+      setDir(i18n.dir(newLang));
+    };
+    i18n.on('languageChanged', handleLangChange);
+    return () => {
+      i18n.off('languageChanged', handleLangChange);
+    };
+  }, []);
+
   return (
-    <html lang="en">
+    <html lang={lang} dir={dir}>
       <head>
         <HeadContent />
       </head>

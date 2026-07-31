@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import {
   ArrowRight,
   Bird,
@@ -101,6 +102,7 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 function Home() {
+  const { t } = useTranslation(["home", "common"]);
   const toolCount = TOOLS.length;
   const aiCount = AI_ASSISTANTS.length;
   const speciesCount = Object.keys(SPECIES_CONFIG).length;
@@ -114,14 +116,13 @@ function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-[1.1fr_1fr] md:py-24">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-background px-3 py-1 text-xs font-medium text-primary shadow-sm">
-              <Sparkles className="size-3.5" /> {toolCount}+ free tools · {aiCount} AI assistants · {speciesCount} species
+              <Sparkles className="size-3.5" /> {toolCount}+ {t("common:nav.tools")} · {aiCount} AI · {speciesCount} {t("home:featuredBreeds")}
             </div>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
-              Every free tool a <span className="text-primary">pet parent</span> could need — in one place.
+              {t("home:heroTitle")}
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Calculators, AI assistants, breed and food databases, name finders, cost planners, and a full health dashboard
-              for dogs, cats, birds, fish, reptiles, horses, and more. Free forever. No signup.
+              {t("home:heroDescription")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="rounded-full">

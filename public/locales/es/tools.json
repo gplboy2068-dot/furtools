@@ -1,0 +1,10 @@
+{
+  "ageCalculatorTitle": "Calculadora de Edad de Mascotas",
+  "ageCalculatorDesc": "Convierte años humanos a la equivalencia exacta en perros y gatos.",
+  "foodCalculatorTitle": "Calculadora de Porciones de Comida",
+  "foodCalculatorDesc": "Calcula calorías diarias y porciones según peso y actividad.",
+  "nameGeneratorTitle": "Generador de Nombres IA",
+  "nameGeneratorDesc": "Genera nombres únicos basados en raza y personalidad.",
+  "calculateBtn": "Calcular Ahora",
+  "results": "Resultados del Cálculo"
+}

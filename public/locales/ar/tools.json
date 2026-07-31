@@ -1,0 +1,10 @@
+{
+  "ageCalculatorTitle": "حاسبة عمر الحيوانات الأليفة",
+  "ageCalculatorDesc": "تحويل السنوات البشرية إلى العمر الدقيق للكلاب والقطط.",
+  "foodCalculatorTitle": "حاسبة كمية طعام الحيوانات",
+  "foodCalculatorDesc": "حساب السعرات الحرارية اليومية وحجم الوجبات.",
+  "nameGeneratorTitle": "مولد أسماء بالذكاء الاصطناعي",
+  "nameGeneratorDesc": "توليد أسماء فريدة ولطيفة بناءً على السلالة والشخصية.",
+  "calculateBtn": "احسب الآن",
+  "results": "نتائج الحساب"
+}
