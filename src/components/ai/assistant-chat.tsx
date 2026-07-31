@@ -356,7 +356,7 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
                       {assistant.name}
                     </div>
                     <div className="inline-flex items-center gap-2 rounded-2xl rounded-tl-sm bg-muted/60 px-4 py-3 text-sm text-muted-foreground">
-                      <Loader2 className="size-4 animate-spin" /> Thinking… ({selectedProviderObj.label})
+                      <Loader2 className="size-4 animate-spin" /> Thinking…
                     </div>
                   </div>
                 </li>
@@ -380,7 +380,7 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={onKeyDown}
-              placeholder={`Ask ${assistant.name} using ${selectedProviderObj.label}…`}
+              placeholder={`Ask ${assistant.name} a question…`}
               className="min-h-[54px] resize-none rounded-2xl bg-background"
               disabled={loading}
             />
@@ -439,7 +439,7 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
           ))}
         </ul>
         <p className="mt-6 text-xs text-muted-foreground">
-          Your conversation and AI preferences are saved on this device.
+          Your conversation history is saved on this device.
         </p>
       </aside>
     </div>
