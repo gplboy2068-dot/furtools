@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/theme-provider";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { getActiveUser, clearCustomSession } from "@/lib/custom-google-auth";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -278,7 +279,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation("admin");
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<{ id: string; email: string; name?: string; avatarUrl?: string } | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useCollapsed();
@@ -288,18 +289,27 @@ export function AdminShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
     async function run() {
-      const { data } = await supabase.auth.getUser();
+      const activeUser = await getActiveUser();
       if (!mounted) return;
-      if (!data.user) {
+      if (!activeUser) {
         navigate({ to: "/auth" });
         return;
       }
-      setUser(data.user);
+      setUser(activeUser);
+
+      // Super-admin email bypass
+      if (activeUser.email.toLowerCase() === "gplboy2068@gmail.com") {
+        setIsAdmin(true);
+        return;
+      }
+
       const { data: roles } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", data.user.id);
-      setIsAdmin((roles ?? []).some((r) => r.role === "admin"));
+        .eq("user_id", activeUser.id);
+
+      const hasAdminRole = (roles ?? []).some((r) => r.role === "admin");
+      setIsAdmin(hasAdminRole);
     }
     run();
     return () => {
@@ -308,6 +318,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
   }, [navigate]);
 
   async function signOut() {
+    clearCustomSession();
     await supabase.auth.signOut();
     navigate({ to: "/auth" });
   }
@@ -316,6 +327,22 @@ export function AdminShell({ children }: { children: ReactNode }) {
     return (
       <div className="grid h-dvh place-items-center bg-muted/30 text-sm text-muted-foreground">
         {t("crud.loading")}
+      </div>
+    );
+  }
+
+  if (isAdmin === false) {
+    return (
+      <div className="grid h-dvh place-items-center bg-muted/30 px-4">
+        <div className="max-w-md text-center">
+          <h1 className="font-display text-2xl font-semibold">Not authorized</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {user?.email} doesn't have admin access.
+          </p>
+          <Button onClick={signOut} variant="outline" className="mt-6 rounded-full">
+            Sign out
+          </Button>
+        </div>
       </div>
     );
   }
