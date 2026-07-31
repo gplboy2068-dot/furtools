@@ -61,6 +61,7 @@ import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminAffiliatesRouteImport } from './routes/admin.affiliates'
 import { Route as AdminAdsRouteImport } from './routes/admin.ads'
 import { Route as DashboardPetsIdRouteImport } from './routes/dashboard.pets.$id'
+import { Route as ApiAuthGoogleVerifyRouteImport } from './routes/api/auth/google-verify'
 import { Route as AdminPostsIdRouteImport } from './routes/admin.posts.$id'
 
 const TermsRoute = TermsRouteImport.update({
@@ -323,6 +324,11 @@ const DashboardPetsIdRoute = DashboardPetsIdRouteImport.update({
   path: '/dashboard/pets/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthGoogleVerifyRoute = ApiAuthGoogleVerifyRouteImport.update({
+  id: '/api/auth/google-verify',
+  path: '/api/auth/google-verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPostsIdRoute = AdminPostsIdRouteImport.update({
   id: '/posts/$id',
   path: '/posts/$id',
@@ -382,6 +388,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardIndexRoute
   '/foods/': typeof FoodsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
+  '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
 }
 export interface FileRoutesByTo {
@@ -436,6 +443,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardIndexRoute
   '/foods': typeof FoodsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
+  '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
 }
 export interface FileRoutesById {
@@ -492,6 +500,7 @@ export interface FileRoutesById {
   '/dashboard/': typeof DashboardIndexRoute
   '/foods/': typeof FoodsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
+  '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
 }
 export interface FileRouteTypes {
@@ -549,6 +558,7 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/foods/'
     | '/admin/posts/$id'
+    | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -603,6 +613,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/foods'
     | '/admin/posts/$id'
+    | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
   id:
     | '__root__'
@@ -658,6 +669,7 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/foods/'
     | '/admin/posts/$id'
+    | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
   fileRoutesById: FileRoutesById
 }
@@ -696,6 +708,7 @@ export interface RootRouteChildren {
   CategoriesIndexRoute: typeof CategoriesIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   FoodsIndexRoute: typeof FoodsIndexRoute
+  ApiAuthGoogleVerifyRoute: typeof ApiAuthGoogleVerifyRoute
   DashboardPetsIdRoute: typeof DashboardPetsIdRoute
 }
 
@@ -1065,6 +1078,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardPetsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/google-verify': {
+      id: '/api/auth/google-verify'
+      path: '/api/auth/google-verify'
+      fullPath: '/api/auth/google-verify'
+      preLoaderRoute: typeof ApiAuthGoogleVerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/posts/$id': {
       id: '/admin/posts/$id'
       path: '/posts/$id'
@@ -1154,6 +1174,7 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesIndexRoute: CategoriesIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   FoodsIndexRoute: FoodsIndexRoute,
+  ApiAuthGoogleVerifyRoute: ApiAuthGoogleVerifyRoute,
   DashboardPetsIdRoute: DashboardPetsIdRoute,
 }
 export const routeTree = rootRouteImport
