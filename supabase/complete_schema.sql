@@ -246,6 +246,39 @@ ALTER TABLE public.ads_placements ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Ads placements access" ON public.ads_placements;
 CREATE POLICY "Ads placements access" ON public.ads_placements FOR ALL USING (true) WITH CHECK (true);
 
+-- Tool Overrides & Category Overrides
+CREATE TABLE IF NOT EXISTS public.tool_overrides (
+  slug TEXT PRIMARY KEY,
+  title_override TEXT,
+  description_override TEXT,
+  seo_title TEXT,
+  seo_description TEXT,
+  featured BOOLEAN NOT NULL DEFAULT false,
+  disabled BOOLEAN NOT NULL DEFAULT false,
+  sort_order INT NOT NULL DEFAULT 0,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.tool_overrides TO anon, authenticated, service_role;
+ALTER TABLE public.tool_overrides ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Tool overrides access" ON public.tool_overrides;
+CREATE POLICY "Tool overrides access" ON public.tool_overrides FOR ALL USING (true) WITH CHECK (true);
+
+CREATE TABLE IF NOT EXISTS public.category_overrides (
+  slug TEXT PRIMARY KEY,
+  name_override TEXT,
+  description_override TEXT,
+  seo_title TEXT,
+  seo_description TEXT,
+  featured BOOLEAN NOT NULL DEFAULT false,
+  disabled BOOLEAN NOT NULL DEFAULT false,
+  sort_order INT NOT NULL DEFAULT 0,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.category_overrides TO anon, authenticated, service_role;
+ALTER TABLE public.category_overrides ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Category overrides access" ON public.category_overrides;
+CREATE POLICY "Category overrides access" ON public.category_overrides FOR ALL USING (true) WITH CHECK (true);
+
 -- Helper Function to Grant Admin Access by Email
 CREATE OR REPLACE FUNCTION public.make_user_admin(target_email TEXT)
 RETURNS VOID
