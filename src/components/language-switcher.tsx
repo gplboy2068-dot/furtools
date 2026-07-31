@@ -38,14 +38,18 @@ export function LanguageSwitcher({ variant = 'dropdown', className = '' }: Langu
         document.documentElement.classList.remove('rtl');
       }
 
-      // Update URL with prefix route
-      const pathname = window.location.pathname;
-      const search = window.location.search;
-      const cleanSearch = search.replace(/[?&]lang=[^&]+/g, '').replace(/^\?$/, '');
-      const cleanPath = pathname.replace(/^\/(?:[a-z]{2}(?:-[A-Z]{2})?)/i, '').replace(/^\/+/, '');
-      const newPath = `/${lang.code.toLowerCase()}${cleanPath ? `/${cleanPath}` : ''}${cleanSearch ? `?${cleanSearch}` : ''}`;
-      
-      window.history.pushState({}, '', newPath);
+      // Update URL parameters
+      const url = new URL(window.location.href);
+      const cleanPath = url.pathname.replace(/^\/(?:[a-z]{2}(?:-[A-Z]{2})?)/i, '').replace(/^\/+/, '');
+      url.pathname = cleanPath ? `/${cleanPath}` : '/';
+
+      if (lang.code === 'en') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', lang.code);
+      }
+
+      window.history.pushState({}, '', url.toString());
 
       // Dispatch event to re-render localized components instantly
       window.dispatchEvent(new Event('furtools_lang_changed'));

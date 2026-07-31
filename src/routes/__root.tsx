@@ -76,7 +76,40 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from "@/lib/i18n-config";
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  beforeLoad: ({ location }) => {
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(location.search);
+      const segments = location.pathname.split("/").filter(Boolean);
+
+      if (segments.length > 0) {
+        const firstSeg = segments[0].toLowerCase();
+        const matched = SUPPORTED_LANGUAGES.find(
+          (l) => l.isEnabled && (l.code.toLowerCase() === firstSeg || l.code.split("-")[0].toLowerCase() === firstSeg)
+        );
+
+        if (matched) {
+          const restSegments = segments.slice(1);
+          const cleanPath = restSegments.length ? `/${restSegments.join("/")}` : "/";
+          searchParams.set("lang", matched.code);
+          const searchStr = searchParams.toString() ? `?${searchParams.toString()}` : "";
+          const targetUrl = `${cleanPath}${searchStr}`;
+
+          window.location.replace(targetUrl);
+          return;
+        }
+      }
+
+      const langParam = searchParams.get("lang");
+      const activeLang = langParam || localStorage.getItem("furtools_lang") || i18n.language || DEFAULT_LANGUAGE;
+      if (activeLang && i18n.language !== activeLang) {
+        i18n.changeLanguage(activeLang);
+        document.documentElement.lang = activeLang;
+      }
+    }
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -93,10 +126,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", sizes: "any" },
-      { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      { rel: "manifest", href: "/site.webmanifest" },
+      ...generateHreflangTags("/"),
     ],
     scripts: [
       {
