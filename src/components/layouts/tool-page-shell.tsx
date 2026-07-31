@@ -20,6 +20,8 @@ export interface ToolLayoutProps {
   medicalDisclaimer?: boolean;
 }
 
+import { useTranslation } from "react-i18next";
+
 export function ToolPageShell({
   title,
   description,
@@ -33,6 +35,8 @@ export function ToolPageShell({
   relatedArticles,
   medicalDisclaimer,
 }: ToolLayoutProps) {
+  const { t } = useTranslation(["tools", "common"]);
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
       <Breadcrumbs items={crumbs} />
@@ -51,16 +55,15 @@ export function ToolPageShell({
         <div className="mt-6 flex gap-3 rounded-xl border border-amber-500/30 bg-amber-50/60 p-4 text-sm dark:bg-amber-950/20">
           <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-600" aria-hidden />
           <div>
-            <strong className="font-semibold">Not medical advice.</strong>{" "}
-            This tool provides general guidance based on common veterinary formulas. Always consult your veterinarian
-            for medical decisions about your pet.
+            <strong className="font-semibold">{t("tools:notMedicalAdvice", "Not medical advice.")}</strong>{" "}
+            {t("tools:medicalDisclaimerText", "This tool provides general guidance based on common veterinary formulas. Always consult your veterinarian for medical decisions about your pet.")}
           </div>
         </div>
       )}
 
       {howItWorks && (
         <section className="mt-14 max-w-3xl">
-          <h2 className="font-display text-2xl font-semibold">How it works</h2>
+          <h2 className="font-display text-2xl font-semibold">{t("tools:howItWorks", "How it works")}</h2>
           <div className="prose prose-neutral mt-4 dark:prose-invert">{howItWorks}</div>
         </section>
       )}

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CalculatorLayout } from "@/components/layouts/tool-layouts";
@@ -11,13 +12,14 @@ function catHumanYears(age: number): number {
 }
 
 export function CatAgeCalculator() {
+  const { t } = useTranslation(["tools", "common"]);
   const [age, setAge] = useState(3);
   const years = useMemo(() => catHumanYears(age), [age]);
   return (
     <CalculatorLayout
       form={
         <div>
-          <Label htmlFor="cat-age">Cat age (years)</Label>
+          <Label htmlFor="cat-age">{t("tools:ageCalculator.catAge", "Cat age (years)")}</Label>
           <Input
             id="cat-age"
             type="number"
@@ -32,11 +34,11 @@ export function CatAgeCalculator() {
       result={
         <div className="text-center">
           <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            In human years
+            {t("tools:ageCalculator.inHumanYears", "In human years")}
           </div>
           <div className="mt-2 font-display text-6xl font-semibold text-primary">{years}</div>
           <div className="mt-2 text-sm text-muted-foreground">
-            Your cat is {age} year{age === 1 ? "" : "s"} old.
+            {t("tools:ageCalculator.catAgeSummary", "Your cat is {{age}} year(s) old.", { age })}
           </div>
         </div>
       }

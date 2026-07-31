@@ -73,38 +73,44 @@ export const Route = createFileRoute("/tools/$slug")({
   notFoundComponent: ToolNotFound,
 });
 
+import { useTranslation } from "react-i18next";
+
 function ToolPage() {
   const { slug } = Route.useLoaderData();
-  const tool = getTool(slug);
-  if (!tool) return <ToolNotFound />;
+  const { t } = useTranslation(["tools", "common"]);
+  const rawTool = getTool(slug);
+  if (!rawTool) return <ToolNotFound />;
 
-  const category = getCategory(tool.category) ?? { slug: tool.category, name: tool.category };
-  const ToolComp = TOOL_COMPONENTS[tool.slug];
+  const toolName = t(`tools:${rawTool.slug}.name`, rawTool.name);
+  const toolDesc = t(`tools:${rawTool.slug}.description`, rawTool.description);
+
+  const category = getCategory(rawTool.category) ?? { slug: rawTool.category, name: rawTool.category };
+  const ToolComp = TOOL_COMPONENTS[rawTool.slug];
 
   const crumbs = [
     { label: "Home", href: "/" },
     { label: "Tools", href: "/tools" },
     { label: category.name, href: `/categories/${category.slug}` },
-    { label: tool.name },
+    { label: toolName },
   ];
 
   return (
     <ToolPageShell
-      slug={tool.slug}
-      title={tool.name}
-      description={tool.description}
+      slug={rawTool.slug}
+      title={toolName}
+      description={toolDesc}
       category={category}
       crumbs={crumbs}
-      faqs={tool.faqs}
-      examples={tool.examples}
-      relatedArticles={tool.relatedArticles}
-      medicalDisclaimer={tool.medicalDisclaimer}
+      faqs={rawTool.faqs}
+      examples={rawTool.examples}
+      relatedArticles={rawTool.relatedArticles}
+      medicalDisclaimer={rawTool.medicalDisclaimer}
     >
       {ToolComp ? (
         <ToolComp />
       ) : (
         <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-          Interactive calculator for {tool.name} is coming soon.
+          {t("tools:comingSoon", "Interactive calculator for {{name}} is coming soon.", { name: toolName })}
         </div>
       )}
     </ToolPageShell>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -26,6 +27,7 @@ function dogHumanYears(age: number, size: Size): number {
 }
 
 export function DogAgeCalculator() {
+  const { t } = useTranslation(["tools", "common"]);
   const [age, setAge] = useState(3);
   const [size, setSize] = useState<Size>("medium");
   const years = useMemo(() => dogHumanYears(age, size), [age, size]);
@@ -35,7 +37,7 @@ export function DogAgeCalculator() {
       form={
         <>
           <div>
-            <Label htmlFor="dog-age">Dog age (years)</Label>
+            <Label htmlFor="dog-age">{t("tools:ageCalculator.dogAge", "Dog age (years)")}</Label>
             <Input
               id="dog-age"
               type="number"
@@ -47,16 +49,16 @@ export function DogAgeCalculator() {
             />
           </div>
           <div>
-            <Label htmlFor="dog-size">Size</Label>
+            <Label htmlFor="dog-size">{t("tools:ageCalculator.size", "Size")}</Label>
             <Select value={size} onValueChange={(v: Size) => setSize(v)}>
               <SelectTrigger id="dog-size" className="mt-1.5">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="small">Small (under 20 lb)</SelectItem>
-                <SelectItem value="medium">Medium (20–50 lb)</SelectItem>
-                <SelectItem value="large">Large (50–90 lb)</SelectItem>
-                <SelectItem value="giant">Giant (over 90 lb)</SelectItem>
+                <SelectItem value="small">{t("tools:ageCalculator.small", "Small (under 20 lb)")}</SelectItem>
+                <SelectItem value="medium">{t("tools:ageCalculator.medium", "Medium (20–50 lb)")}</SelectItem>
+                <SelectItem value="large">{t("tools:ageCalculator.large", "Large (50–90 lb)")}</SelectItem>
+                <SelectItem value="giant">{t("tools:ageCalculator.giant", "Giant (over 90 lb)")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -65,11 +67,11 @@ export function DogAgeCalculator() {
       result={
         <div className="text-center">
           <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            In human years
+            {t("tools:ageCalculator.inHumanYears", "In human years")}
           </div>
           <div className="mt-2 font-display text-6xl font-semibold text-primary">{years}</div>
           <div className="mt-2 text-sm text-muted-foreground">
-            Based on a {size} dog, {age} year{age === 1 ? "" : "s"} old.
+            {t("tools:ageCalculator.basedOn", "Based on a {{size}} dog, {{age}} year(s) old.", { size: t(`tools:ageCalculator.${size}`, size), age })}
           </div>
         </div>
       }
