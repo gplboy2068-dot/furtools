@@ -42,6 +42,18 @@ ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Profiles full access" ON public.profiles;
 CREATE POLICY "Profiles full access" ON public.profiles FOR ALL USING (true) WITH CHECK (true);
 
+-- Fix RLS & Grants on user_roles table
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_roles TO anon, authenticated, service_role;
+ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Roles access" ON public.user_roles;
+DROP POLICY IF EXISTS "User roles full access" ON public.user_roles;
+
+CREATE POLICY "User roles full access" ON public.user_roles 
+FOR ALL 
+TO anon, authenticated, service_role 
+USING (true) 
+WITH CHECK (true);
+
 -- 2. Create RPC function to fetch all registered auth users directly
 CREATE OR REPLACE FUNCTION public.get_admin_users()
 RETURNS TABLE (

@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS public.user_roles (
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_roles TO anon, authenticated, service_role;
 ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Roles access" ON public.user_roles;
-CREATE POLICY "Roles access" ON public.user_roles FOR ALL USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "User roles full access" ON public.user_roles;
+CREATE POLICY "User roles full access" ON public.user_roles FOR ALL TO anon, authenticated, service_role USING (true) WITH CHECK (true);
 
 CREATE OR REPLACE FUNCTION public.has_role(_user_id UUID, _role app_role)
 RETURNS BOOLEAN

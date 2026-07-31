@@ -74,21 +74,26 @@ export function googleIdToUuid(input: string): string {
 }
 
 export async function syncGoogleUserToDatabase(user: GoogleUserProfile): Promise<void> {
+  const userUuid = googleIdToUuid(user.googleId || user.email);
+
   try {
-    const userUuid = googleIdToUuid(user.googleId || user.email);
     await (supabase.from("profiles") as any).upsert({
       id: userUuid,
       display_name: user.name || user.email.split("@")[0],
       avatar_url: user.picture,
       email: user.email,
     }, { onConflict: "id" });
+  } catch (err) {
+    console.error("Failed to sync profile:", err);
+  }
 
+  try {
     await supabase.from("user_roles").upsert({
       user_id: userUuid,
       role: "user",
     }, { onConflict: "user_id,role" });
   } catch (err) {
-    console.error("Failed to sync Google user to database:", err);
+    console.error("Failed to sync user role (RLS policy check required):", err);
   }
 }
 
