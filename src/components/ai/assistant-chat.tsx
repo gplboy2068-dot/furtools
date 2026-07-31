@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import { getActiveUser } from "@/lib/custom-google-auth";
 import {
   Select,
   SelectContent,
@@ -50,6 +51,17 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
   const [model, setModel] = useState<string>("");
   const [apiKey, setApiKey] = useState<string>("");
   const [showKeyInput, setShowKeyInput] = useState<boolean>(false);
+  const [isAdminUser, setIsAdminUser] = useState<boolean>(false);
+
+  useEffect(() => {
+    async function checkAdmin() {
+      const u = await getActiveUser();
+      if (u?.email.toLowerCase() === "gplboy2068@gmail.com") {
+        setIsAdminUser(true);
+      }
+    }
+    checkAdmin();
+  }, []);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -201,86 +213,90 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
       <div className="rounded-3xl border border-border bg-card shadow-sm">
-        {/* Top Control Bar: Provider & Model Selector */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-muted/30 px-5 py-3 text-xs">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-semibold text-muted-foreground flex items-center gap-1">
-              <Settings2 className="size-3.5" /> AI Engine:
-            </span>
-            <Select
-              value={provider}
-              onValueChange={(val) => {
-                const p = val as AIProvider;
-                setProvider(p);
-                setModel("");
-              }}
-            >
-              <SelectTrigger className="h-8 w-[160px] text-xs">
-                <SelectValue placeholder="Select Provider" />
-              </SelectTrigger>
-              <SelectContent>
-                {PROVIDER_OPTIONS.map((p) => (
-                  <SelectItem key={p.value} value={p.value}>
-                    {p.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        {/* Top Control Bar: Provider & Model Selector (Visible to Admin only) */}
+        {isAdminUser && (
+          <>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-muted/30 px-5 py-3 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-semibold text-muted-foreground flex items-center gap-1">
+                  <Settings2 className="size-3.5" /> AI Engine:
+                </span>
+                <Select
+                  value={provider}
+                  onValueChange={(val) => {
+                    const p = val as AIProvider;
+                    setProvider(p);
+                    setModel("");
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[160px] text-xs">
+                    <SelectValue placeholder="Select Provider" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PROVIDER_OPTIONS.map((p) => (
+                      <SelectItem key={p.value} value={p.value}>
+                        {p.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-            {selectedProviderObj.models.length > 0 && (
-              <Select
-                value={model || selectedProviderObj.models[0]}
-                onValueChange={(val) => setModel(val)}
-              >
-                <SelectTrigger className="h-8 w-[170px] text-xs">
-                  <SelectValue placeholder="Select Model" />
-                </SelectTrigger>
-                <SelectContent>
-                  {selectedProviderObj.models.map((m) => (
-                    <SelectItem key={m} value={m}>
-                      {m}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-          </div>
+                {selectedProviderObj.models.length > 0 && (
+                  <Select
+                    value={model || selectedProviderObj.models[0]}
+                    onValueChange={(val) => setModel(val)}
+                  >
+                    <SelectTrigger className="h-8 w-[170px] text-xs">
+                      <SelectValue placeholder="Select Model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {selectedProviderObj.models.map((m) => (
+                        <SelectItem key={m} value={m}>
+                          {m}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              </div>
 
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="h-8 gap-1.5 text-xs text-muted-foreground hover:text-foreground"
-            onClick={() => setShowKeyInput((v) => !v)}
-          >
-            <Key className="size-3.5" />
-            {apiKey ? "API Key Set ✓" : "Custom API Key"}
-          </Button>
-        </div>
-
-        {/* Custom API Key Collapsible Input */}
-        {showKeyInput && (
-          <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-5 py-2.5">
-            <Key className="size-4 shrink-0 text-muted-foreground" />
-            <Input
-              type="password"
-              placeholder={`Enter custom ${selectedProviderObj.label} API Key (optional)`}
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              className="h-8 text-xs font-mono"
-            />
-            {apiKey && (
               <Button
                 type="button"
-                variant="outline"
+                variant="ghost"
                 size="sm"
-                className="h-8 text-xs"
-                onClick={() => setApiKey("")}
+                className="h-8 gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+                onClick={() => setShowKeyInput((v) => !v)}
               >
-                Clear
+                <Key className="size-3.5" />
+                {apiKey ? "API Key Set ✓" : "Custom API Key"}
               </Button>
+            </div>
+
+            {/* Custom API Key Collapsible Input */}
+            {showKeyInput && (
+              <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-5 py-2.5">
+                <Key className="size-4 shrink-0 text-muted-foreground" />
+                <Input
+                  type="password"
+                  placeholder={`Enter custom ${selectedProviderObj.label} API Key (optional)`}
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  className="h-8 text-xs font-mono"
+                />
+                {apiKey && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-8 text-xs"
+                    onClick={() => setApiKey("")}
+                  >
+                    Clear
+                  </Button>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )}
 
         {/* Disclaimer */}
