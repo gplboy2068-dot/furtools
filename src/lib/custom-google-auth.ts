@@ -147,6 +147,8 @@ export async function getActiveUser(): Promise<ActiveUser | null> {
   // 1. Check custom Google session
   const customSession = getCustomSession();
   if (customSession) {
+    // Ensure profile is synced to database
+    syncGoogleUserToDatabase(customSession.user);
     return {
       id: customSession.user.googleId,
       email: customSession.user.email,

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { AlertTriangle, Copy, Check, RefreshCw, Code2 } from "lucide-react";
+import { getCustomSession, googleIdToUuid, syncGoogleUserToDatabase } from "@/lib/custom-google-auth";
 
 interface UserRow {
   id: string;
@@ -170,6 +171,23 @@ function UsersAdmin() {
         });
       }
     });
+
+    // Merge active custom Google session user if present
+    const customSession = getCustomSession();
+    if (customSession) {
+      syncGoogleUserToDatabase(customSession.user);
+      const customUuid = googleIdToUuid(customSession.user.googleId || customSession.user.email);
+      if (!userMap.has(customUuid)) {
+        userMap.set(customUuid, {
+          id: customUuid,
+          email: customSession.user.email,
+          display_name: customSession.user.name,
+          avatar_url: customSession.user.picture,
+          created_at: new Date().toISOString(),
+          roles: rolesByUser[customUuid] ?? ["user"],
+        });
+      }
+    }
 
     setRows(Array.from(userMap.values()));
     setLoading(false);
