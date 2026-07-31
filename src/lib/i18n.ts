@@ -3,48 +3,52 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpBackend from 'i18next-http-backend';
 import { DEFAULT_LANGUAGE, NAMESPACES, SUPPORTED_LANGUAGES } from './i18n-config';
+import { enResources } from './i18n-en-resources';
 
-// Safe SSR / Client check
 const isClient = typeof window !== 'undefined';
 
 if (!i18n.isInitialized) {
-  i18n
-    .use(HttpBackend)
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-      fallbackLng: DEFAULT_LANGUAGE,
-      supportedLngs: SUPPORTED_LANGUAGES.map((l) => l.code),
-      defaultNS: 'common',
-      ns: [...NAMESPACES],
-      
-      backend: {
-        loadPath: '/locales/{{lng}}/{{ns}}.json',
-      },
+  const instance = i18n;
 
-      detection: {
-        order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
-        lookupQuerystring: 'lang',
-        lookupCookie: 'furtools_lang',
-        lookupLocalStorage: 'furtools_lang',
-        caches: ['cookie', 'localStorage'],
-      },
+  if (isClient) {
+    instance.use(HttpBackend).use(LanguageDetector);
+  }
 
-      interpolation: {
-        escapeValue: false, // React already escapes strings
-      },
+  instance.use(initReactI18next).init({
+    fallbackLng: DEFAULT_LANGUAGE,
+    supportedLngs: SUPPORTED_LANGUAGES.map((l) => l.code),
+    defaultNS: 'common',
+    ns: [...NAMESPACES],
+    
+    // Baseline resources preloaded synchronously for fail-safe SSR & zero hydration errors
+    resources: {
+      en: enResources,
+    },
 
-      react: {
-        useSuspense: false, // Prevents hydration glitches in SSR frameworks
-      },
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
 
-      debug: false,
-    });
+    detection: {
+      order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+      lookupQuerystring: 'lang',
+      lookupCookie: 'furtools_lang',
+      lookupLocalStorage: 'furtools_lang',
+      caches: ['cookie', 'localStorage'],
+    },
+
+    interpolation: {
+      escapeValue: false,
+    },
+
+    react: {
+      useSuspense: false,
+    },
+
+    debug: false,
+  });
 }
 
-/**
- * Synchronize document `lang` and `dir` (LTR/RTL) attribute whenever language changes
- */
 if (isClient) {
   const updateHtmlAttributes = (lng: string) => {
     const langConfig = SUPPORTED_LANGUAGES.find((l) => l.code === lng) || SUPPORTED_LANGUAGES[0];

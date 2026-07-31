@@ -46,6 +46,7 @@ import {
   GlossaryTerm,
   TMSLog,
   validateTranslation,
+  DEFAULT_GLOSSARY_TERMS,
 } from '@/lib/tms-engine';
 import { PROVIDER_OPTIONS, AIProvider } from '@/lib/ai-provider';
 
@@ -97,12 +98,17 @@ export function TranslationManager() {
   // Bulk Queue State
   const [queueStatus, setQueueStatus] = useState<'idle' | 'processing' | 'paused' | 'completed'>('idle');
   const [queueProgress, setQueueProgress] = useState({ done: 0, total: 0, percent: 0, tokens: 0, cost: 0 });
-  const [logs, setLogs] = useState<TMSLog[]>(TMSLogger.getLogs());
+  const [logs, setLogs] = useState<TMSLog[]>([]);
 
   // Glossary State
-  const [glossaryTerms, setGlossaryTerms] = useState<GlossaryTerm[]>(GlossaryManager.getTerms());
+  const [glossaryTerms, setGlossaryTerms] = useState<GlossaryTerm[]>(DEFAULT_GLOSSARY_TERMS);
   const [newTerm, setNewTerm] = useState('');
   const [newTermCategory, setNewTermCategory] = useState<'brand' | 'breed' | 'technical' | 'custom'>('brand');
+
+  useEffect(() => {
+    setLogs(TMSLogger.getLogs());
+    setGlossaryTerms(GlossaryManager.getTerms());
+  }, []);
 
   const currentLangObj = languages.find((l) => l.code === selectedLang) || languages[0];
 
