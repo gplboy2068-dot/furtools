@@ -76,7 +76,7 @@ export function googleIdToUuid(input: string): string {
 export async function syncGoogleUserToDatabase(user: GoogleUserProfile): Promise<void> {
   try {
     const userUuid = googleIdToUuid(user.googleId || user.email);
-    await supabase.from("profiles").upsert({
+    await (supabase.from("profiles") as any).upsert({
       id: userUuid,
       display_name: user.name || user.email.split("@")[0],
       avatar_url: user.picture,
