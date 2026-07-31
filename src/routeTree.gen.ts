@@ -41,6 +41,7 @@ import { Route as BreedsSlugRouteImport } from './routes/breeds.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiGenerateNamesRouteImport } from './routes/api/generate-names'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
+import { Route as ApiAiTranslateRouteImport } from './routes/api/ai-translate'
 import { Route as ApiAiChatRouteImport } from './routes/api/ai-chat'
 import { Route as AiSlugRouteImport } from './routes/ai.$slug'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
@@ -222,6 +223,11 @@ const ApiAnalyzeImageRoute = ApiAnalyzeImageRouteImport.update({
   path: '/api/analyze-image',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAiTranslateRoute = ApiAiTranslateRouteImport.update({
+  id: '/api/ai-translate',
+  path: '/api/ai-translate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAiChatRoute = ApiAiChatRouteImport.update({
   id: '/api/ai-chat',
   path: '/api/ai-chat',
@@ -360,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
   '/api/ai-chat': typeof ApiAiChatRoute
+  '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -413,6 +420,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
   '/api/ai-chat': typeof ApiAiChatRoute
+  '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -468,6 +476,7 @@ export interface FileRoutesById {
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
   '/api/ai-chat': typeof ApiAiChatRoute
+  '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -524,6 +533,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/ai/$slug'
     | '/api/ai-chat'
+    | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
     | '/blog/$slug'
@@ -577,6 +587,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/ai/$slug'
     | '/api/ai-chat'
+    | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
     | '/blog/$slug'
@@ -631,6 +642,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/ai/$slug'
     | '/api/ai-chat'
+    | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
     | '/blog/$slug'
@@ -670,6 +682,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   AiSlugRoute: typeof AiSlugRoute
   ApiAiChatRoute: typeof ApiAiChatRoute
+  ApiAiTranslateRoute: typeof ApiAiTranslateRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiGenerateNamesRoute: typeof ApiGenerateNamesRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -912,6 +925,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyzeImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ai-translate': {
+      id: '/api/ai-translate'
+      path: '/api/ai-translate'
+      fullPath: '/api/ai-translate'
+      preLoaderRoute: typeof ApiAiTranslateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/ai-chat': {
       id: '/api/ai-chat'
       path: '/api/ai-chat'
@@ -1120,6 +1140,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   AiSlugRoute: AiSlugRoute,
   ApiAiChatRoute: ApiAiChatRoute,
+  ApiAiTranslateRoute: ApiAiTranslateRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiGenerateNamesRoute: ApiGenerateNamesRoute,
   BlogSlugRoute: BlogSlugRoute,

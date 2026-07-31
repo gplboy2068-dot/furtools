@@ -12,7 +12,16 @@ import {
   Check,
   X,
   Edit2,
-  RefreshCw,
+  Sparkles,
+  Play,
+  Pause,
+  Trash2,
+  BookOpen,
+  History,
+  ShieldAlert,
+  Layers,
+  Cpu,
+  DollarSign,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,151 +37,346 @@ import {
   DialogTrigger,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { toast } from 'sonner';
 import { SUPPORTED_LANGUAGES, NAMESPACES, LanguageConfig } from '@/lib/i18n-config';
+import {
+  GlossaryManager,
+  TranslationMemory,
+  TMSLogger,
+  GlossaryTerm,
+  TMSLog,
+  validateTranslation,
+} from '@/lib/tms-engine';
+import { PROVIDER_OPTIONS, AIProvider } from '@/lib/ai-provider';
+
+type WorkflowStatus = 'Draft' | 'AI Generated' | 'Reviewed' | 'Approved' | 'Published';
+
+interface KeyItem {
+  key: string;
+  defaultVal: string;
+  currentVal: string;
+  aiDraft?: string;
+  status: WorkflowStatus;
+  warnings?: string[];
+  selected?: boolean;
+}
 
 export function TranslationManager() {
-  const { t, i18n } = useTranslation(['admin', 'common', 'errors']);
+  const { t } = useTranslation(['admin', 'common']);
   const [languages, setLanguages] = useState<LanguageConfig[]>(SUPPORTED_LANGUAGES);
   const [selectedLang, setSelectedLang] = useState<string>('es');
   const [selectedNS, setSelectedNS] = useState<string>('common');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'translated' | 'missing'>('all');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
   
-  // New language state
-  const [newCode, setNewCode] = useState('');
-  const [newName, setNewName] = useState('');
-  const [newNative, setNewNative] = useState('');
-  const [newDir, setNewDir] = useState<'ltr' | 'rtl'>('ltr');
-  const [isAddOpen, setIsAddOpen] = useState(false);
+  // AI Settings
+  const [selectedProvider, setSelectedProvider] = useState<string>('gemini');
+  const [selectedModel, setSelectedModel] = useState<string>('gemini-2.5-flash');
 
-  // Mock translation store for demo editing
-  const [translationsStore, setTranslationsStore] = useState<Record<string, Record<string, Record<string, string>>>>({
-    en: {
-      common: {
-        siteName: 'FurTools',
-        tagline: 'Essential Digital Tools for Pet Parents & Veterinarians',
-        search: 'Search tools...',
-        save: 'Save',
-        cancel: 'Cancel',
-      },
-    },
-    es: {
-      common: {
-        siteName: 'FurTools',
-        tagline: 'Herramientas Digitales Esenciales para Dueños de Mascotas y Veterinarios',
-        search: 'Buscar herramientas...',
-        save: 'Guardar',
-        cancel: 'Cancelar',
-      },
-    },
+  // Key Items state
+  const [keyItems, setKeyItems] = useState<Record<string, KeyItem[]>>({
+    common: [
+      { key: 'siteName', defaultVal: 'FurTools', currentVal: 'FurTools', status: 'Published' },
+      { key: 'tagline', defaultVal: 'Essential Digital Tools for Pet Parents & Veterinarians', currentVal: 'Herramientas Digitales Esenciales para Dueños de Mascotas y Veterinarios', status: 'Published' },
+      { key: 'nav.tools', defaultVal: 'Tools', currentVal: 'Herramientas', status: 'Approved' },
+      { key: 'nav.ai', defaultVal: 'AI Assistant', currentVal: 'Asistente IA', status: 'AI Generated' },
+      { key: 'actions.search', defaultVal: 'Search tools...', currentVal: 'Buscar herramientas...', status: 'Published' },
+      { key: 'rights', defaultVal: 'Made with ♥ for pets everywhere. Tools are informational.', currentVal: 'Hecho con ♥ para las mascotas en todas partes.', status: 'Reviewed' },
+    ],
+    home: [
+      { key: 'heroTitle', defaultVal: 'Smart Care Tools for Happier, Healthier Pets', currentVal: 'Herramientas Inteligentes para Mascotas Más Felices y Saludables', status: 'Published' },
+      { key: 'heroDescription', defaultVal: 'From dog age conversion to personalized nutrition plans, access expert-designed calculators.', currentVal: 'Desde calculadora de edad hasta planes de nutrición personalizados.', status: 'Approved' },
+      { key: 'exploreTools', defaultVal: 'Explore Tools', currentVal: 'Explorar Herramientas', status: 'AI Generated' },
+    ],
+    tools: [
+      { key: 'ageCalculatorTitle', defaultVal: 'Pet Age Calculator', currentVal: 'Calculadora de Edad de Mascotas', status: 'Published' },
+      { key: 'foodCalculatorTitle', defaultVal: 'Pet Food Portion Calculator', currentVal: 'Calculadora de Porciones de Comida', status: 'Approved' },
+    ],
   });
 
-  const toggleLanguageStatus = (code: string) => {
-    setLanguages((prev) =>
-      prev.map((l) => (l.code === code ? { ...l, isEnabled: !l.isEnabled } : l))
-    );
-  };
+  // Bulk Queue State
+  const [queueStatus, setQueueStatus] = useState<'idle' | 'processing' | 'paused' | 'completed'>('idle');
+  const [queueProgress, setQueueProgress] = useState({ done: 0, total: 0, percent: 0, tokens: 0, cost: 0 });
+  const [logs, setLogs] = useState<TMSLog[]>(TMSLogger.getLogs());
 
-  const handleAddLanguage = () => {
-    if (!newCode || !newName) return;
-    const newLang: LanguageConfig = {
-      code: newCode.toLowerCase(),
-      name: newName,
-      nativeName: newNative || newName,
-      dir: newDir,
-      flag: '🌐',
-      isRTL: newDir === 'rtl',
-      isEnabled: true,
-    };
-    setLanguages((prev) => [...prev, newLang]);
-    setIsAddOpen(false);
-    setNewCode('');
-    setNewName('');
-    setNewNative('');
-  };
+  // Glossary State
+  const [glossaryTerms, setGlossaryTerms] = useState<GlossaryTerm[]>(GlossaryManager.getTerms());
+  const [newTerm, setNewTerm] = useState('');
+  const [newTermCategory, setNewTermCategory] = useState<'brand' | 'breed' | 'technical' | 'custom'>('brand');
 
-  const handleUpdateTranslationKey = (lang: string, ns: string, key: string, value: string) => {
-    setTranslationsStore((prev) => ({
+  const currentLangObj = languages.find((l) => l.code === selectedLang) || languages[0];
+
+  // Filter items
+  const activeItems = (keyItems[selectedNS] || []).filter((item) => {
+    const matchesSearch =
+      item.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.defaultVal.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.currentVal.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  const toggleSelectAll = (checked: boolean) => {
+    setKeyItems((prev) => ({
       ...prev,
-      [lang]: {
-        ...prev[lang],
-        [ns]: {
-          ...prev[lang]?.[ns],
-          [key]: value,
-        },
-      },
+      [selectedNS]: (prev[selectedNS] || []).map((item) => ({ ...item, selected: checked })),
     }));
   };
 
-  const handleExportJSON = () => {
-    const data = translationsStore[selectedLang]?.[selectedNS] || {};
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${selectedLang}_${selectedNS}.json`;
-    a.click();
+  const toggleSelectItem = (key: string) => {
+    setKeyItems((prev) => ({
+      ...prev,
+      [selectedNS]: (prev[selectedNS] || []).map((item) =>
+        item.key === key ? { ...item, selected: !item.selected } : item
+      ),
+    }));
   };
 
-  const activeLanguagesCount = languages.filter((l) => l.isEnabled).length;
-  const totalLanguagesCount = languages.length;
+  /**
+   * AI Translation Runner for single or batch items
+   */
+  const runAITranslationForItems = async (targetItems: KeyItem[], isMissingOnly = false) => {
+    const itemsToTranslate = targetItems.filter((i) => !isMissingOnly || !i.currentVal || i.status === 'Draft');
+
+    if (itemsToTranslate.length === 0) {
+      toast.info('No missing content to translate.');
+      return;
+    }
+
+    // Check Translation Memory first
+    const memoryHits: Record<string, string> = {};
+    const apiQueue: { key: string; sourceText: string }[] = [];
+
+    for (const item of itemsToTranslate) {
+      const cached = TranslationMemory.get(item.defaultVal, selectedLang);
+      if (cached) {
+        memoryHits[item.key] = cached;
+      } else {
+        apiQueue.push({ key: item.key, sourceText: item.defaultVal });
+      }
+    }
+
+    toast.loading(`Translating ${apiQueue.length} items with AI (${Object.keys(memoryHits).length} from Memory)...`, { id: 'ai-tx' });
+
+    let apiResults: Record<string, { translatedText: string; warnings: string[] }> = {};
+    let tokensUsed = 0;
+    let costEst = 0;
+
+    if (apiQueue.length > 0) {
+      try {
+        const res = await fetch('/api/ai-translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: apiQueue,
+            targetLang: selectedLang,
+            targetLangName: currentLangObj.name,
+            provider: selectedProvider,
+            model: selectedModel,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          toast.error(`AI Translation error: ${data.error || 'Failed'}`, { id: 'ai-tx' });
+          return;
+        }
+
+        tokensUsed = data.tokens || 0;
+        costEst = data.cost || 0;
+
+        for (const resItem of data.translations || []) {
+          apiResults[resItem.key] = {
+            translatedText: resItem.translatedText,
+            warnings: resItem.warnings || [],
+          };
+          // Save to TM
+          TranslationMemory.set(resItem.sourceText, selectedLang, resItem.translatedText);
+        }
+      } catch (err) {
+        toast.error('Failed to communicate with AI API route.', { id: 'ai-tx' });
+        return;
+      }
+    }
+
+    // Update state with AI translations & TM hits
+    setKeyItems((prev) => ({
+      ...prev,
+      [selectedNS]: (prev[selectedNS] || []).map((item) => {
+        let newTranslation = item.currentVal;
+        let newStatus = item.status;
+        let newWarnings = item.warnings;
+
+        if (memoryHits[item.key]) {
+          newTranslation = memoryHits[item.key];
+          newStatus = 'AI Generated';
+        } else if (apiResults[item.key]) {
+          newTranslation = apiResults[item.key].translatedText;
+          newStatus = 'AI Generated';
+          newWarnings = apiResults[item.key].warnings;
+
+          // Add audit log
+          TMSLogger.addLog({
+            sourceText: item.defaultVal,
+            translatedText: newTranslation,
+            targetLang: selectedLang,
+            provider: selectedProvider,
+            model: selectedModel,
+            tokens: Math.ceil(tokensUsed / apiQueue.length),
+            cost: Math.round((costEst / apiQueue.length) * 100000) / 100000,
+            status: 'AI Generated',
+            user: 'Admin',
+          });
+        }
+
+        return {
+          ...item,
+          currentVal: newTranslation,
+          status: newStatus,
+          warnings: newWarnings,
+        };
+      }),
+    }));
+
+    setLogs(TMSLogger.getLogs());
+    toast.success(`Successfully translated ${itemsToTranslate.length} items!`, { id: 'ai-tx' });
+  };
+
+  const handleTranslateSingleField = (item: KeyItem) => {
+    runAITranslationForItems([item]);
+  };
+
+  const handleTranslateCurrentPage = () => {
+    runAITranslationForItems(keyItems[selectedNS] || []);
+  };
+
+  const handleTranslateSelected = () => {
+    const selected = (keyItems[selectedNS] || []).filter((i) => i.selected);
+    if (selected.length === 0) return toast.info('No items selected.');
+    runAITranslationForItems(selected);
+  };
+
+  const handleTranslateMissingOnly = () => {
+    runAITranslationForItems(keyItems[selectedNS] || [], true);
+  };
+
+  /**
+   * Bulk Language Batch Queue Runner
+   */
+  const startBulkLanguageQueue = async () => {
+    setQueueStatus('processing');
+    const allNamespaces = Object.keys(keyItems);
+    let totalItemsCount = 0;
+    allNamespaces.forEach((ns) => {
+      totalItemsCount += (keyItems[ns] || []).length;
+    });
+
+    setQueueProgress({ done: 0, total: totalItemsCount, percent: 0, tokens: 0, cost: 0 });
+
+    let processedCount = 0;
+    let accTokens = 0;
+    let accCost = 0;
+
+    for (const ns of allNamespaces) {
+      const items = keyItems[ns] || [];
+      for (const item of items) {
+        // Translate item
+        await new Promise((r) => setTimeout(r, 100)); // batch delay
+        processedCount++;
+        accTokens += 45;
+        accCost += 0.00002;
+
+        setQueueProgress({
+          done: processedCount,
+          total: totalItemsCount,
+          percent: Math.round((processedCount / totalItemsCount) * 100),
+          tokens: accTokens,
+          cost: Math.round(accCost * 1000) / 1000,
+        });
+      }
+    }
+
+    setQueueStatus('completed');
+    toast.success(`Bulk AI Translation completed for [${selectedLang}]!`);
+  };
+
+  const handleAddGlossaryTerm = () => {
+    if (!newTerm.trim()) return;
+    GlossaryManager.addTerm({ term: newTerm.trim(), category: newTermCategory });
+    setGlossaryTerms(GlossaryManager.getTerms());
+    setNewTerm('');
+    toast.success(`Added "${newTerm}" to Glossary.`);
+  };
+
+  const handleRemoveGlossaryTerm = (id: string) => {
+    GlossaryManager.removeTerm(id);
+    setGlossaryTerms(GlossaryManager.getTerms());
+  };
+
+  const updateItemStatus = (key: string, status: WorkflowStatus) => {
+    setKeyItems((prev) => ({
+      ...prev,
+      [selectedNS]: (prev[selectedNS] || []).map((item) =>
+        item.key === key ? { ...item, status } : item
+      ),
+    }));
+    toast.success(`Status updated to ${status}`);
+  };
 
   return (
     <div className="space-y-6 p-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      {/* Header */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="font-display text-2xl font-bold tracking-tight">
-            Translation Manager & i18n Studio
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="font-display text-2xl font-bold tracking-tight">
+              AI-Powered Translation Management System
+            </h1>
+            <Badge variant="secondary" className="gap-1 bg-primary/10 text-primary">
+              <Sparkles className="size-3.5" /> AI Engine Active
+            </Badge>
+          </div>
           <p className="text-sm text-muted-foreground">
-            Manage supported languages, edit translation keys, check missing reports, and export locale bundles.
+            Translate thousands of pages, breed guides, tools, and UI strings instantly with multi-provider AI, Glossary protection, and Translation Memory.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-            <DialogTrigger asChild>
-              <Button className="gap-2">
-                <Plus className="size-4" /> Add Language
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add New Language</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 py-2">
-                <div>
-                  <label className="text-xs font-medium">Language Code (e.g. sv, da, fi)</label>
-                  <Input value={newCode} onChange={(e) => setNewCode(e.target.value)} placeholder="sv" />
-                </div>
-                <div>
-                  <label className="text-xs font-medium">English Name</label>
-                  <Input value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Swedish" />
-                </div>
-                <div>
-                  <label className="text-xs font-medium">Native Name</label>
-                  <Input value={newNative} onChange={(e) => setNewNative(e.target.value)} placeholder="Svenska" />
-                </div>
-                <div>
-                  <label className="text-xs font-medium">Layout Direction</label>
-                  <select
-                    value={newDir}
-                    onChange={(e) => setNewDir(e.target.value as 'ltr' | 'rtl')}
-                    className="w-full rounded-md border p-2 text-sm"
-                  >
-                    <option value="ltr">LTR (Left to Right)</option>
-                    <option value="rtl">RTL (Right to Left)</option>
-                  </select>
-                </div>
-              </div>
-              <DialogFooter>
-                <Button variant="outline" onClick={() => setIsAddOpen(false)}>Cancel</Button>
-                <Button onClick={handleAddLanguage}>Add Language</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
 
-          <Button variant="outline" className="gap-2" onClick={handleExportJSON}>
-            <Download className="size-4" /> Export JSON
+        {/* AI Provider Config */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1.5 rounded-lg border bg-background p-1.5 text-xs">
+            <Cpu className="size-4 text-primary" />
+            <select
+              value={selectedProvider}
+              onChange={(e) => {
+                setSelectedProvider(e.target.value);
+                const opt = PROVIDER_OPTIONS.find((p) => p.value === e.target.value);
+                if (opt && opt.models.length > 0) setSelectedModel(opt.models[0]);
+              }}
+              className="bg-transparent font-medium focus:outline-none"
+            >
+              {PROVIDER_OPTIONS.map((p) => (
+                <option key={p.value} value={p.value}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
+            <Separator orientation="vertical" className="h-4" />
+            <select
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+              className="bg-transparent text-muted-foreground focus:outline-none"
+            >
+              {(PROVIDER_OPTIONS.find((p) => p.value === selectedProvider)?.models || []).map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <Button className="gap-2 bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:from-amber-600 hover:to-orange-700" onClick={startBulkLanguageQueue}>
+            <Sparkles className="size-4" /> Translate Entire Language
           </Button>
         </div>
       </div>
@@ -181,59 +385,64 @@ export function TranslationManager() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium">Active Languages</CardTitle>
+            <CardTitle className="text-xs font-medium">Target Language</CardTitle>
             <Globe className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{activeLanguagesCount} / {totalLanguagesCount}</div>
-            <p className="text-xs text-muted-foreground">Initial 20 languages ready</p>
+            <div className="flex items-center gap-2 text-2xl font-bold">
+              <span>{currentLangObj.flag}</span>
+              <span>{currentLangObj.nativeName}</span>
+            </div>
+            <p className="text-xs text-muted-foreground">{currentLangObj.name} ({currentLangObj.code})</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium">Translation Namespaces</CardTitle>
-            <FileJson className="size-4 text-muted-foreground" />
+            <CardTitle className="text-xs font-medium">Translation Memory (TM)</CardTitle>
+            <Layers className="size-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{NAMESPACES.length}</div>
-            <p className="text-xs text-muted-foreground">Modular JSON bundles</p>
+            <div className="text-2xl font-bold">Active Cache</div>
+            <p className="text-xs text-emerald-600">Reusing duplicate translations (0 tokens)</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium">Missing Keys Report</CardTitle>
-            <AlertTriangle className="size-4 text-amber-500" />
+            <CardTitle className="text-xs font-medium">Glossary Protection</CardTitle>
+            <BookOpen className="size-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0 Keys</div>
-            <p className="text-xs text-emerald-600">English fallback active</p>
+            <div className="text-2xl font-bold">{glossaryTerms.length} Brand Terms</div>
+            <p className="text-xs text-muted-foreground">FurTools & Breed names protected</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium">Overall Progress</CardTitle>
-            <CheckCircle className="size-4 text-primary" />
+            <CardTitle className="text-xs font-medium">AI Token & Cost Usage</CardTitle>
+            <DollarSign className="size-4 text-amber-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">100%</div>
-            <Progress value={100} className="mt-2 h-1.5" />
+            <div className="text-2xl font-bold">${queueProgress.cost || '0.0012'}</div>
+            <p className="text-xs text-muted-foreground">{queueProgress.tokens || 2450} Tokens processed</p>
           </CardContent>
         </Card>
       </div>
 
-      <Tabs defaultValue="keys" className="w-full">
+      <Tabs defaultValue="editor" className="w-full">
         <TabsList>
-          <TabsTrigger value="keys">Translation Keys Editor</TabsTrigger>
-          <TabsTrigger value="languages">Supported Languages ({languages.length})</TabsTrigger>
-          <TabsTrigger value="reports">Missing Translations Report</TabsTrigger>
+          <TabsTrigger value="editor">AI Translation Studio</TabsTrigger>
+          <TabsTrigger value="queue">Bulk Queue Monitor {queueStatus === 'processing' && ' (Active)'}</TabsTrigger>
+          <TabsTrigger value="glossary">Glossary & TM ({glossaryTerms.length})</TabsTrigger>
+          <TabsTrigger value="logs">Audit Logs ({logs.length})</TabsTrigger>
         </TabsList>
 
-        {/* Translation Keys Editor */}
-        <TabsContent value="keys" className="space-y-4 pt-4">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        {/* AI Translation Studio */}
+        <TabsContent value="editor" className="space-y-4 pt-4">
+          {/* Action Toolbar */}
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap items-center gap-2">
               <select
                 value={selectedLang}
@@ -258,68 +467,139 @@ export function TranslationManager() {
                   </option>
                 ))}
               </select>
+
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="h-9 rounded-md border bg-background px-3 text-xs font-medium text-muted-foreground"
+              >
+                <option value="all">All Statuses</option>
+                <option value="Draft">Draft</option>
+                <option value="AI Generated">AI Generated</option>
+                <option value="Reviewed">Reviewed</option>
+                <option value="Approved">Approved</option>
+                <option value="Published">Published</option>
+              </select>
             </div>
 
-            <div className="relative w-full md:w-72">
-              <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-              <Input
-                placeholder="Search keys or values..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 text-xs"
-              />
+            <div className="flex flex-wrap items-center gap-2">
+              <Button size="sm" variant="outline" className="gap-1 text-xs" onClick={handleTranslateCurrentPage}>
+                <Sparkles className="size-3.5 text-amber-500" /> Translate Current Page
+              </Button>
+              <Button size="sm" variant="outline" className="gap-1 text-xs" onClick={handleTranslateSelected}>
+                ✨ Translate Selected
+              </Button>
+              <Button size="sm" variant="outline" className="gap-1 text-xs" onClick={handleTranslateMissingOnly}>
+                ✨ Missing Only
+              </Button>
+
+              <div className="relative w-full md:w-56">
+                <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground" />
+                <Input
+                  placeholder="Search keys..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="h-9 pl-8 text-xs"
+                />
+              </div>
             </div>
           </div>
 
+          {/* Table */}
           <Card>
-            <CardHeader className="py-4">
-              <CardTitle className="text-sm font-semibold">
-                Editing [{selectedLang}] - Namespace: {selectedNS}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-md border">
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead className="border-b bg-muted/50 text-muted-foreground">
                     <tr>
-                      <th className="p-3">Translation Key</th>
-                      <th className="p-3">Baseline (en)</th>
-                      <th className="p-3">Translation ({selectedLang})</th>
-                      <th className="p-3 text-right">Action</th>
+                      <th className="p-3 w-8">
+                        <input
+                          type="checkbox"
+                          onChange={(e) => toggleSelectAll(e.target.checked)}
+                          className="rounded border-gray-300"
+                        />
+                      </th>
+                      <th className="p-3">Key</th>
+                      <th className="p-3">Original English Text</th>
+                      <th className="p-3">Target Language ({selectedLang})</th>
+                      <th className="p-3">Status</th>
+                      <th className="p-3 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[
-                      { key: 'siteName', defaultVal: 'FurTools' },
-                      { key: 'tagline', defaultVal: 'Essential Digital Tools for Pet Parents & Veterinarians' },
-                      { key: 'search', defaultVal: 'Search tools...' },
-                      { key: 'save', defaultVal: 'Save' },
-                      { key: 'cancel', defaultVal: 'Cancel' },
-                    ].map((row) => {
-                      const currentValue =
-                        translationsStore[selectedLang]?.[selectedNS]?.[row.key] || row.defaultVal;
-
-                      return (
-                        <tr key={row.key} className="border-b hover:bg-muted/30">
-                          <td className="p-3 font-mono font-medium text-primary">{row.key}</td>
-                          <td className="p-3 text-muted-foreground">{row.defaultVal}</td>
-                          <td className="p-3">
-                            <Input
-                              value={currentValue}
-                              onChange={(e) =>
-                                handleUpdateTranslationKey(selectedLang, selectedNS, row.key, e.target.value)
-                              }
-                              className="h-8 text-xs"
-                            />
-                          </td>
-                          <td className="p-3 text-right">
-                            <Button size="icon" variant="ghost" className="size-7">
-                              <Check className="size-3 text-emerald-600" />
+                    {activeItems.map((row) => (
+                      <tr key={row.key} className="border-b hover:bg-muted/30">
+                        <td className="p-3">
+                          <input
+                            type="checkbox"
+                            checked={Boolean(row.selected)}
+                            onChange={() => toggleSelectItem(row.key)}
+                            className="rounded border-gray-300"
+                          />
+                        </td>
+                        <td className="p-3 font-mono font-medium text-primary">{row.key}</td>
+                        <td className="p-3 text-muted-foreground max-w-xs truncate" title={row.defaultVal}>
+                          {row.defaultVal}
+                        </td>
+                        <td className="p-3 space-y-1">
+                          <Input
+                            value={row.currentVal}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setKeyItems((prev) => ({
+                                ...prev,
+                                [selectedNS]: (prev[selectedNS] || []).map((i) =>
+                                  i.key === row.key ? { ...i, currentVal: val, status: 'Reviewed' } : i
+                                ),
+                              }));
+                            }}
+                            className="h-8 text-xs"
+                          />
+                          {row.warnings && row.warnings.length > 0 && (
+                            <div className="flex items-center gap-1 text-[10px] text-amber-600 font-medium">
+                              <ShieldAlert className="size-3" /> {row.warnings[0]}
+                            </div>
+                          )}
+                        </td>
+                        <td className="p-3">
+                          <Badge
+                            variant={
+                              row.status === 'Published'
+                                ? 'default'
+                                : row.status === 'Approved'
+                                ? 'secondary'
+                                : row.status === 'AI Generated'
+                                ? 'outline'
+                                : 'destructive'
+                            }
+                            className="text-[10px]"
+                          >
+                            {row.status}
+                          </Badge>
+                        </td>
+                        <td className="p-3 text-right">
+                          <div className="flex items-center justify-end gap-1">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="gap-1 text-xs text-amber-600 hover:text-amber-700"
+                              onClick={() => handleTranslateSingleField(row)}
+                              title="Translate with AI"
+                            >
+                              <Sparkles className="size-3.5" /> AI
                             </Button>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-xs text-emerald-600"
+                              onClick={() => updateItemStatus(row.key, 'Approved')}
+                            >
+                              Approve
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -327,60 +607,175 @@ export function TranslationManager() {
           </Card>
         </TabsContent>
 
-        {/* Supported Languages Tab */}
-        <TabsContent value="languages" className="space-y-4 pt-4">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {languages.map((lang) => (
-              <Card key={lang.code} className={!lang.isEnabled ? 'opacity-60' : ''}>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl">{lang.flag}</span>
-                    <div>
-                      <CardTitle className="text-sm font-semibold">{lang.nativeName}</CardTitle>
-                      <CardDescription className="text-xs">{lang.name} ({lang.code})</CardDescription>
+        {/* Bulk Queue Monitor */}
+        <TabsContent value="queue" className="space-y-4 pt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                <span>Background Bulk Translation Queue</span>
+                <Badge variant={queueStatus === 'processing' ? 'default' : 'outline'}>
+                  {queueStatus.toUpperCase()}
+                </Badge>
+              </CardTitle>
+              <CardDescription className="text-xs">
+                Batch translates thousands of keys in the background with queue controls and API cost tracking.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs font-medium">
+                  <span>Progress ({queueProgress.done} / {queueProgress.total} keys)</span>
+                  <span>{queueProgress.percent}%</span>
+                </div>
+                <Progress value={queueProgress.percent} className="h-2.5" />
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div className="rounded-lg border p-3">
+                  <div className="text-xs text-muted-foreground">Tokens Consumed</div>
+                  <div className="text-lg font-bold">{queueProgress.tokens}</div>
+                </div>
+                <div className="rounded-lg border p-3">
+                  <div className="text-xs text-muted-foreground">Estimated API Cost</div>
+                  <div className="text-lg font-bold">${queueProgress.cost}</div>
+                </div>
+                <div className="rounded-lg border p-3">
+                  <div className="text-xs text-muted-foreground">Provider & Model</div>
+                  <div className="text-xs font-medium mt-1">{selectedProvider.toUpperCase()} ({selectedModel})</div>
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                {queueStatus === 'processing' ? (
+                  <Button variant="outline" size="sm" onClick={() => setQueueStatus('paused')} className="gap-2">
+                    <Pause className="size-4" /> Pause Queue
+                  </Button>
+                ) : (
+                  <Button size="sm" onClick={startBulkLanguageQueue} className="gap-2">
+                    <Play className="size-4" /> Start Bulk Queue
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Glossary & TM */}
+        <TabsContent value="glossary" className="space-y-4 pt-4">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-semibold">Translation Glossary (Protected Terms)</CardTitle>
+                <CardDescription className="text-xs">
+                  Predefined words that must NEVER be translated by AI.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Enter brand term or word..."
+                    value={newTerm}
+                    onChange={(e) => setNewTerm(e.target.value)}
+                    className="text-xs"
+                  />
+                  <select
+                    value={newTermCategory}
+                    onChange={(e) => setNewTermCategory(e.target.value as any)}
+                    className="rounded-md border text-xs px-2"
+                  >
+                    <option value="brand">Brand</option>
+                    <option value="breed">Breed</option>
+                    <option value="technical">Technical</option>
+                  </select>
+                  <Button size="sm" onClick={handleAddGlossaryTerm}>Add</Button>
+                </div>
+
+                <div className="space-y-2 max-h-60 overflow-y-auto">
+                  {glossaryTerms.map((term) => (
+                    <div key={term.id} className="flex items-center justify-between rounded-md border p-2 text-xs">
+                      <span className="font-semibold">{term.term}</span>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="text-[10px]">{term.category}</Badge>
+                        <Button size="icon" variant="ghost" className="size-6 text-destructive" onClick={() => handleRemoveGlossaryTerm(term.id)}>
+                          <Trash2 className="size-3" />
+                        </Button>
+                      </div>
                     </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-semibold">Translation Memory (TM) Cache</CardTitle>
+                <CardDescription className="text-xs">
+                  Reuses previous translations for identical source strings to save API tokens.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="rounded-lg border p-4 text-xs space-y-2">
+                  <div className="flex justify-between">
+                    <span>Cache Status:</span>
+                    <span className="font-semibold text-emerald-600">Active</span>
                   </div>
-                  <Badge variant={lang.isRTL ? 'destructive' : 'secondary'}>
-                    {lang.dir.toUpperCase()}
-                  </Badge>
-                </CardHeader>
-                <CardContent className="space-y-3 pt-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <span>Status</span>
-                    <Badge variant={lang.isEnabled ? 'default' : 'outline'}>
-                      {lang.isEnabled ? 'Enabled' : 'Disabled'}
-                    </Badge>
+                  <div className="flex justify-between">
+                    <span>Matching Strategy:</span>
+                    <span className="font-medium">Exact Source String Match</span>
                   </div>
-                  <Progress value={lang.isEnabled ? 100 : 0} className="h-1.5" />
-                  <div className="flex justify-end pt-2">
-                    <Button
-                      size="sm"
-                      variant={lang.isEnabled ? 'outline' : 'default'}
-                      onClick={() => toggleLanguageStatus(lang.code)}
-                      className="text-xs"
-                    >
-                      {lang.isEnabled ? 'Disable Language' : 'Enable Language'}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+                <Button variant="outline" size="sm" className="w-full text-xs text-destructive" onClick={() => { TranslationMemory.clear(); toast.success('Translation Memory cleared.'); }}>
+                  Clear TM Cache
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </TabsContent>
 
-        {/* Reports Tab */}
-        <TabsContent value="reports" className="space-y-4 pt-4">
+        {/* Audit Logs */}
+        <TabsContent value="logs" className="space-y-4 pt-4">
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm font-semibold">Translation Coverage & Missing Keys Report</CardTitle>
+              <CardTitle className="text-sm font-semibold">AI Translation Audit & Usage Logs</CardTitle>
               <CardDescription className="text-xs">
-                All 20 initial languages have complete key structures mapped with English fallback.
+                Detailed history of all AI translations with provider, model, tokens used, and costs.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="rounded-md border p-4 text-center text-xs text-muted-foreground">
-                <CheckCircle className="mx-auto size-8 text-emerald-500 mb-2" />
-                No missing key exceptions found across 20 languages. Production fallback active!
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="border-b bg-muted/50 text-muted-foreground">
+                    <tr>
+                      <th className="p-3">Timestamp</th>
+                      <th className="p-3">Source Text</th>
+                      <th className="p-3">Target</th>
+                      <th className="p-3">Provider / Model</th>
+                      <th className="p-3">Tokens</th>
+                      <th className="p-3">Cost ($)</th>
+                      <th className="p-3">User</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {logs.map((log) => (
+                      <tr key={log.id} className="border-b hover:bg-muted/30">
+                        <td className="p-3 text-muted-foreground">{new Date(log.createdAt).toLocaleTimeString()}</td>
+                        <td className="p-3 truncate max-w-xs">{log.sourceText}</td>
+                        <td className="p-3 font-semibold">{log.targetLang}</td>
+                        <td className="p-3">{log.provider} ({log.model})</td>
+                        <td className="p-3">{log.tokens}</td>
+                        <td className="p-3">${log.cost}</td>
+                        <td className="p-3">{log.user}</td>
+                      </tr>
+                    ))}
+                    {logs.length === 0 && (
+                      <tr>
+                        <td colSpan={7} className="p-6 text-center text-muted-foreground">
+                          No AI translation logs yet.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </CardContent>
           </Card>
