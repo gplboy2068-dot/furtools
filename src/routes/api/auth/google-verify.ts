@@ -48,6 +48,29 @@ export const Route = createFileRoute("/api/auth/google-verify")({
             emailVerified: info.email_verified === "true" || info.email_verified === true,
           };
 
+          // Sync user to Supabase database (profiles & user_roles)
+          try {
+            const { createClient } = await import("@supabase/supabase-js");
+            const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+            const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+            if (supabaseUrl && serviceKey) {
+              const supa = createClient(supabaseUrl, serviceKey);
+              await supa.from("profiles").upsert({
+                id: verifiedUser.googleId,
+                display_name: verifiedUser.name,
+                avatar_url: verifiedUser.picture,
+                email: verifiedUser.email,
+              }, { onConflict: "id" });
+
+              await supa.from("user_roles").upsert({
+                user_id: verifiedUser.googleId,
+                role: "user",
+              }, { onConflict: "user_id,role" });
+            }
+          } catch {
+            /* ignore background db sync failure */
+          }
+
           return json({
             success: true,
             user: verifiedUser,

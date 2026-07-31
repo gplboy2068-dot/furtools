@@ -50,16 +50,40 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: window.location.origin + "/dashboard" },
         });
         if (error) throw error;
-        toast.success("Check your email to confirm.");
+        if (data?.user) {
+          try {
+            await supabase.from("profiles").upsert({
+              id: data.user.id,
+              display_name: email.split("@")[0],
+            }, { onConflict: "id" });
+            await supabase.from("user_roles").upsert({
+              user_id: data.user.id,
+              role: "user",
+            }, { onConflict: "user_id,role" });
+          } catch {
+            /* ignore profile insert error if table/trigger handles it */
+          }
+        }
+        toast.success("Check your email to confirm or sign in.");
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        if (data?.user) {
+          try {
+            await supabase.from("profiles").upsert({
+              id: data.user.id,
+              display_name: data.user.email?.split("@")[0] || "User",
+            }, { onConflict: "id" });
+          } catch {
+            /* ignore */
+          }
+        }
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");

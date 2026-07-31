@@ -58,13 +58,13 @@ export const Route = createFileRoute("/tools/$slug")({
               name: tool.name,
               description: tool.description,
               url: `/tools/${tool.slug}`,
-              applicationCategory: "HealthApplication",
+              category: "HealthApplication",
             }),
           ),
         },
         {
           type: "application/ld+json",
-          children: JSON.stringify(faqSchema(DEFAULT_FAQS)),
+          children: JSON.stringify(faqSchema(tool.faqs?.length ? tool.faqs : DEFAULT_FAQS)),
         },
       ],
     };
@@ -78,11 +78,28 @@ function ToolPage() {
   const tool = getTool(slug);
   if (!tool) return <ToolNotFound />;
 
-  const category = getCategory(tool.category);
-  const ToolComp = TOOL_COMPONENTS[tool.componentKey];
+  const category = getCategory(tool.category) ?? { slug: tool.category, name: tool.category };
+  const ToolComp = TOOL_COMPONENTS[tool.slug];
+
+  const crumbs = [
+    { label: "Home", href: "/" },
+    { label: "Tools", href: "/tools" },
+    { label: category.name, href: `/categories/${category.slug}` },
+    { label: tool.name },
+  ];
 
   return (
-    <ToolPageShell tool={tool} category={category} faqs={DEFAULT_FAQS}>
+    <ToolPageShell
+      slug={tool.slug}
+      title={tool.name}
+      description={tool.description}
+      category={category}
+      crumbs={crumbs}
+      faqs={tool.faqs}
+      examples={tool.examples}
+      relatedArticles={tool.relatedArticles}
+      medicalDisclaimer={tool.medicalDisclaimer}
+    >
       {ToolComp ? (
         <ToolComp />
       ) : (

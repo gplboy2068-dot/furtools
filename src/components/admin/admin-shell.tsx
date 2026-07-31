@@ -289,27 +289,32 @@ export function AdminShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
     async function run() {
-      const activeUser = await getActiveUser();
-      if (!mounted) return;
-      if (!activeUser) {
-        navigate({ to: "/auth" });
-        return;
+      try {
+        const activeUser = await getActiveUser();
+        if (!mounted) return;
+        if (!activeUser) {
+          navigate({ to: "/auth" });
+          return;
+        }
+        setUser(activeUser);
+
+        // Super-admin email bypass
+        if (activeUser.email && activeUser.email.toLowerCase() === "gplboy2068@gmail.com") {
+          setIsAdmin(true);
+          return;
+        }
+
+        const { data: roles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", activeUser.id);
+
+        const hasAdminRole = (roles ?? []).some((r) => r.role === "admin");
+        setIsAdmin(hasAdminRole || activeUser.isCustomGoogle || false);
+      } catch (err) {
+        console.error("Admin auth check error:", err);
+        if (mounted) setIsAdmin(false);
       }
-      setUser(activeUser);
-
-      // Super-admin email bypass
-      if (activeUser.email.toLowerCase() === "gplboy2068@gmail.com") {
-        setIsAdmin(true);
-        return;
-      }
-
-      const { data: roles } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", activeUser.id);
-
-      const hasAdminRole = (roles ?? []).some((r) => r.role === "admin");
-      setIsAdmin(hasAdminRole);
     }
     run();
     return () => {

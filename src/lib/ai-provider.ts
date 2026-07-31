@@ -1,3 +1,5 @@
+import { supabase } from "@/integrations/supabase/client";
+
 export type AIProvider = "deepseek" | "gemini" | "openai" | "openrouter" | "lovable";
 
 export interface AIProviderConfig {
@@ -117,22 +119,69 @@ export function getApiKey(provider: AIProvider, customKey?: string): string | nu
  * Main function to execute AI chat completions across multiple providers
  */
 export async function executeAICompletion(options: AIRequestOptions): Promise<AIResponse> {
-  const provider = normalizeProvider(options.provider || process.env.DEFAULT_AI_PROVIDER);
-  const apiKey = getApiKey(provider, options.apiKey);
-  const model = getDefaultModel(provider, options.model);
+  // 1. Fetch AI settings from database (site_settings table)
+  let dbSettings: Record<string, string> = {};
+  try {
+    const { data } = await supabase
+      .from("site_settings")
+      .select("key, value")
+      .like("key", "ai.%");
+    if (data) {
+      for (const row of data) {
+        if (typeof row.value === "string" && row.value.trim()) {
+          dbSettings[row.key] = row.value.trim();
+        }
+      }
+    }
+  } catch {
+    /* ignore database error */
+  }
+
+  // Determine target provider from options -> DB settings -> environment variable -> gemini fallback
+  const dbDefaultProvider = dbSettings["ai.default_provider"];
+  const initialProvider = normalizeProvider(
+    options.provider || dbDefaultProvider || process.env.DEFAULT_AI_PROVIDER || "gemini"
+  );
+
+  const resolveKeyForProvider = (p: AIProvider): string | null => {
+    if (options.apiKey && options.apiKey.trim()) return options.apiKey.trim();
+
+    const dbKeyMap: Record<AIProvider, string | undefined> = {
+      gemini: dbSettings["ai.gemini_key"],
+      openai: dbSettings["ai.openai_key"],
+      deepseek: dbSettings["ai.deepseek_key"],
+      openrouter: dbSettings["ai.openrouter_key"],
+      lovable: undefined,
+    };
+    if (dbKeyMap[p] && dbKeyMap[p]?.trim()) return dbKeyMap[p]!.trim();
+
+    return getApiKey(p);
+  };
+
+  let targetProvider = initialProvider;
+  let apiKey = resolveKeyForProvider(targetProvider);
+
+  // Auto-fallback: If target provider key is missing, look for any available key across providers!
+  if (!apiKey) {
+    const fallbackProviders: AIProvider[] = ["gemini", "openai", "deepseek", "openrouter", "lovable"];
+    for (const altProv of fallbackProviders) {
+      const altKey = resolveKeyForProvider(altProv);
+      if (altKey) {
+        targetProvider = altProv;
+        apiKey = altKey;
+        break;
+      }
+    }
+  }
+
+  const dbDefaultModel = dbSettings["ai.default_model"];
+  const model = getDefaultModel(targetProvider, options.model || dbDefaultModel);
 
   if (!apiKey) {
-    const providerNames: Record<AIProvider, string> = {
-      deepseek: "DeepSeek (DEEPSEEK_API_KEY)",
-      gemini: "Gemini (GEMINI_API_KEY)",
-      openai: "OpenAI (OPENAI_API_KEY)",
-      openrouter: "OpenRouter (OPENROUTER_API_KEY)",
-      lovable: "Lovable Gateway (LOVABLE_API_KEY)",
-    };
     return {
       status: 400,
       content: "",
-      error: `API Key missing for ${providerNames[provider] || provider}. Set key in environment variable (e.g. DEEPSEEK_API_KEY, GEMINI_API_KEY, OPENAI_API_KEY, OPENROUTER_API_KEY) or in settings.`,
+      error: `No AI API key found. Please enter an API key (Gemini, OpenAI, DeepSeek, or OpenRouter) in Admin Settings (/admin/settings) or set environment variables (e.g. GEMINI_API_KEY).`,
     };
   }
 
@@ -152,7 +201,7 @@ export async function executeAICompletion(options: AIRequestOptions): Promise<AI
     "Content-Type": "application/json",
   };
 
-  switch (provider) {
+  switch (targetProvider) {
     case "deepseek":
       endpoint = process.env.DEEPSEEK_BASE_URL
         ? `${process.env.DEEPSEEK_BASE_URL.replace(/\/$/, "")}/chat/completions`
@@ -193,16 +242,16 @@ export async function executeAICompletion(options: AIRequestOptions): Promise<AI
 
     if (!response.ok) {
       if (response.status === 429) {
-        return { status: 429, content: "", error: `${provider.toUpperCase()} rate limit reached. Please wait a moment.` };
+        return { status: 429, content: "", error: `${targetProvider.toUpperCase()} rate limit reached. Please wait a moment.` };
       }
       if (response.status === 401 || response.status === 403) {
-        return { status: 401, content: "", error: `Invalid ${provider.toUpperCase()} API key.` };
+        return { status: 401, content: "", error: `Invalid ${targetProvider.toUpperCase()} API key.` };
       }
       const errText = await response.text().catch(() => "");
       return {
         status: response.status,
         content: "",
-        error: `${provider.toUpperCase()} error (${response.status}): ${errText.slice(0, 200)}`,
+        error: `${targetProvider.toUpperCase()} error (${response.status}): ${errText.slice(0, 200)}`,
       };
     }
 
@@ -212,12 +261,12 @@ export async function executeAICompletion(options: AIRequestOptions): Promise<AI
     const content = data.choices?.[0]?.message?.content?.trim() ?? "";
 
     if (!content) {
-      return { status: 502, content: "", error: `${provider.toUpperCase()} returned an empty response.` };
+      return { status: 502, content: "", error: `${targetProvider.toUpperCase()} returned an empty response.` };
     }
 
     return { status: 200, content };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    return { status: 502, content: "", error: `Could not connect to ${provider.toUpperCase()}: ${message}` };
+    return { status: 502, content: "", error: `Could not connect to ${targetProvider.toUpperCase()}: ${message}` };
   }
 }

@@ -112,7 +112,10 @@ export class GlossaryManager {
     if (typeof window !== 'undefined') {
       try {
         const stored = localStorage.getItem(STORAGE_GLOSSARY_KEY);
-        if (stored) return JSON.parse(stored);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) return parsed;
+        }
       } catch {
         /* ignore */
       }
@@ -189,7 +192,10 @@ export class TMSLogger {
     if (typeof window !== 'undefined') {
       try {
         const stored = localStorage.getItem(STORAGE_LOGS_KEY);
-        if (stored) return JSON.parse(stored);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) return parsed;
+        }
       } catch {
         /* ignore */
       }
