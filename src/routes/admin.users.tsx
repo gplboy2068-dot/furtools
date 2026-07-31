@@ -16,6 +16,7 @@ interface UserRow {
   avatar_url: string | null;
   created_at: string;
   roles: string[];
+  provider?: string;
 }
 
 export const Route = createFileRoute("/admin/users")({
@@ -126,7 +127,42 @@ function UsersAdmin() {
   async function load() {
     setLoading(true);
 
-    // 1. Try RPC function get_admin_users first
+    // 1. Try server API /api/admin-users first (fetches from Supabase Auth admin API + profiles + user_roles)
+    try {
+      const res = await fetch("/api/admin-users");
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.users) && data.users.length > 0) {
+          const userMap = new Map<string, UserRow>();
+          data.users.forEach((u: UserRow) => userMap.set(u.id, u));
+
+          const customSession = getCustomSession();
+          if (customSession) {
+            syncGoogleUserToDatabase(customSession.user);
+            const customUuid = googleIdToUuid(customSession.user.googleId || customSession.user.email);
+            if (!userMap.has(customUuid)) {
+              userMap.set(customUuid, {
+                id: customUuid,
+                email: customSession.user.email,
+                display_name: customSession.user.name,
+                avatar_url: customSession.user.picture,
+                created_at: new Date().toISOString(),
+                roles: ["user"],
+                provider: "google",
+              });
+            }
+          }
+
+          setRows(Array.from(userMap.values()));
+          setLoading(false);
+          return;
+        }
+      }
+    } catch {
+      /* fallback to client queries */
+    }
+
+    // 2. Try RPC function get_admin_users
     const { data: rpcUsers, error: rpcError } = await (supabase as unknown as { rpc: (name: string) => Promise<{ data: unknown; error: unknown }> }).rpc("get_admin_users");
 
     if (!rpcError && Array.isArray(rpcUsers) && rpcUsers.length > 0) {
@@ -144,9 +180,9 @@ function UsersAdmin() {
       return;
     }
 
-    // 2. Fallback to profiles + user_roles tables
+    // 3. Fallback to profiles + user_roles tables
     const [{ data: profiles }, { data: roles }] = await Promise.all([
-      supabase.from("profiles").select("id,display_name,avatar_url,created_at").order("created_at", { ascending: false }),
+      supabase.from("profiles").select("id,display_name,avatar_url,created_at,email").order("created_at", { ascending: false }),
       supabase.from("user_roles").select("user_id,role"),
     ]);
 
@@ -197,6 +233,7 @@ function UsersAdmin() {
           avatar_url: customSession.user.picture,
           created_at: new Date().toISOString(),
           roles: rolesByUser[customUuid] ?? ["user"],
+          provider: "google",
         });
       }
     }
