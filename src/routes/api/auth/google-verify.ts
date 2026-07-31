@@ -55,20 +55,36 @@ export const Route = createFileRoute("/api/auth/google-verify")({
             const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
             if (supabaseUrl && serviceKey) {
               const supa = createClient(supabaseUrl, serviceKey);
+              
+              // Map Google ID / Email to valid PostgreSQL UUID format
+              const googleIdToUuid = (input: string) => {
+                let hash = 0;
+                for (let i = 0; i < input.length; i++) {
+                  const char = input.charCodeAt(i);
+                  hash = ((hash << 5) - hash) + char;
+                  hash |= 0;
+                }
+                const hex = Math.abs(hash).toString(16).padStart(8, '0');
+                const full = (hex + hex + hex + hex).slice(0, 32);
+                return `${full.slice(0, 8)}-${full.slice(8, 12)}-4${full.slice(13, 16)}-a${full.slice(17, 20)}-${full.slice(20, 32)}`;
+              };
+
+              const userUuid = googleIdToUuid(verifiedUser.googleId || verifiedUser.email);
+
               await supa.from("profiles").upsert({
-                id: verifiedUser.googleId,
+                id: userUuid,
                 display_name: verifiedUser.name,
                 avatar_url: verifiedUser.picture,
                 email: verifiedUser.email,
               }, { onConflict: "id" });
 
               await supa.from("user_roles").upsert({
-                user_id: verifiedUser.googleId,
+                user_id: userUuid,
                 role: "user",
               }, { onConflict: "user_id,role" });
             }
-          } catch {
-            /* ignore background db sync failure */
+          } catch (syncErr) {
+            console.error("Google verify DB sync error:", syncErr);
           }
 
           return json({

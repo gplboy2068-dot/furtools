@@ -61,6 +61,37 @@ export function decodeGoogleJwt(token: string): GoogleUserProfile | null {
   }
 }
 
+export function googleIdToUuid(input: string): string {
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    const char = input.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash |= 0;
+  }
+  const hex = Math.abs(hash).toString(16).padStart(8, '0');
+  const full = (hex + hex + hex + hex).slice(0, 32);
+  return `${full.slice(0, 8)}-${full.slice(8, 12)}-4${full.slice(13, 16)}-a${full.slice(17, 20)}-${full.slice(20, 32)}`;
+}
+
+export async function syncGoogleUserToDatabase(user: GoogleUserProfile): Promise<void> {
+  try {
+    const userUuid = googleIdToUuid(user.googleId || user.email);
+    await supabase.from("profiles").upsert({
+      id: userUuid,
+      display_name: user.name || user.email.split("@")[0],
+      avatar_url: user.picture,
+      email: user.email,
+    }, { onConflict: "id" });
+
+    await supabase.from("user_roles").upsert({
+      user_id: userUuid,
+      role: "user",
+    }, { onConflict: "user_id,role" });
+  } catch (err) {
+    console.error("Failed to sync Google user to database:", err);
+  }
+}
+
 /**
  * Custom Session Storage Management
  */
@@ -79,6 +110,9 @@ export function saveCustomSession(user: GoogleUserProfile, token: string): Custo
       console.error('Failed to store custom session:', e);
     }
   }
+
+  // Trigger async background sync to Supabase profiles database
+  syncGoogleUserToDatabase(user);
 
   return session;
 }
