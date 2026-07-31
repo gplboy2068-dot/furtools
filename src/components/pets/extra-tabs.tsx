@@ -4,6 +4,7 @@ import {
   Plane, Plus, Sparkles, Trash2, Upload,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import {
   Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart,
   ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis,
@@ -761,8 +762,8 @@ export function AiSummaryTab({ ctx }: { ctx: Ctx }) {
             <Loader2 className="size-4 animate-spin" /> Generating {mode}…
           </div>
         ) : summary ? (
-          <div className="prose prose-sm max-w-none dark:prose-invert">
-            <ReactMarkdown>{summary}</ReactMarkdown>
+          <div>
+            <FormattedMarkdown content={summary} />
           </div>
         ) : (
           <div className="text-sm text-muted-foreground">Pick a mode above to generate insights.</div>

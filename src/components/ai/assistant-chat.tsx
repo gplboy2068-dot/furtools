@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import {
   AlertTriangle,
   Check,
@@ -327,8 +328,8 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
                         <Icon className="size-3.5" aria-hidden />
                         {assistant.name}
                       </div>
-                      <div className="prose prose-sm dark:prose-invert max-w-none rounded-2xl rounded-tl-sm bg-muted/60 px-4 py-3 text-foreground">
-                        <ReactMarkdown>{m.content}</ReactMarkdown>
+                      <div className="rounded-2xl rounded-tl-sm bg-muted/60 px-4.5 py-3.5 text-foreground shadow-sm">
+                        <FormattedMarkdown content={m.content} />
                       </div>
                       <div className="mt-1 flex gap-1 opacity-0 transition group-hover:opacity-100">
                         <button
