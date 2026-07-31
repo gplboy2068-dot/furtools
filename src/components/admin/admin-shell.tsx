@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/theme-provider";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { getActiveUser, clearCustomSession } from "@/lib/custom-google-auth";
+import { getActiveUser, clearCustomSession, googleIdToUuid } from "@/lib/custom-google-auth";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -304,13 +304,17 @@ export function AdminShell({ children }: { children: ReactNode }) {
           return;
         }
 
+        const userIdToQuery = activeUser.isCustomGoogle
+          ? googleIdToUuid(activeUser.id)
+          : activeUser.id;
+
         const { data: roles } = await supabase
           .from("user_roles")
           .select("role")
-          .eq("user_id", activeUser.id);
+          .in("user_id", [activeUser.id, userIdToQuery]);
 
         const hasAdminRole = (roles ?? []).some((r) => r.role === "admin");
-        setIsAdmin(hasAdminRole || activeUser.isCustomGoogle || false);
+        setIsAdmin(hasAdminRole);
       } catch (err) {
         console.error("Admin auth check error:", err);
         if (mounted) setIsAdmin(false);
