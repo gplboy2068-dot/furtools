@@ -18,14 +18,16 @@ export const Route = createFileRoute("/tools/$slug")({
   loader: ({ params }) => {
     const tool = getTool(params.slug);
     if (!tool) throw notFound();
-    const category = getCategory(tool.category);
-    return { tool, category };
+    return { slug: params.slug };
   },
-  head: ({ params, loaderData }) => {
-    if (!loaderData) {
+  head: ({ loaderData }) => {
+    if (!loaderData?.slug) {
       return { meta: [{ title: "Tool not found — FurTools" }, { name: "robots", content: "noindex" }] };
     }
-    const { tool } = loaderData;
+    const tool = getTool(loaderData.slug);
+    if (!tool) {
+      return { meta: [{ title: "Tool not found — FurTools" }, { name: "robots", content: "noindex" }] };
+    }
     const title = `${tool.name} — FurTools`;
     return {
       meta: [
@@ -35,78 +37,70 @@ export const Route = createFileRoute("/tools/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: tool.description },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: `/tools/${params.slug}` },
+        { property: "og:url", content: `/tools/${tool.slug}` },
       ],
-      links: [{ rel: "canonical", href: `/tools/${params.slug}` }],
+      links: [{ rel: "canonical", href: `/tools/${tool.slug}` }],
       scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Tools", url: "/tools" },
+              { name: tool.name, url: `/tools/${tool.slug}` },
+            ]),
+          ),
+        },
         {
           type: "application/ld+json",
           children: JSON.stringify(
             softwareApplicationSchema({
               name: tool.name,
               description: tool.description,
-              url: `/tools/${params.slug}`,
+              url: `/tools/${tool.slug}`,
+              applicationCategory: "HealthApplication",
             }),
           ),
         },
         {
           type: "application/ld+json",
-          children: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", url: "/" },
-              { name: "Categories", url: "/categories" },
-              ...(loaderData.category
-                ? [{ name: loaderData.category.name, url: `/categories/${loaderData.category.slug}` }]
-                : []),
-              { name: tool.name, url: `/tools/${params.slug}` },
-            ]),
-          ),
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(faqSchema(tool.faqs?.length ? tool.faqs : DEFAULT_FAQS)),
+          children: JSON.stringify(faqSchema(DEFAULT_FAQS)),
         },
       ],
     };
   },
   component: ToolPage,
-  notFoundComponent: () => (
-    <div className="mx-auto max-w-md px-4 py-24 text-center">
-      <h1 className="font-display text-2xl font-semibold">Tool not found</h1>
-    </div>
-  ),
+  notFoundComponent: ToolNotFound,
 });
 
 function ToolPage() {
-  const { tool, category } = Route.useLoaderData();
-  const ToolComponent = TOOL_COMPONENTS[tool.slug];
+  const { slug } = Route.useLoaderData();
+  const tool = getTool(slug);
+  if (!tool) return <ToolNotFound />;
+
+  const category = getCategory(tool.category);
+  const ToolComp = TOOL_COMPONENTS[tool.componentKey];
 
   return (
-    <ToolPageShell
-      slug={tool.slug}
-      title={tool.name}
-      description={tool.description}
-      category={category ? { slug: category.slug, name: category.name } : { slug: "", name: "" }}
-      crumbs={[
-        { label: "Categories", to: "/categories" },
-        ...(category
-          ? [{ label: category.name, to: "/categories/$slug", params: { slug: category.slug } }]
-          : []),
-        { label: tool.name },
-      ]}
-      faqs={tool.faqs?.length ? tool.faqs : DEFAULT_FAQS}
-      examples={tool.examples}
-      relatedArticles={tool.relatedArticles}
-      medicalDisclaimer={tool.medicalDisclaimer}
-      howItWorks={<p>{tool.howItWorks}</p>}
-    >
-      {ToolComponent ? (
-        <ToolComponent />
+    <ToolPageShell tool={tool} category={category} faqs={DEFAULT_FAQS}>
+      {ToolComp ? (
+        <ToolComp />
       ) : (
-        <div className="rounded-xl bg-muted p-6 text-center text-muted-foreground">
-          This tool is coming soon.
+        <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
+          Interactive calculator for {tool.name} is coming soon.
         </div>
       )}
     </ToolPageShell>
+  );
+}
+
+function ToolNotFound() {
+  return (
+    <div className="mx-auto max-w-xl px-4 py-24 text-center">
+      <h1 className="font-display text-3xl font-semibold">Tool not found</h1>
+      <p className="mt-3 text-muted-foreground">
+        We couldn't find the requested tool. It may have been renamed or moved.
+      </p>
+    </div>
   );
 }
