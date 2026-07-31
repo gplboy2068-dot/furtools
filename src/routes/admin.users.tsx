@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { AlertTriangle, Copy, Check, RefreshCw, UserCheck } from "lucide-react";
+import { AlertTriangle, Copy, Check, RefreshCw, Code2 } from "lucide-react";
 
 interface UserRow {
   id: string;
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Safely add email column if profiles table already existed without it
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS email TEXT;
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO anon, authenticated, service_role;
@@ -74,7 +75,7 @@ $$;
 
 GRANT EXECUTE ON FUNCTION public.get_admin_users() TO anon, authenticated, service_role;
 
--- 3. Auto-trigger on new signups
+-- 3. Auto-trigger for all new signups
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = public
@@ -97,16 +98,17 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
--- 4. Backfill existing auth.users into profiles
+-- 4. Backfill all existing registered auth.users into profiles
 INSERT INTO public.profiles (id, display_name, email)
 SELECT id, COALESCE(raw_user_meta_data->>'display_name', split_part(email, '@', 1)), email
 FROM auth.users
-ON CONFLICT (id) DO NOTHING;`;
+ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;`;
 
 function UsersAdmin() {
   const [rows, setRows] = useState<UserRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedSql, setCopiedSql] = useState(false);
+  const [showSql, setShowSql] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -195,43 +197,62 @@ function UsersAdmin() {
     await load();
   }
 
+  const isSqlVisible = showSql || (!loading && rows.length === 0);
+
   return (
     <div>
       <AdminPageHeader
         title="Users"
         description="Registered users and their roles. Toggle admin access here."
-      />
-
-      <Card className="mb-6 border-amber-500/40 bg-amber-500/10">
-        <CardHeader className="pb-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
-              <AlertTriangle className="h-5 w-5 shrink-0" />
-              <CardTitle className="text-base font-semibold">Automatic Registered User Sync</CardTitle>
-            </div>
-            <Button size="sm" variant="outline" onClick={load} disabled={loading}>
-              <RefreshCw className={`mr-1.5 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} /> Refresh List
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-3 text-sm">
-          <p className="text-muted-foreground">
-            Supabase stores user accounts in the protected <code className="font-mono text-xs text-foreground">auth.users</code> table. Run this migration script in your Supabase SQL Editor to enable direct user querying and automatic profile sync for all registered users:
-          </p>
-          <div className="relative rounded-md bg-muted p-3 font-mono text-xs overflow-x-auto">
-            <pre className="text-foreground">{TRIGGER_SQL}</pre>
+        actions={
+          <div className="flex items-center gap-2">
             <Button
               size="sm"
-              variant="secondary"
-              className="absolute top-2 right-2 flex items-center gap-1 text-xs"
-              onClick={handleCopySql}
+              variant="outline"
+              onClick={() => setShowSql(!showSql)}
+              className="gap-1.5"
             >
-              {copiedSql ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
-              {copiedSql ? "Copied" : "Copy SQL"}
+              <Code2 className="h-3.5 w-3.5" />
+              {showSql ? "Hide SQL Guide" : "Database Sync SQL"}
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={load}
+              disabled={loading}
+              className="gap-1.5"
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
+              Refresh List
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        }
+      />
+
+      {isSqlVisible && (
+        <Card className="mb-6 border-amber-500/40 bg-amber-500/10">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
+                <AlertTriangle className="h-5 w-5 shrink-0" />
+                <CardTitle className="text-base font-semibold">Automatic Registered User Sync</CardTitle>
+              </div>
+              <Button size="sm" variant="secondary" onClick={handleCopySql} className="gap-1 text-xs">
+                {copiedSql ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedSql ? "Copied" : "Copy SQL Script"}
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm">
+            <p className="text-muted-foreground">
+              Supabase stores user accounts in the protected <code className="font-mono text-xs text-foreground">auth.users</code> table. Run this migration script in your Supabase SQL Editor to enable direct user querying and automatic profile sync for all registered users:
+            </p>
+            <div className="relative rounded-md bg-muted p-3 font-mono text-xs overflow-x-auto">
+              <pre className="text-foreground">{TRIGGER_SQL}</pre>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="overflow-hidden rounded-2xl border border-border bg-background">
         {loading ? (
