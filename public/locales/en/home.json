@@ -4,5 +4,25 @@
   "exploreTools": "Explore Tools",
   "popularTools": "Popular Tools",
   "featuredBreeds": "Featured Breed Guides",
-  "latestArticles": "Latest Care Articles"
+  "latestArticles": "Latest Care Articles",
+  "browseAllTools": "Browse all {{count}}+ tools",
+  "askAi": "Ask AI",
+  "searchTools": "Search tools",
+  "seeAll": "See all →",
+  "explore": "Explore",
+  "open": "Open",
+  "stats": {
+    "freeTools": "Free tools",
+    "aiAssistants": "AI assistants",
+    "speciesCovered": "Species covered",
+    "breedProfiles": "Breed profiles"
+  },
+  "categoriesHeading": "Find the right tool for your pet",
+  "everythingOnFurTools": "Everything on FurTools",
+  "exploreEveryHub": "Explore every hub",
+  "hubDescription": "One platform for calculators, AI advice, breed research, food safety, name inspiration, cost planning, and end-to-end pet health records.",
+  "aiSubheading": "{{count}} AI helpers — never diagnostic, always kind",
+  "aiDescription": "Ask about care, training, grooming, food safety, travel, or species-specific husbandry.",
+  "breedHeading": "500+ breed profiles across every species",
+  "browseAllBreeds": "Browse all breeds →"
 }

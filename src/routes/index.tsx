@@ -127,31 +127,31 @@ function Home() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="rounded-full">
                 <Link to="/categories">
-                  Browse all {toolCount}+ tools <ArrowRight className="ml-1 size-4" />
+                  {t("home:browseAllTools", "Browse all {{count}}+ tools", { count: toolCount })} <ArrowRight className="ml-1 size-4" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full">
                 <Link to="/ai">
-                  <Sparkles className="mr-1 size-4" /> Ask AI
+                  <Sparkles className="mr-1 size-4" /> {t("home:askAi", "Ask AI")}
                 </Link>
               </Button>
               <Button asChild size="lg" variant="ghost" className="rounded-full">
                 <Link to="/search">
-                  <Search className="mr-1 size-4" /> Search tools
+                  <Search className="mr-1 size-4" /> {t("home:searchTools", "Search tools")}
                 </Link>
               </Button>
             </div>
             {/* Quick jump links (internal linking for crawl depth) */}
             <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
               {[
-                { to: "/breeds", label: "Breed Database" },
-                { to: "/foods", label: "Food Safety" },
-                { to: "/names", label: "Name Finder" },
-                { to: "/compare", label: "Breed Compare" },
-                { to: "/cost-planner", label: "Cost Planner" },
-                { to: "/care", label: "Care Planner" },
-                { to: "/dashboard", label: "My Pets" },
-                { to: "/blog", label: "Blog" },
+                { to: "/breeds", label: t("common:nav.breeds", "Breed Database") },
+                { to: "/foods", label: t("common:nav.foods", "Food Safety") },
+                { to: "/names", label: t("common:nav.names", "Name Finder") },
+                { to: "/compare", label: t("common:nav.compare", "Breed Compare") },
+                { to: "/cost-planner", label: t("common:nav.costPlanner", "Cost Planner") },
+                { to: "/care", label: t("common:nav.carePlanner", "Care Planner") },
+                { to: "/dashboard", label: t("common:nav.myPets", "My Pets") },
+                { to: "/blog", label: t("common:nav.blog", "Blog") },
               ].map((l) => (
                 <li key={l.to}>
                   <Link to={l.to} className="underline-offset-4 hover:text-primary hover:underline">
@@ -177,12 +177,12 @@ function Home() {
       <section aria-label="Platform stats" className="border-y border-border/60 bg-background">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-4 sm:px-6">
           {[
-            { n: `${toolCount}+`, l: "Free tools", to: "/categories" },
-            { n: `${aiCount}`, l: "AI assistants", to: "/ai" },
-            { n: `${speciesCount}`, l: "Species covered", to: "/breeds" },
-            { n: "500+", l: "Breed profiles", to: "/breeds" },
+            { n: `${toolCount}+`, l: t("home:stats.freeTools", "Free tools"), to: "/categories" },
+            { n: `${aiCount}`, l: t("home:stats.aiAssistants", "AI assistants"), to: "/ai" },
+            { n: `${speciesCount}`, l: t("home:stats.speciesCovered", "Species covered"), to: "/breeds" },
+            { n: "500+", l: t("home:stats.breedProfiles", "Breed profiles"), to: "/breeds" },
           ].map((s) => (
-            <Link key={s.l} to={s.to} className="group text-center">
+            <Link key={s.to + s.l} to={s.to} className="group text-center">
               <div className="font-display text-3xl font-semibold text-primary sm:text-4xl">{s.n}</div>
               <div className="mt-1 text-sm text-muted-foreground group-hover:text-foreground">{s.l}</div>
             </Link>
@@ -194,13 +194,13 @@ function Home() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="categories-heading">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <div className="text-xs font-medium uppercase tracking-wider text-primary">Categories</div>
+            <div className="text-xs font-medium uppercase tracking-wider text-primary">{t("common:nav.categories", "Categories")}</div>
             <h2 id="categories-heading" className="mt-1 font-display text-3xl font-semibold">
-              Find the right tool for your pet
+              {t("home:categoriesHeading", "Find the right tool for your pet")}
             </h2>
           </div>
           <Link to="/categories" className="hidden text-sm font-medium text-primary hover:underline sm:inline">
-            See all →
+            {t("home:seeAll", "See all →")}
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -216,10 +216,10 @@ function Home() {
                 <div className="grid size-11 place-items-center rounded-full bg-primary/10 text-primary">
                   <Icon className="size-5" />
                 </div>
-                <h3 className="mt-4 font-display text-xl font-semibold">{c.name}</h3>
-                <p className="mt-1.5 text-sm text-muted-foreground">{c.description}</p>
+                <h3 className="mt-4 font-display text-xl font-semibold">{t(`categories:${c.slug}.name`, c.name)}</h3>
+                <p className="mt-1.5 text-sm text-muted-foreground">{t(`categories:${c.slug}.description`, c.description)}</p>
                 <div className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                  Explore <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                  {t("home:explore", "Explore")} <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
                 </div>
               </Link>
             );
@@ -240,27 +240,26 @@ function Home() {
       {/* Feature Hubs (all major sections of the platform) */}
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6" aria-labelledby="hubs-heading">
         <div className="mb-8">
-          <div className="text-xs font-medium uppercase tracking-wider text-primary">Everything on FurTools</div>
-          <h2 id="hubs-heading" className="mt-1 font-display text-3xl font-semibold">Explore every hub</h2>
+          <div className="text-xs font-medium uppercase tracking-wider text-primary">{t("home:everythingOnFurTools", "Everything on FurTools")}</div>
+          <h2 id="hubs-heading" className="mt-1 font-display text-3xl font-semibold">{t("home:exploreEveryHub", "Explore every hub")}</h2>
           <p className="mt-2 max-w-2xl text-muted-foreground">
-            One platform for calculators, AI advice, breed research, food safety, name inspiration, cost planning,
-            and end-to-end pet health records.
+            {t("home:hubDescription", "One platform for calculators, AI advice, breed research, food safety, name inspiration, cost planning, and end-to-end pet health records.")}
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { to: "/categories", icon: Calculator, title: "All Tools", desc: `${toolCount}+ free calculators, generators and planners across every category.` },
-            { to: "/ai", icon: Sparkles, title: "AI Assistants", desc: `${aiCount} species- and topic-specific AI helpers for care, training, food and travel.` },
-            { to: "/breeds", icon: Dog, title: "Breed Database", desc: "500+ breed profiles for dogs, cats, birds, rabbits, fish and horses." },
-            { to: "/foods", icon: Salad, title: "Food Safety", desc: `Is it safe? Look up any food and see safe / moderation / unsafe / toxic verdicts.` },
-            { to: "/names", icon: Sparkles, title: "Name Finder", desc: "AI + curated database — 10,000+ pet names filtered by species, style and vibe." },
-            { to: "/compare", icon: Bone, title: "Breed Comparison", desc: "Side-by-side breed comparison for size, temperament, care and cost." },
-            { to: "/cost-planner", icon: Wallet, title: "Cost Planner", desc: "Estimate first-year and lifetime costs of owning a pet, itemized." },
-            { to: "/care", icon: HeartPulse, title: "Care Planner", desc: "Reminders, weight logs and health events for every pet in your home." },
-            { to: "/dashboard", icon: Stethoscope, title: "My Pets Dashboard", desc: "Multi-pet profiles, vaccines, medications, vet visits, expenses & AI insights." },
-            { to: "/blog", icon: Bone, title: "Blog & Guides", desc: "Long-form guides written for pet parents — SEO-first, vet-informed." },
-            { to: "/search", icon: Search, title: "Global Search", desc: "Instantly search every tool, breed, food and article on the platform." },
-            { to: "/contact", icon: Scissors, title: "Contact", desc: "Suggest a tool, request a breed, or send feedback — we read every message." },
+            { to: "/categories", icon: Calculator, title: t("common:nav.tools", "All Tools"), desc: `${toolCount}+ free calculators, generators and planners across every category.` },
+            { to: "/ai", icon: Sparkles, title: t("common:nav.ai", "AI Assistants"), desc: `${aiCount} species- and topic-specific AI helpers for care, training, food and travel.` },
+            { to: "/breeds", icon: Dog, title: t("common:nav.breeds", "Breed Database"), desc: "500+ breed profiles for dogs, cats, birds, rabbits, fish and horses." },
+            { to: "/foods", icon: Salad, title: t("common:nav.foods", "Food Safety"), desc: "Is it safe? Look up any food and see safe / moderation / unsafe / toxic verdicts." },
+            { to: "/names", icon: Sparkles, title: t("common:nav.names", "Name Finder"), desc: "AI + curated database — 10,000+ pet names filtered by species, style and vibe." },
+            { to: "/compare", icon: Bone, title: t("common:nav.compare", "Breed Comparison"), desc: "Side-by-side breed comparison for size, temperament, care and cost." },
+            { to: "/cost-planner", icon: Wallet, title: t("common:nav.costPlanner", "Cost Planner"), desc: "Estimate first-year and lifetime costs of owning a pet, itemized." },
+            { to: "/care", icon: HeartPulse, title: t("common:nav.carePlanner", "Care Planner"), desc: "Reminders, weight logs and health events for every pet in your home." },
+            { to: "/dashboard", icon: Stethoscope, title: t("common:nav.myPets", "My Pets Dashboard"), desc: "Multi-pet profiles, vaccines, medications, vet visits, expenses & AI insights." },
+            { to: "/blog", icon: Bone, title: t("common:nav.blog", "Blog & Guides"), desc: "Long-form guides written for pet parents — SEO-first, vet-informed." },
+            { to: "/search", icon: Search, title: t("common:actions.search", "Global Search"), desc: "Instantly search every tool, breed, food and article on the platform." },
+            { to: "/contact", icon: Scissors, title: t("common:nav.contact", "Contact"), desc: "Suggest a tool, request a breed, or send feedback — we read every message." },
           ].map((h) => (
             <Link
               key={h.to}
@@ -274,7 +273,7 @@ function Home() {
                 <h3 className="font-display text-lg font-semibold">{h.title}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{h.desc}</p>
                 <div className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                  Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                  {t("home:open", "Open")} <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
                 </div>
               </div>
             </Link>
@@ -287,17 +286,16 @@ function Home() {
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="ai-heading">
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
-              <div className="text-xs font-medium uppercase tracking-wider text-primary">AI Assistants</div>
+              <div className="text-xs font-medium uppercase tracking-wider text-primary">{t("common:nav.ai", "AI Assistants")}</div>
               <h2 id="ai-heading" className="mt-1 font-display text-3xl font-semibold">
-                {aiCount} AI helpers — never diagnostic, always kind
+                {t("home:aiSubheading", "{{count}} AI helpers — never diagnostic, always kind", { count: aiCount })}
               </h2>
               <p className="mt-2 max-w-2xl text-muted-foreground">
-                Ask about care, training, grooming, food safety, travel, or species-specific husbandry.
-                Every assistant redirects to a vet for anything medical.
+                {t("home:aiDescription", "Ask about care, training, grooming, food safety, travel, or species-specific husbandry.")}
               </p>
             </div>
             <Link to="/ai" className="hidden text-sm font-medium text-primary hover:underline sm:inline">
-              See all →
+              {t("home:seeAll", "See all →")}
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -323,16 +321,16 @@ function Home() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="breeds-heading">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <div className="text-xs font-medium uppercase tracking-wider text-primary">Breed Database</div>
+            <div className="text-xs font-medium uppercase tracking-wider text-primary">{t("common:nav.breeds", "Breed Database")}</div>
             <h2 id="breeds-heading" className="mt-1 font-display text-3xl font-semibold">
-              500+ breed profiles across every species
+              {t("home:breedHeading", "500+ breed profiles across every species")}
             </h2>
             <p className="mt-2 max-w-2xl text-muted-foreground">
               Deep, plain-language breed pages with size, temperament, grooming, common health issues, and cost.
             </p>
           </div>
           <Link to="/breeds" className="hidden text-sm font-medium text-primary hover:underline sm:inline">
-            Browse all breeds →
+            {t("home:browseAllBreeds", "Browse all breeds →")}
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -359,9 +357,9 @@ function Home() {
       <section className="bg-cream/60">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="species-heading">
           <div className="mb-8">
-            <div className="text-xs font-medium uppercase tracking-wider text-primary">Multi-pet ecosystem</div>
+            <div className="text-xs font-medium uppercase tracking-wider text-primary">{t("home:ecosystemTitle", "Multi-pet ecosystem")}</div>
             <h2 id="species-heading" className="mt-1 font-display text-3xl font-semibold">
-              16 species, one dashboard
+              {t("home:ecosystemHeading", "16 species, one dashboard")}
             </h2>
             <p className="mt-2 max-w-2xl text-muted-foreground">
               From ball pythons to backyard chickens, every species gets its own care fields, AI assistant, and toolset.
@@ -392,28 +390,28 @@ function Home() {
           <div className="grid gap-8 md:grid-cols-[1.4fr_1fr] md:items-center">
             <div>
               <h2 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
-                Track every pet in your home — vaccines, meds, vet visits & expenses.
+                {t("home:ctaTitle", "Track every pet in your home — vaccines, meds, vet visits & expenses.")}
               </h2>
               <p className="mt-3 max-w-xl text-primary-foreground/85">
-                My Pets is a free health dashboard with AI insights (never diagnostic). Add unlimited pets across 16 species.
+                {t("home:ctaDescription", "My Pets is a free health dashboard with AI insights (never diagnostic). Add unlimited pets across 16 species.")}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button asChild size="lg" variant="secondary" className="rounded-full">
-                  <Link to="/dashboard">Open My Pets <ArrowRight className="ml-1 size-4" /></Link>
+                  <Link to="/dashboard">{t("common:nav.myPets", "Open My Pets")} <ArrowRight className="ml-1 size-4" /></Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="rounded-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                  <Link to="/care">Care Planner</Link>
+                  <Link to="/care">{t("common:nav.carePlanner", "Care Planner")}</Link>
                 </Button>
               </div>
             </div>
             <ul className="grid grid-cols-2 gap-3 text-sm">
               {[
-                { to: "/cost-planner", label: "Cost Planner" },
-                { to: "/compare", label: "Breed Compare" },
-                { to: "/names", label: "Name Finder" },
-                { to: "/foods", label: "Food Safety" },
-                { to: "/breeds", label: "Breed Database" },
-                { to: "/ai", label: "AI Assistants" },
+                { to: "/cost-planner", label: t("common:nav.costPlanner", "Cost Planner") },
+                { to: "/compare", label: t("common:nav.compare", "Breed Compare") },
+                { to: "/names", label: t("common:nav.names", "Name Finder") },
+                { to: "/foods", label: t("common:nav.foods", "Food Safety") },
+                { to: "/breeds", label: t("common:nav.breeds", "Breed Database") },
+                { to: "/ai", label: t("common:nav.ai", "AI Assistants") },
               ].map((l) => (
                 <li key={l.to}>
                   <Link
@@ -432,7 +430,7 @@ function Home() {
 
       {/* FAQ */}
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
-        <Faq items={HOME_FAQS} title="Frequently asked questions" />
+        <Faq items={HOME_FAQS} title={t("common:faq.title", "Frequently asked questions")} />
       </section>
     </>
   );
