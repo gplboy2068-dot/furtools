@@ -41,27 +41,39 @@ export function getLocalizedSlug(slug: string, targetLang?: string): string {
 }
 
 /**
- * Generate hreflang tags array for head metadata
+ * Builds a clean localized URL path with locale prefix (e.g. /es/breeds/gato-persa or /fr/tools/dog-age-calculator)
+ */
+export function buildLocalizedUrl(pathname: string, targetLang: string): string {
+  const clean = pathname.replace(/^\/(?:[a-z]{2}(?:-[A-Z]{2})?)/i, '').replace(/^\/+/, '');
+  const prefix = targetLang === 'en' ? 'en' : targetLang.toLowerCase();
+  return `/${prefix}${clean ? `/${clean}` : ''}`;
+}
+
+/**
+ * Generate hreflang tags array for HTML head metadata using prefix route architecture
  */
 export function generateHreflangTags(currentPath: string) {
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://furtools.com';
-  
-  // Clean path of existing lang param if any
-  const cleanPath = currentPath.replace(/^\/(?:[a-z]{2}(?:-[A-Z]{2})?)/, '');
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.furtools.com';
 
-  const tags = SUPPORTED_LANGUAGES.map((lang) => {
+  // Extract clean path (stripping existing locale prefix if any)
+  const cleanPath = currentPath.replace(/^\/(?:[a-z]{2}(?:-[A-Z]{2})?)/i, '').replace(/^\/+/, '');
+
+  const tags = SUPPORTED_LANGUAGES.filter((l) => l.isEnabled).map((lang) => {
+    const langCode = lang.code.toLowerCase();
+    const localizedPath = `${baseUrl}/${langCode}${cleanPath ? `/${cleanPath}` : ''}`;
+
     return {
       rel: 'alternate',
       hrefLang: lang.code,
-      href: `${baseUrl}?lang=${lang.code}`,
+      href: localizedPath,
     };
   });
 
-  // Add x-default
+  // Add x-default pointing to English /en/ prefix
   tags.push({
     rel: 'alternate',
     hrefLang: 'x-default',
-    href: `${baseUrl}${cleanPath}`,
+    href: `${baseUrl}/en${cleanPath ? `/${cleanPath}` : ''}`,
   });
 
   return tags;

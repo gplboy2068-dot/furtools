@@ -48,3 +48,38 @@ export const NAMESPACES = [
 ] as const;
 
 export type TranslationNamespace = typeof NAMESPACES[number];
+
+export function isValidLocale(code: string): boolean {
+  if (!code) return false;
+  const clean = code.toLowerCase();
+  return SUPPORTED_LANGUAGES.some(
+    (l) => l.isEnabled && (l.code.toLowerCase() === clean || l.code.split('-')[0].toLowerCase() === clean)
+  );
+}
+
+export function getLanguageConfig(code: string): LanguageConfig {
+  const found = SUPPORTED_LANGUAGES.find(
+    (l) => l.code.toLowerCase() === code.toLowerCase() || l.code.split('-')[0].toLowerCase() === code.toLowerCase()
+  );
+  return found || SUPPORTED_LANGUAGES[0];
+}
+
+export function extractLocaleFromPath(pathname: string): { locale: string; cleanPath: string } {
+  if (!pathname) return { locale: DEFAULT_LANGUAGE, cleanPath: '/' };
+
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments.length === 0) return { locale: DEFAULT_LANGUAGE, cleanPath: '/' };
+
+  const firstSeg = segments[0].toLowerCase();
+  const match = SUPPORTED_LANGUAGES.find(
+    (l) => l.isEnabled && (l.code.toLowerCase() === firstSeg || l.code.split('-')[0].toLowerCase() === firstSeg)
+  );
+
+  if (match) {
+    const cleanSegments = segments.slice(1);
+    const cleanPath = cleanSegments.length ? `/${cleanSegments.join('/')}` : '/';
+    return { locale: match.code, cleanPath };
+  }
+
+  return { locale: DEFAULT_LANGUAGE, cleanPath: pathname };
+}

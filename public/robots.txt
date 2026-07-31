@@ -5,4 +5,4 @@ Disallow: /admin
 Disallow: /auth
 Disallow: /api/
 
-Sitemap: /sitemap-index.xml
+Sitemap: https://www.furtools.com/sitemap-index.xml

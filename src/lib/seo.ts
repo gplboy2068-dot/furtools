@@ -35,16 +35,17 @@ const clamp = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEn
  */
 export function buildHead(input: HeadInput): HeadFragment {
   const currentLang = input.targetLang || i18n.language || DEFAULT_LANGUAGE;
-  const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://furtools.com";
-  const cleanPath = input.path.split("?")[0];
+  const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://www.furtools.com";
+  const cleanPath = input.path.split("?")[0].replace(/^\/(?:[a-z]{2}(?:-[A-Z]{2})?)/i, '').replace(/^\/+/, '');
+  const langPrefix = currentLang.toLowerCase();
+  const canonicalUrl = `${baseUrl}/${langPrefix}${cleanPath ? `/${cleanPath}` : ''}`;
+  const localeFormatted = currentLang.includes("-")
+    ? currentLang.replace("-", "_")
+    : `${currentLang}_${currentLang.toUpperCase()}`;
 
   const title = clamp(input.title, 60);
   const description = clamp(input.description, 158);
   const type = input.type ?? "website";
-  const canonicalUrl = `${baseUrl}${cleanPath}${currentLang !== DEFAULT_LANGUAGE ? `?lang=${currentLang}` : ""}`;
-  const localeFormatted = currentLang.includes("-")
-    ? currentLang.replace("-", "_")
-    : `${currentLang}_${currentLang.toUpperCase()}`;
 
   const meta: Array<Record<string, string>> = [
     { title },

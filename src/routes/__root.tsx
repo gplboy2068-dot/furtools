@@ -93,19 +93,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700&display=swap",
-      },
-      { rel: "alternate", type: "application/rss+xml", title: `${SITE.name} Blog`, href: "/rss.xml" },
-      { rel: "sitemap", type: "application/xml", href: "/sitemap-index.xml" },
-      ...generateHreflangTags("/"),
+      { rel: "manifest", href: "/site.webmanifest" },
     ],
     scripts: [
       {
