@@ -43,7 +43,8 @@ ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Profiles full access" ON public.profiles;
 CREATE POLICY "Profiles full access" ON public.profiles FOR ALL USING (true) WITH CHECK (true);
 
--- Fix RLS & Grants on user_roles table
+-- Fix RLS & Constraints on user_roles table
+ALTER TABLE public.user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.user_roles TO anon, authenticated, service_role;
 ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Roles access" ON public.user_roles;
