@@ -94,9 +94,12 @@ function BlogPostPage() {
   );
 }
 
+import { useLocalizedRecord } from "@/lib/i18n-db";
+
 function PostBody() {
   const { slug } = Route.useParams();
-  const { data: post } = useSuspenseQuery(postQuery(slug));
+  const { data: rawPost } = useSuspenseQuery(postQuery(slug));
+  const post = (useLocalizedRecord(rawPost) || rawPost) as Post;
   return (
     <BlogPostLayout
       meta={{

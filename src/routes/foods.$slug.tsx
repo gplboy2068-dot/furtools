@@ -89,9 +89,12 @@ function FoodPage() {
   );
 }
 
+import { useLocalizedRecord } from "@/lib/i18n-db";
+
 function FoodBody() {
   const { slug } = Route.useParams();
-  const { data: food } = useSuspenseQuery(foodDetailQuery(slug));
+  const { data: rawFood } = useSuspenseQuery(foodDetailQuery(slug));
+  const food = useLocalizedRecord(rawFood);
   if (!food) return null;
 
   const anyUnsafe = FOOD_SPECIES.some(

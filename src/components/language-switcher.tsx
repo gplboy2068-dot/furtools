@@ -32,6 +32,23 @@ export function LanguageSwitcher({ variant = 'dropdown', className = '' }: Langu
       // Update HTML lang and dir
       document.documentElement.lang = lang.code;
       document.documentElement.dir = lang.dir;
+      if (lang.dir === 'rtl') {
+        document.documentElement.classList.add('rtl');
+      } else {
+        document.documentElement.classList.remove('rtl');
+      }
+
+      // Update URL search parameter
+      const url = new URL(window.location.href);
+      if (lang.code === 'en') {
+        url.searchParams.delete('lang');
+      } else {
+        url.searchParams.set('lang', lang.code);
+      }
+      window.history.pushState({}, '', url.toString());
+
+      // Dispatch event to re-render localized components instantly
+      window.dispatchEvent(new Event('furtools_lang_changed'));
     }
   };
 

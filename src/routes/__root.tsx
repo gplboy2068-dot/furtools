@@ -134,8 +134,22 @@ function RootShell({ children }: { children: ReactNode }) {
       setDir(i18n.dir(newLang));
     };
     i18n.on('languageChanged', handleLangChange);
+
+    const onCustomEvent = () => {
+      const current = i18n.language || 'en';
+      setLang(current);
+      setDir(i18n.dir(current));
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('furtools_lang_changed', onCustomEvent);
+    }
+
     return () => {
       i18n.off('languageChanged', handleLangChange);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('furtools_lang_changed', onCustomEvent);
+      }
     };
   }, []);
 
