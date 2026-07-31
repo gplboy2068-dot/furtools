@@ -217,6 +217,35 @@ ALTER TABLE public.pet_reminders ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Pet reminders access" ON public.pet_reminders;
 CREATE POLICY "Pet reminders access" ON public.pet_reminders FOR ALL USING (true) WITH CHECK (true);
 
+CREATE TABLE IF NOT EXISTS public.internal_links (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  keyword TEXT NOT NULL,
+  target_url TEXT NOT NULL,
+  title TEXT,
+  enabled BOOLEAN NOT NULL DEFAULT true,
+  priority INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.internal_links TO anon, authenticated, service_role;
+ALTER TABLE public.internal_links ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Internal links access" ON public.internal_links;
+CREATE POLICY "Internal links access" ON public.internal_links FOR ALL USING (true) WITH CHECK (true);
+
+CREATE TABLE IF NOT EXISTS public.ads_placements (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slot TEXT NOT NULL,
+  name TEXT NOT NULL,
+  code TEXT,
+  enabled BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.ads_placements TO anon, authenticated, service_role;
+ALTER TABLE public.ads_placements ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Ads placements access" ON public.ads_placements;
+CREATE POLICY "Ads placements access" ON public.ads_placements FOR ALL USING (true) WITH CHECK (true);
+
 -- Helper Function to Grant Admin Access by Email
 CREATE OR REPLACE FUNCTION public.make_user_admin(target_email TEXT)
 RETURNS VOID

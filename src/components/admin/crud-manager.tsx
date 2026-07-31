@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -16,8 +17,41 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, AlertTriangle, Copy, Check, RefreshCw } from "lucide-react";
 import type { Database } from "@/integrations/supabase/types";
+
+function getSetupSql(tableName: string): string {
+  if (tableName === "internal_links") {
+    return `-- Run this in your Supabase SQL Editor to create internal_links table:
+CREATE TABLE IF NOT EXISTS public.internal_links (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  keyword TEXT NOT NULL,
+  target_url TEXT NOT NULL,
+  title TEXT,
+  enabled BOOLEAN NOT NULL DEFAULT true,
+  priority INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.internal_links TO anon, authenticated, service_role;
+ALTER TABLE public.internal_links ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Internal links full access" ON public.internal_links;
+CREATE POLICY "Internal links full access" ON public.internal_links FOR ALL USING (true) WITH CHECK (true);`;
+  }
+
+  return `-- Run this in your Supabase SQL Editor to create ${tableName} table:
+CREATE TABLE IF NOT EXISTS public.${tableName} (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.${tableName} TO anon, authenticated, service_role;
+ALTER TABLE public.${tableName} ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "${tableName} full access" ON public.${tableName};
+CREATE POLICY "${tableName} full access" ON public.${tableName} FOR ALL USING (true) WITH CHECK (true);`;
+}
 
 type TableName = keyof Database["public"]["Tables"];
 
@@ -70,9 +104,12 @@ export function CrudManager<T>({
   const [editing, setEditing] = useState<T | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState<Record<string, unknown>>({});
+  const [tableError, setTableError] = useState<string | null>(null);
+  const [copiedSql, setCopiedSql] = useState(false);
 
   async function load() {
     setLoading(true);
+    setTableError(null);
     const client = supabase as unknown as {
       from: (t: string) => {
         select: (c: string) => { order: (col: string, opts: { ascending: boolean }) => Promise<{ data: unknown; error: { message: string } | null }> } & Promise<{ data: unknown; error: { message: string } | null }>;
@@ -82,7 +119,15 @@ export function CrudManager<T>({
     const result = orderBy
       ? await query.order(orderBy.column, { ascending: orderBy.ascending ?? true })
       : await query;
-    if (result.error) toast.error(result.error.message);
+    if (result.error) {
+      if (result.error.message.includes("schema cache") || result.error.message.includes("does not exist")) {
+        setTableError(result.error.message);
+      } else {
+        toast.error(result.error.message);
+      }
+    } else {
+      setTableError(null);
+    }
     setRows(((result.data as T[]) ?? []) as T[]);
     setLoading(false);
   }
@@ -138,10 +183,53 @@ export function CrudManager<T>({
     await load();
   }
 
+  function handleCopySql(sqlText: string) {
+    navigator.clipboard.writeText(sqlText);
+    setCopiedSql(true);
+    toast.success("SQL copied to clipboard!");
+    setTimeout(() => setCopiedSql(false), 2000);
+  }
+
   const defaultEmptyMsg = emptyMessage || t("crud.noRecords");
 
   return (
     <>
+      {tableError && (
+        <Card className="mb-6 border-amber-500/40 bg-amber-500/5 dark:border-amber-500/30 dark:bg-amber-500/10">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base font-semibold text-amber-600 dark:text-amber-400">
+              <span className="flex items-center gap-2">
+                <AlertTriangle className="size-5" />
+                Table "{table}" Missing in Supabase Database
+              </span>
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="rounded-full gap-1 text-xs"
+                  onClick={() => handleCopySql(getSetupSql(table))}
+                >
+                  {copiedSql ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
+                  {copiedSql ? "Copied!" : "Copy Setup SQL"}
+                </Button>
+                <Button size="sm" variant="default" className="rounded-full gap-1 text-xs" onClick={load}>
+                  <RefreshCw className="size-3.5" />
+                  Retry
+                </Button>
+              </div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-xs text-muted-foreground">
+              Run this SQL query in your <strong>Supabase SQL Editor</strong> to create the <code>{table}</code> table:
+            </p>
+            <pre className="max-h-52 overflow-x-auto rounded-lg bg-black/85 p-3.5 text-xs text-emerald-400 font-mono leading-relaxed">
+              {getSetupSql(table)}
+            </pre>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="mb-4 flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
           {loading ? t("crud.loading") : `${rows.length} ${entityLabel.toLowerCase()}${rows.length === 1 ? "" : "s"}`}

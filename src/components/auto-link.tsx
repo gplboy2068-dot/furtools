@@ -13,15 +13,20 @@ interface InternalLink {
 }
 
 async function fetchInternalLinks(): Promise<InternalLink[]> {
-  const { data } = await supabase
-    .from("internal_links")
-    .select("keyword,target_url,title")
-    .eq("enabled", true);
-  return ((data ?? []) as Array<{ keyword: string; target_url: string; title: string | null }>).map((r) => ({
-    keyword: r.keyword,
-    url: r.target_url,
-    title: r.title,
-  }));
+  try {
+    const { data, error } = await supabase
+      .from("internal_links")
+      .select("keyword,target_url,title")
+      .eq("enabled", true);
+    if (error) return [];
+    return ((data ?? []) as Array<{ keyword: string; target_url: string; title: string | null }>).map((r) => ({
+      keyword: r.keyword,
+      url: r.target_url,
+      title: r.title,
+    }));
+  } catch {
+    return [];
+  }
 }
 
 function useInternalLinks() {
