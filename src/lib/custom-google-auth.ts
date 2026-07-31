@@ -1,3 +1,5 @@
+import { supabase } from "@/integrations/supabase/client";
+
 export interface GoogleUserProfile {
   googleId: string;
   email: string;
@@ -12,6 +14,14 @@ export interface CustomAuthSession {
   user: GoogleUserProfile;
   token: string;
   expiresAt: number;
+}
+
+export interface ActiveUser {
+  id: string;
+  email: string;
+  name: string;
+  avatarUrl?: string;
+  isCustomGoogle?: boolean;
 }
 
 const SESSION_KEY = 'furtools_custom_google_session';
@@ -94,6 +104,41 @@ export function clearCustomSession(): void {
     localStorage.removeItem(SESSION_KEY);
     document.cookie = 'furtools_custom_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
   }
+}
+
+/**
+ * Unified Active User Resolver (checks both Custom Google Auth and Supabase Auth)
+ */
+export async function getActiveUser(): Promise<ActiveUser | null> {
+  // 1. Check custom Google session
+  const customSession = getCustomSession();
+  if (customSession) {
+    return {
+      id: customSession.user.googleId,
+      email: customSession.user.email,
+      name: customSession.user.name,
+      avatarUrl: customSession.user.picture,
+      isCustomGoogle: true,
+    };
+  }
+
+  // 2. Check Supabase auth session
+  try {
+    const { data } = await supabase.auth.getUser();
+    if (data?.user) {
+      return {
+        id: data.user.id,
+        email: data.user.email || '',
+        name: data.user.user_metadata?.display_name || data.user.email || 'User',
+        avatarUrl: data.user.user_metadata?.avatar_url,
+        isCustomGoogle: false,
+      };
+    }
+  } catch {
+    /* ignore error */
+  }
+
+  return null;
 }
 
 /**

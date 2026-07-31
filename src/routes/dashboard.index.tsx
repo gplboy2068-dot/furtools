@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
-import { Loader2, PawPrint, Plus, Syringe, Pill, Stethoscope, Scale, Calendar } from "lucide-react";
+import { Loader2, PawPrint, Plus, Syringe, Pill, Stethoscope, Scale, Calendar, LogOut } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { signedPetFileUrl, uploadPetFile } from "@/lib/pet-uploads";
 import { SPECIES_SELECT_OPTIONS } from "@/data/species-config";
+import { getActiveUser, clearCustomSession, ActiveUser } from "@/lib/custom-google-auth";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -35,14 +36,31 @@ interface PetRow {
 }
 
 function DashboardIndex() {
-  const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [activeUser, setActiveUser] = useState<ActiveUser | null | undefined>(undefined);
+  const navigate = useNavigate();
+
+  const checkUser = async () => {
+    const u = await getActiveUser();
+    setActiveUser(u);
+  };
+
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
-    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+    checkUser();
+    const { data: sub } = supabase.auth.onAuthStateChange(async () => {
+      checkUser();
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
-  if (user === undefined) {
+  const handleSignOut = async () => {
+    clearCustomSession();
+    await supabase.auth.signOut();
+    setActiveUser(null);
+    toast.success("Signed out successfully.");
+    navigate({ to: "/auth" });
+  };
+
+  if (activeUser === undefined) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-16">
         <div className="flex items-center gap-2 text-muted-foreground"><Loader2 className="size-5 animate-spin" /> Loading…</div>
@@ -57,11 +75,25 @@ function DashboardIndex() {
         <div>
           <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">My Pets Dashboard</h1>
           <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
-            Profiles, vaccinations, medicines, weight, and vet visits — synced to your account.
+            Profiles, vaccinations, medicines, weight, and vet visits — synced to {activeUser ? activeUser.name || activeUser.email : 'your account'}.
           </p>
         </div>
+        {activeUser && (
+          <div className="flex items-center gap-3">
+            {activeUser.avatarUrl && (
+              <img src={activeUser.avatarUrl} alt={activeUser.name} className="size-10 rounded-full border" />
+            )}
+            <div className="text-sm">
+              <div className="font-semibold">{activeUser.name}</div>
+              <div className="text-xs text-muted-foreground">{activeUser.email}</div>
+            </div>
+            <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-1 rounded-full text-xs">
+              <LogOut className="size-3.5" /> Sign out
+            </Button>
+          </div>
+        )}
       </header>
-      {user ? <PetsList userId={user.id} /> : <SignedOut />}
+      {activeUser ? <PetsList userId={activeUser.id} /> : <SignedOut />}
     </div>
   );
 }
@@ -71,7 +103,7 @@ function SignedOut() {
     <div className="mt-10 rounded-2xl border border-border bg-card p-10 text-center">
       <PawPrint className="mx-auto size-12 text-primary" />
       <h2 className="mt-4 font-display text-2xl font-semibold">Sign in to see your pets</h2>
-      <p className="mt-2 text-muted-foreground">Create a free account to save profiles, health records, and reminders.</p>
+      <p className="mt-2 text-muted-foreground">Create a free account or sign in to save profiles, health records, and reminders.</p>
       <Button asChild size="lg" className="mt-6"><Link to="/auth">Sign in or create an account</Link></Button>
     </div>
   );
@@ -88,6 +120,7 @@ function PetsList({ userId }: { userId: string }) {
     const { data } = await supabase
       .from("pets")
       .select("id,name,species,breed,birthdate,weight,weight_unit,avatar_url,gender")
+      .eq("user_id", userId)
       .order("created_at");
     const list = (data ?? []) as PetRow[];
     setPets(list);
@@ -103,7 +136,7 @@ function PetsList({ userId }: { userId: string }) {
     setAvatars(urls);
     setLoading(false);
   }
-  useEffect(() => { refresh(); /* eslint-disable-next-line */ }, []);
+  useEffect(() => { refresh(); /* eslint-disable-next-line */ }, [userId]);
 
   return (
     <section className="mt-10">
@@ -275,5 +308,4 @@ function calcAge(birthdate: string | null): string | null {
   return m ? `${y}y ${m}mo` : `${y}y`;
 }
 
-// Also export helper icons so we can lint them as used elsewhere if needed
 export { Syringe, Pill, Stethoscope, Scale, Calendar };

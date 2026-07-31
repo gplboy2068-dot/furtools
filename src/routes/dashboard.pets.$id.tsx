@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { z } from "zod";
 import { signedPetFileUrl, uploadPetFile, deletePetFile } from "@/lib/pet-uploads";
+import { getActiveUser } from "@/lib/custom-google-auth";
 import {
   DewormingTab, GroomingTab, ExpensesTab, TravelTab, JournalTab, DocumentsTab, AiSummaryTab,
 } from "@/components/pets/extra-tabs";
@@ -50,13 +51,19 @@ function PetDetailPage() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
-  const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [user, setUser] = useState<{ id: string } | null | undefined>(undefined);
   const [pet, setPet] = useState<Pet | null | undefined>(undefined);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
-    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+    async function checkUser() {
+      const u = await getActiveUser();
+      setUser(u);
+    }
+    checkUser();
+    const { data: sub } = supabase.auth.onAuthStateChange(async () => {
+      checkUser();
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
