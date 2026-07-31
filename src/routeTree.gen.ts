@@ -43,6 +43,7 @@ import { Route as ApiGenerateNamesRouteImport } from './routes/api/generate-name
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
 import { Route as ApiAiTranslateRouteImport } from './routes/api/ai-translate'
 import { Route as ApiAiChatRouteImport } from './routes/api/ai-chat'
+import { Route as ApiAdminUsersRouteImport } from './routes/api/admin-users'
 import { Route as AiSlugRouteImport } from './routes/ai.$slug'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminTranslationsRouteImport } from './routes/admin.translations'
@@ -234,6 +235,11 @@ const ApiAiChatRoute = ApiAiChatRouteImport.update({
   path: '/api/ai-chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdminUsersRoute = ApiAdminUsersRouteImport.update({
+  id: '/api/admin-users',
+  path: '/api/admin-users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AiSlugRoute = AiSlugRouteImport.update({
   id: '/ai/$slug',
   path: '/ai/$slug',
@@ -371,6 +377,7 @@ export interface FileRoutesByFullPath {
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
+  '/api/admin-users': typeof ApiAdminUsersRoute
   '/api/ai-chat': typeof ApiAiChatRoute
   '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
@@ -426,6 +433,7 @@ export interface FileRoutesByTo {
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
+  '/api/admin-users': typeof ApiAdminUsersRoute
   '/api/ai-chat': typeof ApiAiChatRoute
   '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
@@ -483,6 +491,7 @@ export interface FileRoutesById {
   '/admin/translations': typeof AdminTranslationsRoute
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
+  '/api/admin-users': typeof ApiAdminUsersRoute
   '/api/ai-chat': typeof ApiAiChatRoute
   '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
@@ -541,6 +550,7 @@ export interface FileRouteTypes {
     | '/admin/translations'
     | '/admin/users'
     | '/ai/$slug'
+    | '/api/admin-users'
     | '/api/ai-chat'
     | '/api/ai-translate'
     | '/api/analyze-image'
@@ -596,6 +606,7 @@ export interface FileRouteTypes {
     | '/admin/translations'
     | '/admin/users'
     | '/ai/$slug'
+    | '/api/admin-users'
     | '/api/ai-chat'
     | '/api/ai-translate'
     | '/api/analyze-image'
@@ -652,6 +663,7 @@ export interface FileRouteTypes {
     | '/admin/translations'
     | '/admin/users'
     | '/ai/$slug'
+    | '/api/admin-users'
     | '/api/ai-chat'
     | '/api/ai-translate'
     | '/api/analyze-image'
@@ -693,6 +705,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   AiSlugRoute: typeof AiSlugRoute
+  ApiAdminUsersRoute: typeof ApiAdminUsersRoute
   ApiAiChatRoute: typeof ApiAiChatRoute
   ApiAiTranslateRoute: typeof ApiAiTranslateRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
@@ -952,6 +965,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/admin-users': {
+      id: '/api/admin-users'
+      path: '/api/admin-users'
+      fullPath: '/api/admin-users'
+      preLoaderRoute: typeof ApiAdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ai/$slug': {
       id: '/ai/$slug'
       path: '/ai/$slug'
@@ -1159,6 +1179,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   AiSlugRoute: AiSlugRoute,
+  ApiAdminUsersRoute: ApiAdminUsersRoute,
   ApiAiChatRoute: ApiAiChatRoute,
   ApiAiTranslateRoute: ApiAiTranslateRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
