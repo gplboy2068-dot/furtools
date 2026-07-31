@@ -298,8 +298,13 @@ export function AdminShell({ children }: { children: ReactNode }) {
         }
         setUser(activeUser);
 
-        // Super-admin email bypass
-        if (activeUser.email && activeUser.email.toLowerCase() === "gplboy2068@gmail.com") {
+        // Super-admin email check
+        const superAdminEmails = [
+          "gplboy2068@gmail.com",
+          ...(process.env.VITE_ADMIN_EMAILS ? process.env.VITE_ADMIN_EMAILS.toLowerCase().split(",") : []),
+        ].map((e) => e.trim().toLowerCase());
+
+        if (activeUser.email && superAdminEmails.includes(activeUser.email.toLowerCase())) {
           setIsAdmin(true);
           return;
         }
@@ -311,9 +316,10 @@ export function AdminShell({ children }: { children: ReactNode }) {
         const { data: roles } = await supabase
           .from("user_roles")
           .select("role")
+          .eq("role", "admin")
           .in("user_id", [activeUser.id, userIdToQuery]);
 
-        const hasAdminRole = (roles ?? []).some((r) => r.role === "admin");
+        const hasAdminRole = Array.isArray(roles) && roles.length > 0;
         setIsAdmin(hasAdminRole);
       } catch (err) {
         console.error("Admin auth check error:", err);
