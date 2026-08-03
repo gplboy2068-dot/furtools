@@ -104,7 +104,7 @@ export function CustomGoogleLogin({
     }
   };
 
-  const handleCustomGoogleClick = () => {
+  const handleCustomGoogleClick = async () => {
     if (window.google) {
       window.google.accounts.id.initialize({
         client_id: clientId,
@@ -112,9 +112,33 @@ export function CustomGoogleLogin({
       });
 
       // Prompt One-Tap or native Google dialog
-      window.google.accounts.id.prompt();
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          // Fallback to OAuth redirect if GIS prompt is not displayed
+          fallbackOAuth();
+        }
+      });
     } else {
-      toast.info('Initializing Google Auth service...');
+      fallbackOAuth();
+    }
+  };
+
+  const fallbackOAuth = async () => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin + '/dashboard',
+        },
+      });
+      if (error) {
+        toast.error(error.message || 'Google sign-in failed');
+      }
+    } catch (err) {
+      toast.error('Google sign-in error');
+    } finally {
+      setLoading(false);
     }
   };
 
