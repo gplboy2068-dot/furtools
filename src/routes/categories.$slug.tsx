@@ -12,16 +12,13 @@ export const Route = createFileRoute("/categories/$slug")({
   loader: ({ params }) => {
     const category = getCategory(params.slug);
     if (!category) throw notFound();
-    return { slug: params.slug };
+    return { category, tools: toolsByCategory(category.slug) };
   },
   head: ({ params, loaderData }) => {
-    if (!loaderData?.slug) {
+    if (!loaderData) {
       return { meta: [{ title: "Category not found — FurTools" }, { name: "robots", content: "noindex" }] };
     }
-    const category = getCategory(loaderData.slug);
-    if (!category) {
-      return { meta: [{ title: "Category not found — FurTools" }, { name: "robots", content: "noindex" }] };
-    }
+    const { category } = loaderData;
     const title = `${category.name} pet tools — FurTools`;
     return {
       meta: [
@@ -55,13 +52,8 @@ export const Route = createFileRoute("/categories/$slug")({
 });
 
 function CategoryPage() {
-  const { slug } = Route.useLoaderData();
-  const category = getCategory(slug);
-  if (!category) return null;
-
-  const tools = toolsByCategory(category.slug);
+  const { category, tools } = Route.useLoaderData();
   const [q, setQ] = useState("");
-
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
     if (!query) return tools;

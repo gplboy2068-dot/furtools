@@ -89,6 +89,14 @@ import {
   BodyConditionScorePhoto, PoopHealthAnalyzer, DogWolfCoyoteIdentifier, CatCoatPatternIdentifier,
   BirdSpeciesIdentifier, FishDiseaseSpotChecker,
 } from "@/components/tools/photo-tools";
+import {
+  TarantulaEnclosureCalculator, TarantulaFeedingSchedule,
+  HedgehogWheelSize, HedgehogDietCalculator,
+  AxolotlTankTemperature, AxolotlTankSize,
+  SugarGliderDietCalculator, SugarGliderCageSize,
+  ChinchillaDustBathSchedule, ChinchillaCageSize,
+  TortoiseHibernationPlanner, QuailCoopSize,
+} from "@/components/tools/species-tools-11";
 
 /* Checklist datasets */
 const DOG_ADOPTION = [
@@ -365,4 +373,18 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "cat-coat-pattern-identifier": CatCoatPatternIdentifier,
   "bird-species-identifier": BirdSpeciesIdentifier,
   "fish-disease-spot-checker": FishDiseaseSpotChecker,
+
+  // Batch 13 — Wildlife & Exotic extras (12 tools)
+  "tarantula-enclosure-size-calculator": TarantulaEnclosureCalculator,
+  "tarantula-feeding-schedule": TarantulaFeedingSchedule,
+  "hedgehog-wheel-size-calculator": HedgehogWheelSize,
+  "hedgehog-diet-calculator": HedgehogDietCalculator,
+  "axolotl-tank-temperature-calculator": AxolotlTankTemperature,
+  "axolotl-tank-size-calculator": AxolotlTankSize,
+  "sugar-glider-diet-calculator": SugarGliderDietCalculator,
+  "sugar-glider-cage-size-calculator": SugarGliderCageSize,
+  "chinchilla-dust-bath-schedule": ChinchillaDustBathSchedule,
+  "chinchilla-cage-size-calculator": ChinchillaCageSize,
+  "tortoise-hibernation-planner": TortoiseHibernationPlanner,
+  "quail-coop-size-calculator": QuailCoopSize,
 };

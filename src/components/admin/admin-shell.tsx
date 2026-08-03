@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -17,8 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/theme-provider";
-import { LanguageSwitcher } from "@/components/language-switcher";
-import { getActiveUser, clearCustomSession, googleIdToUuid } from "@/lib/custom-google-auth";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -55,65 +52,65 @@ import {
 
 type NavItem = {
   to: string;
-  labelKey: string;
+  label: string;
   icon: typeof LayoutDashboard;
   exact?: boolean;
   badge?: string;
 };
 
 type NavSection = {
-  labelKey: string;
+  label: string;
   items: NavItem[];
 };
 
 export const ADMIN_NAV_SECTIONS: NavSection[] = [
   {
-    labelKey: "nav.overview",
+    label: "Overview",
     items: [
-      { to: "/admin", labelKey: "nav.dashboard", icon: LayoutDashboard, exact: true },
-      { to: "/admin/analytics", labelKey: "nav.analytics", icon: BarChart3 },
+      { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+      { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },
     ],
   },
   {
-    labelKey: "nav.content",
+    label: "Content",
     items: [
-      { to: "/admin/tools", labelKey: "nav.tools", icon: Wrench },
-      { to: "/admin/categories", labelKey: "nav.categories", icon: FolderTree },
-      { to: "/admin/blog", labelKey: "nav.blog", icon: FileText },
-      { to: "/admin/breeds", labelKey: "nav.breeds", icon: Dog },
-      { to: "/admin/foods", labelKey: "nav.foods", icon: Apple },
-      { to: "/admin/faqs", labelKey: "nav.faqs", icon: HelpCircle },
-      { to: "/admin/media", labelKey: "nav.media", icon: ImageIcon },
+      { to: "/admin/tools", label: "Tools", icon: Wrench },
+      { to: "/admin/categories", label: "Categories", icon: FolderTree },
+      { to: "/admin/blog", label: "Blog", icon: FileText },
+      { to: "/admin/breeds", label: "Breeds", icon: Dog },
+      { to: "/admin/foods", label: "Foods", icon: Apple },
+      { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
+      { to: "/admin/media", label: "Media", icon: ImageIcon },
     ],
   },
   {
-    labelKey: "nav.growth",
+    label: "Growth",
     items: [
-      { to: "/admin/seo", labelKey: "nav.seo", icon: Search },
-      { to: "/admin/links", labelKey: "nav.internalLinks", icon: Link2 },
-      { to: "/admin/search-console", labelKey: "nav.searchConsole", icon: Globe },
-      { to: "/admin/ads", labelKey: "nav.ads", icon: Megaphone },
-      { to: "/admin/affiliates", labelKey: "nav.affiliates", icon: DollarSign },
+      { to: "/admin/seo", label: "SEO", icon: Search },
+      { to: "/admin/links", label: "Internal Links", icon: Link2 },
+      { to: "/admin/search-console", label: "Search Console", icon: Globe },
+      { to: "/admin/ads", label: "Ads", icon: Megaphone },
+      { to: "/admin/affiliates", label: "Affiliates", icon: DollarSign },
     ],
   },
   {
-    labelKey: "nav.engagement",
+    label: "Engagement",
     items: [
-      { to: "/admin/newsletter", labelKey: "nav.newsletter", icon: Mail },
-      { to: "/admin/email-templates", labelKey: "nav.emailTemplates", icon: MailPlus },
+      { to: "/admin/newsletter", label: "Newsletter", icon: Mail },
+      { to: "/admin/email-templates", label: "Email Templates", icon: MailPlus },
     ],
   },
   {
-    labelKey: "nav.administration",
+    label: "Administration",
     items: [
-      { to: "/admin/translations", labelKey: "nav.translations", icon: Globe },
-      { to: "/admin/users", labelKey: "nav.users", icon: Users },
-      { to: "/admin/settings", labelKey: "nav.settings", icon: Settings },
+      { to: "/admin/users", label: "Users", icon: Users },
+      { to: "/admin/settings", label: "Settings", icon: Settings },
     ],
   },
 ];
 
 const ALL_NAV_ITEMS = ADMIN_NAV_SECTIONS.flatMap((s) => s.items);
+
 const SIDEBAR_COLLAPSE_KEY = "furtools-admin-sidebar-collapsed";
 
 function useCollapsed() {
@@ -137,6 +134,23 @@ function useCollapsed() {
   return [collapsed, set] as const;
 }
 
+function buildBreadcrumbs(pathname: string) {
+  const parts = pathname.split("/").filter(Boolean); // e.g. ['admin','tools']
+  const crumbs: { label: string; to: string }[] = [];
+  let path = "";
+  for (const p of parts) {
+    path += `/${p}`;
+    const item = ALL_NAV_ITEMS.find((i) => i.to === path);
+    const label =
+      item?.label ??
+      p
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+    crumbs.push({ label, to: path });
+  }
+  return crumbs;
+}
+
 function SidebarNav({
   collapsed,
   onNavigate,
@@ -150,16 +164,14 @@ function SidebarNav({
   setFilter: (v: string) => void;
   pathname: string;
 }) {
-  const { t } = useTranslation("admin");
-
   const filtered = useMemo(() => {
     const q = filter.trim().toLowerCase();
     if (!q) return ADMIN_NAV_SECTIONS;
     return ADMIN_NAV_SECTIONS.map((s) => ({
       ...s,
-      items: s.items.filter((i) => t(i.labelKey).toLowerCase().includes(q)),
+      items: s.items.filter((i) => i.label.toLowerCase().includes(q)),
     })).filter((s) => s.items.length > 0);
-  }, [filter, t]);
+  }, [filter]);
 
   return (
     <>
@@ -170,7 +182,7 @@ function SidebarNav({
             <Input
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              placeholder={t("nav.searchPlaceholder")}
+              placeholder="Search menu…"
               className="h-8 rounded-md border-border/60 bg-muted/40 pl-8 text-xs"
             />
           </div>
@@ -178,10 +190,10 @@ function SidebarNav({
       )}
       <nav className="flex-1 overflow-y-auto px-2 py-3">
         {filtered.map((section) => (
-          <div key={section.labelKey} className="mb-4">
+          <div key={section.label} className="mb-4">
             {!collapsed && (
               <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
-                {t(section.labelKey)}
+                {section.label}
               </div>
             )}
             <ul className="space-y-0.5">
@@ -190,13 +202,12 @@ function SidebarNav({
                   ? pathname === item.to
                   : pathname === item.to || pathname.startsWith(item.to + "/");
                 const Icon = item.icon;
-                const label = t(item.labelKey);
                 return (
                   <li key={item.to}>
                     <Link
                       to={item.to}
                       onClick={onNavigate}
-                      title={collapsed ? label : undefined}
+                      title={collapsed ? item.label : undefined}
                       className={cn(
                         "group relative flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm transition-colors",
                         collapsed && "justify-center px-2",
@@ -211,7 +222,7 @@ function SidebarNav({
                       <Icon className={cn("size-4 shrink-0", active && "text-primary")} />
                       {!collapsed && (
                         <>
-                          <span className="flex-1 truncate">{label}</span>
+                          <span className="flex-1 truncate">{item.label}</span>
                           {item.badge && (
                             <Badge variant="secondary" className="h-4 px-1.5 text-[10px]">
                               {item.badge}
@@ -226,13 +237,15 @@ function SidebarNav({
             </ul>
           </div>
         ))}
+        {filtered.length === 0 && !collapsed && (
+          <div className="px-3 py-6 text-center text-xs text-muted-foreground">No matches</div>
+        )}
       </nav>
     </>
   );
 }
 
 function SidebarBrand({ collapsed }: { collapsed: boolean }) {
-  const { t } = useTranslation("admin");
   return (
     <Link
       to="/admin"
@@ -248,7 +261,7 @@ function SidebarBrand({ collapsed }: { collapsed: boolean }) {
         <div className="flex flex-col leading-tight">
           <span className="font-display text-sm font-semibold">FurTools</span>
           <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
-            {t("title")}
+            Admin
           </span>
         </div>
       )}
@@ -257,7 +270,6 @@ function SidebarBrand({ collapsed }: { collapsed: boolean }) {
 }
 
 function SidebarFooter({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
-  const { t } = useTranslation("admin");
   return (
     <div className="border-t border-border/60 p-2">
       <button
@@ -266,10 +278,10 @@ function SidebarFooter({ collapsed, onToggle }: { collapsed: boolean; onToggle: 
           "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground",
           collapsed && "justify-center",
         )}
-        aria-label={collapsed ? t("nav.expand") : t("nav.collapse")}
+        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         {collapsed ? <ChevronsRight className="size-4" /> : <ChevronsLeft className="size-4" />}
-        {!collapsed && <span>{t("nav.collapse")}</span>}
+        {!collapsed && <span>Collapse</span>}
       </button>
     </div>
   );
@@ -278,8 +290,7 @@ function SidebarFooter({ collapsed, onToggle }: { collapsed: boolean; onToggle: 
 export function AdminShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation("admin");
-  const [user, setUser] = useState<{ id: string; email: string; name?: string; avatarUrl?: string } | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useCollapsed();
@@ -289,42 +300,18 @@ export function AdminShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
     async function run() {
-      try {
-        const activeUser = await getActiveUser();
-        if (!mounted) return;
-        if (!activeUser) {
-          navigate({ to: "/auth" });
-          return;
-        }
-        setUser(activeUser);
-
-        // Super-admin email check
-        const superAdminEmails = [
-          "gplboy2068@gmail.com",
-          ...(process.env.VITE_ADMIN_EMAILS ? process.env.VITE_ADMIN_EMAILS.toLowerCase().split(",") : []),
-        ].map((e) => e.trim().toLowerCase());
-
-        if (activeUser.email && superAdminEmails.includes(activeUser.email.toLowerCase())) {
-          setIsAdmin(true);
-          return;
-        }
-
-        const userIdToQuery = activeUser.isCustomGoogle
-          ? googleIdToUuid(activeUser.id)
-          : activeUser.id;
-
-        const { data: roles } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("role", "admin")
-          .in("user_id", [activeUser.id, userIdToQuery]);
-
-        const hasAdminRole = Array.isArray(roles) && roles.length > 0;
-        setIsAdmin(hasAdminRole);
-      } catch (err) {
-        console.error("Admin auth check error:", err);
-        if (mounted) setIsAdmin(false);
+      const { data } = await supabase.auth.getUser();
+      if (!mounted) return;
+      if (!data.user) {
+        navigate({ to: "/auth" });
+        return;
       }
+      setUser(data.user);
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", data.user.id);
+      setIsAdmin((roles ?? []).some((r) => r.role === "admin"));
     }
     run();
     return () => {
@@ -333,7 +320,6 @@ export function AdminShell({ children }: { children: ReactNode }) {
   }, [navigate]);
 
   async function signOut() {
-    clearCustomSession();
     await supabase.auth.signOut();
     navigate({ to: "/auth" });
   }
@@ -341,11 +327,10 @@ export function AdminShell({ children }: { children: ReactNode }) {
   if (isAdmin === null) {
     return (
       <div className="grid h-dvh place-items-center bg-muted/30 text-sm text-muted-foreground">
-        {t("crud.loading")}
+        Loading admin…
       </div>
     );
   }
-
   if (isAdmin === false) {
     return (
       <div className="grid h-dvh place-items-center bg-muted/30 px-4">
@@ -362,6 +347,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     );
   }
 
+  const crumbs = buildBreadcrumbs(location.pathname);
   const userInitial = (user?.email ?? "?").charAt(0).toUpperCase();
 
   return (
@@ -414,35 +400,76 @@ export function AdminShell({ children }: { children: ReactNode }) {
             <Menu className="size-5" />
           </Button>
 
+          {/* Breadcrumbs */}
+          <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1 text-sm">
+            {crumbs.map((c, i) => {
+              const isLast = i === crumbs.length - 1;
+              return (
+                <div key={c.to} className="flex min-w-0 items-center gap-1">
+                  {i > 0 && (
+                    <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/60" />
+                  )}
+                  {isLast ? (
+                    <span className="truncate font-medium">{c.label}</span>
+                  ) : (
+                    <Link
+                      to={c.to}
+                      className="truncate text-muted-foreground hover:text-foreground"
+                    >
+                      {c.label}
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+          </nav>
+
           <div className="ml-auto flex items-center gap-1.5">
-            <LanguageSwitcher variant="dropdown" />
+            {/* Global search */}
+            <div className="relative hidden md:block">
+              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search…"
+                className="h-9 w-56 rounded-md border-border/60 bg-muted/40 pl-8 text-sm lg:w-72"
+                onChange={(e) => setNavFilter(e.target.value)}
+              />
+              <kbd className="pointer-events-none absolute right-2 top-1/2 hidden -translate-y-1/2 select-none rounded border border-border bg-background px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground lg:inline-block">
+                /
+              </kbd>
+            </div>
 
             {/* Quick actions */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="hidden gap-1 rounded-md sm:flex">
                   <Plus className="size-4" />
-                  <span className="hidden lg:inline">{t("nav.create")}</span>
+                  <span className="hidden lg:inline">New</span>
                   <ChevronDown className="size-3.5" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel>{t("nav.create")}</DropdownMenuLabel>
+                <DropdownMenuLabel>Create</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/admin/blog">{t("nav.newBlogPost")}</Link>
+                  <Link to="/admin/blog">New blog post</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/admin/breeds">{t("nav.newBreed")}</Link>
+                  <Link to="/admin/breeds">New breed</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/admin/foods">{t("nav.newFood")}</Link>
+                  <Link to="/admin/foods">New food</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/admin/faqs">{t("nav.newFaq")}</Link>
+                  <Link to="/admin/faqs">New FAQ</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Notifications */}
+            <Button variant="ghost" size="icon" className="relative" aria-label="Notifications">
+              <Bell className="size-4" />
+              <span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-primary" />
+            </Button>
 
             {/* Theme toggle */}
             <Button
@@ -471,28 +498,28 @@ export function AdminShell({ children }: { children: ReactNode }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>
-                  <div className="text-xs font-normal text-muted-foreground">{t("nav.signedInAs")}</div>
+                  <div className="text-xs font-normal text-muted-foreground">Signed in as</div>
                   <div className="truncate text-sm">{user?.email}</div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/admin/settings">
-                    <Settings className="mr-2 size-4" /> {t("nav.settings")}
+                    <Settings className="mr-2 size-4" /> Settings
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/admin/users">
-                    <UserIcon className="mr-2 size-4" /> {t("nav.users")}
+                    <UserIcon className="mr-2 size-4" /> Users
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <a href="/" target="_blank" rel="noreferrer">
-                    <ExternalLink className="mr-2 size-4" /> {t("nav.viewPublicSite")}
+                    <ExternalLink className="mr-2 size-4" /> View public site
                   </a>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={signOut} className="text-destructive focus:text-destructive">
-                  <LogOut className="mr-2 size-4" /> {t("nav.signOut")}
+                  <LogOut className="mr-2 size-4" /> Sign out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -511,11 +538,15 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
 function AdminFooter() {
   const year = new Date().getFullYear();
+  const env =
+    typeof import.meta !== "undefined" && import.meta.env?.DEV ? "development" : "production";
   return (
     <footer className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-2 px-4 pb-6 pt-2 text-[11px] text-muted-foreground sm:px-6">
       <div>© {year} FurTools Admin</div>
       <div className="flex items-center gap-3">
         <span>v1.0.0</span>
+        <span className="hidden sm:inline">·</span>
+        <span className="capitalize">{env}</span>
       </div>
     </footer>
   );
@@ -545,4 +576,5 @@ export function AdminPageHeader({
   );
 }
 
-export const ADMIN_NAV = ALL_NAV_ITEMS;
+// Backwards-compat export for any code importing ADMIN_NAV
+export const ADMIN_NAV: NavItem[] = ALL_NAV_ITEMS;

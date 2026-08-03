@@ -8,11 +8,10 @@ export const Route = createFileRoute("/ai/$slug")({
   loader: ({ params }) => {
     const a = getAssistant(params.slug);
     if (!a) throw notFound();
-    return { slug: params.slug };
+    return { assistant: a };
   },
   head: ({ loaderData }) => {
-    const slug = loaderData?.slug;
-    const a = slug ? getAssistant(slug) : null;
+    const a = loaderData?.assistant;
     if (!a) {
       return {
         meta: [{ title: "AI Assistant — FurTools" }, { name: "robots", content: "noindex" }],
@@ -51,10 +50,7 @@ export const Route = createFileRoute("/ai/$slug")({
 });
 
 function AiAssistantPage() {
-  const { slug } = Route.useLoaderData();
-  const assistant = getAssistant(slug);
-  if (!assistant) return <AiNotFound />;
-
+  const { assistant } = Route.useLoaderData();
   const Icon = assistant.icon;
   const others = AI_ASSISTANTS.filter((a) => a.slug !== assistant.slug).slice(0, 6);
 

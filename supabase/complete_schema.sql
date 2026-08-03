@@ -105,9 +105,40 @@ CREATE TABLE IF NOT EXISTS public.breeds (
   name TEXT NOT NULL,
   slug TEXT NOT NULL UNIQUE,
   species TEXT NOT NULL,
-  origin TEXT,
-  temperament TEXT[],
-  description TEXT,
+  hero_image TEXT,
+  overview TEXT,
+  history TEXT,
+  temperament_traits TEXT[] DEFAULT '{}',
+  temperament_description TEXT,
+  exercise_level TEXT,
+  exercise_description TEXT,
+  exercise_minutes_per_day INT,
+  weight_min NUMERIC,
+  weight_max NUMERIC,
+  weight_unit TEXT DEFAULT 'lbs',
+  height_min NUMERIC,
+  height_max NUMERIC,
+  height_unit TEXT DEFAULT 'inches',
+  lifespan_min INT,
+  lifespan_max INT,
+  common_diseases JSONB DEFAULT '[]',
+  nutrition TEXT,
+  grooming TEXT,
+  grooming_frequency TEXT,
+  images TEXT[] DEFAULT '{}',
+  faqs JSONB DEFAULT '[]',
+  related_tool_slugs TEXT[] DEFAULT '{}',
+  related_article_slugs TEXT[] DEFAULT '{}',
+  good_with JSONB DEFAULT '{}',
+  origin_country TEXT,
+  breed_group TEXT,
+  coat_type TEXT,
+  coat_colors TEXT[] DEFAULT '{}',
+  size_category TEXT,
+  energy_level TEXT,
+  shedding_level TEXT,
+  trainability TEXT,
+  published BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -122,9 +153,20 @@ CREATE TABLE IF NOT EXISTS public.foods (
   name TEXT NOT NULL,
   slug TEXT NOT NULL UNIQUE,
   category TEXT,
-  safety_status TEXT NOT NULL DEFAULT 'safe',
-  description TEXT,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  image_url TEXT,
+  species_safety JSONB DEFAULT '{}',
+  short_answer TEXT,
+  benefits TEXT,
+  risks TEXT,
+  symptoms TEXT,
+  vet_advice TEXT,
+  alternatives TEXT[] DEFAULT '{}',
+  related_food_slugs TEXT[] DEFAULT '{}',
+  faqs JSONB DEFAULT '[]',
+  keywords TEXT[] DEFAULT '{}',
+  published BOOLEAN NOT NULL DEFAULT false,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.foods TO anon, authenticated, service_role;
 ALTER TABLE public.foods ENABLE ROW LEVEL SECURITY;
@@ -278,6 +320,27 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON public.category_overrides TO anon, authe
 ALTER TABLE public.category_overrides ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Category overrides access" ON public.category_overrides;
 CREATE POLICY "Category overrides access" ON public.category_overrides FOR ALL USING (true) WITH CHECK (true);
+
+-- Affiliate Links
+CREATE TABLE IF NOT EXISTS public.affiliate_links (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  merchant TEXT NOT NULL,
+  product_type TEXT,
+  target_url TEXT NOT NULL,
+  short_slug TEXT UNIQUE,
+  commission_rate NUMERIC,
+  clicks INT NOT NULL DEFAULT 0,
+  enabled BOOLEAN NOT NULL DEFAULT true,
+  notes TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.affiliate_links TO anon, authenticated, service_role;
+ALTER TABLE public.affiliate_links ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Affiliate links access" ON public.affiliate_links;
+CREATE POLICY "Affiliate links access" ON public.affiliate_links FOR ALL USING (true) WITH CHECK (true);
+
 
 -- Helper Function to Grant Admin Access by Email
 CREATE OR REPLACE FUNCTION public.make_user_admin(target_email TEXT)

@@ -3,9 +3,9 @@ import type {} from "@tanstack/react-start";
 import { TOOLS } from "@/data/tools";
 import { CATEGORIES } from "@/data/categories";
 import { supabase } from "@/integrations/supabase/client";
-import { SUPPORTED_LANGUAGES } from "@/lib/i18n-config";
 
-const BASE_URL = "https://www.furtools.com";
+// TODO: replace with the production URL once a project domain is configured.
+const BASE_URL = "";
 
 interface Entry {
   path: string;
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const rawEntries: Entry[] = [
+        const entries: Entry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/categories", changefreq: "weekly", priority: "0.8" },
           { path: "/breeds", changefreq: "weekly", priority: "0.8" },
@@ -37,16 +37,16 @@ export const Route = createFileRoute("/sitemap.xml")({
         ];
 
         for (const c of CATEGORIES) {
-          rawEntries.push({ path: `/categories/${c.slug}`, changefreq: "weekly", priority: "0.7" });
+          entries.push({ path: `/categories/${c.slug}`, changefreq: "weekly", priority: "0.7" });
         }
         for (const t of TOOLS) {
-          rawEntries.push({ path: `/tools/${t.slug}`, changefreq: "monthly", priority: "0.8" });
+          entries.push({ path: `/tools/${t.slug}`, changefreq: "monthly", priority: "0.8" });
         }
 
         // AI assistants
         const { AI_ASSISTANTS } = await import("@/data/ai-assistants");
         for (const a of AI_ASSISTANTS) {
-          rawEntries.push({ path: `/ai/${a.slug}`, changefreq: "monthly", priority: "0.7" });
+          entries.push({ path: `/ai/${a.slug}`, changefreq: "monthly", priority: "0.7" });
         }
 
         try {
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .select("slug,updated_at")
             .eq("published", true);
           for (const b of data ?? []) {
-            rawEntries.push({
+            entries.push({
               path: `/breeds/${b.slug}`,
               lastmod: b.updated_at,
               changefreq: "monthly",
@@ -63,7 +63,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             });
           }
         } catch {
-          // ignore
+          // ignore — breeds sitemap entries optional
         }
 
         try {
@@ -72,7 +72,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .select("slug,updated_at")
             .eq("published", true);
           for (const p of data ?? []) {
-            rawEntries.push({
+            entries.push({
               path: `/blog/${p.slug}`,
               lastmod: p.updated_at,
               changefreq: "monthly",
@@ -80,44 +80,25 @@ export const Route = createFileRoute("/sitemap.xml")({
             });
           }
         } catch {
-          // ignore
+          // ignore — blog is optional in the sitemap
         }
 
-        const urls: string[] = [];
-
-        for (const e of rawEntries) {
-          const clean = e.path === "/" ? "" : e.path;
-
-          for (const lang of SUPPORTED_LANGUAGES.filter((l) => l.isEnabled)) {
-            const loc = `${BASE_URL}/${lang.code.toLowerCase()}${clean}`;
-
-            const hreflangs = SUPPORTED_LANGUAGES.filter((l) => l.isEnabled).map(
-              (alt) =>
-                `    <xhtml:link rel="alternate" hreflang="${alt.code}" href="${BASE_URL}/${alt.code.toLowerCase()}${clean}" />`,
-            );
-            hreflangs.push(
-              `    <xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}/en${clean}" />`,
-            );
-
-            urls.push(
-              [
-                "  <url>",
-                `    <loc>${loc}</loc>`,
-                ...hreflangs,
-                e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
-                e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
-                e.priority ? `    <priority>${e.priority}</priority>` : null,
-                "  </url>",
-              ]
-                .filter(Boolean)
-                .join("\n"),
-            );
-          }
-        }
+        const urls = entries.map((e) =>
+          [
+            "  <url>",
+            `    <loc>${BASE_URL}${e.path}</loc>`,
+            e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
+            e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
+            e.priority ? `    <priority>${e.priority}</priority>` : null,
+            "  </url>",
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        );
 
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
           ...urls,
           "</urlset>",
         ].join("\n");

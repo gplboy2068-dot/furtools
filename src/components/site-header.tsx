@@ -1,40 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
-import { Menu, PawPrint, Search, User, X, LogIn } from "lucide-react";
+import { Menu, PawPrint, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
-import { LanguageSwitcher } from "./language-switcher";
 import { GlobalSearch } from "./global-search";
 import { SITE } from "@/lib/site";
-import { getActiveUser, ActiveUser } from "@/lib/custom-google-auth";
-import { supabase } from "@/integrations/supabase/client";
+
+const NAV = [
+  { to: "/categories", label: "Tools" },
+  { to: "/ai", label: "AI" },
+  { to: "/breeds", label: "Breeds" },
+  { to: "/foods", label: "Foods" },
+  { to: "/names", label: "Names" },
+  { to: "/dashboard", label: "My Pets" },
+  { to: "/blog", label: "Blog" },
+] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [activeUser, setActiveUser] = useState<ActiveUser | null>(null);
   const navigate = useNavigate();
-  const { t } = useTranslation("common");
-
-  useEffect(() => {
-    getActiveUser().then(setActiveUser);
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
-      getActiveUser().then(setActiveUser);
-    });
-    return () => sub.subscription.unsubscribe();
-  }, []);
-
-  const NAV = [
-    { to: "/categories", labelKey: "nav.tools" },
-    { to: "/ai", labelKey: "nav.ai" },
-    { to: "/breeds", labelKey: "nav.breeds" },
-    { to: "/foods", labelKey: "nav.foods" },
-    { to: "/names", labelKey: "nav.names" },
-    { to: "/dashboard", labelKey: "nav.myPets" },
-    { to: "/blog", labelKey: "nav.blog" },
-  ] as const;
-
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
@@ -54,50 +39,26 @@ export function SiteHeader() {
                 activeProps={{ className: "text-foreground bg-accent" }}
                 activeOptions={{ exact: false }}
               >
-                {t(n.labelKey)}
+                {n.label}
               </Link>
             ))}
           </nav>
-          <div className="ml-auto flex items-center gap-1.5">
+          <div className="ml-auto flex items-center gap-1">
             <Button
               variant="ghost"
               size="icon"
               className="rounded-full"
-              aria-label={t("actions.search")}
+              aria-label="Search tools"
               onClick={() => setSearchOpen(true)}
             >
               <Search className="size-5" />
             </Button>
-            <LanguageSwitcher variant="dropdown" />
             <ThemeSwitcher />
-
-            {activeUser ? (
-              <Link to="/dashboard" className="ml-1">
-                <Button variant="outline" size="sm" className="rounded-full gap-1.5 font-medium border-primary/30">
-                  {activeUser.avatarUrl ? (
-                    <img src={activeUser.avatarUrl} alt="" className="size-4.5 rounded-full object-cover" />
-                  ) : (
-                    <User className="size-4 text-primary" />
-                  )}
-                  <span className="max-w-[80px] sm:max-w-[110px] truncate text-xs sm:text-sm">
-                    {activeUser.name || "Account"}
-                  </span>
-                </Button>
-              </Link>
-            ) : (
-              <Link to="/auth" className="ml-1">
-                <Button size="sm" className="rounded-full gap-1.5 font-medium shadow-xs text-xs sm:text-sm px-3.5">
-                  <LogIn className="size-4" />
-                  <span>Sign in</span>
-                </Button>
-              </Link>
-            )}
-
             <Button
               variant="ghost"
               size="icon"
               className="rounded-full md:hidden"
-              aria-label={open ? t("actions.close") : t("actions.filter")}
+              aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((s) => !s)}
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -119,39 +80,10 @@ export function SiteHeader() {
                     activeProps={{ className: "bg-accent" }}
                     activeOptions={{ exact: false }}
                   >
-                    {t(n.labelKey)}
+                    {n.label}
                   </Link>
                 </li>
               ))}
-              <li className="pt-2 border-t border-border/60 mt-2">
-                {activeUser ? (
-                  <Link
-                    to="/dashboard"
-                    className="flex items-center justify-between rounded-lg bg-primary/10 px-3 py-2.5 text-sm font-medium text-primary"
-                  >
-                    <span className="flex items-center gap-2">
-                      {activeUser.avatarUrl ? (
-                        <img src={activeUser.avatarUrl} alt="" className="size-5 rounded-full object-cover" />
-                      ) : (
-                        <User className="size-4" />
-                      )}
-                      {activeUser.name || "My Dashboard"}
-                    </span>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Dashboard</span>
-                  </Link>
-                ) : (
-                  <Link
-                    to="/auth"
-                    className="flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-sm"
-                  >
-                    <LogIn className="size-4" />
-                    <span>Sign in / Create Account</span>
-                  </Link>
-                )}
-              </li>
-              <li className="pt-2">
-                <LanguageSwitcher variant="select" className="w-full" />
-              </li>
             </ul>
           </nav>
         )}

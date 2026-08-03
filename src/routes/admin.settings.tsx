@@ -17,7 +17,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, RotateCcw, Save, Eye, EyeOff, AlertTriangle, Copy, Check, RefreshCw, Database } from "lucide-react";
+import { Loader2, RotateCcw, Save, Eye, EyeOff } from "lucide-react";
 import {
   SETTINGS_SECTIONS,
   getDefaults,
@@ -279,91 +279,40 @@ function SectionForm({
   );
 }
 
-const SETUP_SQL = `-- Run this in your Supabase SQL Editor:
-CREATE TABLE IF NOT EXISTS public.site_settings (
-  key text PRIMARY KEY,
-  value jsonb NOT NULL DEFAULT '{}'::jsonb,
-  category text NOT NULL DEFAULT 'general',
-  description text,
-  updated_at timestamptz NOT NULL DEFAULT now(),
-  updated_by uuid REFERENCES auth.users(id) ON DELETE SET NULL
-);
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.site_settings TO anon, authenticated, service_role;
-
-ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "Anyone can read settings" ON public.site_settings;
-DROP POLICY IF EXISTS "Admins manage settings" ON public.site_settings;
-DROP POLICY IF EXISTS "Site settings access" ON public.site_settings;
-DROP POLICY IF EXISTS "Allow all site_settings" ON public.site_settings;
-
-CREATE POLICY "Allow all site_settings" ON public.site_settings
-  FOR ALL
-  USING (true)
-  WITH CHECK (true);
-
-NOTIFY pgrst, 'reload schema';`;
-
 function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [tableMissing, setTableMissing] = useState(false);
-  const [rlsError, setRlsError] = useState(false);
-  const [copiedSql, setCopiedSql] = useState(false);
   const [values, setValues] = useState<Values>(() => getDefaults());
   const [initialValues, setInitialValues] = useState<Values>(() => getDefaults());
 
-  async function loadSettings() {
-    setLoading(true);
-    const { data, error } = await supabase.from("site_settings").select("key, value");
-    if (error) {
-      const isMissing =
-        error.message?.includes("site_settings") ||
-        error.message?.includes("schema cache") ||
-        error.code === "PGRST204" ||
-        error.code === "42P01";
-      if (isMissing) {
-        setTableMissing(true);
-      } else {
-        toast.error(`Failed to load settings: ${error.message}`);
-      }
-      setLoading(false);
-      return;
-    }
-    setTableMissing(false);
-    setRlsError(false);
-    const base = getDefaults();
-    for (const row of data ?? []) {
-      base[row.key] = (row as { value: unknown }).value;
-    }
-    setValues(base);
-    setInitialValues(JSON.parse(JSON.stringify(base)));
-    setLoading(false);
-  }
-
   useEffect(() => {
-    loadSettings();
+    let mounted = true;
+    (async () => {
+      const { data, error } = await supabase.from("site_settings").select("key, value");
+      if (!mounted) return;
+      if (error) {
+        toast.error(`Failed to load settings: ${error.message}`);
+        setLoading(false);
+        return;
+      }
+      const base = getDefaults();
+      for (const row of data ?? []) {
+        base[row.key] = (row as { value: unknown }).value;
+      }
+      setValues(base);
+      setInitialValues(JSON.parse(JSON.stringify(base)));
+      setLoading(false);
+    })();
+    return () => {
+      mounted = false;
+    };
   }, []);
-
-  function handleCopySql() {
-    navigator.clipboard.writeText(SETUP_SQL);
-    setCopiedSql(true);
-    toast.success("SQL script copied to clipboard!");
-    setTimeout(() => setCopiedSql(false), 2500);
-  }
 
   function updateValue(key: string, v: unknown) {
     setValues((prev) => ({ ...prev, [key]: v }));
   }
 
   async function saveSection(section: SettingSection) {
-    if (tableMissing) {
-      toast.error("Cannot save settings because table 'public.site_settings' is missing.", {
-        description: "Please run the provided SQL script in your Supabase SQL Editor first.",
-      });
-      return;
-    }
     setSaving(true);
     try {
       const { data: auth } = await supabase.auth.getUser();
@@ -398,27 +347,13 @@ function SettingsPage() {
         .from("site_settings")
         .upsert(rows as never, { onConflict: "key" });
       if (error) throw error;
-      setRlsError(false);
       const next = { ...initialValues };
       for (const r of rows) next[r.key] = r.value;
       setInitialValues(next);
       toast.success(`Saved ${rows.length} setting${rows.length === 1 ? "" : "s"} in ${section.label}`);
     } catch (e) {
-      const msg =
-        e instanceof Error
-          ? e.message
-          : typeof e === "object" && e && "message" in e
-          ? String((e as { message?: string }).message)
-          : String(e);
-
-      if (msg.toLowerCase().includes("row-level security") || msg.toLowerCase().includes("policy")) {
-        setRlsError(true);
-        toast.error("Save failed: Row Level Security (RLS) policy restriction.", {
-          description: "Run the provided SQL script in your Supabase SQL Editor to grant write access.",
-        });
-      } else {
-        toast.error(`Save failed: ${msg}`);
-      }
+      const msg = e instanceof Error ? e.message : "Unknown error";
+      toast.error(`Save failed: ${msg}`);
     } finally {
       setSaving(false);
     }
@@ -449,43 +384,6 @@ function SettingsPage() {
           Configure the entire platform. All values are stored in the database and applied dynamically.
         </p>
       </div>
-
-      {(tableMissing || rlsError) && (
-        <Card className="mb-6 border-amber-500/50 bg-amber-500/10">
-          <CardHeader className="pb-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
-                <AlertTriangle className="h-5 w-5 shrink-0" />
-                <CardTitle className="text-base font-semibold">
-                  {tableMissing ? "Database Table 'public.site_settings' Missing" : "Row Level Security (RLS) Permission Required"}
-                </CardTitle>
-              </div>
-              <Button size="sm" variant="outline" onClick={loadSettings} disabled={loading}>
-                <RefreshCw className={`mr-1.5 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} /> Retry Sync
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <p className="text-muted-foreground">
-              {tableMissing
-                ? "The table public.site_settings was not found in your Supabase database. Run this script in your Supabase SQL Editor to create it:"
-                : "Your Supabase RLS policy currently restricts writing to public.site_settings. Run this script in your Supabase SQL Editor to update write permissions:"}
-            </p>
-            <div className="relative rounded-md bg-muted p-3 font-mono text-xs overflow-x-auto">
-              <pre className="text-foreground">{SETUP_SQL}</pre>
-              <Button
-                size="sm"
-                variant="secondary"
-                className="absolute top-2 right-2 flex items-center gap-1 text-xs"
-                onClick={handleCopySql}
-              >
-                {copiedSql ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
-                {copiedSql ? "Copied" : "Copy SQL"}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
 
       <Tabs defaultValue={SETTINGS_SECTIONS[0].id} className="w-full">
         <div className="sticky top-0 z-10 -mx-2 overflow-x-auto bg-background/95 px-2 pb-3 pt-1 backdrop-blur">

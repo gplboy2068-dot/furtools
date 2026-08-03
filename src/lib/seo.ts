@@ -1,7 +1,6 @@
+// Centralized programmatic SEO metadata builder.
+// Every shareable route uses buildHead() to guarantee title/description/OG/Twitter/canonical parity.
 import { SITE } from "@/lib/site";
-import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from "./i18n-config";
-import i18n from "./i18n";
-import { generateHreflangTags } from "./i18n-routes";
 
 export interface HeadInput {
   title: string;
@@ -14,7 +13,6 @@ export interface HeadInput {
   modifiedTime?: string;
   keywords?: string[];
   noindex?: boolean;
-  targetLang?: string;
   // extra meta / links / scripts to merge in
   extraMeta?: Array<Record<string, string>>;
   extraLinks?: Array<Record<string, string>>;
@@ -30,21 +28,14 @@ export interface HeadFragment {
 const clamp = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s);
 
 /**
- * Build a full head fragment: title, description, canonical, OG, Twitter, JSON-LD, hreflang.
+ * Build a full head fragment: title, description, canonical, OG, Twitter, JSON-LD.
  * Route head() spreads this: `head: () => buildHead({...})`.
  */
 export function buildHead(input: HeadInput): HeadFragment {
-  const currentLang = input.targetLang || i18n.language || DEFAULT_LANGUAGE;
-  const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://www.furtools.com";
-  const cleanPath = input.path.split("?")[0].replace(/^\/(?:[a-z]{2}(?:-[A-Z]{2})?)/i, '').replace(/^\/+/, '');
-  const canonicalUrl = `${baseUrl}/${cleanPath}${currentLang !== DEFAULT_LANGUAGE ? `?lang=${currentLang}` : ''}`;
-  const localeFormatted = currentLang.includes("-")
-    ? currentLang.replace("-", "_")
-    : `${currentLang}_${currentLang.toUpperCase()}`;
-
   const title = clamp(input.title, 60);
   const description = clamp(input.description, 158);
   const type = input.type ?? "website";
+  const url = input.path;
 
   const meta: Array<Record<string, string>> = [
     { title },
@@ -56,9 +47,9 @@ export function buildHead(input: HeadInput): HeadFragment {
     { property: "og:type", content: type },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
-    { property: "og:url", content: canonicalUrl },
+    { property: "og:url", content: url },
     { property: "og:site_name", content: SITE.name },
-    { property: "og:locale", content: localeFormatted },
+    { property: "og:locale", content: "en_US" },
     ...(input.image ? [{ property: "og:image", content: input.image }] : []),
     ...(input.image && input.imageAlt ? [{ property: "og:image:alt", content: input.imageAlt }] : []),
     ...(input.publishedTime ? [{ property: "article:published_time", content: input.publishedTime }] : []),
@@ -75,8 +66,7 @@ export function buildHead(input: HeadInput): HeadFragment {
   ];
 
   const links: Array<Record<string, string>> = [
-    { rel: "canonical", href: canonicalUrl },
-    ...generateHreflangTags(cleanPath),
+    { rel: "canonical", href: url },
     ...(input.extraLinks ?? []),
   ];
 

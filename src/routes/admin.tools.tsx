@@ -5,7 +5,6 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
@@ -44,29 +43,15 @@ function ToolsAdmin() {
   const [editing, setEditing] = useState<string | null>(null);
   const [form, setForm] = useState<Partial<ToolOverride>>({});
   const [confirmRemove, setConfirmRemove] = useState<string | null>(null);
-  const [missingTable, setMissingTable] = useState(false);
 
   const load = async () => {
     setLoading(true);
-    setMissingTable(false);
-    try {
-      const { data, error } = await supabase.from("tool_overrides").select("*");
-      if (error) {
-        if (error.code === "PGRST204" || error.message.includes("schema cache") || error.message.includes("relation")) {
-          setMissingTable(true);
-        } else {
-          toast.error(error.message);
-        }
-      } else {
-        const map: Record<string, ToolOverride> = {};
-        (data ?? []).forEach((r) => (map[r.slug] = r));
-        setOverrides(map);
-      }
-    } catch {
-      setMissingTable(true);
-    } finally {
-      setLoading(false);
-    }
+    const { data, error } = await supabase.from("tool_overrides").select("*");
+    if (error) toast.error(error.message);
+    const map: Record<string, ToolOverride> = {};
+    (data ?? []).forEach((r) => (map[r.slug] = r));
+    setOverrides(map);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -167,62 +152,6 @@ function ToolsAdmin() {
         title="Tools"
         description={`${TOOLS.length} tools · ${featuredCount} featured · ${disabledCount} hidden. Edit any tool's title, description, SEO, or remove it from the site.`}
       />
-
-      {missingTable && (
-        <Card className="mb-6 border-amber-500/40 bg-amber-500/10">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base text-amber-700 dark:text-amber-400">
-              Database Table 'tool_overrides' Missing
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>
-              The <code className="font-mono text-xs">tool_overrides</code> table does not exist in your Supabase schema cache yet. Run the SQL below in your Supabase SQL Editor to create it:
-            </p>
-            <pre className="overflow-x-auto rounded-lg bg-muted p-3 text-xs font-mono text-foreground">
-{`CREATE TABLE IF NOT EXISTS public.tool_overrides (
-  slug TEXT PRIMARY KEY,
-  title_override TEXT,
-  description_override TEXT,
-  seo_title TEXT,
-  seo_description TEXT,
-  featured BOOLEAN NOT NULL DEFAULT false,
-  disabled BOOLEAN NOT NULL DEFAULT false,
-  sort_order INT NOT NULL DEFAULT 0,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.tool_overrides TO anon, authenticated, service_role;
-ALTER TABLE public.tool_overrides ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS "Tool overrides access" ON public.tool_overrides;
-CREATE POLICY "Tool overrides access" ON public.tool_overrides FOR ALL USING (true) WITH CHECK (true);`}
-            </pre>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                navigator.clipboard.writeText(`CREATE TABLE IF NOT EXISTS public.tool_overrides (
-  slug TEXT PRIMARY KEY,
-  title_override TEXT,
-  description_override TEXT,
-  seo_title TEXT,
-  seo_description TEXT,
-  featured BOOLEAN NOT NULL DEFAULT false,
-  disabled BOOLEAN NOT NULL DEFAULT false,
-  sort_order INT NOT NULL DEFAULT 0,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.tool_overrides TO anon, authenticated, service_role;
-ALTER TABLE public.tool_overrides ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS "Tool overrides access" ON public.tool_overrides;
-CREATE POLICY "Tool overrides access" ON public.tool_overrides FOR ALL USING (true) WITH CHECK (true);`);
-                toast.success("SQL copied to clipboard!");
-              }}
-            >
-              Copy Setup SQL
-            </Button>
-          </CardContent>
-        </Card>
-      )}
 
       <div className="mb-4 flex items-center gap-2">
         <div className="relative flex-1">

@@ -3,13 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Tool } from "@/data/tools";
 
-import { useTranslation } from "react-i18next";
-
 export function ToolCard({ tool }: { tool: Tool }) {
-  const { t } = useTranslation(["tools", "common"]);
-  const toolName = t(`tools:${tool.slug}.name`, tool.name);
-  const toolTagline = t(`tools:${tool.slug}.tagline`, tool.tagline);
-
   return (
     <Link
       to="/tools/$slug"
@@ -21,10 +15,10 @@ export function ToolCard({ tool }: { tool: Tool }) {
           <div className="text-xs font-medium uppercase tracking-wider text-primary">
             {tool.layout}
           </div>
-          <h3 className="font-display text-lg font-semibold leading-tight">{toolName}</h3>
-          <p className="text-sm text-muted-foreground">{toolTagline}</p>
+          <h3 className="font-display text-lg font-semibold leading-tight">{tool.name}</h3>
+          <p className="text-sm text-muted-foreground">{tool.tagline}</p>
           <div className="mt-auto flex items-center gap-1 text-sm font-medium text-primary">
-            {t("common:actions.openTool", "Open tool")} <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+            Open tool <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
           </div>
         </CardContent>
       </Card>

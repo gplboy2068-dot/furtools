@@ -116,8 +116,6 @@ export const Route = createFileRoute("/breeds/$slug")({
   ),
 });
 
-import { useLocalizedRecord } from "@/lib/i18n-db";
-
 function BreedPage() {
   return (
     <Suspense fallback={<div className="mx-auto max-w-5xl px-4 py-14"><div className="h-96 animate-pulse rounded-2xl bg-muted" /></div>}>
@@ -129,7 +127,7 @@ function BreedPage() {
 function BreedBody() {
   const { slug } = Route.useParams();
   const { data } = useSuspenseQuery(breedDetailQuery(slug));
-  const breed = (useLocalizedRecord(data) || data) as BreedRow;
+  const breed = data as BreedRow;
   const species = getSpecies(breed.species);
 
   return (

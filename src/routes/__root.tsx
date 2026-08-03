@@ -7,11 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, type ReactNode } from "react";
 
-import i18n from "@/lib/i18n";
-import { generateHreflangTags } from "@/lib/i18n-routes";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
@@ -22,19 +19,18 @@ import { SITE } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 
 function NotFoundComponent() {
-  const { t } = useTranslation(["errors", "common"]);
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 py-16 text-center">
       <div className="font-display text-7xl font-semibold text-primary">404</div>
-      <h1 className="mt-4 font-display text-2xl font-semibold">{t("errors:notFoundTitle")}</h1>
+      <h1 className="mt-4 font-display text-2xl font-semibold">This page ran off-leash</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        {t("errors:notFoundDesc")}
+        We couldn't find what you were looking for. Try one of the popular tools instead.
       </p>
       <a
         href="/"
         className="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
       >
-        {t("errors:goHome")}
+        Take me home
       </a>
     </div>
   );
@@ -43,17 +39,14 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  const { t } = useTranslation(["errors", "common"]);
-
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
-
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 py-16 text-center">
-      <h1 className="font-display text-2xl font-semibold">{t("errors:somethingWentWrong")}</h1>
+      <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        {t("errors:errorDesc")}
+        The page didn't load. You can retry or head back home.
       </p>
       <div className="mt-6 flex gap-2">
         <button
@@ -63,53 +56,20 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           }}
           className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
-          {t("common:actions.retry")}
+          Try again
         </button>
         <a
           href="/"
           className="rounded-full border border-input bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent"
         >
-          {t("errors:goHome")}
+          Go home
         </a>
       </div>
     </div>
   );
 }
 
-import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from "@/lib/i18n-config";
-
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: ({ location }) => {
-    if (typeof window !== "undefined") {
-      const searchParams = new URLSearchParams(location.search);
-      const segments = location.pathname.split("/").filter(Boolean);
-
-      if (segments.length > 0) {
-        const firstSeg = segments[0].toLowerCase();
-        const matched = SUPPORTED_LANGUAGES.find(
-          (l) => l.isEnabled && (l.code.toLowerCase() === firstSeg || l.code.split("-")[0].toLowerCase() === firstSeg)
-        );
-
-        if (matched) {
-          const restSegments = segments.slice(1);
-          const cleanPath = restSegments.length ? `/${restSegments.join("/")}` : "/";
-          searchParams.set("lang", matched.code);
-          const searchStr = searchParams.toString() ? `?${searchParams.toString()}` : "";
-          const targetUrl = `${cleanPath}${searchStr}`;
-
-          window.location.replace(targetUrl);
-          return;
-        }
-      }
-
-      const langParam = searchParams.get("lang");
-      const activeLang = langParam || localStorage.getItem("furtools_lang") || i18n.language || DEFAULT_LANGUAGE;
-      if (activeLang && i18n.language !== activeLang) {
-        i18n.changeLanguage(activeLang);
-        document.documentElement.lang = activeLang;
-      }
-    }
-  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -127,10 +87,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      ...generateHreflangTags("/"),
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700&display=swap",
+      },
+      { rel: "alternate", type: "application/rss+xml", title: `${SITE.name} Blog`, href: "/rss.xml" },
+      { rel: "sitemap", type: "application/xml", href: "/sitemap-index.xml" },
     ],
     scripts: [
       {
@@ -150,36 +114,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState(i18n.language || 'en');
-  const [dir, setDir] = useState(i18n.dir() || 'ltr');
-
-  useEffect(() => {
-    const handleLangChange = (newLang: string) => {
-      setLang(newLang);
-      setDir(i18n.dir(newLang));
-    };
-    i18n.on('languageChanged', handleLangChange);
-
-    const onCustomEvent = () => {
-      const current = i18n.language || 'en';
-      setLang(current);
-      setDir(i18n.dir(current));
-    };
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('furtools_lang_changed', onCustomEvent);
-    }
-
-    return () => {
-      i18n.off('languageChanged', handleLangChange);
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('furtools_lang_changed', onCustomEvent);
-      }
-    };
-  }, []);
-
   return (
-    <html lang={lang} dir={dir}>
+    <html lang="en">
       <head>
         <HeadContent />
       </head>

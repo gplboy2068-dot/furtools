@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -17,41 +15,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2, AlertTriangle, Copy, Check, RefreshCw } from "lucide-react";
+import { Plus, Pencil, Trash2 } from "lucide-react";
 import type { Database } from "@/integrations/supabase/types";
-
-function getSetupSql(tableName: string): string {
-  if (tableName === "internal_links") {
-    return `-- Run this in your Supabase SQL Editor to create internal_links table:
-CREATE TABLE IF NOT EXISTS public.internal_links (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  keyword TEXT NOT NULL,
-  target_url TEXT NOT NULL,
-  title TEXT,
-  enabled BOOLEAN NOT NULL DEFAULT true,
-  priority INT NOT NULL DEFAULT 0,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.internal_links TO anon, authenticated, service_role;
-ALTER TABLE public.internal_links ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS "Internal links full access" ON public.internal_links;
-CREATE POLICY "Internal links full access" ON public.internal_links FOR ALL USING (true) WITH CHECK (true);`;
-  }
-
-  return `-- Run this in your Supabase SQL Editor to create ${tableName} table:
-CREATE TABLE IF NOT EXISTS public.${tableName} (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.${tableName} TO anon, authenticated, service_role;
-ALTER TABLE public.${tableName} ENABLE ROW LEVEL SECURITY;
-DROP POLICY IF EXISTS "${tableName} full access" ON public.${tableName};
-CREATE POLICY "${tableName} full access" ON public.${tableName} FOR ALL USING (true) WITH CHECK (true);`;
-}
 
 type TableName = keyof Database["public"]["Tables"];
 
@@ -81,7 +46,7 @@ interface CrudManagerProps<T> {
   defaults?: Record<string, unknown>;
   entityLabel: string;
   emptyMessage?: string;
-  pk?: string;
+  pk?: string; // primary key column name, default "id"
   transformIn?: (raw: Record<string, unknown>) => Record<string, unknown>;
   transformOut?: (row: T) => Record<string, unknown>;
 }
@@ -93,23 +58,19 @@ export function CrudManager<T>({
   orderBy,
   defaults = {},
   entityLabel,
-  emptyMessage,
+  emptyMessage = "No records yet.",
   pk = "id",
   transformIn,
   transformOut,
 }: CrudManagerProps<T>) {
-  const { t } = useTranslation("admin");
   const [rows, setRows] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<T | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState<Record<string, unknown>>({});
-  const [tableError, setTableError] = useState<string | null>(null);
-  const [copiedSql, setCopiedSql] = useState(false);
 
   async function load() {
     setLoading(true);
-    setTableError(null);
     const client = supabase as unknown as {
       from: (t: string) => {
         select: (c: string) => { order: (col: string, opts: { ascending: boolean }) => Promise<{ data: unknown; error: { message: string } | null }> } & Promise<{ data: unknown; error: { message: string } | null }>;
@@ -119,15 +80,7 @@ export function CrudManager<T>({
     const result = orderBy
       ? await query.order(orderBy.column, { ascending: orderBy.ascending ?? true })
       : await query;
-    if (result.error) {
-      if (result.error.message.includes("schema cache") || result.error.message.includes("does not exist")) {
-        setTableError(result.error.message);
-      } else {
-        toast.error(result.error.message);
-      }
-    } else {
-      setTableError(null);
-    }
+    if (result.error) toast.error(result.error.message);
     setRows(((result.data as T[]) ?? []) as T[]);
     setLoading(false);
   }
@@ -154,7 +107,7 @@ export function CrudManager<T>({
     const payload = transformIn ? transformIn(form) : form;
     for (const f of fields) {
       if (f.required && (payload[f.name] === undefined || payload[f.name] === "" || payload[f.name] === null)) {
-        toast.error(t("crud.requiredField", { field: f.label }));
+        toast.error(`${f.label} is required`);
         return;
       }
     }
@@ -163,90 +116,41 @@ export function CrudManager<T>({
     if (editing) {
       const { error } = await loose.update(payload).eq(pk, (editing as Record<string, unknown>)[pk]);
       if (error) return toast.error(error.message);
-      toast.success(t("crud.recordUpdated", { entity: entityLabel }));
+      toast.success(`${entityLabel} updated`);
     } else {
       const { error } = await loose.insert(payload);
       if (error) return toast.error(error.message);
-      toast.success(t("crud.recordCreated", { entity: entityLabel }));
+      toast.success(`${entityLabel} created`);
     }
     setDialogOpen(false);
     await load();
   }
 
   async function remove(id: string) {
-    if (!confirm(t("crud.deleteConfirm", { entity: entityLabel.toLowerCase() }))) return;
+    if (!confirm(`Delete this ${entityLabel.toLowerCase()}?`)) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const loose = supabase.from(table) as any;
     const { error } = await loose.delete().eq("id", id);
     if (error) return toast.error(error.message);
-    toast.success(t("crud.recordDeleted", { entity: entityLabel }));
+    toast.success(`${entityLabel} deleted`);
     await load();
   }
 
-  function handleCopySql(sqlText: string) {
-    navigator.clipboard.writeText(sqlText);
-    setCopiedSql(true);
-    toast.success("SQL copied to clipboard!");
-    setTimeout(() => setCopiedSql(false), 2000);
-  }
-
-  const defaultEmptyMsg = emptyMessage || t("crud.noRecords");
-
   return (
     <>
-      {tableError && (
-        <Card className="mb-6 border-amber-500/40 bg-amber-500/5 dark:border-amber-500/30 dark:bg-amber-500/10">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base font-semibold text-amber-600 dark:text-amber-400">
-              <span className="flex items-center gap-2">
-                <AlertTriangle className="size-5" />
-                Table "{table}" Missing in Supabase Database
-              </span>
-              <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-full gap-1 text-xs"
-                  onClick={() => handleCopySql(getSetupSql(table))}
-                >
-                  {copiedSql ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5" />}
-                  {copiedSql ? "Copied!" : "Copy Setup SQL"}
-                </Button>
-                <Button size="sm" variant="default" className="rounded-full gap-1 text-xs" onClick={load}>
-                  <RefreshCw className="size-3.5" />
-                  Retry
-                </Button>
-              </div>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-xs text-muted-foreground">
-              Run this SQL query in your <strong>Supabase SQL Editor</strong> to create the <code>{table}</code> table:
-            </p>
-            <pre className="max-h-52 overflow-x-auto rounded-lg bg-black/85 p-3.5 text-xs text-emerald-400 font-mono leading-relaxed">
-              {getSetupSql(table)}
-            </pre>
-          </CardContent>
-        </Card>
-      )}
-
       <div className="mb-4 flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
-          {loading ? t("crud.loading") : `${rows.length} ${entityLabel.toLowerCase()}${rows.length === 1 ? "" : "s"}`}
+          {loading ? "Loading…" : `${rows.length} ${entityLabel.toLowerCase()}${rows.length === 1 ? "" : "s"}`}
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="rounded-full" onClick={openNew}>
-              <Plus className="size-4" /> {t("crud.newRecord", { entity: entityLabel.toLowerCase() })}
+              <Plus className="size-4" /> New {entityLabel.toLowerCase()}
             </Button>
           </DialogTrigger>
           <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>
-                {editing
-                  ? t("crud.editRecord", { entity: entityLabel.toLowerCase() })
-                  : t("crud.newRecord", { entity: entityLabel.toLowerCase() })}
-              </DialogTitle>
+              <DialogTitle>{editing ? `Edit ${entityLabel.toLowerCase()}` : `New ${entityLabel.toLowerCase()}`}</DialogTitle>
             </DialogHeader>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {fields.map((f) => (
@@ -258,8 +162,8 @@ export function CrudManager<T>({
               ))}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setDialogOpen(false)}>{t("crud.cancel")}</Button>
-              <Button onClick={save}>{editing ? t("crud.saveChanges") : t("crud.create")}</Button>
+              <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
+              <Button onClick={save}>{editing ? "Save changes" : "Create"}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -267,7 +171,7 @@ export function CrudManager<T>({
 
       <div className="overflow-hidden rounded-2xl border border-border bg-background">
         {rows.length === 0 && !loading ? (
-          <div className="p-10 text-center text-muted-foreground">{defaultEmptyMsg}</div>
+          <div className="p-10 text-center text-muted-foreground">{emptyMessage}</div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -276,7 +180,7 @@ export function CrudManager<T>({
                   {columns.map((c) => (
                     <th key={c.key} className={`px-4 py-3 ${c.className ?? ""}`}>{c.header}</th>
                   ))}
-                  <th className="px-4 py-3 text-right">{t("crud.actions")}</th>
+                  <th className="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -284,7 +188,7 @@ export function CrudManager<T>({
                   <tr key={String((r as Record<string, unknown>)[pk])} className="border-t border-border">
                     {columns.map((c) => (
                       <td key={c.key} className={`px-4 py-3 align-top ${c.className ?? ""}`}>
-                        {c.render ? c.render(r) : formatCell((r as Record<string, unknown>)[c.key], t)}
+                        {c.render ? c.render(r) : formatCell((r as Record<string, unknown>)[c.key])}
                       </td>
                     ))}
                     <td className="px-4 py-3 text-right">
@@ -308,9 +212,9 @@ export function CrudManager<T>({
   );
 }
 
-function formatCell(v: unknown, t: (k: string) => string): ReactNode {
+function formatCell(v: unknown): ReactNode {
   if (v === null || v === undefined) return <span className="text-muted-foreground">—</span>;
-  if (typeof v === "boolean") return <Badge variant={v ? "default" : "secondary"}>{v ? t("crud.yes") : t("crud.no")}</Badge>;
+  if (typeof v === "boolean") return <Badge variant={v ? "default" : "secondary"}>{v ? "Yes" : "No"}</Badge>;
   if (Array.isArray(v)) return v.join(", ");
   if (typeof v === "object") return <code className="text-xs">{JSON.stringify(v).slice(0, 60)}…</code>;
   const s = String(v);
@@ -327,8 +231,6 @@ function FieldInput({
   value: unknown;
   onChange: (v: unknown) => void;
 }) {
-  const { t } = useTranslation("admin");
-
   if (f.type === "textarea") {
     return (
       <Textarea
@@ -380,7 +282,7 @@ function FieldInput({
         onChange={(e) => onChange(e.target.value)}
         className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
       >
-        <option value="">{t("crud.select")}</option>
+        <option value="">Select…</option>
         {f.options?.map((o) => (
           <option key={o.value} value={o.value}>{o.label}</option>
         ))}

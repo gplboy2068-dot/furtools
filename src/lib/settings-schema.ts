@@ -263,15 +263,15 @@ export const SETTINGS_SECTIONS: SettingSection[] = [
     id: "ai",
     label: "AI",
     fields: [
-      { key: "ai.openai_key", label: "OpenAI API Key", type: "password", secret: true, placeholder: "sk-..." },
-      { key: "ai.gemini_key", label: "Gemini API Key", type: "password", secret: true, placeholder: "AIzaSy..." },
-      { key: "ai.anthropic_key", label: "Anthropic API Key", type: "password", secret: true, placeholder: "sk-ant-..." },
+      { key: "ai.openai_key", label: "OpenAI API Key", type: "password", secret: true },
+      { key: "ai.gemini_key", label: "Gemini API Key", type: "password", secret: true },
+      { key: "ai.anthropic_key", label: "Anthropic API Key", type: "password", secret: true },
       { key: "ai.deepseek_key", label: "DeepSeek API Key", type: "password", secret: true, placeholder: "sk-..." },
-      { key: "ai.openrouter_key", label: "OpenRouter API Key", type: "password", secret: true, placeholder: "sk-or-v1-..." },
       { key: "ai.deepseek_base_url", label: "DeepSeek Base URL", type: "text", defaultValue: "https://api.deepseek.com/v1", placeholder: "https://api.deepseek.com/v1" },
       { key: "ai.deepseek_model", label: "DeepSeek Default Model", type: "select", options: [
         { value: "deepseek-chat", label: "deepseek-chat (V3)" },
         { value: "deepseek-reasoner", label: "deepseek-reasoner (R1)" },
+        { value: "deepseek-v4", label: "deepseek-v4 (V4)" },
       ], defaultValue: "deepseek-chat" },
       { key: "ai.default_provider", label: "Default AI Provider", type: "select", options: [
         { value: "lovable", label: "Lovable AI Gateway" },
@@ -279,7 +279,6 @@ export const SETTINGS_SECTIONS: SettingSection[] = [
         { value: "gemini", label: "Google Gemini" },
         { value: "anthropic", label: "Anthropic Claude" },
         { value: "deepseek", label: "DeepSeek" },
-        { value: "openrouter", label: "OpenRouter" },
       ], defaultValue: "lovable" },
       { key: "ai.default_model", label: "Default Model", type: "text", defaultValue: "google/gemini-2.5-flash" },
       { key: "ai.temperature", label: "Temperature", type: "number", min: 0, max: 2, step: 0.1, defaultValue: 0.7 },
