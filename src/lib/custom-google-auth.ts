@@ -204,13 +204,15 @@ export function getGoogleOAuthUrl(clientId: string, redirectUri: string): string
   return `${rootUrl}?${qs.toString()}`;
 }
 
-export function handleGoogleRedirectResult(): boolean {
+export async function handleGoogleRedirectResult(): Promise<boolean> {
   if (typeof window === 'undefined') return false;
   try {
     const hash = window.location.hash.substring(1);
-    if (!hash) return false;
-    const params = new URLSearchParams(hash);
+    const search = window.location.search.substring(1);
+    const params = new URLSearchParams(hash || search);
     const idToken = params.get('id_token');
+    const accessToken = params.get('access_token');
+
     if (idToken) {
       const profile = decodeGoogleJwt(idToken);
       if (profile) {
@@ -218,9 +220,34 @@ export function handleGoogleRedirectResult(): boolean {
         return true;
       }
     }
+
+    if (accessToken) {
+      try {
+        const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        if (res.ok) {
+          const info = await res.json();
+          const profile: GoogleUserProfile = {
+            googleId: info.sub,
+            email: info.email,
+            name: info.name || info.email,
+            picture: info.picture || '',
+            givenName: info.given_name,
+            familyName: info.family_name,
+            emailVerified: info.email_verified,
+          };
+          saveCustomSession(profile, accessToken);
+          return true;
+        }
+      } catch (err) {
+        console.error('Failed to fetch Google userinfo:', err);
+      }
+    }
   } catch (e) {
-    console.error('Failed to parse Google redirect hash:', e);
+    console.error('Failed to parse Google redirect params:', e);
   }
   return false;
 }
+
 

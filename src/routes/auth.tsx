@@ -27,14 +27,16 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    // Check if returning from Google OAuth redirect with hash parameters
-    if (handleGoogleRedirectResult()) {
-      navigate({ to: "/dashboard" });
-      return;
-    }
+    // Check if returning from Google OAuth redirect with hash/query parameters
+    handleGoogleRedirectResult().then((isSuccess) => {
+      if (isSuccess) {
+        navigate({ to: "/dashboard" });
+        return;
+      }
 
-    getActiveUser().then((user) => {
-      if (user) navigate({ to: "/dashboard" });
+      getActiveUser().then((user) => {
+        if (user) navigate({ to: "/dashboard" });
+      });
     });
 
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
@@ -43,6 +45,7 @@ function AuthPage() {
 
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
+
 
 
   async function submit(e: React.FormEvent) {

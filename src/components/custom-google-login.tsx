@@ -128,14 +128,19 @@ export function CustomGoogleLogin({
     setLoading(true);
     try {
       // 1. Try Supabase OAuth redirect first
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: window.location.origin + '/dashboard',
         },
       });
 
-      if (error) {
+      if (data?.url) {
+        window.location.href = data.url;
+        return;
+      }
+
+      if (error || !data?.url) {
         // 2. Direct Google OAuth fallback window
         const redirectUri = window.location.origin + '/auth';
         window.location.href = getGoogleOAuthUrl(clientId, redirectUri);
@@ -143,10 +148,9 @@ export function CustomGoogleLogin({
     } catch {
       const redirectUri = window.location.origin + '/auth';
       window.location.href = getGoogleOAuthUrl(clientId, redirectUri);
-    } finally {
-      setLoading(false);
     }
   };
+
 
 
   return (
