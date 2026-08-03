@@ -66,10 +66,11 @@ function DashboardIndex() {
           </p>
         </div>
       </header>
-      {user ? <PetsList userId={user.id} /> : <SignedOut />}
+      {activeUser ? <PetsList userId={activeUser.id} /> : <SignedOut />}
     </div>
   );
 }
+
 
 function SignedOut() {
   return (

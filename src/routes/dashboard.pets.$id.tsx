@@ -46,17 +46,21 @@ interface Pet {
   species_data: Record<string, unknown> | null;
 }
 
+import { getActiveUser, type ActiveUser } from "@/lib/custom-google-auth";
+
 function PetDetailPage() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
-  const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [activeUser, setActiveUser] = useState<ActiveUser | null | undefined>(undefined);
   const [pet, setPet] = useState<Pet | null | undefined>(undefined);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
-    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+    getActiveUser().then(setActiveUser);
+    const { data: sub } = supabase.auth.onAuthStateChange(() => {
+      getActiveUser().then(setActiveUser);
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
@@ -65,22 +69,23 @@ function PetDetailPage() {
     setPet((data as Pet | null) ?? null);
     if (data?.avatar_url) setAvatarUrl(await signedPetFileUrl(data.avatar_url));
   }
-  useEffect(() => { if (user) loadPet(); /* eslint-disable-next-line */ }, [user, id]);
+  useEffect(() => { if (activeUser) loadPet(); /* eslint-disable-next-line */ }, [activeUser, id]);
 
-  if (user === undefined || pet === undefined) {
+  if (activeUser === undefined || pet === undefined) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-16">
         <div className="flex items-center gap-2 text-muted-foreground"><Loader2 className="size-5 animate-spin" /> Loading…</div>
       </div>
     );
   }
-  if (!user) {
+  if (!activeUser) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-16 text-center">
         <p className="text-muted-foreground">Please <Link to="/auth" className="text-primary underline">sign in</Link>.</p>
       </div>
     );
   }
+
   if (!pet) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-16 text-center">
