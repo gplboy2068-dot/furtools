@@ -331,12 +331,15 @@ function SettingsPage() {
             return;
           }
         }
-        rows.push({
+        const row: { key: string; value: unknown; category: string; updated_by?: string | null } = {
           key: f.key,
           value,
           category: section.id,
-          updated_by: auth.user?.id ?? null,
-        });
+        };
+        if (auth.user?.id) {
+          row.updated_by = auth.user.id;
+        }
+        rows.push(row);
       }
       if (rows.length === 0) {
         toast.info("No changes to save");
@@ -346,13 +349,25 @@ function SettingsPage() {
       const { error } = await supabase
         .from("site_settings")
         .upsert(rows as never, { onConflict: "key" });
-      if (error) throw error;
+      if (error) {
+        // If FK constraint failed on updated_by, retry without updated_by field
+        if (error.message?.includes("foreign key") || error.message?.includes("updated_by")) {
+          const fallbackRows = rows.map(({ key, value, category }) => ({ key, value, category }));
+          const { error: fallbackErr } = await supabase
+            .from("site_settings")
+            .upsert(fallbackRows as never, { onConflict: "key" });
+          if (fallbackErr) throw fallbackErr;
+        } else {
+          throw error;
+        }
+      }
       const next = { ...initialValues };
       for (const r of rows) next[r.key] = r.value;
       setInitialValues(next);
       toast.success(`Saved ${rows.length} setting${rows.length === 1 ? "" : "s"} in ${section.label}`);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Unknown error";
+      const errObj = e as { message?: string; details?: string; hint?: string };
+      const msg = errObj?.message || errObj?.details || (e instanceof Error ? e.message : String(e));
       toast.error(`Save failed: ${msg}`);
     } finally {
       setSaving(false);
