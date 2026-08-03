@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
 import {
   decodeGoogleJwt,
   saveCustomSession,
   GoogleUserProfile,
   DEFAULT_GOOGLE_CLIENT_ID,
+  getGoogleOAuthUrl,
 } from '@/lib/custom-google-auth';
 
 interface CustomGoogleLoginProps {
@@ -48,19 +50,37 @@ export function CustomGoogleLogin({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Load Google GIS script dynamically
+    // Load Google GIS script dynamically for auto One-Tap
     if (!window.google && !document.getElementById('google-gis-script')) {
       const script = document.createElement('script');
       script.id = 'google-gis-script';
       script.src = 'https://accounts.google.com/gsi/client';
       script.async = true;
       script.defer = true;
-      script.onload = () => setScriptLoaded(true);
+      script.onload = () => {
+        setScriptLoaded(true);
+        initGis();
+      };
       document.head.appendChild(script);
     } else if (window.google) {
       setScriptLoaded(true);
+      initGis();
     }
-  }, []);
+  }, [clientId]);
+
+  const initGis = () => {
+    if (window.google) {
+      try {
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: (response) => handleCredentialResponse(response.credential),
+        });
+        window.google.accounts.id.prompt();
+      } catch {
+        /* ignore */
+      }
+    }
+  };
 
   const handleCredentialResponse = async (credentialToken: string) => {
     setLoading(true);
@@ -105,42 +125,29 @@ export function CustomGoogleLogin({
   };
 
   const handleCustomGoogleClick = async () => {
-    if (window.google) {
-      window.google.accounts.id.initialize({
-        client_id: clientId,
-        callback: (response) => handleCredentialResponse(response.credential),
-      });
-
-      // Prompt One-Tap or native Google dialog
-      window.google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Fallback to OAuth redirect if GIS prompt is not displayed
-          fallbackOAuth();
-        }
-      });
-    } else {
-      fallbackOAuth();
-    }
-  };
-
-  const fallbackOAuth = async () => {
     setLoading(true);
     try {
+      // 1. Try Supabase OAuth redirect first
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: window.location.origin + '/dashboard',
         },
       });
+
       if (error) {
-        toast.error(error.message || 'Google sign-in failed');
+        // 2. Direct Google OAuth fallback window
+        const redirectUri = window.location.origin + '/auth';
+        window.location.href = getGoogleOAuthUrl(clientId, redirectUri);
       }
-    } catch (err) {
-      toast.error('Google sign-in error');
+    } catch {
+      const redirectUri = window.location.origin + '/auth';
+      window.location.href = getGoogleOAuthUrl(clientId, redirectUri);
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <Button

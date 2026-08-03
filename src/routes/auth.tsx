@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { getActiveUser } from "@/lib/custom-google-auth";
+import { getActiveUser, handleGoogleRedirectResult } from "@/lib/custom-google-auth";
 import { CustomGoogleLogin } from "@/components/custom-google-login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +27,12 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
+    // Check if returning from Google OAuth redirect with hash parameters
+    if (handleGoogleRedirectResult()) {
+      navigate({ to: "/dashboard" });
+      return;
+    }
+
     getActiveUser().then((user) => {
       if (user) navigate({ to: "/dashboard" });
     });
@@ -37,6 +43,7 @@ function AuthPage() {
 
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
+
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();

@@ -192,7 +192,7 @@ export function getGoogleOAuthUrl(clientId: string, redirectUri: string): string
     client_id: clientId,
     access_type: 'offline',
     response_type: 'id_token token',
-    prompt: 'consent',
+    prompt: 'select_account',
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
@@ -203,3 +203,24 @@ export function getGoogleOAuthUrl(clientId: string, redirectUri: string): string
   const qs = new URLSearchParams(options);
   return `${rootUrl}?${qs.toString()}`;
 }
+
+export function handleGoogleRedirectResult(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const hash = window.location.hash.substring(1);
+    if (!hash) return false;
+    const params = new URLSearchParams(hash);
+    const idToken = params.get('id_token');
+    if (idToken) {
+      const profile = decodeGoogleJwt(idToken);
+      if (profile) {
+        saveCustomSession(profile, idToken);
+        return true;
+      }
+    }
+  } catch (e) {
+    console.error('Failed to parse Google redirect hash:', e);
+  }
+  return false;
+}
+
