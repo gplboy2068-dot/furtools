@@ -34,21 +34,26 @@ interface PetRow {
   gender: string | null;
 }
 
+import { getActiveUser, type ActiveUser } from "@/lib/custom-google-auth";
+
 function DashboardIndex() {
-  const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [activeUser, setActiveUser] = useState<ActiveUser | null | undefined>(undefined);
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
-    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
+    getActiveUser().then(setActiveUser);
+    const { data: sub } = supabase.auth.onAuthStateChange(() => {
+      getActiveUser().then(setActiveUser);
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
-  if (user === undefined) {
+  if (activeUser === undefined) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-16">
         <div className="flex items-center gap-2 text-muted-foreground"><Loader2 className="size-5 animate-spin" /> Loading…</div>
       </div>
     );
   }
+
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">

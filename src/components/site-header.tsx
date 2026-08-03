@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { LogIn, Menu, PawPrint, Search, X } from "lucide-react";
+import { LogIn, LogOut, Menu, PawPrint, Search, User as UserIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
 import { GlobalSearch } from "./global-search";
 import { SITE } from "@/lib/site";
+import { supabase } from "@/integrations/supabase/client";
+import { clearCustomSession, getActiveUser, type ActiveUser } from "@/lib/custom-google-auth";
 
 const NAV = [
   { to: "/categories", label: "Tools" },
@@ -19,7 +21,26 @@ const NAV = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [activeUser, setActiveUser] = useState<ActiveUser | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getActiveUser().then(setActiveUser);
+
+    const { data: sub } = supabase.auth.onAuthStateChange(() => {
+      getActiveUser().then(setActiveUser);
+    });
+
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    clearCustomSession();
+    await supabase.auth.signOut();
+    setActiveUser(null);
+    navigate({ to: "/" });
+  };
+
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
@@ -54,12 +75,33 @@ export function SiteHeader() {
               <Search className="size-5" />
             </Button>
             <ThemeSwitcher />
-            <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex rounded-full gap-1.5 font-medium">
-              <Link to="/auth">
-                <LogIn className="size-4" />
-                <span>Login</span>
-              </Link>
-            </Button>
+
+            {activeUser ? (
+              <div className="hidden sm:flex items-center gap-2">
+                <Button asChild variant="ghost" size="sm" className="rounded-full gap-2">
+                  <Link to="/dashboard">
+                    {activeUser.avatarUrl ? (
+                      <img src={activeUser.avatarUrl} alt={activeUser.name} className="size-5 rounded-full object-cover" />
+                    ) : (
+                      <UserIcon className="size-4" />
+                    )}
+                    <span className="max-w-[100px] truncate">{activeUser.name || "Account"}</span>
+                  </Link>
+                </Button>
+                <Button variant="outline" size="sm" onClick={handleLogout} className="rounded-full gap-1 text-xs">
+                  <LogOut className="size-3.5" />
+                  <span>Logout</span>
+                </Button>
+              </div>
+            ) : (
+              <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex rounded-full gap-1.5 font-medium">
+                <Link to="/auth">
+                  <LogIn className="size-4" />
+                  <span>Login</span>
+                </Link>
+              </Button>
+            )}
+
             <Button
               variant="ghost"
               size="icon"
@@ -91,13 +133,32 @@ export function SiteHeader() {
                 </li>
               ))}
               <li className="mt-2 pt-2 border-t border-border/60">
-                <Link
-                  to="/auth"
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-primary hover:bg-accent"
-                >
-                  <LogIn className="size-4" />
-                  <span>Login</span>
-                </Link>
+                {activeUser ? (
+                  <div className="flex items-center justify-between">
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-foreground hover:bg-accent"
+                    >
+                      <UserIcon className="size-4" />
+                      <span>{activeUser.name || activeUser.email}</span>
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-destructive hover:bg-accent"
+                    >
+                      <LogOut className="size-4" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-primary hover:bg-accent"
+                  >
+                    <LogIn className="size-4" />
+                    <span>Login</span>
+                  </Link>
+                )}
               </li>
             </ul>
           </nav>
@@ -111,4 +172,5 @@ export function SiteHeader() {
     </>
   );
 }
+
 
