@@ -12,4 +12,21 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  nitro: process.env.VERCEL ? { preset: "vercel" } : undefined,
+  vite: {
+    resolve: {
+      tsconfigPaths: true,
+    },
+    build: {
+      chunkSizeWarningLimit: 1000,
+      rolldownOptions: {
+        external: [],
+      },
+      rollupOptions: {
+        external: [],
+      },
+    },
+  },
 });
+
+

@@ -41,9 +41,12 @@ import { Route as BreedsSlugRouteImport } from './routes/breeds.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiGenerateNamesRouteImport } from './routes/api/generate-names'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
+import { Route as ApiAiTranslateRouteImport } from './routes/api/ai-translate'
 import { Route as ApiAiChatRouteImport } from './routes/api/ai-chat'
+import { Route as ApiAdminUsersRouteImport } from './routes/api/admin-users'
 import { Route as AiSlugRouteImport } from './routes/ai.$slug'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminTranslationsRouteImport } from './routes/admin.translations'
 import { Route as AdminToolsRouteImport } from './routes/admin.tools'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminNewsletterRouteImport } from './routes/admin.newsletter'
@@ -59,6 +62,7 @@ import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminAffiliatesRouteImport } from './routes/admin.affiliates'
 import { Route as AdminAdsRouteImport } from './routes/admin.ads'
 import { Route as DashboardPetsIdRouteImport } from './routes/dashboard.pets.$id'
+import { Route as ApiAuthGoogleVerifyRouteImport } from './routes/api/auth/google-verify'
 import { Route as AdminPostsIdRouteImport } from './routes/admin.posts.$id'
 
 const TermsRoute = TermsRouteImport.update({
@@ -221,9 +225,19 @@ const ApiAnalyzeImageRoute = ApiAnalyzeImageRouteImport.update({
   path: '/api/analyze-image',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAiTranslateRoute = ApiAiTranslateRouteImport.update({
+  id: '/api/ai-translate',
+  path: '/api/ai-translate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAiChatRoute = ApiAiChatRouteImport.update({
   id: '/api/ai-chat',
   path: '/api/ai-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminUsersRoute = ApiAdminUsersRouteImport.update({
+  id: '/api/admin-users',
+  path: '/api/admin-users',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AiSlugRoute = AiSlugRouteImport.update({
@@ -234,6 +248,11 @@ const AiSlugRoute = AiSlugRouteImport.update({
 const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTranslationsRoute = AdminTranslationsRouteImport.update({
+  id: '/translations',
+  path: '/translations',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminToolsRoute = AdminToolsRouteImport.update({
@@ -311,6 +330,11 @@ const DashboardPetsIdRoute = DashboardPetsIdRouteImport.update({
   path: '/dashboard/pets/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthGoogleVerifyRoute = ApiAuthGoogleVerifyRouteImport.update({
+  id: '/api/auth/google-verify',
+  path: '/api/auth/google-verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPostsIdRoute = AdminPostsIdRouteImport.update({
   id: '/posts/$id',
   path: '/posts/$id',
@@ -350,9 +374,12 @@ export interface FileRoutesByFullPath {
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/tools': typeof AdminToolsRoute
+  '/admin/translations': typeof AdminTranslationsRoute
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
+  '/api/admin-users': typeof ApiAdminUsersRoute
   '/api/ai-chat': typeof ApiAiChatRoute
+  '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -368,6 +395,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardIndexRoute
   '/foods/': typeof FoodsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
+  '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
 }
 export interface FileRoutesByTo {
@@ -402,9 +430,12 @@ export interface FileRoutesByTo {
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/tools': typeof AdminToolsRoute
+  '/admin/translations': typeof AdminTranslationsRoute
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
+  '/api/admin-users': typeof ApiAdminUsersRoute
   '/api/ai-chat': typeof ApiAiChatRoute
+  '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -420,6 +451,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardIndexRoute
   '/foods': typeof FoodsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
+  '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
 }
 export interface FileRoutesById {
@@ -456,9 +488,12 @@ export interface FileRoutesById {
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/tools': typeof AdminToolsRoute
+  '/admin/translations': typeof AdminTranslationsRoute
   '/admin/users': typeof AdminUsersRoute
   '/ai/$slug': typeof AiSlugRoute
+  '/api/admin-users': typeof ApiAdminUsersRoute
   '/api/ai-chat': typeof ApiAiChatRoute
+  '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -474,6 +509,7 @@ export interface FileRoutesById {
   '/dashboard/': typeof DashboardIndexRoute
   '/foods/': typeof FoodsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
+  '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
 }
 export interface FileRouteTypes {
@@ -511,9 +547,12 @@ export interface FileRouteTypes {
     | '/admin/newsletter'
     | '/admin/settings'
     | '/admin/tools'
+    | '/admin/translations'
     | '/admin/users'
     | '/ai/$slug'
+    | '/api/admin-users'
     | '/api/ai-chat'
+    | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
     | '/blog/$slug'
@@ -529,6 +568,7 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/foods/'
     | '/admin/posts/$id'
+    | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -563,9 +603,12 @@ export interface FileRouteTypes {
     | '/admin/newsletter'
     | '/admin/settings'
     | '/admin/tools'
+    | '/admin/translations'
     | '/admin/users'
     | '/ai/$slug'
+    | '/api/admin-users'
     | '/api/ai-chat'
+    | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
     | '/blog/$slug'
@@ -581,6 +624,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/foods'
     | '/admin/posts/$id'
+    | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
   id:
     | '__root__'
@@ -616,9 +660,12 @@ export interface FileRouteTypes {
     | '/admin/newsletter'
     | '/admin/settings'
     | '/admin/tools'
+    | '/admin/translations'
     | '/admin/users'
     | '/ai/$slug'
+    | '/api/admin-users'
     | '/api/ai-chat'
+    | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
     | '/blog/$slug'
@@ -634,6 +681,7 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/foods/'
     | '/admin/posts/$id'
+    | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
   fileRoutesById: FileRoutesById
 }
@@ -657,7 +705,9 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   AiSlugRoute: typeof AiSlugRoute
+  ApiAdminUsersRoute: typeof ApiAdminUsersRoute
   ApiAiChatRoute: typeof ApiAiChatRoute
+  ApiAiTranslateRoute: typeof ApiAiTranslateRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiGenerateNamesRoute: typeof ApiGenerateNamesRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -671,6 +721,7 @@ export interface RootRouteChildren {
   CategoriesIndexRoute: typeof CategoriesIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   FoodsIndexRoute: typeof FoodsIndexRoute
+  ApiAuthGoogleVerifyRoute: typeof ApiAuthGoogleVerifyRoute
   DashboardPetsIdRoute: typeof DashboardPetsIdRoute
 }
 
@@ -900,11 +951,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyzeImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ai-translate': {
+      id: '/api/ai-translate'
+      path: '/api/ai-translate'
+      fullPath: '/api/ai-translate'
+      preLoaderRoute: typeof ApiAiTranslateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/ai-chat': {
       id: '/api/ai-chat'
       path: '/api/ai-chat'
       fullPath: '/api/ai-chat'
       preLoaderRoute: typeof ApiAiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin-users': {
+      id: '/api/admin-users'
+      path: '/api/admin-users'
+      fullPath: '/api/admin-users'
+      preLoaderRoute: typeof ApiAdminUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ai/$slug': {
@@ -919,6 +984,13 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/admin/users'
       preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/translations': {
+      id: '/admin/translations'
+      path: '/translations'
+      fullPath: '/admin/translations'
+      preLoaderRoute: typeof AdminTranslationsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/tools': {
@@ -1026,6 +1098,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardPetsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/google-verify': {
+      id: '/api/auth/google-verify'
+      path: '/api/auth/google-verify'
+      fullPath: '/api/auth/google-verify'
+      preLoaderRoute: typeof ApiAuthGoogleVerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/posts/$id': {
       id: '/admin/posts/$id'
       path: '/posts/$id'
@@ -1051,6 +1130,7 @@ interface AdminRouteChildren {
   AdminNewsletterRoute: typeof AdminNewsletterRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminToolsRoute: typeof AdminToolsRoute
+  AdminTranslationsRoute: typeof AdminTranslationsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminPostsIdRoute: typeof AdminPostsIdRoute
@@ -1071,6 +1151,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminNewsletterRoute: AdminNewsletterRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminToolsRoute: AdminToolsRoute,
+  AdminTranslationsRoute: AdminTranslationsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminPostsIdRoute: AdminPostsIdRoute,
@@ -1098,7 +1179,9 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   AiSlugRoute: AiSlugRoute,
+  ApiAdminUsersRoute: ApiAdminUsersRoute,
   ApiAiChatRoute: ApiAiChatRoute,
+  ApiAiTranslateRoute: ApiAiTranslateRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiGenerateNamesRoute: ApiGenerateNamesRoute,
   BlogSlugRoute: BlogSlugRoute,
@@ -1112,8 +1195,19 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesIndexRoute: CategoriesIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   FoodsIndexRoute: FoodsIndexRoute,
+  ApiAuthGoogleVerifyRoute: ApiAuthGoogleVerifyRoute,
   DashboardPetsIdRoute: DashboardPetsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
