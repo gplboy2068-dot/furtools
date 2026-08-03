@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Menu, PawPrint, Search, X } from "lucide-react";
+import { LogIn, Menu, PawPrint, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
 import { GlobalSearch } from "./global-search";
@@ -43,7 +43,7 @@ export function SiteHeader() {
               </Link>
             ))}
           </nav>
-          <div className="ml-auto flex items-center gap-1">
+          <div className="ml-auto flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
@@ -54,6 +54,12 @@ export function SiteHeader() {
               <Search className="size-5" />
             </Button>
             <ThemeSwitcher />
+            <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex rounded-full gap-1.5 font-medium">
+              <Link to="/auth">
+                <LogIn className="size-4" />
+                <span>Login</span>
+              </Link>
+            </Button>
             <Button
               variant="ghost"
               size="icon"
@@ -84,6 +90,15 @@ export function SiteHeader() {
                   </Link>
                 </li>
               ))}
+              <li className="mt-2 pt-2 border-t border-border/60">
+                <Link
+                  to="/auth"
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-primary hover:bg-accent"
+                >
+                  <LogIn className="size-4" />
+                  <span>Login</span>
+                </Link>
+              </li>
             </ul>
           </nav>
         )}
@@ -96,3 +111,4 @@ export function SiteHeader() {
     </>
   );
 }
+
