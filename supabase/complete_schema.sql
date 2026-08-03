@@ -205,10 +205,10 @@ CREATE POLICY "Newsletter access" ON public.newsletter_subscribers FOR ALL USING
 
 -- Site Settings
 CREATE TABLE IF NOT EXISTS public.site_settings (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  key TEXT NOT NULL UNIQUE,
+  key TEXT PRIMARY KEY,
   value JSONB,
-  category TEXT,
+  category TEXT NOT NULL DEFAULT 'general',
+  description TEXT,
   updated_by UUID,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
