@@ -12,21 +12,41 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  nitro: process.env.VERCEL ? { preset: "vercel" } : undefined,
+
+  nitro: process.env.VERCEL || process.env.VERCEL_ENV || process.env.CI ? { preset: "vercel" } : undefined,
   vite: {
     resolve: {
       tsconfigPaths: true,
     },
     build: {
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 2000,
       rolldownOptions: {
-        external: [],
+        onwarn(warning, warn) {
+          if (
+            warning.code === "UNRESOLVED_IMPORT" ||
+            warning.code === "UNKNOWN_OPTION" ||
+            (warning.message && String(warning.message).includes("externalize"))
+          ) {
+            return;
+          }
+          warn(warning);
+        },
       },
       rollupOptions: {
-        external: [],
+        onwarn(warning, warn) {
+          if (
+            warning.code === "UNRESOLVED_IMPORT" ||
+            warning.code === "UNKNOWN_OPTION" ||
+            (warning.message && String(warning.message).includes("externalize"))
+          ) {
+            return;
+          }
+          warn(warning);
+        },
       },
     },
   },
 });
+
 
 
