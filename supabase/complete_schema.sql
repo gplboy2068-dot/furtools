@@ -179,7 +179,12 @@ CREATE TABLE IF NOT EXISTS public.faqs (
   question TEXT NOT NULL,
   answer TEXT NOT NULL,
   category TEXT,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  scope TEXT NOT NULL DEFAULT 'global',
+  scope_ref TEXT,
+  sort_order INT NOT NULL DEFAULT 0,
+  published BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.faqs TO anon, authenticated, service_role;
 ALTER TABLE public.faqs ENABLE ROW LEVEL SECURITY;
@@ -340,6 +345,24 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON public.affiliate_links TO anon, authenti
 ALTER TABLE public.affiliate_links ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Affiliate links access" ON public.affiliate_links;
 CREATE POLICY "Affiliate links access" ON public.affiliate_links FOR ALL USING (true) WITH CHECK (true);
+
+-- Email Templates
+CREATE TABLE IF NOT EXISTS public.email_templates (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  body_html TEXT NOT NULL,
+  body_text TEXT,
+  variables JSONB NOT NULL DEFAULT '[]'::jsonb,
+  enabled BOOLEAN NOT NULL DEFAULT true,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.email_templates TO anon, authenticated, service_role;
+ALTER TABLE public.email_templates ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Email templates access" ON public.email_templates;
+CREATE POLICY "Email templates access" ON public.email_templates FOR ALL USING (true) WITH CHECK (true);
 
 
 -- Helper Function to Grant Admin Access by Email

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 interface UserRow {
   id: string;
+  email?: string | null;
   display_name: string | null;
   avatar_url: string | null;
   created_at: string;
@@ -24,6 +25,20 @@ function UsersAdmin() {
 
   async function load() {
     setLoading(true);
+    try {
+      const res = await fetch("/api/admin-users");
+      if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.users) && json.users.length > 0) {
+          setRows(json.users);
+          setLoading(false);
+          return;
+        }
+      }
+    } catch {
+      /* fallback to client-side supabase query */
+    }
+
     const [{ data: profiles }, { data: roles }] = await Promise.all([
       supabase.from("profiles").select("id,display_name,avatar_url,created_at").order("created_at", { ascending: false }),
       supabase.from("user_roles").select("user_id,role"),
@@ -91,11 +106,13 @@ function UsersAdmin() {
                         {r.avatar_url ? (
                           <img src={r.avatar_url} alt="" className="size-8 rounded-full" />
                         ) : (
-                          <div className="size-8 rounded-full bg-muted" />
+                          <div className="size-8 rounded-full bg-muted flex items-center justify-center text-xs font-semibold text-muted-foreground uppercase">
+                            {(r.display_name || r.email || "U")[0]}
+                          </div>
                         )}
                         <div>
                           <div className="font-medium">{r.display_name ?? "—"}</div>
-                          <div className="text-xs text-muted-foreground">{r.id.slice(0, 8)}…</div>
+                          <div className="text-xs text-muted-foreground">{r.email ?? `${r.id.slice(0, 8)}…`}</div>
                         </div>
                       </div>
                     </td>
