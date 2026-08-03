@@ -101,6 +101,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-VEPJXBRF9V",
+        async: true,
+      },
+      {
+        children: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-VEPJXBRF9V');`,
+      },
+      {
         type: "application/ld+json",
         children: JSON.stringify(organizationSchema()),
       },
