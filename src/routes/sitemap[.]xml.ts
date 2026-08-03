@@ -68,6 +68,23 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         try {
           const { data } = await supabase
+            .from("foods")
+            .select("slug,updated_at")
+            .eq("published", true);
+          for (const f of data ?? []) {
+            entries.push({
+              path: `/foods/${f.slug}`,
+              lastmod: f.updated_at,
+              changefreq: "monthly",
+              priority: "0.7",
+            });
+          }
+        } catch {
+          // ignore — foods sitemap entries optional
+        }
+
+        try {
+          const { data } = await supabase
             .from("blog_posts")
             .select("slug,updated_at")
             .eq("published", true);

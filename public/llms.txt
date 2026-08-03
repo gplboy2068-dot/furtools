@@ -1,0 +1,41 @@
+# FurTools — Free Tools for Happy Pets
+
+> FurTools is a comprehensive pet care platform offering free interactive calculators, breed comparisons, food safety checkers, pet name generators, budget planners, and AI pet care assistants.
+
+## Primary Sections & Tools
+
+- [Tools Directory](/tools): Free interactive calculators and utility tools for pet owners.
+  - [Cat Age Calculator](/tools/cat-age-calculator): Convert cat years to human years with life-stage insights.
+  - [Dog Age Calculator](/tools/dog-age-calculator): Accurately calculate dog age based on size and breed parameters.
+  - [Dog Chocolate Toxicity Calculator](/tools/dog-chocolate-toxicity-calculator): Instant emergency toxicity risk calculation based on weight and chocolate type.
+  - [Dog Calorie / Raw Food Calculator](/tools/dog-calorie-calculator): Calculate daily RER/MER caloric needs and raw feeding proportions.
+  - [Cat Calorie Calculator](/tools/cat-calorie-calculator): Calculate daily caloric requirements based on body score and activity level.
+  - [Pet Water Intake Calculator](/tools/pet-water-intake-calculator): Determine daily hydration requirements for dogs and cats.
+  - [Pet Dehydration Risk Quiz](/tools/pet-dehydration-quiz): Assess hydration levels and emergency warning signs.
+  - [Pet Benadryl Dosage Calculator](/tools/pet-benadryl-dosage-calculator): Weight-based Diphenhydramine dosage guidelines for pets.
+
+- [Pet Food Safety Checker](/foods): Searchable database of 100+ human foods, fruits, and vegetables evaluated for dog and cat safety.
+- [Dog & Cat Breed Database](/breeds): Detailed breed profiles covering temperament, exercise needs, size, diseases, and grooming.
+- [Compare Breeds](/compare): Side-by-side comparison tool for comparing two pet breeds.
+- [Pet Name Generator](/names): Filterable pet name generator by species, theme, gender, and style.
+- [Pet Care Cost Planner](/cost-planner): Annual budget planner estimating first-year and ongoing expenses for dogs, cats, and small pets.
+- [AI Pet Assistants](/ai): Specialized AI assistants for pet care, nutrition, training, and wellness advice.
+- [Pet Care Guides](/care): Expert articles on pet care, wellness, grooming, and training routines.
+- [Blog](/blog): Articles, pet health tips, news, and product reviews.
+
+## Key APIs & Structured Endpoints
+
+- Sitemap Index: `/sitemap-index.xml`
+- Main Sitemap: `/sitemap.xml`
+- Image Sitemap: `/sitemap-images.xml`
+- News Sitemap: `/news-sitemap.xml`
+- RSS Feed: `/rss.xml`
+- LLM Overview: `/llms.txt`
+
+## Information & Policies
+
+- [About Us](/about): Learn more about the FurTools mission and team.
+- [Contact](/contact): Support and inquiry contact options.
+- [Privacy Policy](/privacy): Data handling and user privacy terms.
+- [Terms of Service](/terms): Usage guidelines and terms.
+- [Medical Disclaimer](/disclaimer): Veterinary advice disclaimer.
