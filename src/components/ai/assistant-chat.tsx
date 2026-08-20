@@ -5,6 +5,7 @@ import {
   Check,
   Copy,
   Download,
+  HeartPulse,
   Loader2,
   RotateCcw,
   Send,
@@ -144,7 +145,7 @@ export function AssistantChat({ assistant }: { assistant: AiAssistant }) {
     }
   }
 
-  const Icon = assistant.icon;
+  const Icon = assistant.icon || HeartPulse;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
@@ -303,7 +304,7 @@ function EmptyState({
   assistant: AiAssistant;
   onPick: (text: string) => void;
 }) {
-  const Icon = assistant.icon;
+  const Icon = assistant.icon || HeartPulse;
   return (
     <div className="mx-auto max-w-lg py-8 text-center">
       <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-primary/10 text-primary">

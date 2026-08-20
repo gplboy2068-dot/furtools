@@ -3,15 +3,16 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AssistantChat } from "@/components/ai/assistant-chat";
 import { AI_ASSISTANTS, getAssistant } from "@/data/ai-assistants";
 import { breadcrumbSchema } from "@/lib/schema";
+import { HeartPulse } from "lucide-react";
 
 export const Route = createFileRoute("/ai/$slug")({
   loader: ({ params }) => {
     const a = getAssistant(params.slug);
     if (!a) throw notFound();
-    return { assistant: a };
+    return { slug: a.slug };
   },
-  head: ({ loaderData }) => {
-    const a = loaderData?.assistant;
+  head: ({ loaderData, params }) => {
+    const a = getAssistant(loaderData?.slug ?? params.slug);
     if (!a) {
       return {
         meta: [{ title: "AI Assistant — FurTools" }, { name: "robots", content: "noindex" }],
@@ -50,8 +51,10 @@ export const Route = createFileRoute("/ai/$slug")({
 });
 
 function AiAssistantPage() {
-  const { assistant } = Route.useLoaderData();
-  const Icon = assistant.icon;
+  const { slug } = Route.useLoaderData();
+  const assistant = getAssistant(slug);
+  if (!assistant) return <AiNotFound />;
+  const Icon = assistant.icon || HeartPulse;
   const others = AI_ASSISTANTS.filter((a) => a.slug !== assistant.slug).slice(0, 6);
 
   return (
