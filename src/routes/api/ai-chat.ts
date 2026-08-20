@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getAssistant } from "@/data/ai-assistants";
+import { executeAICompletion } from "@/lib/ai-provider";
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -9,9 +10,11 @@ interface ChatMessage {
 interface RequestBody {
   assistant?: string;
   messages?: ChatMessage[];
+  system?: string;
+  provider?: string;
+  model?: string;
+  apiKey?: string;
 }
-
-const MODEL = "google/gemini-3.5-flash";
 
 export const Route = createFileRoute("/api/ai-chat")({
   server: {
@@ -25,58 +28,39 @@ export const Route = createFileRoute("/api/ai-chat")({
         }
 
         const assistant = body.assistant ? getAssistant(body.assistant) : undefined;
-        if (!assistant) return json({ error: "Unknown assistant." }, 400);
+        const systemPrompt = assistant?.systemPrompt || body.system || "You are an expert, compassionate pet care assistant.";
 
         const incoming = Array.isArray(body.messages) ? body.messages : [];
         const safeMessages = incoming
           .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
           .slice(-30)
-          .map((m) => ({ role: m.role, content: m.content.slice(0, 6000) }));
+          .map((m) => ({ role: m.role as "user" | "assistant", content: m.content.slice(0, 6000) }));
 
         if (safeMessages.length === 0) return json({ error: "No messages provided." }, 400);
 
-        const apiKey = process.env.LOVABLE_API_KEY;
-        if (!apiKey) return json({ error: "AI is not configured." }, 500);
-
         const messages = [
-          { role: "system" as const, content: assistant.systemPrompt },
+          { role: "system" as const, content: systemPrompt },
           ...safeMessages,
         ];
 
-        let upstream: Response;
-        try {
-          upstream = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Lovable-API-Key": apiKey,
-            },
-            body: JSON.stringify({
-              model: MODEL,
-              messages,
-              temperature: 0.7,
-            }),
-          });
-        } catch (err) {
-          return json({ error: "Could not reach the AI service." }, 502);
+        const result = await executeAICompletion({
+          provider: body.provider,
+          model: body.model,
+          apiKey: body.apiKey,
+          messages,
+          temperature: 0.7,
+        });
+
+        if (result.error) {
+          return json({ error: result.error }, result.status || 500);
         }
 
-        if (!upstream.ok) {
-          if (upstream.status === 429)
-            return json({ error: "You're sending messages too quickly. Please wait a moment." }, 429);
-          if (upstream.status === 402)
-            return json({ error: "AI credits are exhausted for this workspace. Please add credits to continue." }, 402);
-          const text = await upstream.text().catch(() => "");
-          return json({ error: `AI service error (${upstream.status}). ${text.slice(0, 200)}` }, 502);
-        }
-
-        const data = (await upstream.json()) as {
-          choices?: Array<{ message?: { content?: string } }>;
-        };
-        const content = data.choices?.[0]?.message?.content?.trim() ?? "";
-        if (!content) return json({ error: "AI returned an empty response." }, 502);
-
-        return json({ content });
+        const content = result.content;
+        return json({
+          content,
+          message: content,
+          choices: [{ message: { role: "assistant", content } }],
+        });
       },
     },
   },

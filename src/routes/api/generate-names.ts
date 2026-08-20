@@ -1,14 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
+import { executeAICompletion } from "@/lib/ai-provider";
 
 interface RequestBody {
   species?: string;
   vibe?: string;
   count?: number;
   ai?: boolean;
+  provider?: string;
+  model?: string;
+  apiKey?: string;
 }
 
-const MODEL = "google/gemini-3.5-flash";
 const MAX_COUNT = 20;
 const VALID = /^[a-z0-9-]{2,32}$/;
 
@@ -32,68 +35,75 @@ export const Route = createFileRoute("/api/generate-names")({
           return json({ error: "Invalid species or vibe." }, 400);
         }
 
-        const url = process.env.SUPABASE_URL;
-        const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-        if (!url || !serviceKey) return json({ error: "Backend is not configured." }, 500);
+        const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+        const serviceKey =
+          process.env.SUPABASE_SERVICE_ROLE_KEY ||
+          process.env.SUPABASE_PUBLISHABLE_KEY ||
+          process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
-        const supabase = createClient(url, serviceKey, {
-          auth: { persistSession: false, autoRefreshToken: false },
-        });
+        let supabase = null;
+        if (url && serviceKey) {
+          supabase = createClient(url, serviceKey, {
+            auth: { persistSession: false, autoRefreshToken: false },
+          });
+        }
 
         // 1. Existing stored names for this species+vibe
-        const { data: stored } = await supabase
-          .from("generated_names")
-          .select("name, meaning")
-          .eq("species", species)
-          .eq("vibe", vibe)
-          .order("created_at", { ascending: false })
-          .limit(120);
+        let storedNames: Array<{ name: string; meaning: string | null }> = [];
+        if (supabase) {
+          try {
+            const { data: stored } = await supabase
+              .from("generated_names")
+              .select("name, meaning")
+              .eq("species", species)
+              .eq("vibe", vibe)
+              .order("created_at", { ascending: false })
+              .limit(120);
 
-        const storedNames = (stored ?? []).map((r) => ({ name: r.name as string, meaning: r.meaning as string | null }));
+            if (stored) {
+              storedNames = stored.map((r) => ({
+                name: r.name as string,
+                meaning: r.meaning as string | null,
+              }));
+            }
+          } catch {
+            /* ignore db fetch error */
+          }
+        }
 
         if (!wantAi) return json({ names: storedNames, added: 0 });
 
         // 2. Ask AI to generate `count` fresh names, avoiding duplicates
-        const apiKey = process.env.LOVABLE_API_KEY;
-        if (!apiKey) return json({ names: storedNames, added: 0, error: "AI not configured" });
-
         const avoid = storedNames.slice(0, 60).map((n) => n.name).join(", ");
         const systemPrompt = `You generate creative pet names. Reply ONLY with strict JSON of shape {"names":[{"name":"...","meaning":"short 4-8 word note"}, ...]}. No prose, no markdown.`;
         const userPrompt = `Generate ${count} unique, memorable ${vibe} names for a ${species}. Each name must be 1-2 words, easy to call out loud. Include a brief 4-8 word meaning or origin. Avoid these existing names: ${avoid || "none"}.`;
 
-        let upstream: Response;
-        try {
-          upstream = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Lovable-API-Key": apiKey },
-            body: JSON.stringify({
-              model: MODEL,
-              messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: userPrompt },
-              ],
-              temperature: 0.9,
-              response_format: { type: "json_object" },
-            }),
-          });
-        } catch {
-          return json({ names: storedNames, added: 0, error: "Could not reach AI service." }, 200);
+        const result = await executeAICompletion({
+          provider: body.provider,
+          model: body.model,
+          apiKey: body.apiKey,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          temperature: 0.9,
+          response_format: { type: "json_object" },
+        });
+
+        if (result.error) {
+          return json({ names: storedNames, added: 0, error: result.error }, 200);
         }
 
-        if (!upstream.ok) {
-          if (upstream.status === 429)
-            return json({ names: storedNames, added: 0, error: "Rate limited — try again in a moment." }, 200);
-          if (upstream.status === 402)
-            return json({ names: storedNames, added: 0, error: "AI credits exhausted." }, 200);
-          return json({ names: storedNames, added: 0, error: `AI error (${upstream.status}).` }, 200);
+        let cleanContent = result.content.trim();
+        if (cleanContent.startsWith("```json")) {
+          cleanContent = cleanContent.replace(/^```json/, "").replace(/```$/, "").trim();
+        } else if (cleanContent.startsWith("```")) {
+          cleanContent = cleanContent.replace(/^```/, "").replace(/```$/, "").trim();
         }
-
-        const data = (await upstream.json()) as { choices?: Array<{ message?: { content?: string } }> };
-        const content = data.choices?.[0]?.message?.content?.trim() ?? "";
 
         let parsed: { names?: Array<{ name?: string; meaning?: string }> } = {};
         try {
-          parsed = JSON.parse(content);
+          parsed = JSON.parse(cleanContent);
         } catch {
           return json({ names: storedNames, added: 0, error: "AI returned malformed data." }, 200);
         }
@@ -107,14 +117,21 @@ export const Route = createFileRoute("/api/generate-names")({
 
         if (fresh.length === 0) return json({ names: storedNames, added: 0 });
 
-        // 3. Insert into shared pool (dedupe via unique constraint, ignore conflicts)
-        const rows = fresh.map((n) => ({ species, vibe, name: n.name, meaning: n.meaning, source: "ai" }));
-        const { data: inserted } = await supabase
-          .from("generated_names")
-          .upsert(rows, { onConflict: "species,vibe,name_key", ignoreDuplicates: true })
-          .select("name, meaning");
+        // 3. Insert into shared pool if supabase is available
+        let added = 0;
+        if (supabase) {
+          try {
+            const rows = fresh.map((n) => ({ species, vibe, name: n.name, meaning: n.meaning, source: "ai" }));
+            const { data: inserted } = await supabase
+              .from("generated_names")
+              .upsert(rows, { onConflict: "species,vibe,name_key", ignoreDuplicates: true })
+              .select("name, meaning");
 
-        const added = inserted?.length ?? 0;
+            added = inserted?.length ?? 0;
+          } catch {
+            /* ignore db insert errors */
+          }
+        }
 
         // 4. Return merged list (fresh first)
         const combined = [

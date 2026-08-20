@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { executeAICompletion } from "@/lib/ai-provider";
 
 interface RequestBody {
   image?: string; // data URL
   prompt?: string;
   system?: string;
+  provider?: string;
+  model?: string;
+  apiKey?: string;
 }
-
-const MODEL = "google/gemini-3.5-flash";
 
 export const Route = createFileRoute("/api/analyze-image")({
   server: {
@@ -31,9 +33,6 @@ export const Route = createFileRoute("/api/analyze-image")({
         }
         if (!prompt) return json({ error: "Missing analysis prompt." }, 400);
 
-        const apiKey = process.env.LOVABLE_API_KEY;
-        if (!apiKey) return json({ error: "AI is not configured." }, 500);
-
         const messages = [
           {
             role: "system" as const,
@@ -50,36 +49,19 @@ export const Route = createFileRoute("/api/analyze-image")({
           },
         ];
 
-        let upstream: Response;
-        try {
-          upstream = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Lovable-API-Key": apiKey,
-            },
-            body: JSON.stringify({ model: MODEL, messages, temperature: 0.5 }),
-          });
-        } catch {
-          return json({ error: "Could not reach the AI service." }, 502);
+        const result = await executeAICompletion({
+          provider: body.provider,
+          model: body.model,
+          apiKey: body.apiKey,
+          messages,
+          temperature: 0.5,
+        });
+
+        if (result.error) {
+          return json({ error: result.error }, result.status || 500);
         }
 
-        if (!upstream.ok) {
-          if (upstream.status === 429)
-            return json({ error: "Too many requests — please wait a moment and try again." }, 429);
-          if (upstream.status === 402)
-            return json({ error: "AI credits are exhausted for this workspace." }, 402);
-          const text = await upstream.text().catch(() => "");
-          return json({ error: `AI service error (${upstream.status}). ${text.slice(0, 200)}` }, 502);
-        }
-
-        const data = (await upstream.json()) as {
-          choices?: Array<{ message?: { content?: string } }>;
-        };
-        const content = data.choices?.[0]?.message?.content?.trim() ?? "";
-        if (!content) return json({ error: "AI returned an empty response." }, 502);
-
-        return json({ content });
+        return json({ content: result.content });
       },
     },
   },

@@ -723,7 +723,7 @@ export function AiSummaryTab({ ctx }: { ctx: Ctx }) {
       });
       const j = await res.json();
       if (!res.ok) throw new Error(j?.error ?? "AI request failed");
-      const text = j?.choices?.[0]?.message?.content ?? j?.message ?? "";
+      const text = j?.content ?? j?.choices?.[0]?.message?.content ?? j?.message ?? "";
       setSummary(String(text).trim() || "No response.");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "AI failed");
