@@ -292,17 +292,220 @@ export function GuineaPigFoodCalculator() {
 }
 
 /* ─────────── REPTILES ─────────── */
+interface SheddingSpecies {
+  name: string;
+  scientific: string;
+  babyDays: number;
+  juvDays: number;
+  adultDays: number;
+  shedType: "whole-piece" | "patchy-pieces" | "scutes" | "skin-flakes";
+  humidHideTarget: string;
+  tips: string;
+}
+
+const SHEDDING_SPECIES_DATA: Record<string, SheddingSpecies> = {
+  "ball-python": {
+    name: "Ball Python (Python regius)",
+    scientific: "Python regius",
+    babyDays: 28, juvDays: 38, adultDays: 55,
+    shedType: "whole-piece",
+    humidHideTarget: "75% – 85% with damp sphagnum moss",
+    tips: "Snakes must shed in ONE complete piece from nose to tail tip including both transparent eye caps (brilles). Never pull dry shed.",
+  },
+  "corn-snake": {
+    name: "Corn Snake",
+    scientific: "Pantherophis guttatus",
+    babyDays: 21, juvDays: 35, adultDays: 50,
+    shedType: "whole-piece",
+    humidHideTarget: "70% – 80%",
+    tips: "Provide a rough cork bark or stone surface for the snake to rub its snout against to start the skin roll.",
+  },
+  "leopard-gecko": {
+    name: "Leopard Gecko",
+    scientific: "Eublepharis macularius",
+    babyDays: 10, juvDays: 18, adultDays: 28,
+    shedType: "whole-piece",
+    humidHideTarget: "70% – 80% enclosed moist hide 24/7",
+    tips: "Geckos eat their shed skin (keratophagy) to reclaim calcium and nutrients and hide their scent from predators. Check toes after every shed.",
+  },
+  "bearded-dragon": {
+    name: "Bearded Dragon",
+    scientific: "Pogona vitticeps",
+    babyDays: 14, juvDays: 30, adultDays: 75,
+    shedType: "patchy-pieces",
+    humidHideTarget: "40% ambient + warm shallow bath (85-90°F / 30-32°C)",
+    tips: "Lizards shed in large separate patches over days. Never pull shed before it separates freely, as tearing live scales causes infections.",
+  },
+  "crested-gecko": {
+    name: "Crested Gecko",
+    scientific: "Correlophus ciliatus",
+    babyDays: 10, juvDays: 16, adultDays: 28,
+    shedType: "whole-piece",
+    humidHideTarget: "85% during evening misting",
+    tips: "Usually sheds overnight and consumes the entire skin before morning. Check tail tip and toe pads for stuck rings.",
+  },
+  "boa-constrictor": {
+    name: "Boa Constrictor (BCI)",
+    scientific: "Boa imperator",
+    babyDays: 30, juvDays: 45, adultDays: 70,
+    shedType: "whole-piece",
+    humidHideTarget: "75% – 80%",
+    tips: "Boas exhibit a prominent dull phase followed by bright pink ventral belly scales during the pre-blue cycle.",
+  },
+  "blue-tongue-skink": {
+    name: "Blue-Tongued Skink",
+    scientific: "Tiliqua scincoides",
+    babyDays: 20, juvDays: 35, adultDays: 60,
+    shedType: "patchy-pieces",
+    humidHideTarget: "Northern: 60% | Indonesian: 85%",
+    tips: "Indonesian species require high humidity to prevent stuck shedding from strangulating and amputating tiny toe digits.",
+  },
+  "veiled-chameleon": {
+    name: "Veiled / Panther Chameleon",
+    scientific: "Chamaeleonidae",
+    babyDays: 14, juvDays: 25, adultDays: 60,
+    shedType: "skin-flakes",
+    humidHideTarget: "80% morning misting with warm shower perch",
+    tips: "Explosive shedding! The entire skin 'pops' and flakes off in a white veil within 24–48 hours.",
+  },
+};
+
 export function ReptileSheddingTracker() {
-  const [species, setSpecies] = useState("ball-python");
-  const days: Record<string, number> = { "ball-python": 45, "leopard-gecko": 14, "bearded-dragon": 60, "corn-snake": 60 };
+  const [spKey, setSpKey] = useState("ball-python");
+  const [lifeStage, setLifeStage] = useState<"baby" | "juvenile" | "adult">("juvenile");
+  const [daysSinceLast, setDaysSinceLast] = useState<number>(20);
+  const [observedPhase, setObservedPhase] = useState<string>("normal");
+
+  const sp = SHEDDING_SPECIES_DATA[spKey] || SHEDDING_SPECIES_DATA["ball-python"];
+
+  const cycleDays = lifeStage === "baby" ? sp.babyDays : lifeStage === "juvenile" ? sp.juvDays : sp.adultDays;
+  const daysRemaining = Math.max(0, cycleDays - daysSinceLast);
+  const progressPct = Math.min(100, Math.round((daysSinceLast / cycleDays) * 100));
+
   return (
-    <CalculatorLayout
-      form={<SelectField label="Species" value={species} onChange={setSpecies} options={Object.keys(days)} />}
-      result={<div className="space-y-4">
-        <Big value={`~${days[species]} days`} label="Typical shed cycle" />
-        <Note>Raise humidity and add a moist hide 5 days before expected shed.</Note>
-      </div>}
-    />
+    <div className="space-y-6">
+      <div className="rounded-2xl border bg-card/60 p-5 shadow-xs">
+        <h3 className="font-semibold text-foreground">Reptile Ecdysis &amp; Shedding Cycle Tracker</h3>
+        <p className="text-xs text-muted-foreground mt-0.5">Track shedding frequency, predict next ecdysis dates, and troubleshoot stuck sheds.</p>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          <div className="space-y-1.5">
+            <Label className="text-xs font-medium text-muted-foreground">Reptile Species</Label>
+            <Select value={spKey} onValueChange={setSpKey}>
+              <SelectTrigger className="h-10"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {Object.entries(SHEDDING_SPECIES_DATA).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label className="text-xs font-medium text-muted-foreground">Life Stage</Label>
+            <Select value={lifeStage} onValueChange={(v: "baby" | "juvenile" | "adult") => setLifeStage(v)}>
+              <SelectTrigger className="h-10"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="baby">Hatchling / Baby (Rapid Growth)</SelectItem>
+                <SelectItem value="juvenile">Juvenile / Sub-Adult</SelectItem>
+                <SelectItem value="adult">Adult (Maintenance Cycle)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label className="text-xs font-medium text-muted-foreground">Days Since Last Shed</Label>
+            <Input
+              type="number"
+              min={0}
+              max={180}
+              value={daysSinceLast}
+              onChange={(e) => setDaysSinceLast(Math.max(0, Number(e.target.value) || 0))}
+              className="h-10"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border bg-gradient-to-br from-indigo-500/10 via-indigo-500/5 to-transparent p-6 shadow-sm">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <span className="text-xs font-semibold tracking-wider text-indigo-600 dark:text-indigo-400 uppercase">
+              Projected Shed Cycle
+            </span>
+            <div className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">
+              ~{cycleDays} Days ({daysRemaining === 0 ? "Due Any Day!" : `Due in ~${daysRemaining} Days`})
+            </div>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Species: <strong className="text-foreground">{sp.name}</strong> • Pattern: <Badge variant="outline" className="ml-1 text-[11px] capitalize">{sp.shedType.replace(/-/g, " ")}</Badge>
+            </p>
+          </div>
+
+          <Badge variant="outline" className="text-xs px-3 py-1.5 font-medium">
+            {progressPct}% Cycle Complete
+          </Badge>
+        </div>
+
+        {/* Progress bar */}
+        <div className="mt-5 space-y-1.5">
+          <div className="flex justify-between text-xs text-muted-foreground font-medium">
+            <span>Last Shed ({daysSinceLast}d ago)</span>
+            <span>Next Estimated Shed (~{cycleDays}d)</span>
+          </div>
+          <div className="h-3 w-full rounded-full bg-muted overflow-hidden">
+            <div
+              style={{ width: `${progressPct}%` }}
+              className={`h-full transition-all duration-300 ${progressPct >= 90 ? "bg-amber-500" : "bg-indigo-500"}`}
+            />
+          </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="rounded-xl border bg-card/80 p-3 text-center">
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">Average Interval</div>
+            <div className="mt-1 text-base font-bold text-foreground">{cycleDays} Days</div>
+          </div>
+
+          <div className="rounded-xl border bg-card/80 p-3 text-center">
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">Target Humidity</div>
+            <div className="mt-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 truncate">{sp.humidHideTarget}</div>
+          </div>
+
+          <div className="rounded-xl border bg-card/80 p-3 text-center">
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">Current Status</div>
+            <div className="mt-1 text-sm font-bold text-foreground">{daysRemaining === 0 ? "Imminent" : "Building Layer"}</div>
+          </div>
+
+          <div className="rounded-xl border bg-card/80 p-3 text-center">
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">Feeding Policy</div>
+            <div className="mt-1 text-xs font-bold text-amber-600 dark:text-amber-400">Pause if Blue</div>
+          </div>
+        </div>
+
+        {/* Ecdysis Phase Guide */}
+        <div className="mt-5 rounded-xl border bg-card/90 p-4 space-y-2 text-xs">
+          <span className="font-semibold text-foreground">5 Key Biological Phases of Ecdysis:</span>
+          <div className="grid gap-2 sm:grid-cols-3 pt-1">
+            <div className="rounded-lg border p-2.5 bg-muted/20">
+              <strong>1. Dull Skin: </strong>
+              <span className="text-muted-foreground">Colors fade, belly turns light pink.</span>
+            </div>
+            <div className="rounded-lg border p-2.5 bg-muted/20">
+              <strong>2. Opaque / Blue Eyes: </strong>
+              <span className="text-muted-foreground">Lymph fluid separates old skin. Snake is blind &amp; defensive.</span>
+            </div>
+            <div className="rounded-lg border p-2.5 bg-muted/20">
+              <strong>3. Cleared &amp; Slough: </strong>
+              <span className="text-muted-foreground">Eyes turn clear 24–48h before active shed.</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-indigo-500/20 bg-indigo-500/5 p-3.5 text-xs text-muted-foreground">
+          <strong>Husbandry Tip: </strong>{sp.tips}
+        </div>
+      </div>
+    </div>
   );
 }
 
