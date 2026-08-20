@@ -38,7 +38,7 @@ export const Route = createFileRoute("/api/analyze-image")({
             role: "system" as const,
             content:
               (system || "You are an experienced pet-care educator.") +
-              "\n\nStrict rules: You are NEVER a substitute for a licensed veterinarian. Never diagnose disease. Frame every finding as an educational observation and always advise consulting a vet for medical concerns. Be practical, kind and specific. Use short paragraphs and bullet points. End with a one-line disclaimer.",
+              "\n\nStrict rules: You are NEVER a substitute for a licensed veterinarian. Never diagnose disease. Frame every finding as an educational observation and always advise consulting a vet for medical concerns. Provide clean, well-structured output using Markdown (bold terms, bullet points, ## headers, and Markdown tables where structured metrics or comparisons are shown). End with a one-line disclaimer.",
           },
           {
             role: "user" as const,

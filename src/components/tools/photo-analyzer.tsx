@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, Upload, RefreshCw, Copy, AlertTriangle } from "lucide-react";
@@ -203,9 +203,7 @@ export function PhotoAnalyzer({
                     <Copy className="mr-2 h-4 w-4" /> Copy
                   </Button>
                 </div>
-                <div className="prose prose-sm max-w-none prose-headings:font-display prose-headings:font-semibold">
-                  <ReactMarkdown>{result}</ReactMarkdown>
-                </div>
+                <FormattedMarkdown content={result} />
               </div>
             ) : (
               <div className="flex h-full min-h-[220px] flex-col items-center justify-center text-center text-muted-foreground">

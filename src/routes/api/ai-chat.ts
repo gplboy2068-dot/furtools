@@ -28,7 +28,9 @@ export const Route = createFileRoute("/api/ai-chat")({
         }
 
         const assistant = body.assistant ? getAssistant(body.assistant) : undefined;
-        const systemPrompt = assistant?.systemPrompt || body.system || "You are an expert, compassionate pet care assistant.";
+        const basePrompt = assistant?.systemPrompt || body.system || "You are an expert, compassionate pet care assistant.";
+        const formattingGuidance = "\n\nCRITICAL OUTPUT FORMATTING RULES:\n- Provide well-structured, beautifully formatted responses using Markdown.\n- Use bold text for key metrics, terms, and action items.\n- Break down complex explanations into clear sections with ## Headings and concise bullet points.\n- Whenever displaying multi-attribute data, comparisons, feeding/dosage schedules, parameters, or specifications, ALWAYS present them in clean Markdown Tables (| Column 1 | Column 2 | ...).\n- Keep advice accurate, actionable, and visually pleasant to read.";
+        const systemPrompt = `${basePrompt}${formattingGuidance}`;
 
         const incoming = Array.isArray(body.messages) ? body.messages : [];
         const safeMessages = incoming
