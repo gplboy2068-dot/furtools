@@ -57,7 +57,11 @@ const GENERAL_ARTICLES: RelatedArticle[] = [
   { title: "Pet insurance: is it worth it?", slug: "pet-insurance-worth-it" },
 ];
 
-export const TOOLS: Tool[] = [
+import { ENRICHED_FISH_TOOLS } from "./fish-tools-content";
+import { ENRICHED_SMALL_PET_TOOLS } from "./small-pets-tools-content";
+import { ENRICHED_BIRD_TOOLS } from "./birds-tools-content";
+
+const RAW_TOOLS: Tool[] = [
   // ─────────── DOGS ───────────
   {
     slug: "dog-age-calculator",
@@ -4274,6 +4278,19 @@ export const TOOLS: Tool[] = [
     updatedAt: "2026-08-03",
   },
 ];
+
+export const TOOLS: Tool[] = RAW_TOOLS.map((t) => {
+  if (ENRICHED_FISH_TOOLS[t.slug]) {
+    return { ...t, ...ENRICHED_FISH_TOOLS[t.slug] } as Tool;
+  }
+  if (ENRICHED_SMALL_PET_TOOLS[t.slug]) {
+    return { ...t, ...ENRICHED_SMALL_PET_TOOLS[t.slug] } as Tool;
+  }
+  if (ENRICHED_BIRD_TOOLS[t.slug]) {
+    return { ...t, ...ENRICHED_BIRD_TOOLS[t.slug] } as Tool;
+  }
+  return t;
+});
 
 export function getTool(slug: string): Tool | undefined {
   return TOOLS.find((t) => t.slug === slug);

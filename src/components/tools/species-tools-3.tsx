@@ -169,35 +169,140 @@ export function CatAgeAdjustedFeeding() {
 }
 
 /* ─────────── BIRDS ─────────── */
+interface BirdMoltData {
+  name: string;
+  durationWeeks: number;
+  frequencyPerYear: string;
+  nutritionalNeeds: string;
+  pinFeatherCare: string;
+}
+
+const BIRD_MOLT_PROFILES: Record<string, BirdMoltData> = {
+  budgie: { name: "Budgerigar", durationWeeks: 6, frequencyPerYear: "1–2× annually (usually late Summer/Autumn)", nutritionalNeeds: "Egg food (scrambled hard-boiled egg with crushed shell), sprouted seeds, high-methionine amino acids.", pinFeatherCare: "Provide extra shallow baths to soften keratin sheaths; budgie head pin feathers can be gently rolled if bonded." },
+  cockatiel: { name: "Cockatiel", durationWeeks: 8, frequencyPerYear: "1–2× annually (Spring / Autumn)", nutritionalNeeds: "Boiled egg yolk, dark leafy greens (kale, dandelion), calcium cuttlebone, beta-carotene (carrots).", pinFeatherCare: "Cockatiels cannot reach their own crest; bonded mates or gentle owner head preening helps open mature sheaths." },
+  conure: { name: "Conure (Green Cheek / Sun)", durationWeeks: 8, frequencyPerYear: "1× full molt + 1× minor molt", nutritionalNeeds: "Sprouted pulses, cooked quinoa, sweet potatoes, raw red palm oil (rich in Vitamin A & E).", pinFeatherCare: "Mist daily with warm water to relieve intense prickling sensations on neck and flanks." },
+  "african-grey": { name: "African Grey", durationWeeks: 10, frequencyPerYear: "Gradual continuous molt (peaks in Autumn)", nutritionalNeeds: "Bioavailable calcium (crushed oyster shell, steamed collards), raw organic red palm fruit oil.", pinFeatherCare: "Extremely sensitive pin feathers; avoid touching blood feathers in active shaft growth." },
+  amazon: { name: "Amazon Parrot", durationWeeks: 10, frequencyPerYear: "1× major annual molt (Post-breeding)", nutritionalNeeds: "Steam-cooked orange squash, dark leafy greens, high-potency organic pellets.", pinFeatherCare: "Heavy warm showers accelerate sheath breakdown and reduce irritable moodiness." },
+  cockatoo: { name: "Cockatoo", durationWeeks: 10, frequencyPerYear: "1× annual extended molt", nutritionalNeeds: "Higher amino acid profile; avoid excess high-fat seeds, emphasize broccoli and leafy sprouts.", pinFeatherCare: "Intense powder down increase; increase air filtration and daily baths." },
+  macaw: { name: "Large Macaw", durationWeeks: 12, frequencyPerYear: "Shed in sequence (takes up to 3 months)", nutritionalNeeds: "Raw in-shell walnuts, Brazil nuts, palm fruit oil, complex extruded pellets.", pinFeatherCare: "Massive primary flight feather shafts; do NOT pull tight sheath until dry and flaky." },
+};
+
 export function BirdMoltingTracker() {
-  const [start, setStart] = useState("2026-07-01");
-  const startDate = new Date(start);
-  const end = new Date(startDate);
-  end.setDate(end.getDate() + 56);
+  const [sp, setSp] = useState("cockatiel");
+  const [start, setStart] = useState("2026-08-01");
+  const d = BIRD_MOLT_PROFILES[sp] || BIRD_MOLT_PROFILES.cockatiel;
+  const startDate = new Date(start || Date.now());
+  const endDate = new Date(startDate);
+  endDate.setDate(endDate.getDate() + d.durationWeeks * 7);
+
   return (
     <CalculatorLayout
-      form={<div>
-        <Label>Molt start date</Label>
-        <Input type="date" value={start} onChange={(e) => setStart(e.target.value)} className="mt-1.5" />
-      </div>}
-      result={<div className="space-y-4">
-        <Big value={end.toLocaleDateString()} label="Estimated end (≈ 8 weeks)" />
-        <Note>Boost protein and full-spectrum lighting. Avoid handling new pin feathers.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Bird Species</Label>
+            <Select value={sp} onValueChange={setSp}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {Object.entries(BIRD_MOLT_PROFILES).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Molt Start Date (First Pin Feathers / Heavy Drop)</Label>
+            <Input type="date" value={start} onChange={(e) => setStart(e.target.value)} className="mt-1.5" />
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={endDate.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })} label={`Estimated Completion (≈ ${d.durationWeeks} weeks)`} />
+          <Rows items={[
+            { label: "Annual Molt Frequency", value: d.frequencyPerYear },
+            { label: "Pin Feather & Grooming Care", value: d.pinFeatherCare },
+          ]} />
+          <div className="rounded-lg bg-primary/10 p-3 text-xs text-primary font-medium">
+            🧬 <strong>Nutritional Support Mandate:</strong> {d.nutritionalNeeds}
+          </div>
+          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
+            <strong>🩸 Active Blood Feather Warning:</strong> New growing feathers are filled with pressurized blood vessels. If a growing pin feather snaps and bleeds, apply styptic powder or cornstarch with direct pressure for 2 minutes and consult an avian vet if bleeding persists.
+          </div>
+        </div>
+      }
     />
   );
 }
 
+interface BirdSleepData {
+  name: string;
+  sleepHours: number;
+  bedtimeSuggestion: string;
+  hormonalControlAdvice: string;
+}
+
+const BIRD_SLEEP_PROFILES: Record<string, BirdSleepData> = {
+  budgie: { name: "Budgerigar (Australian Grassland)", sleepHours: 10, bedtimeSuggestion: "8:00 PM – 6:00 AM (10 uninterrupted hours)", hormonalControlAdvice: "If female budgies start searching for dark nesting corners, extend sleep to 12 hours of total darkness to suppress breeding hormones." },
+  canary: { name: "Canary / Finch", sleepHours: 10, bedtimeSuggestion: "8:30 PM – 6:30 AM (10 hours)", hormonalControlAdvice: "Natural daylight changes stimulate spring singing; keep photoperiod consistent to avoid out-of-season molting." },
+  cockatiel: { name: "Cockatiel", sleepHours: 12, bedtimeSuggestion: "7:30 PM – 7:30 AM (12 uninterrupted hours)", hormonalControlAdvice: "CRITICAL FOR FEMALE COCKATIELS: Chronic egg laying is triggered by long daylight (>14 hrs). Maintain 12–14 hours of total dark coverage to prevent fatal egg binding." },
+  lovebird: { name: "Lovebird", sleepHours: 12, bedtimeSuggestion: "8:00 PM – 8:00 AM (12 hours)", hormonalControlAdvice: "Cover cage with breathable blackout fabric; prevent access to shredded paper or enclosed dark huts." },
+  conure: { name: "Conure (Green Cheek / Sun)", sleepHours: 12, bedtimeSuggestion: "8:00 PM – 8:00 AM (12 hours)", hormonalControlAdvice: "Sleep deprivation triggers aggressive screaming and territorial cage aggression. Provide quiet sleep retreat." },
+  "african-grey": { name: "African Grey", sleepHours: 12, bedtimeSuggestion: "8:00 PM – 8:00 AM (12 hours in dedicated sleep cage)", hormonalControlAdvice: "African Greys are highly prone to psychogenic night frights and feather plucking if disturbed by evening TV light." },
+  amazon: { name: "Amazon Parrot", sleepHours: 12, bedtimeSuggestion: "7:30 PM – 7:30 AM (12 hours)", hormonalControlAdvice: "Spring hormonal 'hot-headed' behavior is reduced by enforcing 12+ hours of strict uninterrupted darkness." },
+  cockatoo: { name: "Cockatoo", sleepHours: 12, bedtimeSuggestion: "7:30 PM – 7:30 AM (12 hours)", hormonalControlAdvice: "Inadequate sleep leads directly to severe neurotic screaming and self-mutilation (feather chewing/picking)." },
+  macaw: { name: "Large Macaw", sleepHours: 12, bedtimeSuggestion: "8:00 PM – 8:00 AM (12 hours)", hormonalControlAdvice: "Equatorial jungle species naturally evolved with equal 12-hour day / 12-hour night cycles." },
+};
+
 export function BirdSleepSchedule() {
-  const [species, setSpecies] = useState("parrot");
-  const hours: Record<string, number> = { parrot: 12, cockatiel: 11, budgie: 10, finch: 10, cockatoo: 12 };
+  const [sp, setSp] = useState("cockatiel");
+  const [wakeTime, setWakeTime] = useState("07:00");
+  const d = BIRD_SLEEP_PROFILES[sp] || BIRD_SLEEP_PROFILES.cockatiel;
+
+  const [wakeH, wakeM] = wakeTime.split(":").map(Number);
+  const bedtimeTotalMinutes = (wakeH * 60 + wakeM - d.sleepHours * 60 + 1440) % 1440;
+  const bedH = Math.floor(bedtimeTotalMinutes / 60);
+  const bedM = bedtimeTotalMinutes % 60;
+  const bedH12 = bedH % 12 || 12;
+  const bedAmPm = bedH < 12 ? "AM" : "PM";
+  const bedStr = `${bedH12}:${bedM.toString().padStart(2, "0")} ${bedAmPm}`;
+
   return (
     <CalculatorLayout
-      form={<SelectField label="Species" value={species} onChange={setSpecies} options={Object.keys(hours)} />}
-      result={<div className="space-y-4">
-        <Big value={`${hours[species]} hr`} label="Uninterrupted sleep needed" />
-        <Note>Cover the cage and keep a quiet, dark room. Sleep deprivation causes feather plucking.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Bird Species</Label>
+            <Select value={sp} onValueChange={setSp}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {Object.entries(BIRD_SLEEP_PROFILES).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Target Morning Wakeup Time</Label>
+            <Input type="time" value={wakeTime} onChange={(e) => setWakeTime(e.target.value)} className="mt-1.5" />
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={bedStr} label={`Calculated Bedtime (${d.sleepHours}h dark sleep)`} unit={`Wake: ${wakeTime}`} />
+          <Rows items={[
+            { label: "Nightly Sleep Duration", value: `${d.sleepHours} uninterrupted hours` },
+            { label: "Equatorial Standard", value: d.bedtimeSuggestion },
+          ]} />
+          <div className="rounded-lg bg-primary/10 p-3 text-xs text-primary font-medium">
+            🌙 <strong>Hormonal & Behavioral Control:</strong> {d.hormonalControlAdvice}
+          </div>
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Sleep Cage Best Practice:</strong> A smaller dedicated sleep cage in a quiet, dark spare bedroom prevents sleep disruption from family TV/kitchen activity and eliminates night frights.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
@@ -241,52 +346,157 @@ export function FishMedicationDose() {
   );
 }
 
-/* ─────────── SMALL PETS ─────────── */
+/* ─────────── SMALL PETS (ADVANCED CALCULATORS) ─────────── */
 export function RabbitPelletCalculator() {
-  const [kg, setKg] = useState(2);
-  const grams = Math.round(kg * 25);
+  const [kg, setKg] = useState(2.2);
+  const [stage, setStage] = useState<"young" | "adult" | "senior">("adult");
+  const [bcs, setBcs] = useState<"underweight" | "ideal" | "overweight">("ideal");
+
+  const weightLb = kg * 2.20462;
+  // House Rabbit Society guideline: 1/8 to 1/4 cup per 5 lbs body weight for adult maintenance
+  const baseGrams =
+    stage === "young"
+      ? Math.round(kg * 40) // growing babies get high protein/calcium
+      : stage === "senior"
+      ? Math.round(kg * 14)
+      : Math.round(kg * 12);
+
+  const bcsMultiplier = bcs === "overweight" ? 0.65 : bcs === "underweight" ? 1.35 : 1.0;
+  const finalGrams = Math.max(5, Math.round(baseGrams * bcsMultiplier));
+  const tbsp = Math.round((finalGrams / 10) * 10) / 10;
+  const cups = (tbsp / 16).toFixed(2);
+
   return (
     <CalculatorLayout
-      form={<NumberField label="Rabbit weight (kg)" value={kg} onChange={setKg} step={0.1} />}
-      result={<div className="space-y-4">
-        <Big value={`${grams} g`} label="Daily pellets" />
-        <Note>Pellets are a supplement — unlimited hay stays the foundation.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <NumberField label="Rabbit weight (kg)" value={kg} onChange={setKg} step={0.1} min={0.5} />
+          <div className="grid grid-cols-2 gap-3">
+            <SelectField
+              label="Life stage"
+              value={stage}
+              onChange={(v) => setStage(v as typeof stage)}
+              options={["young", "adult", "senior"]}
+            />
+            <SelectField
+              label="Body condition (BCS)"
+              value={bcs}
+              onChange={(v) => setBcs(v as typeof bcs)}
+              options={["underweight", "ideal", "overweight"]}
+            />
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${finalGrams} g/day`} label="Measured daily pellets" unit={`≈ ${tbsp} tbsp (${cups} cup)`} />
+          <Rows
+            items={[
+              { label: "Timothy hay target", value: "Unlimited (80%–85% of daily intake)" },
+              { label: "Fresh leafy greens", value: `${Math.max(1, Math.round(weightLb * 0.5))} packed cups daily` },
+              { label: "Pellet nutritional standard", value: ">22% crude fiber, <14% protein, <0.8% calcium" },
+              { label: "Feeding frequency", value: "Divide into 1 morning & 1 evening portion" },
+            ]}
+          />
+          <Note>
+            Rabbits fed excess pellets develop selective anorexia towards hay, leading to molar dental spurs and lethal cecal dysbiosis. Pellets are a concentrated vitamin supplement, not the primary diet.
+          </Note>
+        </div>
+      }
     />
   );
 }
 
 export function RabbitWeightTracker() {
-  const [last, setLast] = useState(2.0);
-  const [current, setCurrent] = useState(1.95);
+  const [last, setLast] = useState(2.2);
+  const [current, setCurrent] = useState(2.15);
+  const [days, setDays] = useState(7);
+
   const diff = current - last;
-  const pct = ((diff / last) * 100).toFixed(1);
+  const pct = Number(((diff / last) * 100).toFixed(1));
+  const absPct = Math.abs(pct);
+
+  const status =
+    absPct <= 2.0
+      ? { tone: "safe" as const, label: "Weight is stable (Normal variation ±2%)", alert: false }
+      : absPct <= 4.5
+      ? { tone: "caution" as const, label: "Mild fluctuation (Monitor closely)", alert: false }
+      : { tone: "danger" as const, label: "CRITICAL DANGER: Rapid weight shift", alert: true };
+
   return (
     <CalculatorLayout
-      form={<div className="space-y-4">
-        <NumberField label="Last weight (kg)" value={last} onChange={setLast} step={0.01} />
-        <NumberField label="Current weight (kg)" value={current} onChange={setCurrent} step={0.01} />
-      </div>}
-      result={<div className="space-y-4">
-        <Big value={`${pct}%`} label="Weight change" />
-        <Note>Rabbits losing more than 5% in a week need urgent vet care — GI stasis is an emergency.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <NumberField label="Previous weight (kg)" value={last} onChange={setLast} step={0.01} min={0.5} />
+            <NumberField label="Current weight (kg)" value={current} onChange={setCurrent} step={0.01} min={0.5} />
+          </div>
+          <NumberField label="Days between weigh-ins" value={days} onChange={setDays} min={1} max={60} />
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big
+            value={`${pct >= 0 ? "+" : ""}${pct}%`}
+            label="Weight percentage change"
+            unit={`${diff >= 0 ? "+" : ""}${Math.round(diff * 1000)} g change over ${days} days`}
+          />
+          <Rows
+            items={[
+              { label: "Clinical triage verdict", value: status.label },
+              { label: "GI motility risk", value: status.alert ? "HIGH RISK: Possible subclinical GI Stasis / Dental Disease" : "Low / Normal" },
+              { label: "Recommended action", value: status.alert ? "URGENT exotic vet exam & oral cavity endoscopy" : "Continue weekly weigh-in on digital kitchen scale" },
+            ]}
+          />
+          <Note>
+            Because rabbits are prey animals, they hide severe illness until body reserves are depleted. A sudden weight loss of &gt;5% in 7 days is an emergency requiring immediate veterinary diagnostics.
+          </Note>
+        </div>
+      }
     />
   );
 }
 
 export function GuineaPigFoodCalculator() {
   const [count, setCount] = useState(2);
-  const pelletsG = count * 40;
-  const veggiesG = count * 100;
-  const hayG = count * 60;
+  const [stage, setStage] = useState<"adult" | "pup">("adult");
+
+  const hayG = count * 90; // ~90g loose Timothy hay per pig daily
+  const pelletsG = count * (stage === "pup" ? 35 : 25); // ~1/8 cup (25g) per adult
+  const veggiesG = count * 100; // ~1 cup (100g) mixed safe greens per pig
+  const waterMl = count * 150; // ~100-200ml fresh water per pig daily
+
   return (
     <CalculatorLayout
-      form={<NumberField label="Number of guinea pigs" value={count} onChange={setCount} min={1} />}
-      result={<div className="space-y-3 text-center">
-        <Big value={`${hayG} g`} label="Timothy hay (unlimited target)" />
-        <Note>Pellets: {pelletsG} g · Fresh veggies: {veggiesG} g · Vitamin C essential daily.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <NumberField label="Number of guinea pigs" value={count} onChange={setCount} min={1} max={10} />
+            <SelectField
+              label="Life stage"
+              value={stage}
+              onChange={(v) => setStage(v as typeof stage)}
+              options={["adult", "pup"]}
+            />
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${hayG} g/day`} label="Unlimited grass hay (80% diet)" unit={`≈ ${Math.round(hayG * 7 / 1000 * 10) / 10} kg weekly for ${count} pig(s)`} />
+          <Rows
+            items={[
+              { label: "Stabilized Vitamin C pellets", value: `${pelletsG} g daily (${count} × 1/8 cup)` },
+              { label: "Fresh dark leafy greens & veg", value: `${veggiesG} g daily (${count} packed cups)` },
+              { label: "Daily fresh water consumption", value: `≈ ${waterMl} ml / day` },
+              { label: "High-value Vitamin C produce", value: "Yellow bell pepper, cilantro, romaine (rotate daily)" },
+            ]}
+          />
+          <Note>
+            Guinea pigs lack the L-gulonolactone oxidase enzyme and cannot synthesize Vitamin C internally. Always feed fresh bell peppers and stabilized pellets to prevent painful scurvy and joint hemorrhages.
+          </Note>
+        </div>
+      }
     />
   );
 }

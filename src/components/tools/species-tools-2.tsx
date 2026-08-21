@@ -228,44 +228,168 @@ export function CatCatioSize() {
 }
 
 /* ─────────── BIRDS ─────────── */
+interface BirdBathProfile {
+  name: string;
+  frequency: string;
+  preferredMethod: string;
+  featherType: string;
+  dryingDuration: string;
+  clinicalTip: string;
+}
+
+const BIRD_BATH_DATA: Record<string, BirdBathProfile> = {
+  finch: { name: "Finch / Canary", frequency: "Daily shallow dish (5–7× weekly)", preferredMethod: "Heavy shallow ceramic dish (0.5\" depth) placed on floor", featherType: "Delicate contour feathers; prone to drying out", dryingDuration: "30–45 minutes", clinicalTip: "Provide bath in morning only; remove water dish after 20 mins to prevent drinking soiled water." },
+  budgie: { name: "Budgerigar", frequency: "3–4× per week", preferredMethod: "Wet broad lettuce/kale leaves or fine gentle spray mist", featherType: "Dense dry plumage; powder down", dryingDuration: "45–60 minutes", clinicalTip: "Budgies often prefer rubbing their bodies against wet greens hung in the cage rather than direct baths." },
+  cockatiel: { name: "Cockatiel", frequency: "Daily gentle misting or 3× weekly shallow bath", preferredMethod: "Warm mist sprayed upwards (falling like natural rain)", featherType: "High powder down species (produces white keratin dust)", dryingDuration: "1 to 2 hours", clinicalTip: "Regular misting controls airborne dander and keeps uropygial preen gland ducts clear." },
+  conure: { name: "Green Cheek / Sun Conure", frequency: "Daily active soaking", preferredMethod: "Running gentle sink faucet or shallow pie dish", featherType: "Oil-preened plumage; loves full soaking", dryingDuration: "1 to 1.5 hours", clinicalTip: "Extremely enthusiastic bathers; will dunk whole head and flap wings vigorously." },
+  "african-grey": { name: "African Grey", frequency: "3–5× per week", preferredMethod: "Fine lukewarm mist or dedicated shower perch", featherType: "Extremely dense powder down; susceptible to dry skin", dryingDuration: "2 to 3 hours", clinicalTip: "Warm misting relieves itchy feather sheaths and helps prevent psychogenic feather picking." },
+  amazon: { name: "Amazon Parrot", frequency: "Daily or 4–5× weekly", preferredMethod: "Shower perch with gentle warm spray or heavy mist", featherType: "Vibrant plumage requiring high humidity", dryingDuration: "2 hours", clinicalTip: "Amazons display joyful wing flares and vocalizations under warm shower mist." },
+  cockatoo: { name: "Cockatoo (Umbrella/Moluccan)", frequency: "Daily misting + 3× weekly shower", preferredMethod: "Shower perch with defused mist stream", featherType: "Massive powder down production; prone to skin flaking", dryingDuration: "2 to 3 hours", clinicalTip: "Bathing is mandatory to prevent powder clogging room air and causing chronic sinus irritation." },
+  macaw: { name: "Large Macaw", frequency: "Daily heavy misting / shower", preferredMethod: "Dedicated walk-in shower perch with warm spray", featherType: "Heavy, robust flight contour feathers", dryingDuration: "2 to 3 hours", clinicalTip: "Drenching showers wash away dust, stimulate preening, and exercise wing muscles." },
+};
+
 export function BirdBathFrequency() {
   const [sp, setSp] = useState("cockatiel");
-  const freq: Record<string, string> = { budgie: "2–3× / week", cockatiel: "daily light mist", conure: "daily", "african-grey": "3–4× / week", macaw: "daily", finch: "daily bath dish" };
+  const d = BIRD_BATH_DATA[sp] || BIRD_BATH_DATA.cockatiel;
+
   return (
     <CalculatorLayout
-      form={<SelectField label="Species" value={sp} onChange={setSp} options={Object.keys(freq)} />}
-      result={<div className="space-y-4">
-        <Big value={freq[sp]} label="Recommended bathing" />
-        <Note>Use plain lukewarm water — never soap. Mornings only so feathers dry before night.</Note>
-      </div>}
+      form={
+        <div>
+          <Label>Bird Species</Label>
+          <Select value={sp} onValueChange={setSp}>
+            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {Object.entries(BIRD_BATH_DATA).map(([k, v]) => (
+                <SelectItem key={k} value={k}>{v.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={d.frequency} label="Optimal Bathing Frequency" />
+          <Rows items={[
+            { label: "Preferred Bath Method", value: d.preferredMethod },
+            { label: "Feather & Skin Type", value: d.featherType },
+            { label: "Full Drying Duration", value: d.dryingDuration },
+          ]} />
+          <div className="rounded-lg bg-primary/10 p-3 text-xs text-primary font-medium">
+            💡 {d.clinicalTip}
+          </div>
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Crucial Bath Rules:</strong> Use plain lukewarm water only (NEVER soap or shampoo, which dissolves natural waterproofing preen oils). Always bathe before noon so feathers are 100% dry before nighttime sleep to prevent hypothermia.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
+interface BirdFlightProfile {
+  name: string;
+  minFlightDimensions: string;
+  minWingBeats: number;
+  wingspanInches: number;
+  dailyHours: number;
+  hazards: string[];
+}
+
+const BIRD_FLIGHT_DATA: Record<string, BirdFlightProfile> = {
+  finch: { name: "Finch / Canary (Colony)", minFlightDimensions: "6 ft L × 3 ft W × 4 ft H", minWingBeats: 4, wingspanInches: 8, dailyHours: 0, hazards: ["Bar spacing > 0.5 inches", "Vertical ceiling fans", "Reflective window glass"] },
+  budgie: { name: "Budgerigar", minFlightDimensions: "8 ft L × 6 ft W × 7 ft H", minWingBeats: 5, wingspanInches: 12, dailyHours: 2, hazards: ["Open toilet bowls", "Toxic houseplants (philodendron, lilies)", "Curious cats/dogs"] },
+  cockatiel: { name: "Cockatiel", minFlightDimensions: "10 ft L × 8 ft W × 7 ft H", minWingBeats: 6, wingspanInches: 16, dailyHours: 3, hazards: ["Ceiling fans on low/med/high", "Mirrors (collision risk)", "Uncovered windows"] },
+  conure: { name: "Conure (Green Cheek / Sun)", minFlightDimensions: "12 ft L × 8 ft W × 8 ft H", minWingBeats: 6, wingspanInches: 18, dailyHours: 4, hazards: ["Non-stick PTFE cookware off-gassing", "Hot stoves / simmering pots", "Open doors"] },
+  "african-grey": { name: "African Grey / Amazon", minFlightDimensions: "16 ft L × 10 ft W × 8 ft H", minWingBeats: 7, wingspanInches: 28, dailyHours: 4, hazards: ["Electrical wires / power cords", "Heavy metal decor (lead/zinc)", "Glass doors"] },
+  cockatoo: { name: "Cockatoo", minFlightDimensions: "20 ft L × 12 ft W × 9 ft H", minWingBeats: 8, wingspanInches: 36, dailyHours: 5, hazards: ["Wood trim chewing (paint toxicity)", "Open exterior windows", "Ceiling fans"] },
+  macaw: { name: "Large Macaw", minFlightDimensions: "24 ft L × 15 ft W × 10 ft H", minWingBeats: 8, wingspanInches: 42, dailyHours: 5, hazards: ["Confined hallways (wing-strike risk)", "Unscreened double doors", "Unpadded glass"] },
+};
+
 export function BirdFlightSpace() {
   const [sp, setSp] = useState("cockatiel");
-  const space: Record<string, string> = { budgie: "6 × 4 × 6 ft", cockatiel: "8 × 4 × 6 ft", conure: "10 × 5 × 7 ft", "african-grey": "12 × 6 × 8 ft", macaw: "20 × 8 × 10 ft" };
+  const d = BIRD_FLIGHT_DATA[sp] || BIRD_FLIGHT_DATA.cockatiel;
+
   return (
     <CalculatorLayout
-      form={<SelectField label="Species" value={sp} onChange={setSp} options={Object.keys(space)} />}
-      result={<div className="space-y-4">
-        <Big value={space[sp]} label="Minimum flight room / aviary" />
-        <Note>Even caged birds need daily supervised flight time. Cover windows and ceiling fans first.</Note>
-      </div>}
+      form={
+        <div>
+          <Label>Bird Species</Label>
+          <Select value={sp} onValueChange={setSp}>
+            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {Object.entries(BIRD_FLIGHT_DATA).map(([k, v]) => (
+                <SelectItem key={k} value={k}>{v.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={d.minFlightDimensions} label="Recommended Flight Zone Dimensions" />
+          <Rows items={[
+            { label: "Continuous Wing Beats Between Perches", value: `${d.minWingBeats}+ full flaps` },
+            { label: "Adult Wingspan", value: `≈ ${d.wingspanInches} inches` },
+            { label: "Recommended Supervised Free Flight", value: `${d.dailyHours}+ hours daily` },
+          ]} />
+          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive space-y-1">
+            <strong>🚫 Critical Flight Safety Checklist:</strong>
+            <ul className="list-disc pl-4 space-y-0.5 mt-1">
+              {d.hazards.map((h, i) => <li key={i}>{h}</li>)}
+            </ul>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function BirdToyRotation() {
-  const [toys, setToys] = useState(6);
-  const perRotation = Math.max(3, Math.floor(toys / 2));
+  const [toys, setToys] = useState(12);
+  const [speciesSize, setSpeciesSize] = useState<"small" | "medium" | "large">("medium");
+
+  const displayCount = speciesSize === "small" ? Math.min(5, Math.max(3, Math.floor(toys * 0.35))) : speciesSize === "medium" ? Math.min(6, Math.max(4, Math.floor(toys * 0.4))) : Math.min(7, Math.max(4, Math.floor(toys * 0.45)));
+  const storageCount = toys - displayCount;
+  const foragingShare = Math.max(1, Math.round(displayCount * 0.35));
+  const destructibleShare = Math.max(1, Math.round(displayCount * 0.35));
+  const chewPreenShare = Math.max(1, displayCount - foragingShare - destructibleShare);
+
   return (
     <CalculatorLayout
-      form={<NumberField label="Total toys you own" value={toys} onChange={setToys} min={3} />}
-      result={<div className="space-y-4">
-        <Big value={perRotation} label="Toys to display at once" />
-        <Note>Rotate every 5–7 days — birds get bored fast. Always include one foraging, one destructible, one chew toy.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Parrot / Bird Size Category</Label>
+            <Select value={speciesSize} onValueChange={(v) => setSpeciesSize(v as typeof speciesSize)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="small">Small (Budgie, Cockatiel, Lovebird, Finch)</SelectItem>
+                <SelectItem value="medium">Medium (Conure, Ringneck, Senegal, Caique)</SelectItem>
+                <SelectItem value="large">Large (African Grey, Amazon, Cockatoo, Macaw)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Total Toy Inventory in Possession</Label>
+            <Input type="number" min={4} max={50} value={toys} onChange={(e) => setToys(Math.max(4, +e.target.value || 4))} className="mt-1.5" />
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${displayCount} toys in cage`} label="Active In-Cage Display" unit={`${storageCount} in reserve storage`} />
+          <Rows items={[
+            { label: "1. Foraging / Food Puzzle Toys", value: `${foragingShare} items (treat retrieval)` },
+            { label: "2. Destructible Soft Wood / Yucca / Paper", value: `${destructibleShare} items (shredding drive)` },
+            { label: "3. Hardwood / Natural Preening Toys", value: `${chewPreenShare} items (beak trim & grooming)` },
+            { label: "Rotation Cadence", value: "Rotate every 5 to 7 days" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Safety Protocol:</strong> Inspect toys daily. Discard frayed cotton rope (causes fatal crop impaction if swallowed), remove rusty metal clasps (ensure stainless steel or nickel-plated zinc-free quick links), and replace split plastic.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
@@ -339,64 +463,274 @@ export function AquariumCO2() {
   );
 }
 
-/* ─────────── SMALL PETS ─────────── */
+/* ─────────── SMALL PETS (ADVANCED CALCULATORS) ─────────── */
 export function HamsterWheelSize() {
-  const [sp, setSp] = useState("syrian");
-  const sizes: Record<string, string> = { syrian: "11–12\" solid", dwarf: "8–9\" solid", "roborovski": "8\" solid", chinese: "8–9\" solid" };
+  const [species, setSpecies] = useState<"syrian" | "dwarf" | "robo" | "chinese">("syrian");
+  const [surface, setSurface] = useState<"solid" | "cork" | "wire">("solid");
+
+  const specs = {
+    syrian: { min: 11, rec: 12, maxSpineCurv: 11, kmNight: "5–9 km" },
+    dwarf: { min: 8.5, rec: 10, maxSpineCurv: 8.5, kmNight: "4–8 km" },
+    robo: { min: 8, rec: 9, maxSpineCurv: 8, kmNight: "6–10 km" },
+    chinese: { min: 8.5, rec: 10, maxSpineCurv: 8.5, kmNight: "4–7 km" },
+  }[species];
+
+  const surfaceSafe = surface !== "wire";
+
   return (
     <CalculatorLayout
-      form={<SelectField label="Hamster type" value={sp} onChange={setSp} options={Object.keys(sizes)} />}
-      result={<div className="space-y-4">
-        <Big value={sizes[sp]} label="Minimum wheel size" />
-        <Note>Solid running surface only — wire wheels cause bumblefoot. Back should stay flat while running.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Hamster species</Label>
+            <Select value={species} onValueChange={(v: typeof species) => setSpecies(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="syrian">Syrian Hamster (Golden / Teddy Bear)</SelectItem>
+                <SelectItem value="dwarf">Dwarf Hamster (Campbell / Winter White)</SelectItem>
+                <SelectItem value="robo">Roborovski Dwarf Hamster (Speed Runner)</SelectItem>
+                <SelectItem value="chinese">Chinese Hamster</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Wheel track surface type</Label>
+            <Select value={surface} onValueChange={(v: typeof surface) => setSurface(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="solid">Solid Plastic Track (Wodent Wheel / Silent Runner)</SelectItem>
+                <SelectItem value="cork">Cork-Lined Wooden Wheel (Ultra-Quiet / Orthopedic)</SelectItem>
+                <SelectItem value="wire">Wire Mesh / Runged Wheel (UNSAFE)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big
+            value={`${specs.rec}" diameter`}
+            label="Recommended wheel size"
+            unit={`Minimum: ${specs.min}" (${Math.round(specs.min * 2.54)} cm)`}
+          />
+          <Rows
+            items={[
+              { label: "Spine posture check", value: "Back must be 100% horizontal / flat" },
+              { label: "Track surface verdict", value: surfaceSafe ? "Safe solid running surface ✓" : "DANGEROUS: Causes bumblefoot & broken toes ✗" },
+              { label: "Nightly exercise distance", value: specs.kmNight },
+              { label: "Center axle safety", value: "Axle-free design prevents spine & tail entanglement" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            If your hamster runs with their head or tail bent upwards like a banana, the wheel is too small. Running on an undersized wheel causes irreversible spinal deformation and chronic arthritis.
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function FerretCageSize() {
-  const [ferrets, setFerrets] = useState(1);
-  const cuft = ferrets * 24; // approx
+  const [ferrets, setFerrets] = useState(2);
+  const [outHours, setOutHours] = useState(4);
+
+  const baseCuFt = 24;
+  const totalCuFt = baseCuFt + (ferrets - 1) * 16;
+  const levels = ferrets >= 3 ? "3–4 solid levels" : "2–3 solid levels";
+  const litterBoxes = ferrets + 1;
+
   return (
     <CalculatorLayout
-      form={<NumberField label="Number of ferrets" value={ferrets} onChange={setFerrets} min={1} />}
-      result={<div className="space-y-4">
-        <Big value={`${cuft} cu ft`} label="Minimum cage volume" />
-        <Note>Multi-level cages preferred. Ferrets need 4+ hours daily out-of-cage supervised play.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Number of ferrets</Label>
+              <Input
+                type="number"
+                min={1}
+                max={6}
+                value={ferrets}
+                onChange={(e) => setFerrets(+e.target.value || 1)}
+                className="mt-1.5"
+              />
+            </div>
+            <div>
+              <Label>Daily free-roam (hours)</Label>
+              <Input
+                type="number"
+                min={1}
+                max={12}
+                value={outHours}
+                onChange={(e) => setOutHours(+e.target.value || 0)}
+                className="mt-1.5"
+              />
+            </div>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${totalCuFt} cu ft`} label="Minimum cage volume" unit={`≈ ${(totalCuFt * 0.0283168).toFixed(2)} m³`} />
+          <Rows
+            items={[
+              { label: "Recommended structure", value: `Ferret Nation / Critter Nation (${levels})` },
+              { label: "Maximum bar spacing", value: '0.5" (prevents kit & female head entrapment)' },
+              { label: "Sleeping hammocks/dens", value: `${ferrets * 2} fleece hammocks & sleep sacks` },
+              { label: "Corner litter boxes", value: `${litterBoxes} low-entry boxes` },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            {outHours >= 4
+              ? "Great! 4+ hours of active, ferret-proofed room exploration satisfies natural predatory hunting and play drives."
+              : "Warning: Less than 4 hours out of cage causes cage rage, destructive bar biting, and muscle atrophy."}
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function GuineaPigCageSize() {
   const [pigs, setPigs] = useState(2);
-  const sqft = pigs === 1 ? 7.5 : pigs === 2 ? 10.5 : pigs === 3 ? 13 : 16;
+  const [pairing, setPairing] = useState<"sows" | "boars" | "mixed_neutered">("sows");
+
+  // Boar pairs need extra space to prevent territorial fighting
+  const boarMultiplier = pairing === "boars" ? 1.25 : 1.0;
+  const baseSqFt = {
+    1: 7.5,
+    2: 10.5,
+    3: 13.0,
+    4: 16.0,
+    5: 19.0,
+    6: 22.0,
+  }[Math.min(6, Math.max(1, pigs))] || 10.5;
+
+  const finalSqFt = Math.round(baseSqFt * boarMultiplier);
+  const finalSqM = (finalSqFt * 0.092903).toFixed(2);
+  const ccGrids =
+    finalSqFt >= 20 ? "2 × 6 Grids (or 3 × 4)" : finalSqFt >= 15 ? "2 × 5 Grids" : finalSqFt >= 10 ? "2 × 4 Grids" : "2 × 3 Grids";
+
   return (
     <CalculatorLayout
-      form={<NumberField label="Number of guinea pigs" value={pigs} onChange={setPigs} min={1} />}
-      result={<div className="space-y-4">
-        <Big value={`${sqft} sq ft`} label="Minimum floor space" />
-        <Note>Guinea pigs are social — always keep 2+. C&C cages beat pet-store cages every time.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Number of guinea pigs</Label>
+              <Input
+                type="number"
+                min={1}
+                max={6}
+                value={pigs}
+                onChange={(e) => setPigs(+e.target.value || 1)}
+                className="mt-1.5"
+              />
+            </div>
+            <div>
+              <Label>Herd composition</Label>
+              <Select value={pairing} onValueChange={(v: typeof pairing) => setPairing(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="sows">Females (Sows) / Trio</SelectItem>
+                  <SelectItem value="boars">Males (Boars - Need Extra Space)</SelectItem>
+                  <SelectItem value="mixed_neutered">Neutered Boar + Sows</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${finalSqFt} sq ft`} label="Continuous single-level floor space" unit={`≈ ${finalSqM} m²`} />
+          <Rows
+            items={[
+              { label: "Recommended C&C cage grid size", value: ccGrids },
+              { label: "Hideaways required", value: `${pigs + 1} hides (with 2 doors each)` },
+              { label: "Hay stations & water bottles", value: `${Math.max(2, pigs)} separate feeding stations` },
+              { label: "Upper lofts note", value: "Upper lofts are bonus space; they do NOT count toward the single-level base" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            Guinea pigs have fragile spines and poor depth perception. They cannot climb vertical cages like ferrets or rats and require broad, flat, single-level running tracks for daily "popcorning" and exercise.
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function RabbitLitterTrainingGuide() {
-  const [age, setAge] = useState("adult");
-  const advice: Record<string, string> = {
-    kit: "Start after 8 weeks — bladder control is limited before then",
-    adolescent: "Spay/neuter first — hormones cause marking",
-    adult: "Fully trainable within 1–2 weeks with consistent setup",
-    senior: "Add extra low-entry boxes near sleeping areas",
-  };
+  const [lifeStage, setLifeStage] = useState<"neutered_adult" | "intact" | "baby" | "senior">("neutered_adult");
+  const [litterType, setLitterType] = useState<"paper_pellets" | "aspen" | "clay" | "pine">("paper_pellets");
+
+  const stageAdvice = {
+    neutered_adult: {
+      timeline: "3–7 days with proper box placement",
+      plan: "High success rate. Place fresh Timothy hay in a hay rack directly hanging over the litter box.",
+    },
+    intact: {
+      timeline: "Difficult until altered (hormonal marking)",
+      plan: "Hormonal rabbits spray urine and scatter territorial poops. Spaying/neutering resolves 90% of marking.",
+    },
+    baby: {
+      timeline: "2–4 weeks (gradual development)",
+      plan: "Bunnies under 12 weeks have limited sphincter muscle control. Confine to a smaller pen with multiple litter trays.",
+    },
+    senior: {
+      timeline: "Immediate with low-entry boxes",
+      plan: "Arthritic rabbits cannot hop over high walls. Cut a 2-inch low entry notch in the front lip of the litter pan.",
+    },
+  }[lifeStage];
+
+  const litterSafe = litterType === "paper_pellets" || litterType === "aspen";
+
   return (
     <CalculatorLayout
-      form={<SelectField label="Life stage" value={age} onChange={setAge} options={Object.keys(advice)} />}
-      result={<div className="space-y-4">
-        <Big value={advice[age]} label="Training outlook" />
-        <Note>Use paper-based litter with hay on top. Never clay or pine — both are harmful to rabbits.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Rabbit status & age</Label>
+            <Select value={lifeStage} onValueChange={(v: typeof lifeStage) => setLifeStage(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="neutered_adult">Neutered / Spayed Adult (Ideal)</SelectItem>
+                <SelectItem value="intact">Intact Adult (Hormonal Spraying)</SelectItem>
+                <SelectItem value="baby">Baby / Junior (&lt; 12 Weeks)</SelectItem>
+                <SelectItem value="senior">Senior / Arthritic Rabbit</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Litter substrate material</Label>
+            <Select value={litterType} onValueChange={(v: typeof litterType) => setLitterType(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="paper_pellets">Recycled Paper Pellets (Yesterday's News / CareFresh)</SelectItem>
+                <SelectItem value="aspen">Kiln-Dried Aspen Shavings</SelectItem>
+                <SelectItem value="clay">Cat Clumping Clay (TOXIC / DEADLY)</SelectItem>
+                <SelectItem value="pine">Untreated Pine / Cedar Shavings (TOXIC OILS)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={stageAdvice.timeline} label="Expected training timeline" />
+          <Rows
+            items={[
+              { label: "Litter material safety", value: litterSafe ? "Safe paper/aspen substrate ✓" : "LETHAL: Clay clumps in gut; aromatic pine damages liver ✗" },
+              { label: "Hay rack position", value: "Hang hay rack directly OVER the litter box" },
+              { label: "Enzymatic cleaner", value: "Use white vinegar or enzymatic spray for accidents" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            <strong>Biological Secret:</strong> Rabbits instinctively defecate while eating hay. Hanging their unlimited Timothy hay directly over the litter pan solves 95% of all litter box resistance instantly.
+          </p>
+        </div>
+      }
     />
   );
 }

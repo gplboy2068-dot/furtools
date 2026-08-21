@@ -62,105 +62,300 @@ function Bullets({ lines }: { lines: string[] }) {
 }
 
 /* ─────────── BIRDS ─────────── */
-const BIRD_CAGES: Record<string, { min: string; note: string }> = {
-  budgie: { min: "18\" × 18\" × 24\"", note: "Bar spacing max 1/2\"; horizontal bars for climbing." },
-  cockatiel: { min: "24\" × 24\" × 30\"", note: "Bar spacing 1/2–5/8\"; needs daily out-of-cage time." },
-  conure: { min: "30\" × 24\" × 36\"", note: "Bar spacing 5/8–3/4\"; heavy-duty locks — these are escape artists." },
-  "african-grey": { min: "36\" × 24\" × 48\"", note: "Bar spacing 3/4–1\"; needs foraging enrichment daily." },
-  macaw: { min: "48\" × 36\" × 60\"", note: "Bar spacing 1–1.5\"; ideally a walk-in aviary." },
-  finch: { min: "30\" × 18\" × 18\" (pair)", note: "Wider than tall — finches fly horizontally." },
+interface BirdCageData {
+  name: string;
+  singleMin: string;
+  singleDimensions: { w: number; d: number; h: number };
+  barSpacing: string;
+  barOrientation: string;
+  minPerchCount: number;
+  outOfCageMinHours: number;
+  note: string;
+}
+
+const BIRD_CAGES: Record<string, BirdCageData> = {
+  finch: { name: "Zebra / Society Finch (Pair)", singleMin: "30\" W × 18\" D × 18\" H", singleDimensions: { w: 30, d: 18, h: 18 }, barSpacing: "1/4\" to 3/8\" (Max 0.9 cm)", barOrientation: "Horizontal bars for flight hopping", minPerchCount: 3, outOfCageMinHours: 0, note: "Finches fly strictly horizontally back-and-forth; horizontal width is critical. Never use round cages." },
+  canary: { name: "Canary (Single)", singleMin: "24\" W × 16\" D × 18\" H", singleDimensions: { w: 24, d: 16, h: 18 }, barSpacing: "3/8\" to 1/2\" (Max 1.2 cm)", barOrientation: "Horizontal bars", minPerchCount: 3, outOfCageMinHours: 1, note: "Requires unbroken horizontal flight path for vocal cardiovascular health. Place perches at opposite ends." },
+  budgie: { name: "Budgerigar / Parakeet", singleMin: "18\" W × 18\" D × 24\" H", singleDimensions: { w: 18, d: 18, h: 24 }, barSpacing: "1/2\" (Max 1.27 cm)", barOrientation: "Horizontal bars for climbing", minPerchCount: 3, outOfCageMinHours: 2, note: "Bar spacing over 1/2\" allows budgies to get their head stuck. Needs multiple natural wood branch perches." },
+  lovebird: { name: "Lovebird (Single / Pair)", singleMin: "24\" W × 24\" D × 24\" H", singleDimensions: { w: 24, d: 24, h: 24 }, barSpacing: "1/2\" (Max 1.27 cm)", barOrientation: "Horizontal bars", minPerchCount: 3, outOfCageMinHours: 3, note: "Very energetic and acrobatic chewers. Requires non-toxic powder-coated metal and destructible toys." },
+  cockatiel: { name: "Cockatiel", singleMin: "24\" W × 24\" D × 30\" H", singleDimensions: { w: 24, d: 24, h: 30 }, barSpacing: "1/2\" to 5/8\" (1.27–1.6 cm)", barOrientation: "Horizontal bars on at least 2 sides", minPerchCount: 4, outOfCageMinHours: 3, note: "Long tail feathers require ample vertical and turning clearance. Width is paramount to prevent wing-banging." },
+  conure: { name: "Green Cheek / Sun Conure", singleMin: "30\" W × 24\" D × 36\" H", singleDimensions: { w: 30, d: 24, h: 36 }, barSpacing: "1/2\" to 3/4\" (1.27–1.9 cm)", barOrientation: "Horizontal bars with escape-proof latches", minPerchCount: 4, outOfCageMinHours: 4, note: "High intelligence and climbing drive. Sun and Jenday conures need heavy-duty latches as they easily unlock standard doors." },
+  "african-grey": { name: "African Grey / Amazon Parrot", singleMin: "36\" W × 28\" D × 48\" H", singleDimensions: { w: 36, d: 28, h: 48 }, barSpacing: "3/4\" to 1\" (1.9–2.54 cm)", barOrientation: "Wrought iron or stainless steel", minPerchCount: 5, outOfCageMinHours: 4, note: "Exceptional cognitive demands; cage must accommodate large foraging stations and varied perch diameters (1\"–1.5\")." },
+  cockatoo: { name: "Cockatoo (Umbrella / Moluccan)", singleMin: "40\" W × 32\" D × 54\" H", singleDimensions: { w: 40, d: 32, h: 54 }, barSpacing: "1\" to 1.25\" (2.54–3.18 cm)", barOrientation: "Heavy-gauge wrought iron / stainless", minPerchCount: 5, outOfCageMinHours: 5, note: "Extreme beak strength requires minimum 4mm wire thickness with keylock doors. Susceptible to feather plucking in small spaces." },
+  macaw: { name: "Large Macaw (Blue & Gold / Scarlet)", singleMin: "48\" W × 36\" D × 66\" H", singleDimensions: { w: 48, d: 36, h: 66 }, barSpacing: "1\" to 1.5\" (2.54–3.8 cm)", barOrientation: "Heavy-duty 5mm stainless steel", minPerchCount: 5, outOfCageMinHours: 5, note: "Wingspan exceeds 3.5 feet. The cage is only a night sleeping retreat; requires daily free-flight aviary or bird-proofed room." },
 };
+
 export function BirdCageSize() {
   const [sp, setSp] = useState("cockatiel");
-  const d = BIRD_CAGES[sp];
+  const [count, setCount] = useState(1);
+  const d = BIRD_CAGES[sp] || BIRD_CAGES.cockatiel;
+  const multiplier = count === 1 ? 1 : count === 2 ? 1.6 : 1 + (count - 1) * 0.55;
+  const scaledW = Math.round(d.singleDimensions.w * Math.sqrt(multiplier));
+  const scaledD = Math.round(d.singleDimensions.d * Math.sqrt(multiplier));
+  const scaledH = Math.round(d.singleDimensions.h * (count > 1 ? 1.15 : 1));
+  const totalVolumeCuFt = ((scaledW * scaledD * scaledH) / 1728).toFixed(1);
+
   return (
     <CalculatorLayout
-      form={<div><Label>Species</Label>
-        <Select value={sp} onValueChange={setSp}>
-          <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-          <SelectContent>{Object.keys(BIRD_CAGES).map((k) => <SelectItem key={k} value={k}>{k.replace("-", " ")}</SelectItem>)}</SelectContent>
-        </Select></div>}
-      result={<div className="space-y-4">
-        <Big value={d.min} label="Minimum cage dimensions" unit="width × depth × height" />
-        <p className="text-sm text-muted-foreground text-center">{d.note}</p>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Bird Species</Label>
+            <Select value={sp} onValueChange={setSp}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {Object.entries(BIRD_CAGES).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Number of Birds in Enclosure</Label>
+            <Input type="number" min={1} max={12} value={count} onChange={(e) => setCount(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${scaledW}" W × ${scaledD}" D × ${scaledH}" H`} label={`Minimum enclosure dimensions (${count} ${count > 1 ? "birds" : "bird"})`} unit={`≈ ${totalVolumeCuFt} cu ft`} />
+          <Rows items={[
+            { label: "Max Safe Bar Spacing", value: d.barSpacing },
+            { label: "Bar Orientation", value: d.barOrientation },
+            { label: "Recommended Perches", value: `${Math.round(d.minPerchCount * (count > 1 ? 1.4 : 1))} varied natural branches` },
+            { label: "Daily Out-of-Cage Flight", value: `${d.outOfCageMinHours}+ hours daily` },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Ethological Note:</strong> {d.note}</p>
+            <p className="text-destructive font-medium">⚠️ Warning: Never use round cages (lacks corner orientation landmarks causing psychological stress) or zinc/lead galvanized coatings.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
-const BIRD_FOOD: Record<string, number> = { budgie: 35, cockatiel: 90, conure: 200, "african-grey": 400, macaw: 900, finch: 15 };
+interface BirdDietProfile {
+  name: string;
+  avgWeightGrams: number;
+  pelletRatio: number;
+  freshRatio: number;
+  fruitRatio: number;
+  seedNutRatio: number;
+  specialDietNote?: string;
+}
+
+const BIRD_DIETS: Record<string, BirdDietProfile> = {
+  finch: { name: "Finch / Canary (15–20g)", avgWeightGrams: 18, pelletRatio: 0.40, freshRatio: 0.35, fruitRatio: 0.05, seedNutRatio: 0.20, specialDietNote: "Grass seeds, sprouted seed mix, egg food during molting, and finely chopped dark greens." },
+  budgie: { name: "Budgerigar (30–40g)", avgWeightGrams: 35, pelletRatio: 0.60, freshRatio: 0.25, fruitRatio: 0.05, seedNutRatio: 0.10, specialDietNote: "Prone to fatty liver and iodine deficiency; convert to high-potency micro-pellets with fresh leafy greens." },
+  lovebird: { name: "Lovebird (45–60g)", avgWeightGrams: 50, pelletRatio: 0.65, freshRatio: 0.25, fruitRatio: 0.05, seedNutRatio: 0.05, specialDietNote: "Active foragers; feed chopped broccoli florets, carrots, sprouted lentils, and low-fat pellets." },
+  cockatiel: { name: "Cockatiel (80–110g)", avgWeightGrams: 95, pelletRatio: 0.60, freshRatio: 0.25, fruitRatio: 0.05, seedNutRatio: 0.10, specialDietNote: "Seed addiction causes renal and hepatic disease; transition slowly to 60% pellets and fresh orange/green vegetables." },
+  conure: { name: "Conure (Green Cheek / Sun) (70–130g)", avgWeightGrams: 100, pelletRatio: 0.65, freshRatio: 0.25, fruitRatio: 0.05, seedNutRatio: 0.05, specialDietNote: "Loves textured whole foods; steam squash, sweet potato cubes, bell peppers, and chili peppers." },
+  "african-grey": { name: "African Grey (350–500g)", avgWeightGrams: 420, pelletRatio: 0.70, freshRatio: 0.20, fruitRatio: 0.05, seedNutRatio: 0.05, specialDietNote: "Extreme vulnerability to hypocalcemia; requires bioavailable calcium (kale, collards) and raw red palm fruit oil." },
+  amazon: { name: "Amazon Parrot (300–500g)", avgWeightGrams: 400, pelletRatio: 0.70, freshRatio: 0.22, fruitRatio: 0.05, seedNutRatio: 0.03, specialDietNote: "Extremely prone to obesity and atherosclerosis; strictly cap seeds and fatty nuts under 3%." },
+  eclectus: { name: "Eclectus Parrot (380–500g)", avgWeightGrams: 430, pelletRatio: 0.15, freshRatio: 0.60, fruitRatio: 0.20, seedNutRatio: 0.05, specialDietNote: "UNIQUE DIGESTION: Long digestive tract. Synthetic fortified pellets cause toe-tapping/wing-flipping! Diet must be 75%+ fresh raw produce & sprouts." },
+  cockatoo: { name: "Cockatoo (400–800g)", avgWeightGrams: 550, pelletRatio: 0.70, freshRatio: 0.22, fruitRatio: 0.05, seedNutRatio: 0.03, specialDietNote: "High risk of lipomas (fat tumors); emphasize cruciferous vegetables and foraging toys." },
+  macaw: { name: "Large Macaw (900–1400g)", avgWeightGrams: 1100, pelletRatio: 0.60, freshRatio: 0.20, fruitRatio: 0.05, seedNutRatio: 0.15, specialDietNote: "Naturally high-fat requirement; needs 2–3 raw, human-grade in-shell walnuts, Brazil nuts, or macadamia nuts daily." },
+};
+
 export function BirdFood() {
   const [sp, setSp] = useState("cockatiel");
-  const w = BIRD_FOOD[sp];
-  const total = Math.round(w * 0.1);
+  const [activity, setActivity] = useState<"standard" | "breeding" | "flighted">("standard");
+  const d = BIRD_DIETS[sp] || BIRD_DIETS.cockatiel;
+  const intakeFactor = activity === "breeding" ? 0.14 : activity === "flighted" ? 0.12 : 0.10;
+  const totalGrams = Math.round(d.avgWeightGrams * intakeFactor);
+  const pelletGrams = Math.max(1, Math.round(totalGrams * d.pelletRatio));
+  const freshGrams = Math.max(1, Math.round(totalGrams * d.freshRatio));
+  const fruitGrams = Math.max(0.5, Math.round(totalGrams * d.fruitRatio));
+  const seedNutGrams = Math.max(0.5, Math.round(totalGrams * d.seedNutRatio));
+
   return (
     <CalculatorLayout
-      form={<div><Label>Species</Label>
-        <Select value={sp} onValueChange={setSp}>
-          <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-          <SelectContent>{Object.keys(BIRD_FOOD).map((k) => <SelectItem key={k} value={k}>{k.replace("-", " ")}</SelectItem>)}</SelectContent>
-        </Select></div>}
-      result={<div className="space-y-4">
-        <Big value={`${total} g`} label="Total food per day" />
-        <Rows items={[
-          { label: "Pellets (70%)", value: `${Math.round(total * 0.7)} g` },
-          { label: "Fresh (25%)", value: `${Math.round(total * 0.25)} g` },
-          { label: "Treats (5%)", value: `${Math.round(total * 0.05)} g` },
-        ]} />
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Bird Species</Label>
+            <Select value={sp} onValueChange={setSp}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {Object.entries(BIRD_DIETS).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Life Stage & Energy Expenditure</Label>
+            <Select value={activity} onValueChange={(v) => setActivity(v as typeof activity)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="standard">Companion Bird (Standard In-Cage & Modest Roam)</SelectItem>
+                <SelectItem value="flighted">Active Flighted / Aviary Bird (+20% Calories)</SelectItem>
+                <SelectItem value="breeding">Molting / Breeding Bird (+40% Protein & Energy)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${totalGrams} g`} label="Total Daily Dietary Target" unit={`≈ ${(totalGrams / 28.35).toFixed(1)} oz / day`} />
+          <Rows items={[
+            { label: "High-Quality Pellets", value: `${pelletGrams} g (${Math.round(d.pelletRatio * 100)}%)` },
+            { label: "Fresh Dark Leafy Greens & Veggies", value: `${freshGrams} g (${Math.round(d.freshRatio * 100)}%)` },
+            { label: "Low-Sugar Fruits / Berries", value: `${fruitGrams} g (${Math.round(d.fruitRatio * 100)}%)` },
+            { label: "Healthy Seeds / In-Shell Nuts", value: `${seedNutGrams} g (${Math.round(d.seedNutRatio * 100)}%)` },
+          ]} />
+          {d.specialDietNote && (
+            <div className="rounded-lg bg-primary/10 p-3 text-xs text-primary font-medium">
+              💡 {d.specialDietNote}
+            </div>
+          )}
+          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
+            <strong>❌ Strictly Lethal Toxic Foods:</strong> Avocado (*persin* poison), Chocolate (*theobromine*), Caffeine, Alcohol, Apple seeds/Fruit pits (cyanide), Onions/Garlic, and Salty junk food.
+          </div>
+        </div>
+      }
     />
   );
 }
 
-const BIRD_LIFE: Record<string, [number, number]> = {
-  budgie: [5, 10], cockatiel: [15, 25], conure: [20, 30], "african-grey": [40, 60], macaw: [50, 80], finch: [4, 10], canary: [10, 15], lovebird: [15, 25],
+interface BirdLifespanProfile {
+  name: string;
+  wildLifespan: string;
+  captiveMedian: number;
+  captiveMax: number;
+  ownerEstatePlanning: boolean;
+  healthScreenings: string;
+}
+
+const BIRD_LIFE_PROFILES: Record<string, BirdLifespanProfile> = {
+  finch: { name: "Zebra / Society Finch", wildLifespan: "2–4 years", captiveMedian: 7, captiveMax: 12, ownerEstatePlanning: false, healthScreenings: "Annual wellness check, air sac mite screening, egg-binding emergency plan." },
+  canary: { name: "Canary", wildLifespan: "5–8 years", captiveMedian: 10, captiveMax: 15, ownerEstatePlanning: false, healthScreenings: "Tracheal mite surveillance, avian pox check, nail trimming, vocal health tracking." },
+  budgie: { name: "Budgerigar (English vs American)", wildLifespan: "3–6 years", captiveMedian: 8, captiveMax: 15, ownerEstatePlanning: false, healthScreenings: "Tumor palpation (renal/gonadal), thyroid check (iodine status), avian gastric yeast (AGY)." },
+  lovebird: { name: "Lovebird", wildLifespan: "8–10 years", captiveMedian: 15, captiveMax: 20, ownerEstatePlanning: false, healthScreenings: "Circovirus (PBFD) DNA test, liver function profile, beak occlusion check." },
+  cockatiel: { name: "Cockatiel", wildLifespan: "8–12 years", captiveMedian: 18, captiveMax: 28, ownerEstatePlanning: false, healthScreenings: "Hepatic lipidosis lipid panel, heavy metal blood screening (zinc/lead), chronic egg-laying prevention." },
+  conure: { name: "Green Cheek / Sun Conure", wildLifespan: "10–15 years", captiveMedian: 22, captiveMax: 32, ownerEstatePlanning: true, healthScreenings: "Annual avian biochemistry, polyomavirus check, Bornavirus (PDD) surveillance." },
+  "african-grey": { name: "African Grey Parrot (Congo / Timneh)", wildLifespan: "20–30 years", captiveMedian: 45, captiveMax: 65, ownerEstatePlanning: true, healthScreenings: "Ionized serum calcium monitoring, aspergillosis fungal titer, cardiac echocardiogram at age 25+." },
+  amazon: { name: "Amazon Parrot (Yellow-Naped, Blue-Fronted)", wildLifespan: "25–35 years", captiveMedian: 50, captiveMax: 70, ownerEstatePlanning: true, healthScreenings: "Atherosclerosis cardiovascular exam, hepatic ultrasound, diet-induced obesity screening." },
+  cockatoo: { name: "Cockatoo (Umbrella, Moluccan, Sulphur)", wildLifespan: "25–40 years", captiveMedian: 55, captiveMax: 75, ownerEstatePlanning: true, healthScreenings: "Zinc toxicity screening, behavioral psychogenic feather destructive screening, respiratory exam." },
+  macaw: { name: "Large Macaw (Hyacinth, Scarlet, Green-Wing)", wildLifespan: "30–50 years", captiveMedian: 60, captiveMax: 85, ownerEstatePlanning: true, healthScreenings: "Annual blood chemistry, proventricular dilatation disease (PDD), osteoarthritis evaluation." },
 };
+
 export function BirdLifespan() {
   const [sp, setSp] = useState("cockatiel");
-  const [a, b] = BIRD_LIFE[sp];
+  const [careTier, setCareTier] = useState<"standard" | "optimal">("optimal");
+  const d = BIRD_LIFE_PROFILES[sp] || BIRD_LIFE_PROFILES.cockatiel;
+  const projectedYears = careTier === "optimal" 
+    ? `${d.captiveMedian}–${d.captiveMax}`
+    : `${Math.round(d.captiveMedian * 0.65)}–${d.captiveMedian}`;
+
   return (
     <CalculatorLayout
-      form={<div><Label>Species</Label>
-        <Select value={sp} onValueChange={setSp}>
-          <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-          <SelectContent>{Object.keys(BIRD_LIFE).map((k) => <SelectItem key={k} value={k}>{k.replace("-", " ")}</SelectItem>)}</SelectContent>
-        </Select></div>}
-      result={<Big value={`${a}–${b}`} label="Expected lifespan" unit="years" />}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Bird Species</Label>
+            <Select value={sp} onValueChange={setSp}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {Object.entries(BIRD_LIFE_PROFILES).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Husbandry Quality & Preventive Care Tier</Label>
+            <Select value={careTier} onValueChange={(v) => setCareTier(v as typeof careTier)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="optimal">Optimal Tier (70% Pellets, Daily Flight, Full UVB, Annual Avian Vet)</SelectItem>
+                <SelectItem value="standard">Suboptimal Standard (High Seed Diet, Moderate Roam, Basic Care)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={projectedYears} label="Projected Captive Lifespan" unit="years" />
+          <Rows items={[
+            { label: "Wild Natural Lifespan", value: d.wildLifespan },
+            { label: "Record Verified Captive Age", value: `${d.captiveMax}+ years` },
+            { label: "Key Veterinary Focus", value: d.healthScreenings },
+          ]} />
+          {d.ownerEstatePlanning && (
+            <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200">
+              <strong>📜 Lifetime Guardianship Notice:</strong> This parrot species routinely lives 40–70+ years and frequently outlives its first human caregiver. Avian welfare organizations strongly recommend creating an official Pet Trust or legal estate succession plan.
+            </div>
+          )}
+        </div>
+      }
     />
   );
 }
 
 export function BirdWingClipGuide() {
-  const [style, setStyle] = useState<"none" | "conservative" | "aggressive">("conservative");
-  const advice: Record<string, string[]> = {
-    none: [
-      "Best for bonded, free-flight households with escape-proofing.",
-      "Requires all ceiling fans off, mirrors covered, no open flames.",
-      "Ideal for cockatiels, budgies, and small parrots with strong recall.",
-    ],
-    conservative: [
-      "Trim 3–5 primary flight feathers on each wing evenly.",
-      "Bird can still glide down safely — reduces crash injuries.",
-      "Recheck every 6–12 months as feathers regrow.",
-    ],
-    aggressive: [
-      "Not recommended — high risk of injury on descent.",
-      "Can cause behavioral issues from loss of confidence.",
-      "Consult an avian vet or certified groomer before considering.",
-    ],
+  const [style, setStyle] = useState<"none" | "conservative" | "aggressive">("none");
+  const advice: Record<string, { title: string; lines: string[]; status: "safe" | "warning" | "danger" }> = {
+    none: {
+      title: "Full Flighted (Veterinary Recommended)",
+      status: "safe",
+      lines: [
+        "Cardiovascular Health: Flying uses 10–20× more energy than walking, preventing fatal avian atherosclerosis and fatty liver.",
+        "Psychological Confidence: Flighted birds exhibit significantly lower rates of chronic scream-calling, phobias, and feather self-mutilation.",
+        "Home Safety Mandate: All ceiling fans MUST be turned OFF, windows covered with decals or blinds, open cookware covered, and doors closed.",
+      ],
+    },
+    conservative: {
+      title: "Conservative Micro-Clip (Glide Preserved)",
+      status: "warning",
+      lines: [
+        "Trim only the outer 4 to 6 primary flight feathers on BOTH wings symmetrically.",
+        "Allows the bird to glide safely to the floor at a 45° angle; prevents upward lift while eliminating crash landing fractures.",
+        "NEVER trim secondary flight feathers (inner wing) or covert protective feathers.",
+      ],
+    },
+    aggressive: {
+      title: "Severe / Single-Wing Clip (Strictly Prohibited)",
+      status: "danger",
+      lines: [
+        "Severe Danger: Cutting too short causes the bird to drop like a rock, shattering the keel bone (sternum) and splitting the skin.",
+        "Single-Wing Asymmetry: Clipping one wing causes catastrophic corkscrew spins into walls and floors.",
+        "Blood Feather Lethality: Trimming dark, active growing blood feathers causes profuse hemorrhaging.",
+      ],
+    },
   };
+
+  const cur = advice[style];
+
   return (
     <CalculatorLayout
-      form={<div><Label>Style</Label>
-        <Select value={style} onValueChange={(v: "none" | "conservative" | "aggressive") => setStyle(v)}>
-          <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="none">No clip (full flight)</SelectItem>
-            <SelectItem value="conservative">Conservative clip</SelectItem>
-            <SelectItem value="aggressive">Heavy clip</SelectItem>
-          </SelectContent>
-        </Select></div>}
-      result={<Bullets lines={advice[style]} />}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Flight Management Strategy</Label>
+            <Select value={style} onValueChange={(v) => setStyle(v as typeof style)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">Full Flight (Flighted with Bird-Proofing)</SelectItem>
+                <SelectItem value="conservative">Conservative Symmetrical Micro-Clip</SelectItem>
+                <SelectItem value="aggressive">Severe Heavy / Asymmetrical Clip (Hazard Alert)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={cur.title} label="Flight Management Assessment" />
+          <Bullets lines={cur.lines} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>First-Time Protocol:</strong> Never attempt wing clipping without prior in-person instruction from an avian veterinarian. Always have styptic powder or cornstarch ready in case a growing blood feather is accidentally nicked.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
@@ -355,134 +550,645 @@ export function FishTankCost() {
   );
 }
 
-/* ─────────── SMALL PETS ─────────── */
+/* ─────────── SMALL PETS (ADVANCED CALCULATORS) ─────────── */
 export function RabbitHay() {
-  const [lb, setLb] = useState(5);
-  const grams = Math.round(lb * 30); // ~30 g/lb body weight
+  const [weight, setWeight] = useState(5);
+  const [unit, setUnit] = useState<"lb" | "kg">("lb");
+  const [hayType, setHayType] = useState<"timothy2" | "timothy1" | "orchard" | "meadow" | "alfalfa">("timothy2");
+
+  const weightKg = unit === "lb" ? weight * 0.453592 : weight;
+  const weightLb = unit === "kg" ? weight * 2.20462 : weight;
+  // Rabbits consume their own body volume in loose hay daily (approx 30–35g per lb of body weight)
+  const dailyGrams = Math.round(weightLb * 32);
+  const weeklyKg = ((dailyGrams * 7) / 1000).toFixed(2);
+  const monthlyLbs = ((dailyGrams * 30) / 453.592).toFixed(1);
+  const estimatedCost = (Number(monthlyLbs) * 2.2).toFixed(2); // ~$2.20/lb typical store/bulk mix
+
+  const hayNotes = {
+    timothy2: "2nd Cut Timothy: Gold standard balance of rough fiber (32%), moderate protein, and soft green leaves.",
+    timothy1: "1st Cut Timothy: Coarser, ultra-high fiber; optimal for wearing down rapid-growing dental molars.",
+    orchard: "Orchard Grass: Softer and sweeter; ideal for allergy-sensitive owners and picky rabbits.",
+    meadow: "Meadow Grass: Diverse floral blend; stimulates natural foraging behavior.",
+    alfalfa: "Alfalfa Hay: High calcium/protein legume hay; for young bunnies (<6 months) or nursing does ONLY.",
+  }[hayType];
+
   return (
     <CalculatorLayout
-      form={<div><Label>Rabbit weight (lb)</Label>
-        <Input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className="mt-1.5" /></div>}
-      result={<div className="space-y-4">
-        <Big value={`${grams} g`} label="Hay per day" unit={`≈ ${(grams * 7 / 1000).toFixed(1)} kg per week`} />
-        <p className="text-sm text-muted-foreground text-center">Always available, refreshed daily. Adults: grass hays only.</p>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Unit</Label>
+              <Select value={unit} onValueChange={(v: "lb" | "kg") => setUnit(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="lb">Pounds (lb)</SelectItem>
+                  <SelectItem value="kg">Kilograms (kg)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Rabbit weight ({unit})</Label>
+              <Input
+                type="number"
+                step="0.1"
+                min="0.5"
+                value={weight}
+                onChange={(e) => setWeight(+e.target.value || 0)}
+                className="mt-1.5"
+              />
+            </div>
+          </div>
+          <div>
+            <Label>Hay variety</Label>
+            <Select value={hayType} onValueChange={(v: typeof hayType) => setHayType(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="timothy2">2nd Cut Timothy (Recommended Standard)</SelectItem>
+                <SelectItem value="timothy1">1st Cut Timothy (Maximum Dental Wear)</SelectItem>
+                <SelectItem value="orchard">Orchard Grass (Soft / Allergy-Friendly)</SelectItem>
+                <SelectItem value="meadow">Meadow Hay (Herbal Forage Blend)</SelectItem>
+                <SelectItem value="alfalfa">Alfalfa Legume (Bunnies &lt; 6 Months ONLY)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${dailyGrams} g/day`} label="Daily hay requirement" unit="≈ body volume in loose hay" />
+          <Rows
+            items={[
+              { label: "Weekly consumption", value: `≈ ${weeklyKg} kg (${((dailyGrams * 7) / 453.592).toFixed(1)} lbs)` },
+              { label: "Monthly supply needed", value: `≈ ${monthlyLbs} lbs / 30 days` },
+              { label: "Est. monthly cost", value: `~$${estimatedCost}` },
+              { label: "Diet percentage", value: "80%–85% of total intake" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            {hayNotes}
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function RabbitCageSize() {
-  const [n, setN] = useState(1);
-  const pen = 12 * n;
-  const run = 32 * n;
+  const [count, setCount] = useState(1);
+  const [breedSize, setBreedSize] = useState<"dwarf" | "standard" | "large" | "giant">("standard");
+  const [housing, setHousing] = useState<"pen" | "free-roam" | "hutch-run">("pen");
+
+  const minBaseSqFt = { dwarf: 12, standard: 16, large: 20, giant: 30 }[breedSize];
+  const penArea = minBaseSqFt + (count - 1) * (minBaseSqFt * 0.75);
+  const runArea = penArea * 3;
+  const heightInches = breedSize === "giant" ? 42 : 36;
+  const litterBoxes = count + 1;
+
   return (
     <CalculatorLayout
-      form={<div><Label>Number of rabbits</Label>
-        <Input type="number" min={1} value={n} onChange={(e) => setN(+e.target.value || 1)} className="mt-1.5" /></div>}
-      result={<div className="space-y-4">
-        <Big value={`${pen} sq ft`} label="Minimum pen area" />
-        <Rows items={[
-          { label: "Recommended run", value: `${run} sq ft` },
-          { label: "Daily free-roam", value: "3+ hours" },
-        ]} />
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Number of rabbits</Label>
+              <Input
+                type="number"
+                min={1}
+                max={6}
+                value={count}
+                onChange={(e) => setCount(+e.target.value || 1)}
+                className="mt-1.5"
+              />
+            </div>
+            <div>
+              <Label>Breed size category</Label>
+              <Select value={breedSize} onValueChange={(v: typeof breedSize) => setBreedSize(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="dwarf">Dwarf (&lt; 4 lbs / 1.8 kg)</SelectItem>
+                  <SelectItem value="standard">Standard (4–8 lbs / 1.8–3.6 kg)</SelectItem>
+                  <SelectItem value="large">Large (8–12 lbs / 3.6–5.4 kg)</SelectItem>
+                  <SelectItem value="giant">Giant (12–18+ lbs / Flemish)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div>
+            <Label>Housing setup style</Label>
+            <Select value={housing} onValueChange={(v: typeof housing) => setHousing(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pen">Indoor Exercise Pen (x-pen / C&C)</SelectItem>
+                <SelectItem value="free-roam">Free-Roam with Bunny Basecamp</SelectItem>
+                <SelectItem value="hutch-run">Outdoor Predator-Proof Hutch + Run</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${Math.round(penArea)} sq ft`} label="Minimum base enclosure" unit={`≈ ${(penArea * 0.0929).toFixed(1)} m²`} />
+          <Rows
+            items={[
+              { label: "Minimum vertical clearance", value: `${heightInches} inches (prevents escapes)` },
+              { label: "Attached exercise run", value: `${Math.round(runArea)} sq ft (${(runArea * 0.0929).toFixed(1)} m²)` },
+              { label: "Litter boxes needed", value: `${litterBoxes} boxes (N+1 rule)` },
+              { label: "Daily out-of-pen exercise", value: "4+ hours minimum" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            Commercial wire cages sold in pet stores are too small for humane rabbit housing. Rabbits must be able to complete at least 3 consecutive hops and stretch fully upright on their hind legs without touching the ceiling.
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function RabbitFood() {
-  const [lb, setLb] = useState(5);
-  const cups = ((lb / 5) * 0.25).toFixed(2);
+  const [weight, setWeight] = useState(5);
+  const [unit, setUnit] = useState<"lb" | "kg">("lb");
+  const [stage, setStage] = useState<"young" | "adult" | "senior">("adult");
+  const [goal, setGoal] = useState<"maintain" | "lose" | "gain">("maintain");
+
+  const weightLb = unit === "kg" ? weight * 2.20462 : weight;
+  // Plain grass-based pellets: 1/8 to 1/4 cup per 5 lbs body weight for adults
+  const basePelletsTbsp =
+    stage === "young"
+      ? Math.round(weightLb * 3.5) // young rabbits get more
+      : stage === "senior"
+      ? Math.round(weightLb * 1.8)
+      : Math.round(weightLb * 1.5);
+
+  const goalMultiplier = goal === "lose" ? 0.75 : goal === "gain" ? 1.25 : 1.0;
+  const finalTbsp = Math.max(1, Math.round(basePelletsTbsp * goalMultiplier));
+  const pelletCups = (finalTbsp / 16).toFixed(2);
+  const pelletGrams = Math.round(finalTbsp * 10);
+  const dailyGreensCups = Math.max(1, Math.round(weightLb * 0.5)); // 1 cup per 2 lbs body weight
+
   return (
     <CalculatorLayout
-      form={<div><Label>Rabbit weight (lb)</Label>
-        <Input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className="mt-1.5" /></div>}
-      result={<Big value={`${cups} cup`} label="Pellets per day" unit="alongside unlimited hay" />}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Unit</Label>
+              <Select value={unit} onValueChange={(v: "lb" | "kg") => setUnit(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="lb">Pounds (lb)</SelectItem>
+                  <SelectItem value="kg">Kilograms (kg)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Rabbit weight ({unit})</Label>
+              <Input
+                type="number"
+                step="0.1"
+                min="0.5"
+                value={weight}
+                onChange={(e) => setWeight(+e.target.value || 0)}
+                className="mt-1.5"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Life stage</Label>
+              <Select value={stage} onValueChange={(v: typeof stage) => setStage(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="young">Baby / Junior (&lt; 6 months)</SelectItem>
+                  <SelectItem value="adult">Adult (6 months – 5 years)</SelectItem>
+                  <SelectItem value="senior">Senior (5+ years)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Weight goal</Label>
+              <Select value={goal} onValueChange={(v: typeof goal) => setGoal(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="maintain">Maintain ideal weight</SelectItem>
+                  <SelectItem value="lose">Weight reduction (slimming)</SelectItem>
+                  <SelectItem value="gain">Weight gain / recovery</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${pelletGrams} g/day`} label="Daily measured pellets" unit={`≈ ${pelletCups} cup (${finalTbsp} tbsp)`} />
+          <Rows
+            items={[
+              { label: "Fresh dark leafy greens", value: `${dailyGreensCups} cups packed (Romaine, Cilantro, Parsley)` },
+              { label: "Grass hay (Timothy/Orchard)", value: "Unlimited (80%–85% of total diet)" },
+              { label: "Pellet fiber requirement", value: "Minimum >22% crude fiber" },
+              { label: "Treat allowance (fruit/carrot)", value: "Max 1 tsp / 2 lbs body weight (occasional)" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            Never feed seed/muesli mixes with corn or colorful bits. High starch causes deadly cecal dysbiosis and GI stasis.
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function RabbitAge() {
-  const [yr, setYr] = useState(3);
-  const human = yr === 0 ? 0 : yr === 1 ? 21 : yr === 2 ? 27 : 27 + (yr - 2) * 6;
+  const [years, setYears] = useState(3);
+  const [months, setMonths] = useState(0);
+  const [breedSize, setBreedSize] = useState<"dwarf" | "standard" | "giant">("standard");
+
+  const totalYears = years + months / 12;
+  // Modern veterinary epigenetic age conversion for lagomorphs:
+  // Year 1 ≈ 21 human yrs, Year 2 ≈ 27, then +6/yr for standard, +5/yr for dwarf, +8/yr for giants
+  const ratePerYear = breedSize === "dwarf" ? 5 : breedSize === "giant" ? 8 : 6;
+  const humanAge =
+    totalYears <= 0.5
+      ? Math.round(totalYears * 24)
+      : totalYears <= 1
+      ? Math.round(12 + totalYears * 9)
+      : totalYears <= 2
+      ? Math.round(21 + (totalYears - 1) * 6)
+      : Math.round(27 + (totalYears - 2) * ratePerYear);
+
+  const stage =
+    totalYears < 0.5
+      ? "Baby / Kit (Rapid Growth)"
+      : totalYears < 1
+      ? "Junior / Adolescent"
+      : totalYears < 5
+      ? "Prime Adult"
+      : totalYears < 8
+      ? "Senior Rabbit"
+      : "Geriatric Rabbit";
+
+  const screeningAdvice =
+    totalYears >= 5
+      ? "Twice-yearly geriatric wellness check, dental spur endoscopy, arthritis mobility scoring, and baseline bloodwork (BUN/Creatinine for renal health)."
+      : "Annual veterinarian wellness check, molar occlusion check, spay/neuter verification, and weight tracking.";
+
   return (
     <CalculatorLayout
-      form={<div><Label>Rabbit age (years)</Label>
-        <Input type="number" min={0} value={yr} onChange={(e) => setYr(+e.target.value || 0)} className="mt-1.5" /></div>}
-      result={<Big value={`≈ ${human}`} label="Human-year equivalent" unit="years" />}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Age (years)</Label>
+              <Input
+                type="number"
+                min={0}
+                max={20}
+                value={years}
+                onChange={(e) => setYears(+e.target.value || 0)}
+                className="mt-1.5"
+              />
+            </div>
+            <div>
+              <Label>Months</Label>
+              <Input
+                type="number"
+                min={0}
+                max={11}
+                value={months}
+                onChange={(e) => setMonths(+e.target.value || 0)}
+                className="mt-1.5"
+              />
+            </div>
+          </div>
+          <div>
+            <Label>Breed size</Label>
+            <Select value={breedSize} onValueChange={(v: typeof breedSize) => setBreedSize(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="dwarf">Dwarf / Small (Lifespan: 10–14 yrs)</SelectItem>
+                <SelectItem value="standard">Medium / Standard (Lifespan: 8–12 yrs)</SelectItem>
+                <SelectItem value="giant">Giant Breed (Lifespan: 5–8 yrs)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`≈ ${humanAge} human years`} label="Biological age equivalent" unit={stage} />
+          <Rows
+            items={[
+              { label: "Life stage classification", value: stage },
+              { label: "Expected lifespan range", value: breedSize === "dwarf" ? "10–14 years" : breedSize === "giant" ? "5–8 years" : "8–12 years" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            <strong>Veterinary Care Benchmark:</strong> {screeningAdvice}
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function HamsterCageSize() {
-  const [sp, setSp] = useState<"syrian" | "dwarf" | "robo">("syrian");
-  const min = 450;
-  const rec = sp === "robo" ? 700 : sp === "dwarf" ? 500 : 600;
+  const [species, setSpecies] = useState<"syrian_female" | "syrian_male" | "dwarf" | "robo" | "chinese">("syrian_female");
+
+  const specs = {
+    syrian_female: {
+      minSqIn: 800,
+      recSqIn: 1000,
+      minBedding: 10,
+      recBedding: 12,
+      note: "Female Syrian hamsters are exceptionally active during estrus (every 4 days) and require at least 1,000 sq in of unbroken floor space to prevent bar-chewing and escape stress.",
+    },
+    syrian_male: {
+      minSqIn: 600,
+      recSqIn: 800,
+      minBedding: 8,
+      recBedding: 10,
+      note: "Male Syrian hamsters thrive with at least 800 sq in of continuous floor space and deep burrowing zones.",
+    },
+    dwarf: {
+      minSqIn: 500,
+      recSqIn: 700,
+      minBedding: 6,
+      recBedding: 8,
+      note: "Campbell and Winter White dwarf hamsters require wide floor plans with multi-chamber hides and a large sand bath.",
+    },
+    robo: {
+      minSqIn: 500,
+      recSqIn: 750,
+      minBedding: 6,
+      recBedding: 8,
+      note: "Roborovski hamsters are hyper-energetic runners requiring large sand-bath areas (taking up to 1/3 of the enclosure).",
+    },
+    chinese: {
+      minSqIn: 500,
+      recSqIn: 700,
+      minBedding: 6,
+      recBedding: 8,
+      note: "Chinese hamsters possess prehensile tails and enjoy deep bedding paired with low climbing branches.",
+    },
+  }[species];
+
+  const minSqCm = Math.round(specs.minSqIn * 6.4516);
+  const recSqCm = Math.round(specs.recSqIn * 6.4516);
+
   return (
     <CalculatorLayout
-      form={<div><Label>Species</Label>
-        <Select value={sp} onValueChange={(v: "syrian" | "dwarf" | "robo") => setSp(v)}>
-          <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="syrian">Syrian</SelectItem>
-            <SelectItem value="dwarf">Dwarf</SelectItem>
-            <SelectItem value="robo">Roborovski</SelectItem>
-          </SelectContent></Select></div>}
-      result={<div className="space-y-3">
-        <Big value={`${min} sq in`} label="Absolute minimum" unit="unbroken floor area" />
-        <p className="text-center text-sm text-muted-foreground">Recommended for wellbeing: <span className="font-medium text-foreground">{rec}+ sq in</span></p>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Hamster species & gender</Label>
+            <Select value={species} onValueChange={(v: typeof species) => setSpecies(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="syrian_female">Female Syrian Hamster (Highest Space Need)</SelectItem>
+                <SelectItem value="syrian_male">Male Syrian Hamster</SelectItem>
+                <SelectItem value="dwarf">Dwarf Hamster (Campbell / Winter White)</SelectItem>
+                <SelectItem value="robo">Roborovski Dwarf Hamster</SelectItem>
+                <SelectItem value="chinese">Chinese Hamster</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${specs.recSqIn} sq in`} label="Recommended unbroken floor space" unit={`≈ ${recSqCm} cm² (${specs.minSqIn} sq in absolute min)`} />
+          <Rows
+            items={[
+              { label: "Minimum unbroken area", value: `${specs.minSqIn} sq in (${minSqCm} cm²)` },
+              { label: "Recommended bedding depth", value: `${specs.recBedding} inches (${Math.round(specs.recBedding * 2.54)} cm) for burrows` },
+              { label: "Minimum bedding depth", value: `${specs.minBedding} inches (${Math.round(specs.minBedding * 2.54)} cm)` },
+              { label: "Enclosure type", value: "Glass Tank (40–75 gal breeder) / DIY Wood Terrarium" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            {specs.note} Connecting multiple tiny cages with plastic modular tubes does NOT count toward unbroken floor space.
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function HamsterFood() {
-  const [g, setG] = useState(150);
-  const daily = Math.round(g * 0.1);
+  const [species, setSpecies] = useState<"syrian" | "dwarf" | "robo">("syrian");
+  const [weightGrams, setWeightGrams] = useState(140);
+  const [feedMethod, setFeedMethod] = useState<"scatter" | "bowl">("scatter");
+
+  const gramsDaily = species === "syrian" ? Math.max(10, Math.round(weightGrams * 0.08)) : Math.max(5, Math.round(weightGrams * 0.12));
+  const proteinTarget = species === "dwarf" ? "19%–22% (high protein, low sugar)" : "17%–19% crude protein";
+  const mealwormsWeekly = species === "syrian" ? "3–5 dried mealworms" : "2–3 dried mealworms / crickets";
+
   return (
     <CalculatorLayout
-      form={<div><Label>Weight (g)</Label>
-        <Input type="number" value={g} onChange={(e) => setG(+e.target.value || 0)} className="mt-1.5" /></div>}
-      result={<Big value={`${daily} g`} label="Daily food mix" unit="scatter-fed for enrichment" />}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Species</Label>
+              <Select value={species} onValueChange={(v: typeof species) => setSpecies(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="syrian">Syrian Hamster</SelectItem>
+                  <SelectItem value="dwarf">Dwarf (Campbell/Winter White)</SelectItem>
+                  <SelectItem value="robo">Roborovski Hamster</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Body weight (grams)</Label>
+              <Input
+                type="number"
+                min={20}
+                max={250}
+                value={weightGrams}
+                onChange={(e) => setWeightGrams(+e.target.value || 0)}
+                className="mt-1.5"
+              />
+            </div>
+          </div>
+          <div>
+            <Label>Feeding method</Label>
+            <Select value={feedMethod} onValueChange={(v: typeof feedMethod) => setFeedMethod(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="scatter">Scatter Feeding in Bedding (Best Enrichment)</SelectItem>
+                <SelectItem value="bowl">Food Bowl Feeding</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${gramsDaily} g/day`} label="Daily seed & pellet mix" unit={`≈ 1–2 tablespoons`} />
+          <Rows
+            items={[
+              { label: "Target crude protein", value: proteinTarget },
+              { label: "Target crude fat", value: "5%–7% (avoid excessive sunflower/peanuts)" },
+              { label: "Animal protein supplement", value: mealwormsWeekly },
+              { label: "Fresh safe vegetables", value: "1 tsp 2–3× weekly (Broccoli, Cucumber, Zucchini)" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            {feedMethod === "scatter"
+              ? "Scatter feeding across deep bedding encourages natural foraging and prevents boredom bar-biting."
+              : "Food bowls allow hamsters to empty food into cheek pouches and hoard it in one burrow, reducing mental stimulation."}
+          </p>
+        </div>
+      }
     />
   );
 }
 
 export function GuineaPigVitaminC() {
-  const [state, setState] = useState<"adult" | "pregnant" | "sick">("adult");
-  const map = { adult: "10–30 mg", pregnant: "30–50 mg", sick: "50 mg+" };
+  const [weight, setWeight] = useState(1000);
+  const [status, setStatus] = useState<"adult" | "growing" | "pregnant" | "scurvy">("adult");
+
+  const baseMg = {
+    adult: 25,
+    growing: 35,
+    pregnant: 45,
+    scurvy: 80,
+  }[status];
+
+  const weightFactor = weight / 1000;
+  const targetMg = Math.round(baseMg * Math.max(0.7, Math.min(1.4, weightFactor)));
+
   return (
     <CalculatorLayout
-      form={<div><Label>Life stage</Label>
-        <Select value={state} onValueChange={(v: "adult" | "pregnant" | "sick") => setState(v)}>
-          <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="adult">Healthy adult</SelectItem>
-            <SelectItem value="pregnant">Pregnant sow</SelectItem>
-            <SelectItem value="sick">Recovering / stressed</SelectItem>
-          </SelectContent></Select></div>}
-      result={<div className="space-y-3">
-        <Big value={map[state]} label="Vitamin C per day" />
-        <p className="text-center text-sm text-muted-foreground">Best sources: bell pepper (40 mg/slice), parsley, kale.</p>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Weight (grams)</Label>
+              <Input
+                type="number"
+                min={300}
+                max={1800}
+                value={weight}
+                onChange={(e) => setWeight(+e.target.value || 0)}
+                className="mt-1.5"
+              />
+            </div>
+            <div>
+              <Label>Health status</Label>
+              <Select value={status} onValueChange={(v: typeof status) => setStatus(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="adult">Healthy Adult (Maintenance)</SelectItem>
+                  <SelectItem value="growing">Growing Pup (&lt; 6 months)</SelectItem>
+                  <SelectItem value="pregnant">Pregnant / Lactating Sow</SelectItem>
+                  <SelectItem value="scurvy">Illness / Scurvy Recovery</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${targetMg} mg/day`} label="Required active Vitamin C" unit="essential daily intake" />
+          <Rows
+            items={[
+              { label: "Yellow / Red Bell Pepper", value: `≈ ${Math.max(1, Math.round(targetMg / 30))} medium slice(s) (190 mg / 100g)` },
+              { label: "Fresh Cilantro (Coriander)", value: "1 small handful (27 mg / 100g)" },
+              { label: "Stabilized Pellets", value: "1/8 cup daily (Oxbow Essentials)" },
+              { label: "Direct Oral Supplement", value: status === "scurvy" ? "Oxbow Vitamin C tablet directly" : "Optional fallback" },
+            ]}
+          />
+          <p className="text-xs text-amber-800 dark:text-amber-300 bg-amber-500/10 p-3 rounded-xl border border-amber-500/30">
+            <strong>Never put liquid Vitamin C in drinking water bottles:</strong> Vitamin C degrades rapidly in light and air within 8 hours, and alters water taste, leading to fatal guinea pig dehydration.
+          </p>
+        </div>
+      }
     />
   );
 }
 
-const HAMSTER_LIFE: Record<string, [number, number]> = {
-  syrian: [2, 3], dwarf: [1.5, 3], roborovski: [3, 4],
-};
 export function HamsterLifespan() {
-  const [sp, setSp] = useState("syrian");
-  const [a, b] = HAMSTER_LIFE[sp];
+  const [species, setSpecies] = useState<"syrian" | "dwarf_campbell" | "dwarf_winter" | "robo" | "chinese">("syrian");
+  const [origin, setOrigin] = useState<"ethical_breeder" | "pet_store">("ethical_breeder");
+  const [careTier, setCareTier] = useState<"optimal" | "standard">("optimal");
+
+  const baseRanges: Record<string, [number, number]> = {
+    syrian: [2.0, 3.0],
+    dwarf_campbell: [1.5, 2.5],
+    dwarf_winter: [1.5, 2.5],
+    robo: [3.0, 4.0],
+    chinese: [2.0, 3.0],
+  };
+
+  const [minBase, maxBase] = baseRanges[species];
+  const originBonus = origin === "ethical_breeder" ? 0.4 : 0;
+  const careBonus = careTier === "optimal" ? 0.3 : 0;
+
+  const minYears = (minBase + originBonus * 0.5 + careBonus * 0.5).toFixed(1);
+  const maxYears = (maxBase + originBonus + careBonus).toFixed(1);
+
   return (
     <CalculatorLayout
-      form={<div><Label>Species</Label>
-        <Select value={sp} onValueChange={setSp}>
-          <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-          <SelectContent>{Object.keys(HAMSTER_LIFE).map((k) => <SelectItem key={k} value={k}>{k}</SelectItem>)}</SelectContent>
-        </Select></div>}
-      result={<Big value={`${a}–${b}`} label="Expected lifespan" unit="years" />}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Hamster species</Label>
+            <Select value={species} onValueChange={(v: typeof species) => setSpecies(v)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="syrian">Syrian Hamster (Avg: 2–3 yrs)</SelectItem>
+                <SelectItem value="dwarf_campbell">Campbell's Dwarf Hamster (Avg: 1.5–2.5 yrs)</SelectItem>
+                <SelectItem value="dwarf_winter">Winter White Dwarf (Avg: 1.5–2.5 yrs)</SelectItem>
+                <SelectItem value="robo">Roborovski Hamster (Longest: 3–4 yrs)</SelectItem>
+                <SelectItem value="chinese">Chinese Hamster (Avg: 2–3 yrs)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Genetics / Origin</Label>
+              <Select value={origin} onValueChange={(v: typeof origin) => setOrigin(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ethical_breeder">Ethical Lineage Pedigree</SelectItem>
+                  <SelectItem value="pet_store">Commercial Retail / Pet Store</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Care environment</Label>
+              <Select value={careTier} onValueChange={(v: typeof careTier) => setCareTier(v)}>
+                <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="optimal">High Enrichment (700+ sq in, 10" deep)</SelectItem>
+                  <SelectItem value="standard">Standard Enclosure</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${minYears}–${maxYears} years`} label="Estimated lifespan projection" unit={`≈ ${Math.round(Number(minYears) * 12)}–${Math.round(Number(maxYears) * 12)} months`} />
+          <Rows
+            items={[
+              { label: "Prime adulthood", value: "Months 4 – 14" },
+              { label: "Senior transition", value: "18+ months (reduced running, deeper sleep)" },
+              { label: "Senior care adjustment", value: "Lower water bottles, soft ramps, shallow bedding" },
+            ]}
+          />
+          <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">
+            Roborovski hamsters naturally live the longest among domestic species. Providing deep burrowing bedding, an appropriately sized solid wheel, and stress-free unbroken space directly extends lifespan.
+          </p>
+        </div>
+      }
     />
   );
 }

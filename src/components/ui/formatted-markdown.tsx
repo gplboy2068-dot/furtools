@@ -18,6 +18,19 @@ export function FormattedMarkdown({ content, className = "" }: FormattedMarkdown
           li: ({ children }) => <li className="leading-relaxed text-sm font-normal text-foreground/90">{children}</li>,
           strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
           em: ({ children }) => <em className="italic">{children}</em>,
+          a: ({ href, children }) => {
+            const isInternal = href?.startsWith("/") || href?.startsWith("#");
+            return (
+              <a
+                href={href}
+                target={isInternal ? undefined : "_blank"}
+                rel={isInternal ? undefined : "noopener noreferrer"}
+                className="font-medium text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+              >
+                {children}
+              </a>
+            );
+          },
           h1: ({ children }) => <h1 className="mt-5 mb-2.5 font-display text-lg font-bold tracking-tight text-foreground border-b pb-1">{children}</h1>,
           h2: ({ children }) => <h2 className="mt-4 mb-2 font-display text-base font-bold tracking-tight text-foreground flex items-center gap-1.5">{children}</h2>,
           h3: ({ children }) => <h3 className="mt-3.5 mb-1.5 font-display text-sm font-semibold text-foreground">{children}</h3>,

@@ -5,6 +5,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
+
 export interface FaqItem {
   q: string;
   a: string;
@@ -20,7 +22,9 @@ export function Faq({ items, title = "Frequently asked questions" }: { items: Fa
         {items.map((item, i) => (
           <AccordionItem key={i} value={`item-${i}`}>
             <AccordionTrigger className="text-left">{item.q}</AccordionTrigger>
-            <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
+            <AccordionContent className="text-muted-foreground">
+              <FormattedMarkdown content={item.a} />
+            </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>

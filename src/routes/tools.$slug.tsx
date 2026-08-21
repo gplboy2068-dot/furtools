@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ToolPageShell } from "@/components/layouts/tool-page-shell";
+import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import { getTool } from "@/data/tools";
 import { getCategory } from "@/data/categories";
 import { TOOL_COMPONENTS } from "@/components/tools/registry";
@@ -98,7 +99,7 @@ function ToolPage() {
       examples={tool.examples}
       relatedArticles={tool.relatedArticles}
       medicalDisclaimer={tool.medicalDisclaimer}
-      howItWorks={<p>{tool.howItWorks}</p>}
+      howItWorks={tool.howItWorks ? <FormattedMarkdown content={tool.howItWorks} /> : undefined}
     >
       {ToolComponent ? (
         <ToolComponent />
