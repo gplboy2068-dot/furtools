@@ -37,6 +37,9 @@ import {
   Plus,
   Trash2,
   Share2,
+  Upload,
+  Image as ImageIcon,
+  X,
 } from "lucide-react";
 
 const COMMON_MEDICAL_ALERTS = [
@@ -61,6 +64,15 @@ const THEME_COLORS = [
   { name: "Hot Coral", value: "#ea580c", text: "text-orange-600", bg: "bg-orange-600" },
 ];
 
+const SAMPLE_PHOTOS = [
+  { label: "Golden Retriever", url: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=80" },
+  { label: "German Shepherd", url: "https://images.unsplash.com/photo-1589941013453-ec89f33b5455?auto=format&fit=crop&w=600&q=80" },
+  { label: "Husky", url: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80" },
+  { label: "French Bulldog", url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80" },
+  { label: "Tabby Cat", url: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80" },
+  { label: "Calico Cat", url: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80" },
+];
+
 export function SmartCollarQRTool() {
   const [petName, setPetName] = useState("Buddy");
   const [species, setSpecies] = useState("Dog");
@@ -73,6 +85,46 @@ export function SmartCollarQRTool() {
   const [color, setColor] = useState("Golden Cream");
   const [isLost, setIsLost] = useState(true);
   const [rewardAmount, setRewardAmount] = useState("$250 Reward");
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleImageFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file (JPG, PNG, WebP)");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const rawDataUrl = event.target?.result as string;
+      const img = new Image();
+      img.onload = () => {
+        const maxDim = 600;
+        let width = img.width;
+        let height = img.height;
+        if (width > height && width > maxDim) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else if (height > maxDim) {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.85);
+          setPhotoUrl(compressedDataUrl);
+          toast.success("Pet photo uploaded successfully!");
+        }
+      };
+      img.src = rawDataUrl;
+    };
+    reader.readAsDataURL(file);
+  }
 
   // Owner Contacts
   const [ownerName, setOwnerName] = useState("Sarah Jenkins");
@@ -501,17 +553,100 @@ export function SmartCollarQRTool() {
                 />
               </div>
 
-              <div>
-                <Label htmlFor="photo" className="text-xs font-semibold">
-                  Photo URL
+              <div className="sm:col-span-2 pt-2 border-t border-border/80">
+                <Label className="text-xs font-semibold block mb-2">
+                  Pet Photo (Upload File or Paste Image URL)
                 </Label>
-                <Input
-                  id="photo"
-                  value={photoUrl}
-                  onChange={(e) => setPhotoUrl(e.target.value)}
-                  placeholder="https://..."
-                  className="mt-1 text-xs"
+
+                {/* Hidden File Input */}
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  accept="image/png,image/jpeg,image/webp,image/jpg"
+                  className="hidden"
+                  onChange={handleImageFileChange}
                 />
+
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                  {/* Photo Preview Thumbnail */}
+                  <div className="relative size-16 rounded-xl border border-border bg-muted/30 overflow-hidden flex items-center justify-center shrink-0 shadow-xs">
+                    {photoUrl ? (
+                      <>
+                        <img src={photoUrl} alt="Pet Preview" className="size-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => setPhotoUrl("")}
+                          className="absolute top-0.5 right-0.5 size-4 bg-background/80 hover:bg-destructive hover:text-white rounded-full flex items-center justify-center transition-colors"
+                          title="Remove Photo"
+                        >
+                          <X className="size-3" />
+                        </button>
+                      </>
+                    ) : (
+                      <ImageIcon className="size-6 text-muted-foreground/60" />
+                    )}
+                  </div>
+
+                  {/* Upload Actions & URL input */}
+                  <div className="flex-1 w-full space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="rounded-xl text-xs gap-1.5 h-8 font-semibold shadow-xs"
+                      >
+                        <Upload className="size-3.5 text-primary" /> Upload Photo from Device
+                      </Button>
+                      {photoUrl && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setPhotoUrl("")}
+                          className="text-xs text-destructive hover:text-destructive h-8 px-2"
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      <Input
+                        id="photo"
+                        value={photoUrl}
+                        onChange={(e) => setPhotoUrl(e.target.value)}
+                        placeholder="Or paste image URL (https://...)"
+                        className="text-xs h-8"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Preset Photos */}
+                <div className="pt-2">
+                  <span className="text-[11px] text-muted-foreground font-medium">Or choose sample photo: </span>
+                  <div className="inline-flex flex-wrap gap-1 mt-1">
+                    {SAMPLE_PHOTOS.map((p) => (
+                      <button
+                        key={p.label}
+                        type="button"
+                        onClick={() => {
+                          setPhotoUrl(p.url);
+                          toast.success(`Selected ${p.label} sample photo`);
+                        }}
+                        className={`text-[10px] px-2 py-0.5 rounded-md border transition-all ${
+                          photoUrl === p.url
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-muted/40 hover:bg-muted text-muted-foreground border-border"
+                        }`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
