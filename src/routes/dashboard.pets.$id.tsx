@@ -932,9 +932,9 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
     let active = true;
     generateQrSvg(scannableContent, {
       size: 260,
-      color: isLost ? "#dc2626" : "#0f172a",
+      color: "#0f172a",
       bgColor: "#ffffff",
-      margin: 2,
+      margin: 3,
       errorCorrectionLevel: "M",
     }).then((svg) => {
       if (active) setQrSvgString(svg);
@@ -942,9 +942,9 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
 
     generateQrDataUrl(scannableContent, {
       size: 1024,
-      color: isLost ? "#dc2626" : "#0f172a",
+      color: "#0f172a",
       bgColor: "#ffffff",
-      margin: 2,
+      margin: 3,
       errorCorrectionLevel: "M",
     }).then((url) => {
       if (active) setQrDataUrl(url);
@@ -953,7 +953,7 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
     return () => {
       active = false;
     };
-  }, [scannableContent, isLost]);
+  }, [scannableContent]);
 
   function copyLink() {
     navigator.clipboard.writeText(scannableContent);

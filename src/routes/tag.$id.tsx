@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { decodePetTagPayload, type PetTagData } from "@/lib/qr-tag";
+import { parsePetTagFromUrl, decodePetTagPayload, type PetTagData } from "@/lib/qr-tag";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
@@ -44,17 +44,14 @@ function LostPetEmergencyPage() {
     (async () => {
       setLoading(true);
 
-      // 1. Check if URL contains query param `data` (encoded standalone tag)
+      // 1. Check if URL contains search parameters or query param `data`
       if (typeof window !== "undefined") {
         const urlParams = new URLSearchParams(window.location.search);
-        const encodedData = urlParams.get("data");
-        if (encodedData) {
-          const decoded = decodePetTagPayload(encodedData);
-          if (decoded) {
-            setPetData(decoded);
-            setLoading(false);
-            return;
-          }
+        const parsed = parsePetTagFromUrl(urlParams);
+        if (parsed) {
+          setPetData(parsed);
+          setLoading(false);
+          return;
         }
       }
 

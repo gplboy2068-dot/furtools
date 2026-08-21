@@ -169,9 +169,9 @@ export function SmartCollarQRTool() {
     let active = true;
     generateQrSvg(scannableContent, {
       size: 320,
-      color: tagColor === "#ffffff" ? "#0f172a" : tagColor,
+      color: "#0f172a",
       bgColor: "#ffffff",
-      margin: 2,
+      margin: 3,
       errorCorrectionLevel: "M",
     }).then((svg) => {
       if (active) setQrSvgString(svg);
@@ -179,9 +179,9 @@ export function SmartCollarQRTool() {
 
     generateQrDataUrl(scannableContent, {
       size: 1024,
-      color: tagColor === "#ffffff" ? "#0f172a" : tagColor,
+      color: "#0f172a",
       bgColor: "#ffffff",
-      margin: 2,
+      margin: 3,
       errorCorrectionLevel: "M",
     }).then((url) => {
       if (active) setQrDataUrl(url);
@@ -190,7 +190,7 @@ export function SmartCollarQRTool() {
     return () => {
       active = false;
     };
-  }, [scannableContent, tagColor]);
+  }, [scannableContent]);
 
   function toggleAlert(alertText: string) {
     setSelectedAlerts((prev) =>

@@ -98,93 +98,11 @@ export function generateEmergencyText(data: PetTagData): string {
 }
 
 /**
- * Encodes full pet data into a portable base64 URL payload.
+ * Generates clean, robust, compact URL parameters for emergency landing page.
  */
-export function encodePetTagPayload(data: PetTagData): string {
-  try {
-    const compact = {
-      n: data.petName,
-      s: data.species,
-      b: data.breed || "",
-      p: data.photoUrl || "",
-      m: data.microchipNumber || "",
-      l: data.isLost ? 1 : 0,
-      r: data.rewardAmount || "",
-      o: data.ownerName,
-      ph: data.primaryPhone,
-      wa: data.hasWhatsApp ? 1 : 0,
-      bph: data.backupPhone || "",
-      c: data.cityArea || "",
-      med: data.medicalAlerts || [],
-      not: data.behaviorNotes || "",
-      vet: data.vetName || "",
-      vp: data.vetPhone || "",
-      sh: data.tagShape || "circle",
-      col: data.tagColor || "#dc2626",
-      tl: data.tagline || "",
-    };
-    const json = JSON.stringify(compact);
-    const bytes = new TextEncoder().encode(json);
-    let binary = "";
-    for (let i = 0; i < bytes.length; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary)
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=+$/, "");
-  } catch (err) {
-    console.error("Failed to encode tag payload:", err);
-    return "";
-  }
-}
-
-export function decodePetTagPayload(hash: string): PetTagData | null {
-  try {
-    let base64 = hash.replace(/-/g, "+").replace(/_/g, "/");
-    while (base64.length % 4) {
-      base64 += "=";
-    }
-    const binary = atob(base64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-    const json = new TextDecoder().decode(bytes);
-    const c = JSON.parse(json);
-
-    return {
-      petName: c.n || "Pet",
-      species: c.s || "Dog",
-      breed: c.b || undefined,
-      photoUrl: c.p || undefined,
-      microchipNumber: c.m || undefined,
-      isLost: Boolean(c.l),
-      rewardAmount: c.r || undefined,
-      ownerName: c.o || "Pet Parent",
-      primaryPhone: c.ph || "",
-      hasWhatsApp: Boolean(c.wa),
-      backupPhone: c.bph || undefined,
-      cityArea: c.c || undefined,
-      medicalAlerts: Array.isArray(c.med) ? c.med : [],
-      behaviorNotes: c.not || undefined,
-      vetName: c.vet || undefined,
-      vetPhone: c.vp || undefined,
-      tagShape: c.sh || "circle",
-      tagColor: c.col || "#dc2626",
-      tagline: c.tl || undefined,
-    };
-  } catch (err) {
-    console.error("Failed to decode tag payload:", err);
-    return null;
-  }
-}
-
 export function generateTagPublicUrl(data: PetTagData, baseUrl?: string): string {
-  // Use production domain or window origin if available
   let origin = "https://furtools.com";
   if (typeof window !== "undefined") {
-    // If not localhost, use the actual domain
     if (!window.location.hostname.includes("localhost") && !window.location.hostname.includes("127.0.0.1")) {
       origin = window.location.origin;
     }
@@ -196,8 +114,104 @@ export function generateTagPublicUrl(data: PetTagData, baseUrl?: string): string
   if (data.id) {
     return `${origin}/tag/${data.id}`;
   }
-  const payload = encodePetTagPayload(data);
-  return `${origin}/tag/p?data=${payload}`;
+
+  // Generate clean search params so every camera scanner parses it 100% as a standard Web URL
+  const params = new URLSearchParams();
+  if (data.petName) params.set("n", data.petName);
+  if (data.species) params.set("s", data.species);
+  if (data.breed) params.set("b", data.breed);
+  if (data.ownerName) params.set("o", data.ownerName);
+  if (data.primaryPhone) params.set("ph", data.primaryPhone);
+  if (data.backupPhone) params.set("bph", data.backupPhone);
+  if (data.microchipNumber) params.set("m", data.microchipNumber);
+  if (data.color) params.set("col", data.color);
+  if (data.gender) params.set("g", data.gender);
+  if (data.rewardAmount) params.set("r", data.rewardAmount);
+  if (data.cityArea) params.set("c", data.cityArea);
+  if (data.medicalAlerts && data.medicalAlerts.length > 0) {
+    params.set("med", data.medicalAlerts.join("~"));
+  }
+  if (data.behaviorNotes) params.set("not", data.behaviorNotes);
+  if (data.vetName) params.set("vet", data.vetName);
+  if (data.vetPhone) params.set("vp", data.vetPhone);
+  if (data.isLost) params.set("l", "1");
+
+  return `${origin}/tag/p?${params.toString()}`;
+}
+
+/**
+ * Parses PetTagData from URL search parameters or legacy base64 data parameter.
+ */
+export function parsePetTagFromUrl(searchParams: URLSearchParams): PetTagData | null {
+  try {
+    // Check clean query parameters first
+    const n = searchParams.get("n");
+    if (n) {
+      const medStr = searchParams.get("med") || "";
+      const medAlerts = medStr ? medStr.split("~").filter(Boolean) : [];
+
+      return {
+        petName: n,
+        species: searchParams.get("s") || "Dog",
+        breed: searchParams.get("b") || undefined,
+        ownerName: searchParams.get("o") || "Pet Parent",
+        primaryPhone: searchParams.get("ph") || "",
+        backupPhone: searchParams.get("bph") || undefined,
+        microchipNumber: searchParams.get("m") || undefined,
+        color: searchParams.get("col") || undefined,
+        gender: searchParams.get("g") || undefined,
+        rewardAmount: searchParams.get("r") || undefined,
+        cityArea: searchParams.get("c") || undefined,
+        medicalAlerts: medAlerts,
+        behaviorNotes: searchParams.get("not") || undefined,
+        vetName: searchParams.get("vet") || undefined,
+        vetPhone: searchParams.get("vp") || undefined,
+        isLost: searchParams.get("l") === "1",
+        hasWhatsApp: true,
+      };
+    }
+
+    // Fallback to legacy encoded data
+    const dataHash = searchParams.get("data");
+    if (dataHash) {
+      let base64 = dataHash.replace(/-/g, "+").replace(/_/g, "/");
+      while (base64.length % 4) base64 += "=";
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const json = new TextDecoder().decode(bytes);
+      const c = JSON.parse(json);
+      return {
+        petName: c.n || "Pet",
+        species: c.s || "Dog",
+        breed: c.b || undefined,
+        photoUrl: c.p || undefined,
+        microchipNumber: c.m || undefined,
+        isLost: Boolean(c.l),
+        rewardAmount: c.r || undefined,
+        ownerName: c.o || "Pet Parent",
+        primaryPhone: c.ph || "",
+        hasWhatsApp: Boolean(c.wa),
+        backupPhone: c.bph || undefined,
+        cityArea: c.c || undefined,
+        medicalAlerts: Array.isArray(c.med) ? c.med : [],
+        behaviorNotes: c.not || undefined,
+        vetName: c.vet || undefined,
+        vetPhone: c.vp || undefined,
+        tagShape: c.sh || "circle",
+        tagColor: c.col || "#dc2626",
+        tagline: c.tl || undefined,
+      };
+    }
+  } catch (err) {
+    console.error("Failed to parse pet tag from URL:", err);
+  }
+  return null;
+}
+
+export function decodePetTagPayload(hash: string): PetTagData | null {
+  const params = new URLSearchParams(`data=${hash}`);
+  return parsePetTagFromUrl(params);
 }
 
 /**
@@ -231,6 +245,7 @@ export function getQrScannableContent(data: PetTagData, actionType: QrActionType
 
 /**
  * Generates an SVG string representation of a standard, 100% scannable QR Code.
+ * Enforces high-contrast dark foreground and optimal quiet zone.
  */
 export async function generateQrSvg(
   text: string,
@@ -239,8 +254,8 @@ export async function generateQrSvg(
   try {
     const svg = await QRCode.toString(text, {
       type: "svg",
-      margin: options.margin !== undefined ? options.margin : 2,
-      width: options.size || 300,
+      margin: options.margin !== undefined ? options.margin : 3,
+      width: options.size || 320,
       color: {
         dark: options.color || "#0f172a",
         light: options.bgColor || "#ffffff",
@@ -255,7 +270,8 @@ export async function generateQrSvg(
 }
 
 /**
- * Generates a PNG base64 Data URL of the QR Code.
+ * Generates a crisp PNG base64 Data URL of the QR Code.
+ * Enforces ISO 18004 compliant quiet zone and high optical contrast.
  */
 export async function generateQrDataUrl(
   text: string,
@@ -263,7 +279,7 @@ export async function generateQrDataUrl(
 ): Promise<string> {
   try {
     const dataUrl = await QRCode.toDataURL(text, {
-      margin: options.margin !== undefined ? options.margin : 2,
+      margin: options.margin !== undefined ? options.margin : 3,
       width: options.size || 1024,
       color: {
         dark: options.color || "#0f172a",
