@@ -63,6 +63,7 @@ import { ENRICHED_BIRD_TOOLS } from "./birds-tools-content";
 import { ENRICHED_HORSE_TOOLS } from "./horses-tools-content";
 import { ENRICHED_FARM_TOOLS } from "./farm-tools-content";
 import { ENRICHED_GENERAL_TOOLS } from "./general-tools-content";
+import { ENRICHED_CAT_TOOLS } from "./cats-tools-content";
 
 const RAW_TOOLS: Tool[] = [
   // ─────────── DOGS ───────────
@@ -4300,6 +4301,9 @@ export const TOOLS: Tool[] = RAW_TOOLS.map((t) => {
   }
   if (ENRICHED_GENERAL_TOOLS[t.slug]) {
     return { ...t, ...ENRICHED_GENERAL_TOOLS[t.slug] } as Tool;
+  }
+  if (ENRICHED_CAT_TOOLS[t.slug]) {
+    return { ...t, ...ENRICHED_CAT_TOOLS[t.slug] } as Tool;
   }
   return t;
 });
