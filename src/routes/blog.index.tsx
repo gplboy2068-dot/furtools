@@ -3,6 +3,7 @@ import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { STATIC_BLOG_POSTS } from "@/data/blog-posts";
 
 interface PostSummary {
   slug: string;
@@ -17,13 +18,34 @@ interface PostSummary {
 const postsQuery = queryOptions({
   queryKey: ["blog", "posts"],
   queryFn: async (): Promise<PostSummary[]> => {
-    const { data, error } = await supabase
-      .from("blog_posts")
-      .select("slug,title,excerpt,cover_image,category,published_at,tags")
-      .eq("published", true)
-      .order("published_at", { ascending: false });
-    if (error) throw error;
-    return data ?? [];
+    let dbPosts: PostSummary[] = [];
+    try {
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select("slug,title,excerpt,cover_image,category,published_at,tags")
+        .eq("published", true)
+        .order("published_at", { ascending: false });
+      if (data) dbPosts = data;
+    } catch (err) {
+      console.warn("Supabase blog query failed, falling back to static:", err);
+    }
+
+    const combined = [...dbPosts];
+    Object.values(STATIC_BLOG_POSTS).forEach((sp) => {
+      if (!combined.some((p) => p.slug === sp.slug)) {
+        combined.push({
+          slug: sp.slug,
+          title: sp.title,
+          excerpt: sp.excerpt,
+          cover_image: sp.cover_image,
+          category: sp.category,
+          published_at: sp.published_at,
+          tags: sp.tags,
+        });
+      }
+    });
+
+    return combined;
   },
 });
 
