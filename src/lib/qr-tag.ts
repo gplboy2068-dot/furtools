@@ -1,4 +1,5 @@
 import QRCode from "qrcode";
+import LZString from "lz-string";
 
 export type QrActionType = "web" | "call" | "whatsapp" | "vcard" | "text";
 
@@ -98,7 +99,8 @@ export function generateEmergencyText(data: PetTagData): string {
 }
 
 /**
- * Generates clean, robust, compact URL parameters for emergency landing page.
+ * Generates an ultra-compact, short URL for emergency landing page.
+ * Compresses data using LZ algorithm down to ~40-60 characters total.
  */
 export function generateTagPublicUrl(data: PetTagData, baseUrl?: string): string {
   let origin = "https://furtools.com";
@@ -115,36 +117,66 @@ export function generateTagPublicUrl(data: PetTagData, baseUrl?: string): string
     return `${origin}/tag/${data.id}`;
   }
 
-  // Generate clean search params so every camera scanner parses it 100% as a standard Web URL
-  const params = new URLSearchParams();
-  if (data.petName) params.set("n", data.petName);
-  if (data.species) params.set("s", data.species);
-  if (data.breed) params.set("b", data.breed);
-  if (data.ownerName) params.set("o", data.ownerName);
-  if (data.primaryPhone) params.set("ph", data.primaryPhone);
-  if (data.backupPhone) params.set("bph", data.backupPhone);
-  if (data.microchipNumber) params.set("m", data.microchipNumber);
-  if (data.color) params.set("col", data.color);
-  if (data.gender) params.set("g", data.gender);
-  if (data.rewardAmount) params.set("r", data.rewardAmount);
-  if (data.cityArea) params.set("c", data.cityArea);
-  if (data.medicalAlerts && data.medicalAlerts.length > 0) {
-    params.set("med", data.medicalAlerts.join("~"));
-  }
-  if (data.behaviorNotes) params.set("not", data.behaviorNotes);
-  if (data.vetName) params.set("vet", data.vetName);
-  if (data.vetPhone) params.set("vp", data.vetPhone);
-  if (data.isLost) params.set("l", "1");
+  // Compact tuple structure for maximal compression
+  const compact = [
+    data.petName || "",
+    data.species || "Dog",
+    data.breed || "",
+    data.ownerName || "",
+    data.primaryPhone || "",
+    data.backupPhone || "",
+    data.microchipNumber || "",
+    data.rewardAmount || "",
+    (data.medicalAlerts || []).join(";"),
+    data.cityArea || "",
+    data.behaviorNotes || "",
+    data.vetName || "",
+    data.vetPhone || "",
+    data.isLost ? 1 : 0,
+    data.color || "",
+    data.gender || "",
+  ];
 
-  return `${origin}/tag/p?${params.toString()}`;
+  const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(compact));
+  return `${origin}/tag/p?z=${compressed}`;
 }
 
 /**
- * Parses PetTagData from URL search parameters or legacy base64 data parameter.
+ * Parses PetTagData from URL search parameters (supports LZ-string, direct query, or legacy base64).
  */
 export function parsePetTagFromUrl(searchParams: URLSearchParams): PetTagData | null {
   try {
-    // Check clean query parameters first
+    // 1. Ultra-compact LZ compressed parameter: ?z=...
+    const z = searchParams.get("z");
+    if (z) {
+      const raw = LZString.decompressFromEncodedURIComponent(z);
+      if (raw) {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) {
+          return {
+            petName: arr[0] || "Pet",
+            species: arr[1] || "Dog",
+            breed: arr[2] || undefined,
+            ownerName: arr[3] || "Pet Parent",
+            primaryPhone: arr[4] || "",
+            backupPhone: arr[5] || undefined,
+            microchipNumber: arr[6] || undefined,
+            rewardAmount: arr[7] || undefined,
+            medicalAlerts: arr[8] ? arr[8].split(";").filter(Boolean) : [],
+            cityArea: arr[9] || undefined,
+            behaviorNotes: arr[10] || undefined,
+            vetName: arr[11] || undefined,
+            vetPhone: arr[12] || undefined,
+            isLost: Boolean(arr[13]),
+            color: arr[14] || undefined,
+            gender: arr[15] || undefined,
+            hasWhatsApp: true,
+          };
+        }
+      }
+    }
+
+    // 2. Direct clean query parameters: ?n=...
     const n = searchParams.get("n");
     if (n) {
       const medStr = searchParams.get("med") || "";
@@ -171,7 +203,7 @@ export function parsePetTagFromUrl(searchParams: URLSearchParams): PetTagData | 
       };
     }
 
-    // Fallback to legacy encoded data
+    // 3. Fallback to legacy encoded data: ?data=...
     const dataHash = searchParams.get("data");
     if (dataHash) {
       let base64 = dataHash.replace(/-/g, "+").replace(/_/g, "/");
