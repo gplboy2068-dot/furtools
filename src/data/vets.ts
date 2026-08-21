@@ -1,0 +1,420 @@
+export interface VetClinic {
+  id: string;
+  name: string;
+  tagline: string;
+  category: "emergency" | "general" | "specialty" | "low-cost" | "mobile";
+  is24HourEmergency: boolean;
+  isLowCost: boolean;
+  offersExotics: boolean;
+  offersDental: boolean;
+  offersTelehealth: boolean;
+  rating: number;
+  reviewCount: number;
+  phone: string;
+  emergencyPhone?: string;
+  website: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  lat: number;
+  lng: number;
+  hours: {
+    weekdays: string;
+    saturday: string;
+    sunday: string;
+    emergencyHours?: string;
+  };
+  services: string[];
+  insuranceAccepted: string[];
+  verified: boolean;
+}
+
+export const VET_CLINICS_DIRECTORY: VetClinic[] = [
+  {
+    id: "austin-247-emergency-vet",
+    name: "Austin Animal Emergency & Specialty Hospital",
+    tagline: "Comprehensive 24/7 emergency trauma care, ICU, and surgical suite",
+    category: "emergency",
+    is24HourEmergency: true,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.9,
+    reviewCount: 842,
+    phone: "+1 (512) 899-0955",
+    emergencyPhone: "+1 (512) 899-0955",
+    website: "https://example.com/austin-emergency",
+    address: "7300 Ranch Rd 2222, Bldg 5",
+    city: "Austin",
+    state: "TX",
+    zipCode: "78730",
+    country: "USA",
+    lat: 30.3725,
+    lng: -97.7845,
+    hours: {
+      weekdays: "Open 24/7",
+      saturday: "Open 24/7",
+      sunday: "Open 24/7",
+      emergencyHours: "Always Open 365 Days / Year",
+    },
+    services: [
+      "24/7 Critical Trauma ICU",
+      "Emergency Surgery & Blood Transfusions",
+      "Digital X-Ray & Ultrasound",
+      "Oxygen Therapy & Poison Triage",
+      "Avian & Reptile Emergency Care",
+    ],
+    insuranceAccepted: ["Trupanion", "CareCredit", "Nationwide", "Lemonade", "Fetch"],
+    verified: true,
+  },
+  {
+    id: "austin-community-low-cost-vet",
+    name: "Central Texas Community Low-Cost Vet Clinic",
+    tagline: "Affordable wellness exams, low-cost spay/neuter, and walk-in vaccinations",
+    category: "low-cost",
+    is24HourEmergency: false,
+    isLowCost: true,
+    offersExotics: false,
+    offersDental: true,
+    offersTelehealth: false,
+    rating: 4.8,
+    reviewCount: 1250,
+    phone: "+1 (512) 555-0199",
+    website: "https://example.com/austin-community-vet",
+    address: "1249 E 7th St",
+    city: "Austin",
+    state: "TX",
+    zipCode: "78702",
+    country: "USA",
+    lat: 30.2642,
+    lng: -97.7289,
+    hours: {
+      weekdays: "8:00 AM - 6:00 PM",
+      saturday: "9:00 AM - 3:00 PM",
+      sunday: "Closed",
+    },
+    services: [
+      "$25 Rabies & Distemper Packages",
+      "Subsidized Spay & Neuter",
+      "Microchipping ($20)",
+      "Heartworm Prevention & Testing",
+      "Affordable Dental Cleanings",
+    ],
+    insuranceAccepted: ["CareCredit", "Scratchpay", "Cash/Debit"],
+    verified: true,
+  },
+  {
+    id: "austin-urban-paws-vet",
+    name: "Urban Paws Integrative Animal Hospital",
+    tagline: "Fear-free certified primary care, acupuncture, and exotic medicine",
+    category: "general",
+    is24HourEmergency: false,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.9,
+    reviewCount: 610,
+    phone: "+1 (512) 476-7387",
+    website: "https://example.com/urban-paws",
+    address: "812 S Congress Ave",
+    city: "Austin",
+    state: "TX",
+    zipCode: "78704",
+    country: "USA",
+    lat: 30.2548,
+    lng: -97.7495,
+    hours: {
+      weekdays: "7:30 AM - 7:00 PM",
+      saturday: "8:00 AM - 4:00 PM",
+      sunday: "Closed",
+    },
+    services: [
+      "Fear-Free Certified Exams",
+      "Feline Friendly Silver Practice",
+      "Rabbit & Guinea Pig Specialist",
+      "Laser Therapy & Acupuncture",
+      "Full Digital Dental Suite",
+    ],
+    insuranceAccepted: ["Trupanion", "CareCredit", "Spot", "Embrace", "Healthy Paws"],
+    verified: true,
+  },
+  {
+    id: "nyc-animal-medical-center",
+    name: "Manhattan Animal Medical Center & ER",
+    tagline: "Premier level-1 veterinary trauma hospital with board-certified specialists",
+    category: "emergency",
+    is24HourEmergency: true,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.8,
+    reviewCount: 2310,
+    phone: "+1 (212) 838-8100",
+    emergencyPhone: "+1 (212) 838-8100",
+    website: "https://example.com/nyc-amc",
+    address: "510 E 62nd St",
+    city: "New York",
+    state: "NY",
+    zipCode: "10065",
+    country: "USA",
+    lat: 40.7607,
+    lng: -73.9587,
+    hours: {
+      weekdays: "Open 24/7",
+      saturday: "Open 24/7",
+      sunday: "Open 24/7",
+      emergencyHours: "24/7 Emergency Admissions Open",
+    },
+    services: [
+      "24/7 Level 1 Trauma & ER",
+      "Cardiology & Neurology",
+      "Oncology & Radiation Therapy",
+      "Avian & Exotic Special Care",
+      "Orthopedic Surgery",
+    ],
+    insuranceAccepted: ["Trupanion", "CareCredit", "Nationwide", "Lemonade", "MetLife"],
+    verified: true,
+  },
+  {
+    id: "nyc-brooklyn-low-cost-vet",
+    name: "Brooklyn Community Pet Care Clinic",
+    tagline: "Affordable neighbor pet healthcare, wellness checkups, and puppy packages",
+    category: "low-cost",
+    is24HourEmergency: false,
+    isLowCost: true,
+    offersExotics: false,
+    offersDental: true,
+    offersTelehealth: false,
+    rating: 4.7,
+    reviewCount: 940,
+    phone: "+1 (718) 555-0144",
+    website: "https://example.com/brooklyn-pet-care",
+    address: "482 Atlantic Ave",
+    city: "Brooklyn",
+    state: "NY",
+    zipCode: "11217",
+    country: "USA",
+    lat: 40.6872,
+    lng: -73.9854,
+    hours: {
+      weekdays: "8:30 AM - 6:30 PM",
+      saturday: "9:00 AM - 4:00 PM",
+      sunday: "10:00 AM - 2:00 PM",
+    },
+    services: [
+      "Affordable Puppy/Kitten Packages",
+      "Low-Cost Dental Scaling",
+      "Flea, Tick & Heartworm Meds",
+      "Senior Pet Bloodwork Screenings",
+    ],
+    insuranceAccepted: ["CareCredit", "Scratchpay", "Cash/Cards"],
+    verified: true,
+  },
+  {
+    id: "la-metropolitan-emergency-vet",
+    name: "Los Angeles 24-Hour Emergency Animal Hospital",
+    tagline: "Leading emergency & critical care center serving greater Los Angeles",
+    category: "emergency",
+    is24HourEmergency: true,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.9,
+    reviewCount: 1890,
+    phone: "+1 (310) 555-0911",
+    emergencyPhone: "+1 (310) 555-0911",
+    website: "https://example.com/la-emergency-vet",
+    address: "11230 Olympic Blvd",
+    city: "Los Angeles",
+    state: "CA",
+    zipCode: "90064",
+    country: "USA",
+    lat: 34.0372,
+    lng: -118.4419,
+    hours: {
+      weekdays: "Open 24/7",
+      saturday: "Open 24/7",
+      sunday: "Open 24/7",
+      emergencyHours: "Continuous 24-Hour Emergency Triage",
+    },
+    services: [
+      "24/7 Immediate Emergency Triage",
+      "CT Scan & Advanced Diagnostics",
+      "Emergency Soft Tissue Surgery",
+      "Exotic & Wildlife Rescue Support",
+      "Overnight Intensive Care Unit",
+    ],
+    insuranceAccepted: ["Trupanion", "CareCredit", "Nationwide", "Lemonade", "Pumpkin"],
+    verified: true,
+  },
+  {
+    id: "chicago-north-shore-animal-hospital",
+    name: "Chicago North Shore Veterinary & Emergency Care",
+    tagline: "Full-service animal clinic with dedicated evening & weekend urgent care",
+    category: "emergency",
+    is24HourEmergency: true,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.8,
+    reviewCount: 1120,
+    phone: "+1 (312) 555-0182",
+    website: "https://example.com/chicago-vet",
+    address: "2445 N Lincoln Ave",
+    city: "Chicago",
+    state: "IL",
+    zipCode: "60614",
+    country: "USA",
+    lat: 41.9264,
+    lng: -87.6517,
+    hours: {
+      weekdays: "Open 24/7",
+      saturday: "Open 24/7",
+      sunday: "Open 24/7",
+    },
+    services: [
+      "24/7 Emergency Room",
+      "Orthopedic & Soft Tissue Surgery",
+      "Veterinary Dentistry & Endodontics",
+      "Geriatric Pet Wellness Plans",
+    ],
+    insuranceAccepted: ["Trupanion", "CareCredit", "Fetch", "ASPCA Pet Insurance"],
+    verified: true,
+  },
+  {
+    id: "london-royal-veterinary-hospital",
+    name: "London Pet Emergency & Veterinary Specialist Centre",
+    tagline: "RCVS accredited veterinary hospital with emergency 24/7 triage",
+    category: "emergency",
+    is24HourEmergency: true,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.9,
+    reviewCount: 1650,
+    phone: "+44 20 7911 5000",
+    emergencyPhone: "+44 20 7911 5000",
+    website: "https://example.com/london-vet",
+    address: "Royal College St, Camden Town",
+    city: "London",
+    state: "Greater London",
+    zipCode: "NW1 0TU",
+    country: "UK",
+    lat: 51.5362,
+    lng: -0.1342,
+    hours: {
+      weekdays: "Open 24/7",
+      saturday: "Open 24/7",
+      sunday: "Open 24/7",
+    },
+    services: [
+      "24/7 Emergency Admissions",
+      "Referral Specialist Care",
+      "MRI & Diagnostic Imaging",
+      "Exotic & Zoological Medicine",
+    ],
+    insuranceAccepted: ["Petplan", "Animal Friends", "Direct Line", "Agria", "ManyPets"],
+    verified: true,
+  },
+  {
+    id: "seattle-sound-pet-hospital",
+    name: "Seattle Sound Veterinary & Urgent Care",
+    tagline: "Compassionate primary care with 7-day walk-in urgent care support",
+    category: "general",
+    is24HourEmergency: false,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.9,
+    reviewCount: 780,
+    phone: "+1 (206) 555-0193",
+    website: "https://example.com/seattle-vet",
+    address: "1420 5th Ave",
+    city: "Seattle",
+    state: "WA",
+    zipCode: "98101",
+    country: "USA",
+    lat: 47.6101,
+    lng: -122.3344,
+    hours: {
+      weekdays: "7:00 AM - 8:00 PM",
+      saturday: "8:00 AM - 6:00 PM",
+      sunday: "9:00 AM - 5:00 PM",
+    },
+    services: [
+      "Same-Day Urgent Care",
+      "Cat & Dog Wellness Exams",
+      "Dental Prophylaxis & Extractions",
+      "Holistic Nutritional Counseling",
+    ],
+    insuranceAccepted: ["Trupanion", "CareCredit", "Lemonade", "Spot"],
+    verified: true,
+  },
+  {
+    id: "miami-bayside-vet-clinic",
+    name: "Miami Bayside Animal Hospital & Emergency",
+    tagline: "Bilingual staff, 24/7 emergency care, and exotic tropical pet specialists",
+    category: "emergency",
+    is24HourEmergency: true,
+    isLowCost: false,
+    offersExotics: true,
+    offersDental: true,
+    offersTelehealth: true,
+    rating: 4.8,
+    reviewCount: 920,
+    phone: "+1 (305) 555-0177",
+    emergencyPhone: "+1 (305) 555-0177",
+    website: "https://example.com/miami-vet",
+    address: "401 Biscayne Blvd",
+    city: "Miami",
+    state: "FL",
+    zipCode: "33132",
+    country: "USA",
+    lat: 25.7781,
+    lng: -80.1872,
+    hours: {
+      weekdays: "Open 24/7",
+      saturday: "Open 24/7",
+      sunday: "Open 24/7",
+    },
+    services: [
+      "24/7 Emergency & Critical Care",
+      "Reptile, Bird & Tropical Pet Care",
+      "Heat Stroke & Toxic Ingestion Triage",
+      "Digital Radiography & Laser Surgery",
+    ],
+    insuranceAccepted: ["CareCredit", "Nationwide", "Trupanion", "Figo"],
+    verified: true,
+  },
+];
+
+/**
+ * Calculates distance in miles between two GPS coordinates using Haversine formula.
+ */
+export function calculateDistanceMiles(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number,
+): number {
+  const R = 3958.8; // Earth's radius in miles
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return Math.round(R * c * 10) / 10;
+}

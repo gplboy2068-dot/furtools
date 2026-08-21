@@ -62,6 +62,7 @@ import { Route as AdminBlogRouteImport } from './routes/admin.blog'
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminAffiliatesRouteImport } from './routes/admin.affiliates'
 import { Route as AdminAdsRouteImport } from './routes/admin.ads'
+import { Route as EmbedToolsSlugRouteImport } from './routes/embed.tools.$slug'
 import { Route as DashboardPetsIdRouteImport } from './routes/dashboard.pets.$id'
 import { Route as ApiAuthGoogleVerifyRouteImport } from './routes/api/auth/google-verify'
 import { Route as AdminPostsIdRouteImport } from './routes/admin.posts.$id'
@@ -331,6 +332,11 @@ const AdminAdsRoute = AdminAdsRouteImport.update({
   path: '/ads',
   getParentRoute: () => AdminRoute,
 } as any)
+const EmbedToolsSlugRoute = EmbedToolsSlugRouteImport.update({
+  id: '/embed/tools/$slug',
+  path: '/embed/tools/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardPetsIdRoute = DashboardPetsIdRouteImport.update({
   id: '/dashboard/pets/$id',
   path: '/dashboard/pets/$id',
@@ -404,6 +410,7 @@ export interface FileRoutesByFullPath {
   '/admin/posts/$id': typeof AdminPostsIdRoute
   '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
+  '/embed/tools/$slug': typeof EmbedToolsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -461,6 +468,7 @@ export interface FileRoutesByTo {
   '/admin/posts/$id': typeof AdminPostsIdRoute
   '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
+  '/embed/tools/$slug': typeof EmbedToolsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -520,6 +528,7 @@ export interface FileRoutesById {
   '/admin/posts/$id': typeof AdminPostsIdRoute
   '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
+  '/embed/tools/$slug': typeof EmbedToolsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -580,6 +589,7 @@ export interface FileRouteTypes {
     | '/admin/posts/$id'
     | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
+    | '/embed/tools/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -637,6 +647,7 @@ export interface FileRouteTypes {
     | '/admin/posts/$id'
     | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
+    | '/embed/tools/$slug'
   id:
     | '__root__'
     | '/'
@@ -695,6 +706,7 @@ export interface FileRouteTypes {
     | '/admin/posts/$id'
     | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
+    | '/embed/tools/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -736,6 +748,7 @@ export interface RootRouteChildren {
   FoodsIndexRoute: typeof FoodsIndexRoute
   ApiAuthGoogleVerifyRoute: typeof ApiAuthGoogleVerifyRoute
   DashboardPetsIdRoute: typeof DashboardPetsIdRoute
+  EmbedToolsSlugRoute: typeof EmbedToolsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1111,6 +1124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/embed/tools/$slug': {
+      id: '/embed/tools/$slug'
+      path: '/embed/tools/$slug'
+      fullPath: '/embed/tools/$slug'
+      preLoaderRoute: typeof EmbedToolsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/pets/$id': {
       id: '/dashboard/pets/$id'
       path: '/dashboard/pets/$id'
@@ -1218,6 +1238,7 @@ const rootRouteChildren: RootRouteChildren = {
   FoodsIndexRoute: FoodsIndexRoute,
   ApiAuthGoogleVerifyRoute: ApiAuthGoogleVerifyRoute,
   DashboardPetsIdRoute: DashboardPetsIdRoute,
+  EmbedToolsSlugRoute: EmbedToolsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

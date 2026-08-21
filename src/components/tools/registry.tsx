@@ -19,6 +19,7 @@ import {
 } from "@/components/tools/cat-tools";
 import { PetCarePlanner } from "@/components/tools/general-tools";
 import { SmartCollarQRTool } from "@/components/tools/smart-collar-qr";
+import { VetFinderTool } from "@/components/tools/vet-finder";
 import {
   BirdCageSize, BirdFood, BirdLifespan, BirdWingClipGuide,
   AquariumVolume, FishStocking, TankCyclingTracker, WaterChangeScheduler,
@@ -302,7 +303,8 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "pet-pill-identifier": PillIdentifierForPets,
   "pet-poison-lookup": PoisonLookupDatabase,
   "pet-vaccine-schedule-generator": VaccineScheduleGenerator,
-  "emergency-vet-finder": EmergencyVetFinder,
+  "emergency-vet-finder": VetFinderTool,
+  "local-vet-finder": VetFinderTool,
   "pet-blood-test-explainer": BloodTestExplainer,
 
   // Batch 6 — Fun / Quiz suite

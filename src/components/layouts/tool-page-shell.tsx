@@ -3,6 +3,7 @@ import { Breadcrumbs, type Crumb } from "@/components/breadcrumbs";
 import { RelatedTools } from "@/components/tool-sections";
 import { Faq, type FaqItem } from "@/components/faq";
 import { AlertTriangle, BookOpen } from "lucide-react";
+import { EmbedCalculatorDialog } from "@/components/tools/embed-dialog";
 import type { ToolExample, RelatedArticle } from "@/data/tools";
 
 export interface ToolLayoutProps {
@@ -35,7 +36,10 @@ export function ToolPageShell({
 }: ToolLayoutProps) {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-      <Breadcrumbs items={crumbs} />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <Breadcrumbs items={crumbs} />
+        <EmbedCalculatorDialog slug={slug} title={title} />
+      </div>
       <header className="mt-6 max-w-2xl">
         <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{description}</p>
