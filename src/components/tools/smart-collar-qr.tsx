@@ -288,7 +288,9 @@ export function SmartCollarQRTool() {
           <div class="grid">
             <div class="tag-card">
               <div class="cut-line">✂️ Cut Along Dashed Border (Front)</div>
-              <div class="qr-box">${qrSvgString}</div>
+              <div class="qr-box">
+                <img src="${qrDataUrl}" width="140" height="140" alt="QR Code" style="display: block; margin: 0 auto;" />
+              </div>
               <div class="tag-title">${petName}</div>
               <div style="font-size: 11px; font-weight: 600; color: ${tagColor};">${tagline}</div>
             </div>
@@ -313,7 +315,7 @@ export function SmartCollarQRTool() {
               <div style="font-size: 10px; color: #64748b;">Scan QR on reverse for medical alerts & vet data</div>
             </div>
             <div style="width: 60px; height: 60px;">
-              ${qrSvgString}
+              <img src="${qrDataUrl}" width="60" height="60" alt="QR Code" />
             </div>
           </div>
 
@@ -365,7 +367,9 @@ export function SmartCollarQRTool() {
           </div>
 
           <div class="grid-bottom">
-            <div class="qr-frame">${qrSvgString}</div>
+            <div class="qr-frame">
+              <img src="${qrDataUrl}" width="140" height="140" alt="QR Code" />
+            </div>
             <div class="details-text">
               <strong>SCAN QR CODE WITH ANY PHONE CAMERA</strong><br/>
               • Instant 1-tap call & WhatsApp<br/>
@@ -884,11 +888,12 @@ export function SmartCollarQRTool() {
                   >
                     {tagSide === "front" ? (
                       <div className="flex flex-col items-center justify-center space-y-2">
-                        <div className="size-36 p-1 bg-white rounded-xl shadow-xs">
-                          <div
-                            className="size-full [&>svg]:size-full"
-                            dangerouslySetInnerHTML={{ __html: qrSvgString }}
-                          />
+                        <div className="size-36 p-1 bg-white rounded-xl shadow-xs flex items-center justify-center">
+                          {qrDataUrl ? (
+                            <img src={qrDataUrl} alt="QR Code" className="size-full object-contain" />
+                          ) : (
+                            <div className="text-xs text-muted-foreground">Loading…</div>
+                          )}
                         </div>
                         <div
                           className="font-black text-xs uppercase tracking-tight px-2 leading-tight"
@@ -1050,11 +1055,12 @@ export function SmartCollarQRTool() {
                 <div className="p-2 bg-slate-100 rounded-lg font-bold text-xs">
                   Call: {primaryPhone}
                 </div>
-                <div className="size-20 mx-auto">
-                  <div
-                    className="size-full [&>svg]:size-full"
-                    dangerouslySetInnerHTML={{ __html: qrSvgString }}
-                  />
+                <div className="size-20 mx-auto flex items-center justify-center">
+                  {qrDataUrl ? (
+                    <img src={qrDataUrl} alt="QR Code" className="size-full object-contain" />
+                  ) : (
+                    <div className="text-[10px] text-slate-400">Loading…</div>
+                  )}
                 </div>
                 <div className="text-[9px] text-slate-500 uppercase font-semibold">
                   Scan QR with camera for full medical info

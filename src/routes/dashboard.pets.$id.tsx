@@ -989,7 +989,9 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
           <h2>🐾 ${pet.name}'s Smart Collar Tag</h2>
           <p>Cut out and insert into collar pouch or laminate as a tag.</p>
           <div class="card">
-            <div class="qr">${qrSvgString}</div>
+            <div class="qr">
+              <img src="${qrDataUrl}" width="140" height="140" alt="QR Code" style="display: block; margin: 0 auto;" />
+            </div>
             <div style="font-weight: bold; font-size: 16px;">${pet.name}</div>
             <div style="font-size: 11px; color: #64748b;">${pet.breed || pet.species}</div>
             <div style="font-size: 10px; color: #dc2626; font-weight: bold; margin-top: 4px;">SCAN IF FOUND</div>
@@ -1038,11 +1040,12 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         {/* Left Col: QR Badge & Quick Actions (5 cols) */}
         <div className="md:col-span-5 rounded-2xl border border-border bg-card p-6 text-center space-y-4 shadow-xs">
-          <div className="size-52 mx-auto p-2 bg-white rounded-2xl shadow-sm border border-border">
-            <div
-              className="size-full [&>svg]:size-full"
-              dangerouslySetInnerHTML={{ __html: qrSvgString }}
-            />
+          <div className="size-52 mx-auto p-2 bg-white rounded-2xl shadow-sm border border-border flex items-center justify-center">
+            {qrDataUrl ? (
+              <img src={qrDataUrl} alt="QR Code" className="size-full object-contain" />
+            ) : (
+              <div className="text-xs text-muted-foreground">Loading QR…</div>
+            )}
           </div>
 
           <div>
