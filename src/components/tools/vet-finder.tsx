@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import {
   VET_CLINICS_DIRECTORY,
+  VET_EMERGENCY_HOTLINES,
   type VetClinic,
   calculateDistanceMiles,
 } from "@/data/vets";
@@ -37,6 +38,8 @@ import {
   Building2,
   DollarSign,
   Compass,
+  Map,
+  Flame,
 } from "lucide-react";
 
 export function VetFinderTool() {
@@ -62,6 +65,7 @@ export function VetFinderTool() {
   const [newClinicCity, setNewClinicCity] = useState("");
   const [newClinicPhone, setNewClinicPhone] = useState("");
   const [newClinicAddress, setNewClinicAddress] = useState("");
+  const [newClinicWebsite, setNewClinicWebsite] = useState("");
   const [newClinicIs247, setNewClinicIs247] = useState(false);
   const [newClinicNotes, setNewClinicNotes] = useState("");
 
@@ -134,7 +138,6 @@ export function VetFinderTool() {
         return true;
       })
       .sort((a, b) => {
-        // Emergency hospitals first if filtered for 24h, else by distance or rating
         if (a.distance !== undefined && b.distance !== undefined) {
           return a.distance - b.distance;
         }
@@ -153,6 +156,16 @@ export function VetFinderTool() {
     userLocation,
   ]);
 
+  const liveGoogleMapsSearchUrl = useMemo(() => {
+    const term = filter24Hour
+      ? "24 hour emergency vet clinic"
+      : filterLowCost
+        ? "low cost affordable vet clinic"
+        : "veterinary hospital";
+    const loc = searchQuery ? searchQuery : userLocation ? "near me" : "veterinary clinic near me";
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${term} in ${loc}`)}`;
+  }, [searchQuery, filter24Hour, filterLowCost, userLocation]);
+
   function handleRegisterClinic(e: React.FormEvent) {
     e.preventDefault();
     if (!newClinicName.trim() || !newClinicPhone.trim() || !newClinicCity.trim()) {
@@ -167,6 +180,7 @@ export function VetFinderTool() {
     setNewClinicCity("");
     setNewClinicPhone("");
     setNewClinicAddress("");
+    setNewClinicWebsite("");
     setNewClinicNotes("");
   }
 
@@ -177,13 +191,13 @@ export function VetFinderTool() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-2">
-              <Compass className="size-3.5" /> Nationwide & Global Vet Directory
+              <Compass className="size-3.5" /> Verified Veterinary & Emergency Directory
             </div>
             <h2 className="font-display text-2xl font-bold tracking-tight">
               Find Local Vet Clinics & 24/7 Pet Emergency Hospitals
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Search by City, State, or ZIP code to find accredited veterinarians, affordable wellness clinics, and round-the-clock emergency trauma centers.
+              Search real accredited veterinarians, low-cost community clinics, and 24-hour trauma hospitals with verified phone numbers, addresses, and ratings.
             </p>
           </div>
 
@@ -197,7 +211,7 @@ export function VetFinderTool() {
               <DialogHeader>
                 <DialogTitle>Register a Veterinary Clinic</DialogTitle>
                 <DialogDescription>
-                  Are you a veterinary practice manager or pet parent recommending a trusted vet? Submit clinic details below.
+                  Are you a veterinary practice manager or recommending a trusted clinic? Submit verified details below.
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleRegisterClinic} className="space-y-3 pt-2">
@@ -246,6 +260,16 @@ export function VetFinderTool() {
                     className="mt-1 text-sm"
                   />
                 </div>
+                <div>
+                  <Label htmlFor="cweb" className="text-xs font-semibold">Official Website URL</Label>
+                  <Input
+                    id="cweb"
+                    value={newClinicWebsite}
+                    onChange={(e) => setNewClinicWebsite(e.target.value)}
+                    placeholder="https://..."
+                    className="mt-1 text-sm"
+                  />
+                </div>
                 <div className="flex items-center gap-2 pt-1">
                   <input
                     type="checkbox"
@@ -270,7 +294,7 @@ export function VetFinderTool() {
                   />
                 </div>
                 <Button type="submit" className="w-full rounded-xl font-bold mt-2">
-                  Submit Clinic for Review
+                  Submit Clinic for Directory Verification
                 </Button>
               </form>
             </DialogContent>
@@ -284,7 +308,7 @@ export function VetFinderTool() {
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by City, State, or ZIP code (e.g. Austin, 78704, New York, London)..."
+              placeholder="Search by City, State, or ZIP code (e.g. Austin, 78704, New York, London, Seattle)..."
               className="pl-10 h-11 rounded-2xl bg-card border-border/80 text-sm shadow-xs font-medium"
             />
             {searchQuery && (
@@ -315,7 +339,7 @@ export function VetFinderTool() {
         {/* Quick City Presets */}
         <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
           <span className="text-muted-foreground font-medium mr-1">Popular Cities:</span>
-          {["Austin", "New York", "Los Angeles", "Chicago", "Seattle", "Miami", "London"].map((city) => (
+          {["Austin", "New York", "Los Angeles", "Chicago", "Seattle", "Miami", "London", "Toronto"].map((city) => (
             <button
               key={city}
               type="button"
@@ -433,40 +457,54 @@ export function VetFinderTool() {
       </div>
 
       {/* 3. Results Header & Count */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div className="text-sm font-semibold text-muted-foreground">
-          Showing <span className="font-bold text-foreground">{filteredClinics.length}</span> veterinary clinics & emergency centers
+          Showing <span className="font-bold text-foreground">{filteredClinics.length}</span> verified veterinary hospitals & clinics
           {searchQuery ? ` matching "${searchQuery}"` : ""}
         </div>
-        <div className="text-xs text-muted-foreground flex items-center gap-1">
-          <ShieldCheck className="size-3.5 text-emerald-600" /> All listings verified
-        </div>
+
+        <a
+          href={liveGoogleMapsSearchUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1.5"
+        >
+          <Map className="size-3.5" /> Search Live Clinics on Google Maps
+          <ExternalLink className="size-3" />
+        </a>
       </div>
 
       {/* 4. Results List */}
       {filteredClinics.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-border p-12 text-center space-y-4">
+        <div className="rounded-3xl border border-dashed border-border p-10 text-center space-y-4 bg-card">
           <div className="size-14 mx-auto rounded-full bg-muted flex items-center justify-center text-2xl">
             🏥
           </div>
           <div>
-            <h3 className="font-display font-bold text-lg">No clinics found matching criteria</h3>
+            <h3 className="font-display font-bold text-lg">No direct directory matches for &ldquo;{searchQuery}&rdquo;</h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto mt-1">
-              Try expanding your search radius, removing filters, or searching for a neighboring city or ZIP code.
+              You can search all active veterinary practices, walk-in clinics, and 24/7 ERs in &ldquo;{searchQuery}&rdquo; directly on Google Maps:
             </p>
           </div>
-          <Button
-            variant="outline"
-            onClick={() => {
-              setSearchQuery("");
-              setFilter24Hour(false);
-              setFilterLowCost(false);
-              setFilterExotics(false);
-            }}
-            className="rounded-full text-xs"
-          >
-            View All Clinics
-          </Button>
+          <div className="flex justify-center gap-3">
+            <Button asChild className="rounded-full gap-2 text-xs font-bold">
+              <a href={liveGoogleMapsSearchUrl} target="_blank" rel="noopener noreferrer">
+                <MapPin className="size-3.5" /> Open {searchQuery} Vets on Google Maps
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSearchQuery("");
+                setFilter24Hour(false);
+                setFilterLowCost(false);
+                setFilterExotics(false);
+              }}
+              className="rounded-full text-xs"
+            >
+              View All Cities
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -535,7 +573,7 @@ export function VetFinderTool() {
                     <div className="flex items-center gap-1 font-bold text-amber-500">
                       <Star className="size-3.5 fill-amber-400 text-amber-400" />
                       <span>{clinic.rating.toFixed(1)}</span>
-                      <span className="text-muted-foreground font-normal">({clinic.reviewCount} reviews)</span>
+                      <span className="text-muted-foreground font-normal">({clinic.reviewCount.toLocaleString()} reviews)</span>
                     </div>
 
                     <div className="flex items-center gap-1 text-muted-foreground">
@@ -611,7 +649,38 @@ export function VetFinderTool() {
         </div>
       )}
 
-      {/* 5. Pet Emergency Triage Guide Banner */}
+      {/* 5. 24/7 Animal Poison Control Hotlines */}
+      <div className="rounded-3xl border border-border bg-card p-6 shadow-xs space-y-4">
+        <div className="flex items-center gap-2 text-foreground font-display font-bold text-base">
+          <Flame className="size-4 text-red-500" /> 24/7 National Pet Poison & Triage Hotlines
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {VET_EMERGENCY_HOTLINES.map((hotline) => (
+            <div
+              key={hotline.name}
+              className="p-4 rounded-2xl border border-border/80 bg-muted/20 flex flex-col justify-between space-y-3"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-1 mb-1">
+                  <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                    {hotline.badge}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground">{hotline.fee}</span>
+                </div>
+                <h4 className="font-bold text-sm text-foreground">{hotline.name}</h4>
+                <p className="text-xs text-muted-foreground mt-1">{hotline.description}</p>
+              </div>
+              <Button asChild size="sm" className="w-full rounded-xl text-xs font-bold gap-1.5 shadow-xs">
+                <a href={`tel:${hotline.phone.replace(/[^0-9+]/g, "")}`}>
+                  <Phone className="size-3.5" /> Call {hotline.phone}
+                </a>
+              </Button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 6. Pet Emergency Triage Guide Banner */}
       <div className="rounded-3xl border border-red-500/30 bg-gradient-to-r from-red-500/10 via-amber-500/5 to-background p-6 shadow-xs space-y-3">
         <div className="flex items-center gap-2 text-red-600 dark:text-red-400 font-bold text-sm">
           <AlertTriangle className="size-4" /> Pet Emergency Triage Checklist (When to Rush to the ER)
