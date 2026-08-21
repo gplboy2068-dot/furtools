@@ -28,7 +28,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat cost",
       "financial planning"
     ],
-    "cover_image": null,
+    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
       {
         "q": "What is the average total lifetime cost of owning a dog?",
@@ -87,7 +87,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "veterinary triage",
       "FEMA pet prep"
     ],
-    "cover_image": null,
+    "cover_image": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
       {
         "q": "What are the most critical items in a 72-hour pet emergency disaster kit?",
@@ -146,7 +146,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat insurance",
       "insurance guide"
     ],
-    "cover_image": null,
+    "cover_image": "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
       {
         "q": "How does pet health insurance actually work?",
@@ -205,7 +205,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog stress",
       "aggression ladder"
     ],
-    "cover_image": null,
+    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
       {
         "q": "What does it mean when a dog shows 'Whale Eye' (showing the whites of their eyes)?",
@@ -264,7 +264,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog health",
       "OFA health testing"
     ],
-    "cover_image": null,
+    "cover_image": "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
       {
         "q": "What is the single healthiest dog breed in the world?",
@@ -323,7 +323,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "puppy development",
       "behavioral health"
     ],
-    "cover_image": null,
+    "cover_image": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
       {
         "q": "What is the critical socialization window in puppies?",

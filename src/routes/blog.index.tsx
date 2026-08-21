@@ -18,21 +18,33 @@ interface PostSummary {
 const postsQuery = queryOptions({
   queryKey: ["blog", "posts"],
   queryFn: async (): Promise<PostSummary[]> => {
-    let dbPosts: PostSummary[] = [];
+    let allDbPosts: (PostSummary & { published?: boolean })[] = [];
     try {
       const { data, error } = await supabase
         .from("blog_posts")
-        .select("slug,title,excerpt,cover_image,category,published_at,tags")
-        .eq("published", true)
+        .select("slug,title,excerpt,cover_image,category,published,published_at,tags")
         .order("published_at", { ascending: false });
-      if (data) dbPosts = data;
+      if (data) allDbPosts = data;
     } catch (err) {
       console.warn("Supabase blog query failed, falling back to static:", err);
     }
 
-    const combined = [...dbPosts];
+    const publishedDbPosts: PostSummary[] = allDbPosts
+      .filter((p) => p.published !== false)
+      .map((p) => ({
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        cover_image: p.cover_image,
+        category: p.category,
+        published_at: p.published_at,
+        tags: p.tags,
+      }));
+
+    const combined = [...publishedDbPosts];
     Object.values(STATIC_BLOG_POSTS).forEach((sp) => {
-      if (!combined.some((p) => p.slug === sp.slug)) {
+      // Only include static post if it hasn't been saved in DB yet
+      if (!allDbPosts.some((p) => p.slug === sp.slug)) {
         combined.push({
           slug: sp.slug,
           title: sp.title,

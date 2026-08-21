@@ -28,18 +28,31 @@ const postQuery = (slug: string) =>
       try {
         const { data, error } = await supabase
           .from("blog_posts")
-          .select("slug,title,excerpt,content,cover_image,category,published_at,tags")
+          .select("slug,title,excerpt,content,cover_image,category,published,published_at,tags")
           .eq("slug", slug)
-          .eq("published", true)
           .maybeSingle();
+
         if (data) {
+          if (!data.published) {
+            throw notFound();
+          }
           const staticPost = STATIC_BLOG_POSTS[slug];
           return {
-            ...data,
+            slug: data.slug,
+            title: data.title,
+            excerpt: data.excerpt,
+            content: data.content,
+            cover_image: data.cover_image,
+            category: data.category,
+            published_at: data.published_at,
+            tags: data.tags,
             faqs: staticPost?.faqs,
           } as Post;
         }
       } catch (err) {
+        if (err && typeof err === "object" && "status" in err && (err as any).status === 404) {
+          throw err;
+        }
         console.warn("Supabase blog query failed, falling back to static:", err);
       }
 
