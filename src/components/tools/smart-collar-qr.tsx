@@ -3,7 +3,9 @@ import { Link } from "@tanstack/react-router";
 import {
   generateQrSvg,
   generateQrDataUrl,
+  getQrScannableContent,
   type PetTagData,
+  type QrActionType,
   generateTagPublicUrl,
 } from "@/lib/qr-tag";
 import { Button } from "@/components/ui/button";
@@ -92,10 +94,11 @@ export function SmartCollarQRTool() {
   const [vetName, setVetName] = useState("Central Animal Hospital");
   const [vetPhone, setVetPhone] = useState("+1 (555) 999-8877");
 
-  // Tag Styling
+  // Tag Styling & Action Mode
   const [tagShape, setTagShape] = useState<"circle" | "bone" | "shield" | "hexagon">("circle");
   const [tagColor, setTagColor] = useState("#dc2626");
   const [tagline, setTagline] = useState("IF I AM ALONE, I AM LOST! SCAN ME.");
+  const [qrActionType, setQrActionType] = useState<QrActionType>("web");
 
   // Preview & Export State
   const [previewTab, setPreviewTab] = useState<"collar" | "mobile" | "flyer">("collar");
@@ -125,6 +128,7 @@ export function SmartCollarQRTool() {
       tagShape,
       tagColor,
       tagline,
+      qrActionType,
     }),
     [
       petName,
@@ -148,17 +152,22 @@ export function SmartCollarQRTool() {
       tagShape,
       tagColor,
       tagline,
+      qrActionType,
     ],
   );
 
   const publicUrl = useMemo(() => generateTagPublicUrl(tagData), [tagData]);
+  const scannableContent = useMemo(
+    () => getQrScannableContent(tagData, qrActionType),
+    [tagData, qrActionType],
+  );
 
   const [qrSvgString, setQrSvgString] = useState<string>("");
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
 
   useEffect(() => {
     let active = true;
-    generateQrSvg(publicUrl, {
+    generateQrSvg(scannableContent, {
       size: 320,
       color: tagColor === "#ffffff" ? "#0f172a" : tagColor,
       bgColor: "#ffffff",
@@ -168,7 +177,7 @@ export function SmartCollarQRTool() {
       if (active) setQrSvgString(svg);
     });
 
-    generateQrDataUrl(publicUrl, {
+    generateQrDataUrl(scannableContent, {
       size: 1024,
       color: tagColor === "#ffffff" ? "#0f172a" : tagColor,
       bgColor: "#ffffff",
@@ -181,7 +190,7 @@ export function SmartCollarQRTool() {
     return () => {
       active = false;
     };
-  }, [publicUrl, tagColor]);
+  }, [scannableContent, tagColor]);
 
   function toggleAlert(alertText: string) {
     setSelectedAlerts((prev) =>
@@ -765,6 +774,60 @@ export function SmartCollarQRTool() {
               </div>
             </div>
           </div>
+
+          {/* 5. QR Scan Action Type */}
+          <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <h3 className="font-display font-semibold text-base flex items-center gap-2">
+                <QrCode className="size-4 text-primary" /> 5. QR Code Scan Action
+              </h3>
+              <span className="text-xs text-muted-foreground">What happens when scanned</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {[
+                {
+                  id: "web",
+                  title: "🌐 Emergency Web Profile (Recommended)",
+                  desc: "Opens lost pet page with 1-tap call, WhatsApp & GPS pin sharing",
+                },
+                {
+                  id: "call",
+                  title: "📞 Direct 1-Tap Call (tel:)",
+                  desc: "Camera immediately opens phone dialer (Works 100% offline)",
+                },
+                {
+                  id: "whatsapp",
+                  title: "💬 Direct WhatsApp Message",
+                  desc: "Camera opens WhatsApp chat directly with prefilled lost pet text",
+                },
+                {
+                  id: "vcard",
+                  title: "📇 Emergency Contact Card (vCard)",
+                  desc: "Prompts finder to save Owner & Pet medical profile to phone contacts",
+                },
+                {
+                  id: "text",
+                  title: "📝 Plain Emergency Text",
+                  desc: "Displays clean text summary of pet info, owner phone & medical alerts",
+                },
+              ].map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => setQrActionType(opt.id as any)}
+                  className={`text-left p-3 rounded-xl border transition-all ${
+                    qrActionType === opt.id
+                      ? "border-primary bg-primary/10 ring-2 ring-primary/20 shadow-xs"
+                      : "border-border bg-card hover:bg-muted/40"
+                  } ${opt.id === "text" ? "sm:col-span-2" : ""}`}
+                >
+                  <div className="text-xs font-bold text-foreground">{opt.title}</div>
+                  <div className="text-[11px] text-muted-foreground mt-0.5">{opt.desc}</div>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* RIGHT COLUMN: Live Interactive Previews & Actions (5 cols) */}
@@ -999,16 +1062,21 @@ export function SmartCollarQRTool() {
               </div>
             )}
 
-            {/* Public Link & Quick Actions */}
+            {/* Scanned QR Output & Quick Actions */}
             <div className="space-y-3 pt-3 border-t border-border">
               <div>
-                <Label className="text-xs font-semibold text-muted-foreground mb-1 block">
-                  Public Emergency URL (Embedded in QR):
-                </Label>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs font-semibold text-muted-foreground">
+                    Scanned QR Code Output Data:
+                  </Label>
+                  <span className="text-[10px] font-bold uppercase text-primary">
+                    Mode: {qrActionType.toUpperCase()}
+                  </span>
+                </div>
                 <div className="flex items-center gap-1.5">
                   <Input
                     readOnly
-                    value={publicUrl}
+                    value={scannableContent}
                     className="text-xs font-mono bg-muted/40 h-8"
                   />
                   <Button
@@ -1054,18 +1122,20 @@ export function SmartCollarQRTool() {
                 </Button>
               </div>
 
-              <div className="pt-2">
-                <Button
-                  asChild
-                  variant="ghost"
-                  size="sm"
-                  className="w-full text-xs text-muted-foreground hover:text-foreground gap-1.5"
-                >
-                  <a href={publicUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="size-3.5" /> Test Open Scanned Emergency Landing Page
-                  </a>
-                </Button>
-              </div>
+              {qrActionType === "web" && (
+                <div className="pt-2">
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="sm"
+                    className="w-full text-xs text-muted-foreground hover:text-foreground gap-1.5"
+                  >
+                    <a href={publicUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="size-3.5" /> Test Open Scanned Emergency Landing Page
+                    </a>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>

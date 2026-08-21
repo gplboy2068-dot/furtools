@@ -1,5 +1,7 @@
 import QRCode from "qrcode";
 
+export type QrActionType = "web" | "call" | "whatsapp" | "vcard" | "text";
+
 export interface PetTagData {
   id?: string;
   petName: string;
@@ -25,6 +27,7 @@ export interface PetTagData {
   tagShape?: "circle" | "bone" | "shield" | "hexagon";
   tagColor?: string;
   tagline?: string;
+  qrActionType?: QrActionType;
 }
 
 export interface QROptions {
@@ -36,58 +39,67 @@ export interface QROptions {
 }
 
 /**
- * Generates an SVG string representation of a standard, 100% scannable QR Code.
+ * Sanitizes phone numbers for standard tel: and wa.me protocols.
  */
-export async function generateQrSvg(
-  text: string,
-  options: QROptions = {},
-): Promise<string> {
-  try {
-    const svg = await QRCode.toString(text, {
-      type: "svg",
-      margin: options.margin !== undefined ? options.margin : 2,
-      width: options.size || 300,
-      color: {
-        dark: options.color || "#0f172a",
-        light: options.bgColor || "#ffffff",
-      },
-      errorCorrectionLevel: options.errorCorrectionLevel || "M",
-    });
-    return svg;
-  } catch (err) {
-    console.error("QR Code SVG generation error:", err);
-    return "";
-  }
+export function cleanPhoneNumber(phone: string): string {
+  return (phone || "").replace(/[^0-9+]/g, "");
 }
 
 /**
- * Generates a PNG base64 Data URL of the QR Code.
+ * Generates standard vCard 3.0 format for contacts.
  */
-export async function generateQrDataUrl(
-  text: string,
-  options: QROptions = {},
-): Promise<string> {
-  try {
-    const dataUrl = await QRCode.toDataURL(text, {
-      margin: options.margin !== undefined ? options.margin : 2,
-      width: options.size || 1024,
-      color: {
-        dark: options.color || "#0f172a",
-        light: options.bgColor || "#ffffff",
-      },
-      errorCorrectionLevel: options.errorCorrectionLevel || "M",
-    });
-    return dataUrl;
-  } catch (err) {
-    console.error("QR Code DataURL generation error:", err);
-    return "";
-  }
+export function generateVCard(data: PetTagData): string {
+  const phone = cleanPhoneNumber(data.primaryPhone);
+  const backup = cleanPhoneNumber(data.backupPhone || "");
+  const alerts = (data.medicalAlerts || []).join(", ");
+  const notes = [
+    data.isLost ? "🚨 LOST PET ALERT!" : "Pet Contact Tag",
+    `Pet: ${data.petName} (${data.breed || data.species})`,
+    data.microchipNumber ? `Microchip: ${data.microchipNumber}` : "",
+    alerts ? `Medical Alerts: ${alerts}` : "",
+    data.rewardAmount ? `Reward: ${data.rewardAmount}` : "",
+    data.behaviorNotes ? `Notes: ${data.behaviorNotes}` : "",
+  ]
+    .filter(Boolean)
+    .join(" | ");
+
+  return [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    `N:${data.petName} (Lost Pet);Owner: ${data.ownerName};;;`,
+    `FN:LOST PET: ${data.petName} (Owner: ${data.ownerName})`,
+    `ORG:Pet Safety Contact`,
+    `TEL;TYPE=CELL,VOICE:${phone}`,
+    backup ? `TEL;TYPE=HOME,VOICE:${backup}` : "",
+    data.cityArea ? `ADR;TYPE=HOME:;;${data.cityArea};;;;` : "",
+    `NOTE:${notes}`,
+    "END:VCARD",
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
-// -------------------------------------------------------------
-// Tag URL Payload Encoding & Decoding
-// -------------------------------------------------------------
+/**
+ * Generates simple emergency text summary.
+ */
+export function generateEmergencyText(data: PetTagData): string {
+  const alerts = (data.medicalAlerts || []).join(", ");
+  return [
+    `🚨 LOST PET: ${data.petName} (${data.breed || data.species})`,
+    `Owner: ${data.ownerName}`,
+    `Primary Phone: ${data.primaryPhone}`,
+    data.backupPhone ? `Backup Phone: ${data.backupPhone}` : "",
+    data.microchipNumber ? `Microchip ID: ${data.microchipNumber}` : "",
+    alerts ? `Critical Medical: ${alerts}` : "",
+    data.rewardAmount ? `Reward: ${data.rewardAmount}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
 
+/**
+ * Encodes full pet data into a portable base64 URL payload.
+ */
 export function encodePetTagPayload(data: PetTagData): string {
   try {
     const compact = {
@@ -169,12 +181,99 @@ export function decodePetTagPayload(hash: string): PetTagData | null {
 }
 
 export function generateTagPublicUrl(data: PetTagData, baseUrl?: string): string {
-  const origin =
-    baseUrl ||
-    (typeof window !== "undefined" ? window.location.origin : "https://furtools.com");
+  // Use production domain or window origin if available
+  let origin = "https://furtools.com";
+  if (typeof window !== "undefined") {
+    // If not localhost, use the actual domain
+    if (!window.location.hostname.includes("localhost") && !window.location.hostname.includes("127.0.0.1")) {
+      origin = window.location.origin;
+    }
+  }
+  if (baseUrl) {
+    origin = baseUrl;
+  }
+
   if (data.id) {
     return `${origin}/tag/${data.id}`;
   }
   const payload = encodePetTagPayload(data);
   return `${origin}/tag/p?data=${payload}`;
+}
+
+/**
+ * Returns the exact scannable payload according to the selected QR Action Type.
+ */
+export function getQrScannableContent(data: PetTagData, actionType: QrActionType = "web"): string {
+  const phone = cleanPhoneNumber(data.primaryPhone);
+
+  switch (actionType) {
+    case "call":
+      return `tel:${phone}`;
+
+    case "whatsapp": {
+      const msg = encodeURIComponent(
+        `Hello ${data.ownerName}, I found your lost pet ${data.petName}! Please reply so we can reunite.`,
+      );
+      return `https://wa.me/${phone.replace(/^\+/, "")}?text=${msg}`;
+    }
+
+    case "vcard":
+      return generateVCard(data);
+
+    case "text":
+      return generateEmergencyText(data);
+
+    case "web":
+    default:
+      return generateTagPublicUrl(data);
+  }
+}
+
+/**
+ * Generates an SVG string representation of a standard, 100% scannable QR Code.
+ */
+export async function generateQrSvg(
+  text: string,
+  options: QROptions = {},
+): Promise<string> {
+  try {
+    const svg = await QRCode.toString(text, {
+      type: "svg",
+      margin: options.margin !== undefined ? options.margin : 2,
+      width: options.size || 300,
+      color: {
+        dark: options.color || "#0f172a",
+        light: options.bgColor || "#ffffff",
+      },
+      errorCorrectionLevel: options.errorCorrectionLevel || "M",
+    });
+    return svg;
+  } catch (err) {
+    console.error("QR Code SVG generation error:", err);
+    return "";
+  }
+}
+
+/**
+ * Generates a PNG base64 Data URL of the QR Code.
+ */
+export async function generateQrDataUrl(
+  text: string,
+  options: QROptions = {},
+): Promise<string> {
+  try {
+    const dataUrl = await QRCode.toDataURL(text, {
+      margin: options.margin !== undefined ? options.margin : 2,
+      width: options.size || 1024,
+      color: {
+        dark: options.color || "#0f172a",
+        light: options.bgColor || "#ffffff",
+      },
+      errorCorrectionLevel: options.errorCorrectionLevel || "M",
+    });
+    return dataUrl;
+  } catch (err) {
+    console.error("QR Code DataURL generation error:", err);
+    return "";
+  }
 }

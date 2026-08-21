@@ -20,7 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { z } from "zod";
 import { signedPetFileUrl, uploadPetFile, deletePetFile } from "@/lib/pet-uploads";
-import { generateQrSvg, generateQrDataUrl, generateTagPublicUrl, type PetTagData } from "@/lib/qr-tag";
+import { generateQrSvg, generateQrDataUrl, generateTagPublicUrl, getQrScannableContent, type PetTagData, type QrActionType } from "@/lib/qr-tag";
 import {
   DewormingTab, GroomingTab, ExpensesTab, TravelTab, JournalTab, DocumentsTab, AiSummaryTab,
 } from "@/components/pets/extra-tabs";
@@ -896,6 +896,7 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
   const [isLost, setIsLost] = useState(false);
   const [reward, setReward] = useState("$200 Reward");
   const [copied, setCopied] = useState(false);
+  const [qrActionType, setQrActionType] = useState<QrActionType>("web");
 
   const tagData: PetTagData = useMemo(() => ({
     id: pet.id,
@@ -915,16 +916,21 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
     behaviorNotes: pet.notes || undefined,
     tagline: isLost ? "I AM LOST! SCAN TO CALL MY FAMILY" : "FURTOOLS SMART COLLAR SAFETY TAG",
     tagColor: isLost ? "#dc2626" : "#2563eb",
-  }), [pet, avatarUrl, isLost, reward]);
+    qrActionType,
+  }), [pet, avatarUrl, isLost, reward, qrActionType]);
 
   const publicUrl = useMemo(() => generateTagPublicUrl(tagData), [tagData]);
+  const scannableContent = useMemo(
+    () => getQrScannableContent(tagData, qrActionType),
+    [tagData, qrActionType],
+  );
 
   const [qrSvgString, setQrSvgString] = useState<string>("");
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
 
   useEffect(() => {
     let active = true;
-    generateQrSvg(publicUrl, {
+    generateQrSvg(scannableContent, {
       size: 260,
       color: isLost ? "#dc2626" : "#0f172a",
       bgColor: "#ffffff",
@@ -934,7 +940,7 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
       if (active) setQrSvgString(svg);
     });
 
-    generateQrDataUrl(publicUrl, {
+    generateQrDataUrl(scannableContent, {
       size: 1024,
       color: isLost ? "#dc2626" : "#0f172a",
       bgColor: "#ffffff",
@@ -947,12 +953,12 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
     return () => {
       active = false;
     };
-  }, [publicUrl, isLost]);
+  }, [scannableContent, isLost]);
 
   function copyLink() {
-    navigator.clipboard.writeText(publicUrl);
+    navigator.clipboard.writeText(scannableContent);
     setCopied(true);
-    toast.success("Emergency QR Tag URL copied to clipboard!");
+    toast.success("Scanned QR Data copied to clipboard!");
     setTimeout(() => setCopied(false), 2000);
   }
 
@@ -1114,6 +1120,39 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
                 <div className="font-semibold text-foreground">⚠️ Medical Alerts</div>
                 <div className="text-[11px] text-muted-foreground mt-0.5">Allergies, daily insulin, or special diets</div>
               </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-5 space-y-3 shadow-xs">
+            <div className="flex items-center justify-between">
+              <h3 className="font-display font-bold text-base flex items-center gap-2">
+                <QrCode className="size-4 text-primary" /> QR Scan Action Mode
+              </h3>
+              <span className="text-[10px] font-bold uppercase text-primary bg-primary/10 px-2 py-0.5 rounded-md">
+                {qrActionType}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {[
+                { id: "web", label: "🌐 Web Profile" },
+                { id: "call", label: "📞 Direct Call" },
+                { id: "whatsapp", label: "💬 WhatsApp" },
+                { id: "vcard", label: "📇 vCard Contact" },
+                { id: "text", label: "📝 Plain Text" },
+              ].map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => setQrActionType(opt.id as any)}
+                  className={`px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
+                    qrActionType === opt.id
+                      ? "bg-primary text-primary-foreground border-primary shadow-xs"
+                      : "bg-muted/30 border-border hover:bg-muted"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
             </div>
           </div>
 
