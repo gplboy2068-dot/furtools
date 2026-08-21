@@ -2188,95 +2188,312 @@ export function TurtleTank() {
 
 /* ─────────── HORSES ─────────── */
 export function HorseFeed() {
-  const [lb, setLb] = useState(1000);
-  const [work, setWork] = useState<"idle" | "light" | "medium" | "hard">("idle");
-  const hay = Math.round(lb * 0.02);
-  const grain = { idle: 0, light: 2, medium: 4, hard: 6 }[work];
+  const [unit, setUnit] = useState<"lb" | "kg">("lb");
+  const [weight, setWeight] = useState(1100);
+  const [work, setWork] = useState<"maintenance" | "light" | "moderate" | "heavy" | "lactating">("light");
+  const [forageType, setForageType] = useState<"timothy" | "alfalfa" | "pasture">("timothy");
+
+  // NRC Equine Dry Matter Intake (DMI) guidelines
+  const weightInLb = unit === "kg" ? weight * 2.20462 : weight;
+  const dmiPercent = work === "maintenance" ? 0.018 : work === "light" ? 0.020 : work === "moderate" ? 0.0225 : work === "heavy" ? 0.025 : 0.0275;
+  const totalDmiLb = weightInLb * dmiPercent;
+
+  // Minimum forage requirement: 1.5% of body weight minimum
+  const minForageLb = Math.max(weightInLb * 0.015, totalDmiLb * (work === "heavy" ? 0.65 : work === "moderate" ? 0.75 : 0.90));
+  const concentrateLb = Math.max(0, totalDmiLb - minForageLb);
+
+  const displayForage = unit === "kg" ? (minForageLb / 2.20462).toFixed(1) : minForageLb.toFixed(1);
+  const displayConcentrate = unit === "kg" ? (concentrateLb / 2.20462).toFixed(1) : concentrateLb.toFixed(1);
+  const flakesApprox = (minForageLb / 5).toFixed(1); // Standard 5 lb hay flake
+
   return (
     <CalculatorLayout
-      form={<>
-        <div><Label>Horse weight (lb)</Label><Input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Work level</Label>
-          <Select value={work} onValueChange={(v: "idle" | "light" | "medium" | "hard") => setWork(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="idle">Idle / pasture</SelectItem>
-              <SelectItem value="light">Light (1 hr/day)</SelectItem>
-              <SelectItem value="medium">Medium (2–3 hr)</SelectItem>
-              <SelectItem value="hard">Hard (racing, endurance)</SelectItem>
-            </SelectContent></Select></div>
-      </>}
-      result={<div className="space-y-3">
-        <Big value={`${hay} lb hay/day`} label="Forage requirement" />
-        <p className="text-center text-sm text-muted-foreground">Concentrate: <span className="font-medium text-foreground">{grain} lb/day</span></p>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="flex justify-end">
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              <button type="button" onClick={() => setUnit("lb")} className={`px-2.5 py-1 rounded ${unit === "lb" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Pounds (lb)</button>
+              <button type="button" onClick={() => setUnit("kg")} className={`px-2.5 py-1 rounded ${unit === "kg" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Kilograms (kg)</button>
+            </div>
+          </div>
+          <div>
+            <Label>Horse Body Weight ({unit})</Label>
+            <Input type="number" min={200} max={2500} value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Physiological Workload & Status</Label>
+            <Select value={work} onValueChange={(v) => setWork(v as typeof work)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="maintenance">Maintenance / Pasture (Idle, Senior)</SelectItem>
+                <SelectItem value="light">Light Work (Pleasure riding 1–3 hrs/wk)</SelectItem>
+                <SelectItem value="moderate">Moderate Work (Schooling, jumping 3–5 hrs/wk)</SelectItem>
+                <SelectItem value="heavy">Heavy Work (Eventing, polo, racing, ranching)</SelectItem>
+                <SelectItem value="lactating">Lactating Broodmare (Peak Milk Demand)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Primary Forage Base</Label>
+            <Select value={forageType} onValueChange={(v) => setForageType(v as typeof forageType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="timothy">Grass Hay (Timothy, Orchard, Coastal Bermuda)</SelectItem>
+                <SelectItem value="alfalfa">Legume Hay (Alfalfa / Lucerne Mix)</SelectItem>
+                <SelectItem value="pasture">Managed Lush Pasture Grazing</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${displayForage} ${unit}`} label="Daily Forage / Hay Minimum" unit={`≈ ${flakesApprox} standard flakes/day`} />
+          <Rows items={[
+            { label: "Recommended Concentrate / Grain", value: `${displayConcentrate} ${unit} / day (Split into 2–3 small meals)` },
+            { label: "Total Dry Matter Intake Target", value: `${unit === "kg" ? (totalDmiLb / 2.20462).toFixed(1) : totalDmiLb.toFixed(1)} ${unit}/day (${(dmiPercent * 100).toFixed(1)}% BW)` },
+            { label: "Equine Digestive Safety Limit", value: "Never feed > 0.5% BW in grain in a single meal" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Clinical Feeding Rule:</strong> Horses are trickle hindgut fermenters requiring constant fiber flow. Never let a horse go without forage for more than 4 to 6 hours to prevent gastric squamous ulcers (EGUS) and hindgut acidosis.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function HorseWater() {
-  const [lb, setLb] = useState(1000);
-  const [climate, setClimate] = useState<"cool" | "hot">("cool");
-  const [work, setWork] = useState<"light" | "hard">("light");
-  const base = (lb / 100) * 0.75;
-  const mult = (climate === "hot" ? 1.5 : 1) * (work === "hard" ? 1.5 : 1);
-  const gal = Math.round(base * mult);
+  const [unit, setUnit] = useState<"gal" | "liter">("gal");
+  const [weightLb, setWeightLb] = useState(1100);
+  const [temp, setTemp] = useState<"cool" | "moderate" | "hot">("moderate");
+  const [work, setWork] = useState<"idle" | "light" | "heavy">("light");
+  const [feedType, setFeedType] = useState<"dry" | "pasture">("dry");
+
+  // Base requirement: approx 5 to 6 liters per 100kg BW (approx 0.05–0.06 gal per lb)
+  const baseGal = weightLb * 0.009;
+  const tempMultiplier = temp === "hot" ? 1.6 : temp === "cool" ? 0.85 : 1.0;
+  const workMultiplier = work === "heavy" ? 1.7 : work === "light" ? 1.2 : 1.0;
+  const feedFactor = feedType === "pasture" ? 0.75 : 1.0; // pasture is 80% water
+
+  const totalGal = Math.round(baseGal * tempMultiplier * workMultiplier * feedFactor);
+  const totalLiters = Math.round(totalGal * 3.78541);
+  const displayVal = unit === "gal" ? `${totalGal} gal` : `${totalLiters} L`;
+
   return (
     <CalculatorLayout
-      form={<>
-        <div><Label>Horse weight (lb)</Label><Input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Climate</Label>
-          <Select value={climate} onValueChange={(v: "cool" | "hot") => setClimate(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent><SelectItem value="cool">Cool</SelectItem><SelectItem value="hot">Hot</SelectItem></SelectContent></Select></div>
-        <div><Label>Work</Label>
-          <Select value={work} onValueChange={(v: "light" | "hard") => setWork(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent><SelectItem value="light">Light</SelectItem><SelectItem value="hard">Hard</SelectItem></SelectContent></Select></div>
-      </>}
-      result={<Big value={`${gal} gal`} label="Water per day" />}
+      form={
+        <div className="space-y-4">
+          <div className="flex justify-end">
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              <button type="button" onClick={() => setUnit("gal")} className={`px-2.5 py-1 rounded ${unit === "gal" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Gallons</button>
+              <button type="button" onClick={() => setUnit("liter")} className={`px-2.5 py-1 rounded ${unit === "liter" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Liters</button>
+            </div>
+          </div>
+          <div>
+            <Label>Horse Body Weight (lb)</Label>
+            <Input type="number" min={300} max={2500} value={weightLb} onChange={(e) => setWeightLb(+e.target.value || 0)} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Ambient Temperature & Humidity</Label>
+            <Select value={temp} onValueChange={(v) => setTemp(v as typeof temp)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cool">Cool / Winter (&lt; 45°F / 7°C - Water heater needed)</SelectItem>
+                <SelectItem value="moderate">Moderate / Spring (45°–75°F / 7°–24°C)</SelectItem>
+                <SelectItem value="hot">Hot / Summer (&gt; 85°F / 29°C - High Sweat Loss)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Daily Exercise & Sweat Rate</Label>
+            <Select value={work} onValueChange={(v) => setWork(v as typeof work)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="idle">Resting / Pasture (Zero visible sweat)</SelectItem>
+                <SelectItem value="light">Light Work (Light neck lather / 1 hr exercise)</SelectItem>
+                <SelectItem value="heavy">Heavy Work / Competition (Heavy sweat dripping)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Diet Moisture Base</Label>
+            <Select value={feedType} onValueChange={(v) => setFeedType(v as typeof feedType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="dry">Dry Forage / Hay (10–12% moisture)</SelectItem>
+                <SelectItem value="pasture">Fresh Green Pasture (70–80% moisture)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={displayVal} label="Minimum Daily Water Requirement" unit={unit === "gal" ? `≈ ${totalLiters} L / day` : `≈ ${totalGal} gal / day`} />
+          <Rows items={[
+            { label: "Bucket Equivalents", value: `≈ ${Math.ceil(totalGal / 5)} standard 5-gallon water buckets` },
+            { label: "Winter Temperature Warning", value: "Water must be 45°–65°F (frozen water triggers impaction colic)" },
+            { label: "Electrolyte Mandate", value: work === "heavy" || temp === "hot" ? "Add 2 oz balanced sodium/potassium electrolytes" : "Provide free-choice plain white salt block" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Colic Prevention Rule:</strong> Equine impaction colic spikes during sudden cold snaps when horses refuse ice-cold water. Heated bucket elements or submerged tank heaters are essential in winter.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function HorseAge() {
-  const [yr, setYr] = useState(5);
-  const human = yr <= 0 ? 0 : yr === 1 ? 6.5 : yr === 2 ? 13 : yr === 3 ? 18 : 18 + (yr - 3) * 2.5;
+  const [years, setYears] = useState(8);
+  const [breedType, setBreedType] = useState<"pony" | "light" | "warmblood" | "draft">("light");
+
+  // Non-linear physiological aging curve
+  const calculateHumanEquiv = (y: number, b: string) => {
+    if (y <= 0) return 0;
+    if (y === 1) return 6.5;
+    if (y === 2) return 13;
+    if (y === 3) return 18;
+    if (y === 4) return 21;
+    const baseAfter4 = 21;
+    const annualFactor = b === "pony" ? 2.2 : b === "draft" ? 3.0 : 2.5;
+    return Math.round(baseAfter4 + (y - 4) * annualFactor);
+  };
+
+  const humanAge = calculateHumanEquiv(years, breedType);
+  const lifeStage = years < 1 ? "Foal (0–12 months)" : years < 3 ? "Youngstock / Yearling" : years < 6 ? "Young Adult / Early Career" : years < 15 ? "Prime Adult Performance" : years < 20 ? "Veteran / Senior" : "Geriatric (Specialist Care Needed)";
+
   return (
     <CalculatorLayout
-      form={<div><Label>Horse age (years)</Label>
-        <Input type="number" min={0} value={yr} onChange={(e) => setYr(+e.target.value || 0)} className="mt-1.5" /></div>}
-      result={<Big value={`≈ ${human}`} label="Human-year equivalent" unit="years" />}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Equine Type & Breed Class</Label>
+            <Select value={breedType} onValueChange={(v) => setBreedType(v as typeof breedType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pony">Pony / Miniature (Longevity: 30–40 years)</SelectItem>
+                <SelectItem value="light">Light Horse (Quarter Horse, Thoroughbred, Arabian: 25–30 yrs)</SelectItem>
+                <SelectItem value="warmblood">Warmblood / Sport Horse (22–26 years)</SelectItem>
+                <SelectItem value="draft">Draft Horse (Clydesdale, Percheron: 18–22 years)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Horse Chronological Age (Years)</Label>
+            <Input type="number" min={0} max={50} value={years} onChange={(e) => setYears(+e.target.value || 0)} className="mt-1.5" />
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`≈ ${humanAge} years`} label="Human Physiological Equivalent Age" unit={lifeStage} />
+          <Rows items={[
+            { label: "Equine Life Stage Classification", value: lifeStage },
+            { label: "Veterinary Dental Routine", value: years >= 15 ? "Bi-annual dental float (hooks, wave mouth, wave wear)" : "Annual oral speculum exam & float" },
+            { label: "Endocrine & Metabolic Screening", value: years >= 15 ? "Annual ACTH test for PPID (Cushing's Disease) & Insulin" : "Baseline wellness & fecal egg count (FEC)" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Senior Care Protocol:</strong> Older horses frequently lose molars (smooth mouth) and suffer reduced fiber digestion. Transition seniors with dental wear to soaked high-fiber beet pulp and complete senior chopped mashes.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function HorseBCS() {
-  const [ribs, setRibs] = useState<"visible" | "buried" | "hidden">("buried");
-  const [top, setTop] = useState<"sharp" | "level" | "crease">("level");
-  const score = (ribs === "visible" ? 3 : ribs === "buried" ? 5 : 7) + (top === "sharp" ? -1 : top === "level" ? 0 : 2);
-  const label = score <= 3 ? "Thin" : score <= 5 ? "Ideal" : score <= 7 ? "Fleshy" : "Obese";
+  const [neck, setNeck] = useState<1 | 3 | 5 | 7 | 9>(5);
+  const [withers, setWithers] = useState<1 | 3 | 5 | 7 | 9>(5);
+  const [spine, setSpine] = useState<1 | 3 | 5 | 7 | 9>(5);
+  const [ribs, setRibs] = useState<1 | 3 | 5 | 7 | 9>(5);
+  const [shoulder, setShoulder] = useState<1 | 3 | 5 | 7 | 9>(5);
+  const [tailhead, setTailhead] = useState<1 | 3 | 5 | 7 | 9>(5);
+
+  const avgScore = Math.round((neck + withers + spine + ribs + shoulder + tailhead) / 6);
+  const classifications: Record<number, { title: string; desc: string; tone: "safe" | "warning" | "danger" }> = {
+    1: { title: "BCS 1: Poor / Emaciated", desc: "Extreme bone structure visible; zero fat tissue. Critical veterinary emergency.", tone: "danger" },
+    2: { title: "BCS 2: Very Thin", desc: "Vertebrae, ribs, and hip pins prominent; minimal muscle coverage.", tone: "danger" },
+    3: { title: "BCS 3: Thin", desc: "Ribs visible; slight fat cover over spine; needs increased digestible calories.", tone: "warning" },
+    4: { title: "BCS 4: Moderately Thin", desc: "Ribs faintly discernible; suitable for racehorses in hard training.", tone: "warning" },
+    5: { title: "BCS 5: Moderate (Ideal)", desc: "Ribs cannot be seen but easily felt with gentle pressure; level back with no crease.", tone: "safe" },
+    6: { title: "BCS 6: Moderately Fleshy", desc: "Fat beginning to deposit over ribs and along withers; acceptable for broodmares.", tone: "safe" },
+    7: { title: "BCS 7: Fleshy", desc: "Individual ribs can be felt only with pressure; fat deposits in neck crest and tailhead.", tone: "warning" },
+    8: { title: "BCS 8: Fat", desc: "Thick neck crest; positive crease down back; high risk of metabolic laminitis.", tone: "danger" },
+    9: { title: "BCS 9: Extremely Obese", desc: "Bulging fat over tailhead, shoulder, and crest; immediate veterinary weight loss required.", tone: "danger" },
+  };
+
+  const cur = classifications[avgScore] || classifications[5];
+
   return (
     <CalculatorLayout
-      form={<>
-        <div><Label>Ribs</Label>
-          <Select value={ribs} onValueChange={(v: "visible" | "buried" | "hidden") => setRibs(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="visible">Visible</SelectItem>
-              <SelectItem value="buried">Slightly buried, easily felt</SelectItem>
-              <SelectItem value="hidden">Not felt without pressure</SelectItem>
-            </SelectContent></Select></div>
-        <div><Label>Topline</Label>
-          <Select value={top} onValueChange={(v: "sharp" | "level" | "crease") => setTop(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="sharp">Sharp withers, prominent spine</SelectItem>
-              <SelectItem value="level">Level, muscled</SelectItem>
-              <SelectItem value="crease">Crease down back</SelectItem>
-            </SelectContent></Select></div>
-      </>}
-      result={<Big value={`${Math.max(1, Math.min(9, score))}/9`} label="Henneke BCS" unit={label} />}
+      form={
+        <div className="space-y-3">
+          <p className="text-xs text-muted-foreground">Rate each anatomical palpation zone according to the Henneke 1–9 System:</p>
+          <div>
+            <Label className="text-xs">1. Crest of the Neck</Label>
+            <Select value={String(neck)} onValueChange={(v) => setNeck(+v as typeof neck)}>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">Ewe neck / bone visible (BCS 1-2)</SelectItem>
+                <SelectItem value="3">Slight fat over crest (BCS 3-4)</SelectItem>
+                <SelectItem value="5">Smooth blend into shoulder, no hard crest (BCS 5)</SelectItem>
+                <SelectItem value="7">Noticeable firm crest (BCS 6-7)</SelectItem>
+                <SelectItem value="9">Heavy bulging 'cresty' neck rolling to side (BCS 8-9)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="text-xs">2. Withers & Shoulder</Label>
+            <Select value={String(withers)} onValueChange={(v) => setWithers(+v as typeof withers)}>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">Sharp, hollowed behind shoulder (BCS 1-2)</SelectItem>
+                <SelectItem value="5">Rounded withers, smooth shoulder blend (BCS 5)</SelectItem>
+                <SelectItem value="9">Bulging fat pads behind shoulder & withers (BCS 8-9)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="text-xs">3. Rib Palpation</Label>
+            <Select value={String(ribs)} onValueChange={(v) => setRibs(+v as typeof ribs)}>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">Prominently visible individually (BCS 1-2)</SelectItem>
+                <SelectItem value="3">Visible at a distance (BCS 3-4)</SelectItem>
+                <SelectItem value="5">Not seen visually, easily felt with light hand sweep (BCS 5)</SelectItem>
+                <SelectItem value="7">Felt only with firm pressure (BCS 6-7)</SelectItem>
+                <SelectItem value="9">Cannot be palpated under thick fat layer (BCS 8-9)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="text-xs">4. Spine / Loin & Tailhead</Label>
+            <Select value={String(spine)} onValueChange={(v) => setSpine(+v as typeof spine)}>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">Sharp ridge spine & prominent tailhead bone (BCS 1-2)</SelectItem>
+                <SelectItem value="5">Flat level back with spongy tailhead fat (BCS 5)</SelectItem>
+                <SelectItem value="9">Deep gutter crease down spine & bulging tailhead mounds (BCS 8-9)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${avgScore} / 9`} label="Henneke Body Condition Score" unit={cur.title} />
+          <div className={`rounded-lg p-3 text-xs ${cur.tone === "safe" ? "bg-primary/10 text-primary" : cur.tone === "warning" ? "bg-amber-500/10 text-amber-900 dark:text-amber-200" : "bg-destructive/10 text-destructive"}`}>
+            <strong>Assessment:</strong> {cur.desc}
+          </div>
+          {avgScore >= 7 && (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
+              ⚠️ <strong>Laminitis & EMS Warning:</strong> Horses with BCS ≥ 7 are at severe risk of Equine Metabolic Syndrome (EMS), insulin dysregulation, and pasture laminitis (founder). Restrict non-structural carbohydrates (NSC &lt; 10%) and use a grazing muzzle.
+            </div>
+          )}
+        </div>
+      }
     />
   );
 }

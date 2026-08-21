@@ -1283,47 +1283,219 @@ export function BeardedDragonFood() {
 
 /* ─────────── HORSES ─────────── */
 export function HorseBlanketSize() {
-  const [chest, setChest] = useState(70);
-  const [tail, setTail] = useState(72);
-  const size = Math.round((chest + tail) / 2);
+  const [unit, setUnit] = useState<"in" | "cm">("in");
+  const [chestToTail, setChestToTail] = useState(76);
+  const [clipped, setClipped] = useState<"unclipped" | "trace" | "full">("unclipped");
+  const [weatherTemp, setWeatherTemp] = useState<"mild" | "cold" | "freezing">("cold");
+
+  const inches = unit === "cm" ? Math.round(chestToTail / 2.54) : chestToTail;
+  // US sizing: measured center of chest to center of tail (round to nearest 2 inches)
+  const usSize = Math.round(inches / 2) * 2;
+  // European sizing: measured withers to dock of tail (approx usSize - 22 to 24 inches)
+  const euSizeCm = Math.round((usSize - 22) * 2.54);
+  const ukFeet = `${Math.floor((usSize - 12) / 12)}'${(usSize - 12) % 12}"`;
+
+  // Gram fill recommendation matrix
+  const getFillRecommendation = () => {
+    if (weatherTemp === "mild") {
+      if (clipped === "full") return "Light Sheet / 100g Fill (prevent chill)";
+      return "0g Rain Sheet or No Blanket Needed";
+    }
+    if (weatherTemp === "cold") {
+      if (clipped === "full") return "Medium Weight (200g–250g Fill) with Neck Cover";
+      if (clipped === "trace") return "Light/Medium (100g–200g Fill)";
+      return "Light Turnout (100g) or Unblanketed if dry shelter available";
+    }
+    // freezing < 20°F / -7°C
+    if (clipped === "full") return "Heavy Weight (350g–450g Fill) + Detachable Hood";
+    if (clipped === "trace") return "Medium-Heavy (300g Fill)";
+    return "Medium Weight (200g–250g Fill)";
+  };
+
   return (
     <CalculatorLayout
-      form={<div className="space-y-4">
-        <NumberField label="Center of chest → point of shoulder (in)" value={chest} onChange={setChest} />
-        <NumberField label="Point of shoulder → base of tail (in)" value={tail} onChange={setTail} />
-      </div>}
-      result={<div className="space-y-4">
-        <Big value={`${size}"`} label="Blanket size" />
-        <Note>Round up to nearest even size. Blanket should cover withers to base of tail without pulling.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="flex justify-end">
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              <button type="button" onClick={() => { setUnit("in"); setChestToTail(76); }} className={`px-2.5 py-1 rounded ${unit === "in" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Inches (US)</button>
+              <button type="button" onClick={() => { setUnit("cm"); setChestToTail(195); }} className={`px-2.5 py-1 rounded ${unit === "cm" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Centimeters (EU)</button>
+            </div>
+          </div>
+          <div>
+            <Label>Chest-to-Tail Measurement ({unit})</Label>
+            <Input type="number" min={40} max={260} value={chestToTail} onChange={(e) => setChestToTail(+e.target.value || 0)} className="mt-1.5" />
+            <p className="text-xs text-muted-foreground mt-1">Measure from center of chest, across point of shoulder, to center of tail dock.</p>
+          </div>
+          <div>
+            <Label>Coat Clipping Status</Label>
+            <Select value={clipped} onValueChange={(v) => setClipped(v as typeof clipped)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="unclipped">Unclipped (Natural Winter Fur & Piloerection)</SelectItem>
+                <SelectItem value="trace">Trace / Strip Clipped (Under-neck & belly removed)</SelectItem>
+                <SelectItem value="full">Full Body Hunter Clip (Complete Coat Removed)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Ambient Winter Temperature</Label>
+            <Select value={weatherTemp} onValueChange={(v) => setWeatherTemp(v as typeof weatherTemp)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="mild">Mild Cool (45°–55°F / 7°–13°C)</SelectItem>
+                <SelectItem value="cold">Cold & Frosty (25°–44°F / -4°–6°C)</SelectItem>
+                <SelectItem value="freezing">Severe Freezing / Snow (&lt; 25°F / -4°C with Wind)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${usSize}" / ${euSizeCm} cm`} label="Recommended Blanket Size" unit={`UK: ${ukFeet}`} />
+          <Rows items={[
+            { label: "US Standard Size", value: `Size ${usSize} inches (Center of chest → tail)` },
+            { label: "European (Back Length)", value: `${euSizeCm} cm (Withers → dock)` },
+            { label: "Recommended Thermal Fill", value: getFillRecommendation() },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Proper Fit Check:</strong> Slide a flat hand smoothly between the blanket neckline and your horse's withers. If it pinches or pulls tight across the chest, it will rub shoulders bald and cause wither pressure sores.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function HorseStallSize() {
-  const [size, setSize] = useState("standard");
-  const dims: Record<string, string> = { pony: "10 × 10 ft", standard: "12 × 12 ft", "warmblood": "12 × 14 ft", draft: "14 × 16 ft", foaling: "16 × 16 ft" };
+  const [horseType, setHorseType] = useState("standard");
+  const [stallType, setStallType] = useState<"standard" | "foaling">("standard");
+
+  const specs: Record<string, { name: string; standardDim: string; standardSqFt: number; minHeightFt: number; doorWidthFt: number; turnoutHrs: number; beddingBags: number; notes: string }> = {
+    pony: { name: "Pony / Miniature (< 14.2 hh)", standardDim: "10 ft × 10 ft (3.0 × 3.0 m)", standardSqFt: 100, minHeightFt: 9, doorWidthFt: 3.5, turnoutHrs: 4, beddingBags: 3, notes: "Lower feed manger heights (24–30 inches) to prevent cervical strain." },
+    standard: { name: "Light Horse / Thoroughbred (15.0–16.2 hh)", standardDim: "12 ft × 12 ft (3.6 × 3.6 m)", standardSqFt: 144, minHeightFt: 10, doorWidthFt: 4.0, turnoutHrs: 4, beddingBags: 4, notes: "The universal veterinary standard; permits comfortable casting-free rolling and sternal recumbency." },
+    warmblood: { name: "Warmblood / Large Sport Horse (16.3–17.2 hh)", standardDim: "12 ft × 14 ft (3.6 × 4.2 m)", standardSqFt: 168, minHeightFt: 11, doorWidthFt: 4.0, turnoutHrs: 5, beddingBags: 5, notes: "Extra width prevents withers banging stall walls during deep sleep cycles." },
+    draft: { name: "Draft Horse (Shire, Clydesdale, Percheron > 17.2 hh)", standardDim: "14 ft × 16 ft (4.2 × 4.8 m)", standardSqFt: 224, minHeightFt: 12, doorWidthFt: 4.5, turnoutHrs: 5, beddingBags: 6, notes: "Heavy-duty 2-inch tongue-and-groove hardwood kickboards reinforced with steel U-channels." },
+  };
+
+  const d = specs[horseType] || specs.standard;
+  const isFoaling = stallType === "foaling";
+  const displayDim = isFoaling ? "16 ft × 16 ft (4.8 × 4.8 m)" : d.standardDim;
+  const displaySqFt = isFoaling ? 256 : d.standardSqFt;
+
   return (
     <CalculatorLayout
-      form={<SelectField label="Horse type" value={size} onChange={setSize} options={Object.keys(dims)} />}
-      result={<div className="space-y-4">
-        <Big value={dims[size]} label="Minimum stall size" />
-        <Note>Horses in stalls need at least 2 hours of turnout daily to prevent stress and stocking up.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Horse Breed & Height Class</Label>
+            <Select value={horseType} onValueChange={setHorseType}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {Object.entries(specs).map(([k, v]) => (
+                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Stall Usage Purpose</Label>
+            <Select value={stallType} onValueChange={(v) => setStallType(v as typeof stallType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="standard">Standard Daily Boarding Stall</SelectItem>
+                <SelectItem value="foaling">Foaling Stall (Broodmare + Newborn Foal Space)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={displayDim} label="Minimum Stall Floor Dimensions" unit={`≈ ${displaySqFt} sq ft`} />
+          <Rows items={[
+            { label: "Minimum Ceiling Clearance", value: `${d.minHeightFt} ft (Prevents poll strike injury)` },
+            { label: "Sliding Door Minimum Width", value: `${d.doorWidthFt} ft (Avoids hip knocks)` },
+            { label: "Fresh Shavings / Bedding Depth", value: `4–6 inches (≈ ${d.beddingBags + (isFoaling ? 2 : 0)} fresh pine bags)` },
+            { label: "Mandatory Daily Turnout", value: `${d.turnoutHrs}+ hours in pasture` },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Barn Engineering Note:</strong> {d.notes} Ensure stalls have high cross-ventilation (minimum 4 to 8 air changes per hour) to prevent equine asthma (*heaves*) and ammonia respiratory damage.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function HorseHoofTrimming() {
-  const [use, setUse] = useState("light");
-  const wks: Record<string, string> = { pasture: "every 8 weeks", light: "every 6–7 weeks", performance: "every 4–5 weeks", "shod-competition": "every 5–6 weeks with reset" };
+  const [shoeStatus, setShoeStatus] = useState<"barefoot" | "shod">("shod");
+  const [workload, setWorkload] = useState<"pasture" | "light" | "performance">("light");
+  const [season, setSeason] = useState<"summer" | "winter">("summer");
+
+  const calculateWeeks = () => {
+    if (shoeStatus === "shod") {
+      if (season === "summer") return workload === "performance" ? 4 : 5;
+      return workload === "performance" ? 5 : 6;
+    }
+    // Barefoot
+    if (season === "summer") return workload === "performance" ? 5 : 6;
+    return workload === "pasture" ? 8 : 7;
+  };
+
+  const weeks = calculateWeeks();
+
   return (
     <CalculatorLayout
-      form={<SelectField label="Workload" value={use} onChange={setUse} options={Object.keys(wks)} />}
-      result={<div className="space-y-4">
-        <Big value={wks[use]} label="Farrier interval" />
-        <Note>Growth accelerates in summer. Cracks, flares, or heel imbalance = book sooner.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Shoeing Configuration</Label>
+            <Select value={shoeStatus} onValueChange={(v) => setShoeStatus(v as typeof shoeStatus)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="shod">Steel / Aluminum Shoes (Fronts or Full Set)</SelectItem>
+                <SelectItem value="barefoot">Barefoot / Performance Hoof Boots</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Workload & Riding Surface</Label>
+            <Select value={workload} onValueChange={(v) => setWorkload(v as typeof workload)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pasture">Pasture Pet / Light Turnout (Soft Grass)</SelectItem>
+                <SelectItem value="light">Pleasure Trail / Light Arena (1–3 hrs/wk)</SelectItem>
+                <SelectItem value="performance">High-Impact Performance (Jumping, reining, endurance)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Season (Growth Rate Factor)</Label>
+            <Select value={season} onValueChange={(v) => setSeason(v as typeof season)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="summer">Spring / Summer (Accelerated Growth 8–10 mm/mo)</SelectItem>
+                <SelectItem value="winter">Autumn / Winter (Slower Growth 5–6 mm/mo)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`Every ${weeks} Weeks`} label="Farrier Trim & Reset Interval" />
+          <Rows items={[
+            { label: "Hoof Wall Growth Velocity", value: season === "summer" ? "≈ 8–10 mm / month (rapid growth)" : "≈ 5–6 mm / month (slower growth)" },
+            { label: "Biomechanical Risk Threshold", value: "Waiting > 8 weeks shifts load onto deep flexor tendon" },
+            { label: "Red-Flag Signs to Book Early", value: "Flared walls, loose clinches, under-run heels, chipping" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Veterinary Biomechanics Rule:</strong> 'No hoof, no horse.' Long-toe / low-heel syndrome causes chronic strain on the navicular apparatus and collateral sesamoidean ligaments, representing the leading cause of avoidable equine lameness.</p>
+          </div>
+        </div>
+      }
     />
   );
 }

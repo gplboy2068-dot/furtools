@@ -1759,16 +1759,81 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
 
 /* ─────────── HORSES ─────────── */
 export function HorseSupplementCost() {
-  const [perDay, setPerDay] = useState(2.5);
-  const monthly = (perDay * 30).toFixed(0);
-  const yearly = (perDay * 365).toFixed(0);
+  const [suppType, setSuppType] = useState<"joint" | "hoof" | "digestive" | "calming" | "electrolyte" | "custom">("joint");
+  const [dailyCost, setDailyCost] = useState(2.50);
+  const [horseCount, setHorseCount] = useState(1);
+  const [purchaseFormat, setPurchaseFormat] = useState<"small" | "bulk">("small");
+
+  const defaultCosts: Record<string, number> = {
+    joint: 3.25, // Glucosamine, chondroitin, MSM, HA
+    hoof: 1.85, // Biotin, zinc, methionine
+    digestive: 2.75, // Prebiotics, yeast culture, gastric buffer
+    calming: 2.10, // Magnesium, L-tryptophan, B-vitamins
+    electrolyte: 0.95, // Sodium, potassium, chloride
+    custom: 2.50,
+  };
+
+  const handleTypeChange = (t: typeof suppType) => {
+    setSuppType(t);
+    setDailyCost(defaultCosts[t]);
+  };
+
+  const adjustedDailyCost = purchaseFormat === "bulk" ? dailyCost * 0.72 : dailyCost; // 28% bulk savings
+  const monthlyTotal = Math.round(adjustedDailyCost * 30 * horseCount);
+  const yearlyTotal = Math.round(adjustedDailyCost * 365 * horseCount);
+  const annualSavings = Math.round((dailyCost * 365 * horseCount) - yearlyTotal);
+
   return (
     <CalculatorLayout
-      form={<NumberField label="Supplement cost per day ($)" value={perDay} onChange={setPerDay} step={0.1} />}
-      result={<div className="space-y-3 text-center">
-        <Big value={`$${monthly}`} label="Monthly cost" />
-        <Note>Yearly: ${yearly}. Bulk buckets often cut per-serving cost by 30–40%.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Supplement Category</Label>
+            <Select value={suppType} onValueChange={(v) => handleTypeChange(v as typeof suppType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="joint">Joint & Mobility (MSM, Glucosamine, HA, Chondroitin)</SelectItem>
+                <SelectItem value="hoof">Hoof & Coat Health (20mg+ Biotin, Zinc, Methionine)</SelectItem>
+                <SelectItem value="digestive">Gastric & Hindgut Buffer (Saccharomyces, Prebiotics)</SelectItem>
+                <SelectItem value="calming">Calming & Muscle Tension (Chelated Magnesium, B1)</SelectItem>
+                <SelectItem value="electrolyte">Electrolytes & Rehydration (Summer / Hard Work)</SelectItem>
+                <SelectItem value="custom">Custom Specialty Supplement</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Retail Cost Per Daily Serving ($)</Label>
+            <Input type="number" min={0.25} max={25} step={0.05} value={dailyCost} onChange={(e) => setDailyCost(+e.target.value || 0)} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Number of Horses on Supplement</Label>
+            <Input type="number" min={1} max={20} value={horseCount} onChange={(e) => setHorseCount(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Packaging Purchasing Format</Label>
+            <Select value={purchaseFormat} onValueChange={(v) => setPurchaseFormat(v as typeof purchaseFormat)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="small">Retail Size (30–60 day tub / pail)</SelectItem>
+                <SelectItem value="bulk">Bulk Commercial Pail (10–20 kg / 28% Avg Savings)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`$${monthlyTotal}`} label={`Estimated Monthly Spend (${horseCount} ${horseCount > 1 ? "horses" : "horse"})`} unit={`$${yearlyTotal} / year`} />
+          <Rows items={[
+            { label: "Cost Per Day Per Horse", value: `$${adjustedDailyCost.toFixed(2)} / day` },
+            { label: "Projected Annual Spend", value: `$${yearlyTotal.toLocaleString()} per year` },
+            { label: "Bulk Purchasing Savings", value: purchaseFormat === "bulk" ? `Saving ≈ $${annualSavings.toLocaleString()} / year` : "Switching to bulk 10kg pails saves 25–35%" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Equine Nutrition Best Practice:</strong> Always audit supplement stacks with an equine nutritionist. Overlapping multi-vitamins can cause dangerous selenium toxicosis (blind staggers) or inverted calcium-to-phosphorus ratios.</p>
+          </div>
+        </div>
+      }
     />
   );
 }

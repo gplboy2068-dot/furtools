@@ -60,6 +60,7 @@ const GENERAL_ARTICLES: RelatedArticle[] = [
 import { ENRICHED_FISH_TOOLS } from "./fish-tools-content";
 import { ENRICHED_SMALL_PET_TOOLS } from "./small-pets-tools-content";
 import { ENRICHED_BIRD_TOOLS } from "./birds-tools-content";
+import { ENRICHED_HORSE_TOOLS } from "./horses-tools-content";
 
 const RAW_TOOLS: Tool[] = [
   // ─────────── DOGS ───────────
@@ -4288,6 +4289,9 @@ export const TOOLS: Tool[] = RAW_TOOLS.map((t) => {
   }
   if (ENRICHED_BIRD_TOOLS[t.slug]) {
     return { ...t, ...ENRICHED_BIRD_TOOLS[t.slug] } as Tool;
+  }
+  if (ENRICHED_HORSE_TOOLS[t.slug]) {
+    return { ...t, ...ENRICHED_HORSE_TOOLS[t.slug] } as Tool;
   }
   return t;
 });
