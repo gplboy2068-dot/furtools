@@ -18,6 +18,7 @@ import {
   CatFoodCalculator, KittenGrowthCalculator, CatLitterCalculator, CatPlayTimeCalculator,
 } from "@/components/tools/cat-tools";
 import { PetCarePlanner } from "@/components/tools/general-tools";
+import { SmartCollarQRTool } from "@/components/tools/smart-collar-qr";
 import {
   BirdCageSize, BirdFood, BirdLifespan, BirdWingClipGuide,
   AquariumVolume, FishStocking, TankCyclingTracker, WaterChangeScheduler,
@@ -227,6 +228,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "pet-insurance-calculator": InsuranceCalculator,
   "pet-adoption-checklist": () => <ChecklistTool storageKey="furtools:pet-adoption" groups={PET_ADOPTION} />,
   "pet-emergency-kit": () => <ChecklistTool storageKey="furtools:emergency-kit" groups={EMERGENCY_KIT} />,
+  "pet-qr-tag-generator": SmartCollarQRTool,
   "pet-care-planner": PetCarePlanner,
   "pet-bmi-calculator": () => <BCSCalculator species="dog" />,
   "pet-birthday-age-calculator": BirthdayAgeCalculator,

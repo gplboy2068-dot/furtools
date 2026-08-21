@@ -4,6 +4,7 @@ import type { User } from "@supabase/supabase-js";
 import {
   ArrowLeft, Calendar, Cake, ChevronRight, Download, Loader2, PawPrint, Pencil,
   Pill, Plus, Scale, Stethoscope, Syringe, Trash2, TriangleAlert, Upload,
+  QrCode, Copy, Check, Printer, Share2, ExternalLink, ShieldCheck, AlertTriangle, Smartphone,
 } from "lucide-react";
 import {
   Line, LineChart, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis, CartesianGrid,
@@ -14,10 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { z } from "zod";
 import { signedPetFileUrl, uploadPetFile, deletePetFile } from "@/lib/pet-uploads";
+import { QRCodeModel, generateTagPublicUrl, type PetTagData } from "@/lib/qr-tag";
 import {
   DewormingTab, GroomingTab, ExpensesTab, TravelTab, JournalTab, DocumentsTab, AiSummaryTab,
 } from "@/components/pets/extra-tabs";
@@ -163,6 +166,7 @@ function PetDetailPage() {
           <TabsTrigger value="journal">Journal</TabsTrigger>
           <TabsTrigger value="documents">Documents</TabsTrigger>
           <TabsTrigger value="ai">AI</TabsTrigger>
+          <TabsTrigger value="qrtag" className="gap-1.5 font-semibold text-primary"><QrCode className="size-3.5" /> Smart QR Tag</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="mt-6">
           <OverviewTab pet={pet} onSaved={loadPet} avatarUrl={avatarUrl} />
@@ -183,6 +187,7 @@ function PetDetailPage() {
         <TabsContent value="journal" className="mt-6"><JournalTab ctx={{ petId: pet.id, userId: pet.user_id, petName: pet.name }} /></TabsContent>
         <TabsContent value="documents" className="mt-6"><DocumentsTab ctx={{ petId: pet.id, userId: pet.user_id, petName: pet.name }} /></TabsContent>
         <TabsContent value="ai" className="mt-6"><AiSummaryTab ctx={{ petId: pet.id, userId: pet.user_id, petName: pet.name }} /></TabsContent>
+        <TabsContent value="qrtag" className="mt-6"><PetQrTagDashboardTab pet={pet} avatarUrl={avatarUrl} /></TabsContent>
       </Tabs>
         );
       })()}
@@ -887,5 +892,250 @@ function kindIcon(k: string) {
   return <Calendar className={cls} />;
 }
 
+function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string | null }) {
+  const [isLost, setIsLost] = useState(false);
+  const [reward, setReward] = useState("$200 Reward");
+  const [copied, setCopied] = useState(false);
+
+  const tagData: PetTagData = useMemo(() => ({
+    id: pet.id,
+    petName: pet.name,
+    species: pet.species,
+    breed: pet.breed || undefined,
+    photoUrl: avatarUrl || undefined,
+    microchipNumber: pet.microchip_number || undefined,
+    color: pet.color || undefined,
+    gender: pet.gender || undefined,
+    isLost,
+    rewardAmount: isLost ? reward : undefined,
+    ownerName: "Pet Parent",
+    primaryPhone: (pet.notes && pet.notes.match(/\+?[0-9\s-()]{7,20}/)?.[0]) || "+1 (555) 234-5678",
+    hasWhatsApp: true,
+    medicalAlerts: pet.medical_notes ? [pet.medical_notes, "Microchipped"] : ["Microchipped", "Healthy"],
+    behaviorNotes: pet.notes || undefined,
+    tagline: isLost ? "I AM LOST! SCAN TO CALL MY FAMILY" : "FURTOOLS SMART COLLAR SAFETY TAG",
+    tagColor: isLost ? "#dc2626" : "#2563eb",
+  }), [pet, avatarUrl, isLost, reward]);
+
+  const publicUrl = useMemo(() => generateTagPublicUrl(tagData), [tagData]);
+
+  const qrSvgString = useMemo(() => {
+    try {
+      const qr = new QRCodeModel(publicUrl, "M");
+      return qr.toSVG({
+        size: 260,
+        color: isLost ? "#dc2626" : "#0f172a",
+        bgColor: "#ffffff",
+        margin: 2,
+        withPawCenter: true,
+      });
+    } catch {
+      return "";
+    }
+  }, [publicUrl, isLost]);
+
+  function copyLink() {
+    navigator.clipboard.writeText(publicUrl);
+    setCopied(true);
+    toast.success("Emergency QR Tag URL copied to clipboard!");
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  function downloadQrPng() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 1024;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    const svgBlob = new Blob([qrSvgString], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
+    img.onload = () => {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      const a = document.createElement("a");
+      a.download = `${pet.name.toLowerCase()}-smart-collar-qr.png`;
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+      toast.success("High-res QR Code PNG downloaded!");
+    };
+    img.src = url;
+  }
+
+  function printTagKit() {
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return;
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${pet.name} - Smart Collar Tag Kit</title>
+          <style>
+            body { font-family: system-ui, sans-serif; padding: 20px; text-align: center; }
+            .card { border: 2px dashed #64748b; padding: 20px; width: 220px; margin: 20px auto; border-radius: 16px; }
+            .qr { width: 140px; height: 140px; margin: 0 auto 10px auto; }
+          </style>
+        </head>
+        <body>
+          <h2>🐾 ${pet.name}'s Smart Collar Tag</h2>
+          <p>Cut out and insert into collar pouch or laminate as a tag.</p>
+          <div class="card">
+            <div class="qr">${qrSvgString}</div>
+            <div style="font-weight: bold; font-size: 16px;">${pet.name}</div>
+            <div style="font-size: 11px; color: #64748b;">${pet.breed || pet.species}</div>
+            <div style="font-size: 10px; color: #dc2626; font-weight: bold; margin-top: 4px;">SCAN IF FOUND</div>
+          </div>
+          <script>window.onload = () => window.print();</script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Top Banner Card */}
+      <div className={`rounded-3xl border p-6 shadow-xs transition-colors ${
+        isLost
+          ? "border-red-500/40 bg-red-500/10 dark:bg-red-950/30"
+          : "border-primary/20 bg-gradient-to-br from-primary/10 via-primary/5 to-background"
+      }`}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className={`size-2.5 rounded-full ${isLost ? "bg-red-600 animate-ping" : "bg-emerald-500"}`} />
+              <span className={`text-xs font-bold uppercase tracking-wider ${isLost ? "text-red-600 dark:text-red-400" : "text-emerald-600 dark:text-emerald-400"}`}>
+                {isLost ? "🚨 LOST PET ALERT ACTIVE" : "🟢 SAFE WITH FAMILY"}
+              </span>
+            </div>
+            <h2 className="font-display text-2xl font-bold tracking-tight">
+              {pet.name}'s Smart Collar QR Code & Safety Tag
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground max-w-xl">
+              Attach this QR code to {pet.name}'s collar. Anyone who scans it with a smartphone camera can instantly call you, WhatsApp you, and send their GPS location.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 bg-card px-4 py-2.5 rounded-2xl border border-border shrink-0 shadow-xs">
+            <div className="space-y-0.5">
+              <div className="text-xs font-bold text-foreground">Lost Pet Mode</div>
+              <div className="text-[10px] text-muted-foreground">{isLost ? "Alert Active" : "Normal Mode"}</div>
+            </div>
+            <Switch checked={isLost} onCheckedChange={setIsLost} />
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        {/* Left Col: QR Badge & Quick Actions (5 cols) */}
+        <div className="md:col-span-5 rounded-2xl border border-border bg-card p-6 text-center space-y-4 shadow-xs">
+          <div className="size-52 mx-auto p-2 bg-white rounded-2xl shadow-sm border border-border">
+            <div
+              className="size-full [&>svg]:size-full"
+              dangerouslySetInnerHTML={{ __html: qrSvgString }}
+            />
+          </div>
+
+          <div>
+            <div className="font-display font-bold text-lg">{pet.name}</div>
+            <div className="text-xs text-muted-foreground">
+              {pet.breed || pet.species} {pet.microchip_number ? `· Chip: ${pet.microchip_number}` : ""}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 pt-2">
+            <Button
+              onClick={downloadQrPng}
+              variant="outline"
+              size="sm"
+              className="rounded-xl text-xs gap-1.5"
+            >
+              <Download className="size-3.5" /> Download PNG
+            </Button>
+            <Button
+              onClick={printTagKit}
+              variant="outline"
+              size="sm"
+              className="rounded-xl text-xs gap-1.5"
+            >
+              <Printer className="size-3.5" /> Print Tag
+            </Button>
+            <Button
+              onClick={copyLink}
+              size="sm"
+              className="rounded-xl text-xs gap-1.5 col-span-2"
+            >
+              {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+              {copied ? "Link Copied" : "Copy Emergency Tag URL"}
+            </Button>
+          </div>
+
+          <div className="pt-2 border-t border-border">
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="w-full text-xs text-muted-foreground hover:text-foreground gap-1.5"
+            >
+              <a href={publicUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="size-3.5" /> Test Open Scanned Mobile Page
+              </a>
+            </Button>
+          </div>
+        </div>
+
+        {/* Right Col: Safety Checklist & Features (7 cols) */}
+        <div className="md:col-span-7 space-y-4">
+          <div className="rounded-2xl border border-border bg-card p-5 space-y-3 shadow-xs">
+            <h3 className="font-display font-bold text-base flex items-center gap-2">
+              <ShieldCheck className="size-4 text-emerald-500" /> Embedded Emergency Profile
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              When scanned by any phone, finders will see:
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <div className="p-3 rounded-xl bg-muted/40 border border-border">
+                <div className="font-semibold text-foreground">📞 1-Tap Direct Call</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">Direct link to call pet parent instantly</div>
+              </div>
+              <div className="p-3 rounded-xl bg-muted/40 border border-border">
+                <div className="font-semibold text-foreground">💬 WhatsApp Direct Chat</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">Quick message & photo exchange</div>
+              </div>
+              <div className="p-3 rounded-xl bg-muted/40 border border-border">
+                <div className="font-semibold text-foreground">📍 Instant GPS Pin Share</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">Finder can send exact Google Maps location</div>
+              </div>
+              <div className="p-3 rounded-xl bg-muted/40 border border-border">
+                <div className="font-semibold text-foreground">⚠️ Medical Alerts</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">Allergies, daily insulin, or special diets</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-5 space-y-3 shadow-xs">
+            <h3 className="font-display font-bold text-base flex items-center gap-2">
+              <QrCode className="size-4 text-primary" /> Advanced Tag Customizer
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Want custom shapes (Bone, Shield, Hexagon), different colors, or custom flyer posters?
+            </p>
+            <Button asChild variant="outline" size="sm" className="rounded-full gap-1.5">
+              <Link to="/tools/$slug" params={{ slug: "pet-qr-tag-generator" }}>
+                <ExternalLink className="size-3.5" /> Open Full Smart Collar Tag Generator Tool
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Preserve import so tree-shaking keeps icons used in child components
-export const _unused = { ChevronRight, Upload };
+export const _unused = { ChevronRight, Upload, Smartphone, AlertTriangle };
+

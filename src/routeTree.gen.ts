@@ -35,6 +35,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as AiIndexRouteImport } from './routes/ai.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
+import { Route as TagIdRouteImport } from './routes/tag.$id'
 import { Route as FoodsSlugRouteImport } from './routes/foods.$slug'
 import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as BreedsSlugRouteImport } from './routes/breeds.$slug'
@@ -193,6 +194,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const ToolsSlugRoute = ToolsSlugRouteImport.update({
   id: '/tools/$slug',
   path: '/tools/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TagIdRoute = TagIdRouteImport.update({
+  id: '/tag/$id',
+  path: '/tag/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoodsSlugRoute = FoodsSlugRouteImport.update({
@@ -386,6 +392,7 @@ export interface FileRoutesByFullPath {
   '/breeds/$slug': typeof BreedsSlugRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/foods/$slug': typeof FoodsSlugRoute
+  '/tag/$id': typeof TagIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ai/': typeof AiIndexRoute
@@ -442,6 +449,7 @@ export interface FileRoutesByTo {
   '/breeds/$slug': typeof BreedsSlugRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/foods/$slug': typeof FoodsSlugRoute
+  '/tag/$id': typeof TagIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/admin': typeof AdminIndexRoute
   '/ai': typeof AiIndexRoute
@@ -500,6 +508,7 @@ export interface FileRoutesById {
   '/breeds/$slug': typeof BreedsSlugRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/foods/$slug': typeof FoodsSlugRoute
+  '/tag/$id': typeof TagIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ai/': typeof AiIndexRoute
@@ -559,6 +568,7 @@ export interface FileRouteTypes {
     | '/breeds/$slug'
     | '/categories/$slug'
     | '/foods/$slug'
+    | '/tag/$id'
     | '/tools/$slug'
     | '/admin/'
     | '/ai/'
@@ -615,6 +625,7 @@ export interface FileRouteTypes {
     | '/breeds/$slug'
     | '/categories/$slug'
     | '/foods/$slug'
+    | '/tag/$id'
     | '/tools/$slug'
     | '/admin'
     | '/ai'
@@ -672,6 +683,7 @@ export interface FileRouteTypes {
     | '/breeds/$slug'
     | '/categories/$slug'
     | '/foods/$slug'
+    | '/tag/$id'
     | '/tools/$slug'
     | '/admin/'
     | '/ai/'
@@ -714,6 +726,7 @@ export interface RootRouteChildren {
   BreedsSlugRoute: typeof BreedsSlugRoute
   CategoriesSlugRoute: typeof CategoriesSlugRoute
   FoodsSlugRoute: typeof FoodsSlugRoute
+  TagIdRoute: typeof TagIdRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
   AiIndexRoute: typeof AiIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -907,6 +920,13 @@ declare module '@tanstack/react-router' {
       path: '/tools/$slug'
       fullPath: '/tools/$slug'
       preLoaderRoute: typeof ToolsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tag/$id': {
+      id: '/tag/$id'
+      path: '/tag/$id'
+      fullPath: '/tag/$id'
+      preLoaderRoute: typeof TagIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/foods/$slug': {
@@ -1188,6 +1208,7 @@ const rootRouteChildren: RootRouteChildren = {
   BreedsSlugRoute: BreedsSlugRoute,
   CategoriesSlugRoute: CategoriesSlugRoute,
   FoodsSlugRoute: FoodsSlugRoute,
+  TagIdRoute: TagIdRoute,
   ToolsSlugRoute: ToolsSlugRoute,
   AiIndexRoute: AiIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
