@@ -1840,15 +1840,59 @@ export function HorseSupplementCost() {
 
 /* ─────────── FARM ─────────── */
 export function ChickenNestingBoxCount() {
-  const [hens, setHens] = useState(6);
-  const boxes = Math.max(1, Math.ceil(hens / 4));
+  const [hens, setHens] = useState(8);
+  const [breedType, setBreedType] = useState<"standard" | "heavy" | "bantam">("standard");
+  const [boxStyle, setBoxStyle] = useState<"traditional" | "rollaway">("traditional");
+
+  const ratio = boxStyle === "rollaway" ? 5 : 4; // 1 box per 4-5 hens
+  const boxCount = Math.max(1, Math.ceil(hens / ratio));
+  const dimensions = breedType === "heavy" ? "14\" W × 14\" D × 14\" H" : breedType === "bantam" ? "10\" W × 10\" D × 10\" H" : "12\" W × 12\" D × 12\" H";
+
   return (
     <CalculatorLayout
-      form={<NumberField label="Number of hens" value={hens} onChange={setHens} min={1} />}
-      result={<div className="space-y-4">
-        <Big value={boxes} label="Nesting boxes needed" />
-        <Note>1 box per 3–4 hens. Boxes should be dark, 12×12 in, and slightly elevated.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Flock Hen Count</Label>
+            <Input type="number" min={1} max={500} value={hens} onChange={(e) => setHens(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Breed Size Class</Label>
+            <Select value={breedType} onValueChange={(v) => setBreedType(v as typeof breedType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="standard">Standard Layers (Rhode Island Red, Leghorn, Australorp)</SelectItem>
+                <SelectItem value="heavy">Heavy Breeds (Brahma, Jersey Giant, Orpington)</SelectItem>
+                <SelectItem value="bantam">Bantams (Silkies, Pekins, Sebrights)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Nesting Box Design Style</Label>
+            <Select value={boxStyle} onValueChange={(v) => setBoxStyle(v as typeof boxStyle)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="traditional">Traditional Wood / Metal with Straw Bedding</SelectItem>
+                <SelectItem value="rollaway">Slanted Floor Roll-Away Box (Zero Egg Eating)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${boxCount} Nesting Boxes`} label="Recommended Nest Box Capacity" unit={`Ratio: 1 box per ${ratio} hens`} />
+          <Rows items={[
+            { label: "Optimal Box Dimensions", value: dimensions },
+            { label: "Mounting Height Above Floor", value: "18 to 24 inches (Always lower than roost bars)" },
+            { label: "Bedding Material", value: boxStyle === "traditional" ? "3–4 inches clean pine shavings or aspen nesting pads" : "Turf nesting mat on 5° forward slope" },
+            { label: "Decoy Training Tip", value: "Place 1 ceramic or wooden fake egg in box to guide pullets" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Clean Egg Placement Rule:</strong> Always mount nesting boxes LOWER than your highest nighttime roosting bar. Chickens instinctively roost at the highest point in the coop; if boxes are higher than roosts, hens will sleep and defecate inside the boxes, soiling eggs.</p>
+          </div>
+        </div>
+      }
     />
   );
 }

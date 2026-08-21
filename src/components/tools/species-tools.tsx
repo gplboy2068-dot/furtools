@@ -2500,107 +2500,265 @@ export function HorseBCS() {
 
 /* ─────────── FARM ─────────── */
 export function ChickenCoopSize() {
-  const [count, setCount] = useState(6);
-  const [size, setSize] = useState<"bantam" | "standard" | "heavy">("standard");
-  const per = { bantam: [2, 5], standard: [4, 10], heavy: [6, 15] }[size];
-  const coop = count * per[0];
-  const run = count * per[1];
+  const [count, setCount] = useState(8);
+  const [breedType, setBreedType] = useState<"bantam" | "standard" | "heavy">("standard");
+  const [confinement, setConfinement] = useState<"free_range" | "run_only">("run_only");
+
+  const specs = {
+    bantam: { coopSqFt: 2.5, runSqFt: 6, roostInches: 8, nestRatio: 5 },
+    standard: { coopSqFt: 4.0, runSqFt: 10, roostInches: 10, nestRatio: 4 },
+    heavy: { coopSqFt: 5.0, runSqFt: 15, roostInches: 12, nestRatio: 4 },
+  }[breedType];
+
+  const minCoopSqFt = Math.round(count * specs.coopSqFt);
+  const minRunSqFt = confinement === "free_range" ? Math.round(count * (specs.runSqFt * 0.5)) : Math.round(count * specs.runSqFt);
+  const roostLengthFeet = (Math.round(count * specs.roostInches) / 12).toFixed(1);
+  const nestBoxes = Math.max(1, Math.ceil(count / specs.nestRatio));
+  const ventilationSqFt = (minCoopSqFt / 10).toFixed(1); // 1 sq ft per 10 sq ft coop floor
+
   return (
     <CalculatorLayout
-      form={<>
-        <div><Label>Number of hens</Label><Input type="number" min={1} value={count} onChange={(e) => setCount(+e.target.value || 1)} className="mt-1.5" /></div>
-        <div><Label>Breed type</Label>
-          <Select value={size} onValueChange={(v: "bantam" | "standard" | "heavy") => setSize(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="bantam">Bantam</SelectItem>
-              <SelectItem value="standard">Standard</SelectItem>
-              <SelectItem value="heavy">Heavy (Orpington, Brahma)</SelectItem>
-            </SelectContent></Select></div>
-      </>}
-      result={<div className="space-y-3">
-        <Big value={`${coop} sq ft coop`} label="Coop minimum" />
-        <p className="text-center text-sm text-muted-foreground">Run: <span className="font-medium text-foreground">{run} sq ft</span></p>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Number of Laying Hens</Label>
+            <Input type="number" min={1} max={500} value={count} onChange={(e) => setCount(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Breed Size Class</Label>
+            <Select value={breedType} onValueChange={(v) => setBreedType(v as typeof breedType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="bantam">Bantam Breeds (Silkie, Pekin, Sebright: ~2–3 lbs)</SelectItem>
+                <SelectItem value="standard">Standard Layers (Leghorn, Easter Egger, ISA Brown: ~4–6 lbs)</SelectItem>
+                <SelectItem value="heavy">Heavy Dual-Purpose (Orpington, Brahma, Jersey Giant: ~7–10 lbs)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Daily Confinement Management</Label>
+            <Select value={confinement} onValueChange={(v) => setConfinement(v as typeof confinement)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="run_only">Enclosed Run Only (100% Time in Run)</SelectItem>
+                <SelectItem value="free_range">Supervised Daily Free-Range Pasture</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${minCoopSqFt} sq ft`} label="Minimum Coop Floor Space" unit={`Run: ${minRunSqFt} sq ft`} />
+          <Rows items={[
+            { label: "Enclosed Predator Run", value: `${minRunSqFt} sq ft (1/2\" hardware cloth)` },
+            { label: "Total Roosting Bar Length", value: `${roostLengthFeet} linear feet (2x4 flat side up)` },
+            { label: "Nesting Boxes Needed", value: `${nestBoxes} private boxes (12×12 in)` },
+            { label: "Minimum High Ventilation Area", value: `≈ ${ventilationSqFt} sq ft (upper soffit vents)` },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Predator Security Rule:</strong> Standard hexagonal 'chicken wire' only keeps chickens in—it does NOT keep raccoons, weasels, or foxes out. Wrap all runs and windows in 1/2-inch 19-gauge hot-dipped galvanized hardware cloth with a 12-inch buried underground anti-digging apron.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function ChickenEggProduction() {
-  const [count, setCount] = useState(6);
-  const [breed, setBreed] = useState<"leghorn" | "sexlink" | "heritage" | "bantam">("sexlink");
-  const [season, setSeason] = useState<"summer" | "winter">("summer");
-  const perHen = { leghorn: 6, sexlink: 5.5, heritage: 3.5, bantam: 2.5 }[breed];
-  const adj = season === "winter" ? 0.5 : 1;
-  const weekly = Math.round(count * perHen * adj);
+  const [count, setCount] = useState(8);
+  const [breed, setBreed] = useState<"hybrid" | "heritage" | "dual" | "bantam">("hybrid");
+  const [ageYears, setAgeYears] = useState<"1" | "2" | "3" | "4">("1");
+  const [lighting, setLighting] = useState<"natural" | "supplemental">("natural");
+
+  // Base annual rate per hen
+  const baseEggsPerYear = { hybrid: 300, heritage: 250, dual: 210, bantam: 130 }[breed];
+  const ageMultiplier = { "1": 1.0, "2": 0.82, "3": 0.65, "4": 0.45 }[ageYears];
+  const lightingMultiplier = lighting === "supplemental" ? 0.95 : 0.78; // winter natural drops by 40-50% in winter months
+
+  const totalAnnualEggs = Math.round(count * baseEggsPerYear * ageMultiplier * (lighting === "supplemental" ? 1.0 : 0.85));
+  const weeklyAvg = Math.round(totalAnnualEggs / 52);
+  const dozensMonthly = (totalAnnualEggs / 12 / 12).toFixed(1);
+
   return (
     <CalculatorLayout
-      form={<>
-        <div><Label>Number of hens</Label><Input type="number" min={1} value={count} onChange={(e) => setCount(+e.target.value || 1)} className="mt-1.5" /></div>
-        <div><Label>Breed</Label>
-          <Select value={breed} onValueChange={(v: "leghorn" | "sexlink" | "heritage" | "bantam") => setBreed(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="leghorn">Leghorn</SelectItem>
-              <SelectItem value="sexlink">Sex-Link / ISA Brown</SelectItem>
-              <SelectItem value="heritage">Heritage (Orpington, Wyandotte)</SelectItem>
-              <SelectItem value="bantam">Bantam</SelectItem>
-            </SelectContent></Select></div>
-        <div><Label>Season</Label>
-          <Select value={season} onValueChange={(v: "summer" | "winter") => setSeason(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="summer">Summer / long day</SelectItem>
-              <SelectItem value="winter">Winter / short day</SelectItem>
-            </SelectContent></Select></div>
-      </>}
-      result={<Big value={`~${weekly} eggs/week`} label="Expected production" />}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Flock Hen Count</Label>
+            <Input type="number" min={1} max={500} value={count} onChange={(e) => setCount(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Hen Breed Genetics</Label>
+            <Select value={breed} onValueChange={(v) => setBreed(v as typeof breed)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="hybrid">Production Hybrid (ISA Brown, Golden Comet: ~300 eggs/yr)</SelectItem>
+                <SelectItem value="heritage">High-Yield Heritage (White Leghorn, Australorp: ~250 eggs/yr)</SelectItem>
+                <SelectItem value="dual">Dual-Purpose Heritage (Rhode Island Red, Plymouth Rock, Orpington: ~210/yr)</SelectItem>
+                <SelectItem value="bantam">Bantam / Ornamental (Silkies, Polish: ~130 eggs/yr)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Hen Age Group</Label>
+            <Select value={ageYears} onValueChange={(v) => setAgeYears(v as typeof ageYears)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">Year 1 (Point of Lay to 18 months - Peak 100%)</SelectItem>
+                <SelectItem value="2">Year 2 (Post-First Molt - ≈ 82% of Peak, Larger Eggs)</SelectItem>
+                <SelectItem value="3">Year 3 (Mature Adult - ≈ 65% of Peak)</SelectItem>
+                <SelectItem value="4">Year 4+ (Senior Hen - ≈ 45% of Peak)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Winter Lighting Management</Label>
+            <Select value={lighting} onValueChange={(v) => setLighting(v as typeof lighting)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="natural">Natural Seasonal Photoperiod (Winter Rest / Laying Drop)</SelectItem>
+                <SelectItem value="supplemental">Supplemental Lighting (14–16 hrs light year-round)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`≈ ${weeklyAvg} eggs/wk`} label="Estimated Weekly Egg Harvest" unit={`≈ ${dozensMonthly} dozen / month`} />
+          <Rows items={[
+            { label: "Annual Projected Harvest", value: `${totalAnnualEggs.toLocaleString()} total eggs (≈ ${Math.round(totalAnnualEggs / 12)} dozen)` },
+            { label: "Daily Peak Rate", value: `≈ ${Math.round(weeklyAvg / 7)} to ${Math.ceil(weeklyAvg / 7)} eggs per day` },
+            { label: "Calcium & Protein Support", value: "Offer free-choice crushed oyster shell & 16% layer feed" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Avian Photoperiod Science:</strong> Hens require 14 to 16 hours of daily light triggering the pineal gland to release ovulatory hormones. In winter, egg laying naturally halts unless a timer-controlled warm LED light is set in the morning hours (never late evening).</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function GoatFeed() {
-  const [lb, setLb] = useState(150);
-  const [prod, setProd] = useState<"dry" | "milking" | "meat">("dry");
-  const hay = Math.round(lb * 0.03);
-  const grain = prod === "milking" ? 3 : prod === "meat" ? 1 : 0.5;
+  const [weightLb, setWeightLb] = useState(140);
+  const [goatClass, setGoatClass] = useState<"wether" | "lactating" | "growing" | "pregnant">("lactating");
+  const [forageType, setForageType] = useState<"grass" | "alfalfa" | "browse">("alfalfa");
+
+  // DMI: 3% for dry/wether, 4.5% for milking dairy doe, 3.5% for growing/pregnant
+  const dmiPercent = goatClass === "lactating" ? 0.045 : goatClass === "pregnant" ? 0.035 : goatClass === "growing" ? 0.035 : 0.028;
+  const totalDmiLb = weightLb * dmiPercent;
+
+  // Grain calculation: dairy doe needs 0.5 lb grain per 3 lb milk produced (~1.5–2.5 lb grain)
+  const grainLb = goatClass === "lactating" ? Math.min(3.0, weightLb * 0.015) : goatClass === "growing" ? 0.75 : goatClass === "pregnant" ? 1.0 : 0;
+  const hayLb = Math.max(1.0, totalDmiLb - grainLb);
+
   return (
     <CalculatorLayout
-      form={<>
-        <div><Label>Goat weight (lb)</Label><Input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Production</Label>
-          <Select value={prod} onValueChange={(v: "dry" | "milking" | "meat") => setProd(v)}>
-            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="dry">Dry / maintenance</SelectItem>
-              <SelectItem value="milking">Milking doe</SelectItem>
-              <SelectItem value="meat">Growing meat</SelectItem>
-            </SelectContent></Select></div>
-      </>}
-      result={<div className="space-y-3">
-        <Big value={`${hay} lb hay/day`} label="Forage" />
-        <p className="text-center text-sm text-muted-foreground">Grain: <span className="font-medium text-foreground">{grain} lb/day</span></p>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Goat Body Weight (lb)</Label>
+            <Input type="number" min={20} max={350} value={weightLb} onChange={(e) => setWeightLb(Math.max(10, +e.target.value || 10))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Production & Physiological Class</Label>
+            <Select value={goatClass} onValueChange={(v) => setGoatClass(v as typeof goatClass)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="wether">Dry Doe / Castrated Wether / Pet (Maintenance)</SelectItem>
+                <SelectItem value="lactating">High-Yield Dairy Doe in Milk (Peak Demand)</SelectItem>
+                <SelectItem value="pregnant">Late Gestation Doe (Last 4–6 Weeks)</SelectItem>
+                <SelectItem value="growing">Growing Meat / Dairy Kid (Weanling)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Primary Forage Source</Label>
+            <Select value={forageType} onValueChange={(v) => setForageType(v as typeof forageType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="grass">Grass Hay (Timothy, Orchard, Coastal Bermuda)</SelectItem>
+                <SelectItem value="alfalfa">Alfalfa / Lucerne (High Calcium & Protein)</SelectItem>
+                <SelectItem value="browse">Woody Shrub Browse & Pasture</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${hayLb.toFixed(1)} lb hay/day`} label="Daily Forage / Hay Minimum" unit={`Grain: ${grainLb.toFixed(1)} lb/day`} />
+          <Rows items={[
+            { label: "Dry Matter Intake (DMI)", value: `${totalDmiLb.toFixed(1)} lbs total dry matter / day (${(dmiPercent * 100).toFixed(1)}% BW)` },
+            { label: "Daily Grain / Concentrate", value: grainLb > 0 ? `${grainLb.toFixed(1)} lbs / day (Split into 2 feedings)` : "0 lbs (Forage-only diet prevents obesity)" },
+            { label: "Urinary Calculi Protection", value: goatClass === "wether" ? "MANDATORY: 2:1 Calcium-to-Phosphorus ratio + Ammonium Chloride" : "Provide free-choice loose goat minerals (with copper)" },
+          ]} />
+          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
+            ⚠️ <strong>Wether Urinary Calculi Hazard:</strong> Never feed high-grain sweet feeds or pure alfalfa to castrated male goats (wethers). Excess phosphorus forms struvite stones that block the narrow urethral process, causing bladder rupture and agonizing death without emergency surgery.
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function DuckPondSize() {
-  const [count, setCount] = useState(4);
-  const water = count * 20;
-  const coop = count * 4;
-  const run = count * 15;
+  const [count, setCount] = useState(6);
+  const [breedSize, setBreedSize] = useState<"bantam" | "medium" | "heavy">("medium");
+  const [pondType, setPondType] = useState<"kiddie_pool" | "filtered_pond">("filtered_pond");
+
+  const galPerDuck = breedSize === "bantam" ? 12 : breedSize === "heavy" ? 25 : 18;
+  const minWaterGal = count * galPerDuck;
+  const pondSurfaceSqFt = Math.round(minWaterGal / 7.48 / 1.5); // 1.5 ft avg depth
+  const flowRateGph = minWaterGal * 3; // 3x turnover for dirty ducks
+
   return (
     <CalculatorLayout
-      form={<div><Label>Number of ducks</Label>
-        <Input type="number" min={1} value={count} onChange={(e) => setCount(+e.target.value || 1)} className="mt-1.5" /></div>}
-      result={<div className="space-y-3">
-        <Big value={`${water} gal water`} label="Open water" />
-        <Rows items={[
-          { label: "Coop", value: `${coop} sq ft` },
-          { label: "Run", value: `${run} sq ft` },
-        ]} />
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Number of Waterfowl (Ducks / Geese)</Label>
+            <Input type="number" min={1} max={100} value={count} onChange={(e) => setCount(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Duck Breed Size</Label>
+            <Select value={breedSize} onValueChange={(v) => setBreedSize(v as typeof breedSize)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="bantam">Bantam Ducks (Call Duck, Mallard: ~1.5–2.5 lbs)</SelectItem>
+                <SelectItem value="medium">Medium Production (Pekin, Khaki Campbell, Cayuga: ~5–7 lbs)</SelectItem>
+                <SelectItem value="heavy">Heavy Breeds & Geese (Muscovy, Rouen, Toulouse: ~8–15 lbs)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Pond Infrastructure Setup</Label>
+            <Select value={pondType} onValueChange={(v) => setPondType(v as typeof pondType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="filtered_pond">Permanent In-Ground Filtered Pond</SelectItem>
+                <SelectItem value="kiddie_pool">Heavy-Duty Plastic Drainable Stock Tank / Tub</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${minWaterGal} Gallons`} label="Minimum Pond Water Capacity" unit={`Surface: ≈ ${pondSurfaceSqFt} sq ft`} />
+          <Rows items={[
+            { label: "Minimum Pond Depth", value: "18 to 24 inches (allows full submergence and preening)" },
+            { label: "Night Coop Floor Space", value: `${count * 4} sq ft dry bedding` },
+            { label: "Enclosed Daytime Run Space", value: `${count * 15} sq ft secure run` },
+            { label: "Required Filtration Turnover", value: `${flowRateGph} GPH (Bog wetland + mechanical pre-filter)` },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Duck Hydrodynamics Note:</strong> Ducks excrete in water and carry pounds of soil in their bills. Traditional pool filters clog within 24 hours. Install a 2-inch bottom drain with a knife valve to dump duck wastewater directly to fertilize garden crops, or use gravel bog wetlands.</p>
+          </div>
+        </div>
+      }
     />
   );
 }

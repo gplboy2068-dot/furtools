@@ -1502,78 +1502,249 @@ export function HorseHoofTrimming() {
 
 /* ─────────── FARM ─────────── */
 export function ChickenFeed() {
-  const [birds, setBirds] = useState(6);
-  const [stage, setStage] = useState("layer");
-  const grams: Record<string, number> = { chick: 25, pullet: 75, layer: 120, meat: 150 };
-  const dailyKg = ((birds * grams[stage]) / 1000).toFixed(2);
+  const [birds, setBirds] = useState(8);
+  const [stage, setStage] = useState<"chick" | "grower" | "layer" | "broiler">("layer");
+  const [unit, setUnit] = useState<"lb" | "kg">("lb");
+
+  const feedSpecs = {
+    chick: { gramsPerDay: 30, protein: "20%–22% Chick Starter (Crumbled)", calcium: "1.0% (Low to prevent kidney calcification)", grit: "Fine Chick Grit" },
+    grower: { gramsPerDay: 75, protein: "16%–18% Grower/Developer", calcium: "1.2% (Controlled bone growth)", grit: "Medium Grower Grit" },
+    layer: { gramsPerDay: 120, protein: "16% Layer Crumbles / Pellets", calcium: "3.8%–4.2% (Mandatory for eggshell calcification)", grit: "Insoluble Granite Grit + Free-Choice Oyster Shell" },
+    broiler: { gramsPerDay: 160, protein: "18%–20% Meatbird Finisher", calcium: "1.0%", grit: "Coarse Granite Grit" },
+  }[stage];
+
+  const dailyGrams = birds * feedSpecs.gramsPerDay;
+  const dailyLb = (dailyGrams / 453.592).toFixed(2);
+  const dailyKg = (dailyGrams / 1000).toFixed(2);
+  const monthlyLb = (Number(dailyLb) * 30).toFixed(1);
   const monthlyKg = (Number(dailyKg) * 30).toFixed(1);
+  const bagsPerMonth50lb = (Number(monthlyLb) / 50).toFixed(1);
+
   return (
     <CalculatorLayout
-      form={<div className="space-y-4">
-        <NumberField label="Number of birds" value={birds} onChange={setBirds} min={1} />
-        <SelectField label="Life stage" value={stage} onChange={setStage} options={Object.keys(grams)} />
-      </div>}
-      result={<div className="space-y-4">
-        <Big value={`${dailyKg} kg / day`} label="Feed consumption" />
-        <Note>Monthly buy: ~{monthlyKg} kg. Layers also need free-choice grit and oyster shell.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="flex justify-end">
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              <button type="button" onClick={() => setUnit("lb")} className={`px-2.5 py-1 rounded ${unit === "lb" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Pounds (lb)</button>
+              <button type="button" onClick={() => setUnit("kg")} className={`px-2.5 py-1 rounded ${unit === "kg" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Kilograms (kg)</button>
+            </div>
+          </div>
+          <div>
+            <Label>Flock Bird Count</Label>
+            <Input type="number" min={1} max={500} value={birds} onChange={(e) => setBirds(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Flock Production / Life Stage</Label>
+            <Select value={stage} onValueChange={(v) => setStage(v as typeof stage)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="chick">Chicks (0–6 Weeks / Brooder Starter)</SelectItem>
+                <SelectItem value="grower">Grower / Pullets (7–18 Weeks / Pre-Lay)</SelectItem>
+                <SelectItem value="layer">Active Laying Hens (19+ Weeks / In Production)</SelectItem>
+                <SelectItem value="broiler">Meatbirds / Broilers (Fast Growth)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={unit === "lb" ? `${dailyLb} lbs / day` : `${dailyKg} kg / day`} label="Daily Flock Feed Intake" unit={unit === "lb" ? `≈ ${monthlyLb} lbs / month` : `≈ ${monthlyKg} kg / month`} />
+          <Rows items={[
+            { label: "50 lb Commercial Feed Bags", value: `≈ ${bagsPerMonth50lb} bags per month (50 lb / 22.7 kg)` },
+            { label: "Target Dietary Crude Protein", value: feedSpecs.protein },
+            { label: "Calcium & Mineral Standard", value: feedSpecs.calcium },
+            { label: "Insoluble Gizzard Grit", value: feedSpecs.grit },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Scratch Grain & Treat Rule:</strong> Scratch grains, corn, and kitchen scraps must NEVER exceed 10% of the total daily ration. Excessive corn dilutes crude protein below 16%, causing egg drops, obesity, and fatal Fatty Liver Hemorrhagic Syndrome (FLHS).</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function GoatWater() {
-  const [goats, setGoats] = useState(2);
-  const [temp, setTemp] = useState("mild");
-  const perGoat: Record<string, number> = { cool: 2, mild: 3, hot: 5 };
-  const gal = goats * perGoat[temp];
+  const [goats, setGoats] = useState(4);
+  const [temp, setTemp] = useState<"cool" | "mild" | "hot">("mild");
+  const [goatType, setGoatType] = useState<"wether" | "dairy" | "meat">("dairy");
+
+  const basePerGoat = goatType === "dairy" ? 3.5 : goatType === "meat" ? 2.5 : 1.75;
+  const tempMultiplier = temp === "hot" ? 1.7 : temp === "cool" ? 0.85 : 1.0;
+  const dailyGal = Math.round(goats * basePerGoat * tempMultiplier);
+  const dailyLiters = Math.round(dailyGal * 3.78541);
+
   return (
     <CalculatorLayout
-      form={<div className="space-y-4">
-        <NumberField label="Number of goats" value={goats} onChange={setGoats} min={1} />
-        <SelectField label="Climate" value={temp} onChange={setTemp} options={Object.keys(perGoat)} />
-      </div>}
-      result={<div className="space-y-4">
-        <Big value={`${gal} gal / day`} label="Fresh water needed" />
-        <Note>Lactating does drink 50% more. Refill 2×/day in summer — goats refuse dirty water.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div>
+            <Label>Herd Size (Number of Goats)</Label>
+            <Input type="number" min={1} max={200} value={goats} onChange={(e) => setGoats(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Herd Class / Productivity</Label>
+            <Select value={goatType} onValueChange={(v) => setGoatType(v as typeof goatType)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="wether">Dry Does / Castrated Wethers / Pets</SelectItem>
+                <SelectItem value="dairy">Dairy Does in Active Milk Production</SelectItem>
+                <SelectItem value="meat">Meat Goats / Boer / Kiko</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>Ambient Temperature & Weather</Label>
+            <Select value={temp} onValueChange={(v) => setTemp(v as typeof temp)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cool">Winter / Freezing (&lt; 40°F / 4°C - Bucket heater needed)</SelectItem>
+                <SelectItem value="mild">Moderate Spring / Autumn (45°–75°F / 7°–24°C)</SelectItem>
+                <SelectItem value="hot">Summer Heatwave (&gt; 85°F / 29°C)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${dailyGal} Gallons / day`} label="Daily Herd Water Requirement" unit={`≈ ${dailyLiters} Liters / day`} />
+          <Rows items={[
+            { label: "Per-Goat Daily Volume", value: `≈ ${(dailyGal / goats).toFixed(1)} gal (${((dailyGal * 3.785) / goats).toFixed(1)} L) per goat` },
+            { label: "Bucket Equivalents", value: `≈ ${Math.ceil(dailyGal / 5)} standard 5-gallon buckets` },
+            { label: "Sanitation & Odor Rule", value: "Scrub troughs daily — goats refuse saliva-scented water" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Goat Hydration Behavior:</strong> Goats are notoriously fastidious drinkers. If water contains even a speck of hay, floating debris, or goat droppings, they will willingly dehydrate rather than drink. Dehydration in wethers triggers acute urinary calculi formation within 48 hours.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function SheepFeed() {
-  const [sheep, setSheep] = useState(5);
-  const [stage, setStage] = useState("maintenance");
-  const lbs: Record<string, number> = { maintenance: 3, growing: 4, lactating: 6 };
-  const daily = sheep * lbs[stage];
+  const [sheep, setSheep] = useState(6);
+  const [stage, setStage] = useState<"maintenance" | "early_gest" | "late_gest" | "lactating">("maintenance");
+  const [unit, setUnit] = useState<"lb" | "kg">("lb");
+
+  const lbsPerHead = {
+    maintenance: { forage: 3.5, grain: 0, desc: "Dry ewe / Ram maintenance (2.0% BW in grass hay)" },
+    early_gest: { forage: 4.0, grain: 0.25, desc: "First 15 weeks gestation (2.2% BW)" },
+    late_gest: { forage: 4.5, grain: 1.0, desc: "Last 4 weeks gestation with twins (2.8% BW - Prevents Ketosis/Pregnancy Toxemia)" },
+    lactating: { forage: 5.5, grain: 1.75, desc: "Ewe nursing twins/triplets (3.8% BW in quality alfalfa/grass mix)" },
+  }[stage];
+
+  const totalForageLb = Math.round(sheep * lbsPerHead.forage);
+  const totalGrainLb = (sheep * lbsPerHead.grain).toFixed(1);
+  const displayForage = unit === "lb" ? `${totalForageLb} lbs` : `${(totalForageLb / 2.20462).toFixed(1)} kg`;
+  const displayGrain = unit === "lb" ? `${totalGrainLb} lbs` : `${(Number(totalGrainLb) / 2.20462).toFixed(1)} kg`;
+
   return (
     <CalculatorLayout
-      form={<div className="space-y-4">
-        <NumberField label="Number of sheep" value={sheep} onChange={setSheep} min={1} />
-        <SelectField label="Stage" value={stage} onChange={setStage} options={Object.keys(lbs)} />
-      </div>}
-      result={<div className="space-y-4">
-        <Big value={`${daily} lbs / day`} label="Total hay/pasture DM" />
-        <Note>Pasture reduces hay by 60–80% in growing season. Provide loose sheep mineral (no copper).</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="flex justify-end">
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              <button type="button" onClick={() => setUnit("lb")} className={`px-2.5 py-1 rounded ${unit === "lb" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Pounds (lb)</button>
+              <button type="button" onClick={() => setUnit("kg")} className={`px-2.5 py-1 rounded ${unit === "kg" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Kilograms (kg)</button>
+            </div>
+          </div>
+          <div>
+            <Label>Flock Ewe / Ram Count</Label>
+            <Input type="number" min={1} max={500} value={sheep} onChange={(e) => setSheep(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Production & Breeding Stage</Label>
+            <Select value={stage} onValueChange={(v) => setStage(v as typeof stage)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="maintenance">Dry Ewe / Ram Maintenance (Non-Pregnant)</SelectItem>
+                <SelectItem value="early_gest">Early Gestation (First 100 Days)</SelectItem>
+                <SelectItem value="late_gest">Late Gestation (Last 4–6 Weeks - Twin Lamb Demand)</SelectItem>
+                <SelectItem value="lactating">Lactating Ewe (Nursing Lambs - Peak Demand)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={`${displayForage} forage / day`} label="Daily Flock Forage Requirement" unit={`Grain: ${displayGrain} / day`} />
+          <Rows items={[
+            { label: "Per-Head Ration Standard", value: lbsPerHead.desc },
+            { label: "Late Pregnancy Toxemia Alert", value: stage === "late_gest" ? "MANDATORY: Feed grain energy to prevent twin lamb ketosis" : "Forage-based maintenance" },
+            { label: "Mineral Salt Requirement", value: "Provide specialized loose SHEEP mineral (Zero Copper)" },
+          ]} />
+          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
+            🩸 <strong>CRITICAL COPPER TOXICITY WARNING:</strong> Never feed goat, cattle, or horse mineral to sheep! Sheep have an exceptionally narrow copper tolerance. Excessive dietary copper accumulates silently in the liver until stress triggers massive red blood cell lysis (hemolytic crisis), jaundice, dark 'port wine' urine, and 80%+ mortality.
+          </div>
+        </div>
+      }
     />
   );
 }
 
 export function DuckFeed() {
-  const [ducks, setDucks] = useState(4);
-  const [stage, setStage] = useState("layer");
-  const grams: Record<string, number> = { duckling: 60, grower: 130, layer: 170, meat: 200 };
-  const dailyKg = ((ducks * grams[stage]) / 1000).toFixed(2);
+  const [ducks, setDucks] = useState(6);
+  const [stage, setStage] = useState<"duckling" | "grower" | "layer" | "winter">("layer");
+  const [unit, setUnit] = useState<"lb" | "kg">("lb");
+
+  const specs = {
+    duckling: { grams: 50, protein: "20%–22% Non-Medicated Waterfowl Starter", niacin: "65–70 mg/kg (Crucial to prevent bowed leg rickets)" },
+    grower: { grams: 130, protein: "15%–16% Waterfowl Grower Pellets", niacin: "55 mg/kg" },
+    layer: { grams: 180, protein: "16%–18% Layer Pellets + 3.8% Calcium", niacin: "55 mg/kg + Oyster shell" },
+    winter: { grams: 160, protein: "15% Maintenance Pellets + Cracked Corn at Bedtime", niacin: "50 mg/kg" },
+  }[stage];
+
+  const dailyGrams = ducks * specs.grams;
+  const dailyLb = (dailyGrams / 453.592).toFixed(2);
+  const dailyKg = (dailyGrams / 1000).toFixed(2);
+  const monthlyLb = (Number(dailyLb) * 30).toFixed(1);
+
   return (
     <CalculatorLayout
-      form={<div className="space-y-4">
-        <NumberField label="Number of ducks" value={ducks} onChange={setDucks} min={1} />
-        <SelectField label="Stage" value={stage} onChange={setStage} options={Object.keys(grams)} />
-      </div>}
-      result={<div className="space-y-4">
-        <Big value={`${dailyKg} kg / day`} label="Feed consumption" />
-        <Note>Ducks need niacin (3× chicken level). Never medicated chick starter for ducklings.</Note>
-      </div>}
+      form={
+        <div className="space-y-4">
+          <div className="flex justify-end">
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              <button type="button" onClick={() => setUnit("lb")} className={`px-2.5 py-1 rounded ${unit === "lb" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Pounds (lb)</button>
+              <button type="button" onClick={() => setUnit("kg")} className={`px-2.5 py-1 rounded ${unit === "kg" ? "bg-primary text-primary-foreground font-medium" : "text-muted-foreground"}`}>Kilograms (kg)</button>
+            </div>
+          </div>
+          <div>
+            <Label>Flock Waterfowl Count</Label>
+            <Input type="number" min={1} max={200} value={ducks} onChange={(e) => setDucks(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
+          </div>
+          <div>
+            <Label>Life & Production Stage</Label>
+            <Select value={stage} onValueChange={(v) => setStage(v as typeof stage)}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="duckling">Ducklings (0–3 Weeks / Brooder Starter)</SelectItem>
+                <SelectItem value="grower">Growing Ducklings (4–18 Weeks / Pre-Lay)</SelectItem>
+                <SelectItem value="layer">Active Laying Ducks (Pekin, Khaki Campbell in Lay)</SelectItem>
+                <SelectItem value="winter">Non-Laying Winter Flock / Maintenance</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      }
+      result={
+        <div className="space-y-4">
+          <Big value={unit === "lb" ? `${dailyLb} lbs / day` : `${dailyKg} kg / day`} label="Daily Waterfowl Feed Intake" unit={`Monthly: ≈ ${monthlyLb} lbs`} />
+          <Rows items={[
+            { label: "Nutritional Protein Profile", value: specs.protein },
+            { label: "Niacin (Vitamin B3) Target", value: specs.niacin },
+            { label: "Pellet vs Mash Mandate", value: "Always feed PELLET form (dry mashes cause bill choking)" },
+          ]} />
+          <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p><strong>Niacin & Water Rule:</strong> Ducks grow 3× faster than chicks and have higher niacin demands. Standard chick feed lacks adequate niacin, causing crippling bowed legs and slipped tendons (add 1 tbsp Brewer's Yeast per cup of feed). Always place deep water bowls next to feed dishes so ducks can submerge their bills while eating to clear feed from their nares.</p>
+          </div>
+        </div>
+      }
     />
   );
 }
