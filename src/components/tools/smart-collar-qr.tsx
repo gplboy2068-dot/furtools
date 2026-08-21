@@ -1,7 +1,8 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  QRCodeModel,
+  generateQrSvg,
+  generateQrDataUrl,
   type PetTagData,
   generateTagPublicUrl,
 } from "@/lib/qr-tag";
@@ -152,20 +153,34 @@ export function SmartCollarQRTool() {
 
   const publicUrl = useMemo(() => generateTagPublicUrl(tagData), [tagData]);
 
-  // Generate QR Code SVG
-  const qrSvgString = useMemo(() => {
-    try {
-      const qr = new QRCodeModel(publicUrl, "M");
-      return qr.toSVG({
-        size: 320,
-        color: tagColor === "#ffffff" ? "#0f172a" : tagColor,
-        bgColor: "#ffffff",
-        margin: 2,
-        withPawCenter: true,
-      });
-    } catch {
-      return "";
-    }
+  const [qrSvgString, setQrSvgString] = useState<string>("");
+  const [qrDataUrl, setQrDataUrl] = useState<string>("");
+
+  useEffect(() => {
+    let active = true;
+    generateQrSvg(publicUrl, {
+      size: 320,
+      color: tagColor === "#ffffff" ? "#0f172a" : tagColor,
+      bgColor: "#ffffff",
+      margin: 2,
+      errorCorrectionLevel: "M",
+    }).then((svg) => {
+      if (active) setQrSvgString(svg);
+    });
+
+    generateQrDataUrl(publicUrl, {
+      size: 1024,
+      color: tagColor === "#ffffff" ? "#0f172a" : tagColor,
+      bgColor: "#ffffff",
+      margin: 2,
+      errorCorrectionLevel: "M",
+    }).then((url) => {
+      if (active) setQrDataUrl(url);
+    });
+
+    return () => {
+      active = false;
+    };
   }, [publicUrl, tagColor]);
 
   function toggleAlert(alertText: string) {
@@ -192,30 +207,12 @@ export function SmartCollarQRTool() {
   }
 
   function downloadQrPng() {
-    const canvas = document.createElement("canvas");
-    canvas.width = 1024;
-    canvas.height = 1024;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    const svgBlob = new Blob([qrSvgString], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(svgBlob);
-
-    img.onload = () => {
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      URL.revokeObjectURL(url);
-
-      const a = document.createElement("a");
-      a.download = `${petName.toLowerCase()}-smart-collar-qr.png`;
-      a.href = canvas.toDataURL("image/png");
-      a.click();
-      toast.success("High-Resolution QR Code PNG downloaded!");
-    };
-    img.src = url;
+    if (!qrDataUrl) return;
+    const a = document.createElement("a");
+    a.download = `${petName.toLowerCase()}-smart-collar-qr.png`;
+    a.href = qrDataUrl;
+    a.click();
+    toast.success("High-Resolution QR Code PNG downloaded!");
   }
 
   function downloadQrSvg() {

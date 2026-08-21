@@ -20,7 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { z } from "zod";
 import { signedPetFileUrl, uploadPetFile, deletePetFile } from "@/lib/pet-uploads";
-import { QRCodeModel, generateTagPublicUrl, type PetTagData } from "@/lib/qr-tag";
+import { generateQrSvg, generateQrDataUrl, generateTagPublicUrl, type PetTagData } from "@/lib/qr-tag";
 import {
   DewormingTab, GroomingTab, ExpensesTab, TravelTab, JournalTab, DocumentsTab, AiSummaryTab,
 } from "@/components/pets/extra-tabs";
@@ -919,19 +919,34 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
 
   const publicUrl = useMemo(() => generateTagPublicUrl(tagData), [tagData]);
 
-  const qrSvgString = useMemo(() => {
-    try {
-      const qr = new QRCodeModel(publicUrl, "M");
-      return qr.toSVG({
-        size: 260,
-        color: isLost ? "#dc2626" : "#0f172a",
-        bgColor: "#ffffff",
-        margin: 2,
-        withPawCenter: true,
-      });
-    } catch {
-      return "";
-    }
+  const [qrSvgString, setQrSvgString] = useState<string>("");
+  const [qrDataUrl, setQrDataUrl] = useState<string>("");
+
+  useEffect(() => {
+    let active = true;
+    generateQrSvg(publicUrl, {
+      size: 260,
+      color: isLost ? "#dc2626" : "#0f172a",
+      bgColor: "#ffffff",
+      margin: 2,
+      errorCorrectionLevel: "M",
+    }).then((svg) => {
+      if (active) setQrSvgString(svg);
+    });
+
+    generateQrDataUrl(publicUrl, {
+      size: 1024,
+      color: isLost ? "#dc2626" : "#0f172a",
+      bgColor: "#ffffff",
+      margin: 2,
+      errorCorrectionLevel: "M",
+    }).then((url) => {
+      if (active) setQrDataUrl(url);
+    });
+
+    return () => {
+      active = false;
+    };
   }, [publicUrl, isLost]);
 
   function copyLink() {
@@ -942,27 +957,12 @@ function PetQrTagDashboardTab({ pet, avatarUrl }: { pet: Pet; avatarUrl: string 
   }
 
   function downloadQrPng() {
-    const canvas = document.createElement("canvas");
-    canvas.width = 1024;
-    canvas.height = 1024;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    const svgBlob = new Blob([qrSvgString], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(svgBlob);
-    img.onload = () => {
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      URL.revokeObjectURL(url);
-      const a = document.createElement("a");
-      a.download = `${pet.name.toLowerCase()}-smart-collar-qr.png`;
-      a.href = canvas.toDataURL("image/png");
-      a.click();
-      toast.success("High-res QR Code PNG downloaded!");
-    };
-    img.src = url;
+    if (!qrDataUrl) return;
+    const a = document.createElement("a");
+    a.download = `${pet.name.toLowerCase()}-smart-collar-qr.png`;
+    a.href = qrDataUrl;
+    a.click();
+    toast.success("High-res QR Code PNG downloaded!");
   }
 
   function printTagKit() {
