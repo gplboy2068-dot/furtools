@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SUPPORTED_LANGUAGES, LanguageConfig } from '@/lib/i18n-config';
+import i18nInstance from '@/lib/i18n';
 
 interface LanguageSwitcherProps {
   variant?: 'dropdown' | 'select' | 'compact';
@@ -15,8 +16,9 @@ interface LanguageSwitcherProps {
 }
 
 export function LanguageSwitcher({ variant = 'dropdown', className = '' }: LanguageSwitcherProps) {
-  const { i18n } = useTranslation();
-  const currentLangCode = i18n.language || 'en';
+  const { i18n: hookI18n } = useTranslation(undefined, { i18n: i18nInstance });
+  const activeI18n = hookI18n || i18nInstance;
+  const currentLangCode = activeI18n.language || 'en';
   
   const currentLang =
     SUPPORTED_LANGUAGES.find((l) => l.code === currentLangCode) ||
@@ -24,7 +26,7 @@ export function LanguageSwitcher({ variant = 'dropdown', className = '' }: Langu
     SUPPORTED_LANGUAGES[0];
 
   const handleLanguageChange = (lang: LanguageConfig) => {
-    i18n.changeLanguage(lang.code);
+    activeI18n.changeLanguage(lang.code);
     if (typeof window !== 'undefined') {
       localStorage.setItem('furtools_lang', lang.code);
       document.cookie = `furtools_lang=${lang.code}; path=/; max-age=31536000`;

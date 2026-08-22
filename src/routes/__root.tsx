@@ -8,6 +8,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { I18nextProvider } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -143,21 +145,23 @@ function RootComponent() {
   const isChromeless = pathname.startsWith("/admin") || pathname.startsWith("/auth");
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        {isChromeless ? (
-          <Outlet />
-        ) : (
-          <div className="flex min-h-dvh flex-col">
-            <SiteHeader />
-            <main className="flex-1">
-              <Outlet />
-            </main>
-            <SiteFooter />
-          </div>
-        )}
-        <Toaster />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <I18nextProvider i18n={i18n}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          {isChromeless ? (
+            <Outlet />
+          ) : (
+            <div className="flex min-h-dvh flex-col">
+              <SiteHeader />
+              <main className="flex-1">
+                <Outlet />
+              </main>
+              <SiteFooter />
+            </div>
+          )}
+          <Toaster />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </I18nextProvider>
   );
 }
