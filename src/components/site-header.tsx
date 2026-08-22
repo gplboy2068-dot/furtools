@@ -3,6 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { LogIn, LogOut, Menu, PawPrint, Search, User as UserIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
+import { LanguageSwitcher } from "./language-switcher";
 import { GlobalSearch } from "./global-search";
 import { SITE } from "@/lib/site";
 import { supabase } from "@/integrations/supabase/client";
@@ -74,6 +75,7 @@ export function SiteHeader() {
             >
               <Search className="size-5" />
             </Button>
+            <LanguageSwitcher variant="dropdown" />
             <ThemeSwitcher />
 
             {activeUser ? (
