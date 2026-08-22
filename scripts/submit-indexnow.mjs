@@ -4,8 +4,7 @@
  */
 
 const INDEXNOW_KEY = "e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b";
-const HOST = "www.furtools.com";
-const KEY_LOCATION = `https://${HOST}/${INDEXNOW_KEY}.txt`;
+const HOSTS = ["furtools.com", "www.furtools.com"];
 
 const ENDPOINTS = [
   "https://api.indexnow.org/indexnow",
@@ -91,36 +90,39 @@ const STATIC_PATHS = [
 ];
 
 async function runIndexNow() {
-  const fullUrls = STATIC_PATHS.map((p) => `https://${HOST}${p}`);
-  console.log(`\n🚀 [IndexNow] Submitting ${fullUrls.length} URLs for ${HOST}...`);
+  for (const host of HOSTS) {
+    const keyLocation = `https://${host}/${INDEXNOW_KEY}.txt`;
+    const fullUrls = STATIC_PATHS.map((p) => `https://${host}${p}`);
+    console.log(`\n🚀 [IndexNow] Submitting ${fullUrls.length} URLs for ${host}...`);
 
-  const payload = {
-    host: HOST,
-    key: INDEXNOW_KEY,
-    keyLocation: KEY_LOCATION,
-    urlList: fullUrls,
-  };
+    const payload = {
+      host: host,
+      key: INDEXNOW_KEY,
+      keyLocation: keyLocation,
+      urlList: fullUrls,
+    };
 
-  for (const endpoint of ENDPOINTS) {
-    try {
-      console.log(`📡 Pinging ${endpoint}...`);
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      });
+    for (const endpoint of ENDPOINTS) {
+      try {
+        console.log(`📡 Pinging ${endpoint} for ${host}...`);
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+          body: JSON.stringify(payload),
+        });
 
-      console.log(`   ➔ Response: ${response.status} ${response.statusText}`);
-      if (response.status === 200 || response.status === 202) {
-        console.log(`   ✅ Successfully submitted ${fullUrls.length} URLs!`);
-      } else {
-        const text = await response.text();
-        console.log(`   ℹ️ Note: ${text || response.statusText}`);
+        console.log(`   ➔ Response: ${response.status} ${response.statusText}`);
+        if (response.status === 200 || response.status === 202) {
+          console.log(`   ✅ Successfully submitted ${fullUrls.length} URLs!`);
+        } else {
+          const text = await response.text();
+          console.log(`   ℹ️ Note: ${text || response.statusText}`);
+        }
+      } catch (err) {
+        console.error(`   ❌ Failed to ping ${endpoint}:`, err.message);
       }
-    } catch (err) {
-      console.error(`   ❌ Failed to ping ${endpoint}:`, err.message);
     }
   }
 

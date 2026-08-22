@@ -18,6 +18,7 @@ import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as NewsSitemapDotxmlRouteImport } from './routes/news-sitemap[.]xml'
 import { Route as NamesRouteImport } from './routes/names'
+import { Route as E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRouteImport } from './routes/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b[.]txt'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as CostPlannerRouteImport } from './routes/cost-planner'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -112,6 +113,12 @@ const NamesRoute = NamesRouteImport.update({
   path: '/names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute =
+  E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRouteImport.update({
+    id: '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt',
+    path: '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
@@ -363,6 +370,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/cost-planner': typeof CostPlannerRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt': typeof E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute
   '/names': typeof NamesRoute
   '/news-sitemap.xml': typeof NewsSitemapDotxmlRoute
   '/privacy': typeof PrivacyRoute
@@ -421,6 +429,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/cost-planner': typeof CostPlannerRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt': typeof E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute
   '/names': typeof NamesRoute
   '/news-sitemap.xml': typeof NewsSitemapDotxmlRoute
   '/privacy': typeof PrivacyRoute
@@ -481,6 +490,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/cost-planner': typeof CostPlannerRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt': typeof E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute
   '/names': typeof NamesRoute
   '/news-sitemap.xml': typeof NewsSitemapDotxmlRoute
   '/privacy': typeof PrivacyRoute
@@ -542,6 +552,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cost-planner'
     | '/disclaimer'
+    | '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt'
     | '/names'
     | '/news-sitemap.xml'
     | '/privacy'
@@ -600,6 +611,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cost-planner'
     | '/disclaimer'
+    | '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt'
     | '/names'
     | '/news-sitemap.xml'
     | '/privacy'
@@ -659,6 +671,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cost-planner'
     | '/disclaimer'
+    | '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt'
     | '/names'
     | '/news-sitemap.xml'
     | '/privacy'
@@ -719,6 +732,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CostPlannerRoute: typeof CostPlannerRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute: typeof E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute
   NamesRoute: typeof NamesRoute
   NewsSitemapDotxmlRoute: typeof NewsSitemapDotxmlRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -814,6 +828,13 @@ declare module '@tanstack/react-router' {
       path: '/names'
       fullPath: '/names'
       preLoaderRoute: typeof NamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt': {
+      id: '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt'
+      path: '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt'
+      fullPath: '/e8f49a2b7c6d5e1f0a3b8c9d2e4f6a7b.txt'
+      preLoaderRoute: typeof E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/disclaimer': {
@@ -1209,6 +1230,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CostPlannerRoute: CostPlannerRoute,
   DisclaimerRoute: DisclaimerRoute,
+  E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute:
+    E8f49a2b7c6d5e1f0a3b8c9d2e4f6a7bDottxtRoute,
   NamesRoute: NamesRoute,
   NewsSitemapDotxmlRoute: NewsSitemapDotxmlRoute,
   PrivacyRoute: PrivacyRoute,
