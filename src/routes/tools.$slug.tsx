@@ -27,14 +27,24 @@ export const Route = createFileRoute("/tools/$slug")({
       return { meta: [{ title: "Tool not found — FurTools" }, { name: "robots", content: "noindex" }] };
     }
     const { tool } = loaderData;
-    const title = `${tool.name} — FurTools`;
+    
+    // High-CTR dynamic title optimization for Google search snippets
+    const hasTypeWord = /calculator|generator|guide|estimator|finder|analyzer|schedule|chart|test/i.test(tool.name);
+    const title = hasTypeWord
+      ? `${tool.name} (Free 2026 Online) — FurTools`
+      : `${tool.name} — Free Pet Tool & Calculator — FurTools`;
+
+    const description = tool.description.length < 120
+      ? `${tool.description} Free, instant online pet tool with veterinary formulas and zero signup required.`
+      : tool.description;
+
     return {
       meta: [
         { title },
-        { name: "description", content: tool.description },
+        { name: "description", content: description },
         { name: "keywords", content: tool.keywords.join(", ") },
         { property: "og:title", content: title },
-        { property: "og:description", content: tool.description },
+        { property: "og:description", content: description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: `/tools/${params.slug}` },
       ],
