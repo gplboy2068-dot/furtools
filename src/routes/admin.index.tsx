@@ -5,6 +5,7 @@ import { AdminPageHeader } from "@/components/admin/admin-shell";
 import { Card } from "@/components/ui/card";
 import { TOOLS } from "@/data/tools";
 import { CATEGORIES } from "@/data/categories";
+import { fetchAnalyticsData } from "@/lib/analytics";
 import {
   FileText,
   Dog,
@@ -38,15 +39,14 @@ function Dashboard() {
 
   useEffect(() => {
     async function load() {
-      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-      const [posts, published, breeds, foods, subs, affs, pv, users, recent, recSub] = await Promise.all([
+      const [posts, published, breeds, foods, subs, affs, analyticsRes, users, recent, recSub] = await Promise.all([
         supabase.from("blog_posts").select("id", { count: "exact", head: true }),
         supabase.from("blog_posts").select("id", { count: "exact", head: true }).eq("published", true),
         supabase.from("breeds").select("id", { count: "exact", head: true }),
         supabase.from("foods").select("id", { count: "exact", head: true }),
         supabase.from("newsletter_subscribers").select("id", { count: "exact", head: true }).eq("status", "subscribed"),
         supabase.from("affiliate_links").select("clicks"),
-        supabase.from("analytics_events").select("id", { count: "exact", head: true }).gte("created_at", sevenDaysAgo),
+        fetchAnalyticsData(7),
         supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("blog_posts").select("id,title,updated_at,published").order("updated_at", { ascending: false }).limit(5),
         supabase.from("newsletter_subscribers").select("email,subscribed_at").order("subscribed_at", { ascending: false }).limit(5),
@@ -58,7 +58,7 @@ function Dashboard() {
         foods: foods.count ?? 0,
         subscribers: subs.count ?? 0,
         affiliateClicks: (affs.data ?? []).reduce((s, r) => s + (r.clicks ?? 0), 0),
-        pageviews7d: pv.count ?? 0,
+        pageviews7d: analyticsRes.totalViews || 0,
         users: users.count ?? 0,
       });
       setRecentPosts(recent.data ?? []);
