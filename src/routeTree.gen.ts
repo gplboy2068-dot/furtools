@@ -54,6 +54,7 @@ import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminNewsletterRouteImport } from './routes/admin.newsletter'
 import { Route as AdminMediaRouteImport } from './routes/admin.media'
 import { Route as AdminLinksRouteImport } from './routes/admin.links'
+import { Route as AdminInquiriesRouteImport } from './routes/admin.inquiries'
 import { Route as AdminFoodsRouteImport } from './routes/admin.foods'
 import { Route as AdminFaqsRouteImport } from './routes/admin.faqs'
 import { Route as AdminEmailTemplatesRouteImport } from './routes/admin.email-templates'
@@ -294,6 +295,11 @@ const AdminLinksRoute = AdminLinksRouteImport.update({
   path: '/links',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminInquiriesRoute = AdminInquiriesRouteImport.update({
+  id: '/inquiries',
+  path: '/inquiries',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminFoodsRoute = AdminFoodsRouteImport.update({
   id: '/foods',
   path: '/foods',
@@ -389,6 +395,7 @@ export interface FileRoutesByFullPath {
   '/admin/email-templates': typeof AdminEmailTemplatesRoute
   '/admin/faqs': typeof AdminFaqsRoute
   '/admin/foods': typeof AdminFoodsRoute
+  '/admin/inquiries': typeof AdminInquiriesRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
@@ -448,6 +455,7 @@ export interface FileRoutesByTo {
   '/admin/email-templates': typeof AdminEmailTemplatesRoute
   '/admin/faqs': typeof AdminFaqsRoute
   '/admin/foods': typeof AdminFoodsRoute
+  '/admin/inquiries': typeof AdminInquiriesRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
@@ -509,6 +517,7 @@ export interface FileRoutesById {
   '/admin/email-templates': typeof AdminEmailTemplatesRoute
   '/admin/faqs': typeof AdminFaqsRoute
   '/admin/foods': typeof AdminFoodsRoute
+  '/admin/inquiries': typeof AdminInquiriesRoute
   '/admin/links': typeof AdminLinksRoute
   '/admin/media': typeof AdminMediaRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
@@ -571,6 +580,7 @@ export interface FileRouteTypes {
     | '/admin/email-templates'
     | '/admin/faqs'
     | '/admin/foods'
+    | '/admin/inquiries'
     | '/admin/links'
     | '/admin/media'
     | '/admin/newsletter'
@@ -630,6 +640,7 @@ export interface FileRouteTypes {
     | '/admin/email-templates'
     | '/admin/faqs'
     | '/admin/foods'
+    | '/admin/inquiries'
     | '/admin/links'
     | '/admin/media'
     | '/admin/newsletter'
@@ -690,6 +701,7 @@ export interface FileRouteTypes {
     | '/admin/email-templates'
     | '/admin/faqs'
     | '/admin/foods'
+    | '/admin/inquiries'
     | '/admin/links'
     | '/admin/media'
     | '/admin/newsletter'
@@ -1082,6 +1094,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLinksRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/inquiries': {
+      id: '/admin/inquiries'
+      path: '/inquiries'
+      fullPath: '/admin/inquiries'
+      preLoaderRoute: typeof AdminInquiriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/foods': {
       id: '/admin/foods'
       path: '/foods'
@@ -1186,6 +1205,7 @@ interface AdminRouteChildren {
   AdminEmailTemplatesRoute: typeof AdminEmailTemplatesRoute
   AdminFaqsRoute: typeof AdminFaqsRoute
   AdminFoodsRoute: typeof AdminFoodsRoute
+  AdminInquiriesRoute: typeof AdminInquiriesRoute
   AdminLinksRoute: typeof AdminLinksRoute
   AdminMediaRoute: typeof AdminMediaRoute
   AdminNewsletterRoute: typeof AdminNewsletterRoute
@@ -1207,6 +1227,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminEmailTemplatesRoute: AdminEmailTemplatesRoute,
   AdminFaqsRoute: AdminFaqsRoute,
   AdminFoodsRoute: AdminFoodsRoute,
+  AdminInquiriesRoute: AdminInquiriesRoute,
   AdminLinksRoute: AdminLinksRoute,
   AdminMediaRoute: AdminMediaRoute,
   AdminNewsletterRoute: AdminNewsletterRoute,

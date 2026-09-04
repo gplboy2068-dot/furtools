@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { useSiteSettings } from "@/hooks/use-site-settings";
+import { submitContactInquiry } from "@/lib/contact-service";
 import { Mail, MessageSquare, ShieldCheck, Bug, Sparkles, HelpCircle, FileText, Briefcase, Lock, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
@@ -60,7 +61,42 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const settings = useSiteSettings();
   const [sending, setSending] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [category, setCategory] = useState("General Question");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    setSending(true);
+    try {
+      const res = await submitContactInquiry({
+        name,
+        email,
+        category,
+        message,
+      });
+
+      if (res.success) {
+        toast.success("Thank you! Your inquiry has been received. Our team will get back to you shortly.");
+        setName("");
+        setEmail("");
+        setMessage("");
+        setCategory("General Question");
+      } else {
+        toast.error("Could not send message. Please try again or email us directly.");
+      }
+    } catch (err) {
+      toast.error("An error occurred while sending your message.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
@@ -89,25 +125,31 @@ function ContactPage() {
 
           <form
             className="mt-6 space-y-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSending(true);
-              setTimeout(() => {
-                setSending(false);
-                toast.success("Thanks — we'll get back to you soon.");
-                (e.target as HTMLFormElement).reset();
-                setCategory("General Question");
-              }, 400);
-            }}
+            onSubmit={handleSubmit}
           >
             <div>
               <Label htmlFor="name">Your Name</Label>
-              <Input id="name" required placeholder="Jane Doe" className="mt-1.5" />
+              <Input
+                id="name"
+                required
+                placeholder="Jane Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="mt-1.5"
+              />
             </div>
 
             <div>
               <Label htmlFor="email">Email Address</Label>
-              <Input id="email" type="email" required placeholder="jane@example.com" className="mt-1.5" />
+              <Input
+                id="email"
+                type="email"
+                required
+                placeholder="jane@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1.5"
+              />
             </div>
 
             <div>
@@ -136,6 +178,8 @@ function ContactPage() {
                 required
                 rows={5}
                 placeholder="Please describe your question, feedback, or report in detail..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 className="mt-1.5"
               />
             </div>

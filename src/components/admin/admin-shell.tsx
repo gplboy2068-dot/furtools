@@ -35,6 +35,7 @@ import {
   DollarSign,
   Mail,
   MailPlus,
+  MessageSquare,
   Settings,
   LogOut,
   Menu,
@@ -96,6 +97,7 @@ export const ADMIN_NAV_SECTIONS: NavSection[] = [
   {
     label: "Engagement",
     items: [
+      { to: "/admin/inquiries", label: "User Queries", icon: MessageSquare },
       { to: "/admin/newsletter", label: "Newsletter", icon: Mail },
       { to: "/admin/email-templates", label: "Email Templates", icon: MailPlus },
     ],
