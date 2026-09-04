@@ -8,9 +8,28 @@ Disallow: /auth
 Disallow: /auth/
 Disallow: /api/
 
+# Generative Engine Optimization (GEO) - Explicitly welcome AI Search Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 # Sitemaps
 Sitemap: /sitemap-index.xml
 Sitemap: /sitemap.xml
 
-# LLM / AI instructions
+# LLM / AI instructions (GEO Standard)
 # see /llms.txt for structured machine-readable overview
