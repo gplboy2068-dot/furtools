@@ -38,6 +38,7 @@ const STATIC_PATHS = [
   "/categories/farm",
   "/categories/general",
   "/tools/duck-pond-size-calculator",
+  "/tools/canine-fluid-therapy-calculator",
   "/tools/dog-age-calculator",
   "/tools/dog-food-calculator",
   "/tools/dog-name-generator",

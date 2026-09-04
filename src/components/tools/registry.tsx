@@ -20,6 +20,7 @@ import {
 import { PetCarePlanner } from "@/components/tools/general-tools";
 import { SmartCollarQRTool } from "@/components/tools/smart-collar-qr";
 import { VetFinderTool } from "@/components/tools/vet-finder";
+import { CanineFluidTherapyCalculator } from "@/components/tools/canine-fluid-therapy-calculator";
 import {
   BirdCageSize, BirdFood, BirdLifespan, BirdWingClipGuide,
   AquariumVolume, FishStocking, TankCyclingTracker, WaterChangeScheduler,
@@ -150,6 +151,8 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "dog-adoption-checklist": () => <ChecklistTool storageKey="furtools:dog-adoption" groups={DOG_ADOPTION} />,
   "dog-chocolate-toxicity-calculator": DogChocolateToxicity,
   "dog-benadryl-dose-calculator": DogBenadrylDose,
+  "canine-fluid-therapy-calculator": CanineFluidTherapyCalculator,
+  "dog-dehydration-calculator": CanineFluidTherapyCalculator,
 
   // Cats
   "cat-age-calculator": CatAgeCalculator,
