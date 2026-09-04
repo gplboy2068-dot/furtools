@@ -1,4 +1,5 @@
 import { PhotoAnalyzer } from "@/components/tools/photo-analyzer";
+import { PetBodyConditionPhotoAnalyzer } from "@/components/tools/pet-body-condition-photo-analyzer";
 
 /* ═════════ 1. Pet Breed Identifier ═════════ */
 export function PetBreedIdentifier() {
@@ -101,30 +102,7 @@ End with a strong reminder that skin conditions require a veterinary diagnosis a
 
 /* ═════════ 5. Pet Body Condition Score from Photo ═════════ */
 export function BodyConditionScorePhoto() {
-  return (
-    <PhotoAnalyzer
-      system="You are a veterinary nutritionist expert in the WSAVA 1–9 Body Condition Score system for dogs and cats."
-      uploadLabel="Upload a top-down and/or side profile photo"
-      hint="Best with the pet standing, side view or bird's-eye view showing the waist tuck."
-      cta="Score body condition"
-      prompt={`Estimate this pet's Body Condition Score (BCS) on the 1–9 scale.
-
-Return Markdown:
-
-**Species:**
-**Estimated BCS:** (e.g. 6/9) with a short reason
-**Category:** underweight / ideal / overweight / obese
-**Visible Signals:** ribs, waist tuck (top view), abdominal tuck (side view), fat pads
-**Ideal Weight Range Guidance:** describe how to estimate at home
-**Action Plan:**
-- If ideal — maintain calories, keep body monitoring monthly
-- If over — target 1–2% weight loss per week, measured meals, low-calorie treats, controlled exercise
-- If under — vet visit to rule out disease, gradually increase calories
-**Photo Quality Notes:** what would improve the estimate (angle, coat length, camera height)
-
-End with the required disclaimer.`}
-    />
-  );
+  return <PetBodyConditionPhotoAnalyzer />;
 }
 
 /* ═════════ 6. Poop Health Analyzer ═════════ */
