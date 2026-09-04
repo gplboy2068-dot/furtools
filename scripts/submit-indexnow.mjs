@@ -71,6 +71,7 @@ const STATIC_PATHS = [
   "/blog/snake-enclosure-size-guide",
   "/blog/chicken-coop-space-guide",
   "/blog/aquarium-nitrate-control-guide",
+  "/blog/toxic-foods-dogs",
   "/ai/dog-training",
   "/ai/cat-care",
   "/ai/bird-care",
