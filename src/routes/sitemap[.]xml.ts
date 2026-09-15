@@ -3,6 +3,7 @@ import type {} from "@tanstack/react-start";
 import { TOOLS } from "@/data/tools";
 import { CATEGORIES } from "@/data/categories";
 import { supabase } from "@/integrations/supabase/client";
+import { STATIC_BLOG_POSTS } from "@/data/blog-posts";
 import { SITE } from "@/lib/site";
 
 const BASE_URL = SITE.url;
@@ -98,6 +99,17 @@ export const Route = createFileRoute("/sitemap.xml")({
           }
         } catch {
           // ignore — blog is optional in the sitemap
+        }
+
+        for (const sp of Object.values(STATIC_BLOG_POSTS)) {
+          if (!entries.some((e) => e.path === `/blog/${sp.slug}`)) {
+            entries.push({
+              path: `/blog/${sp.slug}`,
+              lastmod: sp.published_at.slice(0, 10),
+              changefreq: "monthly",
+              priority: "0.6",
+            });
+          }
         }
 
         const urls = entries.map((e) =>
