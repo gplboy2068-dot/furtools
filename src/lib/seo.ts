@@ -25,6 +25,15 @@ export interface HeadFragment {
   scripts: Array<{ type: string; children: string }>;
 }
 
+export const toAbsoluteUrl = (pathOrUrl?: string): string => {
+  if (!pathOrUrl) return `${SITE.url}/og-image.png`;
+  if (pathOrUrl.startsWith("http://") || pathOrUrl.startsWith("https://")) {
+    return pathOrUrl;
+  }
+  const clean = pathOrUrl.startsWith("/") ? pathOrUrl : `/${pathOrUrl}`;
+  return `${SITE.url}${clean}`;
+};
+
 const clamp = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s);
 
 /**
@@ -32,41 +41,48 @@ const clamp = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEn
  * Route head() spreads this: `head: () => buildHead({...})`.
  */
 export function buildHead(input: HeadInput): HeadFragment {
-  const title = clamp(input.title, 60);
-  const description = clamp(input.description, 158);
+  const title = clamp(input.title, 65);
+  const description = clamp(input.description, 160);
   const type = input.type ?? "website";
-  const url = input.path;
+  const canonicalUrl = toAbsoluteUrl(input.path);
+  const imageUrl = toAbsoluteUrl(input.image || "/og-image.png");
+  const imageAlt = input.imageAlt || `${input.title} — ${SITE.name}`;
 
   const meta: Array<Record<string, string>> = [
     { title },
     { name: "description", content: description },
-    ...(input.noindex ? [{ name: "robots", content: "noindex,nofollow" }] : [{ name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1" }]),
+    ...(input.noindex
+      ? [{ name: "robots", content: "noindex,nofollow" }]
+      : [{ name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" }]),
     ...(input.keywords?.length ? [{ name: "keywords", content: input.keywords.join(", ") }] : []),
 
     // Open Graph
     { property: "og:type", content: type },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
-    { property: "og:url", content: url },
+    { property: "og:url", content: canonicalUrl },
     { property: "og:site_name", content: SITE.name },
     { property: "og:locale", content: "en_US" },
-    ...(input.image ? [{ property: "og:image", content: input.image }] : []),
-    ...(input.image && input.imageAlt ? [{ property: "og:image:alt", content: input.imageAlt }] : []),
-    ...(input.publishedTime ? [{ property: "article:published_time", content: input.publishedTime }] : []),
-    ...(input.modifiedTime ? [{ property: "article:modified_time", content: input.modifiedTime }] : []),
+    { property: "og:image", content: imageUrl },
+    { property: "og:image:alt", content: imageAlt },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
 
-    // Twitter
-    { name: "twitter:card", content: input.image ? "summary_large_image" : "summary" },
+    // Twitter Card
+    { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
-    ...(input.image ? [{ name: "twitter:image", content: input.image }] : []),
-    ...(input.image && input.imageAlt ? [{ name: "twitter:image:alt", content: input.imageAlt }] : []),
+    { name: "twitter:image", content: imageUrl },
+    { name: "twitter:image:alt", content: imageAlt },
+
+    ...(input.publishedTime ? [{ property: "article:published_time", content: input.publishedTime }] : []),
+    ...(input.modifiedTime ? [{ property: "article:modified_time", content: input.modifiedTime }] : []),
 
     ...(input.extraMeta ?? []),
   ];
 
   const links: Array<Record<string, string>> = [
-    { rel: "canonical", href: url },
+    { rel: "canonical", href: canonicalUrl },
     ...(input.extraLinks ?? []),
   ];
 

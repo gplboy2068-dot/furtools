@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { breedsListQuery, type BreedRow, formatRange, levelBadge } from "@/lib/breeds";
 import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 
 const search = z.object({
   a: fallback(z.string(), "golden-retriever").default("golden-retriever"),
@@ -26,31 +27,21 @@ export const Route = createFileRoute("/compare")({
     const b = loaderData?.b ?? "labrador-retriever";
     const title = `Compare ${titleize(a)} vs ${titleize(b)} | FurTools`;
     const description = `Side-by-side comparison of ${titleize(a)} and ${titleize(b)} — weight, height, temperament, energy, lifespan, exercise, health, and more.`;
-    const url = `/compare?a=${a}&b=${b}`;
-    return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:type", content: "article" },
-        { property: "og:url", content: url },
+    const path = `/compare?a=${a}&b=${b}`;
+    return buildHead({
+      title,
+      description,
+      path,
+      type: "article",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Breeds", url: "/breeds" },
+          { name: "Compare", url: "/compare" },
+          { name: `${titleize(a)} vs ${titleize(b)}`, url: path },
+        ]),
       ],
-      links: [{ rel: "canonical", href: url }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", url: "/" },
-              { name: "Breeds", url: "/breeds" },
-              { name: "Compare", url: "/compare" },
-              { name: `${titleize(a)} vs ${titleize(b)}`, url },
-            ]),
-          ),
-        },
-      ],
-    };
+    });
   },
   component: ComparePage,
 });

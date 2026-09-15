@@ -6,6 +6,7 @@ import { ToolCard } from "@/components/tool-card";
 import { getCategory, CATEGORIES } from "@/data/categories";
 import { toolsByCategory } from "@/data/tools";
 import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { Search as SearchIcon } from "lucide-react";
 
 export const Route = createFileRoute("/categories/$slug")({
@@ -19,29 +20,19 @@ export const Route = createFileRoute("/categories/$slug")({
       return { meta: [{ title: "Category not found — FurTools" }, { name: "robots", content: "noindex" }] };
     }
     const { category } = loaderData;
-    const title = `${category.name} pet tools — FurTools`;
-    return {
-      meta: [
-        { title },
-        { name: "description", content: category.description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: category.description },
-        { property: "og:url", content: `/categories/${params.slug}` },
+    const title = `${category.name} Pet Tools & Calculators | FurTools`;
+    return buildHead({
+      title,
+      description: category.description,
+      path: `/categories/${params.slug}`,
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Categories", url: "/categories" },
+          { name: category.name, url: `/categories/${params.slug}` },
+        ]),
       ],
-      links: [{ rel: "canonical", href: `/categories/${params.slug}` }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", url: "/" },
-              { name: "Categories", url: "/categories" },
-              { name: category.name, url: `/categories/${params.slug}` },
-            ]),
-          ),
-        },
-      ],
-    };
+    });
   },
   component: CategoryPage,
   notFoundComponent: () => (

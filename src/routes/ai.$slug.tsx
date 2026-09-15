@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AssistantChat } from "@/components/ai/assistant-chat";
 import { AI_ASSISTANTS, getAssistant } from "@/data/ai-assistants";
 import { breadcrumbSchema, faqSchema, softwareApplicationSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import {
   Accordion,
@@ -36,49 +37,29 @@ export const Route = createFileRoute("/ai/$slug")({
     }
     const title = `${a.name} — Free AI Chat, Care Guide & FAQs | FurTools`;
     const description = `${a.description} Free, private AI pet assistant with in-depth care guides, FAQs, and calculation tools.`;
-    const url = `/ai/${a.slug}`;
-    return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:type", content: "website" },
-        { property: "og:url", content: url },
-        { name: "twitter:card", content: "summary_large_image" },
-      ],
-      links: [{ rel: "canonical", href: url }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(
-            softwareApplicationSchema({
-              name: a.name,
-              description: a.description,
-              url,
-            }),
-          ),
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", url: "/" },
-              { name: "AI Assistants", url: "/ai" },
-              { name: a.name, url },
-            ]),
-          ),
-        },
-        ...(a.faqs?.length
-          ? [
-              {
-                type: "application/ld+json",
-                children: JSON.stringify(faqSchema(a.faqs)),
-              },
-            ]
-          : []),
-      ],
-    };
+    const path = `/ai/${a.slug}`;
+    const schemas: Array<Record<string, unknown>> = [
+      softwareApplicationSchema({
+        name: a.name,
+        description: a.description,
+        url: path,
+      }),
+      breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "AI Assistants", url: "/ai" },
+        { name: a.name, url: path },
+      ]),
+    ];
+    if (a.faqs?.length) {
+      schemas.push(faqSchema(a.faqs));
+    }
+    return buildHead({
+      title,
+      description,
+      path,
+      type: "website",
+      schemas,
+    });
   },
   component: AiAssistantPage,
   notFoundComponent: AiNotFound,

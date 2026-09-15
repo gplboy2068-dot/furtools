@@ -13,34 +13,23 @@ import {
   type SafetyLevel,
 } from "@/lib/foods";
 import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/foods/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(foodsListQuery),
-  head: () => ({
-    meta: [
-      { title: "Can My Pet Eat This? — Food Safety Database | FurTools" },
-      {
-        name: "description",
-        content:
-          "Search 500+ human foods to see if they're safe for dogs and cats. Benefits, risks, symptoms, vet advice, and safer alternatives — all in one place.",
-      },
-      { property: "og:title", content: "Can My Pet Eat This? — FurTools" },
-      { property: "og:description", content: "Food safety database for dogs and cats." },
-      { property: "og:url", content: "/foods" },
-    ],
-    links: [{ rel: "canonical", href: "/foods" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Foods", url: "/foods" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Can My Pet Eat This? — Veterinary Food Safety Database | FurTools",
+      description:
+        "Search 500+ foods to see if they're safe for dogs, cats, and small pets. Vet-checked toxicity levels, symptoms, emergency guidance, and healthy alternatives.",
+      path: "/foods",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Foods", url: "/foods" },
+        ]),
+      ],
+    }),
   component: FoodsIndex,
 });
 

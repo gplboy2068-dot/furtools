@@ -23,37 +23,26 @@ import {
   type CostCategoryKey,
 } from "@/data/countries";
 import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 
 const PALETTE = [
   "#c95f4c", "#e59866", "#a3a86b", "#7c8f4f", "#f2c14e", "#b18cbe", "#6ea8b6", "#d68d7a",
 ];
 
 export const Route = createFileRoute("/cost-planner")({
-  head: () => ({
-    meta: [
-      { title: "Pet Cost Planner — Country-by-Country | FurTools" },
-      {
-        name: "description",
-        content:
-          "Estimate the monthly, yearly and lifetime cost of owning a pet — US, UK, Canada, Australia, Germany, India. Food, insurance, vet, vaccines, toys, grooming, training, and travel.",
-      },
-      { property: "og:title", content: "Pet Cost Planner — FurTools" },
-      { property: "og:description", content: "Country-by-country pet cost estimator." },
-      { property: "og:url", content: "/cost-planner" },
-    ],
-    links: [{ rel: "canonical", href: "/cost-planner" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Cost Planner", url: "/cost-planner" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Pet Cost Planner — Monthly, Yearly & Lifetime Calculator | FurTools",
+      description:
+        "Estimate the monthly, yearly and lifetime cost of owning a pet across US, UK, Canada, Australia, Germany, and India. Food, vet, insurance, grooming, and supplies.",
+      path: "/cost-planner",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Cost Planner", url: "/cost-planner" },
+        ]),
+      ],
+    }),
   component: CostPlannerPage,
 });
 

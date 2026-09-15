@@ -1,52 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import { AlertTriangle, ShieldCheck, Stethoscope, PhoneCall, Sparkles, HeartPulse } from "lucide-react";
 
 export const Route = createFileRoute("/disclaimer")({
-  head: () => ({
-    meta: [
-      { title: "Disclaimer — FurTools Educational & Veterinary Disclaimers" },
-      {
-        name: "description",
-        content:
-          "Important legal disclaimers for FurTools. Understand our educational scope, veterinary non-substitution notices, calculator estimation limits, AI assistant disclaimers, and emergency care protocols.",
-      },
-      { property: "og:title", content: "Disclaimer — FurTools Educational & Veterinary Disclaimers" },
-      {
-        property: "og:description",
-        content:
-          "Important legal disclaimers for FurTools. Understand our educational scope, veterinary non-substitution notices, calculator estimation limits, AI assistant disclaimers, and emergency care protocols.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/disclaimer" },
-      { property: "og:image", content: "/og-image.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Disclaimer — FurTools" },
-      {
-        name: "twitter:description",
-        content: "Detailed educational, veterinary, calculator, and emergency care disclaimers for FurTools.",
-      },
-      { name: "twitter:image", content: "/og-image.png" },
-    ],
-    links: [{ rel: "canonical", href: "/disclaimer" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(organizationSchema()),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Disclaimer", url: "/disclaimer" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Disclaimer — FurTools Educational & Veterinary Disclaimers",
+      description:
+        "Important legal disclaimers for FurTools. Understand our educational scope, veterinary non-substitution notices, calculator estimation limits, AI assistant disclaimers, and emergency care protocols.",
+      path: "/disclaimer",
+      schemas: [
+        organizationSchema(),
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Disclaimer", url: "/disclaimer" },
+        ]),
+      ],
+    }),
   component: DisclaimerPage,
 });
 

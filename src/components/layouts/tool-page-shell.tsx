@@ -95,13 +95,14 @@ export function ToolPageShell({
           <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {relatedArticles.map((a) => (
               <li key={a.slug}>
-                <a
-                  href={`/blog/${a.slug}`}
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: a.slug }}
                   className="flex h-full gap-3 rounded-xl border border-border/60 bg-card p-4 transition hover:border-primary/60 hover:shadow-sm"
                 >
                   <BookOpen className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden />
                   <span className="text-sm font-medium">{a.title}</span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

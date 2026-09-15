@@ -6,39 +6,25 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { breedsListQuery, type BreedRow } from "@/lib/breeds";
 import { SPECIES, type Species } from "@/data/species";
 import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
 export const Route = createFileRoute("/breeds/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(breedsListQuery),
-  head: () => ({
-    meta: [
-      { title: "Breed Database — Dogs, Cats & More | FurTools" },
-      {
-        name: "description",
-        content:
-          "Browse in-depth breed profiles for dogs, cats and more. Temperament, exercise, weight, lifespan, health issues, nutrition, and grooming — all in one place.",
-      },
-      { property: "og:title", content: "Breed Database — FurTools" },
-      {
-        property: "og:description",
-        content: "In-depth breed profiles for dogs, cats and more.",
-      },
-      { property: "og:url", content: "/breeds" },
-    ],
-    links: [{ rel: "canonical", href: "/breeds" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Breeds", url: "/breeds" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Pet Breed Database — Comprehensive Dog & Cat Profiles | FurTools",
+      description:
+        "Explore veterinary-informed breed profiles for dogs and cats. Compare temperament, exercise needs, weight ranges, lifespan, health risks, and grooming guidelines.",
+      path: "/breeds",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Breeds", url: "/breeds" },
+        ]),
+      ],
+    }),
   component: BreedsIndex,
 });
 

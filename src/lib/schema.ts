@@ -1,6 +1,5 @@
-// JSON-LD schema helpers. Every function returns a plain object ready to
-// JSON.stringify inside a route head() scripts array.
 import { SITE } from "@/lib/site";
+import { toAbsoluteUrl } from "@/lib/seo";
 
 export function organizationSchema() {
   return {
@@ -8,8 +7,9 @@ export function organizationSchema() {
     "@type": "Organization",
     name: SITE.name,
     description: SITE.description,
-    url: "/",
-    logo: "/favicon.ico",
+    url: toAbsoluteUrl("/"),
+    logo: toAbsoluteUrl("/favicon.png"),
+    sameAs: [],
   };
 }
 
@@ -18,10 +18,10 @@ export function websiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE.name,
-    url: "/",
+    url: toAbsoluteUrl("/"),
     potentialAction: {
       "@type": "SearchAction",
-      target: "/search?q={search_term_string}",
+      target: `${SITE.url}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   };
@@ -35,7 +35,7 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: it.name,
-      item: it.url,
+      item: toAbsoluteUrl(it.url),
     })),
   };
 }
@@ -63,21 +63,24 @@ export function articleSchema(a: {
   section?: string;
   tags?: string[];
 }) {
+  const pageUrl = toAbsoluteUrl(a.url);
+  const imageUrl = toAbsoluteUrl(a.image || "/og-image.png");
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: a.title,
     description: a.description,
-    url: a.url,
-    mainEntityOfPage: a.url,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
     datePublished: a.datePublished,
     dateModified: a.dateModified ?? a.datePublished,
-    image: a.image ? [a.image] : undefined,
+    image: [imageUrl],
     author: { "@type": "Person", name: a.authorName ?? SITE.author },
     publisher: {
       "@type": "Organization",
       name: SITE.name,
-      logo: { "@type": "ImageObject", url: "/favicon.ico" },
+      logo: { "@type": "ImageObject", url: toAbsoluteUrl("/favicon.png") },
     },
     articleSection: a.section,
     keywords: a.tags?.join(", "),
@@ -93,16 +96,19 @@ export function softwareApplicationSchema(t: {
   ratingValue?: number;
   ratingCount?: number;
 }) {
+  const appUrl = toAbsoluteUrl(t.url);
+  const imageUrl = toAbsoluteUrl(t.image || "/og-image.png");
+
   const base: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: t.name,
     description: t.description,
-    url: t.url,
+    url: appUrl,
     applicationCategory: t.category ?? "UtilitiesApplication",
     operatingSystem: "Any",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    image: t.image,
+    image: imageUrl,
   };
   if (t.ratingValue && t.ratingCount) {
     base.aggregateRating = {
@@ -120,11 +126,12 @@ export function imageObjectSchema(img: {
   width?: number;
   height?: number;
 }) {
+  const imageUrl = toAbsoluteUrl(img.url);
   return {
     "@context": "https://schema.org",
     "@type": "ImageObject",
-    contentUrl: img.url,
-    url: img.url,
+    contentUrl: imageUrl,
+    url: imageUrl,
     caption: img.caption,
     width: img.width,
     height: img.height,
@@ -139,7 +146,7 @@ export function itemListSchema(items: { name: string; url: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: it.name,
-      url: it.url,
+      url: toAbsoluteUrl(it.url),
     })),
   };
 }

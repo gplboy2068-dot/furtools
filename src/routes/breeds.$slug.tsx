@@ -26,6 +26,7 @@ import { getSpecies } from "@/data/species";
 import { getTool } from "@/data/tools";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
+import { toAbsoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/breeds/$slug")({
   loader: async ({ params, context }) => {
@@ -46,19 +47,27 @@ export const Route = createFileRoute("/breeds/$slug")({
     const title = `${b.name} — Breed Profile | FurTools`;
     const description =
       b.overview.length > 155 ? b.overview.slice(0, 152) + "…" : b.overview;
-    const url = `/breeds/${params.slug}`;
+    const canonicalUrl = toAbsoluteUrl(`/breeds/${params.slug}`);
+    const imageUrl = toAbsoluteUrl(b.hero_image || "/og-image.png");
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: url },
-        ...(b.hero_image ? [{ property: "og:image", content: b.hero_image }] : []),
-        ...(b.hero_image ? [{ name: "twitter:image", content: b.hero_image }] : []),
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:site_name", content: SITE.name },
+        { property: "og:image", content: imageUrl },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: imageUrl },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
         {
           type: "application/ld+json",
@@ -67,9 +76,10 @@ export const Route = createFileRoute("/breeds/$slug")({
             "@type": "Article",
             headline: `${b.name} Breed Profile`,
             description,
-            url,
-            image: b.hero_image ?? undefined,
-            author: { "@type": "Organization", name: SITE.name },
+            url: canonicalUrl,
+            image: imageUrl,
+            author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+            publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
             about: {
               "@type": "Thing",
               name: b.name,
@@ -87,7 +97,7 @@ export const Route = createFileRoute("/breeds/$slug")({
                 name: getSpecies(b.species)?.plural ?? b.species,
                 url: `/breeds?species=${b.species}`,
               },
-              { name: b.name, url },
+              { name: b.name, url: canonicalUrl },
             ]),
           ),
         },

@@ -3,7 +3,7 @@ import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { SITE } from "@/lib/site";
 
-const BASE_URL = "";
+const BASE_URL = SITE.url;
 
 function escape(s: string) {
   return s

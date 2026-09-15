@@ -2,53 +2,25 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Faq } from "@/components/faq";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import { ShieldCheck, Heart, Sparkles, Calculator, BookOpen, Cpu, Users, Target, Compass } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About FurTools — Mission, Free Pet Tools & Companion Care Resources" },
-      {
-        name: "description",
-        content:
-          "Discover FurTools: a free, comprehensive platform providing pet calculators, breed guides, health trackers, food safety insights, cost planners, and AI pet care assistants.",
-      },
-      { property: "og:title", content: "About FurTools — Mission, Free Pet Tools & Companion Care Resources" },
-      {
-        property: "og:description",
-        content:
-          "Discover FurTools: a free, comprehensive platform providing pet calculators, breed guides, health trackers, food safety insights, cost planners, and AI pet care assistants.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/about" },
-      { property: "og:image", content: "/og-image.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "About FurTools — Free Tools for Pet Parents" },
-      {
-        name: "twitter:description",
-        content:
-          "Comprehensive pet calculators, breed databases, health tracking, and AI guidance for dogs, cats, birds, small animals, and exotic pets.",
-      },
-      { name: "twitter:image", content: "/og-image.png" },
-    ],
-    links: [{ rel: "canonical", href: "/about" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(organizationSchema()),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "About", url: "/about" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "About FurTools — Free Veterinary Calculators & Pet Care Platform",
+      description:
+        "Discover FurTools: a free, comprehensive platform providing pet calculators, breed guides, health trackers, food safety insights, and AI pet care assistants.",
+      path: "/about",
+      schemas: [
+        organizationSchema(),
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "About", url: "/about" },
+        ]),
+      ],
+    }),
   component: AboutPage,
 });
 

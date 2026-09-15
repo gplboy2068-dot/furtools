@@ -6,20 +6,19 @@ import { Input } from "@/components/ui/input";
 import { Search as SearchIcon } from "lucide-react";
 import { ToolCard } from "@/components/tool-card";
 import { searchTools, TOOLS } from "@/data/tools";
+import { buildHead } from "@/lib/seo";
 
 const searchSchema = z.object({ q: z.string().optional() });
 
 export const Route = createFileRoute("/search")({
   validateSearch: searchSchema,
-  head: () => ({
-    meta: [
-      { title: "Search pet tools — FurTools" },
-      { name: "description", content: "Search across every FurTools calculator, generator, and guide." },
-      { property: "og:title", content: "Search pet tools — FurTools" },
-      { property: "og:url", content: "/search" },
-    ],
-    links: [{ rel: "canonical", href: "/search" }],
-  }),
+  head: () =>
+    buildHead({
+      title: "Search Pet Tools & Calculators — FurTools",
+      description: "Search across every FurTools calculator, generator, and veterinary guide.",
+      path: "/search",
+      noindex: true,
+    }),
   component: SearchPage,
 });
 

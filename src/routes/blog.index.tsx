@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { STATIC_BLOG_POSTS } from "@/data/blog-posts";
+import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead, toAbsoluteUrl } from "@/lib/seo";
 
 interface PostSummary {
   slug: string;
@@ -63,23 +65,22 @@ const postsQuery = queryOptions({
 
 export const Route = createFileRoute("/blog/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(postsQuery),
-  head: () => ({
-    meta: [
-      { title: "FurTools Blog — Guides and stories for pet parents" },
-      {
-        name: "description",
-        content:
-          "Honest, useful writing on dogs, cats, and small pets — from care basics to deep dives, all free.",
-      },
-      { property: "og:title", content: "FurTools Blog" },
-      { property: "og:description", content: "Honest, useful writing on pet care." },
-      { property: "og:url", content: "/blog" },
-    ],
-    links: [
-      { rel: "canonical", href: "/blog" },
-      { rel: "alternate", type: "application/rss+xml", title: "FurTools Blog", href: "/rss.xml" },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Pet Care Blog, Guides & Veterinary Advice | FurTools",
+      description:
+        "Practical veterinary guides, canine nutrition breakdowns, cat behavior insights, and emergency pet care tips from animal specialists.",
+      path: "/blog",
+      extraLinks: [
+        { rel: "alternate", type: "application/rss+xml", title: "FurTools Blog", href: toAbsoluteUrl("/rss.xml") },
+      ],
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Blog", url: "/blog" },
+        ]),
+      ],
+    }),
   component: BlogIndex,
 });
 

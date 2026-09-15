@@ -29,16 +29,34 @@ export function SiteFooter() {
               <Link to="/" className="hover:text-primary">Home</Link>
             </li>
             <li>
-              <Link to="/categories" className="hover:text-primary">All categories</Link>
+              <Link to="/categories" className="hover:text-primary">All Categories</Link>
             </li>
             <li>
-              <Link to="/breeds" className="hover:text-primary">Breed database</Link>
+              <Link to="/breeds" className="hover:text-primary">Breed Database</Link>
             </li>
             <li>
-              <Link to="/blog" className="hover:text-primary">Blog</Link>
+              <Link to="/foods" className="hover:text-primary">Food Safety Guide</Link>
             </li>
             <li>
-              <Link to="/search" className="hover:text-primary">Search</Link>
+              <Link to="/ai" className="hover:text-primary">AI Pet Assistants</Link>
+            </li>
+            <li>
+              <Link to="/compare" className="hover:text-primary">Compare Breeds</Link>
+            </li>
+            <li>
+              <Link to="/cost-planner" className="hover:text-primary">Pet Cost Planner</Link>
+            </li>
+            <li>
+              <Link to="/names" className="hover:text-primary">Pet Name Finder</Link>
+            </li>
+            <li>
+              <Link to="/care" className="hover:text-primary">Care & Reminders</Link>
+            </li>
+            <li>
+              <Link to="/blog" className="hover:text-primary">Blog & Guides</Link>
+            </li>
+            <li>
+              <Link to="/search" className="hover:text-primary">Search Tools</Link>
             </li>
           </ul>
         </div>
@@ -47,7 +65,7 @@ export function SiteFooter() {
             Categories
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
-            {CATEGORIES.slice(0, 5).map((c) => (
+            {CATEGORIES.map((c) => (
               <li key={c.slug}>
                 <Link
                   to="/categories/$slug"

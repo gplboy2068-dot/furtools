@@ -3,9 +3,9 @@ import type {} from "@tanstack/react-start";
 import { TOOLS } from "@/data/tools";
 import { CATEGORIES } from "@/data/categories";
 import { supabase } from "@/integrations/supabase/client";
+import { SITE } from "@/lib/site";
 
-// TODO: replace with the production URL once a project domain is configured.
-const BASE_URL = "";
+const BASE_URL = SITE.url;
 
 interface Entry {
   path: string;

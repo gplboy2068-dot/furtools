@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,20 +28,19 @@ import {
 } from "recharts";
 
 export const Route = createFileRoute("/care")({
-  head: () => ({
-    meta: [
-      { title: "Pet Care Planner — Reminders, Weight & Health | FurTools" },
-      {
-        name: "description",
-        content:
-          "Track vaccinations, medications, feeding, walking, weight, and health history for each of your pets — synced across your devices.",
-      },
-      { property: "og:title", content: "Pet Care Planner — FurTools" },
-      { property: "og:description", content: "Reminders, weight, and health history for your pets." },
-      { property: "og:url", content: "/care" },
-    ],
-    links: [{ rel: "canonical", href: "/care" }],
-  }),
+  head: () =>
+    buildHead({
+      title: "Pet Care Planner & Health Tracker — Reminders & Weight Logs | FurTools",
+      description:
+        "Track vaccinations, medication schedules, feeding routines, walking, weight milestones, and vet history for your pets — synced securely across your devices.",
+      path: "/care",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Care Planner", url: "/care" },
+        ]),
+      ],
+    }),
   component: CarePage,
 });
 

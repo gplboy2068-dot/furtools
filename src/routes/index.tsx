@@ -166,6 +166,9 @@ function Home() {
               alt={`${SITE.name} — free calculators and AI tools for dogs, cats, and more`}
               width={1600}
               height={1000}
+              fetchPriority="high"
+              loading="eager"
+              decoding="async"
               className="w-full rounded-3xl"
             />
           </div>

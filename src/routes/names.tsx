@@ -12,36 +12,25 @@ import {
   type PetName,
 } from "@/data/name-catalog";
 import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const FAVORITES_KEY = "furtools_name_favorites";
 
 export const Route = createFileRoute("/names")({
-  head: () => ({
-    meta: [
-      { title: "Pet Name Finder — 100+ Filters | FurTools" },
-      {
-        name: "description",
-        content:
-          "Find the perfect pet name with 100+ filters — gender, origin, meaning, length, funny, cute, luxury, nature, movies, anime, breed, size and more.",
-      },
-      { property: "og:title", content: "Pet Name Finder — FurTools" },
-      { property: "og:description", content: "100+ filters to find the perfect pet name." },
-      { property: "og:url", content: "/names" },
-    ],
-    links: [{ rel: "canonical", href: "/names" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Pet Names", url: "/names" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Pet Name Finder — 10,000+ Dog & Cat Names with Filters | FurTools",
+      description:
+        "Find the perfect dog or cat name with 100+ smart filters: gender, meaning, theme (mythology, cute, anime, food, nature), breed size, and popularity.",
+      path: "/names",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Pet Names", url: "/names" },
+        ]),
+      ],
+    }),
   component: NameFinderPage,
 });
 

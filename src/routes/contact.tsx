@@ -7,54 +7,26 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import { submitContactInquiry } from "@/lib/contact-service";
 import { Mail, MessageSquare, ShieldCheck, Bug, Sparkles, HelpCircle, FileText, Briefcase, Lock, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact FurTools — Support, Tool Feedback & General Inquiries" },
-      {
-        name: "description",
-        content:
-          "Reach out to the FurTools team. Submit feedback, report incorrect information, suggest new pet tools, or request partnership and privacy assistance.",
-      },
-      { property: "og:title", content: "Contact FurTools — Support, Tool Feedback & General Inquiries" },
-      {
-        property: "og:description",
-        content:
-          "Reach out to the FurTools team. Submit feedback, report incorrect information, suggest new pet tools, or request partnership and privacy assistance.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/contact" },
-      { property: "og:image", content: "/og-image.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Contact FurTools" },
-      {
-        name: "twitter:description",
-        content:
-          "Send us tool feedback, bug reports, feature suggestions, or business inquiries.",
-      },
-      { name: "twitter:image", content: "/og-image.png" },
-    ],
-    links: [{ rel: "canonical", href: "/contact" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(organizationSchema()),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Contact", url: "/contact" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Contact FurTools — Support, Tool Feedback & General Inquiries",
+      description:
+        "Reach out to the FurTools team. Submit feedback, report incorrect information, suggest new pet tools, or request partnership and privacy assistance.",
+      path: "/contact",
+      schemas: [
+        organizationSchema(),
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Contact", url: "/contact" },
+        ]),
+      ],
+    }),
   component: ContactPage,
 });
 

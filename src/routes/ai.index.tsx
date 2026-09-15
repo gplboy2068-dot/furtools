@@ -3,35 +3,22 @@ import { Sparkles } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { AI_ASSISTANTS } from "@/data/ai-assistants";
 import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/ai/")({
-  head: () => {
-    const title = "AI Pet Assistants — Free Chat with Pet Experts | FurTools";
-    const description =
-      "Free AI-powered pet assistants for care, training, food safety, grooming, travel, breed advice, and pet names. Educational — never a replacement for your vet.";
-    return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        { property: "og:type", content: "website" },
-        { property: "og:url", content: "/ai" },
+  head: () =>
+    buildHead({
+      title: "AI Pet Care Assistants — Instant Chat for Dog & Cat Care | FurTools",
+      description:
+        "Chat with free AI pet assistants for canine & feline health guidance, behavior training, food safety, puppy proofing, and grooming care.",
+      path: "/ai",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "AI Assistants", url: "/ai" },
+        ]),
       ],
-      links: [{ rel: "canonical", href: "/ai" }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", url: "/" },
-              { name: "AI Assistants", url: "/ai" },
-            ]),
-          ),
-        },
-      ],
-    };
-  },
+    }),
   component: AiHub,
 });
 

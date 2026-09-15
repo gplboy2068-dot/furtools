@@ -7,6 +7,7 @@ Disallow: /admin/
 Disallow: /auth
 Disallow: /auth/
 Disallow: /api/
+Disallow: /search
 
 # Generative Engine Optimization (GEO) - Explicitly welcome AI Search Crawlers
 User-agent: GPTBot
@@ -28,8 +29,10 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemaps
-Sitemap: /sitemap-index.xml
-Sitemap: /sitemap.xml
+Sitemap: https://www.furtools.com/sitemap-index.xml
+Sitemap: https://www.furtools.com/sitemap.xml
+Sitemap: https://www.furtools.com/sitemap-images.xml
+Sitemap: https://www.furtools.com/news-sitemap.xml
 
 # LLM / AI instructions (GEO Standard)
-# see /llms.txt for structured machine-readable overview
+# see https://www.furtools.com/llms.txt for structured machine-readable overview

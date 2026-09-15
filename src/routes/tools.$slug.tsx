@@ -5,6 +5,8 @@ import { getTool } from "@/data/tools";
 import { getCategory } from "@/data/categories";
 import { TOOL_COMPONENTS } from "@/components/tools/registry";
 import { breadcrumbSchema, faqSchema, softwareApplicationSchema } from "@/lib/schema";
+import { SITE } from "@/lib/site";
+import { toAbsoluteUrl } from "@/lib/seo";
 
 const DEFAULT_FAQS = [
   { q: "Is this tool free?", a: "Yes — every tool on FurTools is free and requires no signup." },
@@ -24,7 +26,7 @@ export const Route = createFileRoute("/tools/$slug")({
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Tool not found — FurTools" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Tool not found — FurTools" }, { name: "robots", content: "noindex,nofollow" }] };
     }
     const { tool } = loaderData;
     
@@ -38,17 +40,29 @@ export const Route = createFileRoute("/tools/$slug")({
       ? `${tool.description} Free, instant online pet tool with veterinary formulas and zero signup required.`
       : tool.description;
 
+    const canonicalUrl = toAbsoluteUrl(`/tools/${params.slug}`);
+    const imageUrl = toAbsoluteUrl("/og-image.png");
+
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
         { name: "keywords", content: tool.keywords.join(", ") },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: `/tools/${params.slug}` },
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:image", content: imageUrl },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: `${tool.name} — FurTools` },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: imageUrl },
       ],
-      links: [{ rel: "canonical", href: `/tools/${params.slug}` }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
         {
           type: "application/ld+json",
@@ -56,7 +70,9 @@ export const Route = createFileRoute("/tools/$slug")({
             softwareApplicationSchema({
               name: tool.name,
               description: tool.description,
-              url: `/tools/${params.slug}`,
+              url: canonicalUrl,
+              category: "HealthApplication",
+              image: imageUrl,
             }),
           ),
         },
@@ -69,7 +85,7 @@ export const Route = createFileRoute("/tools/$slug")({
               ...(loaderData.category
                 ? [{ name: loaderData.category.name, url: `/categories/${loaderData.category.slug}` }]
                 : []),
-              { name: tool.name, url: `/tools/${params.slug}` },
+              { name: tool.name, url: canonicalUrl },
             ]),
           ),
         },

@@ -1,8 +1,9 @@
 // Sitemap index — points crawlers to all sub-sitemaps.
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { SITE } from "@/lib/site";
 
-const BASE_URL = "";
+const BASE_URL = SITE.url;
 
 export const Route = createFileRoute("/sitemap-index.xml")({
   server: {

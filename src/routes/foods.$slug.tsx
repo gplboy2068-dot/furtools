@@ -13,6 +13,8 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Faq } from "@/components/faq";
 import { foodDetailQuery, safetyMeta, FOOD_SPECIES, type SafetyLevel } from "@/lib/foods";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { SITE } from "@/lib/site";
+import { toAbsoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/foods/$slug")({
   loader: async ({ params, context }) => {
@@ -25,19 +27,29 @@ export const Route = createFileRoute("/foods/$slug")({
       return { meta: [{ title: "Food not found — FurTools" }, { name: "robots", content: "noindex" }] };
     }
     const f = loaderData;
-    const title = `Can dogs and cats eat ${f.name}? | FurTools`;
+    const title = `Can Dogs and Cats Eat ${f.name}? Toxicity & Safety | FurTools`;
     const description = f.short_answer.length > 155 ? f.short_answer.slice(0, 152) + "…" : f.short_answer;
-    const url = `/foods/${params.slug}`;
+    const canonicalUrl = toAbsoluteUrl(`/foods/${params.slug}`);
+    const imageUrl = toAbsoluteUrl("/og-image.png");
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: url },
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:site_name", content: SITE.name },
+        { property: "og:image", content: imageUrl },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: imageUrl },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts: [
         {
           type: "application/ld+json",
@@ -46,7 +58,14 @@ export const Route = createFileRoute("/foods/$slug")({
             "@type": "Article",
             headline: `Can pets eat ${f.name}?`,
             description,
-            url,
+            url: canonicalUrl,
+            image: imageUrl,
+            author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+            publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+            about: {
+              "@type": "Thing",
+              name: f.name,
+            },
           }),
         },
         {
@@ -55,7 +74,7 @@ export const Route = createFileRoute("/foods/$slug")({
             breadcrumbSchema([
               { name: "Home", url: "/" },
               { name: "Foods", url: "/foods" },
-              { name: f.name, url },
+              { name: f.name, url: canonicalUrl },
             ]),
           ),
         },

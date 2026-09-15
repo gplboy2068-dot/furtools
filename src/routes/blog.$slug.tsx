@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { STATIC_BLOG_POSTS } from "@/data/blog-posts";
 import { HelpCircle } from "lucide-react";
+import { toAbsoluteUrl } from "@/lib/seo";
 
 interface Post {
   slug: string;
@@ -80,9 +81,10 @@ export const Route = createFileRoute("/blog/$slug")({
     context.queryClient.ensureQueryData(postQuery(params.slug)),
   head: ({ loaderData, params }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Post not found — FurTools" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Post not found — FurTools" }, { name: "robots", content: "noindex,nofollow" }] };
     }
-    const url = `/blog/${params.slug}`;
+    const canonicalUrl = toAbsoluteUrl(`/blog/${params.slug}`);
+    const imageUrl = toAbsoluteUrl(loaderData.cover_image || "/og-image.png");
     const scripts: { type: string; children: string }[] = [
       {
         type: "application/ld+json",
@@ -90,9 +92,9 @@ export const Route = createFileRoute("/blog/$slug")({
           articleSchema({
             title: loaderData.title,
             description: loaderData.excerpt ?? undefined,
-            url,
+            url: canonicalUrl,
             datePublished: loaderData.published_at ?? undefined,
-            image: loaderData.cover_image ?? undefined,
+            image: imageUrl,
           }),
         ),
       },
@@ -102,7 +104,7 @@ export const Route = createFileRoute("/blog/$slug")({
           breadcrumbSchema([
             { name: "Home", url: "/" },
             { name: "Blog", url: "/blog" },
-            { name: loaderData.title, url },
+            { name: loaderData.title, url: canonicalUrl },
           ]),
         ),
       },
@@ -119,13 +121,21 @@ export const Route = createFileRoute("/blog/$slug")({
       meta: [
         { title: `${loaderData.title} — FurTools Blog` },
         { name: "description", content: loaderData.excerpt ?? "" },
+        { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
         { property: "og:type", content: "article" },
         { property: "og:title", content: loaderData.title },
         { property: "og:description", content: loaderData.excerpt ?? "" },
-        { property: "og:url", url },
-        ...(loaderData.cover_image ? [{ property: "og:image", content: loaderData.cover_image }] : []),
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:image", content: imageUrl },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: loaderData.title },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: loaderData.title },
+        { name: "twitter:description", content: loaderData.excerpt ?? "" },
+        { name: "twitter:image", content: imageUrl },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [{ rel: "canonical", href: canonicalUrl }],
       scripts,
     };
   },

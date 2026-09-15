@@ -4,5 +4,5 @@ export const SITE = {
   description:
     "FurTools is a growing library of free calculators, generators, and guides for dog, cat, and small-pet owners.",
   author: "FurTools",
-  url: "", // set once a project domain is configured
+  url: "https://www.furtools.com",
 } as const;

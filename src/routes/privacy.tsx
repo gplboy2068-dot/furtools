@@ -1,52 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import { ShieldCheck, Lock, Eye, Cookie, Cpu, Globe, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy — FurTools" },
-      {
-        name: "description",
-        content:
-          "Comprehensive Privacy Policy for FurTools. Detailed explanations of data collection, cookies, Google AdSense, AI sub-processors, security, GDPR, and California privacy rights.",
-      },
-      { property: "og:title", content: "Privacy Policy — FurTools" },
-      {
-        property: "og:description",
-        content:
-          "Comprehensive Privacy Policy for FurTools. Detailed explanations of data collection, cookies, Google AdSense, AI sub-processors, security, GDPR, and California privacy rights.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/privacy" },
-      { property: "og:image", content: "/og-image.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Privacy Policy — FurTools" },
-      {
-        name: "twitter:description",
-        content: "Learn how FurTools protects your privacy, handles cookies, AdSense, AI features, and personal data.",
-      },
-      { name: "twitter:image", content: "/og-image.png" },
-    ],
-    links: [{ rel: "canonical", href: "/privacy" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(organizationSchema()),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Privacy", url: "/privacy" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Privacy Policy — FurTools",
+      description:
+        "Comprehensive Privacy Policy for FurTools. Detailed explanations of data collection, cookies, Google AdSense, AI sub-processors, security, GDPR, and California privacy rights.",
+      path: "/privacy",
+      schemas: [
+        organizationSchema(),
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Privacy", url: "/privacy" },
+        ]),
+      ],
+    }),
   component: PrivacyPage,
 });
 

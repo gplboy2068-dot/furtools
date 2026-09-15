@@ -1,52 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import { FileText, ShieldAlert, Scale, CheckCircle } from "lucide-react";
 
 export const Route = createFileRoute("/terms")({
-  head: () => ({
-    meta: [
-      { title: "Terms of Service — FurTools" },
-      {
-        name: "description",
-        content:
-          "Terms of Service governing the use of FurTools. Legal conditions, calculator output disclaimers, AI tool limitations, acceptable use, intellectual property, and liability terms.",
-      },
-      { property: "og:title", content: "Terms of Service — FurTools" },
-      {
-        property: "og:description",
-        content:
-          "Terms of Service governing the use of FurTools. Legal conditions, calculator output disclaimers, AI tool limitations, acceptable use, intellectual property, and liability terms.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/terms" },
-      { property: "og:image", content: "/og-image.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Terms of Service — FurTools" },
-      {
-        name: "twitter:description",
-        content: "Legal conditions, acceptable use, and tool disclaimers for FurTools users.",
-      },
-      { name: "twitter:image", content: "/og-image.png" },
-    ],
-    links: [{ rel: "canonical", href: "/terms" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(organizationSchema()),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Terms", url: "/terms" },
-          ]),
-        ),
-      },
-    ],
-  }),
+  head: () =>
+    buildHead({
+      title: "Terms of Service — FurTools",
+      description:
+        "Terms of Service governing the use of FurTools. Legal conditions, calculator output disclaimers, AI tool limitations, acceptable use, intellectual property, and liability terms.",
+      path: "/terms",
+      schemas: [
+        organizationSchema(),
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Terms", url: "/terms" },
+        ]),
+      ],
+    }),
   component: TermsPage,
 });
 

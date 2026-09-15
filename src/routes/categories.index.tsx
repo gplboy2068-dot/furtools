@@ -5,22 +5,24 @@ import { Input } from "@/components/ui/input";
 import { ToolCard } from "@/components/tool-card";
 import { CATEGORIES } from "@/data/categories";
 import { toolsByCategory, searchTools } from "@/data/tools";
+import { breadcrumbSchema } from "@/lib/schema";
+import { buildHead } from "@/lib/seo";
 import { PawPrint, Search as SearchIcon } from "lucide-react";
 
 export const Route = createFileRoute("/categories/")({
-  head: () => ({
-    meta: [
-      { title: "Pet Tool Categories — FurTools" },
-      {
-        name: "description",
-        content: "Browse every category of free pet tools — dogs, cats, nutrition, health, names, and training.",
-      },
-      { property: "og:title", content: "Pet Tool Categories — FurTools" },
-      { property: "og:description", content: "Free pet tool categories organized for dogs, cats, and small companions." },
-      { property: "og:url", content: "/categories" },
-    ],
-    links: [{ rel: "canonical", href: "/categories" }],
-  }),
+  head: () =>
+    buildHead({
+      title: "Pet Care Tool Categories — Calculators, Nutrition, Health & Training | FurTools",
+      description:
+        "Browse all free pet tool categories. Find veterinary calculators, breed identifiers, nutrition planners, medication dosages, and training logs.",
+      path: "/categories",
+      schemas: [
+        breadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Categories", url: "/categories" },
+        ]),
+      ],
+    }),
   component: CategoriesIndex,
 });
 
