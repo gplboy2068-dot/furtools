@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
 import { Breadcrumbs, type Crumb } from "@/components/breadcrumbs";
 import { RelatedTools } from "@/components/tool-sections";
 import { Faq, type FaqItem } from "@/components/faq";
