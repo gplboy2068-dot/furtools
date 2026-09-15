@@ -89,8 +89,8 @@ function collectAllPaths() {
     let match;
     while ((match = toolRegex.exec(toolsFile)) !== null) {
       const slug = match[1];
-      // Only include if it doesn't contain a slash and isn't already a blog post
-      if (slug && !slug.includes("/") && slug.length > 2 && !allPaths.has(`/blog/${slug}`)) {
+      // Include all valid tool routes
+      if (slug && !slug.includes("/") && slug.length > 2) {
         allPaths.add(`/tools/${slug}`);
       }
     }
