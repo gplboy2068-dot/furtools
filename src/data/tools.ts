@@ -322,6 +322,28 @@ const RAW_TOOLS: Tool[] = [
     updatedAt: "2026-07-15",
   },
   {
+    slug: "dog-size-predictor",
+    name: "Dog Size Predictor",
+    tagline: "Predict adult size, weight & growth milestones",
+    description: "Accurately predict your puppy's full-grown adult weight, wither height, growth chart curve, and skeletal maturity milestones using veterinary pediatric allometric models.",
+    category: "dogs",
+    keywords: ["dog size predictor", "puppy adult weight calculator", "how big will my dog get", "puppy growth curve", "dog weight estimator", "canine growth milestones"],
+    layout: "calculator",
+    featured: true,
+    popular: true,
+    howItWorks: "Canines follow a non-linear sigmoidal Gompertz growth curve. We project adult weight and height by cross-referencing current age in weeks, body mass, breed somatotype (toy to giant), sexual dimorphism, and bone density.",
+    examples: [
+      { label: "18 lb, 16-week large puppy (male)", result: "≈ 58–64 lbs (26–29 kg) adult" },
+      { label: "6 lb, 12-week small puppy (female)", result: "≈ 14–16 lbs (6–7 kg) adult" },
+    ],
+    faqs: [
+      { q: "At what age do puppies stop growing?", a: "Toy breeds finish at 9–10 months, small breeds at 10–12 months, medium breeds at 12–14 months, large breeds at 15–18 months, and giant breeds at 18–24 months." },
+      ...COMMON_FAQS,
+    ],
+    relatedArticles: DOG_ARTICLES,
+    updatedAt: "2026-09-15",
+  },
+  {
     slug: "dog-life-expectancy-calculator",
     name: "Dog Life Expectancy Calculator",
     tagline: "Estimate your dog's lifespan",

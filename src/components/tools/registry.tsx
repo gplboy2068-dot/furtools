@@ -21,6 +21,7 @@ import { PetCarePlanner } from "@/components/tools/general-tools";
 import { SmartCollarQRTool } from "@/components/tools/smart-collar-qr";
 import { VetFinderTool } from "@/components/tools/vet-finder";
 import { CanineFluidTherapyCalculator } from "@/components/tools/canine-fluid-therapy-calculator";
+import { DogSizePredictor } from "@/components/tools/dog-size-predictor";
 import { AquariumFilterFlowRate } from "@/components/tools/aquarium-filter-flow-rate";
 import {
   BirdCageSize, BirdFood, BirdLifespan, BirdWingClipGuide,
@@ -154,6 +155,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "dog-benadryl-dose-calculator": DogBenadrylDose,
   "canine-fluid-therapy-calculator": CanineFluidTherapyCalculator,
   "dog-dehydration-calculator": CanineFluidTherapyCalculator,
+  "dog-size-predictor": DogSizePredictor,
 
   // Cats
   "cat-age-calculator": CatAgeCalculator,
