@@ -21,6 +21,7 @@ import { PetCarePlanner } from "@/components/tools/general-tools";
 import { SmartCollarQRTool } from "@/components/tools/smart-collar-qr";
 import { VetFinderTool } from "@/components/tools/vet-finder";
 import { CanineFluidTherapyCalculator } from "@/components/tools/canine-fluid-therapy-calculator";
+import { AquariumFilterFlowRate } from "@/components/tools/aquarium-filter-flow-rate";
 import {
   BirdCageSize, BirdFood, BirdLifespan, BirdWingClipGuide,
   AquariumVolume, FishStocking, TankCyclingTracker, WaterChangeScheduler,
@@ -181,6 +182,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
 
   // Fish
   "aquarium-volume-calculator": AquariumVolume,
+  "aquarium-filter-flow-rate": AquariumFilterFlowRate,
   "fish-stocking-calculator": FishStocking,
   "tank-cycling-tracker": TankCyclingTracker,
   "water-change-scheduler": WaterChangeScheduler,
