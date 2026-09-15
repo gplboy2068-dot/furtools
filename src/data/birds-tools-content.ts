@@ -164,6 +164,82 @@ Plan cage requirements with the [Bird Cage Size Calculator](/tools/bird-cage-siz
     ]
   },
 
+  "bird-seed-portion-calculator": {
+    howItWorks: `### Specialist Guide: Avian Seed Portioning, Lipid Metabolism & Nutritional Balance
+
+For decades, commercial aviculture relied on commercial all-seed mixes as standard maintenance food. Modern veterinary science—supported by the [Association of Avian Veterinarians (AAV)](https://www.aav.org) and [Lafeber Vet](https://lafeber.com/vet/)—has established that **unregulated, ad-libitum seed feeding is the primary cause of preventable mortality in companion parrots**.
+
+Seeds are inherently high in saturated fats and linoleic fatty acids (often exceeding 40% to 50% fat in striped sunflower and safflower seeds) while being severely deficient in **Vitamin A, calcium, lysine, methionine, and trace minerals (zinc and iodine)**. Over time, high-seed diets induce **hepatic lipidosis (fatty liver syndrome), aortic atherosclerosis, xanthomas, and immunodeficiency**.
+
+\`\`\`
+Veterinary Seed Portioning Protocol:
+- Granivores (Budgies, Cockatiels, Finches, Canaries): Seed capped at 15% to 25% of daily intake
+- Medium to Large Psittacines (Amazons, African Greys, Cockatoos): Seed strictly capped at 5% to 10%
+- High-Lipid Specialists (Large Macaws): Supplemented with healthy tree nuts (walnuts, macadamias) rather than cheap oil seeds
+- Core Daily Base: 60%–70% formulated extruded pellets + 20% fresh vegetable chop + 5% low-sugar fruits
+\`\`\`
+
+---
+
+#### 1. The Chemistry of Commercial Seed Mixes
+When presented with an unmeasured bowl of mixed seeds, companion birds practice **selective foraging (picking)**. They consistently select high-fat, palatable oil seeds (sunflower seeds, safflower, hemp) while discarding protein- and carbohydrate-rich grains (millet, oat groats, canary grass seed). This selective consumption amplifies nutritional deficiencies and accelerates obesity.
+
+#### 2. Seed Sprouting: Transforming Fat into Bioavailable Nutrients
+Soaking and sprouting seeds for 24 to 48 hours initiates germination, which metabolically transforms the seed:
+- **Lipid Reduction:** The germinating embryo consumes stored triglycerides as primary metabolic fuel, significantly reducing gross caloric fat content.
+- **Enzyme & Vitamin Activation:** Sprouting dramatically elevates bioavailable Vitamin C, Vitamin E, beta-carotene, and active enzymes, converting dormant seeds into nutrient-dense living greens.
+
+#### 3. Foraging Enrichment: Making Birds Work for Seeds
+In the wild, parrots spend **4 to 8 hours daily foraging and flying across miles of canopy**. In captivity, static food bowls contribute to physical lethargy, screaming, and feather-destructive behavior. High-value seeds should never be offered freely in open dishes; instead, utilize them as **foraging rewards**:
+- Wrap seeds in clean brown unbleached paper packets.
+- Stuff seeds inside natural pine cones or cardboard foraging rolls.
+- Scatter measured seed portions across a foraging tray filled with clean, smooth river stones.
+
+Pair your nutritional plan with our [Bird Cage Size Calculator](/tools/bird-cage-size-calculator), establish healthy sleep cycles using the [Bird Sleep Schedule Calculator](/tools/bird-sleep-schedule-calculator), evaluate flight dimensions with the [Bird Flight Space Calculator](/tools/bird-flight-space-calculator), and review avian nutritional research at the [Association of Avian Veterinarians (AAV)](https://www.aav.org).`,
+    faqs: [
+      {
+        q: "How many seeds should my pet bird eat per day?",
+        a: "For small birds (budgies, cockatiels), seeds should not exceed 1 to 1.5 teaspoons daily. For medium-to-large parrots (Amazons, Greys, Cockatoos), seed should be limited to 1 teaspoon or a few individual nuts as training and foraging rewards. The core daily diet should be 60–70% veterinary pellets and 20–25% fresh vegetable chop."
+      },
+      {
+        q: "Why are sunflower seeds dangerous when fed as a primary diet?",
+        a: "Sunflower seeds are over 45% fat and highly addictive to parrots. A primary sunflower diet leads directly to hepatic lipidosis (fatty liver disease), high cholesterol, arterial plaque (atherosclerosis), and painful fatty tumors called xanthomas."
+      },
+      {
+        q: "Can budgies and cockatiels survive on an all-pellet diet?",
+        a: "While large parrots thrive on 70–80% pellets, small Australian desert granivores like budgies and cockatiels do best on a balanced hybrid: roughly 50–60% pellets, 20–30% quality low-fat seeds or sprouts, and 15–20% fresh dark leafy greens."
+      },
+      {
+        q: "How do I transition a seed-addicted parrot to a healthy pellet diet?",
+        a: "Transition gradually over 4 to 8 weeks. Start by offering pellets first thing in the morning when the bird is hungriest. You can mix pellets with warm pureed sweet potato, moisten pellets with 100% organic fruit juice, or mix 90% seed with 10% pellets, increasing the pellet ratio by 10% each week. Never starve a bird into switching."
+      },
+      {
+        q: "What is the benefit of sprouting bird seed before feeding?",
+        a: "Germinating and sprouting seeds consumes their internal fat reserves while boosting bioavailable vitamins, active digestive enzymes, and chlorophyll. Sprouted seeds retain the familiar texture of seed while offering the nutritional profile of fresh green produce."
+      },
+      {
+        q: "Which seeds are the healthiest for companion birds?",
+        a: "Low-fat, nutrient-rich seeds include white proso millet, canary grass seed, oat groats, hemp seed, chia seed, and milk thistle seed. Safflower and sunflower seeds should be strictly reserved as rare positive-reinforcement training treats."
+      },
+      {
+        q: "Are tree nuts healthy for large parrots?",
+        a: "Yes, in measured quantities. Macaws, in particular, require higher dietary fat and thrive with 2 to 4 raw walnuts, almonds, or macadamia nuts daily. African Greys and Amazons are prone to obesity and should receive only half a walnut or one almond per day."
+      },
+      {
+        q: "Why do parrots pick through seed bowls and throw out food?",
+        a: "Parrots are instinctive selectors; they search for the highest-fat kernels and toss aside lower-calorie seeds. In the wild, this behavior helps disperse forest seeds, but in a cage, it causes severe nutritional imbalances. Providing measured daily portions eliminates this selective feeding."
+      },
+      {
+        q: "Can seeds cause calcium deficiency in laying female birds?",
+        a: "Yes. Seeds have a severely distorted calcium-to-phosphorus ratio (often 1:10, whereas birds require 2:1). An all-seed diet rapidly depletes skeletal calcium, leading to thin eggshells, life-threatening egg binding, and hypocalcemic tetany."
+      },
+      {
+        q: "What is the best way to feed seeds for mental enrichment?",
+        a: "Avoid standard food dishes. Place seeds in puzzle toys, roll them inside untreated cupcake wrappers, or bury them under clean river pebbles in a foraging tray. Foraging satisfies the parrot's instinctual need to work for food, preventing boredom-induced screaming and feather picking."
+      }
+    ]
+  },
+
   "bird-lifespan-estimator": {
     howItWorks: `### Avian Gerontology, Epigenetics, and Extraordinary Longevity
 
@@ -754,6 +830,79 @@ Size their day enclosure with our [Bird Cage Size Calculator](/tools/bird-cage-s
       {
         q: "Can shifting sleep hours affect a bird's annual molt?",
         a: "Yes. Inconsistent light cycles confuse the avian thyroid and endocrine glands, leading to erratic, continuous out-of-season molting and feather degradation."
+      }
+    ]
+  },
+
+  "bird-sleep-schedule-calculator": {
+    howItWorks: `### Specialist Guide: Avian Circadian Photoperiods, Melatonin & Neuro-Endocrine Balance
+
+Companion birds originate primarily from equatorial and subtropical environments (the Neotropics, Sub-Saharan Africa, Indonesia, and Australasia) where day and night lengths remain virtually equal throughout the year. Evolutionarily, avian neuro-endocrinology is synchronized by the **pineal gland and hypothalamic suprachiasmatic nucleus (SCN)**, which respond acutely to photoperiodic light cues.
+
+In modern domestic households, artificial interior lighting, television screens, and human activity regularly subject birds to 14 to 16 hours of light daily. This chronic circadian mismatch triggers systemic hyper-stimulation and chronic sleep deprivation.
+
+\`\`\`
+Veterinary Photoperiod Benchmarks:
+- Standard Maintenance Sleep: 10 to 12 Hours of Uninterrupted, Pitch-Black Darkness Every Night
+- Hormonal Suppression Protocol: 12 to 14 Hours of Total Darkness (to curb chronic egg-laying or extreme hormonal aggression)
+- Critical Biological Window: Consistent bedtime and wake time (variance under 30 minutes daily)
+\`\`\`
+
+---
+
+#### 1. Medical Consequences of Inadequate Sleep
+Chronic sleep deprivation and extended photoperiods (>12 hours of light) trick the avian reproductive endocrine axis into sensing spring breeding conditions:
+- **Territorial Aggression & Ear-Piercing Screaming:** Elevated circulating cortisol and sex hormones induce extreme territorial cage guarding, partner fixation, and severe unprovoked biting.
+- **Chronic Ovulation & Fatal Egg Binding:** Female birds (notably cockatiels, lovebirds, and budgies) will continually produce unfertilized egg clutches, resulting in severe skeletal calcium depletion, cloacal prolapse, or fatal egg binding.
+- **Psychogenic Feather-Destructive Behavior:** Exhaustion and hormonal frustration fuel obsessive preening, leading to progressive self-mutilation and feather plucking.
+
+#### 2. The Dedicated "Sleep Cage" Strategy
+Because human families often remain awake and active in living rooms until late at night, moving a bird to a **dedicated sleep cage** in a quiet, dark spare room or ventilated closet is the clinical standard of care:
+- **Dimensions:** A compact cage (e.g., 20x20x24 inches) with one or two comfortable natural wood perches and clean water. Toys and foraging puzzles should be omitted to encourage immediate rest.
+- **Acoustic & Light Control:** Total pitch darkness with a breathable, heavy blackout cage cover.
+- **Night Fright Mitigation:** For species prone to nocturnal startle panics (especially cockatiels), a very dim, low-level warm nightlight placed near floor level prevents disoriented thrashing and broken blood feathers.
+
+Size your bird's primary housing with our [Bird Cage Size Calculator](/tools/bird-cage-size-calculator), calculate nutrition via [Bird Seed Portion Calculator](/tools/bird-seed-portion-calculator), monitor seasonal molts using the [Bird Molting Tracker](/tools/bird-molting-tracker), and consult behavioral recommendations at the [World Parrot Trust](https://www.worldparrottrust.org).`,
+    faqs: [
+      {
+        q: "How many hours of sleep does a pet bird need each night?",
+        a: "Companion parrots need 10 to 12 hours of continuous, uninterrupted darkness every single night. In equatorial wild habitats, night duration is roughly 12 hours year-round."
+      },
+      {
+        q: "What causes night frights in cockatiels and how can they be stopped?",
+        a: "Night frights are sudden panic thrashing episodes triggered by unfamiliar shadows, micro-vibrations, or small rodent sounds in total darkness. Cockatiels have limited night vision and panic easily. Installing a dim nightlight near the floor and running a gentle white noise air purifier prevents night frights."
+      },
+      {
+        q: "How does sleep duration affect hormonal behavior in parrots?",
+        a: "Long daylight hours (>12–14 hours) stimulate the pituitary gland into releasing luteinizing hormone and follicle-stimulating hormone, simulating spring mating season. Enforcing a strict 12- to 14-hour dark sleep schedule naturally suppresses hormonal outbursts, biting, and egg laying."
+      },
+      {
+        q: "Is covering a bird's cage with a blanket enough for sleep?",
+        a: "Only if the room is quiet and dark. A covered cage in a brightly lit room with a loud television still experiences ambient noise and light bleed, preventing the bird from achieving restorative deep REM sleep."
+      },
+      {
+        q: "What is a sleep cage and why do avian vets recommend it?",
+        a: "A sleep cage is a smaller, simple cage placed in a dark, quiet, low-traffic bedroom. It allows your bird to go to sleep on schedule (e.g., 7:30 PM) even if your household remains active and noisy in the main living space."
+      },
+      {
+        q: "Can pet birds take naps during the day?",
+        a: "Yes, it is completely normal for birds to take one or two 20- to 45-minute naps during the afternoon, typically tucking one leg up and resting their beak backward into their shoulder feathers."
+      },
+      {
+        q: "What fabric should be used to cover a bird cage?",
+        a: "Use tightly woven, 100% breathable natural cotton or dedicated non-toxic blackout cage covers. Never use synthetic fabrics that trap heat or looped terrycloth towels that can catch and snap toenails."
+      },
+      {
+        q: "Can sudden loud noises harm a sleeping bird?",
+        a: "Loud, sudden sounds trigger intense fight-or-flight panic responses. In a cage, panic thrashing can result in fractured wing bones, torn ceres, and hemorrhage from broken growing blood feathers."
+      },
+      {
+        q: "Should I leave a night light on for all parrot species?",
+        a: "Most parrots sleep best in complete pitch darkness. However, cockatiels, juvenile birds, or birds with a history of nocturnal thrashing benefit significantly from a faint, indirect warm nightlight."
+      },
+      {
+        q: "How does irregular sleep affect a bird's annual molt?",
+        a: "Erratic day/night light cycles disrupt the thyroid gland's photoperiodic signals, resulting in prolonged, asymmetrical molting, retained feather sheaths, and dull, brittle plumage."
       }
     ]
   },

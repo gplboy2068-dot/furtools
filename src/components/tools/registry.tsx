@@ -22,6 +22,7 @@ import { SmartCollarQRTool } from "@/components/tools/smart-collar-qr";
 import { VetFinderTool } from "@/components/tools/vet-finder";
 import { CanineFluidTherapyCalculator } from "@/components/tools/canine-fluid-therapy-calculator";
 import { DogSizePredictor } from "@/components/tools/dog-size-predictor";
+import { DogBathFrequencyCalculator } from "@/components/tools/dog-bath-frequency-calculator";
 import { AquariumFilterFlowRate } from "@/components/tools/aquarium-filter-flow-rate";
 import {
   BirdCageSize, BirdFood, BirdLifespan, BirdWingClipGuide,
@@ -156,6 +157,9 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "canine-fluid-therapy-calculator": CanineFluidTherapyCalculator,
   "dog-dehydration-calculator": CanineFluidTherapyCalculator,
   "dog-size-predictor": DogSizePredictor,
+  "dog-exercise-needs-calculator": DogExerciseCalculator,
+  "dog-lifespan-calculator": () => <LifeExpectancyCalculator species="dog" />,
+  "dog-bath-frequency-calculator": DogBathFrequencyCalculator,
 
   // Cats
   "cat-age-calculator": CatAgeCalculator,
@@ -179,6 +183,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   // Birds
   "bird-cage-size-calculator": BirdCageSize,
   "bird-food-calculator": BirdFood,
+  "bird-seed-portion-calculator": BirdFood,
   "bird-lifespan-estimator": BirdLifespan,
   "bird-name-generator": () => <UniversalNameGenerator species="bird" />,
 
@@ -196,6 +201,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
 
   // Small pets
   "rabbit-hay-calculator": RabbitHay,
+  "rabbit-hay-portion-calculator": RabbitHay,
   "rabbit-cage-size-calculator": RabbitCageSize,
   "rabbit-food-calculator": RabbitFood,
   "rabbit-age-calculator": RabbitAge,
@@ -293,6 +299,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "cat-age-adjusted-feeding": CatAgeAdjustedFeeding,
   "bird-molting-tracker": BirdMoltingTracker,
   "bird-sleep-schedule": BirdSleepSchedule,
+  "bird-sleep-schedule-calculator": BirdSleepSchedule,
   "aquarium-nitrate-calculator": AquariumNitrateCalculator,
   "fish-medication-dose": FishMedicationDose,
   "rabbit-pellet-calculator": RabbitPelletCalculator,

@@ -80,6 +80,84 @@ Plan your rabbit's balanced dietary ecosystem with our [Rabbit Food Calculator](
     ]
   },
 
+  "rabbit-hay-portion-calculator": {
+    howItWorks: `### Specialist Guide: Lagomorph Digestive Physiology, Caecal Fermentation & Hay Portioning
+
+Domestic rabbits (*Oryctolagus cuniculus*) possess one of the most specialized digestive systems in the animal kingdom: they are obligate herbivorous **hindgut fermenters**. The rabbit digestive tract relies on a delicate physiological partnership between physical peristalsis in the proximal colon and symbiotic microbial fermentation inside a voluminous **caecum** (which holds up to 40% to 50% of the entire gastrointestinal volume).
+
+For an adult rabbit, fresh grass hay is not an optional roughage or occasional treat—**it must constitute a non-negotiable 80% to 85% of their total daily dietary intake by weight and volume**.
+
+\`\`\`
+Veterinary Hay Portioning Benchmarks:
+- Daily Minimum Intake: A loose pile of fresh grass hay matching the rabbit's physical body volume
+- Daily Dry Matter Weight: Approximately 30 to 35 grams of grass hay per pound of body weight (65–75 g/kg)
+- Baseline Ratio: Unlimited 24/7 access to fresh grass hay (Timothy, Orchard, Oat, or Meadow)
+- Restricted Concentrates: Pellets capped at 1/8 to 1/4 cup per 5 lbs body weight
+\`\`\`
+
+---
+
+#### 1. Dental Biomechanics: Hypsodont Elodont Attrition
+Rabbit teeth—including 6 front incisors and 22 cheek teeth (premolars and molars)—are **araddicular hypsodont (elodont)**, meaning they grow continuously at an astonishing rate of **2 to 3 millimeters every single week**.
+- **The Figure-8 Grinding Motion:** Chewing coarse, silica-rich long-strand grass hay forces a specialized lateral, side-to-side figure-eight chewing motion.
+- **Preventing Sharp Molar Spurs:** This friction naturally and evenly files down both the lingual and buccal tooth edges. Diets lacking coarse fiber result in razor-sharp molar spurs that lacerate the tongue and cheeks, leading to oral abscesses, complete anorexia, and secondary liver failure.
+
+#### 2. Colonic Separation & Caecotrophy Kinetics
+The rabbit's proximal colon acts as a high-speed mechanical sorting machine:
+- **Indigestible Coarse Fiber (>0.3 mm):** Insoluble lignin and cellulose cannot be fermented. Instead, colonic contractions propel them rapidly through the distal colon, producing normal dry, round fecal pellets. This mechanical bulk stimulates peristalsis and physically sweeps ingested grooming fur out of the stomach, preventing obstructive hairballs (**trichobezoars**).
+- **Digestible Fine Fiber (<0.3 mm):** Retrograde anti-peristalsis diverts fine fermentable particles into the caecum. Anaerobic flora ferment this fiber into volatile fatty acids (VFAs), amino acids, and B-complex vitamins.
+- **Caecotropes (Night Poops):** Periodically, the caecum expels these concentrated nutrients as soft, glistening, mucus-coated clusters called **caecotropes**. Rabbits consume caecotropes directly from the rectum, recycling vital proteins and preserving microflora health.
+
+#### 3. Hay Varieties & Life-Stage Selection
+- **Adult Rabbits (>6–7 months):** Free-choice 2nd Cut Timothy Hay, Orchard Grass, Oat Hay, or Meadow Hay. These provide 30%–34% crude fiber, modest protein (8%–11%), and low calcium (<0.5%) to prevent urinary sludge.
+- **Young Kits (<6 months) & Nursing Does:** Alfalfa (Lucerne) legume hay provides the high protein (16%–18%) and calcium (>1.2%) necessary for rapid bone and skeletal development.
+- **Adult Warning on Alfalfa:** Never feed alfalfa hay to healthy adult rabbits. Excess calcium is metabolized and excreted through the kidneys into the bladder, forming thick, abrasive **calcium carbonate bladder sludge and life-threatening bladder stones (uroliths)**.
+
+Calculate overall dietary balance with our [Rabbit Food Calculator](/tools/rabbit-food-calculator), monitor body mass via the [Rabbit Weight Tracker](/tools/rabbit-weight-tracker), size enclosures using the [Rabbit Cage Size Calculator](/tools/rabbit-cage-size-calculator), and explore lagomorph clinical standards at the [House Rabbit Society](https://rabbit.org) and [Association of Exotic Mammal Veterinarians (AEMV)](https://aemv.org).`,
+    faqs: [
+      {
+        q: "How much hay should my rabbit eat every day?",
+        a: "A healthy rabbit must eat a pile of loose grass hay at least equal to their own body size every single day. By weight, this represents roughly 30 to 35 grams of hay per pound of body weight (approx. 150g daily for a typical 5-pound rabbit). Hay should be available 24/7 without restriction."
+      },
+      {
+        q: "Can adult rabbits eat alfalfa hay?",
+        a: "No. Alfalfa is a legume, not a grass. It is packed with high protein and elevated calcium. Adult rabbits excrete excess calcium through their urinary tract, which rapidly forms painful, gritty bladder sludge and bladder stones. Only feed grass hays (Timothy, Orchard, Meadow, Oat) to adult rabbits."
+      },
+      {
+        q: "Why is hay more important than commercial pellets?",
+        a: "Pellets are ground up and quickly swallowed without requiring lateral chewing, causing molar spurs. Furthermore, pellets lack the long-strand indigestible fiber needed to stimulate colonic peristalsis. Feeding excessive pellets and too little hay is the primary cause of fatal Gastrointestinal (GI) Stasis."
+      },
+      {
+        q: "What should I do if my rabbit stops eating hay for 12 hours?",
+        a: "This is a life-threatening veterinary emergency known as GI Stasis. Rabbits cannot safely fast; without continuous fiber, the gut halts, gas builds up painfully, and hepatic lipidosis begins within 24 hours. Contact an exotic pet veterinarian immediately."
+      },
+      {
+        q: "Why does my rabbit eat hay while sitting in the litter box?",
+        a: "Rabbits possess a natural biological urge to graze and poop simultaneously. Hanging your rabbit's hay rack directly above or inside their litter box promotes natural grazing behavior and instantly resolves most litter training problems."
+      },
+      {
+        q: "What is the difference between 1st, 2nd, and 3rd cut Timothy hay?",
+        a: "1st cut has the thickest crunchy stems and seed heads, providing maximum dental wear and crude fiber. 2nd cut has leafy green foliage with moderate stems, offering the ideal blend of taste and fiber. 3rd cut is soft and almost stemless, excellent for elderly rabbits with missing teeth but providing less dental wear."
+      },
+      {
+        q: "How do I store rabbit hay so it doesn't get moldy?",
+        a: "Store hay in a dry, dark, well-ventilated area in cardboard boxes or breathable woven fabric bags. Never seal fresh hay in plastic containers or bags, as trapped humidity breeds lethal Aspergillus and fungal mycotoxins."
+      },
+      {
+        q: "What are caecotropes and why does my rabbit eat them?",
+        a: "Caecotropes are nutrient-dense packets produced in the rabbit's caecum containing essential amino acids, fatty acids, and B-vitamins. Rabbits ingest them directly from the anus to reabsorb these vital nutrients. Finding uneaten, mushy caecotropes on the floor usually indicates an over-supplemented, high-pellet diet."
+      },
+      {
+        q: "Is Orchard grass a good alternative if I am allergic to Timothy hay?",
+        a: "Yes! Orchard grass matches 2nd cut Timothy hay in nutritional composition (high fiber, low protein, low calcium) but produces significantly less airborne pollen, making it the top recommendation for owners with grass allergies."
+      },
+      {
+        q: "How can I encourage a picky rabbit to eat more hay?",
+        a: "Refresh hay 2–3 times daily (rabbits ignore stale or stepped-on hay), mix different varieties (Timothy, Orchard, Oat, botanical herbs like dried dandelion or chamomile), and reduce pellet portions so the rabbit is motivated to graze on fibrous hay."
+      }
+    ]
+  },
+
   "rabbit-cage-size-calculator": {
     howItWorks: `### Evidence-Based Housing Standards for Domestic Rabbits
 

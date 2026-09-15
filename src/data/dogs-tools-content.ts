@@ -809,6 +809,77 @@ export const ENRICHED_DOG_TOOLS: Record<string, EnrichedToolContent> = {
       }
     ]
   },
+  "dog-exercise-needs-calculator": {
+    "howItWorks": "### Canine Exercise Physiology, Aerobic Capacity, and Mental Enrichment\n\nPhysical exercise and cognitive stimulation are essential for canine physical conditioning and behavioral stability. Dogs are cursorial mammals with high aerobic capacities, but exercise requirements vary radically based on **functional working breed genetics, age, and environmental temperature**.\n\nUnder canine sports medicine guidelines from the [American College of Veterinary Sports Medicine and Rehabilitation (ACVSMR)](https://vsmr.org) and the [AVMA](https://www.avma.org):\n\n```\nDaily Exercise Requirements by Canine Working Category:\n- High-Drive Working / Herding (Border Collie, Malinois, Australian Shepherd): 60 to 120+ Minutes of Cardio + Agility / Scentwork\n- Sporting & Gun Dogs (Labrador, Golden Retriever, Viszla): 60 to 90 Minutes of Running, Swimming, Retrieving\n- Terriers & Hounds (Jack Russell, Beagle): 45 to 60 Minutes of Scent Tracking & Structured Play\n- Low-Drive Companion Breeds (French Bulldog, Basset Hound, Cavalier): 20 to 30 Minutes of Gentle Walking\n```\n\n### The Mental Enrichment Equivalence\n\nPhysical exercise alone cannot satisfy high-drive working breeds. In cognitive canine ethology:\n- **15 minutes of structured mental scentwork (nosework) or puzzle training burns as much cognitive energy as a 45-minute physical walk**.\n- Incorporating snuffle mats, frozen foraging toys, and trick training prevents boredom-induced destructive behaviors.\n\nPlan walking durations with [Dog Walking Calculator](/tools/dog-walking-calculator), calculate daily nutrition via [Dog Food Calculator](/tools/dog-food-calculator), monitor heat safety using [Heatstroke Risk Calculator](/tools/heatstroke-risk-calculator), and explore sports medicine at [ACVSMR](https://vsmr.org).",
+    "faqs": [
+      {
+        "q": "How much exercise does an adult dog need per day?",
+        "a": "Most dogs need 30 to 60 minutes of daily exercise. High-energy working breeds (Border Collies, Huskies) require 60 to 90+ minutes of combined physical cardio and mental puzzle training."
+      },
+      {
+        "q": "What is mental exercise for dogs and why is it important?",
+        "a": "Mental exercise includes scent games (nosework), puzzle feeders, and trick training. Mental stimulation burns excess cognitive energy and calms hyperactive dogs faster than physical running."
+      },
+      {
+        "q": "What are the signs that a dog is not getting enough exercise?",
+        "a": "Destructive chewing, excessive barking, digging in the yard, hyperactivity indoors, jumping on visitors, and weight gain."
+      },
+      {
+        "q": "Can dogs get overtired and hyperactive from too much exercise?",
+        "a": "YES! Overstimulated dogs enter an overtired state where adrenaline spikes, making them mouthy, jumpy, and unable to settle. Provide quiet crate rest."
+      },
+      {
+        "q": "What are the best indoor exercise games for rainy days?",
+        "a": "Hide-and-seek with treats, indoor scent tracking, hallway fetch, flirt pole play (controlled), and interactive puzzle toys."
+      }
+    ]
+  },
+  "dog-lifespan-calculator": {
+    "howItWorks": "### Canine Actuarial Longevity, Morphological Scaling, and Preventative Healthcare\n\nThe life expectancy of the domestic canine (*Canis lupus familiaris*) is shaped by the interaction of **adult body mass, breed genetics, surgical sterilization status, Body Condition Score (BCS), and preventative veterinary compliance**.\n\nAccording to actuarial veterinary longevity studies published by the [American Animal Hospital Association (AAHA)](https://www.aaha.org) and the [AVMA](https://www.avma.org):\n\n```\nCanine Longevity Actuarial Matrix:\n- Small Breeds (< 20 lbs / Chihuahua, Toy Poodle, Dachshund): Average 14 to 17+ Years\n- Medium Breeds (20–50 lbs / Beagle, Cocker Spaniel, Border Collie): Average 11 to 14 Years\n- Large Breeds (50–90 lbs / Labrador, Golden Retriever, German Shepherd): Average 10 to 12 Years\n- Giant Breeds (> 90 lbs / Great Dane, Mastiff, Bernese Mountain Dog): Average 7 to 9 Years\nSurgical Sterilization Bonus: Spayed females live 26% longer; neutered males live 14% longer\n```\n\n### The Top 4 Canine Longevity Optimizers\n\n1. **Maintaining Ideal Lean Body Condition (BCS 4–5)**: Research proves lean dogs live **1.8 to 2.5 years longer** with delayed onset of chronic osteoarthritis and cancer.\n2. **Year-Round Parasiticide Protection**: Preventing heartworm disease (spread by mosquitoes) and tick-borne Borrelia/Anaplasma infections.\n3. **Daily Dental Prophylaxis**: Prevents periodontal bacteria from entering the bloodstream and degrading cardiac valves (endocardiosis) and renal capillary beds.\n4. **Bi-Annual Senior Blood Profiles**: Catching chronic kidney disease, liver dysfunction, and endocrine disorders (Cushing's / Hypothyroidism) at subclinical stages.\n\nCalculate human age equivalents with [Dog Age Calculator](/tools/dog-age-calculator), monitor body condition via [Dog BMI Calculator](/tools/dog-bmi-calculator), plan senior walks using [Dog Walking Calculator](/tools/dog-walking-calculator), and explore longevity science at [AAHA](https://www.aaha.org).",
+    "faqs": [
+      {
+        "q": "What is the average lifespan of a domestic dog?",
+        "a": "The average canine lifespan is 11 to 13 years across all breeds, ranging from 7–9 years for giant breeds to 14–17+ years for small toy breeds."
+      },
+      {
+        "q": "Why do small dog breeds live significantly longer than giant breeds?",
+        "a": "Giant dogs experience rapid cellular division and high oxidative stress during puppyhood, accelerating telomere shortening and early organ decline."
+      },
+      {
+        "q": "What dog breeds have the longest life expectancy?",
+        "a": "Chihuahuas, Toy Poodles, Dachshunds, Australian Cattle Dogs, and Jack Russell Terriers consistently live the longest, frequently reaching 15 to 19 years."
+      }
+    ]
+  },
+  "dog-bath-frequency-calculator": {
+    "howItWorks": "### Specialist Guide: Canine Dermatology, Epidermal Acid Mantle & Bathing Protocols\n\nA common dilemma in canine husbandry is determining how frequently a dog should be bathed. Unlike human skin—which possesses 10 to 15 layers of stratified squamous epithelial cells and an acidic **acid mantle of pH 5.5**—canine epidermis is remarkably fragile:\n- **Tissue Thinness:** Canine skin is merely **3 to 5 cells thick** (comparable to human infant skin).\n- **Neutral to Alkaline pH:** Canine skin ranges between **pH 7.0 and 7.4**.\n\nUsing human shampoo, dish soap, or washing too frequently strips the protective **intercellular stratum corneum lipid bilayer** (ceramides, free fatty acids, and cholesterol). This triggers dry flaking, micro-fissuring, and reactive sebum overproduction (rebound seborrhea), creating an ideal breeding ground for opportunistic secondary infections (*Malassezia pachydermatis* yeast and *Staphylococcus pseudintermedius* bacteria).\n\n---\n\n#### 1. Coat Anatomy & Bathing Intervals\nOptimal bathing intervals depend on hair follicle anatomy and sebum distribution:\n- **Double-Coated Breeds (Golden Retrievers, Huskies, German Shepherds):** Possess dense woolly undercoats and water-resistant guard hairs. They should be bathed only **every 8 to 10 weeks**. Frequent bathing traps moisture in the undercoat, causing acute moist dermatitis (hot spots). A high-velocity cool dryer is mandatory to dry the fur down to the skin.\n- **Curly & Continuous Hair Breeds (Poodles, Doodles, Bichons):** Hair grows continuously and catches airborne dirt, dander, and allergens. Bathing **every 3 to 4 weeks** paired with regular brushing prevents tight pelted mats.\n- **Short & Smooth Coats (Boxers, Beagles, Pointers):** Natural sebum slides easily down the hair shaft. Bathing **every 6 to 8 weeks** is ideal unless visibly soiled.\n- **Hairless Breeds (Chinese Crested, Xoloitzcuintli):** Lack fur to wick away skin secretions. Bathing **every 1 to 2 weeks** with gentle ceramide cleansers prevents follicular plugging (blackheads).\n\n---\n\n#### 2. Therapeutic vs. Hygiene Bathing\nIn veterinary dermatology, bathing transforms from aesthetic hygiene into **topical medical therapy**:\n- **Atopic Dermatitis & Environmental Allergies:** Weekly bathing with lukewarm water physically washes away microscopic pollens and grass allergens adhering to the coat, dramatically reducing systemic itching and reliance on oral medications.\n- **Yeast & Bacterial Pyoderma:** Prescribed chlorhexidine and ketoconazole/miconazole shampoos require a **strict 10-minute lather contact time** to penetrate microbial cell walls before rinsing.\n\nCalculate nutritional support via [Dog Food Calculator](/tools/dog-food-calculator), monitor body condition with [Dog BMI Calculator](/tools/dog-bmi-calculator), check grooming timelines using [Dog Grooming Schedule](/tools/dog-grooming-schedule), and explore dermatological guidelines at the [American College of Veterinary Dermatology (ACVD)](https://www.acvd.org).",
+    "faqs": [
+      {
+        "q": "Can I use human shampoo or baby shampoo on my dog?",
+        "a": "No. Human shampoos are formulated for acidic skin (pH 5.5). Dogs have neutral skin (pH 7.0–7.4). Using human shampoo disrupts your dog's acid mantle, eroding the epidermal lipid barrier and predisposing them to yeast and bacterial infections."
+      },
+      {
+        "q": "How hot should dog bath water be?",
+        "a": "Always use lukewarm water (around 98°F / 37°C). Hot water dries out canine skin, increases pruritus (itching), and can trigger heat distress in heavy-coated or brachycephalic dogs."
+      },
+      {
+        "q": "Why is it dangerous to let a double-coated dog air dry?",
+        "a": "Dense undercoats hold damp moisture against warm skin for hours or days. This warm, moist micro-climate fosters rapid bacterial blooms, resulting in painful, oozing hot spots (acute moist dermatitis). Always use a high-velocity dog dryer on cool."
+      },
+      {
+        "q": "How often should I bathe a dog with severe skin allergies?",
+        "a": "Vets frequently recommend bathing allergic dogs weekly. Bathing acts as mechanical decontamination, removing pollen, dust mites, and mold spores from the fur before they penetrate the epidermal barrier."
+      },
+      {
+        "q": "Does swimming in lakes or the ocean count as a bath?",
+        "a": "No. Lake water contains algae and bacteria, while ocean saltwater leaves abrasive salt crystals that irritate skin. Always rinse your dog with clean, fresh tap water immediately after swimming."
+      },
+      {
+        "q": "What is the 10-minute contact rule for medicated shampoos?",
+        "a": "Medicated shampoos containing chlorhexidine, ketoconazole, or salicylic acid require at least 10 minutes of active contact time on the skin to kill bacteria and yeast. Rinsing immediately renders the medication ineffective."
+      }
+    ]
+  },
   "dog-adoption-checklist": {
     "howItWorks": "### Shelter Ethology, The Rule of 3-3-3, and Rescue Integration\n\nAdopting a rescue dog initiates a profound behavioral and physiological transition. Shelter environments subject animals to sensory overload, chronic cortisol elevation, and disrupted attachment bonds. Successful adoption integration requires adhering to the **Rule of 3-3-3** formulated by shelter medicine specialists and animal behaviorists at the [ASPCA](https://www.aspca.org) and [The Humane Society of the United States](https://www.humanesociety.org).\n\n```\nThe Veterinary Rule of 3-3-3 Adoption Timeline:\n- First 3 Days: Acute Decompression (Overwhelmed, shutting down or testing boundaries, extreme flight risk)\n- First 3 Weeks: Routine Learning (True personality emerges, learning household rules, settling in)\n- First 3 Months: Complete Trust & Integration (Full family bonding, permanent security established)\n```\n\n### Essential Home Proofing & Gear Checklist\n\n1. **Escape Prevention & Martingale Collars**: Rescue dogs in unfamiliar environments are extreme flight risks. Use a fitted Martingale no-slip collar or a 3-point harness attached to a double-clipped leash.\n2. **Dedicated Decompression Sanctuary**: Provide a quiet, low-traffic room with a secure crate, covered bedding, and calming pheromone diffusers (**Adaptil**).\n3. **Veterinary Intake Quarantine**: Schedule a comprehensive wellness exam within 72 hours for microchip verification, fecal parasite centrifugation (checking for Giardia and hookworms), and heartworm antigen testing.\n\nPlan adoption budgets with [Dog Cost Calculator](/tools/dog-cost-calculator), structure house-training via [Potty Training Schedule](/tools/potty-training-schedule), evaluate vaccines using [Dog Vaccination Schedule](/tools/dog-vaccination-schedule), and explore rescue resources at [The Humane Society](https://www.humanesociety.org).",
     "faqs": [
