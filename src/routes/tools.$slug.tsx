@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, CatchBoundary } from "@tanstack/react-router";
 import { ToolPageShell } from "@/components/layouts/tool-page-shell";
 import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import { getTool } from "@/data/tools";
@@ -102,6 +102,35 @@ export const Route = createFileRoute("/tools/$slug")({
       <h1 className="font-display text-2xl font-semibold">Tool not found</h1>
     </div>
   ),
+  errorComponent: ({ reset }) => (
+    <div className="mx-auto flex min-h-[50vh] max-w-md flex-col items-center justify-center px-4 py-16 text-center">
+      <h1 className="font-display text-2xl font-semibold">Unable to load tool</h1>
+      <p className="mt-2 text-sm text-muted-foreground">
+        A newer version of this page may be available. Please refresh to load the latest calculator.
+      </p>
+      <div className="mt-6 flex gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              window.location.reload();
+            } else {
+              reset();
+            }
+          }}
+          className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+        >
+          Refresh Page
+        </button>
+        <a
+          href="/categories/fish"
+          className="rounded-full border border-input bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent"
+        >
+          Browse Fish Tools
+        </a>
+      </div>
+    </div>
+  ),
 });
 
 function ToolPage() {
@@ -127,13 +156,33 @@ function ToolPage() {
       medicalDisclaimer={tool.medicalDisclaimer}
       howItWorks={tool.howItWorks ? <FormattedMarkdown content={tool.howItWorks} /> : undefined}
     >
-      {ToolComponent ? (
-        <ToolComponent />
-      ) : (
-        <div className="rounded-xl bg-muted p-6 text-center text-muted-foreground">
-          This tool is coming soon.
-        </div>
-      )}
+      <CatchBoundary
+        getResetKey={() => tool.slug}
+        errorComponent={({ reset }) => (
+          <div className="rounded-xl border border-primary/20 bg-primary/5 p-6 text-center">
+            <p className="font-medium text-foreground">Interactive calculator temporarily updating.</p>
+            <p className="mt-1 text-xs text-muted-foreground">Please refresh to load the latest version.</p>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") window.location.reload();
+                else reset();
+              }}
+              className="mt-4 inline-flex rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/90"
+            >
+              Refresh
+            </button>
+          </div>
+        )}
+      >
+        {ToolComponent ? (
+          <ToolComponent />
+        ) : (
+          <div className="rounded-xl bg-muted p-6 text-center text-muted-foreground">
+            This tool is coming soon.
+          </div>
+        )}
+      </CatchBoundary>
     </ToolPageShell>
   );
 }

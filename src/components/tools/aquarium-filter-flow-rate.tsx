@@ -4,7 +4,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
 import {
   Waves,
   Gauge,
@@ -141,13 +140,15 @@ export function AquariumFilterFlowRate() {
   const [mediaDensity, setMediaDensity] = useState<"light" | "standard" | "dense">("standard");
   const [headHeightFt, setHeadHeightFt] = useState<number>(3.5);
 
+  const safeVolume = typeof tankVolumeInput === "number" && !isNaN(tankVolumeInput) && tankVolumeInput > 0 ? tankVolumeInput : 40;
+
   // Convert input to US Gallons for calculation
   const tankGallons = useMemo(() => {
     if (unit === "liters") {
-      return Math.max(1, tankVolumeInput / 3.78541);
+      return Math.max(1, safeVolume / 3.78541);
     }
-    return Math.max(1, tankVolumeInput);
-  }, [tankVolumeInput, unit]);
+    return Math.max(1, safeVolume);
+  }, [safeVolume, unit]);
 
   const bioload = useMemo(
     () => BIOLOAD_PROFILES.find((b) => b.id === selectedBioload) ?? BIOLOAD_PROFILES[1],
@@ -304,7 +305,7 @@ export function AquariumFilterFlowRate() {
                 <div className="flex items-center justify-between text-sm font-medium">
                   <Label htmlFor="tank-volume">Tank Water Volume</Label>
                   <span className="text-primary font-mono text-base font-bold">
-                    {tankVolumeInput} {unit === "gal" ? "gal" : "L"}
+                    {safeVolume} {unit === "gal" ? "gal" : "L"}
                   </span>
                 </div>
                 <Input
@@ -313,7 +314,10 @@ export function AquariumFilterFlowRate() {
                   min={2}
                   max={1000}
                   value={tankVolumeInput || ""}
-                  onChange={(e) => setTankVolumeInput(Number(e.target.value))}
+                  onChange={(e) => {
+                    const val = parseFloat(e.target.value);
+                    setTankVolumeInput(isNaN(val) ? 0 : val);
+                  }}
                   className="mt-2 text-base font-semibold"
                 />
               </div>
@@ -433,9 +437,9 @@ export function AquariumFilterFlowRate() {
                 </div>
               </div>
 
-              {/* Vertical Head Height Slider (For Canisters and Sumps) */}
+              {/* Vertical Head Height Range (For Canisters and Sumps) */}
               {(selectedFilterType === "canister" || selectedFilterType === "sump") && (
-                <div className="rounded-xl bg-muted/40 p-4 space-y-2.5">
+                <div className="rounded-xl bg-muted/40 p-4 space-y-3">
                   <div className="flex items-center justify-between text-xs font-medium">
                     <Label htmlFor="head-height" className="flex items-center gap-1.5">
                       <Gauge className="size-3.5 text-primary" />
@@ -445,15 +449,36 @@ export function AquariumFilterFlowRate() {
                       {headHeightFt} ft (~{(headHeightFt * 0.3048).toFixed(1)} m)
                     </span>
                   </div>
-                  <Slider
+                  <input
                     id="head-height"
+                    type="range"
                     min={1}
                     max={6}
                     step={0.5}
-                    value={[headHeightFt]}
-                    onValueChange={(val) => setHeadHeightFt(val[0])}
-                    className="py-2"
+                    value={headHeightFt}
+                    onChange={(e) => setHeadHeightFt(parseFloat(e.target.value) || 3.5)}
+                    className="w-full h-2 rounded-lg bg-muted-foreground/25 accent-primary cursor-pointer"
                   />
+                  <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                    <span>1 ft (Low)</span>
+                    <div className="flex gap-1.5">
+                      {[2, 3.5, 5].map((h) => (
+                        <button
+                          key={h}
+                          type="button"
+                          onClick={() => setHeadHeightFt(h)}
+                          className={`rounded px-1.5 py-0.5 text-[10px] font-mono border transition-colors ${
+                            headHeightFt === h
+                              ? "border-primary bg-primary/10 text-primary font-bold"
+                              : "border-border/60 hover:bg-muted"
+                          }`}
+                        >
+                          {h} ft
+                        </button>
+                      ))}
+                    </div>
+                    <span>6 ft (High)</span>
+                  </div>
                   <p className="text-[11px] text-muted-foreground">
                     Vertical tubing elevation forces the impeller to push against gravity, dissipating pump head pressure.
                   </p>
