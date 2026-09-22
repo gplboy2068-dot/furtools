@@ -20,6 +20,8 @@ interface Post {
   published_at: string | null;
   tags: string[];
   faqs?: { q: string; a: string }[];
+  author?: string;
+  author_id?: string;
 }
 
 const postQuery = (slug: string) =>
@@ -29,7 +31,7 @@ const postQuery = (slug: string) =>
       try {
         const { data, error } = await supabase
           .from("blog_posts")
-          .select("slug,title,excerpt,content,cover_image,category,published,published_at,tags")
+          .select("slug,title,excerpt,content,cover_image,category,published,published_at,tags,author_id")
           .eq("slug", slug)
           .maybeSingle();
 
@@ -48,6 +50,8 @@ const postQuery = (slug: string) =>
             published_at: data.published_at,
             tags: data.tags,
             faqs: staticPost?.faqs,
+            author: "Firoz Khan",
+            author_id: data.author_id ?? "firoz-khan",
           } as Post;
         }
       } catch (err) {
@@ -69,6 +73,8 @@ const postQuery = (slug: string) =>
           published_at: p.published_at,
           tags: p.tags,
           faqs: p.faqs,
+          author: p.author ?? "Firoz Khan",
+          author_id: p.author_id ?? "firoz-khan",
         };
       }
 
@@ -95,6 +101,12 @@ export const Route = createFileRoute("/blog/$slug")({
             url: canonicalUrl,
             datePublished: loaderData.published_at ?? undefined,
             image: imageUrl,
+            authorName: loaderData.author ?? "Firoz Khan",
+            authorUrl: `/author/${loaderData.author_id ?? "firoz-khan"}`,
+            authorSameAs: [
+              "https://www.linkedin.com/in/firoz-khan-1153358a/",
+              "https://www.instagram.com/rtibyfiroz/",
+            ],
           }),
         ),
       },
@@ -167,6 +179,8 @@ function PostBody() {
         publishedAt: post.published_at ?? undefined,
         coverImage: post.cover_image ?? undefined,
         category: post.category ?? undefined,
+        author: post.author ?? "Firoz Khan",
+        authorSlug: post.author_id ?? "firoz-khan",
       }}
       crumbs={[{ label: "Blog", to: "/blog" }, { label: post.title }]}
     >

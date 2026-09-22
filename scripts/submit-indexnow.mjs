@@ -33,6 +33,7 @@ const BASE_STATIC_PATHS = [
   "/care",
   "/ai",
   "/blog",
+  "/author/firoz-khan",
   "/about",
   "/contact",
   "/privacy",

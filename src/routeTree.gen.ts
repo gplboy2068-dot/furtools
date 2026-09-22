@@ -33,6 +33,7 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as BreedsIndexRouteImport } from './routes/breeds.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as AuthorIndexRouteImport } from './routes/author.index'
 import { Route as AiIndexRouteImport } from './routes/ai.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
@@ -41,6 +42,7 @@ import { Route as FoodsSlugRouteImport } from './routes/foods.$slug'
 import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as BreedsSlugRouteImport } from './routes/breeds.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AuthorSlugRouteImport } from './routes/author.$slug'
 import { Route as ApiGenerateNamesRouteImport } from './routes/api/generate-names'
 import { Route as ApiAnalyzeImageRouteImport } from './routes/api/analyze-image'
 import { Route as ApiAiTranslateRouteImport } from './routes/api/ai-translate'
@@ -61,6 +63,7 @@ import { Route as AdminEmailTemplatesRouteImport } from './routes/admin.email-te
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminBreedsRouteImport } from './routes/admin.breeds'
 import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as AdminAuthorsRouteImport } from './routes/admin.authors'
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminAffiliatesRouteImport } from './routes/admin.affiliates'
 import { Route as AdminAdsRouteImport } from './routes/admin.ads'
@@ -190,6 +193,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthorIndexRoute = AuthorIndexRouteImport.update({
+  id: '/author/',
+  path: '/author/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AiIndexRoute = AiIndexRouteImport.update({
   id: '/ai/',
   path: '/ai/',
@@ -228,6 +236,11 @@ const BreedsSlugRoute = BreedsSlugRouteImport.update({
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthorSlugRoute = AuthorSlugRouteImport.update({
+  id: '/author/$slug',
+  path: '/author/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGenerateNamesRoute = ApiGenerateNamesRouteImport.update({
@@ -330,6 +343,11 @@ const AdminBlogRoute = AdminBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAuthorsRoute = AdminAuthorsRouteImport.update({
+  id: '/authors',
+  path: '/authors',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -389,6 +407,7 @@ export interface FileRoutesByFullPath {
   '/admin/ads': typeof AdminAdsRoute
   '/admin/affiliates': typeof AdminAffiliatesRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/authors': typeof AdminAuthorsRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/breeds': typeof AdminBreedsRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -409,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
+  '/author/$slug': typeof AuthorSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/breeds/$slug': typeof BreedsSlugRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -417,6 +437,7 @@ export interface FileRoutesByFullPath {
   '/tools/$slug': typeof ToolsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ai/': typeof AiIndexRoute
+  '/author/': typeof AuthorIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/breeds/': typeof BreedsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
@@ -449,6 +470,7 @@ export interface FileRoutesByTo {
   '/admin/ads': typeof AdminAdsRoute
   '/admin/affiliates': typeof AdminAffiliatesRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/authors': typeof AdminAuthorsRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/breeds': typeof AdminBreedsRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -469,6 +491,7 @@ export interface FileRoutesByTo {
   '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
+  '/author/$slug': typeof AuthorSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/breeds/$slug': typeof BreedsSlugRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -477,6 +500,7 @@ export interface FileRoutesByTo {
   '/tools/$slug': typeof ToolsSlugRoute
   '/admin': typeof AdminIndexRoute
   '/ai': typeof AiIndexRoute
+  '/author': typeof AuthorIndexRoute
   '/blog': typeof BlogIndexRoute
   '/breeds': typeof BreedsIndexRoute
   '/categories': typeof CategoriesIndexRoute
@@ -511,6 +535,7 @@ export interface FileRoutesById {
   '/admin/ads': typeof AdminAdsRoute
   '/admin/affiliates': typeof AdminAffiliatesRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/authors': typeof AdminAuthorsRoute
   '/admin/blog': typeof AdminBlogRoute
   '/admin/breeds': typeof AdminBreedsRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -531,6 +556,7 @@ export interface FileRoutesById {
   '/api/ai-translate': typeof ApiAiTranslateRoute
   '/api/analyze-image': typeof ApiAnalyzeImageRoute
   '/api/generate-names': typeof ApiGenerateNamesRoute
+  '/author/$slug': typeof AuthorSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/breeds/$slug': typeof BreedsSlugRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -539,6 +565,7 @@ export interface FileRoutesById {
   '/tools/$slug': typeof ToolsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ai/': typeof AiIndexRoute
+  '/author/': typeof AuthorIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/breeds/': typeof BreedsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
@@ -574,6 +601,7 @@ export interface FileRouteTypes {
     | '/admin/ads'
     | '/admin/affiliates'
     | '/admin/analytics'
+    | '/admin/authors'
     | '/admin/blog'
     | '/admin/breeds'
     | '/admin/categories'
@@ -594,6 +622,7 @@ export interface FileRouteTypes {
     | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
+    | '/author/$slug'
     | '/blog/$slug'
     | '/breeds/$slug'
     | '/categories/$slug'
@@ -602,6 +631,7 @@ export interface FileRouteTypes {
     | '/tools/$slug'
     | '/admin/'
     | '/ai/'
+    | '/author/'
     | '/blog/'
     | '/breeds/'
     | '/categories/'
@@ -634,6 +664,7 @@ export interface FileRouteTypes {
     | '/admin/ads'
     | '/admin/affiliates'
     | '/admin/analytics'
+    | '/admin/authors'
     | '/admin/blog'
     | '/admin/breeds'
     | '/admin/categories'
@@ -654,6 +685,7 @@ export interface FileRouteTypes {
     | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
+    | '/author/$slug'
     | '/blog/$slug'
     | '/breeds/$slug'
     | '/categories/$slug'
@@ -662,6 +694,7 @@ export interface FileRouteTypes {
     | '/tools/$slug'
     | '/admin'
     | '/ai'
+    | '/author'
     | '/blog'
     | '/breeds'
     | '/categories'
@@ -695,6 +728,7 @@ export interface FileRouteTypes {
     | '/admin/ads'
     | '/admin/affiliates'
     | '/admin/analytics'
+    | '/admin/authors'
     | '/admin/blog'
     | '/admin/breeds'
     | '/admin/categories'
@@ -715,6 +749,7 @@ export interface FileRouteTypes {
     | '/api/ai-translate'
     | '/api/analyze-image'
     | '/api/generate-names'
+    | '/author/$slug'
     | '/blog/$slug'
     | '/breeds/$slug'
     | '/categories/$slug'
@@ -723,6 +758,7 @@ export interface FileRouteTypes {
     | '/tools/$slug'
     | '/admin/'
     | '/ai/'
+    | '/author/'
     | '/blog/'
     | '/breeds/'
     | '/categories/'
@@ -760,6 +796,7 @@ export interface RootRouteChildren {
   ApiAiTranslateRoute: typeof ApiAiTranslateRoute
   ApiAnalyzeImageRoute: typeof ApiAnalyzeImageRoute
   ApiGenerateNamesRoute: typeof ApiGenerateNamesRoute
+  AuthorSlugRoute: typeof AuthorSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BreedsSlugRoute: typeof BreedsSlugRoute
   CategoriesSlugRoute: typeof CategoriesSlugRoute
@@ -767,6 +804,7 @@ export interface RootRouteChildren {
   TagIdRoute: typeof TagIdRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
   AiIndexRoute: typeof AiIndexRoute
+  AuthorIndexRoute: typeof AuthorIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
   BreedsIndexRoute: typeof BreedsIndexRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
@@ -947,6 +985,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/author/': {
+      id: '/author/'
+      path: '/author'
+      fullPath: '/author/'
+      preLoaderRoute: typeof AuthorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ai/': {
       id: '/ai/'
       path: '/ai'
@@ -1001,6 +1046,13 @@ declare module '@tanstack/react-router' {
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/author/$slug': {
+      id: '/author/$slug'
+      path: '/author/$slug'
+      fullPath: '/author/$slug'
+      preLoaderRoute: typeof AuthorSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/generate-names': {
@@ -1143,6 +1195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/authors': {
+      id: '/admin/authors'
+      path: '/authors'
+      fullPath: '/admin/authors'
+      preLoaderRoute: typeof AdminAuthorsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/analytics': {
       id: '/admin/analytics'
       path: '/analytics'
@@ -1199,6 +1258,7 @@ interface AdminRouteChildren {
   AdminAdsRoute: typeof AdminAdsRoute
   AdminAffiliatesRoute: typeof AdminAffiliatesRoute
   AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminAuthorsRoute: typeof AdminAuthorsRoute
   AdminBlogRoute: typeof AdminBlogRoute
   AdminBreedsRoute: typeof AdminBreedsRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
@@ -1221,6 +1281,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAdsRoute: AdminAdsRoute,
   AdminAffiliatesRoute: AdminAffiliatesRoute,
   AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminAuthorsRoute: AdminAuthorsRoute,
   AdminBlogRoute: AdminBlogRoute,
   AdminBreedsRoute: AdminBreedsRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
@@ -1268,6 +1329,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAiTranslateRoute: ApiAiTranslateRoute,
   ApiAnalyzeImageRoute: ApiAnalyzeImageRoute,
   ApiGenerateNamesRoute: ApiGenerateNamesRoute,
+  AuthorSlugRoute: AuthorSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
   BreedsSlugRoute: BreedsSlugRoute,
   CategoriesSlugRoute: CategoriesSlugRoute,
@@ -1275,6 +1337,7 @@ const rootRouteChildren: RootRouteChildren = {
   TagIdRoute: TagIdRoute,
   ToolsSlugRoute: ToolsSlugRoute,
   AiIndexRoute: AiIndexRoute,
+  AuthorIndexRoute: AuthorIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   BreedsIndexRoute: BreedsIndexRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,

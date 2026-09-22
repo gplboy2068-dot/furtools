@@ -1,5 +1,24 @@
 import { SITE } from "@/lib/site";
 import { toAbsoluteUrl } from "@/lib/seo";
+import { DEFAULT_AUTHOR, type Author } from "@/data/authors";
+
+export function personSchema(author: Author = DEFAULT_AUTHOR) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: author.name,
+    jobTitle: author.role,
+    description: author.shortBio,
+    url: toAbsoluteUrl(`/author/${author.slug}`),
+    image: toAbsoluteUrl(author.avatar),
+    sameAs: [author.socials.linkedin, author.socials.instagram].filter(Boolean),
+    worksFor: {
+      "@type": "Organization",
+      name: SITE.name,
+      url: toAbsoluteUrl("/"),
+    },
+  };
+}
 
 export function organizationSchema() {
   return {
@@ -9,7 +28,16 @@ export function organizationSchema() {
     description: SITE.description,
     url: toAbsoluteUrl("/"),
     logo: toAbsoluteUrl("/favicon.png"),
-    sameAs: [],
+    founder: {
+      "@type": "Person",
+      name: DEFAULT_AUTHOR.name,
+      jobTitle: DEFAULT_AUTHOR.role,
+      url: toAbsoluteUrl(`/author/${DEFAULT_AUTHOR.slug}`),
+    },
+    sameAs: [
+      DEFAULT_AUTHOR.socials.linkedin,
+      DEFAULT_AUTHOR.socials.instagram,
+    ].filter(Boolean),
   };
 }
 
@@ -60,11 +88,19 @@ export function articleSchema(a: {
   dateModified?: string;
   image?: string;
   authorName?: string;
+  authorUrl?: string;
+  authorSameAs?: string[];
   section?: string;
   tags?: string[];
 }) {
   const pageUrl = toAbsoluteUrl(a.url);
   const imageUrl = toAbsoluteUrl(a.image || "/og-image.png");
+  const authorName = a.authorName ?? DEFAULT_AUTHOR.name;
+  const authorUrl = toAbsoluteUrl(a.authorUrl ?? `/author/${DEFAULT_AUTHOR.slug}`);
+  const authorSameAs = a.authorSameAs ?? [
+    DEFAULT_AUTHOR.socials.linkedin,
+    DEFAULT_AUTHOR.socials.instagram,
+  ];
 
   return {
     "@context": "https://schema.org",
@@ -76,7 +112,12 @@ export function articleSchema(a: {
     datePublished: a.datePublished,
     dateModified: a.dateModified ?? a.datePublished,
     image: [imageUrl],
-    author: { "@type": "Person", name: a.authorName ?? SITE.author },
+    author: {
+      "@type": "Person",
+      name: authorName,
+      url: authorUrl,
+      sameAs: authorSameAs,
+    },
     publisher: {
       "@type": "Organization",
       name: SITE.name,

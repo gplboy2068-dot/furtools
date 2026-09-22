@@ -4,7 +4,7 @@ import { Faq } from "@/components/faq";
 import { breadcrumbSchema, organizationSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
 import { useSiteSettings } from "@/hooks/use-site-settings";
-import { ShieldCheck, Heart, Sparkles, Calculator, BookOpen, Cpu, Users, Target, Compass } from "lucide-react";
+import { ShieldCheck, Heart, Sparkles, Calculator, BookOpen, Cpu, Users, Target, Compass, ExternalLink, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -79,6 +79,82 @@ function AboutPage() {
               <strong>Empowerment Through Education:</strong> We provide reliable baseline information that helps pet owners communicate more effectively with their licensed veterinary professionals.
             </li>
           </ul>
+        </section>
+
+        {/* Section: Who We Are */}
+        <section id="who-we-are" className="mt-12 scroll-mt-20">
+          <h2 className="flex items-center gap-2.5 text-2xl font-semibold tracking-tight text-foreground">
+            <Users className="size-6 text-primary" />
+            Who We Are
+          </h2>
+          <p>
+            {settings.companyName} is built and directed by technology creator and developer{" "}
+            <strong>Firoz Khan</strong>.
+          </p>
+
+          <div className="not-prose my-6 rounded-2xl border border-border/80 bg-card p-6 shadow-sm">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+              <Link
+                to="/author/$slug"
+                params={{ slug: "firoz-khan" }}
+                className="group relative size-20 shrink-0 overflow-hidden rounded-2xl border-2 border-primary/20 bg-muted shadow-sm transition hover:border-primary/50 sm:size-24"
+              >
+                <img
+                  src="/authors/firoz-khan.webp"
+                  alt="Firoz Khan"
+                  className="size-full object-cover object-center transition duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </Link>
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <Link
+                      to="/author/$slug"
+                      params={{ slug: "firoz-khan" }}
+                      className="font-display text-xl font-bold tracking-tight text-foreground hover:text-primary transition-colors"
+                    >
+                      Firoz Khan
+                    </Link>
+                    <div className="text-xs font-semibold text-primary">
+                      Founder / Content Creator
+                    </div>
+                  </div>
+                  <Link
+                    to="/author/$slug"
+                    params={{ slug: "firoz-khan" }}
+                    className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs font-medium text-foreground hover:border-primary hover:text-primary transition-colors"
+                  >
+                    <span>View Author Profile</span>
+                    <ArrowRight className="size-3.5" />
+                  </Link>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  Firoz Khan is a technology-focused content creator and developer who works on practical online tools and digital resources. He is the founder/creator behind FurTools, a pet-focused platform designed to make everyday pet care information, calculations, planning, and educational resources easier to access.
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-border/60 pt-3">
+                  <a
+                    href="https://www.linkedin.com/in/firoz-khan-1153358a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-[#0077b5]/50 hover:bg-[#0077b5]/10 hover:text-[#0077b5]"
+                  >
+                    <span>LinkedIn</span>
+                    <ExternalLink className="size-3 opacity-60" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/rtibyfiroz/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-[#E1306C]/50 hover:bg-[#E1306C]/10 hover:text-[#E1306C]"
+                  >
+                    <span>Instagram</span>
+                    <ExternalLink className="size-3 opacity-60" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Section 3: Who FurTools Is Designed For */}

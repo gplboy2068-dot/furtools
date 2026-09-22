@@ -78,6 +78,7 @@ export const ADMIN_NAV_SECTIONS: NavSection[] = [
       { to: "/admin/tools", label: "Tools", icon: Wrench },
       { to: "/admin/categories", label: "Categories", icon: FolderTree },
       { to: "/admin/blog", label: "Blog", icon: FileText },
+      { to: "/admin/authors", label: "Authors", icon: UserIcon },
       { to: "/admin/breeds", label: "Breeds", icon: Dog },
       { to: "/admin/foods", label: "Foods", icon: Apple },
       { to: "/admin/faqs", label: "FAQs", icon: HelpCircle },
