@@ -4493,6 +4493,14 @@ export function getTool(slug: string): Tool | undefined {
 }
 
 export function toolsByCategory(categorySlug: string): Tool[] {
+  const norm = categorySlug.toLowerCase().trim();
+  if (norm === "horse-tools" || norm === "horses") {
+    return TOOLS.filter((t) => t.category === "horses" || t.category === "horse-tools");
+  }
+  if (norm.endsWith("-tools")) {
+    const base = norm.replace(/-tools$/, "");
+    return TOOLS.filter((t) => t.category === norm || t.category === base || t.category === `${base}s`);
+  }
   return TOOLS.filter((t) => t.category === categorySlug);
 }
 

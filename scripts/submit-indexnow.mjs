@@ -46,6 +46,7 @@ const BASE_STATIC_PATHS = [
   "/categories/small-pets",
   "/categories/reptiles",
   "/categories/horses",
+  "/categories/horse-tools",
   "/categories/farm",
   "/categories/general",
   "/ai/dog-training",

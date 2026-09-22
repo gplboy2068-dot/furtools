@@ -57,6 +57,13 @@ export const CATEGORIES: Category[] = [
     color: "violet",
   },
   {
+    slug: "horse-tools",
+    name: "Horse Tools & Calculators",
+    description: "Equine feed portioning, hydration estimates, farrier schedules, blanket sizing, and BCS calculators.",
+    icon: "PawPrint",
+    color: "violet",
+  },
+  {
     slug: "farm",
     name: "Farm Animals",
     description: "Chickens, ducks, goats, and other homestead animals — coops, feed, and production.",
@@ -72,6 +79,31 @@ export const CATEGORIES: Category[] = [
   },
 ];
 
+const CATEGORY_ALIASES: Record<string, string> = {
+  "horse-tools": "horses",
+  "horses": "horse-tools",
+  "dog-tools": "dogs",
+  "cat-tools": "cats",
+  "bird-tools": "birds",
+  "fish-tools": "fish",
+  "reptile-tools": "reptiles",
+  "small-pet-tools": "small-pets",
+  "farm-tools": "farm",
+};
+
 export function getCategory(slug: string): Category | undefined {
-  return CATEGORIES.find((c) => c.slug === slug);
+  const direct = CATEGORIES.find((c) => c.slug === slug);
+  if (direct) return direct;
+  const targetSlug = CATEGORY_ALIASES[slug];
+  if (targetSlug) {
+    const target = CATEGORIES.find((c) => c.slug === targetSlug);
+    if (target) {
+      return {
+        ...target,
+        slug,
+        name: slug === "horse-tools" ? "Horse Tools & Calculators" : target.name,
+      };
+    }
+  }
+  return undefined;
 }
