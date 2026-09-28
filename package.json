@@ -13,8 +13,8 @@
     "indexnow": "node scripts/submit-indexnow.mjs",
     "seo:audit": "npx tsx scripts/seo-audit.ts",
     "audit:geo": "npx tsx scripts/audit-geo-ai.ts",
-    "deploy": "vite build && wrangler deploy",
-    "deploy:pages": "CF_PAGES=1 vite build && wrangler pages deploy .output/public"
+    "deploy": "vite build && npx wrangler deploy",
+    "deploy:pages": "CF_PAGES=1 vite build && npx wrangler pages deploy .output/public"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
