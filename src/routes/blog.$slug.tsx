@@ -7,6 +7,7 @@ import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { STATIC_BLOG_POSTS } from "@/data/blog-posts";
+import { getDbBlogPostBySlug } from "@/lib/d1";
 import { HelpCircle } from "lucide-react";
 import { toAbsoluteUrl } from "@/lib/seo";
 
@@ -28,6 +29,26 @@ const postQuery = (slug: string) =>
   queryOptions({
     queryKey: ["blog", "post", slug],
     queryFn: async (): Promise<Post> => {
+      // 1. Query Cloudflare D1 first (ultra-fast, native)
+      const d1Post = await getDbBlogPostBySlug(slug);
+      if (d1Post) {
+        if (!d1Post.published) throw notFound();
+        const staticPost = STATIC_BLOG_POSTS[slug];
+        return {
+          slug: d1Post.slug,
+          title: d1Post.title,
+          excerpt: d1Post.excerpt,
+          content: d1Post.content,
+          cover_image: d1Post.cover_image,
+          category: d1Post.category,
+          published_at: d1Post.published_at,
+          tags: d1Post.tags,
+          faqs: staticPost?.faqs,
+          author: "Firoz Khan",
+          author_id: d1Post.author_id ?? "firoz-khan",
+        } as Post;
+      }
+
       try {
         const { data, error } = await supabase
           .from("blog_posts")

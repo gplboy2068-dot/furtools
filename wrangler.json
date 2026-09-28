@@ -30,5 +30,12 @@
     "VITE_SUPABASE_PUBLISHABLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRraHBuc2d4b3Bsa3l1ZWN6cHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMzUzNjcsImV4cCI6MjA5OTcxMTM2N30.cC1iwq_-F586UkCUfmDIJNmKp49DvobO10LV8OM3Mlc",
     "SUPABASE_PROJECT_ID": "tkhpnsgxoplkyueczpzp",
     "VITE_SUPABASE_PROJECT_ID": "tkhpnsgxoplkyueczpzp"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "furtools-db",
+      "database_id": "074d06cb-7126-41a1-836c-9d14d14fab9a"
+    }
+  ]
 }

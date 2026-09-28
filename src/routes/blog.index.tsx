@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { STATIC_BLOG_POSTS } from "@/data/blog-posts";
+import { getDbBlogPosts } from "@/lib/d1";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead, toAbsoluteUrl } from "@/lib/seo";
 
@@ -20,6 +21,12 @@ interface PostSummary {
 const postsQuery = queryOptions({
   queryKey: ["blog", "posts"],
   queryFn: async (): Promise<PostSummary[]> => {
+    // 1. Query Cloudflare D1 first (ultra-fast, native)
+    const d1Posts = await getDbBlogPosts();
+    if (d1Posts && d1Posts.length > 0) {
+      return d1Posts as PostSummary[];
+    }
+
     let allDbPosts: (PostSummary & { published?: boolean })[] = [];
     try {
       const { data, error } = await supabase
