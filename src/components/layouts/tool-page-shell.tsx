@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Breadcrumbs, type Crumb } from "@/components/breadcrumbs";
 import { RelatedTools } from "@/components/tool-sections";
 import { Faq, type FaqItem } from "@/components/faq";
-import { AlertTriangle, BookOpen } from "lucide-react";
+import { AlertTriangle, BookOpen, Sparkles } from "lucide-react";
 import { EmbedCalculatorDialog } from "@/components/tools/embed-dialog";
 import type { ToolExample, RelatedArticle } from "@/data/tools";
 
@@ -11,6 +11,7 @@ export interface ToolLayoutProps {
   slug: string;
   title: string;
   description: string;
+  directAnswer?: string;
   category: { slug: string; name: string };
   crumbs: Crumb[];
   children: ReactNode; // tool UI
@@ -25,6 +26,7 @@ export interface ToolLayoutProps {
 export function ToolPageShell({
   title,
   description,
+  directAnswer,
   crumbs,
   children,
   intro,
@@ -45,6 +47,21 @@ export function ToolPageShell({
         <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{description}</p>
       </header>
+
+      {directAnswer && (
+        <section
+          aria-label={`Quick Answer: What is ${title}?`}
+          className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4 sm:p-5 text-sm"
+        >
+          <div className="flex items-center gap-2 font-semibold text-primary">
+            <Sparkles className="size-4 text-amber-500 shrink-0" aria-hidden="true" />
+            <span className="text-xs uppercase tracking-wider">Direct Answer • AI Search Snippet</span>
+          </div>
+          <p className="mt-2 leading-relaxed text-foreground/90 font-medium">
+            {directAnswer}
+          </p>
+        </section>
+      )}
 
       {intro && <div className="prose prose-neutral mt-8 max-w-3xl dark:prose-invert">{intro}</div>}
 

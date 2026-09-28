@@ -133,24 +133,44 @@ export function softwareApplicationSchema(t: {
   description: string;
   url: string;
   category?: string;
+  subCategory?: string;
   image?: string;
   ratingValue?: number;
   ratingCount?: number;
+  featureList?: string[];
+  browserRequirements?: string;
+  operatingSystem?: string;
+  isAccessibleForFree?: boolean;
+  keywords?: string;
 }) {
   const appUrl = toAbsoluteUrl(t.url);
   const imageUrl = toAbsoluteUrl(t.image || "/og-image.png");
 
   const base: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": ["SoftwareApplication", "WebApplication"],
     name: t.name,
     description: t.description,
     url: appUrl,
     applicationCategory: t.category ?? "UtilitiesApplication",
-    operatingSystem: "Any",
+    applicationSubCategory: t.subCategory ?? "Veterinary & Pet Care Calculators",
+    operatingSystem: t.operatingSystem ?? "Web Browser, iOS, Android, macOS, Windows, Linux",
+    browserRequirements: t.browserRequirements ?? "Requires JavaScript. Requires HTML5.",
+    softwareVersion: "2026.1",
+    isAccessibleForFree: t.isAccessibleForFree ?? true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     image: imageUrl,
+    featureList: t.featureList ?? [
+      "Instant veterinary and biological calculation",
+      "Evidence-based clinical formulas and species models",
+      "Interactive responsive inputs with real-time feedback",
+      "100% free with zero registration or account required",
+      "Client-side privacy — all calculations performed locally",
+    ],
   };
+  if (t.keywords) {
+    base.keywords = t.keywords;
+  }
   if (t.ratingValue && t.ratingCount) {
     base.aggregateRating = {
       "@type": "AggregateRating",

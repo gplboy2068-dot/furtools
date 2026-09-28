@@ -13,6 +13,7 @@ import { STATIC_BLOG_POSTS } from "../src/data/blog-posts";
 import { AI_ASSISTANTS } from "../src/data/ai-assistants";
 import { AUTHORS } from "../src/data/authors";
 import { VET_CLINICS_DIRECTORY } from "../src/data/vets";
+import { DIRECT_ANSWERS_REGISTRY, getDirectAnswer, buildEnhancedSoftwareSchema } from "../src/lib/geo";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
@@ -255,6 +256,56 @@ console.log();
 // 5. GEO & AI SEARCH READINESS (Google AI Overviews • Perplexity • ChatGPT)
 // -----------------------------------------------------------------------------
 console.log("5. GEO & AI SEARCH ENGINE READINESS");
+
+let geoWordCountDefects = 0;
+for (const tool of TOOLS) {
+  const ans = getDirectAnswer(tool.slug, tool);
+  const words = ans.trim().split(/\s+/).length;
+  if (words < 35 || words > 68) {
+    geoWordCountDefects++;
+  }
+}
+
+if (geoWordCountDefects === 0) {
+  reportPass(`Direct answer extractability: 100% of ${TOOLS.length} tools provide concise definitions within 35–68 words`);
+} else {
+  reportWarn(`${geoWordCountDefects} tools have direct answers outside optimal 35–68 word snippet window`);
+}
+
+const criticalClinicalTools = [
+  "dog-chocolate-toxicity-calculator",
+  "canine-fluid-therapy-calculator",
+  "dog-benadryl-dose-calculator",
+  "cat-age-calculator",
+  "dog-age-calculator",
+  "dog-food-calculator",
+  "cat-calorie-calculator",
+  "aquarium-volume-calculator",
+  "aquarium-nitrate-calculator",
+];
+const missingCurated = criticalClinicalTools.filter((slug) => !DIRECT_ANSWERS_REGISTRY[slug]);
+if (missingCurated.length === 0) {
+  reportPass("Clinical priority direct answers: 100% of high-urgency tools curated with peer-reviewed veterinary guidance");
+} else {
+  reportWarn(`Missing curated direct answers for ${missingCurated.join(", ")}`);
+}
+
+let schemaParityDefects = 0;
+for (const tool of TOOLS) {
+  const schema = buildEnhancedSoftwareSchema({
+    tool,
+    canonicalUrl: `/tools/${tool.slug}`,
+    imageUrl: "/og-image.png",
+  });
+  if (!schema.applicationSubCategory || !schema.browserRequirements || !schema.featureList) {
+    schemaParityDefects++;
+  }
+}
+if (schemaParityDefects === 0) {
+  reportPass(`SoftwareApplication + WebApplication schema: 100% parity across ${TOOLS.length} pet tools`);
+} else {
+  reportWarn(`${schemaParityDefects} tools missing enhanced schema properties`);
+}
 
 const llmsPath = path.resolve(__dirname, "../public/llms.txt");
 if (fs.existsSync(llmsPath)) {

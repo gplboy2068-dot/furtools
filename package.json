@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "indexnow": "node scripts/submit-indexnow.mjs",
-    "seo:audit": "npx tsx scripts/seo-audit.ts"
+    "seo:audit": "npx tsx scripts/seo-audit.ts",
+    "audit:geo": "npx tsx scripts/audit-geo-ai.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

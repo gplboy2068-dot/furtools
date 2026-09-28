@@ -5,6 +5,7 @@ import { getTool } from "@/data/tools";
 import { getCategory } from "@/data/categories";
 import { TOOL_COMPONENTS } from "@/components/tools/registry";
 import { breadcrumbSchema, faqSchema, softwareApplicationSchema } from "@/lib/schema";
+import { getDirectAnswer, buildEnhancedSoftwareSchema } from "@/lib/geo";
 import { SITE } from "@/lib/site";
 import { toAbsoluteUrl } from "@/lib/seo";
 
@@ -42,6 +43,7 @@ export const Route = createFileRoute("/tools/$slug")({
 
     const canonicalUrl = toAbsoluteUrl(`/tools/${params.slug}`);
     const imageUrl = toAbsoluteUrl("/og-image.png");
+    const directAnswer = getDirectAnswer(tool.slug, tool);
 
     return {
       meta: [
@@ -67,12 +69,11 @@ export const Route = createFileRoute("/tools/$slug")({
         {
           type: "application/ld+json",
           children: JSON.stringify(
-            softwareApplicationSchema({
-              name: tool.name,
-              description: tool.description,
-              url: canonicalUrl,
-              category: "HealthApplication",
-              image: imageUrl,
+            buildEnhancedSoftwareSchema({
+              tool,
+              canonicalUrl,
+              imageUrl,
+              directAnswer,
             }),
           ),
         },
@@ -136,12 +137,14 @@ export const Route = createFileRoute("/tools/$slug")({
 function ToolPage() {
   const { tool, category } = Route.useLoaderData();
   const ToolComponent = TOOL_COMPONENTS[tool.slug];
+  const directAnswer = getDirectAnswer(tool.slug, tool);
 
   return (
     <ToolPageShell
       slug={tool.slug}
       title={tool.name}
       description={tool.description}
+      directAnswer={directAnswer}
       category={category ? { slug: category.slug, name: category.name } : { slug: "", name: "" }}
       crumbs={[
         { label: "Categories", to: "/categories" },
