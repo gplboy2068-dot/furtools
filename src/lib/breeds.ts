@@ -67,13 +67,21 @@ const BREED_COLUMNS =
 export const breedsListQuery = queryOptions({
   queryKey: ["breeds", "list"],
   queryFn: async (): Promise<BreedRow[]> => {
-    const { data, error } = await supabase
-      .from("breeds")
-      .select(BREED_COLUMNS)
-      .eq("published", true)
-      .order("name", { ascending: true });
-    if (error) throw error;
-    return (data ?? []) as unknown as BreedRow[];
+    try {
+      const { data, error } = await supabase
+        .from("breeds")
+        .select(BREED_COLUMNS)
+        .eq("published", true)
+        .order("name", { ascending: true });
+      if (error) {
+        console.warn("Supabase breeds list query error:", error);
+        return [];
+      }
+      return (data ?? []) as unknown as BreedRow[];
+    } catch (err) {
+      console.warn("Supabase breeds list query failed:", err);
+      return [];
+    }
   },
 });
 
@@ -81,14 +89,22 @@ export const breedDetailQuery = (slug: string) =>
   queryOptions({
     queryKey: ["breeds", "detail", slug],
     queryFn: async (): Promise<BreedRow | null> => {
-      const { data, error } = await supabase
-        .from("breeds")
-        .select(BREED_COLUMNS)
-        .eq("slug", slug)
-        .eq("published", true)
-        .maybeSingle();
-      if (error) throw error;
-      return (data as unknown as BreedRow) ?? null;
+      try {
+        const { data, error } = await supabase
+          .from("breeds")
+          .select(BREED_COLUMNS)
+          .eq("slug", slug)
+          .eq("published", true)
+          .maybeSingle();
+        if (error) {
+          console.warn(`Supabase breed detail error (${slug}):`, error);
+          return null;
+        }
+        return (data as unknown as BreedRow) ?? null;
+      } catch (err) {
+        console.warn(`Supabase breed detail query failed (${slug}):`, err);
+        return null;
+      }
     },
   });
 

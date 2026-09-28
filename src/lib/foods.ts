@@ -34,13 +34,21 @@ const COLS =
 export const foodsListQuery = queryOptions({
   queryKey: ["foods", "list"],
   queryFn: async (): Promise<FoodRow[]> => {
-    const { data, error } = await supabase
-      .from("foods")
-      .select(COLS)
-      .eq("published", true)
-      .order("name");
-    if (error) throw error;
-    return (data ?? []) as unknown as FoodRow[];
+    try {
+      const { data, error } = await supabase
+        .from("foods")
+        .select(COLS)
+        .eq("published", true)
+        .order("name");
+      if (error) {
+        console.warn("Supabase foods list query error:", error);
+        return [];
+      }
+      return (data ?? []) as unknown as FoodRow[];
+    } catch (err) {
+      console.warn("Supabase foods list query failed:", err);
+      return [];
+    }
   },
 });
 
@@ -48,14 +56,22 @@ export const foodDetailQuery = (slug: string) =>
   queryOptions({
     queryKey: ["foods", "detail", slug],
     queryFn: async (): Promise<FoodRow | null> => {
-      const { data, error } = await supabase
-        .from("foods")
-        .select(COLS)
-        .eq("slug", slug)
-        .eq("published", true)
-        .maybeSingle();
-      if (error) throw error;
-      return (data as unknown as FoodRow) ?? null;
+      try {
+        const { data, error } = await supabase
+          .from("foods")
+          .select(COLS)
+          .eq("slug", slug)
+          .eq("published", true)
+          .maybeSingle();
+        if (error) {
+          console.warn(`Supabase food detail error (${slug}):`, error);
+          return null;
+        }
+        return (data as unknown as FoodRow) ?? null;
+      } catch (err) {
+        console.warn(`Supabase food detail query failed (${slug}):`, err);
+        return null;
+      }
     },
   });
 
