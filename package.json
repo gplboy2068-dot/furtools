@@ -12,7 +12,9 @@
     "format": "prettier --write .",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "seo:audit": "npx tsx scripts/seo-audit.ts",
-    "audit:geo": "npx tsx scripts/audit-geo-ai.ts"
+    "audit:geo": "npx tsx scripts/audit-geo-ai.ts",
+    "deploy": "vite build && wrangler deploy",
+    "deploy:pages": "CF_PAGES=1 vite build && wrangler pages deploy .output/public"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -97,6 +99,7 @@
     "prettier": "^3.7.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "wrangler": "^4.142.0"
   }
 }

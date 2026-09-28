@@ -13,7 +13,12 @@ export default defineConfig({
     server: { entry: "server" },
   },
 
-  nitro: process.env.VERCEL || process.env.VERCEL_ENV || process.env.CI ? { preset: "vercel" } : undefined,
+  nitro:
+    process.env.VERCEL || process.env.VERCEL_ENV
+      ? { preset: "vercel" }
+      : process.env.CF_PAGES
+      ? { preset: "cloudflare-pages" }
+      : undefined,
   vite: {
     resolve: {
       tsconfigPaths: true,
