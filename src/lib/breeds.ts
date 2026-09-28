@@ -67,6 +67,17 @@ const BREED_COLUMNS =
 export const breedsListQuery = queryOptions({
   queryKey: ["breeds", "list"],
   queryFn: async (): Promise<BreedRow[]> => {
+    // 1. Query Cloudflare D1 first
+    try {
+      const { getDbBreeds } = await import("@/lib/d1");
+      const d1Breeds = await getDbBreeds();
+      if (d1Breeds && d1Breeds.length > 0) {
+        return d1Breeds as unknown as BreedRow[];
+      }
+    } catch (d1Err) {
+      console.warn("D1 breeds query error:", d1Err);
+    }
+
     try {
       const { data, error } = await supabase
         .from("breeds")
@@ -89,6 +100,17 @@ export const breedDetailQuery = (slug: string) =>
   queryOptions({
     queryKey: ["breeds", "detail", slug],
     queryFn: async (): Promise<BreedRow | null> => {
+      // 1. Query Cloudflare D1 first
+      try {
+        const { getDbBreedBySlug } = await import("@/lib/d1");
+        const d1Breed = await getDbBreedBySlug(slug);
+        if (d1Breed) {
+          return d1Breed as unknown as BreedRow;
+        }
+      } catch (d1Err) {
+        console.warn(`D1 breed detail query error (${slug}):`, d1Err);
+      }
+
       try {
         const { data, error } = await supabase
           .from("breeds")

@@ -37,5 +37,11 @@
       "database_name": "furtools-db",
       "database_id": "7f499ff9-1db8-4747-a18c-5b0eafef59c7"
     }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "STORAGE",
+      "bucket_name": "furtools-assets"
+    }
   ]
 }

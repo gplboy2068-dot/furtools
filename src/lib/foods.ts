@@ -34,6 +34,17 @@ const COLS =
 export const foodsListQuery = queryOptions({
   queryKey: ["foods", "list"],
   queryFn: async (): Promise<FoodRow[]> => {
+    // 1. Query Cloudflare D1 first
+    try {
+      const { getDbFoods } = await import("@/lib/d1");
+      const d1Foods = await getDbFoods();
+      if (d1Foods && d1Foods.length > 0) {
+        return d1Foods as unknown as FoodRow[];
+      }
+    } catch (d1Err) {
+      console.warn("D1 foods query error:", d1Err);
+    }
+
     try {
       const { data, error } = await supabase
         .from("foods")
@@ -56,6 +67,17 @@ export const foodDetailQuery = (slug: string) =>
   queryOptions({
     queryKey: ["foods", "detail", slug],
     queryFn: async (): Promise<FoodRow | null> => {
+      // 1. Query Cloudflare D1 first
+      try {
+        const { getDbFoodBySlug } = await import("@/lib/d1");
+        const d1Food = await getDbFoodBySlug(slug);
+        if (d1Food) {
+          return d1Food as unknown as FoodRow;
+        }
+      } catch (d1Err) {
+        console.warn(`D1 food detail query error (${slug}):`, d1Err);
+      }
+
       try {
         const { data, error } = await supabase
           .from("foods")
