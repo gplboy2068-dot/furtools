@@ -21,7 +21,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The True Lifetime Cost of Owning a Pet: A Complete Veterinary & Financial Blueprint",
     "excerpt": "An exhaustive, actuarial breakdown of the true lifetime financial cost of owning dogs, cats, and small pets—covering Year 1 capital setups, recurring nutritional & preventative baselines, emergency sinking funds, and senior veterinary inflation.",
     "category": "Finance & Planning",
-    "published_at": "2026-08-20T00:00:00Z",
+    "published_at": "2026-09-15T00:00:00Z",
     "tags": [
       "pet budget",
       "pet cost",
@@ -30,7 +30,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat cost",
       "financial planning"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/lifetime-pet-budget.webp",
     "faqs": [
       {
         "q": "What is the average total lifetime cost of owning a dog?",
@@ -437,7 +437,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "How to Help a Shy or Fearful Cat Settle In: The 3-3-3 Rule & Veterinary Behavior Guide (2026)",
     "excerpt": "An authoritative, evidence-based guide to rehabilitating shy, fearful, or rescue cats in a new home. Explains the 3-3-3 feline decompression timeline, safe base-camp sanctuary setup, pheromone therapy, low-stress body language, slow-blink bonding, positive reinforcement counter-conditioning, and avoiding common acclimation mistakes.",
     "category": "Feline Behavior & Care",
-    "published_at": "2026-08-22T00:00:00Z",
+    "published_at": "2026-09-15T00:00:00Z",
     "tags": [
       "shy cat",
       "cat behavior",
@@ -449,7 +449,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat anxiety",
       "feline enrichment"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/shy-cat-settling-in.webp",
     "faqs": [
       {
         "q": "What is the 3-3-3 rule for bringing home a new or shy cat?",
@@ -499,7 +499,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Backyard Duck Pond Sizing & Care: Gallons, Filtration & Water Chemistry (2026)",
     "excerpt": "A master engineering and avian care guide to sizing, building, and maintaining backyard duck ponds. Covers biological gallons-per-duck formulas, heavy-duty mechanical solids filtration, bog biological filters, mud apron prevention, winter de-icing, and avian botulism prevention.",
     "category": "Waterfowl & Poultry",
-    "published_at": "2026-08-22T00:00:00Z",
+    "published_at": "2026-09-15T00:00:00Z",
     "tags": [
       "duck pond",
       "duck care",
@@ -509,7 +509,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "poultry farming",
       "backyard ducks"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/duck-pond-size-guide.webp",
     "faqs": [
       {
         "q": "How many gallons of water does each duck need in a pond?",
@@ -539,7 +539,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Complete Snake Enclosure & Tank Size Guide: Pythons, Corn Snakes & Boas (2026)",
     "excerpt": "An evidence-based reptile husbandry guide for sizing and setting up snake enclosures. Explains the Length + Width >= Snake Length rule, PVC vs. glass thermal dynamics, temperature gradient zones, UVB lighting science, and species-specific dimensional blueprints.",
     "category": "Reptiles & Amphibians",
-    "published_at": "2026-08-22T00:00:00Z",
+    "published_at": "2026-09-15T00:00:00Z",
     "tags": [
       "snake tank size",
       "snake enclosure",
@@ -549,7 +549,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "snake care",
       "herpetology"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1531386151447-fd76ad50012f?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/snake-enclosure-size-guide.webp",
     "faqs": [
       {
         "q": "What is the universal veterinary formula for sizing a snake enclosure?",
@@ -718,7 +718,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "invertebrates",
       "terrarium setup"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/rehousing-a-tarantula.webp",
     "faqs": [
       {
         "q": "When is the right time to rehouse a tarantula?",
@@ -778,7 +778,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "farrier care",
       "horse health"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/barefoot-transition.webp",
     "faqs": [
       {
         "q": "How long does a complete barefoot transition take for a horse?",
@@ -838,7 +838,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "navicular syndrome",
       "horse care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/hoof-balance-guide.webp",
     "faqs": [
       {
         "q": "What is ideal equine hoof balance?",
@@ -960,7 +960,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "veterinary gerontology",
       "older dog"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/senior-pet-signs.webp",
     "faqs": [
       {
         "q": "At what age is a dog or cat officially considered a 'senior'?",
@@ -1630,7 +1630,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A complete veterinary guide to preventing and treating ulcerative shell disease (SCUD) in chelonians. Master water quality parameters, dry-docking protocols, UVB irradiance gradients, and antimicrobial debridement.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "13 min read",
     "category": "Exotic Pet Care",
     "tags": [
@@ -1643,7 +1643,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "UVB basking",
       "chelonian health"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/shell-rot-prevention.webp",
     "faqs": [
       {
         "q": "What is shell rot and what causes it in chelonians?",
@@ -1695,7 +1695,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A veterinary aviculturist guide to harness training parrots without trauma. Learn the stepwise desensitization protocol, harness anatomy, positive reinforcement, and outdoor safety protocols.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "13 min read",
     "category": "Bird Care",
     "tags": [
@@ -1707,7 +1707,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "avian enrichment",
       "pet bird care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1552728089-57bdde30beb3?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/parrot-harness-training.webp",
     "faqs": [
       {
         "q": "What is the safest age to start harness training a parrot?",
@@ -1759,7 +1759,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Understand the biological mechanisms of psittacine molting. Learn how to manage uncomfortable blood feathers, provide critical keratin-synthesizing amino acids, and navigate hormonal mood swings safely.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "12 min read",
     "category": "Bird Care",
     "tags": [
@@ -1771,7 +1771,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "psittacine health",
       "bird feather care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/parrot-molting.webp",
     "faqs": [
       {
         "q": "How often do companion parrots molt?",
@@ -2079,7 +2079,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Decode your pet's fecal health using the clinical Bristol-style 7-point scale. Learn what chocolate-brown, bloody red, tarry melena, pale yellow, and mucous-coated stools reveal about GI pathology.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "13 min read",
     "category": "Pet Health",
     "tags": [
@@ -2091,7 +2091,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "canine digestion",
       "melena in pets"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/poop-chart-guide.webp",
     "faqs": [
       {
         "q": "What is the veterinary gold standard for healthy pet stool?",
@@ -2143,7 +2143,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Clear pet dander, microscopic allergens, and stubborn odors safely. Understand CADR ratings, True HEPA H13 filtration, granular activated carbon adsorption, and the lethal dangers of ozone/ionizers.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "12 min read",
     "category": "Pet Care",
     "tags": [
@@ -2155,7 +2155,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat asthma",
       "pet odor removal"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/air-purifiers-pet-homes.webp",
     "faqs": [
       {
         "q": "What is pet dander and why does it trigger human and feline asthma?",
@@ -2271,7 +2271,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Build a safe outdoor habitat for terrestrial tortoises. Master predator-proof sunken perimeters, microclimates, edible grazing forage, thermal retreat hides, and solar UV exposure.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "13 min read",
     "category": "Exotic Pet Care",
     "tags": [
@@ -2283,7 +2283,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "tortoise grazing plants",
       "chelonian care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/outdoor-tortoise-enclosure.webp",
     "faqs": [
       {
         "q": "Why is an outdoor enclosure vastly superior to indoor housing for tortoises?",
@@ -2399,7 +2399,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Master the science of raising Japanese Coturnix quail (Coturnix japonica). From brooder heat gradients and 28% starter protein to colony sex ratios, flush prevention, and year-round egg cycles.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "14 min read",
     "category": "Bird Care",
     "tags": [
@@ -2411,7 +2411,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "quail brooding",
       "poultry nutrition"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/raising-coturnix-quail.webp",
     "faqs": [
       {
         "q": "Why are Coturnix quail considered ideal for small backyards and homesteads?",
@@ -2463,7 +2463,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A critical veterinary toxicology guide to birch sugar and xylitol toxicity in dogs. Learn the pharmacokinetics of massive insulin dumping, acute hypoglycemic collapse, hepatic necrosis, and emergency ICU triage.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "14 min read",
     "category": "Dog Care",
     "tags": [
@@ -2527,7 +2527,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Shield canine paw pads from ice melt chemicals, frostbite, and hyperkeratotic fissures. Discover the organic lipid barrier chemistry (beeswax, carnauba, shea butter) and post-walk decontamination routines.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-09-15T00:00:00Z",
     "read_time": "13 min read",
     "category": "Dog Care",
     "tags": [
@@ -2780,7 +2780,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "veterinary pulmonary medicine",
       "HEPA filtration pets"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/wildfire-smoke-pets.webp",
     "faqs": [
       {
         "q": "Why are pets more susceptible to wildfire smoke than adult humans?",
@@ -3020,7 +3020,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "herpetology enclosure",
       "turtle shell health"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/aquatic-turtle-setup.webp",
     "faqs": [
       {
         "q": "What is the minimum tank size rule for aquatic turtles?",
@@ -3140,7 +3140,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "calcium phosphorus ratio reptiles",
       "gut loading diet recipe"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/gut-loading-feeder-insects.webp",
     "faqs": [
       {
         "q": "What is gut-loading in herpetological nutrition?",
@@ -3200,7 +3200,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "hedgehog fleece liners",
       "preventing hedgehog hibernation"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/hedgehog-enclosure-setup.png",
     "faqs": [
       {
         "q": "What is the mandatory temperature range for an African Pygmy Hedgehog?",
@@ -3320,7 +3320,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "Dichelobacter nodosus",
       "livestock biosecurity"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/hoof-rot-prevention.webp",
     "faqs": [
       {
         "q": "What is hoof rot (footrot) in livestock?",
@@ -3380,7 +3380,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog scratching sores",
       "veterinary dermatology dogs"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/hot-spots-guide.webp",
     "faqs": [
       {
         "q": "What is a hot spot on a dog?",
@@ -3440,7 +3440,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "caring for deaf cat",
       "feline auditory health"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/white-cat-deafness.webp",
     "faqs": [
       {
         "q": "Why are so many white cats born deaf?",
@@ -3500,7 +3500,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "tarantula fang sclerotization",
       "arachnid care guide"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/tarantula-moult-cycle.webp",
     "faqs": [
       {
         "q": "Why do tarantulas moult?",
@@ -3560,7 +3560,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "IL-31 cytokine itch",
       "veterinary allergy shots"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/atopic-dermatitis-dogs.webp",
     "faqs": [
       {
         "q": "What is Canine Atopic Dermatitis (CAD)?",
