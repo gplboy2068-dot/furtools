@@ -20,6 +20,18 @@ export default defineConfig({
       ? { preset: "cloudflare-pages" }
       : undefined,
   vite: {
+    define: {
+      "import.meta.env.VITE_SUPABASE_URL": JSON.stringify(
+        process.env.VITE_SUPABASE_URL || "https://tkhpnsgxoplkyueczpzp.supabase.co"
+      ),
+      "import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY": JSON.stringify(
+        process.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRraHBuc2d4b3Bsa3l1ZWN6cHpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMzUzNjcsImV4cCI6MjA5OTcxMTM2N30.cC1iwq_-F586UkCUfmDIJNmKp49DvobO10LV8OM3Mlc"
+      ),
+      "import.meta.env.VITE_SUPABASE_PROJECT_ID": JSON.stringify(
+        process.env.VITE_SUPABASE_PROJECT_ID || "tkhpnsgxoplkyueczpzp"
+      ),
+    },
     resolve: {
       tsconfigPaths: true,
     },

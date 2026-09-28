@@ -41,17 +41,29 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  console.error(error);
+  console.error("TanStack Root caught error:", error);
   const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4 py-16 text-center">
+    <div className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-4 py-16 text-center">
       <h1 className="font-display text-2xl font-semibold">Something went wrong</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         The page didn't load. You can retry or head back home.
       </p>
+      {error && (
+        <details className="mt-4 w-full text-left text-xs bg-muted/60 border border-border p-3 rounded-lg overflow-auto max-h-60">
+          <summary className="cursor-pointer font-medium text-destructive">
+            {error.message || "Error details"}
+          </summary>
+          {error.stack && (
+            <pre className="mt-2 whitespace-pre-wrap font-mono text-[10px] text-muted-foreground leading-tight">
+              {error.stack}
+            </pre>
+          )}
+        </details>
+      )}
       <div className="mt-6 flex gap-2">
         <button
           onClick={() => {
