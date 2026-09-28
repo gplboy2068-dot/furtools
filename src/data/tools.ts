@@ -1384,7 +1384,7 @@ const RAW_TOOLS: Tool[] = [
     relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
   { slug: "hamster-food-calculator", name: "Hamster Food Calculator", tagline: "Daily food portion",
     description: "Daily food portions for Syrian and dwarf hamsters using body-weight targets.",
-    category: "small-pets", keywords: ["hamster food"], layout: "calculator",
+    category: "small-pets", keywords: ["hamster food", "hamster diet", "daily feeding portion", "hamster nutrition"], layout: "calculator",
     howItWorks: "Adult Syrian hamsters eat ~15 g/day; dwarfs ~7–10 g. We adjust by weight and pregnancy status.",
     examples: [ { label: "150 g Syrian", result: "~15 g mix per day" }, { label: "40 g dwarf", result: "~7 g mix per day" } ],
     faqs: [ { q: "Should I scatter or bowl-feed?", a: "Scatter feeding encourages foraging — much better enrichment than a bowl." }, ...COMMON_FAQS ],
@@ -1404,7 +1404,7 @@ const RAW_TOOLS: Tool[] = [
     faqs: [ ...COMMON_FAQS ], relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
   { slug: "hamster-lifespan-estimator", name: "Hamster Lifespan Estimator", tagline: "Lifespan by species",
     description: "Typical lifespan ranges for Syrian, dwarf, and Roborovski hamsters.",
-    category: "small-pets", keywords: ["hamster lifespan"], layout: "calculator",
+    category: "small-pets", keywords: ["hamster lifespan", "hamster age", "how long do hamsters live", "hamster life expectancy"], layout: "calculator",
     howItWorks: "Species differ: Syrians 2–3 years, dwarfs 1.5–3, Roborovski 3–4.",
     examples: [ { label: "Syrian", result: "2–3 years" }, { label: "Roborovski", result: "3–4 years" } ],
     faqs: [ { q: "How to extend lifespan?", a: "Proper cage size, varied diet, no wire-floor cages, avoid drafts." }, ...COMMON_FAQS ],
@@ -1511,7 +1511,11 @@ const RAW_TOOLS: Tool[] = [
     category: "reptiles", keywords: ["reptile names", "snake names"], layout: "generator",
     howItWorks: "Pick a vibe — mythology, nature, minimalist — and generate 12 names.",
     examples: [ { label: "Vibe: Mythology", result: "Loki, Nyx, Orion, Athena" }, { label: "Vibe: Nature", result: "Sage, River, Cedar" } ],
-    faqs: [ ...COMMON_FAQS ], relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
+    faqs: [
+      { q: "Can reptiles learn or respond to their names?", a: "While reptiles do not recognize names like dogs, many lizards, monitors, and tortoises learn to associate human presence, specific vocal tones, and feeding routines with their caregivers." },
+      { q: "What are popular themes for naming pet reptiles?", a: "Mythology (Loki, Medusa, Draco), gemstone and scale colors (Emerald, Jasper, Onyx), and prehistoric names (Rex, Titan, Yoshi) are among the most popular." },
+      ...COMMON_FAQS,
+    ], relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
 
   // ─────────── HORSES ───────────
   { slug: "horse-feed-calculator", name: "Horse Feed Calculator", tagline: "Daily hay & concentrate portions",
@@ -3344,7 +3348,7 @@ const RAW_TOOLS: Tool[] = [
     relatedArticles: [
       { title: "Noise phobia in dogs explained", slug: "noise-phobia-dogs" },
       { title: "How to build a calming den for your pet", slug: "calming-den-setup" },
-      { title: "Talking to your vet about anxiety meds", slug: "vet-anxiety-meds-guide" },
+      { title: "Veterinary preventive care guide", slug: "preventive-vet-care" },
     ],
     updatedAt: "2026-07-16",
   },
@@ -3446,7 +3450,7 @@ const RAW_TOOLS: Tool[] = [
     relatedArticles: [
       { title: "Atopic dermatitis in dogs", slug: "atopic-dermatitis-dogs" },
       { title: "Elimination diet trials explained", slug: "elimination-diet-pets" },
-      { title: "Why paws lick and what to do", slug: "paw-licking-causes" },
+      { title: "Understanding and managing pet itching", slug: "pet-itch-guide" },
     ],
     updatedAt: "2026-07-16",
   },
@@ -3518,7 +3522,7 @@ const RAW_TOOLS: Tool[] = [
     relatedArticles: [
       { title: "Reptile lighting explained", slug: "reptile-lighting-guide" },
       { title: "Preventing metabolic bone disease", slug: "reptile-mbd-prevention" },
-      { title: "Bearded dragon complete care guide", slug: "bearded-dragon-care" },
+      { title: "Reptile UVB lighting and photoperiods", slug: "reptile-uvb-explained" },
     ],
     updatedAt: "2026-07-16",
   },
@@ -3621,7 +3625,7 @@ const RAW_TOOLS: Tool[] = [
     ],
     relatedArticles: [
       { title: "First month with a new ferret", slug: "first-month-ferret" },
-      { title: "Ferret-proofing your home", slug: "ferret-proofing-home" },
+      { title: "Safe habitat and cage materials", slug: "safe-cage-materials" },
       { title: "Ferret diet essentials", slug: "ferret-diet-basics" },
     ],
     updatedAt: "2026-07-16",
@@ -3831,7 +3835,7 @@ const RAW_TOOLS: Tool[] = [
     ],
     relatedArticles: [
       { title: "Reading the signs of a senior pet", slug: "senior-pet-signs" },
-      { title: "Feeding your pet through life stages", slug: "life-stage-feeding" },
+      { title: "How to measure pet food and portions", slug: "measure-pet-food" },
       { title: "Preventive vet care by age", slug: "preventive-vet-care" },
     ],
     updatedAt: "2026-07-16",
@@ -3939,7 +3943,7 @@ const RAW_TOOLS: Tool[] = [
     relatedArticles: [
       { title: "Pet weight-loss plan that actually works", slug: "pet-weight-loss" },
       { title: "How to measure pet food correctly", slug: "measure-pet-food" },
-      { title: "Hidden costs of pet obesity", slug: "pet-obesity-costs" },
+      { title: "Managing pet obesity and weight", slug: "small-pet-obesity" },
     ],
     updatedAt: "2026-07-16",
   },
@@ -4008,7 +4012,7 @@ const RAW_TOOLS: Tool[] = [
     relatedArticles: [
       { title: "Living safely with urban coyotes", slug: "urban-coyotes-guide" },
       { title: "Understanding primitive dog breeds", slug: "primitive-dog-breeds" },
-      { title: "Wolf-hybrid welfare: the truth", slug: "wolf-hybrid-welfare" },
+      { title: "Shelter breed labels and genetics", slug: "shelter-breed-labels" },
     ],
     updatedAt: "2026-07-16",
   },
@@ -4075,9 +4079,9 @@ const RAW_TOOLS: Tool[] = [
       ...COMMON_FAQS,
     ],
     relatedArticles: [
-      { title: "Choosing your first pet bird", slug: "first-pet-bird" },
+      { title: "Bird-proofing your home", slug: "bird-proofing-home" },
       { title: "Backyard birding for beginners", slug: "backyard-birding" },
-      { title: "Understanding parrot moulting", slug: "parrot-moulting" },
+      { title: "Understanding parrot molting", slug: "parrot-molting" },
     ],
     updatedAt: "2026-07-16",
   },
@@ -4311,7 +4315,7 @@ const RAW_TOOLS: Tool[] = [
       ...COMMON_FAQS,
     ],
     relatedArticles: [
-      { title: "Sugar glider care for first-time keepers", slug: "sugar-glider-care-basics" },
+      { title: "Why nocturnal pets need night-time enrichment", slug: "nocturnal-pet-enrichment" },
       { title: "Gut-loading feeder insects properly", slug: "gut-loading-feeder-insects" },
       { title: "Calcium and metabolic bone disease in exotic pets", slug: "exotic-pet-mbd" },
     ],
@@ -4339,9 +4343,9 @@ const RAW_TOOLS: Tool[] = [
       ...COMMON_FAQS,
     ],
     relatedArticles: [
-      { title: "Sugar glider care for first-time keepers", slug: "sugar-glider-care-basics" },
       { title: "Why nocturnal pets need night-time enrichment", slug: "nocturnal-pet-enrichment" },
       { title: "Safe cage materials for small pets", slug: "safe-cage-materials" },
+      { title: "Calcium and metabolic bone disease in exotic pets", slug: "exotic-pet-mbd" },
     ],
     updatedAt: "2026-08-03",
   },
