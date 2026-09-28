@@ -64,10 +64,28 @@ export interface BreedRow {
 const BREED_COLUMNS =
   "id,slug,species,name,hero_image,overview,history,temperament_traits,temperament_description,exercise_level,exercise_description,exercise_minutes_per_day,weight_min,weight_max,weight_unit,height_min,height_max,height_unit,lifespan_min,lifespan_max,common_diseases,nutrition,grooming,grooming_frequency,images,faqs,related_tool_slugs,related_article_slugs,good_with,origin_country,breed_group,coat_type,coat_colors,size_category,energy_level,shedding_level,trainability,published,updated_at";
 
+import { FALLBACK_BREEDS } from "@/data/fallback-breeds";
+
 export const breedsListQuery = queryOptions({
   queryKey: ["breeds", "list"],
   queryFn: async (): Promise<BreedRow[]> => {
-    // 1. Query Cloudflare D1 first
+    // 1. Client-side browser fetch
+    if (typeof window !== "undefined") {
+      try {
+        const res = await fetch("/api/breeds");
+        if (res.ok) {
+          const list = await res.json();
+          if (Array.isArray(list) && list.length > 0) {
+            return list as BreedRow[];
+          }
+        }
+      } catch (err) {
+        console.warn("Client fetch /api/breeds failed, using fallback:", err);
+      }
+      return FALLBACK_BREEDS;
+    }
+
+    // 2. Server-side D1 query
     try {
       const { getDbBreeds } = await import("@/lib/d1");
       const d1Breeds = await getDbBreeds();
@@ -78,21 +96,8 @@ export const breedsListQuery = queryOptions({
       console.warn("D1 breeds query error:", d1Err);
     }
 
-    try {
-      const { data, error } = await supabase
-        .from("breeds")
-        .select(BREED_COLUMNS)
-        .eq("published", true)
-        .order("name", { ascending: true });
-      if (error) {
-        console.warn("Supabase breeds list query error:", error);
-        return [];
-      }
-      return (data ?? []) as unknown as BreedRow[];
-    } catch (err) {
-      console.warn("Supabase breeds list query failed:", err);
-      return [];
-    }
+    // 3. Fallback data
+    return FALLBACK_BREEDS;
   },
 });
 
@@ -100,7 +105,22 @@ export const breedDetailQuery = (slug: string) =>
   queryOptions({
     queryKey: ["breeds", "detail", slug],
     queryFn: async (): Promise<BreedRow | null> => {
-      // 1. Query Cloudflare D1 first
+      // 1. Client-side browser lookup
+      if (typeof window !== "undefined") {
+        try {
+          const res = await fetch("/api/breeds");
+          if (res.ok) {
+            const list = (await res.json()) as BreedRow[];
+            const found = list.find((b) => b.slug === slug);
+            if (found) return found;
+          }
+        } catch {
+          // ignore
+        }
+        return FALLBACK_BREEDS.find((b) => b.slug === slug) ?? null;
+      }
+
+      // 2. Server-side D1 query
       try {
         const { getDbBreedBySlug } = await import("@/lib/d1");
         const d1Breed = await getDbBreedBySlug(slug);
@@ -111,22 +131,7 @@ export const breedDetailQuery = (slug: string) =>
         console.warn(`D1 breed detail query error (${slug}):`, d1Err);
       }
 
-      try {
-        const { data, error } = await supabase
-          .from("breeds")
-          .select(BREED_COLUMNS)
-          .eq("slug", slug)
-          .eq("published", true)
-          .maybeSingle();
-        if (error) {
-          console.warn(`Supabase breed detail error (${slug}):`, error);
-          return null;
-        }
-        return (data as unknown as BreedRow) ?? null;
-      } catch (err) {
-        console.warn(`Supabase breed detail query failed (${slug}):`, err);
-        return null;
-      }
+      return FALLBACK_BREEDS.find((b) => b.slug === slug) ?? null;
     },
   });
 

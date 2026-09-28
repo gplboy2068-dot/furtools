@@ -31,10 +31,28 @@ export interface FoodRow {
 const COLS =
   "id,slug,name,category,image_url,species_safety,short_answer,benefits,risks,symptoms,vet_advice,alternatives,related_food_slugs,faqs,keywords,updated_at";
 
+import { FALLBACK_FOODS } from "@/data/fallback-foods";
+
 export const foodsListQuery = queryOptions({
   queryKey: ["foods", "list"],
   queryFn: async (): Promise<FoodRow[]> => {
-    // 1. Query Cloudflare D1 first
+    // 1. Client-side browser fetch
+    if (typeof window !== "undefined") {
+      try {
+        const res = await fetch("/api/foods");
+        if (res.ok) {
+          const list = await res.json();
+          if (Array.isArray(list) && list.length > 0) {
+            return list as FoodRow[];
+          }
+        }
+      } catch (err) {
+        console.warn("Client fetch /api/foods failed, using fallback:", err);
+      }
+      return FALLBACK_FOODS;
+    }
+
+    // 2. Server-side D1 query
     try {
       const { getDbFoods } = await import("@/lib/d1");
       const d1Foods = await getDbFoods();
@@ -45,21 +63,8 @@ export const foodsListQuery = queryOptions({
       console.warn("D1 foods query error:", d1Err);
     }
 
-    try {
-      const { data, error } = await supabase
-        .from("foods")
-        .select(COLS)
-        .eq("published", true)
-        .order("name");
-      if (error) {
-        console.warn("Supabase foods list query error:", error);
-        return [];
-      }
-      return (data ?? []) as unknown as FoodRow[];
-    } catch (err) {
-      console.warn("Supabase foods list query failed:", err);
-      return [];
-    }
+    // 3. Fallback data
+    return FALLBACK_FOODS;
   },
 });
 
@@ -67,7 +72,22 @@ export const foodDetailQuery = (slug: string) =>
   queryOptions({
     queryKey: ["foods", "detail", slug],
     queryFn: async (): Promise<FoodRow | null> => {
-      // 1. Query Cloudflare D1 first
+      // 1. Client-side browser lookup
+      if (typeof window !== "undefined") {
+        try {
+          const res = await fetch("/api/foods");
+          if (res.ok) {
+            const list = (await res.json()) as FoodRow[];
+            const found = list.find((f) => f.slug === slug);
+            if (found) return found;
+          }
+        } catch {
+          // ignore
+        }
+        return FALLBACK_FOODS.find((f) => f.slug === slug) ?? null;
+      }
+
+      // 2. Server-side D1 query
       try {
         const { getDbFoodBySlug } = await import("@/lib/d1");
         const d1Food = await getDbFoodBySlug(slug);
@@ -78,22 +98,7 @@ export const foodDetailQuery = (slug: string) =>
         console.warn(`D1 food detail query error (${slug}):`, d1Err);
       }
 
-      try {
-        const { data, error } = await supabase
-          .from("foods")
-          .select(COLS)
-          .eq("slug", slug)
-          .eq("published", true)
-          .maybeSingle();
-        if (error) {
-          console.warn(`Supabase food detail error (${slug}):`, error);
-          return null;
-        }
-        return (data as unknown as FoodRow) ?? null;
-      } catch (err) {
-        console.warn(`Supabase food detail query failed (${slug}):`, err);
-        return null;
-      }
+      return FALLBACK_FOODS.find((f) => f.slug === slug) ?? null;
     },
   });
 
