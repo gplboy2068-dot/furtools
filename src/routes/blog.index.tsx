@@ -21,52 +21,41 @@ interface PostSummary {
 const postsQuery = queryOptions({
   queryKey: ["blog", "posts"],
   queryFn: async (): Promise<PostSummary[]> => {
-    // 1. Query Cloudflare D1 first (ultra-fast, native)
-    const d1Posts = await getDbBlogPosts();
-    if (d1Posts && d1Posts.length > 0) {
-      return d1Posts as PostSummary[];
-    }
-
-    let allDbPosts: (PostSummary & { published?: boolean })[] = [];
-    try {
-      const { data, error } = await supabase
-        .from("blog_posts")
-        .select("slug,title,excerpt,cover_image,category,published,published_at,tags")
-        .order("published_at", { ascending: false });
-      if (data) allDbPosts = data;
-    } catch (err) {
-      console.warn("Supabase blog query failed, falling back to static:", err);
-    }
-
-    const publishedDbPosts: PostSummary[] = allDbPosts
-      .filter((p) => p.published !== false)
-      .map((p) => ({
-        slug: p.slug,
-        title: p.title,
-        excerpt: p.excerpt,
-        cover_image: p.cover_image,
-        category: p.category,
-        published_at: p.published_at,
-        tags: p.tags,
-      }));
-
-    const combined = [...publishedDbPosts];
-    Object.values(STATIC_BLOG_POSTS).forEach((sp) => {
-      // Only include static post if it hasn't been saved in DB yet
-      if (!allDbPosts.some((p) => p.slug === sp.slug)) {
-        combined.push({
-          slug: sp.slug,
-          title: sp.title,
-          excerpt: sp.excerpt,
-          cover_image: sp.cover_image,
-          category: sp.category,
-          published_at: sp.published_at,
-          tags: sp.tags,
-        });
+    // 1. Client-side browser fetch
+    if (typeof window !== "undefined") {
+      try {
+        const res = await fetch("/api/blog");
+        if (res.ok) {
+          const list = await res.json();
+          if (Array.isArray(list) && list.length > 0) {
+            return list as PostSummary[];
+          }
+        }
+      } catch (err) {
+        console.warn("Client fetch /api/blog failed, using fallback:", err);
       }
-    });
+    }
 
-    return combined;
+    // 2. Server-side D1 query
+    try {
+      const d1Posts = await getDbBlogPosts();
+      if (d1Posts && d1Posts.length > 0) {
+        return d1Posts as PostSummary[];
+      }
+    } catch (d1Err) {
+      console.warn("D1 blog posts query error:", d1Err);
+    }
+
+    // 3. Fallback to static blog posts
+    return Object.values(STATIC_BLOG_POSTS).map((sp) => ({
+      slug: sp.slug,
+      title: sp.title,
+      excerpt: sp.excerpt,
+      cover_image: sp.cover_image,
+      category: sp.category,
+      published_at: sp.published_at,
+      tags: sp.tags,
+    }));
   },
 });
 

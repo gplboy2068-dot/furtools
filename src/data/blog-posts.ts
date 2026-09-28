@@ -838,7 +838,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "navicular syndrome",
       "horse care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1598974357801-cbca100e6571?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
       {
         "q": "What is ideal equine hoof balance?",
@@ -5692,7 +5692,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "equine laminitis nutrition",
         "farrier hoof care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5f?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80",
     "faqs": [
         {
             "q": "How long does it take for nutritional changes to show in a horse's hooves?",

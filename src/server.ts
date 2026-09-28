@@ -109,6 +109,87 @@ export default {
       }
     }
 
+    // Fast-path API: Blog Posts List
+    if (url.pathname === "/api/blog" && request.method === "GET") {
+      try {
+        const { getDbBlogPosts } = await import("./lib/d1");
+        const posts = await getDbBlogPosts();
+        if (posts && posts.length > 0) {
+          return new Response(JSON.stringify(posts), {
+            headers: {
+              "content-type": "application/json; charset=utf-8",
+              "cache-control": "public, max-age=1800, s-maxage=3600",
+              "access-control-allow-origin": "*",
+            },
+          });
+        }
+      } catch (err) {
+        console.warn("API blog error, serving fallback:", err);
+      }
+      const { STATIC_BLOG_POSTS } = await import("./data/blog-posts");
+      const fallbackList = Object.values(STATIC_BLOG_POSTS).map((p) => ({
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        cover_image: p.cover_image,
+        category: p.category,
+        published_at: p.published_at,
+        tags: p.tags,
+      }));
+      return new Response(JSON.stringify(fallbackList), {
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=1800, s-maxage=3600",
+          "access-control-allow-origin": "*",
+        },
+      });
+    }
+
+    // Fast-path API: Single Blog Post
+    if (url.pathname.startsWith("/api/blog/") && request.method === "GET") {
+      const slug = url.pathname.replace(/^\/api\/blog\//, "");
+      try {
+        const { getDbBlogPostBySlug } = await import("./lib/d1");
+        const post = await getDbBlogPostBySlug(slug);
+        if (post) {
+          const { STATIC_BLOG_POSTS } = await import("./data/blog-posts");
+          const staticPost = STATIC_BLOG_POSTS[slug];
+          return new Response(
+            JSON.stringify({
+              ...post,
+              faqs: staticPost?.faqs || [],
+              author: "Firoz Khan",
+              author_id: post.author_id || "firoz-khan",
+            }),
+            {
+              headers: {
+                "content-type": "application/json; charset=utf-8",
+                "cache-control": "public, max-age=1800, s-maxage=3600",
+                "access-control-allow-origin": "*",
+              },
+            }
+          );
+        }
+      } catch (err) {
+        console.warn(`API blog slug error (${slug}):`, err);
+      }
+      const { STATIC_BLOG_POSTS } = await import("./data/blog-posts");
+      const fallbackPost = STATIC_BLOG_POSTS[slug];
+      if (fallbackPost) {
+        return new Response(JSON.stringify(fallbackPost), {
+          headers: {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "public, max-age=1800, s-maxage=3600",
+            "access-control-allow-origin": "*",
+          },
+        });
+      }
+      return new Response(JSON.stringify({ error: "Post not found" }), {
+        status: 404,
+        headers: { "content-type": "application/json" },
+      });
+    }
+
     // Fast-path API: R2 Upload
     if (url.pathname === "/api/upload" && request.method === "POST") {
       try {

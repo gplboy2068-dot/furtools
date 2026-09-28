@@ -29,59 +29,49 @@ const postQuery = (slug: string) =>
   queryOptions({
     queryKey: ["blog", "post", slug],
     queryFn: async (): Promise<Post> => {
-      // 1. Query Cloudflare D1 first (ultra-fast, native)
-      const d1Post = await getDbBlogPostBySlug(slug);
-      if (d1Post) {
-        if (!d1Post.published) throw notFound();
-        const staticPost = STATIC_BLOG_POSTS[slug];
-        return {
-          slug: d1Post.slug,
-          title: d1Post.title,
-          excerpt: d1Post.excerpt,
-          content: d1Post.content,
-          cover_image: d1Post.cover_image,
-          category: d1Post.category,
-          published_at: d1Post.published_at,
-          tags: d1Post.tags,
-          faqs: staticPost?.faqs,
-          author: "Firoz Khan",
-          author_id: d1Post.author_id ?? "firoz-khan",
-        } as Post;
+      // 1. Client-side browser fetch
+      if (typeof window !== "undefined") {
+        try {
+          const res = await fetch(`/api/blog/${slug}`);
+          if (res.ok) {
+            const data = (await res.json()) as Post;
+            if (data && data.slug) {
+              return data;
+            }
+          }
+        } catch (err) {
+          console.warn(`Client fetch /api/blog/${slug} failed:`, err);
+        }
       }
 
+      // 2. Server-side D1 query
       try {
-        const { data, error } = await supabase
-          .from("blog_posts")
-          .select("slug,title,excerpt,content,cover_image,category,published,published_at,tags,author_id")
-          .eq("slug", slug)
-          .maybeSingle();
-
-        if (data) {
-          if (!data.published) {
-            throw notFound();
-          }
+        const d1Post = await getDbBlogPostBySlug(slug);
+        if (d1Post) {
+          if (!d1Post.published) throw notFound();
           const staticPost = STATIC_BLOG_POSTS[slug];
           return {
-            slug: data.slug,
-            title: data.title,
-            excerpt: data.excerpt,
-            content: data.content,
-            cover_image: data.cover_image,
-            category: data.category,
-            published_at: data.published_at,
-            tags: data.tags,
+            slug: d1Post.slug,
+            title: d1Post.title,
+            excerpt: d1Post.excerpt,
+            content: d1Post.content,
+            cover_image: d1Post.cover_image,
+            category: d1Post.category,
+            published_at: d1Post.published_at,
+            tags: d1Post.tags,
             faqs: staticPost?.faqs,
             author: "Firoz Khan",
-            author_id: data.author_id ?? "firoz-khan",
+            author_id: d1Post.author_id ?? "firoz-khan",
           } as Post;
         }
-      } catch (err) {
-        if (err && typeof err === "object" && "status" in err && (err as any).status === 404) {
-          throw err;
+      } catch (d1Err) {
+        if (d1Err && typeof d1Err === "object" && "status" in d1Err && (d1Err as any).status === 404) {
+          throw d1Err;
         }
-        console.warn("Supabase blog query failed, falling back to static:", err);
+        console.warn(`D1 blog post query error (${slug}):`, d1Err);
       }
 
+      // 3. Fallback to static blog post
       if (STATIC_BLOG_POSTS[slug]) {
         const p = STATIC_BLOG_POSTS[slug];
         return {
