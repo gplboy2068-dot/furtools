@@ -69,6 +69,52 @@ export default {
       target.port = "";
       return Response.redirect(target.toString(), 301);
     }
+
+    // Direct Google Auth Verification Endpoint
+    if (url.pathname === "/api/auth/google-verify" && request.method === "POST") {
+      try {
+        const body = (await request.json()) as { credential?: string };
+        const credential = body?.credential;
+        if (!credential) {
+          return new Response(JSON.stringify({ success: false, error: "Missing credential" }), {
+            status: 400,
+            headers: { "content-type": "application/json" },
+          });
+        }
+
+        const verifyRes = await fetch(
+          `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`
+        );
+        if (!verifyRes.ok) {
+          return new Response(JSON.stringify({ success: false, error: "Invalid Google token" }), {
+            status: 401,
+            headers: { "content-type": "application/json" },
+          });
+        }
+
+        const info = (await verifyRes.json()) as any;
+        const user = {
+          googleId: info.sub,
+          email: info.email,
+          name: info.name || info.email,
+          picture: info.picture || "",
+          givenName: info.given_name || "",
+          familyName: info.family_name || "",
+          emailVerified: info.email_verified === "true" || info.email_verified === true,
+        };
+
+        return new Response(JSON.stringify({ success: true, user }), {
+          headers: { "content-type": "application/json" },
+        });
+      } catch (err: any) {
+        return new Response(
+          JSON.stringify({ success: false, error: err?.message || "Verification failed" }),
+          { status: 500, headers: { "content-type": "application/json" } }
+        );
+      }
+    }
+
+    // Fast-path API: Foods
     if (url.pathname === "/api/foods") {
       try {
         const { getDbFoods } = await import("./lib/d1");

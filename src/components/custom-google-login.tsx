@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
 import {
   decodeGoogleJwt,
   saveCustomSession,
@@ -124,31 +123,10 @@ export function CustomGoogleLogin({
     }
   };
 
-  const handleCustomGoogleClick = async () => {
+  const handleCustomGoogleClick = () => {
     setLoading(true);
-    try {
-      // 1. Try Supabase OAuth redirect first
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin + '/dashboard',
-        },
-      });
-
-      if (data?.url) {
-        window.location.href = data.url;
-        return;
-      }
-
-      if (error || !data?.url) {
-        // 2. Direct Google OAuth fallback window
-        const redirectUri = window.location.origin + '/auth';
-        window.location.href = getGoogleOAuthUrl(clientId, redirectUri);
-      }
-    } catch {
-      const redirectUri = window.location.origin + '/auth';
-      window.location.href = getGoogleOAuthUrl(clientId, redirectUri);
-    }
+    const redirectUri = window.location.origin + '/auth';
+    window.location.href = getGoogleOAuthUrl(clientId, redirectUri);
   };
 
 

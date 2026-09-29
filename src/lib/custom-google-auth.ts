@@ -187,12 +187,14 @@ export async function getActiveUser(): Promise<ActiveUser | null> {
  */
 export function getGoogleOAuthUrl(clientId: string, redirectUri: string): string {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+  const nonce = Math.random().toString(36).substring(2) + Date.now().toString(36);
   const options = {
     redirect_uri: redirectUri,
     client_id: clientId,
     access_type: 'offline',
     response_type: 'id_token token',
     prompt: 'select_account',
+    nonce,
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
@@ -217,6 +219,9 @@ export async function handleGoogleRedirectResult(): Promise<boolean> {
       const profile = decodeGoogleJwt(idToken);
       if (profile) {
         saveCustomSession(profile, idToken);
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } catch { /* ignore */ }
         return true;
       }
     }
@@ -238,6 +243,9 @@ export async function handleGoogleRedirectResult(): Promise<boolean> {
             emailVerified: info.email_verified,
           };
           saveCustomSession(profile, accessToken);
+          try {
+            window.history.replaceState({}, document.title, window.location.pathname);
+          } catch { /* ignore */ }
           return true;
         }
       } catch (err) {
