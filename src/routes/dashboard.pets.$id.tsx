@@ -20,6 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { z } from "zod";
 import { signedPetFileUrl, uploadPetFile, deletePetFile } from "@/lib/pet-uploads";
+import { updatePet, deletePet, fetchPetRecords, insertPetRecord, deletePetRecord, updatePetRecord } from "@/lib/pet-db-client";
 import { generateQrSvg, generateQrDataUrl, generateTagPublicUrl, getQrScannableContent, type PetTagData, type QrActionType } from "@/lib/qr-tag";
 import {
   DewormingTab, GroomingTab, ExpensesTab, TravelTab, JournalTab, DocumentsTab, AiSummaryTab,
@@ -68,9 +69,18 @@ function PetDetailPage() {
   }, []);
 
   async function loadPet() {
-    const { data } = await supabase.from("pets").select("*").eq("id", id).maybeSingle();
-    setPet((data as Pet | null) ?? null);
-    if (data?.avatar_url) setAvatarUrl(await signedPetFileUrl(data.avatar_url));
+    try {
+      const res = await fetch(`/api/pets?id=${encodeURIComponent(id)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setPet((data as Pet | null) ?? null);
+        if (data?.avatar_url) setAvatarUrl(await signedPetFileUrl(data.avatar_url));
+      } else {
+        setPet(null);
+      }
+    } catch {
+      setPet(null);
+    }
   }
   useEffect(() => { if (activeUser) loadPet(); /* eslint-disable-next-line */ }, [activeUser, id]);
 
@@ -135,10 +145,13 @@ function PetDetailPage() {
             variant="outline"
             onClick={async () => {
               if (!confirm(`Delete ${pet.name}? This removes all records for this pet.`)) return;
-              const { error } = await supabase.from("pets").delete().eq("id", pet.id);
-              if (error) return toast.error(error.message);
-              toast.success("Pet deleted");
-              navigate({ to: "/dashboard" });
+              try {
+                await deletePet(pet.id);
+                toast.success("Pet deleted");
+                navigate({ to: "/dashboard" });
+              } catch (err: any) {
+                toast.error(err?.message || "Could not delete pet");
+              }
             }}
           >
             <Trash2 className="mr-1 size-4" /> Delete
@@ -292,15 +305,14 @@ function OverviewTab({ pet, onSaved, avatarUrl }: { pet: Pet; onSaved: () => voi
         if (pet.avatar_url) await deletePetFile(pet.avatar_url).catch(() => {});
         avatar_url = await uploadPetFile(pet.user_id, pet.id, "avatar", photo);
       }
-      const { error } = await supabase.from("pets").update({
+      await updatePet(pet.id, {
         ...parsed.data,
         is_mixed_breed: form.is_mixed_breed,
         weight_unit: form.weight_unit,
         height_unit: form.height_unit,
         neutered: form.neutered,
         avatar_url,
-      }).eq("id", pet.id);
-      if (error) throw error;
+      });
       toast.success("Profile saved");
       setPhoto(null);
       onSaved();
@@ -393,18 +405,18 @@ function TimelineTab({ pet }: { pet: Pet }) {
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [pet.id]);
   async function load() {
     const [ev, vac, med, vet, wt] = await Promise.all([
-      supabase.from("pet_health_events").select("id,kind,title,notes,occurred_at").eq("pet_id", pet.id),
-      supabase.from("pet_vaccinations").select("id,vaccine_name,given_at,notes").eq("pet_id", pet.id),
-      supabase.from("pet_medications").select("id,medicine_name,purpose,start_date").eq("pet_id", pet.id),
-      supabase.from("pet_vet_visits").select("id,reason,diagnosis,visited_at").eq("pet_id", pet.id),
-      supabase.from("pet_weight_logs").select("id,weight,weight_unit,logged_at,notes").eq("pet_id", pet.id),
+      fetchPetRecords("pet_health_events", pet.id),
+      fetchPetRecords("pet_vaccinations", pet.id),
+      fetchPetRecords("pet_medications", pet.id),
+      fetchPetRecords("pet_vet_visits", pet.id),
+      fetchPetRecords("pet_weight_logs", pet.id),
     ]);
     const all: TLItem[] = [
-      ...(ev.data ?? []).map((r) => ({ id: `ev-${r.id}`, date: r.occurred_at, kind: r.kind, title: r.title, notes: r.notes })),
-      ...(vac.data ?? []).filter((r) => r.given_at).map((r) => ({ id: `vac-${r.id}`, date: r.given_at as string, kind: "vaccination", title: r.vaccine_name, notes: r.notes })),
-      ...(med.data ?? []).filter((r) => r.start_date).map((r) => ({ id: `med-${r.id}`, date: r.start_date as string, kind: "medicine", title: `${r.medicine_name}${r.purpose ? " — " + r.purpose : ""}`, notes: null })),
-      ...(vet.data ?? []).map((r) => ({ id: `vet-${r.id}`, date: r.visited_at, kind: "vet_visit", title: r.reason ?? "Vet visit", notes: r.diagnosis })),
-      ...(wt.data ?? []).map((r) => ({ id: `wt-${r.id}`, date: r.logged_at, kind: "weight", title: `Weight: ${r.weight} ${r.weight_unit}`, notes: r.notes })),
+      ...(ev ?? []).map((r: any) => ({ id: `ev-${r.id}`, date: r.occurred_at, kind: r.kind, title: r.title, notes: r.notes })),
+      ...(vac ?? []).filter((r: any) => r.given_at).map((r: any) => ({ id: `vac-${r.id}`, date: r.given_at as string, kind: "vaccination", title: r.vaccine_name, notes: r.notes })),
+      ...(med ?? []).filter((r: any) => r.start_date).map((r: any) => ({ id: `med-${r.id}`, date: r.start_date as string, kind: "medicine", title: `${r.medicine_name}${r.purpose ? " — " + r.purpose : ""}`, notes: null })),
+      ...(vet ?? []).map((r: any) => ({ id: `vet-${r.id}`, date: r.visited_at, kind: "vet_visit", title: r.reason ?? "Vet visit", notes: r.diagnosis })),
+      ...(wt ?? []).map((r: any) => ({ id: `wt-${r.id}`, date: r.logged_at, kind: "weight", title: `Weight: ${r.weight} ${r.weight_unit}`, notes: r.notes })),
     ];
     if (pet.birthdate) all.push({ id: "birth", date: pet.birthdate, kind: "birthday", title: "Birthday", notes: null });
     if (pet.adoption_date) all.push({ id: "adopt", date: pet.adoption_date, kind: "adoption", title: "Adoption day", notes: null });
@@ -440,8 +452,8 @@ function VaccinationsTab({ pet }: { pet: Pet }) {
   const [items, setItems] = useState<Vac[] | null>(null);
   const [adding, setAdding] = useState(false);
   async function load() {
-    const { data } = await supabase.from("pet_vaccinations").select("*").eq("pet_id", pet.id).order("next_due_at", { nullsFirst: false });
-    setItems((data as Vac[]) ?? []);
+    const data = await fetchPetRecords<Vac>("pet_vaccinations", pet.id);
+    setItems(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [pet.id]);
   return (
@@ -478,7 +490,11 @@ function VacItem({ v, onChange }: { v: Vac; onChange: () => void }) {
           <Button variant="ghost" size="icon" onClick={async () => {
             if (!confirm("Delete this vaccination?")) return;
             if (v.certificate_path) await deletePetFile(v.certificate_path).catch(() => {});
-            await supabase.from("pet_vaccinations").delete().eq("id", v.id);
+            try {
+              await deletePetRecord("pet_vaccinations", v.id);
+            } catch (err: any) {
+              toast.error(err?.message || "Failed to delete");
+            }
             onChange();
           }}><Trash2 className="size-4" /></Button>
         </div>
@@ -496,14 +512,13 @@ function VacForm({ pet, onDone, onCancel }: { pet: Pet; onDone: () => void; onCa
     try {
       let certificate_path: string | null = null;
       if (cert) certificate_path = await uploadPetFile(pet.user_id, pet.id, "vaccinations", cert);
-      const { error } = await supabase.from("pet_vaccinations").insert({
+      await insertPetRecord("pet_vaccinations", {
         user_id: pet.user_id, pet_id: pet.id,
         vaccine_name: f.vaccine_name.trim(),
         given_at: f.given_at || null, next_due_at: f.next_due_at || null,
         veterinarian: f.veterinarian || null, clinic: f.clinic || null,
         notes: f.notes || null, certificate_path, completed: !!f.given_at,
       });
-      if (error) throw error;
       toast.success("Vaccination added"); onDone();
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); } finally { setBusy(false); }
   }
@@ -526,8 +541,8 @@ function MedicationsTab({ pet }: { pet: Pet }) {
   const [items, setItems] = useState<Med[] | null>(null);
   const [adding, setAdding] = useState(false);
   async function load() {
-    const { data } = await supabase.from("pet_medications").select("*").eq("pet_id", pet.id).order("active", { ascending: false }).order("created_at", { ascending: false });
-    setItems((data as Med[]) ?? []);
+    const data = await fetchPetRecords<Med>("pet_medications", pet.id);
+    setItems(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [pet.id]);
   return (
@@ -560,14 +575,22 @@ function MedicationsTab({ pet }: { pet: Pet }) {
               <div className="flex gap-2">
                 {m.prescription_path && <FileButton path={m.prescription_path} label="Prescription" />}
                 <Button variant="ghost" size="sm" onClick={async () => {
-                  await supabase.from("pet_medications").update({ active: !m.active }).eq("id", m.id);
-                  load();
+                  try {
+                    await updatePetRecord("pet_medications", m.id, { active: !m.active });
+                    load();
+                  } catch (err: any) {
+                    toast.error(err?.message || "Failed to update");
+                  }
                 }}>{m.active ? "End" : "Reactivate"}</Button>
                 <Button variant="ghost" size="icon" onClick={async () => {
                   if (!confirm("Delete this medicine?")) return;
                   if (m.prescription_path) await deletePetFile(m.prescription_path).catch(() => {});
-                  await supabase.from("pet_medications").delete().eq("id", m.id);
-                  load();
+                  try {
+                    await deletePetRecord("pet_medications", m.id);
+                    load();
+                  } catch (err: any) {
+                    toast.error(err?.message || "Failed to delete");
+                  }
                 }}><Trash2 className="size-4" /></Button>
               </div>
             </div>
@@ -587,7 +610,7 @@ function MedForm({ pet, onDone, onCancel }: { pet: Pet; onDone: () => void; onCa
     try {
       let prescription_path: string | null = null;
       if (rx) prescription_path = await uploadPetFile(pet.user_id, pet.id, "prescriptions", rx);
-      const { error } = await supabase.from("pet_medications").insert({
+      await insertPetRecord("pet_medications", {
         user_id: pet.user_id, pet_id: pet.id,
         medicine_name: f.medicine_name.trim(),
         purpose: f.purpose || null, dosage: f.dosage || null, frequency: f.frequency || null,
@@ -595,7 +618,6 @@ function MedForm({ pet, onDone, onCancel }: { pet: Pet; onDone: () => void; onCa
         start_date: f.start_date || null, end_date: f.end_date || null,
         prescription_path, notes: f.notes || null, active: true,
       });
-      if (error) throw error;
       toast.success("Medicine added"); onDone();
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); } finally { setBusy(false); }
   }
@@ -624,18 +646,21 @@ function WeightTab({ pet }: { pet: Pet }) {
   const [logs, setLogs] = useState<Wt[] | null>(null);
   const [w, setW] = useState(""); const [d, setD] = useState(new Date().toISOString().slice(0, 10)); const [n, setN] = useState("");
   async function load() {
-    const { data } = await supabase.from("pet_weight_logs").select("*").eq("pet_id", pet.id).order("logged_at");
-    setLogs((data as Wt[]) ?? []);
+    const data = await fetchPetRecords<Wt>("pet_weight_logs", pet.id);
+    setLogs(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [pet.id]);
   async function add(e: React.FormEvent) {
     e.preventDefault();
     if (!w) return;
-    const { error } = await supabase.from("pet_weight_logs").insert({
-      user_id: pet.user_id, pet_id: pet.id, weight: Number(w), weight_unit: pet.weight_unit || "lbs", logged_at: d, notes: n || null,
-    });
-    if (error) return toast.error(error.message);
-    setW(""); setN(""); load();
+    try {
+      await insertPetRecord("pet_weight_logs", {
+        user_id: pet.user_id, pet_id: pet.id, weight: Number(w), weight_unit: pet.weight_unit || "lbs", logged_at: d, notes: n || null,
+      });
+      setW(""); setN(""); load();
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to log weight");
+    }
   }
   const chartData = useMemo(() => (logs ?? []).map((l) => ({ date: l.logged_at, weight: Number(l.weight) })), [logs]);
   if (logs === null) return <Skeleton />;
@@ -663,7 +688,14 @@ function WeightTab({ pet }: { pet: Pet }) {
             <li key={l.id} className="flex items-center justify-between py-2 text-sm">
               <span className="font-medium">{l.weight} {l.weight_unit}</span>
               <span className="text-muted-foreground">{fmtDate(l.logged_at)}</span>
-              <Button variant="ghost" size="icon" onClick={async () => { await supabase.from("pet_weight_logs").delete().eq("id", l.id); load(); }}><Trash2 className="size-4" /></Button>
+              <Button variant="ghost" size="icon" onClick={async () => {
+                try {
+                  await deletePetRecord("pet_weight_logs", l.id);
+                  load();
+                } catch (err: any) {
+                  toast.error(err?.message || "Failed to delete");
+                }
+              }}><Trash2 className="size-4" /></Button>
             </li>
           ))}
         </ul>
@@ -685,8 +717,8 @@ function VetVisitsTab({ pet }: { pet: Pet }) {
   const [items, setItems] = useState<Vet[] | null>(null);
   const [adding, setAdding] = useState(false);
   async function load() {
-    const { data } = await supabase.from("pet_vet_visits").select("*").eq("pet_id", pet.id).order("visited_at", { ascending: false });
-    setItems((data as Vet[]) ?? []);
+    const data = await fetchPetRecords<Vet>("pet_vet_visits", pet.id);
+    setItems(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [pet.id]);
   return (
@@ -711,8 +743,12 @@ function VetVisitsTab({ pet }: { pet: Pet }) {
                   if (!confirm("Delete this visit?")) return;
                   if (v.prescription_path) await deletePetFile(v.prescription_path).catch(() => {});
                   if (v.invoice_path) await deletePetFile(v.invoice_path).catch(() => {});
-                  await supabase.from("pet_vet_visits").delete().eq("id", v.id);
-                  load();
+                  try {
+                    await deletePetRecord("pet_vet_visits", v.id);
+                    load();
+                  } catch (err: any) {
+                    toast.error(err?.message || "Failed to delete");
+                  }
                 }}><Trash2 className="size-4" /></Button>
               </div>
             </div>
@@ -731,13 +767,12 @@ function VetForm({ pet, onDone, onCancel }: { pet: Pet; onDone: () => void; onCa
     try {
       const prescription_path = rx ? await uploadPetFile(pet.user_id, pet.id, "prescriptions", rx) : null;
       const invoice_path = inv ? await uploadPetFile(pet.user_id, pet.id, "invoices", inv) : null;
-      const { error } = await supabase.from("pet_vet_visits").insert({
+      await insertPetRecord("pet_vet_visits", {
         user_id: pet.user_id, pet_id: pet.id, visited_at: f.visited_at,
         clinic: f.clinic || null, doctor: f.doctor || null, reason: f.reason || null,
         diagnosis: f.diagnosis || null, treatment: f.treatment || null,
         prescription_path, invoice_path, notes: f.notes || null, follow_up_at: f.follow_up_at || null,
       });
-      if (error) throw error;
       toast.success("Visit logged"); onDone();
     } catch (e) { toast.error(e instanceof Error ? e.message : "Failed"); } finally { setBusy(false); }
   }
@@ -763,8 +798,8 @@ function AllergiesTab({ pet }: { pet: Pet }) {
   const [items, setItems] = useState<Alg[] | null>(null);
   const [adding, setAdding] = useState(false);
   async function load() {
-    const { data } = await supabase.from("pet_allergies").select("*").eq("pet_id", pet.id).order("created_at", { ascending: false });
-    setItems((data as Alg[]) ?? []);
+    const data = await fetchPetRecords<Alg>("pet_allergies", pet.id);
+    setItems(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [pet.id]);
   return (
@@ -784,7 +819,14 @@ function AllergiesTab({ pet }: { pet: Pet }) {
                 {a.symptoms && <p className="mt-2 text-sm text-muted-foreground">Symptoms: {a.symptoms}</p>}
                 {a.emergency_notes && <p className="mt-1 text-sm text-destructive">Emergency: {a.emergency_notes}</p>}
               </div>
-              <Button variant="ghost" size="icon" onClick={async () => { await supabase.from("pet_allergies").delete().eq("id", a.id); load(); }}><Trash2 className="size-4" /></Button>
+              <Button variant="ghost" size="icon" onClick={async () => {
+                try {
+                  await deletePetRecord("pet_allergies", a.id);
+                  load();
+                } catch (err: any) {
+                  toast.error(err?.message || "Failed to delete");
+                }
+              }}><Trash2 className="size-4" /></Button>
             </div>
           </li>
         ))}
@@ -798,14 +840,18 @@ function AlgForm({ pet, onDone, onCancel }: { pet: Pet; onDone: () => void; onCa
   async function save() {
     if (!f.allergen.trim()) return;
     setBusy(true);
-    const { error } = await supabase.from("pet_allergies").insert({
-      user_id: pet.user_id, pet_id: pet.id,
-      allergen: f.allergen.trim(), allergen_type: f.allergen_type, severity: f.severity,
-      symptoms: f.symptoms || null, emergency_notes: f.emergency_notes || null,
-    });
-    setBusy(false);
-    if (error) return toast.error(error.message);
-    toast.success("Allergy added"); onDone();
+    try {
+      await insertPetRecord("pet_allergies", {
+        user_id: pet.user_id, pet_id: pet.id,
+        allergen: f.allergen.trim(), allergen_type: f.allergen_type, severity: f.severity,
+        symptoms: f.symptoms || null, emergency_notes: f.emergency_notes || null,
+      });
+      toast.success("Allergy added"); onDone();
+    } catch (e: any) {
+      toast.error(e?.message || "Failed to add allergy");
+    } finally {
+      setBusy(false);
+    }
   }
   return (
     <FormCard onSave={save} onCancel={onCancel} busy={busy}>

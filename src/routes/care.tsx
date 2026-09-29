@@ -15,6 +15,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
 import { supabase } from "@/integrations/supabase/client";
+import { fetchUserPets, deletePet, fetchPetRecords, insertPetRecord, updatePetRecord, deletePetRecord } from "@/lib/pet-db-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -144,12 +145,8 @@ function CareDashboard({ userId }: { userId: string }) {
 
   async function refreshPets() {
     setLoading(true);
-    const { data } = await supabase
-      .from("pets")
-      .select("id,name,species,breed,birthdate,weight,weight_unit,notes")
-      .order("created_at");
-    const list = (data ?? []) as Pet[];
-    setPets(list);
+    const list = await fetchUserPets(userId);
+    setPets(list as Pet[]);
     if (list.length && !selectedId) setSelectedId(list[0].id);
     setLoading(false);
   }
@@ -222,17 +219,24 @@ function AddPetForm({ userId, onAdded }: { userId: string; onAdded: () => void }
     e.preventDefault();
     if (!name.trim()) return;
     setSaving(true);
-    await supabase.from("pets").insert({
-      user_id: userId,
-      name: name.trim(),
-      species,
-      breed: breed || null,
-    });
-    setName("");
-    setBreed("");
-    setSaving(false);
-    setOpen(false);
-    onAdded();
+    try {
+      await fetch("/api/pets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userId,
+          name: name.trim(),
+          species,
+          breed: breed || null,
+        }),
+      });
+      setName("");
+      setBreed("");
+      setOpen(false);
+      onAdded();
+    } finally {
+      setSaving(false);
+    }
   }
 
   if (!open) {
@@ -276,9 +280,9 @@ function AddPetForm({ userId, onAdded }: { userId: string; onAdded: () => void }
 function PetDetail({ pet, userId, onChanged }: { pet: Pet; userId: string; onChanged: () => void }) {
   const [tab, setTab] = useState<"reminders" | "weight" | "health">("reminders");
 
-  async function deletePet() {
+  async function deletePetAction() {
     if (!confirm(`Delete ${pet.name}? All reminders and logs will be removed.`)) return;
-    await supabase.from("pets").delete().eq("id", pet.id);
+    await deletePet(pet.id);
     onChanged();
   }
 
@@ -292,7 +296,7 @@ function PetDetail({ pet, userId, onChanged }: { pet: Pet; userId: string; onCha
             {pet.birthdate ? ` · Born ${new Date(pet.birthdate).toLocaleDateString()}` : ""}
           </p>
         </div>
-        <Button variant="ghost" size="sm" onClick={deletePet}>
+        <Button variant="ghost" size="sm" onClick={deletePetAction}>
           <Trash2 className="mr-1 size-4" /> Delete
         </Button>
       </div>
@@ -354,19 +358,15 @@ function RemindersTab({ pet, userId }: { pet: Pet; userId: string }) {
   const [notes, setNotes] = useState("");
 
   async function load() {
-    const { data } = await supabase
-      .from("pet_reminders")
-      .select("id,pet_id,kind,title,notes,next_at,recurrence,completed")
-      .eq("pet_id", pet.id)
-      .order("next_at", { ascending: true });
-    setItems((data ?? []) as Reminder[]);
+    const data = await fetchPetRecords<Reminder>("pet_reminders", pet.id);
+    setItems(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [pet.id]);
 
   async function add(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
-    await supabase.from("pet_reminders").insert({
+    await insertPetRecord("pet_reminders", {
       user_id: userId,
       pet_id: pet.id,
       kind,
@@ -379,11 +379,11 @@ function RemindersTab({ pet, userId }: { pet: Pet; userId: string }) {
     load();
   }
   async function toggle(r: Reminder) {
-    await supabase.from("pet_reminders").update({ completed: !r.completed }).eq("id", r.id);
+    await updatePetRecord("pet_reminders", r.id, { completed: !r.completed });
     load();
   }
   async function del(id: string) {
-    await supabase.from("pet_reminders").delete().eq("id", id);
+    await deletePetRecord("pet_reminders", id);
     load();
   }
 
@@ -470,19 +470,15 @@ function WeightTab({ pet, userId }: { pet: Pet; userId: string }) {
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
 
   async function load() {
-    const { data } = await supabase
-      .from("pet_weight_logs")
-      .select("id,pet_id,weight,weight_unit,logged_at,notes")
-      .eq("pet_id", pet.id)
-      .order("logged_at", { ascending: true });
-    setItems((data ?? []) as WeightLog[]);
+    const data = await fetchPetRecords<WeightLog>("pet_weight_logs", pet.id);
+    setItems(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [pet.id]);
 
   async function add(e: React.FormEvent) {
     e.preventDefault();
     if (!weight) return;
-    await supabase.from("pet_weight_logs").insert({
+    await insertPetRecord("pet_weight_logs", {
       user_id: userId,
       pet_id: pet.id,
       weight: Number(weight),
@@ -493,7 +489,7 @@ function WeightTab({ pet, userId }: { pet: Pet; userId: string }) {
     load();
   }
   async function del(id: string) {
-    await supabase.from("pet_weight_logs").delete().eq("id", id);
+    await deletePetRecord("pet_weight_logs", id);
     load();
   }
 
@@ -562,19 +558,15 @@ function HealthTab({ pet, userId }: { pet: Pet; userId: string }) {
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
 
   async function load() {
-    const { data } = await supabase
-      .from("pet_health_events")
-      .select("id,pet_id,kind,title,notes,occurred_at")
-      .eq("pet_id", pet.id)
-      .order("occurred_at", { ascending: false });
-    setItems((data ?? []) as HealthEvent[]);
+    const data = await fetchPetRecords<HealthEvent>("pet_health_events", pet.id);
+    setItems(data ?? []);
   }
   useEffect(() => { load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [pet.id]);
 
   async function add(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
-    await supabase.from("pet_health_events").insert({
+    await insertPetRecord("pet_health_events", {
       user_id: userId,
       pet_id: pet.id,
       kind,
@@ -586,7 +578,7 @@ function HealthTab({ pet, userId }: { pet: Pet; userId: string }) {
     load();
   }
   async function del(id: string) {
-    await supabase.from("pet_health_events").delete().eq("id", id);
+    await deletePetRecord("pet_health_events", id);
     load();
   }
 

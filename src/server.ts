@@ -114,6 +114,100 @@ export default {
       }
     }
 
+    // Fast-path API: Pets (Cloudflare D1)
+    if (url.pathname === "/api/pets") {
+      try {
+        const { getDbPets, getDbPetById, insertDbPet, updateDbPet, deleteDbPet } = await import("./lib/d1");
+
+        if (request.method === "GET") {
+          const id = url.searchParams.get("id");
+          const userId = url.searchParams.get("userId");
+          if (id) {
+            const pet = await getDbPetById(id);
+            if (!pet) return new Response(JSON.stringify({ error: "Pet not found" }), { status: 404, headers: { "content-type": "application/json" } });
+            return new Response(JSON.stringify(pet), { headers: { "content-type": "application/json" } });
+          }
+          if (userId) {
+            const list = await getDbPets(userId);
+            return new Response(JSON.stringify(list), { headers: { "content-type": "application/json" } });
+          }
+          return new Response(JSON.stringify([]), { headers: { "content-type": "application/json" } });
+        }
+
+        if (request.method === "POST") {
+          const body = await request.json();
+          if (!body?.name || !body?.user_id) {
+            return new Response(JSON.stringify({ error: "Missing required pet fields" }), { status: 400, headers: { "content-type": "application/json" } });
+          }
+          const created = await insertDbPet(body);
+          return new Response(JSON.stringify(created), { status: 201, headers: { "content-type": "application/json" } });
+        }
+
+        if (request.method === "PUT") {
+          const body = await request.json();
+          if (!body?.id) {
+            return new Response(JSON.stringify({ error: "Missing pet id" }), { status: 400, headers: { "content-type": "application/json" } });
+          }
+          await updateDbPet(body.id, body);
+          return new Response(JSON.stringify({ success: true }), { headers: { "content-type": "application/json" } });
+        }
+
+        if (request.method === "DELETE") {
+          const id = url.searchParams.get("id");
+          if (!id) {
+            return new Response(JSON.stringify({ error: "Missing pet id" }), { status: 400, headers: { "content-type": "application/json" } });
+          }
+          await deleteDbPet(id);
+          return new Response(JSON.stringify({ success: true }), { headers: { "content-type": "application/json" } });
+        }
+      } catch (err: any) {
+        console.error("D1 /api/pets error:", err);
+        return new Response(JSON.stringify({ error: err?.message || "Internal server error" }), { status: 500, headers: { "content-type": "application/json" } });
+      }
+    }
+
+    // Fast-path API: Pet Sub-records (Vaccinations, meds, weight, visits, etc.)
+    if (url.pathname === "/api/pet-records") {
+      try {
+        const { getDbPetRecords, insertDbPetRecord, deleteDbPetRecord } = await import("./lib/d1");
+        const table = url.searchParams.get("table") || "";
+
+        if (request.method === "GET") {
+          const petId = url.searchParams.get("petId") || "";
+          const records = await getDbPetRecords(table, petId);
+          return new Response(JSON.stringify(records), { headers: { "content-type": "application/json" } });
+        }
+
+        if (request.method === "POST") {
+          const body = await request.json();
+          const targetTable = body?.table || table;
+          const created = await insertDbPetRecord(targetTable, body?.record || body);
+          return new Response(JSON.stringify(created), { status: 201, headers: { "content-type": "application/json" } });
+        }
+
+        if (request.method === "PUT") {
+          const body = await request.json();
+          const targetTable = body?.table || table;
+          const id = body?.id || url.searchParams.get("id");
+          if (!id) {
+            return new Response(JSON.stringify({ error: "Missing record id" }), { status: 400, headers: { "content-type": "application/json" } });
+          }
+          const { updateDbPetRecord } = await import("./lib/d1");
+          await updateDbPetRecord(targetTable, id, body?.updates || body);
+          return new Response(JSON.stringify({ success: true }), { headers: { "content-type": "application/json" } });
+        }
+
+        if (request.method === "DELETE") {
+          const id = url.searchParams.get("id") || "";
+          await deleteDbPetRecord(table, id);
+          return new Response(JSON.stringify({ success: true }), { headers: { "content-type": "application/json" } });
+        }
+      } catch (err: any) {
+        console.error("D1 /api/pet-records error:", err);
+        return new Response(JSON.stringify({ error: err?.message || "Internal server error" }), { status: 500, headers: { "content-type": "application/json" } });
+      }
+    }
+
     // Fast-path API: Foods
     if (url.pathname === "/api/foods") {
       try {

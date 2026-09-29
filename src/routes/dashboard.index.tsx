@@ -91,25 +91,31 @@ function PetsList({ userId }: { userId: string }) {
 
   async function refresh() {
     setLoading(true);
-    const { data } = await supabase
-      .from("pets")
-      .select("id,name,species,breed,birthdate,weight,weight_unit,avatar_url,gender")
-      .order("created_at");
-    const list = (data ?? []) as PetRow[];
-    setPets(list);
-    const urls: Record<string, string> = {};
-    await Promise.all(
-      list.map(async (p) => {
-        if (p.avatar_url) {
-          const u = await signedPetFileUrl(p.avatar_url);
-          if (u) urls[p.id] = u;
-        }
-      }),
-    );
-    setAvatars(urls);
-    setLoading(false);
+    try {
+      const res = await fetch(`/api/pets?userId=${encodeURIComponent(userId)}`);
+      let list: PetRow[] = [];
+      if (res.ok) {
+        list = (await res.json()) || [];
+      }
+      setPets(list);
+      const urls: Record<string, string> = {};
+      await Promise.all(
+        list.map(async (p) => {
+          if (p.avatar_url) {
+            const u = await signedPetFileUrl(p.avatar_url);
+            if (u) urls[p.id] = u;
+          }
+        }),
+      );
+      setAvatars(urls);
+    } catch (err) {
+      console.error("Failed to load pets:", err);
+      setPets([]);
+    } finally {
+      setLoading(false);
+    }
   }
-  useEffect(() => { refresh(); /* eslint-disable-next-line */ }, []);
+  useEffect(() => { refresh(); /* eslint-disable-next-line */ }, [userId]);
 
   return (
     <section className="mt-10">
@@ -186,9 +192,19 @@ function AddPetCard({ userId, onDone }: { userId: string; onDone: () => void }) 
     if (!form.name.trim()) return;
     setBusy(true);
     try {
-      const { data, error } = await supabase
-        .from("pets")
-        .insert({
+      let avatarUrl: string | null = null;
+      if (photo) {
+        try {
+          avatarUrl = await uploadPetFile(userId, "temp", "avatar", photo);
+        } catch (uploadErr) {
+          console.warn("Avatar upload failed:", uploadErr);
+        }
+      }
+
+      const res = await fetch("/api/pets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           user_id: userId,
           name: form.name.trim(),
           species: form.species,
@@ -197,22 +213,19 @@ function AddPetCard({ userId, onDone }: { userId: string; onDone: () => void }) 
           birthdate: form.birthdate || null,
           weight: form.weight ? Number(form.weight) : null,
           weight_unit: form.weight_unit,
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-      if (photo && data) {
-        try {
-          const path = await uploadPetFile(userId, data.id, "avatar", photo);
-          await supabase.from("pets").update({ avatar_url: path }).eq("id", data.id);
-        } catch (err) {
-          toast.error("Pet saved, but photo upload failed");
-          console.error(err);
-        }
+          avatar_url: avatarUrl,
+        }),
+      });
+
+      if (!res.ok) {
+        const errJson = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(errJson.error || "Could not add pet");
       }
+
+      const data = (await res.json()) as { id?: string };
       toast.success("Pet added");
       onDone();
-      if (data) navigate({ to: "/dashboard/pets/$id", params: { id: data.id } });
+      if (data?.id) navigate({ to: "/dashboard/pets/$id", params: { id: data.id } });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not add pet");
     } finally { setBusy(false); }

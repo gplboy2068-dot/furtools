@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { updatePet } from "@/lib/pet-db-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,10 +26,7 @@ export function SpeciesSpecificsTab({
   async function save() {
     setBusy(true);
     try {
-      const { error } = await supabase.from("pets")
-        .update({ species_data: data as never })
-        .eq("id", petId);
-      if (error) throw error;
+      await updatePet(petId, { species_data: data });
       toast.success(`${cfg!.singular} details saved`);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Save failed");

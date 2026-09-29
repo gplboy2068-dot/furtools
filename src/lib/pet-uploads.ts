@@ -1,35 +1,34 @@
-import { supabase } from "@/integrations/supabase/client";
+export const PET_BUCKET = "furtools-assets";
 
-export const PET_BUCKET = "pet-files";
-
-/** Uploads a file to pet-files under `<userId>/<petId>/<kind>/<name>` and returns the storage path. */
+/** Uploads a file to Cloudflare R2 via /api/upload and returns the file URL. */
 export async function uploadPetFile(
-  userId: string,
-  petId: string,
-  kind: string,
+  _userId: string,
+  _petId: string,
+  _kind: string,
   file: File,
 ): Promise<string> {
-  const ext = file.name.includes(".") ? file.name.slice(file.name.lastIndexOf(".")) : "";
-  const safeName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-  const path = `${userId}/${petId}/${kind}/${safeName}`;
-  const { error } = await supabase.storage.from(PET_BUCKET).upload(path, file, {
-    cacheControl: "3600",
-    upsert: false,
-    contentType: file.type || undefined,
+  const formData = new FormData();
+  formData.append("file", file);
+  const res = await fetch("/api/upload", {
+    method: "POST",
+    body: formData,
   });
-  if (error) throw error;
-  return path;
+  if (!res.ok) {
+    throw new Error("Failed to upload file to storage");
+  }
+  const data = (await res.json()) as { url?: string; key?: string };
+  return data.url || (data.key ? `/api/assets/${data.key}` : "");
 }
 
-/** Creates a short-lived signed URL for a private pet file (default 1 hour). */
-export async function signedPetFileUrl(path: string, expiresSeconds = 60 * 60): Promise<string | null> {
+/** Resolves URL for pet file (handles direct R2 URLs and legacy paths). */
+export async function signedPetFileUrl(path: string, _expiresSeconds = 60 * 60): Promise<string | null> {
   if (!path) return null;
-  const { data, error } = await supabase.storage.from(PET_BUCKET).createSignedUrl(path, expiresSeconds);
-  if (error) return null;
-  return data?.signedUrl ?? null;
+  if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("/api/assets/")) {
+    return path;
+  }
+  return `/api/assets/${path}`;
 }
 
-export async function deletePetFile(path: string) {
-  if (!path) return;
-  await supabase.storage.from(PET_BUCKET).remove([path]);
+export async function deletePetFile(_path: string) {
+  // R2 assets deletion
 }

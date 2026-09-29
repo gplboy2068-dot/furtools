@@ -154,8 +154,9 @@ export async function getActiveUser(): Promise<ActiveUser | null> {
   if (customSession) {
     // Ensure profile is synced to database
     syncGoogleUserToDatabase(customSession.user);
+    const userUuid = googleIdToUuid(customSession.user.googleId || customSession.user.email);
     return {
-      id: customSession.user.googleId,
+      id: userUuid,
       email: customSession.user.email,
       name: customSession.user.name,
       avatarUrl: customSession.user.picture,
