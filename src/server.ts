@@ -59,7 +59,16 @@ export default {
 
     const url = new URL(request.url);
 
-    // Fast-path API: Foods
+    // Canonical Domain 301 Redirect:
+    // Seamlessly redirect any traffic hitting the *.workers.dev subdomain
+    // to the official primary domain https://www.furtools.com
+    if (url.hostname.endsWith(".workers.dev")) {
+      const target = new URL(request.url);
+      target.hostname = "www.furtools.com";
+      target.protocol = "https:";
+      target.port = "";
+      return Response.redirect(target.toString(), 301);
+    }
     if (url.pathname === "/api/foods") {
       try {
         const { getDbFoods } = await import("./lib/d1");
