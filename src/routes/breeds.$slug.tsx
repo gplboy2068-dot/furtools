@@ -23,7 +23,7 @@ import {
   type BreedRow,
 } from "@/lib/breeds";
 import { getSpecies } from "@/data/species";
-import { getTool } from "@/data/tools";
+import { getToolSummary } from "@/data/tools-summary";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 import { toAbsoluteUrl } from "@/lib/seo";
@@ -385,8 +385,8 @@ function BreedBody() {
           <h2 className="font-display text-2xl font-semibold">Tools for {breed.name} parents</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {breed.related_tool_slugs
-              .map((s) => getTool(s))
-              .filter((t): t is NonNullable<ReturnType<typeof getTool>> => Boolean(t))
+              .map((s) => getToolSummary(s))
+              .filter((t): t is NonNullable<ReturnType<typeof getToolSummary>> => Boolean(t))
               .map((t) => (
                 <Link
                   key={t.slug}

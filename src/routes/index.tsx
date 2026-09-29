@@ -25,19 +25,20 @@ import { Button } from "@/components/ui/button";
 import { FeaturedTools, PopularTools } from "@/components/tool-sections";
 import { Faq } from "@/components/faq";
 import { CATEGORIES } from "@/data/categories";
-import { TOOLS } from "@/data/tools";
+import { TOTAL_TOOLS_COUNT } from "@/data/tools-summary";
 import { AI_ASSISTANTS } from "@/data/ai-assistants";
 import { SPECIES } from "@/data/species";
 import { SPECIES_CONFIG } from "@/data/species-config";
 import { SITE } from "@/lib/site";
 import { buildHead } from "@/lib/seo";
 import { faqSchema, itemListSchema } from "@/lib/schema";
-import heroImg from "@/assets/hero-pets.jpg";
+import heroImgWebp from "@/assets/hero-pets.webp";
+import heroImgMobileWebp from "@/assets/hero-pets-mobile.webp";
 
 const HOME_FAQS = [
   {
     q: `How many free tools does ${SITE.name} offer?`,
-    a: `${SITE.name} currently offers ${TOOLS.length}+ free calculators, generators, and planners for dogs, cats, birds, fish, small pets, reptiles, horses, and farm animals — with new tools shipping every week.`,
+    a: `${SITE.name} currently offers ${TOTAL_TOOLS_COUNT}+ free calculators, generators, and planners for dogs, cats, birds, fish, small pets, reptiles, horses, and farm animals — with new tools shipping every week.`,
   },
   {
     q: "Do I need an account to use the tools?",
@@ -60,8 +61,8 @@ const HOME_FAQS = [
 export const Route = createFileRoute("/")({
   head: () =>
     buildHead({
-      title: `${SITE.name} — ${TOOLS.length}+ Free Pet Tools, Calculators & AI Guides`,
-      description: `${TOOLS.length}+ free pet calculators, name generators, breed database, food safety checker, and ${AI_ASSISTANTS.length} AI care assistants for dogs, cats, birds, fish, reptiles, horses & farm animals. No signup.`,
+      title: `${SITE.name} — ${TOTAL_TOOLS_COUNT}+ Free Pet Tools, Calculators & AI Guides`,
+      description: `${TOTAL_TOOLS_COUNT}+ free pet calculators, name generators, breed database, food safety checker, and ${AI_ASSISTANTS.length} AI care assistants for dogs, cats, birds, fish, reptiles, horses & farm animals. No signup.`,
       path: "/",
       type: "website",
       keywords: [
@@ -101,7 +102,7 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 function Home() {
-  const toolCount = TOOLS.length;
+  const toolCount = TOTAL_TOOLS_COUNT;
   const aiCount = AI_ASSISTANTS.length;
   const speciesCount = Object.keys(SPECIES_CONFIG).length;
   const featuredAi = AI_ASSISTANTS.slice(0, 8);
@@ -161,16 +162,25 @@ function Home() {
             </ul>
           </div>
           <div className="relative">
-            <img
-              src={heroImg}
-              alt={`${SITE.name} — free calculators and AI tools for dogs, cats, and more`}
-              width={1600}
-              height={1000}
-              fetchPriority="high"
-              loading="eager"
-              decoding="async"
-              className="w-full rounded-3xl"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                media="(max-width: 640px)"
+                srcSet={heroImgMobileWebp}
+                width={640}
+                height={400}
+              />
+              <img
+                src={heroImgWebp}
+                alt={`${SITE.name} — free calculators and AI tools for dogs, cats, and more`}
+                width={1600}
+                height={1000}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="w-full rounded-3xl aspect-[16/10] object-cover"
+              />
+            </picture>
           </div>
         </div>
       </section>
@@ -213,7 +223,7 @@ function Home() {
                 key={c.slug}
                 to="/categories/$slug"
                 params={{ slug: c.slug }}
-                className="group rounded-2xl border border-border/70 bg-card p-6 transition hover:-translate-y-0.5 hover:shadow-md"
+                className="group rounded-2xl border border-border/70 bg-card p-6 transition-transform duration-200 will-change-transform hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className="grid size-11 place-items-center rounded-full bg-primary/10 text-primary">
                   <Icon className="size-5" />
@@ -267,7 +277,7 @@ function Home() {
             <Link
               key={h.to}
               to={h.to}
-              className="group flex gap-4 rounded-2xl border border-border/70 bg-card p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+              className="group flex gap-4 rounded-2xl border border-border/70 bg-card p-5 transition-transform duration-200 will-change-transform hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="grid size-11 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
                 <h.icon className="size-5" />
@@ -276,7 +286,7 @@ function Home() {
                 <h3 className="font-display text-lg font-semibold">{h.title}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{h.desc}</p>
                 <div className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                  Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                  Open <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </div>
               </div>
             </Link>
@@ -308,7 +318,7 @@ function Home() {
                 key={a.slug}
                 to="/ai/$slug"
                 params={{ slug: a.slug }}
-                className="group rounded-2xl border border-border/70 bg-card p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+                className="group rounded-2xl border border-border/70 bg-card p-5 transition-transform duration-200 will-change-transform hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
                   <a.icon className="size-5" />

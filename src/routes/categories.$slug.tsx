@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Input } from "@/components/ui/input";
 import { ToolCard } from "@/components/tool-card";
 import { getCategory, CATEGORIES } from "@/data/categories";
-import { toolsByCategory } from "@/data/tools";
+import { toolsByCategorySummary, type ToolSummary } from "@/data/tools-summary";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
 import { Search as SearchIcon } from "lucide-react";
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/categories/$slug")({
   loader: ({ params }) => {
     const category = getCategory(params.slug);
     if (!category) throw notFound();
-    return { category, tools: toolsByCategory(category.slug) };
+    return { category, tools: toolsByCategorySummary(category.slug) };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
@@ -49,9 +49,9 @@ function CategoryPage() {
     const query = q.trim().toLowerCase();
     if (!query) return tools;
     return tools.filter(
-      (t: import("@/data/tools").Tool) =>
+      (t: ToolSummary) =>
         t.name.toLowerCase().includes(query) ||
-        t.description.toLowerCase().includes(query) ||
+        t.tagline.toLowerCase().includes(query) ||
         t.keywords.some((k) => k.toLowerCase().includes(query)),
     );
   }, [tools, q]);

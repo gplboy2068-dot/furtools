@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Input } from "@/components/ui/input";
 import { ToolCard } from "@/components/tool-card";
 import { CATEGORIES } from "@/data/categories";
-import { toolsByCategory, searchTools } from "@/data/tools";
+import { toolsByCategorySummary, searchToolsSummary } from "@/data/tools-summary";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
 import { PawPrint, Search as SearchIcon } from "lucide-react";
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/categories/")({
 
 function CategoriesIndex() {
   const [q, setQ] = useState("");
-  const results = useMemo(() => (q.trim() ? searchTools(q.trim()) : []), [q]);
+  const results = useMemo(() => (q.trim() ? searchToolsSummary(q.trim()) : []), [q]);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
@@ -70,7 +70,7 @@ function CategoriesIndex() {
       ) : (
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((c) => {
-            const count = toolsByCategory(c.slug).length;
+            const count = toolsByCategorySummary(c.slug).length;
             return (
               <Link
                 key={c.slug}

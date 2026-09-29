@@ -111,13 +111,26 @@ export function setWebsiteLanguage(langCode: string) {
     selectElem.value = targetGoogleCode;
     selectElem.dispatchEvent(new Event('change'));
   } else {
-    // If widget not ready yet, reload to apply cookie immediately
-    window.location.reload();
+    initGoogleTranslate(true);
+    setTimeout(() => {
+      const selectAfter = document.querySelector<HTMLSelectElement>('.goog-te-combo');
+      if (selectAfter) {
+        selectAfter.value = targetGoogleCode;
+        selectAfter.dispatchEvent(new Event('change'));
+      } else {
+        window.location.reload();
+      }
+    }, 500);
   }
 }
 
-export function initGoogleTranslate() {
+export function initGoogleTranslate(force = false) {
   if (typeof window === 'undefined') return;
+
+  const activeLang = getActiveLanguage();
+  if (!force && activeLang === 'en') {
+    return;
+  }
 
   // Define global initialization callback
   window.googleTranslateElementInit = () => {
@@ -133,12 +146,12 @@ export function initGoogleTranslate() {
       );
 
       // Auto-trigger active language if non-English
-      const activeLang = getActiveLanguage();
-      if (activeLang && activeLang !== 'en') {
+      const currentLang = getActiveLanguage();
+      if (currentLang && currentLang !== 'en') {
         setTimeout(() => {
           const select = document.querySelector<HTMLSelectElement>('.goog-te-combo');
           if (select) {
-            select.value = GOOGLE_LANG_MAP[activeLang] || activeLang;
+            select.value = GOOGLE_LANG_MAP[currentLang] || currentLang;
             select.dispatchEvent(new Event('change'));
           }
         }, 300);

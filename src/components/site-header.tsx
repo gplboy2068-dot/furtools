@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { LogIn, LogOut, Menu, PawPrint, Search, User as UserIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
 import { LanguageSwitcher } from "./language-switcher";
-import { GlobalSearch } from "./global-search";
 import { SITE } from "@/lib/site";
 import { supabase } from "@/integrations/supabase/client";
 import { clearCustomSession, getActiveUser, type ActiveUser } from "@/lib/custom-google-auth";
+
+const GlobalSearch = lazy(() =>
+  import("./global-search").then((m) => ({ default: m.GlobalSearch }))
+);
 
 const NAV = [
   { to: "/categories", label: "Tools" },
@@ -33,6 +36,17 @@ export function SiteHeader() {
     });
 
     return () => sub.subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, []);
 
   const handleLogout = async () => {
@@ -166,11 +180,15 @@ export function SiteHeader() {
           </nav>
         )}
       </header>
-      <GlobalSearch
-        open={searchOpen}
-        onOpenChange={setSearchOpen}
-        onSelect={(slug) => navigate({ to: "/tools/$slug", params: { slug } })}
-      />
+      {searchOpen && (
+        <Suspense fallback={null}>
+          <GlobalSearch
+            open={searchOpen}
+            onOpenChange={setSearchOpen}
+            onSelect={(slug) => navigate({ to: "/tools/$slug", params: { slug } })}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

@@ -1,9 +1,14 @@
 import { Link } from "@tanstack/react-router";
-import { relatedTools, popularTools, featuredTools, type Tool } from "@/data/tools";
+import {
+  featuredToolsSummary,
+  popularToolsSummary,
+  relatedToolsSummary,
+  type ToolSummary,
+} from "@/data/tools-summary";
 import { ToolCard } from "./tool-card";
 import { ArrowRight } from "lucide-react";
 
-function ToolGrid({ tools }: { tools: Tool[] }) {
+function ToolGrid({ tools }: { tools: ToolSummary[] }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {tools.map((t) => (
@@ -41,7 +46,7 @@ function SectionHeader({
 }
 
 export function FeaturedTools({ limit = 4 }: { limit?: number }) {
-  const tools = featuredTools(limit);
+  const tools = featuredToolsSummary(limit);
   if (!tools.length) return null;
   return (
     <section aria-labelledby="featured-heading">
@@ -52,7 +57,7 @@ export function FeaturedTools({ limit = 4 }: { limit?: number }) {
 }
 
 export function PopularTools({ limit = 6 }: { limit?: number }) {
-  const tools = popularTools(limit);
+  const tools = popularToolsSummary(limit);
   if (!tools.length) return null;
   return (
     <section aria-labelledby="popular-heading">
@@ -63,7 +68,7 @@ export function PopularTools({ limit = 6 }: { limit?: number }) {
 }
 
 export function RelatedTools({ slug, limit = 3 }: { slug: string; limit?: number }) {
-  const tools = relatedTools(slug, limit);
+  const tools = relatedToolsSummary(slug, limit);
   if (!tools.length) return null;
   return (
     <section aria-labelledby="related-heading" className="mt-16">

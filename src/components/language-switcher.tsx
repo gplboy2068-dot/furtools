@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SUPPORTED_LANGUAGES, LanguageConfig } from '@/lib/i18n-config';
-import { getActiveLanguage, setWebsiteLanguage } from '@/lib/google-translate';
+import { getActiveLanguage, setWebsiteLanguage, initGoogleTranslate } from '@/lib/google-translate';
 
 interface LanguageSwitcherProps {
   variant?: 'dropdown' | 'select' | 'compact';
@@ -38,6 +38,7 @@ export function LanguageSwitcher({ variant = 'dropdown', className = '' }: Langu
         <Globe className="absolute left-3 size-4 text-muted-foreground rtl:right-3 rtl:left-auto pointer-events-none" />
         <select
           value={currentLang.code}
+          onFocus={() => initGoogleTranslate(true)}
           onChange={(e) => {
             const selected = SUPPORTED_LANGUAGES.find((l) => l.code === e.target.value);
             if (selected) handleLanguageChange(selected);
@@ -56,13 +57,15 @@ export function LanguageSwitcher({ variant = 'dropdown', className = '' }: Langu
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu onOpenChange={(isOpen) => { if (isOpen) initGoogleTranslate(true); }}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
           size={variant === 'compact' ? 'sm' : 'default'}
           className={`gap-2 rounded-full px-3 text-xs font-medium notranslate ${className}`}
           aria-label="Change language"
+          onPointerEnter={() => initGoogleTranslate(true)}
+          onFocus={() => initGoogleTranslate(true)}
         >
           <Globe className="size-4" />
           <span className="hidden sm:inline notranslate">{currentLang.flag} {currentLang.nativeName}</span>

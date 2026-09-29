@@ -7,7 +7,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { TOOLS, searchTools } from "@/data/tools";
+import { TOOLS_SUMMARY, searchToolsSummary } from "@/data/tools-summary";
 import { CATEGORIES } from "@/data/categories";
 
 export function GlobalSearch({
@@ -32,7 +32,7 @@ export function GlobalSearch({
     return () => window.removeEventListener("keydown", handler);
   }, [open, onOpenChange]);
 
-  const results = q ? searchTools(q) : TOOLS;
+  const results = q ? searchToolsSummary(q) : TOOLS_SUMMARY;
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>

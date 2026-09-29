@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Input } from "@/components/ui/input";
 import { Search as SearchIcon } from "lucide-react";
 import { ToolCard } from "@/components/tool-card";
-import { searchTools, TOOLS } from "@/data/tools";
+import { searchToolsSummary, TOOLS_SUMMARY } from "@/data/tools-summary";
 import { buildHead } from "@/lib/seo";
 
 const searchSchema = z.object({ q: z.string().optional() });
@@ -27,7 +27,7 @@ function SearchPage() {
   const navigate = useNavigate({ from: "/search" });
   const [value, setValue] = useState(q ?? "");
 
-  const results = useMemo(() => (q ? searchTools(q) : TOOLS), [q]);
+  const results = useMemo(() => (q ? searchToolsSummary(q) : TOOLS_SUMMARY), [q]);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
