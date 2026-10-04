@@ -10,7 +10,7 @@ export const Route = createFileRoute("/sitemap-index.xml")({
     handlers: {
       GET: async () => {
         const now = new Date().toISOString();
-        const sitemaps = ["/sitemap.xml", "/sitemap-images.xml", "/news-sitemap.xml"];
+        const sitemaps = ["/sitemap.xml"];
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

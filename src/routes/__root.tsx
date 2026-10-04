@@ -17,6 +17,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { CookieConsent } from "@/components/cookie-consent";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { SITE } from "@/lib/site";
@@ -203,6 +204,7 @@ function RootComponent() {
           )}
           <div id="google_translate_element" style={{ display: 'none' }} aria-hidden="true" />
           <Toaster />
+          <CookieConsent />
         </ThemeProvider>
       </QueryClientProvider>
     </I18nextProvider>

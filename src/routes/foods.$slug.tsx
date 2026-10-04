@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import {
@@ -18,6 +18,15 @@ import { toAbsoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/foods/$slug")({
   loader: async ({ params, context }) => {
+    // Canonicalize known duplicate slugs (e.g. /foods/apples → /foods/apple)
+    // so duplicate content never gets indexed under two URLs.
+    const FOOD_SLUG_ALIASES: Record<string, string> = {
+      apples: "apple",
+    };
+    const canonical = FOOD_SLUG_ALIASES[params.slug];
+    if (canonical) {
+      throw redirect({ to: "/foods/$slug", params: { slug: canonical }, statusCode: 301 });
+    }
     const food = await context.queryClient.ensureQueryData(foodDetailQuery(params.slug));
     if (!food) throw notFound();
     return food;

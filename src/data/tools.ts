@@ -77,10 +77,10 @@ const RAW_TOOLS: Tool[] = [
     keywords: ["dog age", "dog years", "human years", "age converter"],
     layout: "calculator",
     featured: true, popular: true,
-    howItWorks: "We use the epigenetic 'log' formula (16 × ln(age) + 31) adjusted for small, medium, large, and giant breeds — a better fit than the classic '7 years' myth.",
+    howItWorks: "We use the veterinary AVMA-style guideline: 15 human years for the first year, plus 9 for the second, then +4/+5/+6/+7.5 per year for small/medium/large/giant breeds — a better fit than the classic '7 years' myth.",
     examples: [
-      { label: "3-year-old medium breed", result: "≈ 49 human years" },
-      { label: "10-year-old small breed", result: "≈ 58 human years" },
+      { label: "3-year-old medium breed", result: "≈ 29 human years" },
+      { label: "10-year-old small breed", result: "≈ 56 human years" },
     ],
     faqs: [
       { q: "Why isn't 1 dog year = 7 human years?", a: "That rule of thumb was wildly inaccurate. Modern studies show dogs age much faster in their first two years, then slow down." },

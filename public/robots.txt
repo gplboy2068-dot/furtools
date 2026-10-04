@@ -31,8 +31,6 @@ Allow: /
 # Sitemaps
 Sitemap: https://www.furtools.com/sitemap-index.xml
 Sitemap: https://www.furtools.com/sitemap.xml
-Sitemap: https://www.furtools.com/sitemap-images.xml
-Sitemap: https://www.furtools.com/news-sitemap.xml
 
 # LLM / AI instructions (GEO Standard)
 # see https://www.furtools.com/llms.txt for structured machine-readable overview

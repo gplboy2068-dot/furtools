@@ -55,7 +55,7 @@ The first 12 months require substantial upfront capital for medicalization, lega
 During the prime adult years, expenses settle into predictable recurring operational budgets divided across four core buckets:
 
 #### 1. Nutrition & Caloric Fuel ($450 – $1,200 / Year)
-- High-quality, complete, and balanced AAFCO-compliant diet (calculated using exact $RER = 70 \times BW^{0.75}$ formulas).
+- High-quality, complete, and balanced AAFCO-compliant diet (calculated using exact RER = 70 × BW^0.75 formulas).
 - Small dogs (15 lbs) consume roughly **$35 to $50 per month** ($420–$600/yr).
 - Large working dogs (75 lbs) consume **$80 to $150 per month** ($960–$1,800/yr).
 - Adult cats eating high-moisture canned wet food consume **$45 to $85 per month** ($540–$1,020/yr).
@@ -347,7 +347,7 @@ $$\text{Reimbursement Payout} = (\text{Eligible Medical Expenses} - \text{Deduct
 
 *Example: Your dog undergoes emergency foreign body surgery costing $5,000. Your policy has a $500 annual deductible and an 80% reimbursement level:*
 - Step 1: $5,000 - $500 Deductible = $4,500 Eligible Balance
-- Step 2: $4,500 \times 80% = **$3,600 Reimbursement Check Sent to You**
+- Step 2: 4,500 × 80% = **3,600 Reimbursement Check Sent to You**
 - **Your Total Out-of-Pocket Expense**: $1,400 (Deductible + 20% Copay).
 
 ---
@@ -938,17 +938,17 @@ Never compare the "Guaranteed Analysis" on a pet food label directly! A can of w
 
 To compare foods equally, you must convert both to a **Dry Matter Basis (DMB)**:
 
-$$\text{Dry Matter \% (DM)} = 100\% - \text{Moisture \%}$$
+$Dry Matter % (DM) = 100% - Moisture %$
 
 $$\text{Dry Matter Nutrient \%} = \left( \frac{\text{Reported As-Fed Nutrient \%}}{\text{Dry Matter \%}} \right) \times 100$$
 
 ### Clinical Example:
 - **Canned Wet Food Label**: 10% Protein, 80% Moisture  
-  $$\text{DM} = 100 - 80 = 20\%$$
+  $DM = 100 - 80 = 20%$
   $$\text{DMB Protein} = \left( \frac{10}{20} \right) \times 100 = \mathbf{50\% \text{ Protein}}$$
 
 - **Dry Kibble Label**: 34% Protein, 10% Moisture  
-  $$\text{DM} = 100 - 10 = 90\%$$
+  $DM = 100 - 10 = 90%$
   $$\text{DMB Protein} = \left( \frac{34}{90} \right) \times 100 = \mathbf{37.7\% \text{ Protein}}$$
 
 *The wet food provides 50% protein on a dry matter basis, while the dry food provides only 37.7%!* Check our [Cat Food & Portion Calculator](/tools/cat-food-calculator) to automatically balance your cat''s macro targets.
@@ -1209,7 +1209,7 @@ Calculate your snake''s precise minimum enclosure dimensions with our [Snake Tan
 
 ---
 
-## 1. The Universal Dimensional Formula: $L + W \ge \text{Snake Length}$
+## 1. The Universal Dimensional Formula: L + W ≥ Snake Length
 
 To ensure your snake can fully stretch its musculoskeletal system:
 
@@ -1222,10 +1222,10 @@ Veterinary Enclosure Minimums:
 ```
 
 ### Species Dimensional Benchmarks (Adults):
-- **Corn Snake (4–5 ft)**: Minimum $4\times2\times2\text{ ft}$ ($120\text{ gallons}$)
-- **Ball Python (3.5–5 ft)**: Minimum $4\times2\times2\text{ ft}$ ($120\text{ gallons}$)
-- **Boa Constrictor / BCI (6–8 ft)**: Minimum $6\times3\times3\text{ ft}$ to $8\times4\times4\text{ ft}$
-- **Hognose Snake (1.5–2.5 ft)**: Minimum $3\times1.5\times1.5\text{ ft}$ ($40\text{–}50\text{ gallons}$)
+- **Corn Snake (4–5 ft)**: Minimum 4×2×2 ft (120 gallons)
+- **Ball Python (3.5–5 ft)**: Minimum 4×2×2 ft (120 gallons)
+- **Boa Constrictor / BCI (6–8 ft)**: Minimum 6×3×3 ft to 8×4×4 ft
+- **Hognose Snake (1.5–2.5 ft)**: Minimum 3×1.5×1.5 ft (40–50 gallons)
 
 ---
 
@@ -1283,8 +1283,8 @@ Flock Spatial Architecture:
 
 Chickens sleep perched off the ground to avoid ground predators and damp litter. The geometry of your roost bars directly impacts foot health:
 
-* **Board Dimensions**: Use natural unfinished wood $2\times4$ lumber with the **4-inch wide side facing flat upwards**, with lightly rounded top edges. Round dowels or narrow broom handles force chickens to curl their toes tightly, causing foot cramping, pressure sores, and bacterial **Bumblefoot** (*pododermatitis*).
-* **Winter Warmth**: A flat $2\times4$ allows hens to sit completely over their feet, warming their toes beneath their breast feathers and preventing frostbite in sub-zero winter temperatures.
+* **Board Dimensions**: Use natural unfinished wood 2×4 lumber with the **4-inch wide side facing flat upwards**, with lightly rounded top edges. Round dowels or narrow broom handles force chickens to curl their toes tightly, causing foot cramping, pressure sores, and bacterial **Bumblefoot** (*pododermatitis*).
+* **Winter Warmth**: A flat 2×4 allows hens to sit completely over their feet, warming their toes beneath their breast feathers and preventing frostbite in sub-zero winter temperatures.
 * **Elevation**: Position roost bars higher than the nesting boxes (typically 2 to 4 feet off the floor). If nesting boxes are higher than the roosts, hens will sleep and defecate inside the nesting boxes, leading to soiled eggs and vent infections.
 
 ---
@@ -1337,17 +1337,17 @@ Safe Nitrate PPM Guidelines:
 
 ---
 
-## 2. Water Change Dilution Mathematics: $C_2 = C_1 \times (1 - V_w) + C_{tap} \times V_w$
+## 2. Water Change Dilution Mathematics: C₂ = C_1 × (1 - V_w) + C_tap × V_w
 
 Nitrate removal through water changes follows strict volumetric dilution physics. If your aquarium measures **60 ppm nitrate** and your tap water contains **0 ppm nitrate**, performing a **50% water change** drops the nitrate concentration exactly in half to **30 ppm**.
 
-However, if your municipal tap water contains agricultural runoff with **15 ppm nitrate**, that same 50% water change will only reduce the tank concentration to $60 \times 0.5 + 15 \times 0.5 = 37.5\text{ ppm}$. Always test your tap water baseline before diagnosing stubborn nitrate spikes.
+However, if your municipal tap water contains agricultural runoff with **15 ppm nitrate**, that same 50% water change will only reduce the tank concentration to 60 × 0.5 + 15 × 0.5 = 37.5 ppm. Always test your tap water baseline before diagnosing stubborn nitrate spikes.
 
 ---
 
 ## 3. Botanical Nitrate Sponges: Terrestrial Roots vs. Submerged Flora
 
-While standard submerged plants consume modest nitrate, emergent terrestrial plants whose foliage grows into ambient room air have unlimited access to atmospheric $CO_2$ ($~420\text{ ppm}$ vs. $< 5\text{ ppm}$ dissolved in water). As a result, their metabolic growth rate and nitrate uptake are up to **ten times faster**:
+While standard submerged plants consume modest nitrate, emergent terrestrial plants whose foliage grows into ambient room air have unlimited access to atmospheric $CO_2$ (~420 ppm vs. < 5 ppm dissolved in water). As a result, their metabolic growth rate and nitrate uptake are up to **ten times faster**:
 
 * **Golden Pothos (*Epipremnum aureum*)**: Suspend bare roots directly into the aquarium water or hang-on-back filter compartment. A mature root system can consume 10 to 20 ppm of nitrate weekly from a moderately stocked tank.
 * **Fast-Growing Floating Plants**: Water Lettuce (*Pistia stratiotes*), Amazon Frogbit (*Limnobium laevigatum*), and Salvinia create dense root curtains that aggressively absorb nitrates and phosphate while shading out nuisance algae.
@@ -1357,9 +1357,9 @@ While standard submerged plants consume modest nitrate, emergent terrestrial pla
 
 ## 4. Anaerobic Denitrification & Deep Sand Beds
 
-In standard aerobic filters, beneficial bacteria can only convert nitrite into nitrate. To convert nitrate into harmless **Nitrogen Gas ($N_2$)**, water must pass through **anoxic zones** (dissolved oxygen $< 0.5\text{ mg/L}$) where facultative anaerobic denitrifying bacteria live.
+In standard aerobic filters, beneficial bacteria can only convert nitrite into nitrate. To convert nitrate into harmless **Nitrogen Gas ($N_2$)**, water must pass through **anoxic zones** (dissolved oxygen < 0.5 mg/L) where facultative anaerobic denitrifying bacteria live.
 
-Achieving true biological denitrification requires specialized sintered glass media with deep micropores (such as Seachem Matrix or BioHome) operating at low flow rates, or deep substrate sand beds ($> 3\text{ to }4\text{ inches}$) in un-sifted marine or planted biotopes.
+Achieving true biological denitrification requires specialized sintered glass media with deep micropores (such as Seachem Matrix or BioHome) operating at low flow rates, or deep substrate sand beds (> 3 to 4 inches) in un-sifted marine or planted biotopes.
 
 Explore our aquatic care tools: [Aquarium Nitrate Calculator](/tools/aquarium-nitrate-calculator) and [Fish Care AI Assistant](/ai/fish-care).', 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=1200&q=80', 'Aquatics & Fishkeeping', 'firoz-khan', '["aquarium nitrate calculator","nitrate ppm","aquarium water change","fish tank chemistry","nitrogen cycle","planted aquarium","fish care"]', 1, '2026-08-22T00:00:00Z');
 INSERT OR REPLACE INTO blog_posts (id, slug, title, excerpt, content, cover_image, category, author_id, tags, published, published_at) VALUES ('post_toxic_foods_dogs', 'toxic-foods-dogs', '21 Toxic Foods Dogs Can Never Eat: The Complete Veterinary Toxicology Guide (2026)', 'An exhaustive veterinary toxicology guide to the most dangerous household foods for dogs. Covers lethal dosage thresholds (mg/kg), biochemical mechanisms (theobromine, tartaric acid, xylitol, N-propyl disulfide), emergency symptom timelines, at-home first aid dos and don''ts, and immediate steps if your dog ingests poison.', '## Executive Summary: The Canine Metabolic Vulnerability
@@ -1440,7 +1440,7 @@ Theobromine ($C_7H_8N_4O_2$) and caffeine inhibit cellular adenosine receptors a
 Calculate your dog''s exact metabolic risk using our [Food Safety Database](/foods).
 
 ### 3. Grapes & Raisins: Tartaric Acid Nephrotoxicity
-For decades, the exact toxin in grapes remained a medical mystery. In 2021–2023, veterinary toxicologists confirmed that **tartaric acid and potassium bitartrate** cause acute proximal renal tubular cell necrosis. Because dried raisins have 3–5 times higher tartaric acid concentrations per gram than fresh grapes, even a tiny handful can send a 50 lb dog into irreversible kidney failure ($BUN > 100 \text{ mg/dL}$, Creatinine $> 10 \text{ mg/dL}$, anuria).
+For decades, the exact toxin in grapes remained a medical mystery. In 2021–2023, veterinary toxicologists confirmed that **tartaric acid and potassium bitartrate** cause acute proximal renal tubular cell necrosis. Because dried raisins have 3–5 times higher tartaric acid concentrations per gram than fresh grapes, even a tiny handful can send a 50 lb dog into irreversible kidney failure (BUN > 100 mg/dL, Creatinine > 10 mg/dL, anuria).
 
 ### 4. Alliums (Onions, Garlic, Chives): Heinz Body Hemolytic Anemia
 Aliphatic sulfides in allium vegetables convert into active oxidants that overwhelm canine erythrocyte antioxidant defenses ($glutathione$). This crosslinks hemoglobin sulfhydryl groups, forming **Heinz bodies** inside red blood cells. The spleen recognizes these damaged cells and destroys them (*extravascular hemolysis*), causing profound **pale gums, dark reddish-brown urine (hemoglobinuria), lethargy, and cardiovascular collapse** 2 to 5 days post-ingestion.
@@ -1881,7 +1881,7 @@ External capsule appearances can be deceiving, especially in feet with flared wa
 
 ### 1. The Palmar Angle of the Distal Phalanx (P3)
 - **Normal Range**: **+2.0° to +5.0°**. The wings of the coffin bone sit slightly higher than the toe tip.
-- **Negative Palmar Angle (NPA)**: If the wings of P3 sit lower than the toe tip (angle $\le 0^\circ$), the coffin joint is permanently retro-flexed. NPA is present in over 60% of sport horses exhibiting unexplained lumbar back pain, poor impulsion, and bilateral hindlimb stiffness.
+- **Negative Palmar Angle (NPA)**: If the wings of P3 sit lower than the toe tip (angle ≤ 0°), the coffin joint is permanently retro-flexed. NPA is present in over 60% of sport horses exhibiting unexplained lumbar back pain, poor impulsion, and bilateral hindlimb stiffness.
 
 ### 2. Sole Depth Beneath the Tip of P3
 - Healthy athletic horses require a **minimum of 15 mm (approx. 5/8 inch) of solar corium and callused horn** between the ventral tip of P3 and the ground. Thin soles (<10 mm) provide zero concussive protection, transmitting shocks directly into the sensitive subsolar vasculature.
@@ -2453,7 +2453,7 @@ Stage 3: NITRATE (NO3-) [TARGET < 20 ppm Freshwater / < 5 ppm Reef]:
 
 Standard aquarium ammonia test kits measure **Total Ammonia Nitrogen (TAN)**, which is the sum of toxic unionized ammonia ($NH_3$) and relatively non-toxic ionized ammonium ($NH_4^+$):
 
-$$\text{TAN} = [NH_3] + [NH_4^+]$$
+$TAN = [NH₃] + [NH₄⁺]$
 
 The percentage of toxic $NH_3$ depends entirely on **water pH and temperature**:
 - In an acidic Amazonian discus tank with **pH 6.4**, a TAN reading of 1.0 ppm exists almost 100% as safe ammonium ($NH_4^+$). The fish will show zero symptoms.
@@ -2986,7 +2986,7 @@ Traditional working dogs (Border Collies, Labradors) are bred for handler focus 
 Because survival in nature depends on detecting predators and novel environmental hazards, basal dogs exhibit high **neophobia** (fear or suspicion of new stimuli). Comprehensive, force-free socialization between 3 and 14 weeks of age is mandatory to prevent crippling fear.
 
 ### Predatory Motor Patterns
-The predatory sequence (**Orient $\to$ Eye $\to$ Stalk $\to$ Chase $\to$ Grab-Bite $\to$ Kill-Bite**) is fully intact. While modern retrievers were bred to halt at ''Chase $\to$ Grab'', primitive dogs execute the entire lethal predatory sequence on rodents, rabbits, and neighborhood wildlife.
+The predatory sequence (**Orient → Eye → Stalk → Chase → Grab-Bite → Kill-Bite**) is fully intact. While modern retrievers were bred to halt at ''Chase → Grab'', primitive dogs execute the entire lethal predatory sequence on rodents, rabbits, and neighborhood wildlife.
 
 ---
 
@@ -3259,11 +3259,11 @@ According to veterinary emergency admissions data, canine toxic ingestions spike
 
 | Food Item | Toxic Component | Primary Target Organ | Critical Dose / Threshold |
 | :--- | :--- | :--- | :--- |
-| **Baker''s Chocolate** | Theobromine & Caffeine | Cardiovascular & Central Nervous System | **$\ge 20\text{ mg/kg}$** (mild), **$\ge 40\text{ mg/kg}$** (severe) |
-| **Xylitol (Birch Sugar)** | Artificial polyol sweetener | Pancreas (Hyperinsulinemia) & Hepatic Cells | **$\ge 0.1\text{ g/kg}$** (Hypoglycemia), **$\ge 0.5\text{ g/kg}$** (Liver Failure) |
-| **Garlic & Onions** | N-propyl disulfide | Erythrocytes (Red Blood Cells) | **$\ge 5\text{ g/kg}$** onion, **$\ge 1\text{ g/kg}$** garlic |
+| **Baker''s Chocolate** | Theobromine & Caffeine | Cardiovascular & Central Nervous System | **≥ 20 mg/kg** (mild), **≥ 40 mg/kg** (severe) |
+| **Xylitol (Birch Sugar)** | Artificial polyol sweetener | Pancreas (Hyperinsulinemia) & Hepatic Cells | **≥ 0.1 g/kg** (Hypoglycemia), **≥ 0.5 g/kg** (Liver Failure) |
+| **Garlic & Onions** | N-propyl disulfide | Erythrocytes (Red Blood Cells) | **≥ 5 g/kg** onion, **≥ 1 g/kg** garlic |
 | **Unbaked Yeast Dough** | Ethanol & $CO_2$ gas | Gastric lumen (Expansion) & Brain | Any ingestion of expanding raw dough |
-| **Macadamia Nuts** | Unknown canid neurotoxin | Neuromuscular junction & Motor Neurons | **$\ge 2.4\text{ g/kg}$** |
+| **Macadamia Nuts** | Unknown canid neurotoxin | Neuromuscular junction & Motor Neurons | **≥ 2.4 g/kg** |
 | **Cooked Poultry Bones** | Splintering calcium hydroxyapatite | Esophagus, stomach, and intestines | Physical mechanical perforation |
 
 ---
@@ -3587,7 +3587,7 @@ Never purchase single-filter units. A veterinary-approved pet air purifier must 
 | Filter Tier | Filtration Mechanism | Target Pollutant | Maintenance Cycle |
 | :--- | :--- | :--- | :--- |
 | **Tier 1: Washable Pre-Filter** | Fine woven mesh | Coarse pet hair, large lint clumps | Vacuum or wash every 2 to 4 weeks |
-| **Tier 2: True HEPA H13/H14** | Dense borosilicate fiber web | $99.97\%$ of particles down to $0.3\,\mu\text{m}$ (dander, spores, pollen) | Replace every 6 to 9 months in pet homes |
+| **Tier 2: True HEPA H13/H14** | Dense borosilicate fiber web | 99.97% of particles down to 0.3,mum (dander, spores, pollen) | Replace every 6 to 9 months in pet homes |
 | **Tier 3: Granular Activated Carbon** | Microporous carbon bed (1+ lbs) | Ammonia, litter box odors, skunk oil, VOCs | Replace every 3 to 6 months |
 
 ---
@@ -3608,11 +3608,11 @@ ALWAYS choose 100% mechanical filtration units certified ''Zero Ozone'' (CARB co
 
 Do not trust manufacturer ''maximum room coverage'' marketing claims, which assume a sluggish 1 air exchange per hour. For households with multiple dogs or cats:
 
-$$\text{Target ACH} = 4\text{ to }5\text{ Air Changes Per Hour}$$
+$Target ACH = 4 to 5 Air Changes Per Hour$
 
 $$\text{Minimum Required CADR (CFM)} = \frac{\text{Room Square Footage} \times \text{Ceiling Height} \times 5}{60}$$
 
-*Example*: A $15 \times 20\text{ ft}$ living room ($300\text{ sq ft}$) with 8-foot ceilings ($2,400\text{ cu ft}$) requires a minimum CADR of **$200\text{ CFM}$** for 5 ACH.
+*Example*: A 15 × 20 ft living room (300 sq ft) with 8-foot ceilings (2,400 cu ft) requires a minimum CADR of **200 CFM** for 5 ACH.
 
 Maintain pristine bird environments with our [Bird Room Safety Guide](/blog/bird-proofing-home), balance indoor humidity with the [Reptile Respiratory Infection Guide](/blog/reptile-ri-guide), and find local exotic veterinary practices via the [Local Vet Finder](/tools/local-vet-finder).', 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80', 'Pet Care', 'firoz-khan', '["air purifiers for pets","pet dander filter","true HEPA air purifier","ozone danger pets","bird safe air purifier","cat asthma","pet odor removal"]', 1, '2026-03-29');
 INSERT OR REPLACE INTO blog_posts (id, slug, title, excerpt, content, cover_image, category, author_id, tags, published, published_at) VALUES ('post_pet_costume_safety', 'pet-costume-safety', 'Pet Costume Safety: Ethology, Thermal Regulation & Veterinary Hazard Prevention', 'A veterinary behavioral guide to festive pet dress-up. Avoid heatstroke, choking hazards, acoustic overstimulation, and restricted locomotion while respecting canine and feline body language.', '## Executive Summary: Anthropomorphism vs. Animal Welfare
@@ -3650,7 +3650,7 @@ Ethologist: ''Your dog is experiencing acute tonic immobility (learned helplessn
 
 | Anatomical Concern | Biological Risk | Highest-Risk Patient Groups |
 | :--- | :--- | :--- |
-| **Thermoregulation Failure** | Canines cannot sweat; heavy polyester traps body heat, causing heatstroke ($> 104^\circ\text{F}$) | Double-coated breeds (Huskies, Shepherds, Golden Retrievers) |
+| **Thermoregulation Failure** | Canines cannot sweat; heavy polyester traps body heat, causing heatstroke (> 104°F) | Double-coated breeds (Huskies, Shepherds, Golden Retrievers) |
 | **Airway Occlusion (BOAS)** | Neck elastics compress stenotic nares and elongated soft palates | Brachycephalics (French Bulldogs, Pugs, Boston Terriers) |
 | **Locomotor Impairment** | Restricted shoulder extension causes trips, falls, and cruciate ligament tears | Senior arthritic pets, Dachshunds (IVDD prone) |
 | **Sensory Sensory Deprivation** | Hoods obstructing ear canals and peripheral field of view trigger fear biting | Anxious, sound-sensitive, or reactive canines |
@@ -3685,7 +3685,7 @@ INSERT OR REPLACE INTO blog_posts (id, slug, title, excerpt, content, cover_imag
 
 While high-tech indoor vivariums equipped with T5 HO UVB fluorescent tubes and ceramic heat projectors can maintain baseline chelonian survival, **nothing replicates the evolutionary health benefits of a professionally constructed outdoor enclosure**.
 
-Natural solar irradiance provides unobstructed ultraviolet wavelengths (UVB $290\text{--}315\text{ nm}$ and UVA $315\text{--}400\text{ nm}$) that stimulate optimal Vitamin D3 calcification, ocular health, and metabolic activity. Furthermore, grazing on native fibrous weeds prevents the gastrointestinal dysbiosis and severe shell pyramiding common in indoor-raised tortoises.
+Natural solar irradiance provides unobstructed ultraviolet wavelengths (UVB 290–315 nm and UVA 315–400 nm) that stimulate optimal Vitamin D3 calcification, ocular health, and metabolic activity. Furthermore, grazing on native fibrous weeds prevents the gastrointestinal dysbiosis and severe shell pyramiding common in indoor-raised tortoises.
 
 Building an outdoor tortoise pen requires precise engineering to thwart **escape attempts via tunneling and climbing**, while establishing an impenetrable defense against **nocturnal and aerial predators**.
 
@@ -3708,10 +3708,10 @@ A tortoise is an ectotherm that regulates its core body temperature through **be
 
 | Habitat Micro-Zone | Physical Elements | Biological Function |
 | :--- | :--- | :--- |
-| ☀️ **Solar Basking Zone** | Smooth flat slate slabs, open southern exposure | Rapid morning thermoregulation ($85^\circ\text{F}\text{--}95^\circ\text{F}$ shell temp) |
+| ☀️ **Solar Basking Zone** | Smooth flat slate slabs, open southern exposure | Rapid morning thermoregulation (85°F–95°F shell temp) |
 | 🌿 **Grazing Meadow** | Mixed clovers, plantain, dandelions, native grasses | Continuous high-fiber, low-protein natural foraging |
 | 🍃 **Canopy Brush Shade** | Dense Rosemary, Lavender, or Hibiscus shrubs | Midday heat protection; prevents fatal hyperthermia |
-| 🛖 **Insulated Night Hide** | Raised wooden doghouse, wind baffles, hay bedding | Thermal stability during cold damp nights ($55^\circ\text{F}\text{--}65^\circ\text{F}$) |
+| 🛖 **Insulated Night Hide** | Raised wooden doghouse, wind baffles, hay bedding | Thermal stability during cold damp nights (55°F–65°F) |
 
 ---
 
@@ -3731,7 +3731,7 @@ Transform your enclosure soil into a living pasture by broadcasting these tortoi
 
 - **Broadleaf Plantain (*Plantago major*)**: Extremely high fiber-to-protein ratio and rich in calcium.
 - **Dandelion (*Taraxacum officinale*)**: Excellent natural diuretic promoting kidney urate clearance.
-- **Spineless Prickly Pear (*Opuntia ficus-indica*)**: Superb calcium-to-phosphorus ratio ($Ca:P \approx 10:1$), providing natural moisture.
+- **Spineless Prickly Pear (*Opuntia ficus-indica*)**: Superb calcium-to-phosphorus ratio (Ca:P approx 10:1), providing natural moisture.
 - **White Clover (*Trifolium repens*)**: Nutritious nitrogen-fixing forage consumed in moderation.
 
 Track ongoing chelonian wellness with our [Tortoise Health Check Guide](/blog/tortoise-health-check), prevent carapace infections with the [Shell Rot Prevention Guide](/blog/shell-rot-prevention), and consult certified herpetological veterinarians through our [Local Vet Finder](/tools/local-vet-finder).', 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80', 'Exotic Pet Care', 'firoz-khan', '["outdoor tortoise enclosure","tortoise pen setup","sulcata tortoise enclosure","herpetological habitat","predator proof tortoise","tortoise grazing plants","chelonian care"]', 1, '2026-03-29');
@@ -3889,12 +3889,12 @@ CANINE XYLITOL PATHOPHYSIOLOGY:
 
 | Xylitol Dose ($g/kg$) | Clinical Pathology | Observable Canine Symptoms | Prognosis with ICU Therapy |
 | :--- | :--- | :--- | :--- |
-| **$0.05\text{ g/kg}$** | Mild Sub-clinical Hypoglycemia | Slight lethargy, transient vomiting | Excellent; oral feeding / outpatient |
-| **$\ge 0.10\text{ g/kg}$** | **Acute Life-Threatening Hypoglycemia** | Ataxia, staggering, hypocalcemic seizures, coma | **Good; immediate IV dextrose CRI required** |
-| **$\ge 0.50\text{ g/kg}$** | **Fulminant Acute Hepatic Necrosis** | Severe jaundice, petechiae, coagulopathy, liver death | **Guarded to Grave; intensive multiday ICU** |
-| **$\ge 1.00\text{ g/kg}$** | Massive Hepatic & Systemic Shock | Disseminated Intravascular Coagulation (DIC) | **Critical Mortality Risk** |
+| **0.05 g/kg** | Mild Sub-clinical Hypoglycemia | Slight lethargy, transient vomiting | Excellent; oral feeding / outpatient |
+| **≥ 0.10 g/kg** | **Acute Life-Threatening Hypoglycemia** | Ataxia, staggering, hypocalcemic seizures, coma | **Good; immediate IV dextrose CRI required** |
+| **≥ 0.50 g/kg** | **Fulminant Acute Hepatic Necrosis** | Severe jaundice, petechiae, coagulopathy, liver death | **Guarded to Grave; intensive multiday ICU** |
+| **≥ 1.00 g/kg** | Massive Hepatic & Systemic Shock | Disseminated Intravascular Coagulation (DIC) | **Critical Mortality Risk** |
 
-*Real-World Calculation*: A single stick of sugar-free chewing gum can contain up to **$0.3\text{ to }1.0\text{ grams}$ of xylitol**. For a 10-pound ($4.5\text{ kg}$) Maltese or Yorkie, eating **a single stick of gum** can trigger lethal hypoglycemic shock, and three sticks can cause complete liver failure.
+*Real-World Calculation*: A single stick of sugar-free chewing gum can contain up to **0.3 to 1.0 grams of xylitol**. For a 10-pound (4.5 kg) Maltese or Yorkie, eating **a single stick of gum** can trigger lethal hypoglycemic shock, and three sticks can cause complete liver failure.
 
 ---
 
@@ -3911,7 +3911,7 @@ CANINE XYLITOL PATHOPHYSIOLOGY:
 🚨 PHASE 2: ACUTE HEPATOTOXICITY (24 TO 48 HOURS)
 - Scleral and mucosal icterus (yellow eyes and gums)
 - Petechial hemorrhages and black bloody stools (melena) from liver failure
-- Massive elevation of ALT, AST, and Total Bilirubin ($> 10\times$ normal)
+- Massive elevation of ALT, AST, and Total Bilirubin (> 10× normal)
 - Hepatic encephalopathy (dementia, head pressing, irreversible coma)
 ```
 
@@ -3957,9 +3957,9 @@ Municipal and commercial road crews deploy chemical salts to depress the freezin
 
 | De-Icing Chemical | Mechanism of Action | Dermatological Impact on Paws | Toxicity Upon Oral Licking |
 | :--- | :--- | :--- | :--- |
-| **Calcium Chloride ($CaCl_2$)** | Exothermic chemical heat release ($> 120^\circ\text{F}$) | Severe chemical ulcerations; painful thermal pad burns | Severe gastrointestinal necrosis, vomiting |
+| **Calcium Chloride ($CaCl_2$)** | Exothermic chemical heat release (> 120°F) | Severe chemical ulcerations; painful thermal pad burns | Severe gastrointestinal necrosis, vomiting |
 | **Sodium Chloride (Rock Salt)** | Endothermic freezing point depression | Stinging osmotic dehydration of micro-fissures | Severe hypernatremia, neurological seizures |
-| **Ethylene Glycol (Antifreeze Runoff)** | Sweet-tasting antifreeze coolant | Contact dermatitis and greasy contamination | **Acute Fatal Renal Failure ($1\text{ teaspoon is lethal}$)** |
+| **Ethylene Glycol (Antifreeze Runoff)** | Sweet-tasting antifreeze coolant | Contact dermatitis and greasy contamination | **Acute Fatal Renal Failure (1 teaspoon is lethal)** |
 | **Urea / Propylene Glycol** | Pet-safer organic salts | Mild drying; minimal burn risk | Low toxicity; mild osmotic diarrhea |
 
 ---
@@ -3980,10 +3980,10 @@ THE VETERINARY PAW SHIELD FORMULA:
 
 ## 4. The 3-Step Cold Weather Walk Routine
 
-Execute this veterinary protocol for every winter excursion below $32^\circ\text{F}$ ($0^\circ\text{C}$):
+Execute this veterinary protocol for every winter excursion below 32°F (0°C):
 
 1. **Pre-Walk Wax Shield**: Scoop a nickel-sized dollop of wax balm and massage firmly into all five pads and between the toes. The balm forms an immediate protective coating.
-2. **The 30-Minute Threshold**: Limit winter pavement walks to 30 minutes in temperatures below $20^\circ\text{F}$ ($-7^\circ\text{C}$) to prevent vascular digital vasoconstriction and frostbite.
+2. **The 30-Minute Threshold**: Limit winter pavement walks to 30 minutes in temperatures below 20°F (-7°C) to prevent vascular digital vasoconstriction and frostbite.
 3. **Post-Walk Neutralizing Wash**: Keep a shallow bowl of warm water at the entryway. Dip and swirl each paw to dissolve caustic salt crystals, pat dry with a microfiber towel, and apply a drop of healing oil.
 
 Explore cold-weather footwear alternatives in our [Summer & Winter Dog Boots Guide](/blog/best-summer-dog-boots), calculate cold-weather exercise thresholds with the [Dog Exercise Needs Calculator](/tools/dog-exercise-needs-calculator), and locate immediate veterinary care through our [Local Vet Finder](/tools/local-vet-finder).', 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80', 'Dog Care', 'firoz-khan', '["dog paw balm","winter paw care","dog ice melt toxicity","canine frostbite","dog paw protection","pododermatitis","winter dog safety"]', 1, '2026-03-29');
@@ -4099,11 +4099,11 @@ For confined nocturnal mammals, the exercise wheel is not a luxury toy; it is an
 
 | Species | Minimum Safe Wheel Diameter | Permissible Track Material | Severe Pathologies of Improper Wheels |
 | :--- | :--- | :--- | :--- |
-| **Syrian Hamster** | 11 – 12 inches ($28\text{--}30\text{ cm}$) | Solid polypropylene; smooth wood | Lordosis spine curvature, pinched intervertebral discs |
-| **Dwarf Hamster** | 8.5 – 10 inches ($22\text{--}25\text{ cm}$) | Solid plastic; dual ball bearing | Spinal deformity, limb fractures in wire rungs |
-| **African Pygmy Hedgehog** | 11 – 12 inches ($28\text{--}30\text{ cm}$) | Solid bucket style; wide surface | Torn toenails, footpad friction ulcerations (bumblefoot) |
-| **Chinchilla** | 15 – 16 inches ($38\text{--}40\text{ cm}$) | Heavy-gauge metal/aluminum plate | Heat exhaustion (plastic chewing), spine hyperextension |
-| **Sugar Glider** | 12 inches ($30\text{ cm}$) | Open-face mesh pouch/track | Tail degloving, patagium membrane tears on center axles |
+| **Syrian Hamster** | 11 – 12 inches (28–30 cm) | Solid polypropylene; smooth wood | Lordosis spine curvature, pinched intervertebral discs |
+| **Dwarf Hamster** | 8.5 – 10 inches (22–25 cm) | Solid plastic; dual ball bearing | Spinal deformity, limb fractures in wire rungs |
+| **African Pygmy Hedgehog** | 11 – 12 inches (28–30 cm) | Solid bucket style; wide surface | Torn toenails, footpad friction ulcerations (bumblefoot) |
+| **Chinchilla** | 15 – 16 inches (38–40 cm) | Heavy-gauge metal/aluminum plate | Heat exhaustion (plastic chewing), spine hyperextension |
+| **Sugar Glider** | 12 inches (30 cm) | Open-face mesh pouch/track | Tail degloving, patagium membrane tears on center axles |
 
 ---
 
@@ -4192,10 +4192,10 @@ Under calm baseline conditions, a dog will meticulously ascend each rung, giving
 
 | Chronological Stressor | Biological State | Cumulative Cortisol Load | Behavioral Manifestation |
 | :--- | :--- | :--- | :--- |
-| **08:00 AM** | Thunderstorm rattling windows | $+25\%$ baseline cortisol | Green Tier: Mild nose licking, hyper-vigilance |
-| **11:30 AM** | Vacuum cleaner running in hallway | $+55\%$ baseline cortisol | Green Tier: Pacing, refusal of treats |
-| **02:00 PM** | Mail delivery & door slamming | $+80\%$ baseline cortisol | Amber Tier: Alert barking, elevated heart rate |
-| **04:15 PM** | Toddler hugs resting dog on rug | **CRITICAL THRESHOLD ($+140\%$)** | **Jumps immediately to Red Tier: Sudden defensive snap** |
+| **08:00 AM** | Thunderstorm rattling windows | +25% baseline cortisol | Green Tier: Mild nose licking, hyper-vigilance |
+| **11:30 AM** | Vacuum cleaner running in hallway | +55% baseline cortisol | Green Tier: Pacing, refusal of treats |
+| **02:00 PM** | Mail delivery & door slamming | +80% baseline cortisol | Amber Tier: Alert barking, elevated heart rate |
+| **04:15 PM** | Toddler hugs resting dog on rug | **CRITICAL THRESHOLD (+140%)** | **Jumps immediately to Red Tier: Sudden defensive snap** |
 
 ---
 
@@ -4257,7 +4257,7 @@ When wildfire plumes envelope your city, establish an interior clean air sanctum
 
 1. **Select an Interior Sanctuary**: Choose an interior room with minimal exterior walls and no fireplaces or exhaust flues (such as a large bedroom or living area).
 2. **Perimeter Sealing**: Place damp rolled towels along exterior door bases and tape plastic sheeting across leaky window sills.
-3. **Continuous True HEPA Filtration**: Deploy a standalone True HEPA air purifier sized with a Clean Air Delivery Rate (CADR) that exchanges the room''s air volume at least 4 to 6 times per hour ($ACH \ge 5$).
+3. **Continuous True HEPA Filtration**: Deploy a standalone True HEPA air purifier sized with a Clean Air Delivery Rate (CADR) that exchanges the room''s air volume at least 4 to 6 times per hour (ACH ≥ 5).
 4. **Ban Secondary Pollutants**: Never burn candles, diffuse essential oils, fry meats at high heat, or operate vacuum cleaners without sealed HEPA exhaust during smoke events.
 
 ---
@@ -4446,8 +4446,8 @@ A standard wooden or chain-link residential fence provides an illusion of safety
 
 | Fortification Feature | Architectural Specification | Preventative Mechanism |
 | :--- | :--- | :--- | :--- |
-| **Perimeter Height** | Minimum 6 feet ($1.8\text{ meters}$) | Prevents clean flat-ground leaping |
-| **Coyote Rollers** | 15-inch ($38\text{ cm}$) free-spinning aluminum tubes | **Completely prevents paw traction on top rails** |
+| **Perimeter Height** | Minimum 6 feet (1.8 meters) | Prevents clean flat-ground leaping |
+| **Coyote Rollers** | 15-inch (38 cm) free-spinning aluminum tubes | **Completely prevents paw traction on top rails** |
 | **Anti-Dig Apron** | 16-gauge galvanized wire buried 12" deep, angled 90° out | Stops coyotes from excavating under fence line |
 | **Vegetation Clearance** | 5-foot perimeter clear zone around exterior fence | Eliminates launch platforms (woodpiles, boulders) |
 | **Food Attractant Removal** | Enclosed compost, bird feeder removal, locked bins | Eliminates high-calorie scent beacons |
@@ -4541,10 +4541,10 @@ As ectothermic reptiles, aquatic turtles rely entirely on external thermal gradi
 
 | Habitat Microzone | Target Temperature Range | Thermal Equipment Specifications |
 | :--- | :--- | :--- | :--- |
-| **Swimming Water (Adults)** | $75^\circ\text{F} - 78^\circ\text{F}$ ($24^\circ\text{C} - 26^\circ\text{C}$) | Submersible Titanium 300W–500W Heater with plastic cage guard |
-| **Swimming Water (Hatchlings)** | $78^\circ\text{F} - 80^\circ\text{F}$ ($26^\circ\text{C} - 27^\circ\text{C}$) | Digital temperature controller with dual probe redundancy |
-| **Dry Basking Dock Surface** | **$90^\circ\text{F} - 95^\circ\text{F}$ ($32^\circ\text{C} - 35^\circ\text{C}$)** | Focused halogen incandescent flood lamp (75W–100W) |
-| **Ambient Canopy Air** | $82^\circ\text{F} - 85^\circ\text{F}$ ($28^\circ\text{C} - 29^\circ\text{C}$) | Prevents respiratory thermal shock when surfacing for air |
+| **Swimming Water (Adults)** | 75°F - 78°F (24°C - 26°C) | Submersible Titanium 300W–500W Heater with plastic cage guard |
+| **Swimming Water (Hatchlings)** | 78°F - 80°F (26°C - 27°C) | Digital temperature controller with dual probe redundancy |
+| **Dry Basking Dock Surface** | **90°F - 95°F (32°C - 35°C)** | Focused halogen incandescent flood lamp (75W–100W) |
+| **Ambient Canopy Air** | 82°F - 85°F (28°C - 29°C) | Prevents respiratory thermal shock when surfacing for air |
 
 ---
 
@@ -4588,7 +4588,7 @@ Veterinary dermatologists deploy two distinct dietary methodologies during diagn
 
 | Trial Diet Classification | Biochemical Mechanism | Major Clinical Advantages | Potential Clinical Limitations |
 | :--- | :--- | :--- | :--- |
-| **Hydrolyzed Peptide Diets** (e.g., Royal Canin Anallergenic, Hill''s z/d, Purina HA) | Enzymatically cleaved into micro-peptides ($< 3,000\text{ Daltons}$) | Cannot bridge IgE antibodies; reliable even with unknown dietary history | Mild stool softening; higher cost; synthetic taste |
+| **Hydrolyzed Peptide Diets** (e.g., Royal Canin Anallergenic, Hill''s z/d, Purina HA) | Enzymatically cleaved into micro-peptides (< 3,000 Daltons) | Cannot bridge IgE antibodies; reliable even with unknown dietary history | Mild stool softening; higher cost; synthetic taste |
 | **Veterinary Novel Protein Diets** (e.g., Venison, Kangaroo, Alligator) | Intact single-source protein never previously encountered | Excellent palatability; physiological whole-food digestion | Risk of past hidden exposure; cross-contamination in OTC brands |
 | **Over-the-Counter ''Limited Ingredient''** | Commercial pet food retail recipes | Inexpensive; widely available | **UNSUITABLE: Up to 83% contain unlisted protein cross-contamination** |
 
@@ -4666,7 +4666,7 @@ Gut-loading is the process of filling an insect’s expansive alimentary canal w
 
 | Nutritional Parameter | Ideal Gut-Load Component | Biochemical Function | What to Strictly Avoid |
 | :--- | :--- | :--- | :--- |
-| **High-Bioavailability Calcium** | Calcium carbonate powder, collard greens ($250\text{ mg Ca}/100\text{g}$) | Reverses inverted Ca:P ratio to $> 2:1$ | Bone meal, oyster shell with heavy metals |
+| **High-Bioavailability Calcium** | Calcium carbonate powder, collard greens (250 mg Ca/100g) | Reverses inverted Ca:P ratio to $> 2:1$ | Bone meal, oyster shell with heavy metals |
 | **Carotenoids & Vitamin A** | Butternut squash, grated carrots, sweet potato | Synthesizes true preformed Vitamin A; ocular health | Synthetic synthetic Vitamin A overdosing |
 | **Micronutrients & Prebiotics** | Bee pollen, organic spirulina, brewer''s yeast | Trace zinc, selenium, amino acid profile | Dog/Cat kibble (**excess purines cause fatal gout**) |
 | **Safe Hydration Matrix** | Fresh sliced zucchini, orange slices | Prevents insect dehydration in high-calcium media | Chemical water gels, moldy wet sponges |
@@ -4732,7 +4732,7 @@ Hedgehogs have poor stereoscopic vision and virtually no depth perception. While
 
 | Enclosure Parameter | Mandatory Standard | Husbandry Rationale |
 | :--- | :--- | :--- | :--- |
-| **Contiguous Floor Space** | Minimum 6 to 8 sq ft ($2'' \times 4'' / 60\text{ cm} \times 120\text{ cm}$) | Allows essential nocturnal patrolling (5+ miles nightly) |
+| **Contiguous Floor Space** | Minimum 6 to 8 sq ft (2'' × 4'' / 60 cm × 120 cm) | Allows essential nocturnal patrolling (5+ miles nightly) |
 | **Vertical Architecture** | Strictly single-level; flat floorplan | **Wire ramps cause fatal falls and broken limb fractures** |
 | **Enclosure Walls** | Solid smooth walls (Coroplast, glass, clear tubs) | Wire cage bars allow destructive climbing and foot snagging |
 | **Ventilation** | Screened mesh roof or drilled 1/2" side holes | Eliminates ammonia vapor buildup from concentrated urine |
@@ -4823,10 +4823,10 @@ To translate your pet''s daily calorie requirement into exact physical food mass
 
 | Food Parameter | How to Locate on Bag | Sample Mathematical Conversion |
 | :--- | :--- | :--- |
-| **Metabolizable Energy (ME)** | Guaranteed Analysis / Caloric Content Panel | E.g., $3,650\text{ kcal/kg} = 3.65\text{ kcal/gram}$ |
-| **Daily Caloric Goal** | Calculated DER | E.g., $550\text{ kcal/day}$ |
-| **Daily Food Weight in Grams** | $\text{Grams} = \text{DER} \div (\text{kcal/gram})$ | $550 \div 3.65 = \mathbf{150.7\text{ grams/day}}$ |
-| **Portion Per Meal (2 Meals/Day)** | Daily grams divided by feeding frequency | $150.7 \div 2 = \mathbf{75.3\text{ grams/meal}}$ |
+| **Metabolizable Energy (ME)** | Guaranteed Analysis / Caloric Content Panel | E.g., 3,650 kcal/kg = 3.65 kcal/gram |
+| **Daily Caloric Goal** | Calculated DER | E.g., 550 kcal/day |
+| **Daily Food Weight in Grams** | Grams = DER div (kcal/gram) | 550 div 3.65 = mathbf150.7 grams/day |
+| **Portion Per Meal (2 Meals/Day)** | Daily grams divided by feeding frequency | 150.7 div 2 = mathbf75.3 grams/meal |
 
 ---
 
@@ -4900,7 +4900,7 @@ Execute this systemic herd elimination protocol:
 
 1. **Aggressive Inspection & Culling**: Identify chronic carrier animals with permanent hoof deformities. Chronically relapsing carriers must be culled, as they serve as living reservoirs.
 2. **Targeted Horn Debridement**: Carefully trim away loose, detached horn flaps to expose anaerobic bacteria to atmospheric oxygen. Never cut living, bleeding tissue.
-3. **Systemic Antimicrobial Therapy**: Administer long-acting intramuscular Oxytetracycline ($20\text{ mg/kg}$) to severe clinical cases.
+3. **Systemic Antimicrobial Therapy**: Administer long-acting intramuscular Oxytetracycline (20 mg/kg) to severe clinical cases.
 4. **Quarantine & Biosecurity**: Place all new stock in a 30-day isolated paddock; perform two preventative zinc sulfate footbaths before mixing with the primary herd.
 
 Review caprine trimming specifics in our [Goat Hoof Care Guide](/blog/goat-hoof-care), inspect equine podiatry principles in the [Equine Hoof Balance Guide](/blog/hoof-balance-guide), and locate livestock veterinary surgeons via our [Local Vet Finder](/tools/local-vet-finder).', 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=1200&q=80', 'Livestock & Farm', 'firoz-khan', '["hoof rot prevention","footrot sheep goats","bovine foot rot cattle","livestock podiatry","zinc sulfate footbath","Dichelobacter nodosus","livestock biosecurity"]', 1, '2026-09-15T00:00:00Z');
@@ -5016,9 +5016,9 @@ The presence of blue eyes—indicating a severe lack of melanocyte migration int
 
 | Feline Phenotypic Category | Normal Bilateral Hearing | Unilateral Deafness (One Ear) | Bilateral Total Deafness |
 | :--- | :--- | :--- | :--- |
-| **White Coat + Both Non-Blue Eyes (Green/Yellow)** | $78\% - 83\%$ | $5\% - 10\%$ | $12\% - 17\%$ |
-| **White Coat + Odd Eyes (One Blue, One Yellow)** | $60\%$ | **$25\% - 30\%$ (Ipsilateral to blue eye)** | $10\% - 15\%$ |
-| **White Coat + Bilateral Blue Eyes** | $15\% - 35\%$ | $20\% - 25\%$ | **$65\% - 85\%$ (Severe Congenital Risk)** |
+| **White Coat + Both Non-Blue Eyes (Green/Yellow)** | 78% - 83% | 5% - 10% | 12% - 17% |
+| **White Coat + Odd Eyes (One Blue, One Yellow)** | 60% | **25% - 30% (Ipsilateral to blue eye)** | 10% - 15% |
+| **White Coat + Bilateral Blue Eyes** | 15% - 35% | 20% - 25% | **65% - 85% (Severe Congenital Risk)** |
 
 ---
 
@@ -5164,7 +5164,7 @@ Achieving long-term control requires combining four complementary therapies:
 
 1. **Molecular Anti-Pruritic Therapy**: Maintain itch suppression below the clinical threshold using Apoquel or Cytopoint.
 2. **Topical Barrier Re-Lipidization**: Bathe weekly in phytosphingosine/ceramide medicinal shampoos (e.g., Douxo S3) followed by leave-on lipid spot-ons to rebuild the stratum corneum mortar.
-3. **Omega-3 Fatty Acid Supplementation**: Administer high-dose marine EPA/DHA fish oils ($100\text{ to }150\text{ mg EPA/kg}$ daily) to alter cell membrane phospholipid pathways.
+3. **Omega-3 Fatty Acid Supplementation**: Administer high-dose marine EPA/DHA fish oils (100 to 150 mg EPA/kg daily) to alter cell membrane phospholipid pathways.
 4. **Allergen-Specific Immunotherapy (ASIT)**: Perform intradermal allergy testing and formulate custom sublingual drops (SLIT) or subcutaneous injections (SCIT) to desensitize the immune system over 12 to 24 months.
 
 Rule out food-related triggers in our [Pet Elimination Diet Trials Guide](/blog/elimination-diet-pets), compare broad allergic mechanisms in the [Pet Allergy Types Guide](/blog/pet-allergy-types), and locate board-certified veterinary dermatologists through our [Local Vet Finder](/tools/local-vet-finder).', 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80', 'Health & Safety', 'firoz-khan', '["atopic dermatitis dogs","canine CAD allergies","Apoquel for dogs","Cytopoint injection dogs","dog skin barrier repair","IL-31 cytokine itch","veterinary allergy shots"]', 1, '2026-09-15T00:00:00Z');
@@ -5692,7 +5692,7 @@ THE LINE COMBING PROTOCOL:
 Sphynx cats possess active sebaceous glands that produce normal levels of protective cutaneous oils. However, with zero hair shafts to distribute and absorb this oil, sebum pools on the epidermis:
 
 * **Sebum Oxidation**: Unmanaged sebum turns into a dark brown, waxy substance that clogs pores, producing comedones (feline acne) and providing a rich lipid broth for opportunistic **Malassezia pachydermatis** yeast blooms.
-* **Bathing Protocol**: Bathe every 2 to 4 weeks in lukewarm water ($100^circ\text{F} / 38^circ\text{C}$) using a gentle, soap-free veterinary shampoo containing phytosphingosine or mild chlorhexidine.
+* **Bathing Protocol**: Bathe every 2 to 4 weeks in lukewarm water (100^circF / 38^circC) using a gentle, soap-free veterinary shampoo containing phytosphingosine or mild chlorhexidine.
 * **Interdigital & Claw Care**: Clean the nail beds and interdigital folds weekly with warm, damp washcloths to remove dark, waxy sebum buildup that causes painful paronychia (claw fold infections).
 
 ---\n## 4. Rex Breeds: Protecting Fragile Foliated Down
@@ -5917,12 +5917,12 @@ THE BIOCHEMICAL RESULT: High phosphorus binds to calcium in the intestinal tract
 When a reptile presents in Stage 3 or 4 tetanic collapse, oral calcium powders are ineffective because the gastrointestinal tract has shut down:
 
 1. **Injectable Calcium Gluconate**: Administer **100 mg/kg of 10% Calcium Gluconate** via subcutaneous or intracoelomic injection, diluted 50/50 with warm sterile saline.
-2. **Thermal Stabilization**: The reptile must be placed immediately into a climate-controlled incubator at its optimal core basking temperature ($95^circ\text{F} - 100^circ\text{F}$ for desert species) to enable cellular enzyme catalysis.
+2. **Thermal Stabilization**: The reptile must be placed immediately into a climate-controlled incubator at its optimal core basking temperature (95^circF - 100^circF for desert species) to enable cellular enzyme catalysis.
 3. **Do NOT Give Calcitonin Early**: Calcitonin is a hormone that forces calcium back into bones. Giving calcitonin while blood calcium is critically low will induce fatal hypocalcemic tetany and cardiac arrest. Blood calcium must be elevated first.
 
 ---\n## 5. Photobiological Prevention: T5-HO UVB & Thermal Synergy
 
-Even with abundant dietary calcium, gut enterocytes cannot transport calcium across the intestinal brush border without **active Calcitriol ($1,25(\text{OH})_2D_3$)**:
+Even with abundant dietary calcium, gut enterocytes cannot transport calcium across the intestinal brush border without **active Calcitriol (1,25(OH)₂D₃)**:
 
 * Provide a **T5-HO linear fluorescent fixture** spanning 60% of the enclosure, calibrated to the reptile''s natural **Ferguson Zone**.
 * Ensure the basking spot reaches the species'' specific surface temperature using a digital infrared temp gun; without heat, 7-dehydrocholesterol cannot thermally isomerize into Vitamin D3.
@@ -6656,7 +6656,7 @@ Because reptiles possess a **renal portal system** and excrete nitrogenous waste
 Achieving clinical hydration requires three distinct pieces of equipment operating in concert:
 
 * **Automated Misting System (e.g., MistKing)**: Essential for daytime drinking. Set for two sessions daily: 2 to 3 minutes at lights-on, and 2 minutes at 4:00 PM.
-* **Ultrasonic Nighttime Fogger**: Placed on an outlet timer to run from **1:00 AM to 6:00 AM**. Must deliver cool fog into the top canopy while the room is cold ($<68^circ\text{F}$).
+* **Ultrasonic Nighttime Fogger**: Placed on an outlet timer to run from **1:00 AM to 6:00 AM**. Must deliver cool fog into the top canopy while the room is cold (<68^circF).
 * **The Slow Dripper**: A gravity-fed reservoir delivering 1 drop per second onto a broad pothos leaf for 1 hour during midday, offering passive hydration.
 
 ---\n## 5. Screen Enclosures vs. The Glass Myth
@@ -6798,7 +6798,7 @@ When any exotic patient presents in active hypocalcemic crisis:
 
 1. **Parenteral Calcium Gluconate**: Administer **10% Calcium Gluconate (50 to 100 mg/kg)** slowly via subcutaneous, intramuscular, or intracoelomic route, pre-warmed to core body temperature.
 2. **Anticonvulsant Therapy**: If actively seizing, administer **Midazolam (0.5 to 1.0 mg/kg)** intranasally or intramuscularly to suppress cerebral epileptiform activity.
-3. **Thermal Incubator Support**: Place patient in a quiet, padded, darkened oxygen incubator ($85^circ\text{F} - 90^circ\text{F}$ for birds/mammals; species-specific POTZ for reptiles).
+3. **Thermal Incubator Support**: Place patient in a quiet, padded, darkened oxygen incubator (85^circF - 90^circF for birds/mammals; species-specific POTZ for reptiles).
 4. **The Calcitonin Rule**: **NEVER administer Calcitonin during the acute phase**. Calcitonin deposits circulating calcium into bone; administering it to a hypocalcemic animal will induce fatal cardiac arrest.
 
 ---\n## 5. Long-Term Prevention & Dietary Formulation
@@ -6888,8 +6888,8 @@ THE PROVEN EVAPORATIVE FIRST-AID PROTOCOL:
 
 ---\n## 5. High-Risk Populations & Preventive Rules
 
-* **Brachycephalic Syndrome**: Pugs, French Bulldogs, and English Bulldogs have compressed airways that prevent airflow volume. Never exercise brachycephalic dogs when temperatures exceed $75^circ\text{F}$ ($24^circ\text{C}$). Read our dedicated [Flat-Faced Breeds in Heat Guide](/blog/flat-faced-breeds-heat).
-* **Parked Vehicle Danger**: Vehicles act as solar greenhouses. Leaving a pet in a parked car on an $80^circ\text{F}$ day can produce lethal internal temperatures ($>115^circ\text{F}$) in under 10 minutes.
+* **Brachycephalic Syndrome**: Pugs, French Bulldogs, and English Bulldogs have compressed airways that prevent airflow volume. Never exercise brachycephalic dogs when temperatures exceed 75^circF (24^circC). Read our dedicated [Flat-Faced Breeds in Heat Guide](/blog/flat-faced-breeds-heat).
+* **Parked Vehicle Danger**: Vehicles act as solar greenhouses. Leaving a pet in a parked car on an 80^circF day can produce lethal internal temperatures (>115^circF) in under 10 minutes.
 
 Learn specific summer precautions in our [Summer Safety for Dogs Guide](/blog/summer-safety-dogs), evaluate emergency paw protection in our [Best Summer Dog Boots Guide](/blog/best-summer-dog-boots), and locate 24/7 veterinary emergency centers via our [Local Vet Finder](/tools/local-vet-finder).', 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80', 'Dog Health & Veterinary', 'firoz-khan', '["heatstroke signs dogs","canine heat exhaustion temperature","dog overheating first aid","dog heatstroke cooling protocol","dog car heat safety","emergency vet heatstroke"]', 1, '2026-09-15T00:00:00Z');
 INSERT OR REPLACE INTO blog_posts (id, slug, title, excerpt, content, cover_image, category, author_id, tags, published, published_at) VALUES ('post_mixed_breed_cats', 'mixed-breed-cats', 'Domestic Shorthairs & Mixed-Breed Cats: Genetics, Hybrid Vigor & Health Baselines', 'An evidence-based feline genomics analysis—exploring Domestic Shorthair (DSH) landrace origins, coat color polygenics, true ''hybrid vigor'' disease resistance, and lifelong veterinary baselines.', '## Executive Summary: The Evolutionary History of Felis catus
@@ -7057,9 +7057,9 @@ During hot weather, their restricted airways turn the simple act of breathing in
 
 Airflow through a canine respiratory tract is governed by **Poiseuille''s Law of laminar fluid resistance**:
 
-$$\Delta P = \frac{8\mu L Q}{\pi r^4}$$
+$Delta P = frac8mu L Qpi r^4$
 
-$$\text{Resistance } (R) \propto \frac{1}{r^4}$$
+$Resistance (R) propto frac1r^4$
 
 ```
 THE MATHEMATICAL REALITY OF PINCHED NOSTRILS:
@@ -7119,8 +7119,8 @@ THE BRACHYCEPHALIC HEAT COLLAPSE CASCADE:
 | Parameter | Normal Mesocephalic Dog (e.g., Labrador) | Brachycephalic Dog (e.g., English Bulldog) |
 | :--- | :--- | :--- |
 | **Nasal Mucosal Surface Area** | Extensive; hundreds of folded turbinates dissipate heat | Severely compressed, jammed turbinates; zero evaporative surface |
-| **Airway Resistance** | Low, laminar airflow | **Extreme turbulent resistance ($16\times$ normal)** |
-| **Maximum Safe Ambient Temp** | $85^circ\text{F} - 90^circ\text{F}$ (with water & shade) | **$75^circ\text{F} (24^circ\text{C})$ (Strict upper ceiling)** |
+| **Airway Resistance** | Low, laminar airflow | **Extreme turbulent resistance (16× normal)** |
+| **Maximum Safe Ambient Temp** | 85^circF - 90^circF (with water & shade) | **75^circF (24^circC) (Strict upper ceiling)** |
 | **Walking Equipment** | Collar or harness | **Wide chest harness ONLY (Collars trigger laryngeal collapse)** |
 | **Core Heatstroke Onset** | 30 to 45 minutes of heavy running | **Under 10 to 15 minutes of casual walking in sun** |
 
@@ -7284,7 +7284,7 @@ MERCURY VAPOR BULB (MVB - Heat + UV Combo):
 
 ---\n## 4. Optical Physics: Inverse Square Law & Mesh Attenuation
 
-* **The Inverse Square Law ($I \propto 1/d^2$)**: UVB intensity drops off exponentially as distance increases. Doubling the distance from 10 inches to 20 inches cuts the UV Index to **one-quarter (25%) of its original strength**.
+* **The Inverse Square Law (I propto 1/d^2)**: UVB intensity drops off exponentially as distance increases. Doubling the distance from 10 inches to 20 inches cuts the UV Index to **one-quarter (25%) of its original strength**.
 * **Screen Mesh Attenuation**: Standard terrarium woven wire mesh screens block between **30% and 50% of available UVB photons**. Always measure the UVI directly below the mesh at the animal''s basking elevation.
 
 ---\n## 5. Calibration Protocol: The Solarmeter 6.5
@@ -7837,7 +7837,7 @@ THE 4-STEP REHYDRATION PROTOCOL:
 
 ---\n## 5. Environmental Prevention: The Humid Hide Blueprint
 
-* **The Subterranean Humid Hide**: Fill a plastic container with clean, damp **New Zealand Sphagnum Moss**. Position the hide at the mid-to-warm temperature zone ($80^circ\text{F} - 84^circ\text{F}$). The warmth vaporizes moisture into an **85% to 95% relative humidity microclimate**.
+* **The Subterranean Humid Hide**: Fill a plastic container with clean, damp **New Zealand Sphagnum Moss**. Position the hide at the mid-to-warm temperature zone (80^circF - 84^circF). The warmth vaporizes moisture into an **85% to 95% relative humidity microclimate**.
 * **Textured Furnishings**: Ensure every terrarium contains rough, natural hardscape: **cork bark rounds, natural slate stone, or grapevine branches** so reptiles can generate mechanical peeling friction.
 
 Learn full humidity engineering in our [Exotic Pet Humidity Guide](/blog/exotic-pet-humidity), avoid common reptile mistakes in our [Reptile Husbandry Mistakes Guide](/blog/reptile-husbandry-mistakes), and examine respiratory health in our [Reptile RI Guide](/blog/reptile-ri-guide).', 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80', 'Reptile Care', 'firoz-khan', '["stuck shed prevention reptiles","reptile dysecdysis treatment","retained eyecap snake lizard","stuck shed tail necrosis","reptile humidity shedding","soaking reptile stuck shed"]', 1, '2026-09-15T00:00:00Z');
