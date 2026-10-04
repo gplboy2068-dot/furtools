@@ -148,7 +148,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat insurance",
       "insurance guide"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/pet-insurance-worth-it.webp",
     "faqs": [
       {
         "q": "How does pet health insurance actually work?",
@@ -207,7 +207,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog stress",
       "aggression ladder"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/dog-body-language.webp",
     "faqs": [
       {
         "q": "What does it mean when a dog shows 'Whale Eye' (showing the whites of their eyes)?",
@@ -325,7 +325,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "puppy development",
       "behavioral health"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/puppy-socialization-guide.webp",
     "faqs": [
       {
         "q": "What is the critical socialization window in puppies?",
@@ -658,7 +658,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog chocolate toxicity",
       "dog nutrition"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/toxic-foods-dogs.webp",
     "faqs": [
       {
         "q": "What is the single most dangerous food a dog can eat?",
@@ -899,7 +899,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "veterinary dermatology",
       "itchy dog"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/pet-allergy-types.webp",
     "faqs": [
       {
         "q": "What are the three most common types of allergies in dogs and cats?",
@@ -1020,7 +1020,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat colors",
       "tortoiseshell cat"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/cat-coat-genetics.webp",
     "faqs": [
       {
         "q": "What are the two primary pigments responsible for all cat coat colors?",
@@ -1140,7 +1140,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "predator apron",
       "poultry care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/predator-proof-coop.webp",
     "faqs": [
       {
         "q": "Why is standard chicken wire useless for predator protection?",
@@ -1200,7 +1200,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "API master test kit",
       "aquatics"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/aquarium-water-testing.webp",
     "faqs": [
       {
         "q": "What are the four most critical water parameters to test in a freshwater aquarium?",
@@ -1321,7 +1321,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog loose stool",
       "veterinary triage"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/dog-diarrhoea-causes.webp",
     "faqs": [
       {
         "q": "What is the difference between small bowel and large bowel diarrhea in dogs?",
@@ -1447,7 +1447,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "cat head bunting",
       "purring science"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/cats-showing-trust.webp",
     "faqs": [
       {
         "q": "What does a cat's slow blink mean scientifically?",
@@ -1512,7 +1512,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog training tips",
       "dog appeasement"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/calming-signals.webp",
     "faqs": [
       {
         "q": "What are canine calming signals and who discovered them?",
@@ -1578,7 +1578,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog breed history",
       "canine behavior"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/primitive-dog-breeds.webp",
     "faqs": [
       {
         "q": "What qualifies a dog as a 'primitive' or basal breed?",
@@ -2027,7 +2027,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "aquarium chiller",
       "biotope aquascape"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/cold-water-aquarium-setup.webp",
     "faqs": [
       {
         "q": "What is the true temperature range of a cold water or temperate aquarium?",
@@ -2219,7 +2219,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "canine calming signals",
       "halloween pet safety"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/pet-costume-safety.webp",
     "faqs": [
       {
         "q": "Do dogs and cats actually enjoy wearing costumes?",
@@ -2475,7 +2475,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "dog poison symptoms",
       "dog toxic foods"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/xylitol-poisoning-dogs.webp",
     "faqs": [
       {
         "q": "What is xylitol and why is it harmless to humans but deadly to dogs?",
@@ -2539,7 +2539,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
       "pododermatitis",
       "winter dog safety"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/paw-balms-cold-weather.webp",
     "faqs": [
       {
         "q": "How do canine paw pads naturally tolerate cold and ice?",
@@ -3620,7 +3620,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "non toxic wood small animals",
         "bird cage safety"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/safe-cage-materials.webp",
     "faqs": [
         {
             "q": "Why is galvanized wire dangerous for parrots and rodents?",
@@ -3679,7 +3679,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "fecal parasite screening",
         "pet health monitoring"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/preventive-vet-care.webp",
     "faqs": [
         {
             "q": "Why does an apparently healthy pet need an annual veterinary exam?",
@@ -3738,7 +3738,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "anaerobic substrate pockets",
         "fish tank substrate"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/aquarium-substrate-guide.webp",
     "faqs": [
         {
             "q": "What is Cation Exchange Capacity (CEC) in aquarium substrates?",
@@ -3797,7 +3797,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "chinchilla cage setup",
         "chinchilla dental disease"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/chinchilla-care-essentials.webp",
     "faqs": [
         {
             "q": "Why can chinchillas not tolerate temperatures above 70°F (21°C)?",
@@ -3975,7 +3975,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "reptile humidity shedding",
         "exotic vet reptile care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/reptile-husbandry-mistakes.webp",
     "faqs": [
         {
             "q": "Why is whole-tank ambient heating dangerous for captive reptiles?",
@@ -4034,7 +4034,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "ferret raw diet",
         "ferret gastrointestinal transit"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/ferret-diet-basics.webp",
     "faqs": [
         {
             "q": "What does it mean that domestic ferrets are 'obligate hyper-carnivores'?",
@@ -4094,7 +4094,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "pet body condition score",
         "safe calorie deficit pets"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/pet-weight-loss.webp",
     "faqs": [
         {
             "q": "Why is pet obesity classified as a clinical disease rather than just extra weight?",
@@ -4153,7 +4153,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "quarantine new chickens",
         "poultry flock health"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/poultry-biosecurity.webp",
     "faqs": [
         {
             "q": "What is Highly Pathogenic Avian Influenza (HPAI) and how fatal is it?",
@@ -4212,7 +4212,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "solarmeter 6.5 reptile",
         "vitamin D3 synthesis reptiles"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/reptile-lighting-guide.webp",
     "faqs": [
         {
             "q": "What are Ferguson Zones and how are they used in reptile lighting?",
@@ -4271,7 +4271,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "feline hairball reduction",
         "cat grooming tools"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/cat-grooming-by-coat.webp",
     "faqs": [
         {
             "q": "Why do longhaired cats develop painful 'pelted' mats?",
@@ -4331,7 +4331,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "canine sound desensitization",
         "pexion dog anxiety"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/noise-phobia-dogs.webp",
     "faqs": [
         {
             "q": "What is the difference between normal canine fear and a clinical noise phobia?",
@@ -4390,7 +4390,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "fogger vs mister terrarium",
         "dysecdysis prevention"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/exotic-pet-humidity.webp",
     "faqs": [
         {
             "q": "What is the physical relationship between enclosure temperature and Relative Humidity (RH)?",
@@ -4449,7 +4449,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "calcitriol synthesis reptiles",
         "calcium gluconate reptile"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/reptile-mbd-prevention.webp",
     "faqs": [
         {
             "q": "What is the exact medical term for Metabolic Bone Disease in reptiles?",
@@ -4508,7 +4508,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "canine joint stiffness cold",
         "cold weather dog care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/winter-care-senior-dogs.webp",
     "faqs": [
         {
             "q": "Why does cold winter weather dramatically worsen osteoarthritis in senior dogs?",
@@ -4567,7 +4567,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "kanamycin aquarium",
         "quarantine fish medication"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/freshwater-fish-diseases.webp",
     "faqs": [
         {
             "q": "What is the life cycle of the Ichthyophthirius multifiliis (Ich) parasite?",
@@ -4626,7 +4626,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "milking hygiene protocol",
         "dairy cattle nutrition"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/small-dairy-herd.webp",
     "faqs": [
         {
             "q": "What is the physiological difference between clinical and subclinical mastitis?",
@@ -4686,7 +4686,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "dog breed identification accuracy",
         "canine genomics"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/dog-dna-tests-explained.webp",
     "faqs": [
         {
             "q": "How do modern canine DNA tests determine breed composition?",
@@ -4804,7 +4804,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "breed bias adoption rates",
         "canine phenotype genomics"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/shelter-breed-labels.webp",
     "faqs": [
         {
             "q": "What do genomic studies reveal about the accuracy of visual breed identification in shelters?",
@@ -4863,7 +4863,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "copper power quarantine",
         "cycled quarantine filter"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/quarantine-tank.webp",
     "faqs": [
         {
             "q": "Why is a quarantine tank (QT) essential for all aquarists?",
@@ -4982,7 +4982,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "bioactive vivarium nitrogen cycle",
         "terrarium mold bloom"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/bioactive-terrarium.webp",
     "faqs": [
         {
             "q": "What defines a truly 'bioactive' terrarium?",
@@ -5041,7 +5041,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "veiled chameleon panther chameleon care",
         "reptile hydration physiology"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/chameleon-humidity-hydration.webp",
     "faqs": [
         {
             "q": "Why will chameleons not drink water from a stationary bowl?",
@@ -5100,7 +5100,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "hepatic lipidosis small pets",
         "small animal nutrition hay"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/small-pet-obesity.webp",
     "faqs": [
         {
             "q": "Why is obesity uniquely life-threatening in rabbits and guinea pigs?",
@@ -5159,7 +5159,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "calcium phosphorus ratio exotics",
         "exotic animal bone disease"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/exotic-pet-mbd.webp",
     "faqs": [
         {
             "q": "What is the common underlying mechanism of MBD across all exotic species?",
@@ -5218,7 +5218,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "dog car heat safety",
         "emergency vet heatstroke"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/heatstroke-signs-dogs.webp",
     "faqs": [
         {
             "q": "What core body temperature defines canine heatstroke?",
@@ -5277,7 +5277,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "feline coat genetics",
         "cat wellness care"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/mixed-breed-cats.webp",
     "faqs": [
         {
             "q": "What is the difference between a 'Domestic Shorthair' and an 'American Shorthair'?",
@@ -5337,7 +5337,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "ferret distemper vaccine",
         "new ferret care guide"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/first-month-ferret.webp",
     "faqs": [
         {
             "q": "Why is 'ferret-proofing' an entire home an absolute medical emergency before bringing a ferret home?",
@@ -5396,7 +5396,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "stenotic nares heat exhaustion",
         "summer safety pugs bulldogs"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/flat-faced-breeds-heat.webp",
     "faqs": [
         {
             "q": "Why are brachycephalic dogs (French Bulldogs, Pugs, Bulldogs) so vulnerable to summer heat?",
@@ -5455,7 +5455,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "bioactive vivarium maintenance",
         "dart frog vivarium setup"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/bioactive-vivarium-guide.webp",
     "faqs": [
         {
             "q": "What is the structural difference between a terrarium and a vivarium?",
@@ -5514,7 +5514,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "solarmeter 6.5 uv index",
         "cholecalciferol synthesis reptile"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/reptile-uvb-explained.webp",
     "faqs": [
         {
             "q": "What is the exact biological wavelength range of UVB radiation?",
@@ -5573,7 +5573,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "dog scratching paws ears",
         "flea allergy dermatitis dogs"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/pet-itch-guide.webp",
     "faqs": [
         {
             "q": "What is pruritus and how is it quantified in veterinary medicine?",
@@ -5632,7 +5632,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "grain mite prevention terrarium",
         "coco fiber vs peat invertebrate"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/invertebrate-substrate-guide.webp",
     "faqs": [
         {
             "q": "Why is substrate the most critical life-support element for captive invertebrates?",
@@ -5751,7 +5751,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "cat purring frequency healing",
         "feline emotional well being"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/happy-cat-signs.webp",
     "faqs": [
         {
             "q": "What does a cat's upright tail with a soft hook at the tip signify?",
@@ -5810,7 +5810,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "russian sulcata tortoise pen",
         "reptile housing design"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/tortoise-housing.webp",
     "faqs": [
         {
             "q": "Why are standard glass aquariums lethal traps for pet tortoises?",
@@ -5869,7 +5869,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "cat ate lily pollen",
         "emergency vet cat poisoning"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/lilies-toxic-cats.webp",
     "faqs": [
         {
             "q": "Which specific lily species are deadly toxic to domestic cats?",
@@ -5928,7 +5928,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
         "reptile humidity shedding",
         "soaking reptile stuck shed"
     ],
-    "cover_image": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
+    "cover_image": "/images/blog/stuck-shed-prevention.webp",
     "faqs": [
         {
             "q": "What is dysecdysis in reptiles?",
