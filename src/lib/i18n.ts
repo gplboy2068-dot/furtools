@@ -21,9 +21,11 @@ if (!i18n.isInitialized) {
     ns: [...NAMESPACES],
     
     // Baseline resources preloaded synchronously for fail-safe SSR & zero hydration errors
+    // partialBundledLanguages: only 'en' is bundled — es/de must still load via HttpBackend
     resources: {
       en: enResources,
     },
+    partialBundledLanguages: true,
 
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
