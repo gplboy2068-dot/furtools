@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/lib/i18n";
-import { initGoogleTranslate } from "@/lib/google-translate";
 import { trackPageView } from "@/lib/analytics";
 
 import appCss from "../styles.css?url";
@@ -180,10 +179,6 @@ function RootComponent() {
   const isChromeless = pathname.startsWith("/admin") || pathname.startsWith("/auth");
 
   useEffect(() => {
-    initGoogleTranslate();
-  }, []);
-
-  useEffect(() => {
     trackPageView(pathname);
   }, [pathname]);
 
@@ -202,7 +197,6 @@ function RootComponent() {
               <SiteFooter />
             </div>
           )}
-          <div id="google_translate_element" style={{ display: 'none' }} aria-hidden="true" />
           <Toaster />
           <CookieConsent />
         </ThemeProvider>

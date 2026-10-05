@@ -1,181 +1,83 @@
 /**
- * Google Translate Integration Engine for FurTools
- * Seamlessly translates 100% of website content (all 224+ tools, calculators,
- * AI assistants, blogs, and UI components) into 20+ languages.
+ * Language manager for FurTools (native i18next translations).
+ * Google Translate widget was removed — es/de/en use hand-written locale files.
  */
+import i18n from "./i18n";
+import { SUPPORTED_LANGUAGES } from "./i18n-config";
 
-import { SUPPORTED_LANGUAGES, LanguageConfig } from './i18n-config';
+/** Languages with complete native translations. */
+export const NATIVE_LANGUAGES = ["en", "es", "de"] as const;
 
-declare global {
-  interface Window {
-    google?: {
-      translate?: {
-        TranslateElement?: any;
-      };
-    };
-    googleTranslateElementInit?: () => void;
-  }
+const STORAGE_KEY = "furtools_lang";
+
+function isNative(code: string): boolean {
+  return (NATIVE_LANGUAGES as readonly string[]).includes(code);
 }
-
-// Map internal language codes to Google Translate codes
-const GOOGLE_LANG_MAP: Record<string, string> = {
-  en: 'en',
-  es: 'es',
-  fr: 'fr',
-  de: 'de',
-  it: 'it',
-  pt: 'pt',
-  nl: 'nl',
-  pl: 'pl',
-  tr: 'tr',
-  ru: 'ru',
-  ar: 'ar',
-  hi: 'hi',
-  ja: 'ja',
-  ko: 'ko',
-  'zh-CN': 'zh-CN',
-  'zh-TW': 'zh-TW',
-  th: 'th',
-  vi: 'vi',
-  id: 'id',
-  ms: 'ms',
-};
 
 export function getActiveLanguage(): string {
-  if (typeof window === 'undefined') return 'en';
-  
-  // 1. Check URL param ?lang=
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramLang = urlParams.get('lang');
-  if (paramLang && GOOGLE_LANG_MAP[paramLang]) {
-    return paramLang;
+  if (typeof window === "undefined") return "en";
+
+  // 1. ?lang= query param
+  try {
+    const param = new URLSearchParams(window.location.search).get("lang");
+    if (param && isNative(param)) return param;
+  } catch {
+    /* ignore */
   }
 
-  // 2. Check localStorage
-  const saved = localStorage.getItem('furtools_lang');
-  if (saved && GOOGLE_LANG_MAP[saved]) {
-    return saved;
-  }
+  // 2. i18next current language
+  const current = i18n.language?.split("-")[0];
+  if (current && isNative(current)) return current;
 
-  // 3. Check googtrans cookie
-  const match = document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([a-zA-Z\-]+)/);
-  if (match && match[1]) {
-    const lang = Object.keys(GOOGLE_LANG_MAP).find(
-      (k) => GOOGLE_LANG_MAP[k].toLowerCase() === match[1].toLowerCase()
-    );
-    if (lang) return lang;
+  // 3. saved preference
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && isNative(saved)) return saved;
+  } catch {
+    /* ignore */
   }
+  const cookie = document.cookie.match(/(?:^|;\s*)furtools_lang=([a-z-]+)/i);
+  if (cookie && isNative(cookie[1])) return cookie[1];
 
-  return 'en';
+  return "en";
 }
 
-export function setWebsiteLanguage(langCode: string) {
-  if (typeof window === 'undefined') return;
+/** Switch the site language (native translations only). */
+export function setWebsiteLanguage(langCode: string): void {
+  if (typeof window === "undefined") return;
+  const code = isNative(langCode) ? langCode : "en";
 
-  const targetGoogleCode = GOOGLE_LANG_MAP[langCode] || 'en';
-  const langConfig = SUPPORTED_LANGUAGES.find((l) => l.code === langCode) || SUPPORTED_LANGUAGES[0];
-
-  // 1. Save preferences
-  localStorage.setItem('furtools_lang', langCode);
-
-  // 2. Set Google Translate cookies across all subdomains and paths
-  const domain = window.location.hostname;
-  const cookieValue = targetGoogleCode === 'en' ? '' : `/en/${targetGoogleCode}`;
-  const expires = targetGoogleCode === 'en' ? 'Thu, 01 Jan 1970 00:00:00 GMT' : 'Fri, 31 Dec 2030 23:59:59 GMT';
-
-  document.cookie = `googtrans=${cookieValue}; path=/; expires=${expires}`;
-  document.cookie = `googtrans=${cookieValue}; path=/; domain=.${domain}; expires=${expires}`;
-  document.cookie = `googtrans=${cookieValue}; path=/; domain=${domain}; expires=${expires}`;
-
-  // 3. Update HTML lang and direction
-  document.documentElement.lang = langConfig.code;
-  document.documentElement.dir = langConfig.dir;
-  if (langConfig.dir === 'rtl') {
-    document.documentElement.classList.add('rtl');
-  } else {
-    document.documentElement.classList.remove('rtl');
+  // 1. Persist preference (i18next detector also reads these)
+  try {
+    localStorage.setItem(STORAGE_KEY, code);
+  } catch {
+    /* ignore */
   }
+  document.cookie = `furtools_lang=${code}; path=/; max-age=31536000`;
 
-  // 4. Update URL without full page reload if possible
+  // 2. Clear any stale Google Translate cookies from the old system
+  const past = "Thu, 01 Jan 1970 00:00:00 GMT";
+  const host = window.location.hostname;
+  for (const domain of [host, `.${host}`]) {
+    document.cookie = `googtrans=; path=/; domain=${domain}; expires=${past}`;
+  }
+  document.cookie = `googtrans=; path=/; expires=${past}`;
+
+  // 3. Update URL param + switch i18next
   const url = new URL(window.location.href);
-  if (langCode === 'en') {
-    url.searchParams.delete('lang');
-  } else {
-    url.searchParams.set('lang', langCode);
-  }
-  window.history.replaceState({}, '', url.toString());
+  if (code === "en") url.searchParams.delete("lang");
+  else url.searchParams.set("lang", code);
+  window.history.replaceState({}, "", url.toString());
 
-  // 5. Switch i18next to the native translation (es/de have full locale files).
-  // Google Translate widget remains as fallback for languages without native files.
-  import("./i18n").then((m) => {
-    const i18n = m.default;
-    if (["es", "de"].includes(langCode)) {
-      i18n.changeLanguage(langCode);
-    } else if (i18n.language !== "en") {
-      i18n.changeLanguage("en");
-    }
-  }).catch(() => {});
-
-  // 6. Trigger Google Translate combo box or reload DOM translation
-  const selectElem = document.querySelector<HTMLSelectElement>('.goog-te-combo');
-  if (selectElem) {
-    selectElem.value = targetGoogleCode;
-    selectElem.dispatchEvent(new Event('change'));
+  if (i18n.language !== code) {
+    i18n.changeLanguage(code);
   } else {
-    initGoogleTranslate(true);
-    setTimeout(() => {
-      const selectAfter = document.querySelector<HTMLSelectElement>('.goog-te-combo');
-      if (selectAfter) {
-        selectAfter.value = targetGoogleCode;
-        selectAfter.dispatchEvent(new Event('change'));
-      } else {
-        window.location.reload();
-      }
-    }, 500);
+    // force re-render for same-language clicks
+    window.dispatchEvent(new CustomEvent("furtools:lang", { detail: code }));
   }
 }
 
-export function initGoogleTranslate(force = false) {
-  if (typeof window === 'undefined') return;
-
-  const activeLang = getActiveLanguage();
-  if (!force && activeLang === 'en') {
-    return;
-  }
-
-  // Define global initialization callback
-  window.googleTranslateElementInit = () => {
-    if (window.google?.translate?.TranslateElement) {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: 'en',
-          includedLanguages: Object.values(GOOGLE_LANG_MAP).join(','),
-          autoDisplay: false,
-          layout: window.google.translate.TranslateElement.InlineLayout?.SIMPLE,
-        },
-        'google_translate_element'
-      );
-
-      // Auto-trigger active language if non-English
-      const currentLang = getActiveLanguage();
-      if (currentLang && currentLang !== 'en') {
-        setTimeout(() => {
-          const select = document.querySelector<HTMLSelectElement>('.goog-te-combo');
-          if (select) {
-            select.value = GOOGLE_LANG_MAP[currentLang] || currentLang;
-            select.dispatchEvent(new Event('change'));
-          }
-        }, 300);
-      }
-    }
-  };
-
-  // Inject Google Translate script if not already present
-  if (!document.getElementById('google-translate-script')) {
-    const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    document.body.appendChild(script);
-  }
+/** No-op kept for backwards compatibility (Google Translate removed). */
+export function initGoogleTranslate(): void {
+  /* Google Translate widget disabled — native translations only. */
 }
