@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -18,6 +19,8 @@ import {
   RotateCcw,
 } from "lucide-react";
 
+type T = (key: string, options?: Record<string, unknown>) => string;
+
 interface DehydrationTier {
   percent: number;
   label: string;
@@ -25,40 +28,44 @@ interface DehydrationTier {
   severity: "normal" | "mild" | "moderate" | "severe" | "critical";
 }
 
-const DEHYDRATION_TIERS: DehydrationTier[] = [
-  {
-    percent: 0,
-    label: "0% — Normal Hydration",
-    clinicalSigns: "Moist, pink gums; immediate skin turgor recoil (<1s); bright alert eyes; capillary refill time (CRT) < 2s.",
-    severity: "normal",
-  },
-  {
-    percent: 5,
-    label: "5% — Mild Dehydration (Subclinical)",
-    clinicalSigns: "Slightly tacky mucous membranes; normal skin turgor; eyes normal; CRT ~2s.",
-    severity: "mild",
-  },
-  {
-    percent: 7,
-    label: "7% — Moderate Dehydration",
-    clinicalSigns: "Dry/sticky gums; slight loss of skin turgor (delayed skin fold recoil 2–3s); CRT 2–3s; mild depression.",
-    severity: "moderate",
-  },
-  {
-    percent: 10,
-    label: "10% — Severe Dehydration",
-    clinicalSigns: "Marked skin tenting (skin stays pinched >3s); dull sunken eyes (enophthalmos); dry pale gums; CRT > 3s; cold paws.",
-    severity: "severe",
-  },
-  {
-    percent: 12,
-    label: "12% — Critical / Impending Shock",
-    clinicalSigns: "Persistent skin tenting; deeply sunken eyes; signs of hypovolemic shock; weak rapid pulse; cold extremities; depressed consciousness.",
-    severity: "critical",
-  },
-];
+function getDehydrationTiers(p: string, t: T): DehydrationTier[] {
+  return [
+    {
+      percent: 0,
+      label: t(`${p}.ui.tierLabel0`),
+      clinicalSigns: t(`${p}.ui.tierMarkers0`),
+      severity: "normal",
+    },
+    {
+      percent: 5,
+      label: t(`${p}.ui.tierLabel5`),
+      clinicalSigns: t(`${p}.ui.tierMarkers5`),
+      severity: "mild",
+    },
+    {
+      percent: 7,
+      label: t(`${p}.ui.tierLabel7`),
+      clinicalSigns: t(`${p}.ui.tierMarkers7`),
+      severity: "moderate",
+    },
+    {
+      percent: 10,
+      label: t(`${p}.ui.tierLabel10`),
+      clinicalSigns: t(`${p}.ui.tierMarkers10`),
+      severity: "severe",
+    },
+    {
+      percent: 12,
+      label: t(`${p}.ui.tierLabel12`),
+      clinicalSigns: t(`${p}.ui.tierMarkers12`),
+      severity: "critical",
+    },
+  ];
+}
 
-export function CanineFluidTherapyCalculator() {
+export function CanineFluidTherapyCalculator({ slug }: { slug?: string }) {
+  const { t } = useTranslation("tools");
+  const p = slug ?? "shared.canine-fluid-therapy-calculator";
   const [unit, setUnit] = useState<"lbs" | "kg">("lbs");
   const [weightInput, setWeightInput] = useState<string>("35");
   const [dehydrationPercent, setDehydrationPercent] = useState<number>(7);
@@ -66,6 +73,8 @@ export function CanineFluidTherapyCalculator() {
   const [ongoingLossTier, setOngoingLossTier] = useState<number>(10); // mL/kg/day
   const [dripFactor, setDripFactor] = useState<number>(15); // 10, 15, 20 (macro), 60 (micro)
   const [formulaType, setFormulaType] = useState<"standard" | "allometric">("standard");
+
+  const DEHYDRATION_TIERS = useMemo(() => getDehydrationTiers(p, t), [p, t]);
 
   // Calculate body weight in kg
   const weightKg = useMemo(() => {
@@ -135,9 +144,9 @@ export function CanineFluidTherapyCalculator() {
         <Stethoscope className="size-5 text-amber-700 dark:text-amber-400 mt-0.5 flex-shrink-0" />
         <div className="text-xs sm:text-sm text-foreground/90 leading-relaxed">
           <span className="font-semibold text-amber-900 dark:text-amber-300">
-            Veterinary Clinical Reference:
+            {t(`${p}.ui.bannerTitle`)}
           </span>{" "}
-          This fluid therapy calculator adheres to the **AAHA (American Animal Hospital Association)** and **WSAVA** fluid therapy guidelines for canine post-operative recovery, shock resuscitation, and dehydration restoration. Always monitor patient lung sounds, PCV/TP, and urine output to prevent fluid overload.
+          {t(`${p}.ui.bannerBody`)}
         </div>
       </div>
 
@@ -147,14 +156,14 @@ export function CanineFluidTherapyCalculator() {
           <Card className="p-5 sm:p-6 shadow-sm">
             <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2 mb-4">
               <Droplets className="size-5 text-primary" />
-              Patient Parameters
+              {t(`${p}.ui.patientParams`)}
             </h3>
 
             {/* Weight Input */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="dog-weight" className="text-xs font-semibold uppercase">
-                  Dog Body Weight
+                  {t(`${p}.ui.weightLabel`)}
                 </Label>
                 <div className="inline-flex rounded-lg border border-border/80 bg-muted/40 p-0.5 text-xs">
                   <button
@@ -164,7 +173,7 @@ export function CanineFluidTherapyCalculator() {
                       unit === "lbs" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"
                     }`}
                   >
-                    Pounds (lbs)
+                    {t(`${p}.ui.unitPounds`)}
                   </button>
                   <button
                     type="button"
@@ -173,7 +182,7 @@ export function CanineFluidTherapyCalculator() {
                       unit === "kg" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"
                     }`}
                   >
-                    Kilograms (kg)
+                    {t(`${p}.ui.unitKilograms`)}
                   </button>
                 </div>
               </div>
@@ -187,7 +196,7 @@ export function CanineFluidTherapyCalculator() {
                   value={weightInput}
                   onChange={(e) => setWeightInput(e.target.value)}
                   className="font-mono text-base pr-12"
-                  placeholder="e.g. 35"
+                  placeholder={t(`${p}.ui.weightPlaceholder`)}
                 />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-muted-foreground">
                   {unit}
@@ -195,7 +204,8 @@ export function CanineFluidTherapyCalculator() {
               </div>
               {results && (
                 <p className="text-[11px] text-muted-foreground">
-                  Standardized weight: <span className="font-mono font-semibold text-foreground">{results.weightKg} kg</span>
+                  {t(`${p}.ui.standardizedWeight`)}{" "}
+                  <span className="font-mono font-semibold text-foreground">{results.weightKg} kg</span>
                 </p>
               )}
             </div>
@@ -204,7 +214,7 @@ export function CanineFluidTherapyCalculator() {
             <div className="mt-6 space-y-3">
               <div className="flex items-center justify-between">
                 <Label className="text-xs font-semibold uppercase">
-                  Dehydration Assessment ({dehydrationPercent}%)
+                  {t(`${p}.ui.dehydrationLabel`, { pct: dehydrationPercent })}
                 </Label>
                 <Badge
                   variant="outline"
@@ -232,7 +242,7 @@ export function CanineFluidTherapyCalculator() {
               />
 
               <div className="rounded-xl border border-border/80 bg-muted/30 p-3 text-xs leading-relaxed text-muted-foreground">
-                <span className="font-semibold text-foreground">Clinical Diagnostic Markers: </span>
+                <span className="font-semibold text-foreground">{t(`${p}.ui.clinicalMarkersLabel`)} </span>
                 {currentTier.clinicalSigns}
               </div>
             </div>
@@ -242,7 +252,7 @@ export function CanineFluidTherapyCalculator() {
               {/* Deficit Replacement Window */}
               <div className="space-y-1.5">
                 <Label htmlFor="replacement-hours" className="text-xs font-semibold uppercase">
-                  Deficit Correction Time
+                  {t(`${p}.ui.correctionLabel`)}
                 </Label>
                 <select
                   id="replacement-hours"
@@ -250,19 +260,19 @@ export function CanineFluidTherapyCalculator() {
                   onChange={(e) => setReplacementHours(Number(e.target.value))}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary"
                 >
-                  <option value={12}>12 Hours (Rapid Rehydration)</option>
-                  <option value={24}>24 Hours (Standard Veterinary)</option>
-                  <option value={48}>48 Hours (Cardiac / Geriatric Cautious)</option>
+                  <option value={12}>{t(`${p}.ui.correctionOpt12`)}</option>
+                  <option value={24}>{t(`${p}.ui.correctionOpt24`)}</option>
+                  <option value={48}>{t(`${p}.ui.correctionOpt48`)}</option>
                 </select>
                 <span className="text-[10px] text-muted-foreground block">
-                  Deficit volume is distributed across this duration.
+                  {t(`${p}.ui.correctionHint`)}
                 </span>
               </div>
 
               {/* Ongoing Losses */}
               <div className="space-y-1.5">
                 <Label htmlFor="ongoing-losses" className="text-xs font-semibold uppercase">
-                  Post-Op Ongoing Losses
+                  {t(`${p}.ui.lossesLabel`)}
                 </Label>
                 <select
                   id="ongoing-losses"
@@ -270,13 +280,13 @@ export function CanineFluidTherapyCalculator() {
                   onChange={(e) => setOngoingLossTier(Number(e.target.value))}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary"
                 >
-                  <option value={0}>None / Dry Surgical Field (0 mL/kg)</option>
-                  <option value={10}>Mild (Drainage / Mild Emesis) — 10 mL/kg/day</option>
-                  <option value={20}>Moderate (Active Diarrhea / Vomiting) — 20 mL/kg/day</option>
-                  <option value={30}>Severe (Heavy Fluid Drainage / Polyuria) — 30 mL/kg/day</option>
+                  <option value={0}>{t(`${p}.ui.lossesOpt0`)}</option>
+                  <option value={10}>{t(`${p}.ui.lossesOpt10`)}</option>
+                  <option value={20}>{t(`${p}.ui.lossesOpt20`)}</option>
+                  <option value={30}>{t(`${p}.ui.lossesOpt30`)}</option>
                 </select>
                 <span className="text-[10px] text-muted-foreground block">
-                  Compensates for surgical fluids, drains, and gastrointestinal loss.
+                  {t(`${p}.ui.lossesHint`)}
                 </span>
               </div>
             </div>
@@ -284,7 +294,7 @@ export function CanineFluidTherapyCalculator() {
             {/* Delivery Equipment / Drip Set */}
             <div className="mt-6 space-y-1.5">
               <Label htmlFor="drip-set" className="text-xs font-semibold uppercase">
-                Delivery Method & IV Administration Set
+                {t(`${p}.ui.dripLabel`)}
               </Label>
               <select
                 id="drip-set"
@@ -292,10 +302,10 @@ export function CanineFluidTherapyCalculator() {
                 onChange={(e) => setDripFactor(Number(e.target.value))}
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary"
               >
-                <option value={15}>Standard Macro-drip Set (15 gtt/mL) — Common for medium/large dogs</option>
-                <option value={10}>Heavy Macro-drip Set (10 gtt/mL) — Large & Giant breeds</option>
-                <option value={20}>Standard 20-drop Set (20 gtt/mL)</option>
-                <option value={60}>Pediatric Micro-drip Set (60 gtt/mL) — Small dogs & puppies (&lt;10 kg)</option>
+                <option value={15}>{t(`${p}.ui.dripOpt15`)}</option>
+                <option value={10}>{t(`${p}.ui.dripOpt10`)}</option>
+                <option value={20}>{t(`${p}.ui.dripOpt20`)}</option>
+                <option value={60}>{t(`${p}.ui.dripOpt60`)}</option>
               </select>
             </div>
           </Card>
@@ -306,7 +316,7 @@ export function CanineFluidTherapyCalculator() {
           <Card className="p-5 sm:p-6 border-primary/30 bg-card shadow-md">
             <h3 className="font-display text-lg font-bold text-foreground flex items-center gap-2 mb-4">
               <Activity className="size-5 text-primary" />
-              Prescribed Infusion Rates
+              {t(`${p}.ui.resultsTitle`)}
             </h3>
 
             {results ? (
@@ -314,14 +324,14 @@ export function CanineFluidTherapyCalculator() {
                 {/* Primary Hourly Infusion Rate */}
                 <div className="rounded-2xl border border-primary/20 bg-primary/[0.04] p-4 text-center">
                   <span className="text-xs font-bold uppercase tracking-wider text-primary">
-                    Target Infusion Pump Rate
+                    {t(`${p}.ui.pumpRateLabel`)}
                   </span>
                   <div className="mt-1 font-display text-4xl font-extrabold text-foreground">
                     {results.totalMlPerHour}{" "}
-                    <span className="text-lg font-semibold text-muted-foreground">mL/hr</span>
+                    <span className="text-lg font-semibold text-muted-foreground">{t(`${p}.ui.pumpRateUnit`)}</span>
                   </div>
                   <span className="mt-1 block text-xs text-muted-foreground">
-                    Continuous IV infusion rate during recovery
+                    {t(`${p}.ui.pumpRateHint`)}
                   </span>
                 </div>
 
@@ -329,50 +339,50 @@ export function CanineFluidTherapyCalculator() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-xl border border-border/80 bg-muted/40 p-3 text-center">
                     <span className="text-[10px] font-semibold uppercase text-muted-foreground block">
-                      Gravity Drip Rate
+                      {t(`${p}.ui.dripRateLabel`)}
                     </span>
                     <span className="font-display text-2xl font-bold text-foreground">
                       {results.dropsPerMinute}
                     </span>
-                    <span className="text-[11px] text-muted-foreground block font-medium">drops/min (gtt)</span>
+                    <span className="text-[11px] text-muted-foreground block font-medium">{t(`${p}.ui.dripRateUnit`)}</span>
                   </div>
 
                   <div className="rounded-xl border border-border/80 bg-muted/40 p-3 text-center">
                     <span className="text-[10px] font-semibold uppercase text-muted-foreground block">
-                      Drip Interval
+                      {t(`${p}.ui.dripIntervalLabel`)}
                     </span>
                     <span className="font-display text-2xl font-bold text-foreground">
-                      1 drop every {results.secondsPerDrop}s
+                      {t(`${p}.ui.dripIntervalValue`, { s: results.secondsPerDrop })}
                     </span>
-                    <span className="text-[11px] text-muted-foreground block font-medium">at {dripFactor} gtt/mL</span>
+                    <span className="text-[11px] text-muted-foreground block font-medium">{t(`${p}.ui.dripIntervalAt`, { factor: dripFactor })}</span>
                   </div>
                 </div>
 
                 {/* Total 24-hr Volume */}
                 <div className="rounded-xl border border-border/80 bg-card p-3.5 space-y-2 text-xs">
                   <div className="flex items-center justify-between font-semibold">
-                    <span className="text-muted-foreground">Total 24-Hour Fluid Plan:</span>
+                    <span className="text-muted-foreground">{t(`${p}.ui.planTitle`)}</span>
                     <span className="font-mono text-sm text-foreground">{results.total24hVolume.toLocaleString()} mL</span>
                   </div>
 
                   <div className="h-2 w-full rounded-full bg-muted/60 overflow-hidden flex">
                     <div
                       className="h-full bg-blue-500"
-                      title="Dehydration Deficit"
+                      title={t(`${p}.ui.barTitleDeficit`)}
                       style={{
                         width: `${Math.round((results.deficitMl / (results.total24hVolume || 1)) * 100)}%`,
                       }}
                     />
                     <div
                       className="h-full bg-primary"
-                      title="Maintenance"
+                      title={t(`${p}.ui.barTitleMaintenance`)}
                       style={{
                         width: `${Math.round((results.maintenanceMl24h / (results.total24hVolume || 1)) * 100)}%`,
                       }}
                     />
                     <div
                       className="h-full bg-amber-500"
-                      title="Ongoing Losses"
+                      title={t(`${p}.ui.barTitleLosses`)}
                       style={{
                         width: `${Math.round((results.ongoingLossesMl24h / (results.total24hVolume || 1)) * 100)}%`,
                       }}
@@ -384,21 +394,21 @@ export function CanineFluidTherapyCalculator() {
                     <div className="flex items-center justify-between">
                       <span className="flex items-center gap-1.5">
                         <span className="size-2 rounded-full bg-blue-500" />
-                        Dehydration Deficit Volume:
+                        {t(`${p}.ui.legendDeficit`)}
                       </span>
                       <span className="font-mono font-medium text-foreground">{results.deficitMl} mL</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="flex items-center gap-1.5">
                         <span className="size-2 rounded-full bg-primary" />
-                        24-Hour Basal Maintenance:
+                        {t(`${p}.ui.legendMaintenance`)}
                       </span>
                       <span className="font-mono font-medium text-foreground">{results.maintenanceMl24h} mL</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="flex items-center gap-1.5">
                         <span className="size-2 rounded-full bg-amber-500" />
-                        Post-Op Ongoing Losses:
+                        {t(`${p}.ui.legendLosses`)}
                       </span>
                       <span className="font-mono font-medium text-foreground">{results.ongoingLossesMl24h} mL</span>
                     </div>
@@ -409,16 +419,20 @@ export function CanineFluidTherapyCalculator() {
                 <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] p-3 text-xs space-y-1">
                   <div className="font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
                     <CheckCircle2 className="size-3.5 text-emerald-600 dark:text-emerald-400" />
-                    Target Urine Output (Adequate Perfusion)
+                    {t(`${p}.ui.urineTitle`)}
                   </div>
                   <p className="text-[11px] text-muted-foreground">
-                    Maintain between <span className="font-mono font-semibold text-foreground">{results.minUrineOutputPerHour} – {results.maxUrineOutputPerHour} mL/hr</span> (1.0 to 2.0 mL/kg/hr) to confirm renal recovery and prevent anuria.
+                    {t(`${p}.ui.urineBefore`)}{" "}
+                    <span className="font-mono font-semibold text-foreground">
+                      {t(`${p}.ui.urineRange`, { min: results.minUrineOutputPerHour, max: results.maxUrineOutputPerHour })}
+                    </span>{" "}
+                    {t(`${p}.ui.urineAfter`)}
                   </p>
                 </div>
               </div>
             ) : (
               <div className="py-12 text-center text-xs text-muted-foreground">
-                Enter your dog's weight to calculate the fluid prescription.
+                {t(`${p}.ui.emptyState`)}
               </div>
             )}
           </Card>
@@ -429,20 +443,20 @@ export function CanineFluidTherapyCalculator() {
       <Card className="p-6 shadow-sm">
         <h4 className="font-display text-base font-bold text-foreground flex items-center gap-2 mb-3">
           <ShieldAlert className="size-5 text-primary" />
-          Post-Operative Fluid Monitoring & Fluid Overload Warning Signs
+          {t(`${p}.ui.refTitle`)}
         </h4>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 text-xs leading-relaxed text-muted-foreground">
           <div className="rounded-xl bg-muted/30 p-3.5 border border-border/60">
-            <span className="font-semibold text-foreground block mb-1">Common Replacement Crystalloids:</span>
-            Balanced electrolyte solutions such as **Lactated Ringer's Solution (LRS)**, **Normosol-R**, or **Plasmalyte-A** are preferred. Avoid pure 0.9% NaCl for prolonged maintenance unless hypochloremia or Addisonian crisis is present.
+            <span className="font-semibold text-foreground block mb-1">{t(`${p}.ui.refCrystalloidsTitle`)}</span>
+            {t(`${p}.ui.refCrystalloidsBody`)}
           </div>
           <div className="rounded-xl bg-muted/30 p-3.5 border border-border/60">
-            <span className="font-semibold text-foreground block mb-1">🚨 Signs of Fluid Overload (Hypervolemia):</span>
-            Serous nasal discharge, chemosis (swelling of the conjunctiva), tachypnea (rapid breathing), moist lung crackles, restlessness, and sudden excessive body weight gain. Reduce rate immediately if noted.
+            <span className="font-semibold text-foreground block mb-1">{t(`${p}.ui.refOverloadTitle`)}</span>
+            {t(`${p}.ui.refOverloadBody`)}
           </div>
           <div className="rounded-xl bg-muted/30 p-3.5 border border-border/60">
-            <span className="font-semibold text-foreground block mb-1">Anesthesia Hypothermia Precaution:</span>
-            Use fluid warmers or warm IV lines when administering fluids post-surgery to prevent anesthesia-induced hypothermia, which delays drug clearance and prolongs recovery times.
+            <span className="font-semibold text-foreground block mb-1">{t(`${p}.ui.refHypothermiaTitle`)}</span>
+            {t(`${p}.ui.refHypothermiaBody`)}
           </div>
         </div>
       </Card>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+type T = (key: string, options?: Record<string, unknown>) => string;
+
+const NS = "dog-size-predictor";
+
 interface SizeCategory {
   id: string;
   name: string;
@@ -30,78 +35,92 @@ interface SizeCategory {
   examples: string;
 }
 
-const SIZE_CATEGORIES: SizeCategory[] = [
-  {
-    id: "toy",
-    name: "Toy / Extra-Small",
-    weightRange: "< 12 lbs (< 5.5 kg)",
-    adultWeightLbs: [4, 11],
-    adultHeightInches: [6, 10],
-    maturityWeeks: 40, // 9-10 months
-    halfWeightWeeks: 12, // 50% at 3 months
-    examples: "Chihuahua, Yorkshire Terrier, Pomeranian, Toy Poodle, Maltese",
-  },
-  {
-    id: "small",
-    name: "Small Breed",
-    weightRange: "12 – 25 lbs (5.5 – 11 kg)",
-    adultWeightLbs: [12, 25],
-    adultHeightInches: [10, 15],
-    maturityWeeks: 48, // 11-12 months
-    halfWeightWeeks: 15,
-    examples: "French Bulldog, Pug, Dachshund, Boston Terrier, Cavalier King Charles",
-  },
-  {
-    id: "medium",
-    name: "Medium Breed",
-    weightRange: "26 – 50 lbs (12 – 23 kg)",
-    adultWeightLbs: [26, 50],
-    adultHeightInches: [16, 21],
-    maturityWeeks: 56, // 12-14 months
-    halfWeightWeeks: 18,
-    examples: "Beagle, Border Collie, Australian Shepherd, English Bulldog, Corgi",
-  },
-  {
-    id: "large",
-    name: "Large Breed",
-    weightRange: "51 – 85 lbs (23 – 39 kg)",
-    adultWeightLbs: [51, 85],
-    adultHeightInches: [22, 26],
-    maturityWeeks: 70, // 15-18 months
-    halfWeightWeeks: 22,
-    examples: "Labrador Retriever, Golden Retriever, German Shepherd, Boxer, Standard Poodle",
-  },
-  {
-    id: "giant",
-    name: "Giant Breed",
-    weightRange: "86 – 150+ lbs (39 – 70+ kg)",
-    adultWeightLbs: [86, 150],
-    adultHeightInches: [27, 34],
-    maturityWeeks: 96, // 20-24 months
-    halfWeightWeeks: 26,
-    examples: "Great Dane, Saint Bernard, English Mastiff, Bernese Mountain Dog, Cane Corso",
-  },
-];
+function getSizeCategories(t: T): SizeCategory[] {
+  return [
+    {
+      id: "toy",
+      name: t(`${NS}.ui.catToyName`),
+      weightRange: t(`${NS}.ui.catToyRange`),
+      adultWeightLbs: [4, 11],
+      adultHeightInches: [6, 10],
+      maturityWeeks: 40, // 9-10 months
+      halfWeightWeeks: 12, // 50% at 3 months
+      examples: t(`${NS}.ui.catToyExamples`),
+    },
+    {
+      id: "small",
+      name: t(`${NS}.ui.catSmallName`),
+      weightRange: t(`${NS}.ui.catSmallRange`),
+      adultWeightLbs: [12, 25],
+      adultHeightInches: [10, 15],
+      maturityWeeks: 48, // 11-12 months
+      halfWeightWeeks: 15,
+      examples: t(`${NS}.ui.catSmallExamples`),
+    },
+    {
+      id: "medium",
+      name: t(`${NS}.ui.catMediumName`),
+      weightRange: t(`${NS}.ui.catMediumRange`),
+      adultWeightLbs: [26, 50],
+      adultHeightInches: [16, 21],
+      maturityWeeks: 56, // 12-14 months
+      halfWeightWeeks: 18,
+      examples: t(`${NS}.ui.catMediumExamples`),
+    },
+    {
+      id: "large",
+      name: t(`${NS}.ui.catLargeName`),
+      weightRange: t(`${NS}.ui.catLargeRange`),
+      adultWeightLbs: [51, 85],
+      adultHeightInches: [22, 26],
+      maturityWeeks: 70, // 15-18 months
+      halfWeightWeeks: 22,
+      examples: t(`${NS}.ui.catLargeExamples`),
+    },
+    {
+      id: "giant",
+      name: t(`${NS}.ui.catGiantName`),
+      weightRange: t(`${NS}.ui.catGiantRange`),
+      adultWeightLbs: [86, 150],
+      adultHeightInches: [27, 34],
+      maturityWeeks: 96, // 20-24 months
+      halfWeightWeeks: 26,
+      examples: t(`${NS}.ui.catGiantExamples`),
+    },
+  ];
+}
 
-const POPULAR_BREEDS = [
-  { name: "Labrador Retriever", category: "large", adultRangeLbs: [55, 80] },
-  { name: "German Shepherd", category: "large", adultRangeLbs: [50, 88] },
-  { name: "Golden Retriever", category: "large", adultRangeLbs: [55, 75] },
-  { name: "French Bulldog", category: "small", adultRangeLbs: [18, 28] },
-  { name: "Beagle", category: "medium", adultRangeLbs: [20, 30] },
-  { name: "Poodle (Standard)", category: "large", adultRangeLbs: [45, 70] },
-  { name: "Chihuahua", category: "toy", adultRangeLbs: [3.5, 6.5] },
-  { name: "Great Dane", category: "giant", adultRangeLbs: [110, 175] },
-  { name: "Mixed / Unknown Breed", category: "auto", adultRangeLbs: [0, 0] },
-];
+interface PopularBreed {
+  name: string;
+  category: string;
+  adultRangeLbs: [number, number];
+}
+
+function getPopularBreeds(t: T): PopularBreed[] {
+  return [
+    { name: t(`${NS}.ui.breedLabrador`), category: "large", adultRangeLbs: [55, 80] },
+    { name: t(`${NS}.ui.breedGermanShepherd`), category: "large", adultRangeLbs: [50, 88] },
+    { name: t(`${NS}.ui.breedGoldenRetriever`), category: "large", adultRangeLbs: [55, 75] },
+    { name: t(`${NS}.ui.breedFrenchBulldog`), category: "small", adultRangeLbs: [18, 28] },
+    { name: t(`${NS}.ui.breedBeagle`), category: "medium", adultRangeLbs: [20, 30] },
+    { name: t(`${NS}.ui.breedPoodleStandard`), category: "large", adultRangeLbs: [45, 70] },
+    { name: t(`${NS}.ui.breedChihuahua`), category: "toy", adultRangeLbs: [3.5, 6.5] },
+    { name: t(`${NS}.ui.breedGreatDane`), category: "giant", adultRangeLbs: [110, 175] },
+    { name: t(`${NS}.ui.breedMixed`), category: "auto", adultRangeLbs: [0, 0] },
+  ];
+}
 
 export function DogSizePredictor() {
+  const { t } = useTranslation("tools");
   const [unit, setUnit] = useState<"lbs" | "kg">("lbs");
   const [currentWeightInput, setCurrentWeightInput] = useState<number>(18);
   const [ageWeeks, setAgeWeeks] = useState<number>(16);
   const [selectedCategory, setSelectedCategory] = useState<string>("large");
   const [sex, setSex] = useState<"male" | "female">("male");
   const [pawBoneStructure, setPawBoneStructure] = useState<"normal" | "large" | "dainty">("normal");
+
+  const SIZE_CATEGORIES = useMemo(() => getSizeCategories(t), [t]);
+  const POPULAR_BREEDS = useMemo(() => getPopularBreeds(t), [t]);
 
   // Normalized weight in lbs for standard veterinary allometric calculations
   const weightLbs = useMemo(() => {
@@ -121,7 +140,7 @@ export function DogSizePredictor() {
     if (extrapolatedAt16Wk < 32) return SIZE_CATEGORIES[2]; // Medium
     if (extrapolatedAt16Wk < 55) return SIZE_CATEGORIES[3]; // Large
     return SIZE_CATEGORIES[4]; // Giant
-  }, [selectedCategory, weightLbs, ageWeeks]);
+  }, [selectedCategory, weightLbs, ageWeeks, SIZE_CATEGORIES]);
 
   // Paw bone density multiplier
   const boneModifier = useMemo(() => {
@@ -184,22 +203,25 @@ export function DogSizePredictor() {
     const estHeightCm = Math.round(estHeightInches * 2.54);
 
     // Growth velocity stage analysis
-    let growthStage = "Early Accelerated Phase";
-    let growthDescription = "Rapid linear skeletal lengthening and cartilage development.";
-    let plateClosure = `${Math.round(maturityWks / 4.33)} – ${Math.round((maturityWks + 8) / 4.33)} Months`;
+    let growthStage = t(`${NS}.ui.stageEarly`);
+    let growthDescription = t(`${NS}.ui.stageEarlyDesc`);
+    let plateClosure = t(`${NS}.ui.plateClosure`, {
+      min: Math.round(maturityWks / 4.33),
+      max: Math.round((maturityWks + 8) / 4.33),
+    });
 
     if (currentPercent < 40) {
-      growthStage = "Peak Skeletal Acceleration";
-      growthDescription = "Primary long-bone elongation (femur, humerus). Highest daily caloric requirement per pound.";
+      growthStage = t(`${NS}.ui.stagePeak`);
+      growthDescription = t(`${NS}.ui.stagePeakDesc`);
     } else if (currentPercent < 75) {
-      growthStage = "Secondary Muscular Fill";
-      growthDescription = "Bone growth slows; thorax deepens and lean muscle mass accumulates.";
+      growthStage = t(`${NS}.ui.stageSecondary`);
+      growthDescription = t(`${NS}.ui.stageSecondaryDesc`);
     } else if (currentPercent < 92) {
-      growthStage = "Late Maturation & Growth Plate Fusion";
-      growthDescription = "Distal growth plates (radius, ulna) are closing. Frame reaches adult height; chest broadens.";
+      growthStage = t(`${NS}.ui.stageLate`);
+      growthDescription = t(`${NS}.ui.stageLateDesc`);
     } else {
-      growthStage = "Full Adult Frame Achieved";
-      growthDescription = "Epiphyseal growth plates fully ossified. Transition to adult maintenance food formula.";
+      growthStage = t(`${NS}.ui.stageFull`);
+      growthDescription = t(`${NS}.ui.stageFullDesc`);
     }
 
     // Recommended Adult Crate Size (Length in inches)
@@ -207,16 +229,16 @@ export function DogSizePredictor() {
     const crateLengthInches = Math.round(estHeightInches * 1.45 + 4);
     const crateSizeName =
       crateLengthInches <= 24
-        ? "24\" Small"
+        ? t(`${NS}.ui.crateSizeSmall`)
         : crateLengthInches <= 30
-        ? "30\" Medium"
+        ? t(`${NS}.ui.crateSizeMedium`)
         : crateLengthInches <= 36
-        ? "36\" Intermediate"
+        ? t(`${NS}.ui.crateSizeIntermediate`)
         : crateLengthInches <= 42
-        ? "42\" Large"
+        ? t(`${NS}.ui.crateSizeLarge`)
         : crateLengthInches <= 48
-        ? "48\" Extra-Large"
-        : "54\" Giant";
+        ? t(`${NS}.ui.crateSizeExtraLarge`)
+        : t(`${NS}.ui.crateSizeGiant`);
 
     // Growth milestones table (Projected weight at key ages)
     const milestoneAges = [8, 12, 16, 24, 36, 52];
@@ -259,7 +281,7 @@ export function DogSizePredictor() {
       milestones,
       isLargeOrGiant: estimatedAdultLbs >= 50,
     };
-  }, [effectiveCategory, weightLbs, ageWeeks, boneModifier, sexModifier]);
+  }, [effectiveCategory, weightLbs, ageWeeks, boneModifier, sexModifier, t]);
 
   const handleQuickWeightPreset = (presetLbs: number) => {
     if (unit === "kg") {
@@ -301,13 +323,12 @@ export function DogSizePredictor() {
           </div>
           <div>
             <h2 className="font-display text-base font-semibold text-foreground">
-              Veterinary Canine Pediatric Allometry & Adult Size Prediction
+              {t(`${NS}.ui.bannerTitle`)}
             </h2>
             <p className="mt-1 leading-relaxed">
-              Unlike human growth, a puppy’s adult weight cannot be calculated with linear formulas.
-              Canines follow a distinct <strong>sigmoidal (S-shaped) Gompertz growth curve</strong> where toy breeds complete skeletal growth by 9–10 months,
-              while large and giant breeds continue epiphysis bone development and chest broadening for up to <strong>18 to 24 months</strong>.
-              This calculator models age, somatotype breed category, sexual dimorphism, and skeletal structure to forecast adult mass, wither height, and developmental plate closure.
+              {t(`${NS}.ui.bannerP1`)} {t(`${NS}.ui.bannerP2`)}{" "}
+              <strong>{t(`${NS}.ui.bannerStrong1`)}</strong> {t(`${NS}.ui.bannerP3`)}{" "}
+              <strong>{t(`${NS}.ui.bannerStrong2`)}</strong>. {t(`${NS}.ui.bannerP4`)}
             </p>
           </div>
         </div>
@@ -321,8 +342,8 @@ export function DogSizePredictor() {
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-xl">1. Current Age & Body Weight</CardTitle>
-                  <CardDescription>Enter your puppy’s exact current weight and age</CardDescription>
+                  <CardTitle className="text-xl">{t(`${NS}.ui.section1Title`)}</CardTitle>
+                  <CardDescription>{t(`${NS}.ui.section1Desc`)}</CardDescription>
                 </div>
                 <div className="inline-flex rounded-lg border bg-muted p-1 text-xs font-medium">
                   <button
@@ -339,7 +360,7 @@ export function DogSizePredictor() {
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    Pounds (lbs)
+                    {t(`${NS}.ui.unitPounds`)}
                   </button>
                   <button
                     type="button"
@@ -355,7 +376,7 @@ export function DogSizePredictor() {
                         : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    Kilograms (kg)
+                    {t(`${NS}.ui.unitKilograms`)}
                   </button>
                 </div>
               </div>
@@ -364,9 +385,9 @@ export function DogSizePredictor() {
               {/* Current Weight Input */}
               <div>
                 <div className="flex items-center justify-between text-sm font-medium">
-                  <Label htmlFor="current-weight">Current Puppy Weight</Label>
+                  <Label htmlFor="current-weight">{t(`${NS}.ui.weightLabel`)}</Label>
                   <span className="font-mono text-base font-bold text-primary">
-                    {currentWeightInput} {unit}
+                    {currentWeightInput} {unit === "kg" ? t(`${NS}.ui.unitShortKg`) : t(`${NS}.ui.unitShortLbs`)}
                   </span>
                 </div>
                 <Input
@@ -383,7 +404,7 @@ export function DogSizePredictor() {
                   className="mt-2 text-base font-semibold"
                 />
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  <span className="text-[11px] text-muted-foreground self-center mr-1">Quick Presets:</span>
+                  <span className="text-[11px] text-muted-foreground self-center mr-1">{t(`${NS}.ui.quickPresets`)}</span>
                   {[5, 12, 20, 35, 50].map((lb) => (
                     <Button
                       key={lb}
@@ -393,7 +414,9 @@ export function DogSizePredictor() {
                       onClick={() => handleQuickWeightPreset(lb)}
                       className="h-6 text-xs px-2"
                     >
-                      {unit === "kg" ? `${(lb / 2.20462).toFixed(1)} kg` : `${lb} lbs`}
+                      {unit === "kg"
+                        ? t(`${NS}.ui.presetKg`, { val: (lb / 2.20462).toFixed(1) })
+                        : t(`${NS}.ui.presetLbs`, { val: lb })}
                     </Button>
                   ))}
                 </div>
@@ -404,10 +427,10 @@ export function DogSizePredictor() {
                 <div className="flex items-center justify-between text-xs font-medium">
                   <Label htmlFor="puppy-age" className="flex items-center gap-1.5 text-sm font-medium">
                     <Calendar className="size-4 text-primary" />
-                    Puppy Age: <span className="font-bold text-foreground">{ageWeeks} Weeks</span>
+                    {t(`${NS}.ui.ageLabel`)} <span className="font-bold text-foreground">{t(`${NS}.ui.ageWeeks`, { weeks: ageWeeks })}</span>
                   </Label>
                   <span className="font-mono text-xs text-muted-foreground">
-                    ≈ {(ageWeeks / 4.33).toFixed(1)} Months
+                    {t(`${NS}.ui.monthsApprox`, { months: (ageWeeks / 4.33).toFixed(1) })}
                   </span>
                 </div>
                 <input
@@ -421,7 +444,7 @@ export function DogSizePredictor() {
                   className="w-full h-2 rounded-lg bg-muted-foreground/25 accent-primary cursor-pointer"
                 />
                 <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>6 Wks (1.5 Mo)</span>
+                  <span>{t(`${NS}.ui.ageMin`)}</span>
                   <div className="flex gap-1">
                     {[8, 12, 16, 24, 36, 48].map((w) => (
                       <button
@@ -434,11 +457,11 @@ export function DogSizePredictor() {
                             : "border-border/60 hover:bg-muted"
                         }`}
                       >
-                        {w}w
+                        {t(`${NS}.ui.weekQuick`, { w })}
                       </button>
                     ))}
                   </div>
-                  <span>60 Wks (14 Mo)</span>
+                  <span>{t(`${NS}.ui.ageMax`)}</span>
                 </div>
               </div>
             </CardContent>
@@ -447,9 +470,9 @@ export function DogSizePredictor() {
           {/* 2. Breed Size Category & Popular Breed Quick Fill */}
           <Card className="border-border/70 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl">2. Adult Breed Size Classification</CardTitle>
+              <CardTitle className="text-xl">{t(`${NS}.ui.section2Title`)}</CardTitle>
               <CardDescription>
-                Growth trajectories diverge significantly between toy and giant canine somatotypes
+                {t(`${NS}.ui.section2Desc`)}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -489,20 +512,20 @@ export function DogSizePredictor() {
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-sm text-foreground">Mixed / Unknown Breed</span>
+                    <span className="font-semibold text-sm text-foreground">{t(`${NS}.ui.autoName`)}</span>
                     <Badge variant="secondary" className="text-[10px]">
-                      Auto-Detect Curve
+                      {t(`${NS}.ui.autoBadge`)}
                     </Badge>
                   </div>
                   <p className="mt-1 text-[11px] text-muted-foreground">
-                    Infers adult curve from current age-to-weight ratio
+                    {t(`${NS}.ui.autoDesc`)}
                   </p>
                 </button>
               </div>
 
               {/* Popular Breeds Quick Selector */}
               <div>
-                <Label className="text-xs text-muted-foreground">Popular Breed Templates:</Label>
+                <Label className="text-xs text-muted-foreground">{t(`${NS}.ui.popularBreedsLabel`)}</Label>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {POPULAR_BREEDS.map((b) => (
                     <button
@@ -522,14 +545,14 @@ export function DogSizePredictor() {
           {/* 3. Physical Attributes (Sex & Paw Density) */}
           <Card className="border-border/70 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl">3. Biological Modifiers</CardTitle>
-              <CardDescription>Accounts for sexual dimorphism and skeletal bone density</CardDescription>
+              <CardTitle className="text-xl">{t(`${NS}.ui.section3Title`)}</CardTitle>
+              <CardDescription>{t(`${NS}.ui.section3Desc`)}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 {/* Sex Selection */}
                 <div>
-                  <Label className="text-xs font-medium">Biological Sex</Label>
+                  <Label className="text-xs font-medium">{t(`${NS}.ui.sexLabel`)}</Label>
                   <div className="mt-1.5 grid grid-cols-2 gap-1 rounded-lg border bg-muted p-1 text-xs">
                     <button
                       type="button"
@@ -540,7 +563,7 @@ export function DogSizePredictor() {
                           : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
-                      Male (Heavier)
+                      {t(`${NS}.ui.sexMale`)}
                     </button>
                     <button
                       type="button"
@@ -551,19 +574,19 @@ export function DogSizePredictor() {
                           : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
-                      Female
+                      {t(`${NS}.ui.sexFemale`)}
                     </button>
                   </div>
                 </div>
 
                 {/* Paw Density */}
                 <div>
-                  <Label className="text-xs font-medium">Paw & Joint Bone Thickness</Label>
+                  <Label className="text-xs font-medium">{t(`${NS}.ui.pawLabel`)}</Label>
                   <div className="mt-1.5 grid grid-cols-3 gap-1 rounded-lg border bg-muted p-1 text-[11px]">
                     {[
-                      { id: "dainty", label: "Dainty" },
-                      { id: "normal", label: "Normal" },
-                      { id: "large", label: "Big Paws" },
+                      { id: "dainty", label: t(`${NS}.ui.pawDainty`) },
+                      { id: "normal", label: t(`${NS}.ui.pawNormal`) },
+                      { id: "large", label: t(`${NS}.ui.pawLarge`) },
                     ].map((p) => (
                       <button
                         key={p.id}
@@ -590,11 +613,11 @@ export function DogSizePredictor() {
           <Card className="sticky top-24 border-primary/30 bg-card shadow-md">
             <CardHeader className="border-b border-border/50 bg-primary/5 pb-4">
               <Badge variant="outline" className="w-fit border-primary/40 bg-background font-mono text-primary text-xs">
-                Pediatric Growth Projection
+                {t(`${NS}.ui.outputBadge`)}
               </Badge>
-              <CardTitle className="text-2xl font-display mt-2">Predicted Adult Size</CardTitle>
+              <CardTitle className="text-2xl font-display mt-2">{t(`${NS}.ui.outputTitle`)}</CardTitle>
               <CardDescription>
-                Calculated at {ageWeeks} Weeks ({effectiveCategory.name})
+                {t(`${NS}.ui.outputDesc`, { weeks: ageWeeks, category: effectiveCategory.name })}
               </CardDescription>
             </CardHeader>
 
@@ -602,35 +625,35 @@ export function DogSizePredictor() {
               {/* Primary Metric: Adult Weight */}
               <div className="rounded-2xl border border-primary/30 bg-primary/10 p-5 text-center shadow-inner">
                 <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Estimated Adult Weight
+                  {t(`${NS}.ui.adultWeightLabel`)}
                 </div>
                 <div className="mt-2 text-4xl font-black tracking-tight text-primary font-mono sm:text-5xl">
                   {unit === "kg" ? (
                     <>
-                      {results.estimatedAdultKg} <span className="text-2xl font-semibold">kg</span>
+                      {results.estimatedAdultKg} <span className="text-2xl font-semibold">{t(`${NS}.ui.unitShortKg`)}</span>
                     </>
                   ) : (
                     <>
-                      {results.estimatedAdultLbs} <span className="text-2xl font-semibold">lbs</span>
+                      {results.estimatedAdultLbs} <span className="text-2xl font-semibold">{t(`${NS}.ui.unitShortLbs`)}</span>
                     </>
                   )}
                 </div>
                 <div className="mt-1 font-mono text-sm font-semibold text-muted-foreground">
                   {unit === "kg"
-                    ? `(${results.minAdultKg} – ${results.maxAdultKg} kg)`
-                    : `(${results.minAdultLbs} – ${results.maxAdultLbs} lbs)`}
+                    ? t(`${NS}.ui.adultWeightRange`, { min: results.minAdultKg, max: results.maxAdultKg, unit: t(`${NS}.ui.unitShortKg`) })
+                    : t(`${NS}.ui.adultWeightRange`, { min: results.minAdultLbs, max: results.maxAdultLbs, unit: t(`${NS}.ui.unitShortLbs`) })}
                 </div>
                 <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-background px-3 py-1 text-xs text-foreground shadow-sm">
                   <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  Currently at {results.currentPercent}% of adult mass
+                  {t(`${NS}.ui.currentlyAt`, { pct: results.currentPercent })}
                 </div>
               </div>
 
               {/* Progress Bar */}
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs font-medium text-muted-foreground">
-                  <span>Growth Progress</span>
-                  <span className="font-bold text-foreground">{results.currentPercent}% Mature</span>
+                  <span>{t(`${NS}.ui.growthProgress`)}</span>
+                  <span className="font-bold text-foreground">{t(`${NS}.ui.pctMature`, { pct: results.currentPercent })}</span>
                 </div>
                 <div className="h-2.5 w-full overflow-hidden rounded-full bg-muted">
                   <div
@@ -643,7 +666,7 @@ export function DogSizePredictor() {
               {/* Physical Dimensions & Sizing Breakdown */}
               <div className="space-y-3 rounded-xl border bg-muted/20 p-4 text-xs">
                 <div className="font-semibold text-foreground flex items-center justify-between">
-                  <span>Adult Physical Dimensions</span>
+                  <span>{t(`${NS}.ui.dimensionsTitle`)}</span>
                   <Badge variant="secondary" className="font-mono text-[10px]">
                     {effectiveCategory.name}
                   </Badge>
@@ -651,29 +674,29 @@ export function DogSizePredictor() {
 
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground flex items-center gap-1">
-                    <Ruler className="size-3 text-primary" /> Shoulder (Wither) Height:
+                    <Ruler className="size-3 text-primary" /> {t(`${NS}.ui.heightLabel`)}
                   </span>
                   <span className="font-mono font-bold text-foreground">
-                    ~{results.estHeightInches} in ({results.estHeightCm} cm)
+                    {t(`${NS}.ui.heightValue`, { inch: results.estHeightInches, cm: results.estHeightCm })}
                   </span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground flex items-center gap-1">
-                    <TrendingUp className="size-3 text-primary" /> Growth Velocity Phase:
+                    <TrendingUp className="size-3 text-primary" /> {t(`${NS}.ui.growthPhaseLabel`)}
                   </span>
                   <span className="font-semibold text-primary">{results.growthStage}</span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-border/50">
                   <span className="text-muted-foreground flex items-center gap-1">
-                    <Calendar className="size-3 text-primary" /> Growth Plate Closure:
+                    <Calendar className="size-3 text-primary" /> {t(`${NS}.ui.plateClosureLabel`)}
                   </span>
                   <span className="font-mono font-bold text-foreground">{results.plateClosure}</span>
                 </div>
 
                 <div className="flex justify-between py-1">
-                  <span className="text-muted-foreground">Recommended Adult Crate:</span>
+                  <span className="text-muted-foreground">{t(`${NS}.ui.crateLabel`)}</span>
                   <span className="font-semibold text-foreground">{results.crateSizeName}</span>
                 </div>
               </div>
@@ -684,9 +707,8 @@ export function DogSizePredictor() {
                   <div className="flex items-start gap-2">
                     <AlertTriangle className="size-4 shrink-0 text-amber-500 mt-0.5" />
                     <div>
-                      <strong>Large Breed Feeding Warning:</strong> Dogs with predicted adult weight &gt; 50 lbs must be fed a 
-                      <strong> certified Large Breed Puppy formula</strong> with controlled calcium (0.8%–1.2%) and moderate energy density.
-                      Excessive calories and over-supplementation accelerate growth too quickly, causing crippling hip and elbow dysplasia.
+                      <strong>{t(`${NS}.ui.warningTitle`)}</strong> {t(`${NS}.ui.warningBody1`)}{" "}
+                      <strong>{t(`${NS}.ui.warningBody2`)}</strong> {t(`${NS}.ui.warningBody3`)}
                     </div>
                   </div>
                 </div>
@@ -696,15 +718,15 @@ export function DogSizePredictor() {
               <div className="space-y-2">
                 <div className="text-xs font-semibold text-foreground flex items-center gap-1.5">
                   <Scale className="size-3.5 text-primary" />
-                  Growth Trajectory Milestones:
+                  {t(`${NS}.ui.milestonesTitle`)}
                 </div>
                 <div className="rounded-xl border overflow-hidden text-xs">
                   <table className="w-full text-left">
                     <thead className="bg-muted/80 text-[11px] font-semibold text-muted-foreground uppercase border-b">
                       <tr>
-                        <th className="px-3 py-1.5">Age</th>
-                        <th className="px-3 py-1.5">Weight</th>
-                        <th className="px-3 py-1.5 text-right">% Adult</th>
+                        <th className="px-3 py-1.5">{t(`${NS}.ui.tableAge`)}</th>
+                        <th className="px-3 py-1.5">{t(`${NS}.ui.tableWeight`)}</th>
+                        <th className="px-3 py-1.5 text-right">{t(`${NS}.ui.tablePctAdult`)}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border/50">
@@ -716,10 +738,13 @@ export function DogSizePredictor() {
                           }`}
                         >
                           <td className="px-3 py-1.5">
-                            {m.weeks} wks <span className="text-[10px] text-muted-foreground">({m.months} mo)</span>
+                            {t(`${NS}.ui.milestoneAge`, { weeks: m.weeks })}{" "}
+                            <span className="text-[10px] text-muted-foreground">{t(`${NS}.ui.milestoneMonths`, { months: m.months })}</span>
                           </td>
                           <td className="px-3 py-1.5 font-mono">
-                            {unit === "kg" ? `${m.kg} kg` : `${m.lbs} lbs`}
+                            {unit === "kg"
+                              ? t(`${NS}.ui.milestoneKg`, { kg: m.kg })
+                              : t(`${NS}.ui.milestoneLbs`, { lbs: m.lbs })}
                           </td>
                           <td className="px-3 py-1.5 text-right font-mono text-muted-foreground">
                             {m.pct}%
@@ -741,7 +766,7 @@ export function DogSizePredictor() {
                   className="w-full text-xs text-muted-foreground hover:text-foreground"
                 >
                   <RotateCcw className="mr-1.5 size-3.5" />
-                  Reset to Standard Puppy Defaults
+                  {t(`${NS}.ui.resetButton`)}
                 </Button>
               </div>
             </CardContent>

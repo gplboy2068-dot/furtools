@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -11,6 +12,7 @@ export interface AiNameGeneratorProps {
   vibes: string[]; // list of vibe/category keys
   seedNames: Record<string, string[]>; // vibe -> static seed pool
   perPage?: number;
+  slug?: string;
 }
 
 interface NameEntry {
@@ -18,7 +20,9 @@ interface NameEntry {
   meaning?: string | null;
 }
 
-export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiNameGeneratorProps) {
+export function AiNameGenerator({ species, vibes, seedNames, perPage = 12, slug }: AiNameGeneratorProps) {
+  const { t } = useTranslation("tools");
+  const p = slug ?? "shared.ai-name-generator";
   const [vibe, setVibe] = useState(vibes[0]);
   const [names, setNames] = useState<NameEntry[]>([]);
   const [loading, setLoading] = useState(false);
@@ -74,7 +78,7 @@ export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiN
       if (data.error) {
         toast.error(data.error);
       } else {
-        toast.success(`Generated ${data.added ?? 0} new names — saved for everyone!`);
+        toast.success(t(`${p}.ui.generatedToast`, { added: data.added ?? 0 }));
       }
       const stored = data.names ?? [];
       const seed = (seedNames[vibe] ?? []).map((n) => ({ name: n, meaning: null }));
@@ -88,7 +92,7 @@ export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiN
       }
       setNames(merged);
     } catch {
-      toast.error("Could not reach the AI service.");
+      toast.error(t(`${p}.ui.aiServiceError`));
     } finally {
       setAiLoading(false);
     }
@@ -108,7 +112,7 @@ export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiN
       controls={
         <div className="flex flex-wrap items-end gap-4">
           <div className="min-w-[180px] flex-1">
-            <Label>Vibe</Label>
+            <Label>{t(`${p}.ui.vibeLabel`)}</Label>
             <Select value={vibe} onValueChange={setVibe}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -121,11 +125,11 @@ export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiN
             </Select>
           </div>
           <Button onClick={shuffle} variant="outline" className="gap-2" disabled={loading}>
-            <Sparkles className="size-4" /> Shuffle
+            <Sparkles className="size-4" /> {t(`${p}.ui.shuffleButton`)}
           </Button>
           <Button onClick={generateWithAi} className="gap-2" disabled={aiLoading}>
             {aiLoading ? <Loader2 className="size-4 animate-spin" /> : <Wand2 className="size-4" />}
-            {aiLoading ? "Generating…" : "Generate more with AI"}
+            {aiLoading ? t(`${p}.ui.generatingButton`) : t(`${p}.ui.generateAiButton`)}
           </Button>
         </div>
       }
@@ -133,7 +137,7 @@ export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiN
         <>
           {loading && names.length === 0 ? (
             <div className="flex items-center justify-center py-10 text-muted-foreground">
-              <Loader2 className="size-5 animate-spin mr-2" /> Loading names…
+              <Loader2 className="size-5 animate-spin mr-2" /> {t(`${p}.ui.loadingNames`)}
             </div>
           ) : (
             <>
@@ -145,7 +149,7 @@ export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiN
                   >
                     <button
                       onClick={() => copy(entry.name)}
-                      aria-label={`Copy ${entry.name}`}
+                      aria-label={t(`${p}.ui.copyNameAria`, { name: entry.name })}
                       className="absolute right-2 top-2 rounded-md p-1 text-muted-foreground opacity-0 transition group-hover:opacity-100 hover:bg-muted"
                     >
                       {copied === entry.name ? <Check className="size-4 text-primary" /> : <Copy className="size-4" />}
@@ -159,8 +163,8 @@ export function AiNameGenerator({ species, vibes, seedNames, perPage = 12 }: AiN
               </ul>
               {names.length > 0 && (
                 <p className="mt-4 text-center text-xs text-muted-foreground">
-                  Showing {visible.length} of {names.length} names for <b>{species}</b> · vibe: <b>{vibe}</b>.
-                  Every AI-generated name is saved so future visitors see it for free.
+                  {t(`${p}.ui.showingBefore`, { visible: visible.length, total: names.length })} <b>{species}</b> · {t(`${p}.ui.showingVibe`)}: <b>{vibe}</b>.{" "}
+                  {t(`${p}.ui.savedNote`)}
                 </p>
               )}
             </>

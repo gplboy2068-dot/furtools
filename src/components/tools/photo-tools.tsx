@@ -1,14 +1,17 @@
+import { useTranslation } from "react-i18next";
 import { PhotoAnalyzer } from "@/components/tools/photo-analyzer";
 import { PetBodyConditionPhotoAnalyzer } from "@/components/tools/pet-body-condition-photo-analyzer";
 
 /* ═════════ 1. Pet Breed Identifier ═════════ */
 export function PetBreedIdentifier() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="pet-breed-identifier"
       system="You are a veterinary geneticist and long-time show judge with deep knowledge of dog, cat and small-pet breed standards."
-      uploadLabel="Upload a clear photo of your pet"
-      hint="Full-body or head-and-shoulders shots work best. Good lighting, plain background."
-      cta="Identify breed"
+      uploadLabel={t("pet-breed-identifier.ui.uploadLabel")}
+      hint={t("pet-breed-identifier.ui.hint")}
+      cta={t("pet-breed-identifier.ui.cta")}
       prompt={`Analyse this pet photo and estimate the most likely breed(s).
 
 Return your answer in this exact structure using Markdown:
@@ -28,12 +31,14 @@ End with the required disclaimer.`}
 
 /* ═════════ 2. Pet Age Estimator from Photo ═════════ */
 export function PetAgeEstimatorPhoto() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="pet-age-estimator-photo"
       system="You are a small-animal veterinarian who has aged thousands of pets from physical exam and photos."
-      uploadLabel="Upload a close-up of your pet's face"
-      hint="Best results with a clear shot showing eyes, muzzle/whiskers and any grey hair."
-      cta="Estimate age"
+      uploadLabel={t("pet-age-estimator-photo.ui.uploadLabel")}
+      hint={t("pet-age-estimator-photo.ui.hint")}
+      cta={t("pet-age-estimator-photo.ui.cta")}
       prompt={`Estimate this pet's approximate life stage and age range from the photo.
 
 Return Markdown structured as:
@@ -53,13 +58,15 @@ End with the required disclaimer.`}
 
 /* ═════════ 3. Pet Emotion / Mood Detector ═════════ */
 export function PetEmotionDetector() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="pet-emotion-detector"
       showDisclaimer={false}
       system="You are a certified animal behaviourist trained in canine, feline and small-mammal body-language."
-      uploadLabel="Upload a photo of your pet"
-      hint="Best results with the whole body visible — ears, eyes, mouth, tail, posture."
-      cta="Read the mood"
+      uploadLabel={t("pet-emotion-detector.ui.uploadLabel")}
+      hint={t("pet-emotion-detector.ui.hint")}
+      cta={t("pet-emotion-detector.ui.cta")}
       prompt={`Read this pet's likely emotional state from body language.
 
 Return Markdown structured as:
@@ -79,12 +86,14 @@ End with a short reminder that body-language reading is educational and context 
 
 /* ═════════ 4. Skin Condition Analyzer (educational) ═════════ */
 export function SkinConditionAnalyzer() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="skin-condition-analyzer"
       system="You are a veterinary dermatology educator. You NEVER diagnose. You describe visible characteristics and list possibilities a vet would rule in or out."
-      uploadLabel="Upload a close-up of the skin area"
-      hint="Clear, in-focus, close-up. Include a coin or fingertip for scale if possible."
-      cta="Analyze skin photo"
+      uploadLabel={t("skin-condition-analyzer.ui.uploadLabel")}
+      hint={t("skin-condition-analyzer.ui.hint")}
+      cta={t("skin-condition-analyzer.ui.cta")}
       prompt={`Describe what is visible on this pet's skin.
 
 Return Markdown structured as:
@@ -107,12 +116,14 @@ export function BodyConditionScorePhoto() {
 
 /* ═════════ 6. Poop Health Analyzer ═════════ */
 export function PoopHealthAnalyzer() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="poop-health-analyzer"
       system="You are a small-animal veterinarian using the Bristol Stool / Purina Fecal Scoring Chart to interpret stool photos educationally."
-      uploadLabel="Upload a photo of your pet's stool"
-      hint="Close, in-focus photo on a neutral surface. We do not store your image."
-      cta="Analyze stool"
+      uploadLabel={t("poop-health-analyzer.ui.uploadLabel")}
+      hint={t("poop-health-analyzer.ui.hint")}
+      cta={t("poop-health-analyzer.ui.cta")}
       prompt={`Interpret this stool photo using the Purina Fecal Score (1 = very hard, 7 = watery).
 
 Return Markdown:
@@ -133,13 +144,15 @@ End with the required disclaimer.`}
 
 /* ═════════ 7. Dog vs Wolf / Coyote Identifier ═════════ */
 export function DogWolfCoyoteIdentifier() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="dog-wolf-coyote-identifier"
       showDisclaimer={false}
       system="You are a wildlife biologist specialising in North American canids — grey wolf, coyote, red fox and domestic dog identification."
-      uploadLabel="Upload the photo of the canid"
-      hint="Whole-body, side profile is ideal. Include a size reference if possible."
-      cta="Identify the canid"
+      uploadLabel={t("dog-wolf-coyote-identifier.ui.uploadLabel")}
+      hint={t("dog-wolf-coyote-identifier.ui.hint")}
+      cta={t("dog-wolf-coyote-identifier.ui.cta")}
       prompt={`Classify this animal as Dog, Wolf, Coyote, Wolf-hybrid, Fox or Unknown.
 
 Return Markdown:
@@ -160,13 +173,15 @@ End with a short safety reminder for encounters with wild canids.`}
 
 /* ═════════ 8. Cat Coat Pattern Identifier ═════════ */
 export function CatCoatPatternIdentifier() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="cat-coat-pattern-identifier"
       showDisclaimer={false}
       system="You are a cat-breed judge and feline genetics educator who identifies coat colour, pattern and length from photographs."
-      uploadLabel="Upload a photo of your cat"
-      hint="Natural daylight and a full-body shot give the most accurate reading."
-      cta="Identify coat pattern"
+      uploadLabel={t("cat-coat-pattern-identifier.ui.uploadLabel")}
+      hint={t("cat-coat-pattern-identifier.ui.hint")}
+      cta={t("cat-coat-pattern-identifier.ui.cta")}
       prompt={`Identify this cat's coat colour, pattern and length.
 
 Return Markdown:
@@ -186,13 +201,15 @@ Keep the tone warm and educational.`}
 
 /* ═════════ 9. Bird Species ID from Photo ═════════ */
 export function BirdSpeciesIdentifier() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="bird-species-identifier"
       showDisclaimer={false}
       system="You are an ornithologist and pet-bird specialist familiar with wild songbirds, raptors and popular companion birds worldwide."
-      uploadLabel="Upload a photo of the bird"
-      hint="Side profile or perched shot works best. Include beak, wing and tail if you can."
-      cta="Identify bird"
+      uploadLabel={t("bird-species-identifier.ui.uploadLabel")}
+      hint={t("bird-species-identifier.ui.hint")}
+      cta={t("bird-species-identifier.ui.cta")}
       prompt={`Identify this bird species.
 
 Return Markdown:
@@ -212,12 +229,14 @@ Keep the tone friendly and educational.`}
 
 /* ═════════ 10. Fish Disease Spot Checker ═════════ */
 export function FishDiseaseSpotChecker() {
+  const { t } = useTranslation("tools");
   return (
     <PhotoAnalyzer
+      slug="fish-disease-spot-checker"
       system="You are an aquaculture veterinarian and fishkeeping educator. You never diagnose — you describe visible signs and list possibilities to research."
-      uploadLabel="Upload a clear photo of the fish"
-      hint="Close, in-focus shot through clean glass. Turn off tank lights' colour effects if possible."
-      cta="Analyze fish photo"
+      uploadLabel={t("fish-disease-spot-checker.ui.uploadLabel")}
+      hint={t("fish-disease-spot-checker.ui.hint")}
+      cta={t("fish-disease-spot-checker.ui.cta")}
       prompt={`Describe visible signs on this fish that might indicate a health problem.
 
 Return Markdown:

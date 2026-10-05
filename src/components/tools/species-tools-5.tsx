@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CalculatorLayout } from "@/components/layouts/tool-layouts";
+import { useTranslation } from "react-i18next";
 import { Sparkles, Heart, Cake, Search as SearchIcon, PawPrint, Users } from "lucide-react";
 
 function SectionTitle({ icon: Icon, children }: { icon: React.ElementType; children: React.ReactNode }) {
@@ -90,6 +91,7 @@ const TYPE_MAP: Record<Trait, { title: string; blurb: string }> = {
   calm: { title: "The Zen Master", blurb: "Easy-going, low-drama, happy with a predictable routine." },
 };
 export function PetPersonalityQuiz() {
+  const { t } = useTranslation("tools");
   const [answers, setAnswers] = useState<(Trait | null)[]>(Array(PERSONALITY_Q.length).fill(null));
   const setAt = (i: number, t: Trait) => { const n = [...answers]; n[i] = t; setAnswers(n); };
   const done = answers.every(Boolean);
@@ -98,19 +100,19 @@ export function PetPersonalityQuiz() {
     const counts: Record<Trait, number> = { energy: 0, social: 0, independent: 0, playful: 0, calm: 0 };
     answers.forEach((a) => { if (a) counts[a]++; });
     const top = (Object.entries(counts) as [Trait, number][]).sort((a, b) => b[1] - a[1])[0][0];
-    return TYPE_MAP[top];
+    return { trait: top, ...TYPE_MAP[top] };
   }, [answers, done]);
 
   return (
     <div className="space-y-6">
       {PERSONALITY_Q.map((q, i) => (
         <div key={i} className="rounded-lg border border-border/60 bg-card p-4">
-          <div className="mb-3 text-sm font-medium">{i + 1}. {q.q}</div>
+          <div className="mb-3 text-sm font-medium">{i + 1}. {t(`pet-personality-quiz.ui.quiz.q${i}`)}</div>
           <div className="grid gap-2 sm:grid-cols-2">
-            {q.options.map((o) => (
+            {q.options.map((o, j) => (
               <Button key={o.label} type="button" variant={answers[i] === o.trait ? "default" : "outline"} size="sm"
                 onClick={() => setAt(i, o.trait)} className="justify-start text-left h-auto py-2 whitespace-normal">
-                {o.label}
+                {t(`pet-personality-quiz.ui.quiz.q${i}o${j}`)}
               </Button>
             ))}
           </div>
@@ -118,12 +120,12 @@ export function PetPersonalityQuiz() {
       ))}
       {result && (
         <div className="rounded-xl bg-cream-deep p-6 text-center">
-          <SectionTitle icon={Sparkles}>Your pet's personality type</SectionTitle>
-          <div className="mt-3 font-display text-3xl font-semibold text-primary">{result.title}</div>
-          <p className="mt-2 text-sm text-muted-foreground">{result.blurb}</p>
+          <SectionTitle icon={Sparkles}>{t("pet-personality-quiz.ui.resultTitle")}</SectionTitle>
+          <div className="mt-3 font-display text-3xl font-semibold text-primary">{t(`pet-personality-quiz.ui.type.${result.trait}.title`)}</div>
+          <p className="mt-2 text-sm text-muted-foreground">{t(`pet-personality-quiz.ui.type.${result.trait}.blurb`)}</p>
         </div>
       )}
-      {!done && <p className="text-center text-xs text-muted-foreground">Answer all {PERSONALITY_Q.length} questions to see the result.</p>}
+      {!done && <p className="text-center text-xs text-muted-foreground">{t("pet-personality-quiz.ui.answerAllHint", { count: PERSONALITY_Q.length })}</p>}
     </div>
   );
 }
@@ -131,7 +133,7 @@ export function PetPersonalityQuiz() {
 /* ═══════════════════════════════════════════════════════════
    2. WHICH BREED SUITS ME? QUIZ
 ═══════════════════════════════════════════════════════════ */
-type Match = { name: string; why: string };
+type Match = { name: string; species: "dog" | "cat"; score: number; energy: number; grooming: number };
 const BREED_DB: { name: string; species: "dog" | "cat"; energy: number; size: number; grooming: number; kids: boolean; apartment: boolean; firstTime: boolean }[] = [
   { name: "Cavalier King Charles Spaniel", species: "dog", energy: 2, size: 1, grooming: 3, kids: true, apartment: true, firstTime: true },
   { name: "Labrador Retriever", species: "dog", energy: 4, size: 3, grooming: 2, kids: true, apartment: false, firstTime: true },
@@ -148,6 +150,7 @@ const BREED_DB: { name: string; species: "dog" | "cat"; energy: number; size: nu
   { name: "Persian", species: "cat", energy: 1, size: 2, grooming: 5, kids: true, apartment: true, firstTime: false },
 ];
 export function WhichBreedSuitsMe() {
+  const { t } = useTranslation("tools");
   const [species, setSpecies] = useState<"dog" | "cat" | "any">("any");
   const [energy, setEnergy] = useState(3);
   const [size, setSize] = useState(2);
@@ -172,42 +175,41 @@ export function WhichBreedSuitsMe() {
       .sort((a, b) => b.score - a.score)
       .slice(0, 5)
       .map(({ b, score }) => ({
-        name: `${b.name} (${b.species})`,
-        why: `Match score ${Math.max(0, score)}/15 · energy ${b.energy}/5 · grooming ${b.grooming}/5`,
+        name: b.name, species: b.species, score, energy: b.energy, grooming: b.grooming,
       }));
   }, [species, energy, size, grooming, kids, apartment, firstTime]);
 
   const form = (
     <div className="space-y-3">
-      <div><Label>Species</Label>
+      <div><Label>{t("which-breed-suits-me.ui.speciesLabel")}</Label>
         <Select value={species} onValueChange={(v) => setSpecies(v as "dog" | "cat" | "any")}>
           <SelectTrigger><SelectValue /></SelectTrigger>
-          <SelectContent><SelectItem value="any">Any</SelectItem><SelectItem value="dog">Dog</SelectItem><SelectItem value="cat">Cat</SelectItem></SelectContent>
+          <SelectContent><SelectItem value="any">{t("which-breed-suits-me.ui.speciesAny")}</SelectItem><SelectItem value="dog">{t("which-breed-suits-me.ui.speciesDog")}</SelectItem><SelectItem value="cat">{t("which-breed-suits-me.ui.speciesCat")}</SelectItem></SelectContent>
         </Select>
       </div>
-      <div><Label>Your activity level (1–5)</Label><Input type="number" min={1} max={5} value={energy} onChange={(e) => setEnergy(+e.target.value)} /></div>
-      <div><Label>Preferred size (1 small – 3 large)</Label><Input type="number" min={1} max={3} value={size} onChange={(e) => setSize(+e.target.value)} /></div>
-      <div><Label>Grooming you'll do (1 low – 5 lots)</Label><Input type="number" min={1} max={5} value={grooming} onChange={(e) => setGrooming(+e.target.value)} /></div>
+      <div><Label>{t("which-breed-suits-me.ui.activityLabel")}</Label><Input type="number" min={1} max={5} value={energy} onChange={(e) => setEnergy(+e.target.value)} /></div>
+      <div><Label>{t("which-breed-suits-me.ui.sizeLabel")}</Label><Input type="number" min={1} max={3} value={size} onChange={(e) => setSize(+e.target.value)} /></div>
+      <div><Label>{t("which-breed-suits-me.ui.groomingLabel")}</Label><Input type="number" min={1} max={5} value={grooming} onChange={(e) => setGrooming(+e.target.value)} /></div>
       <div className="flex flex-wrap gap-4 pt-1 text-sm">
-        <label className="flex items-center gap-2"><input type="checkbox" checked={kids} onChange={(e) => setKids(e.target.checked)} />Kids at home</label>
-        <label className="flex items-center gap-2"><input type="checkbox" checked={apartment} onChange={(e) => setApartment(e.target.checked)} />Apartment</label>
-        <label className="flex items-center gap-2"><input type="checkbox" checked={firstTime} onChange={(e) => setFirstTime(e.target.checked)} />First-time owner</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={kids} onChange={(e) => setKids(e.target.checked)} />{t("which-breed-suits-me.ui.kidsLabel")}</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={apartment} onChange={(e) => setApartment(e.target.checked)} />{t("which-breed-suits-me.ui.apartmentLabel")}</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={firstTime} onChange={(e) => setFirstTime(e.target.checked)} />{t("which-breed-suits-me.ui.firstTimeLabel")}</label>
       </div>
     </div>
   );
 
   const result = (
     <div className="space-y-3">
-      <SectionTitle icon={PawPrint}>Top matches</SectionTitle>
+      <SectionTitle icon={PawPrint}>{t("which-breed-suits-me.ui.matchesTitle")}</SectionTitle>
       <ul className="space-y-2">
         {matches.map((m) => (
           <li key={m.name} className="rounded-md border border-border/60 bg-background p-3">
-            <div className="font-medium">{m.name}</div>
-            <div className="text-xs text-muted-foreground">{m.why}</div>
+            <div className="font-medium">{m.name} ({t(`which-breed-suits-me.ui.species.${m.species}`)})</div>
+            <div className="text-xs text-muted-foreground">{t("which-breed-suits-me.ui.matchWhy", { score: Math.max(0, m.score), energy: m.energy, grooming: m.grooming })}</div>
           </li>
         ))}
       </ul>
-      <p className="text-xs text-muted-foreground">These are starting suggestions — always meet individual animals before adopting; personality varies within any breed.</p>
+      <p className="text-xs text-muted-foreground">{t("which-breed-suits-me.ui.suggestionsNote")}</p>
     </div>
   );
 
@@ -218,6 +220,7 @@ export function WhichBreedSuitsMe() {
    3. PET COMPATIBILITY TEST
 ═══════════════════════════════════════════════════════════ */
 export function PetCompatibilityTest() {
+  const { t } = useTranslation("tools");
   const [aSpecies, setASpecies] = useState("dog");
   const [bSpecies, setBSpecies] = useState("cat");
   const [aAge, setAAge] = useState("adult");
@@ -243,15 +246,15 @@ export function PetCompatibilityTest() {
     if (sameSex && (!aNeutered || !bNeutered)) score -= 15;
     if (aNeutered && bNeutered) score += 5;
     score = Math.max(5, Math.min(100, score));
-    const band = score >= 80 ? "Excellent match" : score >= 60 ? "Likely to work with slow intros" : score >= 40 ? "Challenging — go slow, supervise" : "High risk — reconsider or consult a behaviorist";
-    return { score, band };
+    const bandKey = score >= 80 ? "excellent" : score >= 60 ? "likely" : score >= 40 ? "challenging" : "highRisk";
+    return { score, bandKey };
   }, [aSpecies, bSpecies, aAge, bAge, aTemper, bTemper, sameSex, aNeutered, bNeutered]);
 
-  const Row = ({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[] }) => (
+  const Row = ({ label, value, onChange, options, prefix }: { label: string; value: string; onChange: (v: string) => void; options: string[]; prefix: string }) => (
     <div><Label>{label}</Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger><SelectValue /></SelectTrigger>
-        <SelectContent>{options.map((o) => <SelectItem key={o} value={o}>{o}</SelectItem>)}</SelectContent>
+        <SelectContent>{options.map((o) => <SelectItem key={o} value={o}>{t(`${prefix}.${o}`)}</SelectItem>)}</SelectContent>
       </Select>
     </div>
   );
@@ -259,27 +262,27 @@ export function PetCompatibilityTest() {
   const form = (
     <div className="space-y-3">
       <div className="grid grid-cols-2 gap-2">
-        <Row label="Pet A species" value={aSpecies} onChange={setASpecies} options={["dog","cat","rabbit","bird","hamster"]} />
-        <Row label="Pet B species" value={bSpecies} onChange={setBSpecies} options={["dog","cat","rabbit","bird","hamster"]} />
-        <Row label="Pet A age" value={aAge} onChange={setAAge} options={["puppy","adult","senior"]} />
-        <Row label="Pet B age" value={bAge} onChange={setBAge} options={["puppy","adult","senior"]} />
-        <Row label="Pet A temperament" value={aTemper} onChange={setATemper} options={["friendly","shy","energetic","aggressive"]} />
-        <Row label="Pet B temperament" value={bTemper} onChange={setBTemper} options={["friendly","shy","energetic","aggressive"]} />
+        <Row label={t("pet-compatibility-test.ui.petASpeciesLabel")} value={aSpecies} onChange={setASpecies} options={["dog","cat","rabbit","bird","hamster"]} prefix="pet-compatibility-test.ui.species" />
+        <Row label={t("pet-compatibility-test.ui.petBSpeciesLabel")} value={bSpecies} onChange={setBSpecies} options={["dog","cat","rabbit","bird","hamster"]} prefix="pet-compatibility-test.ui.species" />
+        <Row label={t("pet-compatibility-test.ui.petAAgeLabel")} value={aAge} onChange={setAAge} options={["puppy","adult","senior"]} prefix="pet-compatibility-test.ui.age" />
+        <Row label={t("pet-compatibility-test.ui.petBAgeLabel")} value={bAge} onChange={setBAge} options={["puppy","adult","senior"]} prefix="pet-compatibility-test.ui.age" />
+        <Row label={t("pet-compatibility-test.ui.petATemperLabel")} value={aTemper} onChange={setATemper} options={["friendly","shy","energetic","aggressive"]} prefix="pet-compatibility-test.ui.temper" />
+        <Row label={t("pet-compatibility-test.ui.petBTemperLabel")} value={bTemper} onChange={setBTemper} options={["friendly","shy","energetic","aggressive"]} prefix="pet-compatibility-test.ui.temper" />
       </div>
       <div className="flex flex-wrap gap-4 text-sm">
-        <label className="flex items-center gap-2"><input type="checkbox" checked={sameSex} onChange={(e) => setSameSex(e.target.checked)} />Same sex</label>
-        <label className="flex items-center gap-2"><input type="checkbox" checked={aNeutered} onChange={(e) => setANeutered(e.target.checked)} />A is spayed/neutered</label>
-        <label className="flex items-center gap-2"><input type="checkbox" checked={bNeutered} onChange={(e) => setBNeutered(e.target.checked)} />B is spayed/neutered</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={sameSex} onChange={(e) => setSameSex(e.target.checked)} />{t("pet-compatibility-test.ui.sameSexLabel")}</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={aNeutered} onChange={(e) => setANeutered(e.target.checked)} />{t("pet-compatibility-test.ui.aNeuteredLabel")}</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={bNeutered} onChange={(e) => setBNeutered(e.target.checked)} />{t("pet-compatibility-test.ui.bNeuteredLabel")}</label>
       </div>
     </div>
   );
 
   const out = (
     <div className="space-y-2 text-center">
-      <SectionTitle icon={Users}>Compatibility</SectionTitle>
+      <SectionTitle icon={Users}>{t("pet-compatibility-test.ui.compatibilityTitle")}</SectionTitle>
       <div className="font-display text-5xl font-semibold text-primary">{result.score}<span className="text-xl text-muted-foreground">/100</span></div>
-      <Badge variant="secondary" className="text-sm">{result.band}</Badge>
-      <p className="mt-3 text-xs text-muted-foreground">Introductions matter more than any score. Use scent swapping, gated meets, and short supervised sessions over 1–2 weeks.</p>
+      <Badge variant="secondary" className="text-sm">{t(`pet-compatibility-test.ui.band.${result.bandKey}`)}</Badge>
+      <p className="mt-3 text-xs text-muted-foreground">{t("pet-compatibility-test.ui.introNote")}</p>
     </div>
   );
   return <CalculatorLayout form={form} result={out} />;
@@ -289,6 +292,7 @@ export function PetCompatibilityTest() {
    4. HUMAN AGE → PET AGE REVERSE
 ═══════════════════════════════════════════════════════════ */
 export function HumanToPetAge() {
+  const { t } = useTranslation("tools");
   const [humanAge, setHumanAge] = useState(30);
   const [species, setSpecies] = useState<"dog-small" | "dog-med" | "dog-large" | "cat">("dog-med");
 
@@ -308,15 +312,15 @@ export function HumanToPetAge() {
 
   const form = (
     <div className="space-y-3">
-      <div><Label>Your (human) age</Label><Input type="number" min={1} max={110} value={humanAge} onChange={(e) => setHumanAge(+e.target.value)} /></div>
-      <div><Label>If I were a…</Label>
+      <div><Label>{t("human-to-pet-age.ui.humanAgeLabel")}</Label><Input type="number" min={1} max={110} value={humanAge} onChange={(e) => setHumanAge(+e.target.value)} /></div>
+      <div><Label>{t("human-to-pet-age.ui.ifIWereLabel")}</Label>
         <Select value={species} onValueChange={(v) => setSpecies(v as typeof species)}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="dog-small">Small dog (&lt;20 lb)</SelectItem>
-            <SelectItem value="dog-med">Medium dog (20–50 lb)</SelectItem>
-            <SelectItem value="dog-large">Large dog (&gt;50 lb)</SelectItem>
-            <SelectItem value="cat">Cat</SelectItem>
+            <SelectItem value="dog-small">{t("human-to-pet-age.ui.speciesSmallDog")}</SelectItem>
+            <SelectItem value="dog-med">{t("human-to-pet-age.ui.speciesMediumDog")}</SelectItem>
+            <SelectItem value="dog-large">{t("human-to-pet-age.ui.speciesLargeDog")}</SelectItem>
+            <SelectItem value="cat">{t("human-to-pet-age.ui.speciesCat")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -324,9 +328,9 @@ export function HumanToPetAge() {
   );
   const out = (
     <div className="space-y-2 text-center">
-      <SectionTitle icon={Heart}>You'd be</SectionTitle>
-      <div className="font-display text-5xl font-semibold text-primary">{result} <span className="text-xl text-muted-foreground">years old</span></div>
-      <p className="text-xs text-muted-foreground">Reverse of standard pet-age tables. Real aging depends on breed and individual health.</p>
+      <SectionTitle icon={Heart}>{t("human-to-pet-age.ui.youdBeTitle")}</SectionTitle>
+      <div className="font-display text-5xl font-semibold text-primary">{result} <span className="text-xl text-muted-foreground">{t("human-to-pet-age.ui.yearsOld")}</span></div>
+      <p className="text-xs text-muted-foreground">{t("human-to-pet-age.ui.reverseNote")}</p>
     </div>
   );
   return <CalculatorLayout form={form} result={out} />;
@@ -360,6 +364,7 @@ function findSign(m: number, d: number) {
   return ZODIAC[0];
 }
 export function PetZodiacCard() {
+  const { t } = useTranslation("tools");
   const [name, setName] = useState("Buddy");
   const [birthday, setBirthday] = useState("2023-05-15");
   const parsed = useMemo(() => {
@@ -370,19 +375,19 @@ export function PetZodiacCard() {
 
   const form = (
     <div className="space-y-3">
-      <div><Label>Pet name</Label><Input value={name} onChange={(e) => setName(e.target.value)} /></div>
-      <div><Label>Birthday</Label><Input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} /></div>
+      <div><Label>{t("pet-zodiac-birthday-card.ui.petNameLabel")}</Label><Input value={name} onChange={(e) => setName(e.target.value)} /></div>
+      <div><Label>{t("pet-zodiac-birthday-card.ui.birthdayLabel")}</Label><Input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} /></div>
     </div>
   );
   const out = parsed ? (
     <div className="rounded-xl border border-primary/40 bg-cream-deep p-6 text-center">
-      <SectionTitle icon={Cake}>Happy Birthday, {name}! 🎉</SectionTitle>
-      <div className="mt-3 font-display text-3xl font-semibold text-primary">{parsed.sign.name}</div>
-      <p className="mt-2 text-sm">{parsed.sign.traits}</p>
-      <p className="mt-4 text-xs text-muted-foreground">Born {parsed.m}/{parsed.d}/{parsed.y}</p>
-      <Button className="mt-4" onClick={() => window.print()}>Print card</Button>
+      <SectionTitle icon={Cake}>{t("pet-zodiac-birthday-card.ui.birthdayTitle", { name })}</SectionTitle>
+      <div className="mt-3 font-display text-3xl font-semibold text-primary">{t(`pet-zodiac-birthday-card.ui.zodiac.${parsed.sign.name.toLowerCase()}.name`)}</div>
+      <p className="mt-2 text-sm">{t(`pet-zodiac-birthday-card.ui.zodiac.${parsed.sign.name.toLowerCase()}.traits`)}</p>
+      <p className="mt-4 text-xs text-muted-foreground">{t("pet-zodiac-birthday-card.ui.bornLine", { m: parsed.m, d: parsed.d, y: parsed.y })}</p>
+      <Button className="mt-4" onClick={() => window.print()}>{t("pet-zodiac-birthday-card.ui.printCard")}</Button>
     </div>
-  ) : <p className="text-sm text-muted-foreground">Enter a valid birthday.</p>;
+  ) : <p className="text-sm text-muted-foreground">{t("pet-zodiac-birthday-card.ui.validBirthday")}</p>;
   return <CalculatorLayout form={form} result={out} />;
 }
 
@@ -418,6 +423,7 @@ const NAME_MEANINGS: Record<string, { origin: string; meaning: string; vibe: str
 };
 
 export function PetNameMeaning() {
+  const { t } = useTranslation("tools");
   const [q, setQ] = useState("Luna");
   const key = q.trim().toLowerCase();
   const hit = NAME_MEANINGS[key];
@@ -428,33 +434,33 @@ export function PetNameMeaning() {
 
   const form = (
     <div className="space-y-3">
-      <div><Label>Look up a pet name</Label>
-        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g. Luna, Max, Simba" />
+      <div><Label>{t("pet-name-meaning-lookup.ui.lookupLabel")}</Label>
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("pet-name-meaning-lookup.ui.lookupPlaceholder")} />
       </div>
-      <p className="text-xs text-muted-foreground">{Object.keys(NAME_MEANINGS).length}+ names in the database.</p>
+      <p className="text-xs text-muted-foreground">{t("pet-name-meaning-lookup.ui.databaseCount", { count: Object.keys(NAME_MEANINGS).length })}</p>
     </div>
   );
   const out = hit ? (
     <div className="space-y-2">
       <SectionTitle icon={SearchIcon}>{q.trim()}</SectionTitle>
       <div className="rounded-md bg-background p-4">
-        <div className="text-xs uppercase tracking-wide text-muted-foreground">Origin</div>
-        <div className="font-medium">{hit.origin}</div>
-        <div className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">Meaning</div>
-        <div className="font-medium">{hit.meaning}</div>
-        <div className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">Vibe</div>
-        <div className="text-sm">{hit.vibe}</div>
+        <div className="text-xs uppercase tracking-wide text-muted-foreground">{t("pet-name-meaning-lookup.ui.originLabel")}</div>
+        <div className="font-medium">{t(`pet-name-meaning-lookup.ui.names.${key}.origin`)}</div>
+        <div className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">{t("pet-name-meaning-lookup.ui.meaningLabel")}</div>
+        <div className="font-medium">{t(`pet-name-meaning-lookup.ui.names.${key}.meaning`)}</div>
+        <div className="mt-3 text-xs uppercase tracking-wide text-muted-foreground">{t("pet-name-meaning-lookup.ui.vibeLabel")}</div>
+        <div className="text-sm">{t(`pet-name-meaning-lookup.ui.names.${key}.vibe`)}</div>
       </div>
     </div>
   ) : (
     <div className="space-y-2 text-sm">
-      <p className="text-muted-foreground">No exact match for "{q}".</p>
+      <p className="text-muted-foreground">{t("pet-name-meaning-lookup.ui.noMatch", { q })}</p>
       {suggestions.length > 0 && (
         <div>
-          <div className="text-xs font-semibold">Did you mean:</div>
+          <div className="text-xs font-semibold">{t("pet-name-meaning-lookup.ui.didYouMean")}</div>
           <div className="mt-1 flex flex-wrap gap-2">
-            {suggestions.map((s) => (
-              <Button key={s} size="sm" variant="outline" onClick={() => setQ(s[0].toUpperCase() + s.slice(1))}>{s}</Button>
+            {suggestions.map((sg) => (
+              <Button key={sg} size="sm" variant="outline" onClick={() => setQ(sg[0].toUpperCase() + sg.slice(1))}>{t(`pet-name-meaning-lookup.ui.names.${sg}.name`)}</Button>
             ))}
           </div>
         </div>

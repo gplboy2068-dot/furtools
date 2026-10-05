@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,10 @@ import {
   Wind,
 } from "lucide-react";
 
+type T = (key: string, options?: Record<string, unknown>) => string;
+
+const NS = "dog-bath-frequency-calculator";
+
 interface CoatProfile {
   id: string;
   name: string;
@@ -26,48 +31,50 @@ interface CoatProfile {
   dryingProtocol: string;
 }
 
-const COAT_PROFILES: CoatProfile[] = [
-  {
-    id: "short-smooth",
-    name: "Short & Smooth Coat",
-    baselineDays: 42, // Every 6 weeks
-    description: "Low-maintenance single layer. Natural sebum protects skin; frequent washing causes flaking.",
-    examples: "Boxer, Beagle, Dalmatian, Doberman, French Bulldog, Weimaraner",
-    dryingProtocol: "Towel dry followed by ambient air drying or low-speed room temperature blow.",
-  },
-  {
-    id: "double-coat",
-    name: "Heavy Double Coat",
-    baselineDays: 60, // Every 8 to 10 weeks
-    description: "Dense insulating undercoat + water-repellent guard hairs. Frequent shampooing strips thermal insulation.",
-    examples: "Golden Retriever, German Shepherd, Husky, Pomeranian, Bernese Mountain Dog",
-    dryingProtocol: "High-velocity cool dryer essential to separate undercoat down to the skin and prevent acute moist dermatitis (hot spots).",
-  },
-  {
-    id: "curly-wire",
-    name: "Curly / Non-Shedding / Furnished",
-    baselineDays: 28, // Every 4 weeks
-    description: "Continuous hair growth that traps debris, dander, and environmental allergens readily.",
-    examples: "Poodle, Goldendoodle, Labradoodle, Bichon Frise, Schnauzer, Airedale",
-    dryingProtocol: "High-velocity blow dry with slicker brush fluffing to detangle damp curls before mats tighten.",
-  },
-  {
-    id: "long-silky",
-    name: "Long & Silky Coat",
-    baselineDays: 28, // Every 4 weeks
-    description: "Fine hair prone to tangling, static, and picking up burrs and road grit.",
-    examples: "Yorkshire Terrier, Shih Tzu, Maltese, Afghan Hound, Cocker Spaniel",
-    dryingProtocol: "Gentle towel press (no circular rubbing to avoid tangles); blow dry on low heat with pin brush.",
-  },
-  {
-    id: "hairless",
-    name: "Hairless / Minimal Coat",
-    baselineDays: 10, // Every 1 to 2 weeks
-    description: "No fur barrier to absorb natural skin sebum and environmental soot; prone to clogged blackhead pores.",
-    examples: "Chinese Crested, Xoloitzcuintli, American Hairless Terrier",
-    dryingProtocol: "Soft pat dry followed immediately by dog-safe non-comedogenic ceramide skin moisturizer.",
-  },
-];
+function getCoatProfiles(t: T): CoatProfile[] {
+  return [
+    {
+      id: "short-smooth",
+      name: t(`${NS}.ui.coatShortSmoothName`),
+      baselineDays: 42, // Every 6 weeks
+      description: t(`${NS}.ui.coatShortSmoothDesc`),
+      examples: t(`${NS}.ui.coatShortSmoothExamples`),
+      dryingProtocol: t(`${NS}.ui.coatShortSmoothDrying`),
+    },
+    {
+      id: "double-coat",
+      name: t(`${NS}.ui.coatDoubleName`),
+      baselineDays: 60, // Every 8 to 10 weeks
+      description: t(`${NS}.ui.coatDoubleDesc`),
+      examples: t(`${NS}.ui.coatDoubleExamples`),
+      dryingProtocol: t(`${NS}.ui.coatDoubleDrying`),
+    },
+    {
+      id: "curly-wire",
+      name: t(`${NS}.ui.coatCurlyName`),
+      baselineDays: 28, // Every 4 weeks
+      description: t(`${NS}.ui.coatCurlyDesc`),
+      examples: t(`${NS}.ui.coatCurlyExamples`),
+      dryingProtocol: t(`${NS}.ui.coatCurlyDrying`),
+    },
+    {
+      id: "long-silky",
+      name: t(`${NS}.ui.coatLongSilkyName`),
+      baselineDays: 28, // Every 4 weeks
+      description: t(`${NS}.ui.coatLongSilkyDesc`),
+      examples: t(`${NS}.ui.coatLongSilkyExamples`),
+      dryingProtocol: t(`${NS}.ui.coatLongSilkyDrying`),
+    },
+    {
+      id: "hairless",
+      name: t(`${NS}.ui.coatHairlessName`),
+      baselineDays: 10, // Every 1 to 2 weeks
+      description: t(`${NS}.ui.coatHairlessDesc`),
+      examples: t(`${NS}.ui.coatHairlessExamples`),
+      dryingProtocol: t(`${NS}.ui.coatHairlessDrying`),
+    },
+  ];
+}
 
 interface LifestyleProfile {
   id: string;
@@ -76,93 +83,103 @@ interface LifestyleProfile {
   description: string;
 }
 
-const LIFESTYLES: LifestyleProfile[] = [
-  {
-    id: "indoor",
-    name: "Strictly Indoor / Apartment",
-    dayModifier: 1.25, // 25% longer between baths
-    description: "Paved leash walks only. Minimal mud, grass pollen, or wet soil exposure.",
-  },
-  {
-    id: "moderate",
-    name: "Suburban Yard / Park Walks",
-    dayModifier: 1.0,
-    description: "Daily backyard play, casual dog park visits, standard weather exposure.",
-  },
-  {
-    id: "outdoor-active",
-    name: "Trail Hiker / Swimmer / Beach",
-    dayModifier: 0.65, // Needs more frequent baths/rinses
-    description: "Swimming in lakes/oceans, digging in topsoil, hiking dense forested terrain.",
-  },
-  {
-    id: "farm-working",
-    name: "Working Ranch / High Mud",
-    dayModifier: 0.5,
-    description: "Constant livestock manure, heavy mud, burrs, and intense daily farm labor.",
-  },
-];
+function getLifestyles(t: T): LifestyleProfile[] {
+  return [
+    {
+      id: "indoor",
+      name: t(`${NS}.ui.lifestyleIndoorName`),
+      dayModifier: 1.25, // 25% longer between baths
+      description: t(`${NS}.ui.lifestyleIndoorDesc`),
+    },
+    {
+      id: "moderate",
+      name: t(`${NS}.ui.lifestyleModerateName`),
+      dayModifier: 1.0,
+      description: t(`${NS}.ui.lifestyleModerateDesc`),
+    },
+    {
+      id: "outdoor-active",
+      name: t(`${NS}.ui.lifestyleOutdoorName`),
+      dayModifier: 0.65, // Needs more frequent baths/rinses
+      description: t(`${NS}.ui.lifestyleOutdoorDesc`),
+    },
+    {
+      id: "farm-working",
+      name: t(`${NS}.ui.lifestyleFarmName`),
+      dayModifier: 0.5,
+      description: t(`${NS}.ui.lifestyleFarmDesc`),
+    },
+  ];
+}
 
 interface SkinProfile {
   id: string;
   name: string;
   dayModifier: number;
+  dayOverride?: number;
   shampooType: string;
   caution: string;
 }
 
-const SKIN_CONDITIONS: SkinProfile[] = [
-  {
-    id: "healthy",
-    name: "Normal / Healthy Skin",
-    dayModifier: 1.0,
-    shampooType: "Soap-free hypoallergenic oatmeal or gentle aloe conditioning canine shampoo (pH 6.5–7.5).",
-    caution: "Avoid human shampoos: human skin is acidic (pH 5.5) whereas canine skin is neutral (pH 7.0–7.4). Human soap degrades the stratum corneum barrier.",
-  },
-  {
-    id: "dry-flaky",
-    name: "Dry / Sensitive / Flaky Skin",
-    dayModifier: 1.15,
-    shampooType: "Lipid-restoring colloidal oatmeal with phytosphingosine and essential fatty acids.",
-    caution: "Space baths further apart. Rinse thoroughly with cool-to-lukewarm water; hot water strips epidermal lipids.",
-  },
-  {
-    id: "atopic-allergies",
-    name: "Environmental Allergies (Atopy)",
-    dayModifier: 0.35, // Frequently bathed (weekly)
-    dayOverride: 7, // Every 7 days
-    shampooType: "Medicated ceramide shampoo or chlorhexidine rinse to physically wash away trapped environmental allergens.",
-    caution: "Bathing acts as mechanical decontamination: washing pollen off paws and belly weekly reduces systemic pruritus (itching).",
-  },
-  {
-    id: "yeast-bacterial",
-    name: "Active Yeast / Pyoderma Infection",
-    dayModifier: 0.25,
-    dayOverride: 4, // Every 3-5 days during flare-up
-    shampooType: "Veterinary prescription 2%–4% Chlorhexidine + Ketoconazole / Miconazole medicated shampoo.",
-    caution: "Must leave shampoo lather on skin for a full 10-minute contact time before rinsing to allow antimicrobial penetration.",
-  },
-];
+function getSkinConditions(t: T): SkinProfile[] {
+  return [
+    {
+      id: "healthy",
+      name: t(`${NS}.ui.skinHealthyName`),
+      dayModifier: 1.0,
+      shampooType: t(`${NS}.ui.skinHealthyShampoo`),
+      caution: t(`${NS}.ui.skinHealthyCaution`),
+    },
+    {
+      id: "dry-flaky",
+      name: t(`${NS}.ui.skinDryFlakyName`),
+      dayModifier: 1.15,
+      shampooType: t(`${NS}.ui.skinDryFlakyShampoo`),
+      caution: t(`${NS}.ui.skinDryFlakyCaution`),
+    },
+    {
+      id: "atopic-allergies",
+      name: t(`${NS}.ui.skinAtopicName`),
+      dayModifier: 0.35, // Frequently bathed (weekly)
+      dayOverride: 7, // Every 7 days
+      shampooType: t(`${NS}.ui.skinAtopicShampoo`),
+      caution: t(`${NS}.ui.skinAtopicCaution`),
+    },
+    {
+      id: "yeast-bacterial",
+      name: t(`${NS}.ui.skinYeastName`),
+      dayModifier: 0.25,
+      dayOverride: 4, // Every 3-5 days during flare-up
+      shampooType: t(`${NS}.ui.skinYeastShampoo`),
+      caution: t(`${NS}.ui.skinYeastCaution`),
+    },
+  ];
+}
 
 export function DogBathFrequencyCalculator() {
+  const { t } = useTranslation("tools");
   const [selectedCoat, setSelectedCoat] = useState<string>("double-coat");
   const [selectedLifestyle, setSelectedLifestyle] = useState<string>("moderate");
   const [selectedSkin, setSelectedSkin] = useState<string>("healthy");
   const [swimmingFrequency, setSwimmingFrequency] = useState<"never" | "occasional" | "frequent">("occasional");
 
+  const COAT_PROFILES = useMemo(() => getCoatProfiles(t), [t]);
+  const LIFESTYLES = useMemo(() => getLifestyles(t), [t]);
+  const SKIN_CONDITIONS = useMemo(() => getSkinConditions(t), [t]);
+
   const coat = useMemo(
     () => COAT_PROFILES.find((c) => c.id === selectedCoat) ?? COAT_PROFILES[1],
-    [selectedCoat],
+    [selectedCoat, COAT_PROFILES],
   );
 
   const lifestyle = useMemo(
     () => LIFESTYLES.find((l) => l.id === selectedLifestyle) ?? LIFESTYLES[1],
-    [selectedLifestyle],
+    [selectedLifestyle, LIFESTYLES],
   );
 
   const skin = useMemo(
     () => SKIN_CONDITIONS.find((s) => s.id === selectedSkin) ?? SKIN_CONDITIONS[0],
-    [selectedSkin],
+    [selectedSkin, SKIN_CONDITIONS],
   );
 
   const results = useMemo(() => {
@@ -181,14 +198,14 @@ export function DogBathFrequencyCalculator() {
     const bathsPerYear = Math.round(365 / days);
 
     let frequencyLabel = "";
-    if (days <= 5) frequencyLabel = "Twice Weekly (Medicated Treatment)";
-    else if (days <= 8) frequencyLabel = "Weekly (Decontamination Schedule)";
-    else if (days <= 16) frequencyLabel = "Every 2 Weeks";
-    else if (days <= 24) frequencyLabel = "Every 3 Weeks";
-    else if (days <= 32) frequencyLabel = "Every 4 Weeks (Monthly)";
-    else if (days <= 45) frequencyLabel = "Every 6 Weeks";
-    else if (days <= 65) frequencyLabel = "Every 8 to 9 Weeks";
-    else frequencyLabel = "Every 10 to 12 Weeks (Quarterly)";
+    if (days <= 5) frequencyLabel = t(`${NS}.ui.freqTwiceWeekly`);
+    else if (days <= 8) frequencyLabel = t(`${NS}.ui.freqWeekly`);
+    else if (days <= 16) frequencyLabel = t(`${NS}.ui.freq2Weeks`);
+    else if (days <= 24) frequencyLabel = t(`${NS}.ui.freq3Weeks`);
+    else if (days <= 32) frequencyLabel = t(`${NS}.ui.freqMonthly`);
+    else if (days <= 45) frequencyLabel = t(`${NS}.ui.freq6Weeks`);
+    else if (days <= 65) frequencyLabel = t(`${NS}.ui.freq8To9Weeks`);
+    else frequencyLabel = t(`${NS}.ui.freqQuarterly`);
 
     // Between-bath maintenance schedule
     const brushDays = coat.id === "double-coat" || coat.id === "long-silky" ? 2 : coat.id === "curly-wire" ? 3 : 7;
@@ -200,7 +217,7 @@ export function DogBathFrequencyCalculator() {
       bathsPerYear,
       brushDays,
     };
-  }, [coat, lifestyle, skin]);
+  }, [coat, lifestyle, skin, t]);
 
   const handleReset = () => {
     setSelectedCoat("double-coat");
@@ -219,13 +236,12 @@ export function DogBathFrequencyCalculator() {
           </div>
           <div>
             <h2 className="font-display text-base font-semibold text-foreground">
-              Veterinary Dermatology & Canine Bathing Interval Algorithm
+              {t(`${NS}.ui.bannerTitle`)}
             </h2>
             <p className="mt-1 leading-relaxed">
-              Unlike human epidermis (which has 10–15 cell layers and an acidic pH of 5.5), canine skin is extraordinarily delicate:
-              only <strong>3 to 5 cell layers thick with a neutral pH of 7.0 to 7.4</strong>.
-              Over-bathing with harsh detergents strips the protective lipid barrier and kills beneficial commensal skin flora, causing rebound seborrhea and chronic pruritus.
-              This calculator balances coat architecture, environmental exposure, and dermatological skin conditions to prescribe the optimal bathing frequency.
+              {t(`${NS}.ui.bannerP1`)} {t(`${NS}.ui.bannerOnly`)}
+              <strong>{t(`${NS}.ui.bannerStrong`)}</strong>.{" "}
+              {t(`${NS}.ui.bannerP2`)}
             </p>
           </div>
         </div>
@@ -237,8 +253,8 @@ export function DogBathFrequencyCalculator() {
           {/* 1. Coat Type Profile */}
           <Card className="border-border/70 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl">1. Coat Structure & Fiber Density</CardTitle>
-              <CardDescription>Different follicle patterns dictate natural oil distribution and debris retention</CardDescription>
+              <CardTitle className="text-xl">{t(`${NS}.ui.section1Title`)}</CardTitle>
+              <CardDescription>{t(`${NS}.ui.section1Desc`)}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {COAT_PROFILES.map((cp) => {
@@ -257,7 +273,7 @@ export function DogBathFrequencyCalculator() {
                     <div className="flex items-center justify-between">
                       <span className="font-semibold text-sm text-foreground">{cp.name}</span>
                       <Badge variant={isSelected ? "default" : "outline"} className="text-[10px] font-mono">
-                        Base: ~{Math.round(cp.baselineDays / 7)} wks
+                        {t(`${NS}.ui.baseWeeks`, { wks: Math.round(cp.baselineDays / 7) })}
                       </Badge>
                     </div>
                     <p className="mt-1 text-xs text-muted-foreground">{cp.description}</p>
@@ -274,8 +290,8 @@ export function DogBathFrequencyCalculator() {
           {/* 2. Lifestyle & Outdoor Exposure */}
           <Card className="border-border/70 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl">2. Lifestyle & Environmental Exposure</CardTitle>
-              <CardDescription>Accounts for dirt, organic manure, and surface mud accumulation</CardDescription>
+              <CardTitle className="text-xl">{t(`${NS}.ui.section2Title`)}</CardTitle>
+              <CardDescription>{t(`${NS}.ui.section2Desc`)}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
@@ -301,12 +317,12 @@ export function DogBathFrequencyCalculator() {
 
               {/* Swimming adjustment */}
               <div className="pt-2">
-                <Label className="text-xs font-medium">Freshwater / Saltwater Swimming Frequency:</Label>
+                <Label className="text-xs font-medium">{t(`${NS}.ui.swimLabel`)}</Label>
                 <div className="mt-1.5 grid grid-cols-3 gap-1.5 rounded-lg border bg-muted p-1 text-xs">
                   {[
-                    { id: "never", label: "Rarely / Never" },
-                    { id: "occasional", label: "Occasional (1-2x/mo)" },
-                    { id: "frequent", label: "Frequent (Weekly)" },
+                    { id: "never", label: t(`${NS}.ui.swimNever`) },
+                    { id: "occasional", label: t(`${NS}.ui.swimOccasional`) },
+                    { id: "frequent", label: t(`${NS}.ui.swimFrequent`) },
                   ].map((sw) => (
                     <button
                       key={sw.id}
@@ -329,8 +345,8 @@ export function DogBathFrequencyCalculator() {
           {/* 3. Dermatological & Skin Barrier Health */}
           <Card className="border-border/70 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl">3. Skin Barrier Health & Allergies</CardTitle>
-              <CardDescription>Clinical skin conditions alter bathing frequency from hygiene to therapy</CardDescription>
+              <CardTitle className="text-xl">{t(`${NS}.ui.section3Title`)}</CardTitle>
+              <CardDescription>{t(`${NS}.ui.section3Desc`)}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {SKIN_CONDITIONS.map((sc) => {
@@ -350,7 +366,7 @@ export function DogBathFrequencyCalculator() {
                       <span className="font-semibold text-xs text-foreground">{sc.name}</span>
                       {sc.id !== "healthy" && (
                         <Badge variant="secondary" className="text-[10px] text-amber-600 dark:text-amber-400">
-                          Therapeutic Protocol
+                          {t(`${NS}.ui.therapeuticBadge`)}
                         </Badge>
                       )}
                     </div>
@@ -367,11 +383,11 @@ export function DogBathFrequencyCalculator() {
           <Card className="sticky top-24 border-primary/30 bg-card shadow-md">
             <CardHeader className="border-b border-border/50 bg-primary/5 pb-4">
               <Badge variant="outline" className="w-fit border-primary/40 bg-background font-mono text-primary text-xs">
-                Canine Dermatological Prescription
+                {t(`${NS}.ui.outputBadge`)}
               </Badge>
-              <CardTitle className="text-2xl font-display mt-2">Bathing Frequency Plan</CardTitle>
+              <CardTitle className="text-2xl font-display mt-2">{t(`${NS}.ui.outputTitle`)}</CardTitle>
               <CardDescription>
-                Calculated for {coat.name} ({lifestyle.name})
+                {t(`${NS}.ui.outputDesc`, { coat: coat.name, lifestyle: lifestyle.name })}
               </CardDescription>
             </CardHeader>
 
@@ -379,46 +395,46 @@ export function DogBathFrequencyCalculator() {
               {/* Primary Metric: Recommended Frequency */}
               <div className="rounded-2xl border border-primary/30 bg-primary/10 p-5 text-center shadow-inner">
                 <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Recommended Bathing Interval
+                  {t(`${NS}.ui.intervalLabel`)}
                 </div>
                 <div className="mt-2 text-3xl font-black tracking-tight text-primary font-mono sm:text-4xl">
                   {results.frequencyLabel}
                 </div>
                 <div className="mt-1 font-mono text-sm font-semibold text-muted-foreground">
-                  ≈ Every {results.recommendedDays} Days ({results.bathsPerYear} baths / year)
+                  {t(`${NS}.ui.everyDays`, { days: results.recommendedDays, perYear: results.bathsPerYear })}
                 </div>
                 <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-background px-3 py-1 text-xs text-foreground shadow-sm">
                   <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  Brush coat every {results.brushDays} days between baths
+                  {t(`${NS}.ui.brushEvery`, { days: results.brushDays })}
                 </div>
               </div>
 
               {/* Bathing Protocol Details */}
               <div className="space-y-3 rounded-xl border bg-muted/20 p-4 text-xs">
                 <div className="font-semibold text-foreground flex items-center justify-between">
-                  <span>Veterinary Bathing Rules</span>
+                  <span>{t(`${NS}.ui.rulesTitle`)}</span>
                   <Badge variant="secondary" className="font-mono text-[10px]">
-                    pH 7.0 Standard
+                    {t(`${NS}.ui.phBadge`)}
                   </Badge>
                 </div>
 
                 <div className="py-1 border-b border-border/50 space-y-1">
                   <span className="text-muted-foreground font-semibold flex items-center gap-1">
-                    <Droplets className="size-3 text-primary" /> Recommended Shampoo Formulation:
+                    <Droplets className="size-3 text-primary" /> {t(`${NS}.ui.shampooLabel`)}
                   </span>
                   <p className="text-foreground leading-relaxed">{skin.shampooType}</p>
                 </div>
 
                 <div className="py-1 border-b border-border/50 space-y-1">
                   <span className="text-muted-foreground font-semibold flex items-center gap-1">
-                    <Wind className="size-3 text-primary" /> Drying & Grooming Protocol:
+                    <Wind className="size-3 text-primary" /> {t(`${NS}.ui.dryingLabel`)}
                   </span>
                   <p className="text-foreground leading-relaxed">{coat.dryingProtocol}</p>
                 </div>
 
                 <div className="flex justify-between py-1">
-                  <span className="text-muted-foreground">Water Temperature:</span>
-                  <span className="font-mono font-bold text-foreground">Lukewarm (98°F / 37°C)</span>
+                  <span className="text-muted-foreground">{t(`${NS}.ui.waterTempLabel`)}</span>
+                  <span className="font-mono font-bold text-foreground">{t(`${NS}.ui.waterTempValue`)}</span>
                 </div>
               </div>
 
@@ -428,8 +444,8 @@ export function DogBathFrequencyCalculator() {
                   <div className="flex items-start gap-2">
                     <Info className="size-4 shrink-0 text-blue-500 mt-0.5" />
                     <div>
-                      <strong>Post-Swim Fresh Water Rinse:</strong> After lake, river, or saltwater swims, 
-                      <strong> rinse thoroughly with plain tap water</strong> without shampoo. This removes corrosive salt crystals and chlorine without depleting natural skin oils.
+                      <strong>{t(`${NS}.ui.swimAdviceTitle`)}</strong> {t(`${NS}.ui.swimAdviceBody1`)}{" "}
+                      <strong>{t(`${NS}.ui.swimAdviceBody2`)}</strong> {t(`${NS}.ui.swimAdviceBody3`)}
                     </div>
                   </div>
                 </div>
@@ -441,7 +457,7 @@ export function DogBathFrequencyCalculator() {
                   <div className="flex items-start gap-2">
                     <AlertTriangle className="size-4 shrink-0 text-amber-500 mt-0.5" />
                     <div>
-                      <strong>Never Shave a Double Coat:</strong> Shaving Golden Retrievers, Huskies, or Shepherds destroys the thermal air insulation layer, permanently damages coat regrowth (post-clipping alopecia), and increases heatstroke risk.
+                      <strong>{t(`${NS}.ui.doubleCoatTitle`)}</strong> {t(`${NS}.ui.doubleCoatBody`)}
                     </div>
                   </div>
                 </div>
@@ -457,7 +473,7 @@ export function DogBathFrequencyCalculator() {
                   className="w-full text-xs text-muted-foreground hover:text-foreground"
                 >
                   <RotateCcw className="mr-1.5 size-3.5" />
-                  Reset to Standard Grooming Defaults
+                  {t(`${NS}.ui.resetButton`)}
                 </Button>
               </div>
             </CardContent>

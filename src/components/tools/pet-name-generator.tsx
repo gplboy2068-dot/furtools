@@ -17,7 +17,7 @@ const NAMES: Record<"dog" | "cat", Record<string, string[]>> = {
   },
 };
 
-export function PetNameGenerator({ pet }: { pet: "dog" | "cat" }) {
+export function PetNameGenerator({ pet, slug }: { pet: "dog" | "cat"; slug?: string }) {
   const banks = NAMES[pet];
-  return <AiNameGenerator species={pet} vibes={Object.keys(banks)} seedNames={banks} />;
+  return <AiNameGenerator species={pet} vibes={Object.keys(banks)} seedNames={banks} slug={slug} />;
 }

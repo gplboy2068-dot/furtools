@@ -3,11 +3,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CalculatorLayout } from "@/components/layouts/tool-layouts";
+import { useTranslation } from "react-i18next";
 
 /* ═══════════════════════════════════════════════════════════
    ADOPTION vs BUYING COST COMPARATOR
 ═══════════════════════════════════════════════════════════ */
 export function AdoptionVsBuyingComparator() {
+  const { t } = useTranslation("tools");
   const [species, setSpecies] = useState<"dog" | "cat">("dog");
   const [breederPrice, setBreederPrice] = useState(2000);
   const [adoptionFee, setAdoptionFee] = useState(species === "dog" ? 300 : 150);
@@ -35,21 +37,21 @@ export function AdoptionVsBuyingComparator() {
   const form = (
     <div className="space-y-4">
       <div>
-        <Label>Species</Label>
+        <Label>{t("adoption-vs-buying-cost-comparator.ui.speciesLabel")}</Label>
         <Select value={species} onValueChange={(v) => setSpecies(v as "dog" | "cat")}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="dog">Dog</SelectItem>
-            <SelectItem value="cat">Cat</SelectItem>
+            <SelectItem value="dog">{t("adoption-vs-buying-cost-comparator.ui.speciesDog")}</SelectItem>
+            <SelectItem value="cat">{t("adoption-vs-buying-cost-comparator.ui.speciesCat")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div>
-        <Label>Breeder / Pet-store price ($)</Label>
+        <Label>{t("adoption-vs-buying-cost-comparator.ui.breederPriceLabel")}</Label>
         <Input type="number" value={breederPrice} onChange={(e) => setBreederPrice(+e.target.value || 0)} />
       </div>
       <div>
-        <Label>Local adoption fee ($)</Label>
+        <Label>{t("adoption-vs-buying-cost-comparator.ui.adoptionFeeLabel")}</Label>
         <Input type="number" value={adoptionFee} onChange={(e) => setAdoptionFee(+e.target.value || 0)} />
       </div>
     </div>
@@ -58,31 +60,31 @@ export function AdoptionVsBuyingComparator() {
   const result = (
     <div className="space-y-4">
       <div className="rounded-lg bg-background/60 p-4">
-        <div className="text-sm text-muted-foreground">Adoption total (first-year setup)</div>
+        <div className="text-sm text-muted-foreground">{t("adoption-vs-buying-cost-comparator.ui.adoptionTotalTitle")}</div>
         <div className="text-2xl font-semibold text-primary">${data.adoptionTotal.toLocaleString()}</div>
         <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
-          <li>Adoption fee: ${data.adoption.fee}</li>
-          <li>Spay/neuter: usually included</li>
-          <li>Vaccines & microchip: usually included</li>
-          <li>First vet visit: ${data.adoption.initialVet}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.adoptionFeeRow", { fee: data.adoption.fee })}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.spayNeuterIncluded")}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.vaccinesIncluded")}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.firstVetVisitRow", { fee: data.adoption.initialVet })}</li>
         </ul>
       </div>
       <div className="rounded-lg bg-background/60 p-4">
-        <div className="text-sm text-muted-foreground">Buying total (first-year setup)</div>
+        <div className="text-sm text-muted-foreground">{t("adoption-vs-buying-cost-comparator.ui.buyingTotalTitle")}</div>
         <div className="text-2xl font-semibold text-primary">${data.buyingTotal.toLocaleString()}</div>
         <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
-          <li>Purchase price: ${data.buying.fee}</li>
-          <li>Spay/neuter: ${data.buying.spayNeuter}</li>
-          <li>Vaccine series: ${data.buying.vaccines}</li>
-          <li>Microchip: ${data.buying.microchip}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.purchasePriceRow", { price: data.buying.fee })}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.spayNeuterRow", { fee: data.buying.spayNeuter })}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.vaccineSeriesRow", { fee: data.buying.vaccines })}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.microchipRow", { fee: data.buying.microchip })}</li>
           <li>First vet visit: ${data.buying.initialVet}</li>
         </ul>
       </div>
       <div className="rounded-lg bg-primary/10 p-4 text-center">
-        <div className="text-sm text-muted-foreground">Adoption saves you</div>
+        <div className="text-sm text-muted-foreground">{t("adoption-vs-buying-cost-comparator.ui.adoptionSavesYou")}</div>
         <div className="text-3xl font-bold text-primary">${Math.max(0, data.savings).toLocaleString()}</div>
         <p className="mt-2 text-xs text-muted-foreground">
-          Plus you give a home to a pet in need. Ongoing costs (food, insurance, vet) are the same either way.
+          {t("adoption-vs-buying-cost-comparator.ui.savingsNote")}
         </p>
       </div>
     </div>
@@ -105,6 +107,7 @@ const LITTER_DATA: Record<string, { avg: number; min: number; max: number; note:
 };
 
 export function LitterSizePredictor() {
+  const { t } = useTranslation("tools");
   const [type, setType] = useState<keyof typeof LITTER_DATA>("medium-dog");
   const [age, setAge] = useState(3);
   const [litterNumber, setLitterNumber] = useState(1);
@@ -122,26 +125,26 @@ export function LitterSizePredictor() {
   const form = (
     <div className="space-y-4">
       <div>
-        <Label>Species / size category</Label>
+        <Label>{t("litter-size-predictor.ui.categoryLabel")}</Label>
         <Select value={type} onValueChange={(v) => setType(v as keyof typeof LITTER_DATA)}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="toy-dog">Toy Dog (&lt; 10 lb)</SelectItem>
-            <SelectItem value="small-dog">Small Dog (10-25 lb)</SelectItem>
-            <SelectItem value="medium-dog">Medium Dog (25-60 lb)</SelectItem>
-            <SelectItem value="large-dog">Large Dog (60-100 lb)</SelectItem>
-            <SelectItem value="giant-dog">Giant Dog (100+ lb)</SelectItem>
-            <SelectItem value="cat">Cat</SelectItem>
-            <SelectItem value="rabbit">Rabbit</SelectItem>
+            <SelectItem value="toy-dog">{t("litter-size-predictor.ui.category.toyDog")}</SelectItem>
+            <SelectItem value="small-dog">{t("litter-size-predictor.ui.category.smallDog")}</SelectItem>
+            <SelectItem value="medium-dog">{t("litter-size-predictor.ui.category.mediumDog")}</SelectItem>
+            <SelectItem value="large-dog">{t("litter-size-predictor.ui.category.largeDog")}</SelectItem>
+            <SelectItem value="giant-dog">{t("litter-size-predictor.ui.category.giantDog")}</SelectItem>
+            <SelectItem value="cat">{t("litter-size-predictor.ui.category.cat")}</SelectItem>
+            <SelectItem value="rabbit">{t("litter-size-predictor.ui.category.rabbit")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div>
-        <Label>Mother's age (years)</Label>
+        <Label>{t("litter-size-predictor.ui.mothersAgeLabel")}</Label>
         <Input type="number" min={1} max={12} value={age} onChange={(e) => setAge(+e.target.value || 1)} />
       </div>
       <div>
-        <Label>Which litter is this? (1st, 2nd…)</Label>
+        <Label>{t("litter-size-predictor.ui.litterNumberLabel")}</Label>
         <Input type="number" min={1} max={10} value={litterNumber} onChange={(e) => setLitterNumber(+e.target.value || 1)} />
       </div>
     </div>
@@ -150,23 +153,20 @@ export function LitterSizePredictor() {
   const result = (
     <div className="space-y-4">
       <div className="rounded-lg bg-primary/10 p-4 text-center">
-        <div className="text-sm text-muted-foreground">Estimated litter size</div>
+        <div className="text-sm text-muted-foreground">{t("litter-size-predictor.ui.estimatedTitle")}</div>
         <div className="text-4xl font-bold text-primary">{prediction.estimated}</div>
         <div className="mt-1 text-xs text-muted-foreground">
-          Typical range: {prediction.min}-{prediction.max}
+          {t("litter-size-predictor.ui.typicalRange", { min: prediction.min, max: prediction.max })}
         </div>
       </div>
       <div className="rounded-lg bg-background/60 p-4 text-sm">
-        <div className="font-medium">{prediction.note}</div>
+        <div className="font-medium">{t(`litter-size-predictor.ui.litterNote.${type}`)}</div>
         <p className="mt-2 text-muted-foreground">
-          First litters usually run below breed average. Prime reproductive age is 2-5 years, after
-          which litter sizes gradually decline. Ultrasound at day 25-30 and X-ray at day 55 give the
-          only accurate count — this estimator is educational only.
+          {t("litter-size-predictor.ui.breedNote")}
         </p>
       </div>
       <div className="rounded-lg border border-amber-500/30 bg-amber-50/60 p-3 text-xs dark:bg-amber-950/20">
-        Responsible breeding requires health testing, veterinary supervision, and a plan for every
-        puppy or kitten. Consult a reproductive veterinarian before breeding.
+        {t("litter-size-predictor.ui.breedingWarning")}
       </div>
     </div>
   );

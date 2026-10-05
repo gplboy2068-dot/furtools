@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -28,53 +29,59 @@ interface BioloadProfile {
   flowSensitivity: "gentle" | "moderate" | "brisk" | "high";
 }
 
-const BIOLOAD_PROFILES: BioloadProfile[] = [
-  {
-    id: "low-flow",
-    name: "Low-Flow / Delicate Species",
-    turnoverMin: 3,
-    turnoverMax: 4,
-    description: "Gentle surface agitation with minimal current. Prevents fin fatigue and swimming stress.",
-    recommendedSpecies: "Betta splendens, Fancy Guppies, Dwarf Shrimp (Neocaridina), Axolotls, Discus, Fry nursery",
-    flowSensitivity: "gentle",
-  },
-  {
-    id: "community",
-    name: "Standard Tropical Community",
-    turnoverMin: 4,
-    turnoverMax: 6,
-    description: "Balanced circulation supporting healthy oxygenation without buffeting peaceful community fish.",
-    recommendedSpecies: "Tetras (Neon, Cardinal), Rasboras, Corydoras, Livebearers (Platies, Mollies), Dwarf Gouramis",
-    flowSensitivity: "moderate",
-  },
-  {
-    id: "planted",
-    name: "High-Tech Planted / Aquascape",
-    turnoverMin: 5,
-    turnoverMax: 8,
-    description: "High continuous water movement to circulate dissolved CO2 and liquid macro/micronutrients past leaf surfaces.",
-    recommendedSpecies: "Heavily planted aquascapes, Rummy-nose Tetras, Otocinclus, Amano Shrimp, Rainbowfish",
-    flowSensitivity: "brisk",
-  },
-  {
-    id: "heavy",
-    name: "Heavy Bioload / Messy Waste",
-    turnoverMin: 8,
-    turnoverMax: 10,
-    description: "High-velocity mechanical turnover and oversized biological contact to handle massive organic waste.",
-    recommendedSpecies: "Fancy & Common Goldfish, African Cichlids (Mbuna), Oscars, Large Plecos, Aquatic Turtles",
-    flowSensitivity: "high",
-  },
-  {
-    id: "marine",
-    name: "Marine / Reef Aquarium",
-    turnoverMin: 10,
-    turnoverMax: 20,
-    description: "Vigorous non-laminar current simulating ocean surges to feed coral polyps and prevent detritus settling.",
-    recommendedSpecies: "Clownfish, Tangs, Soft Corals, LPS, SPS Corals, Marine Invertebrates",
-    flowSensitivity: "high",
-  },
-];
+const NS = "aquarium-filter-flow-rate";
+
+type T = (key: string, options?: Record<string, unknown>) => string;
+
+function getBioloadProfiles(t: T): BioloadProfile[] {
+  return [
+    {
+      id: "low-flow",
+      name: t(`${NS}.ui.bioloadLowFlowName`),
+      turnoverMin: 3,
+      turnoverMax: 4,
+      description: t(`${NS}.ui.bioloadLowFlowDesc`),
+      recommendedSpecies: t(`${NS}.ui.bioloadLowFlowSpecies`),
+      flowSensitivity: "gentle",
+    },
+    {
+      id: "community",
+      name: t(`${NS}.ui.bioloadCommunityName`),
+      turnoverMin: 4,
+      turnoverMax: 6,
+      description: t(`${NS}.ui.bioloadCommunityDesc`),
+      recommendedSpecies: t(`${NS}.ui.bioloadCommunitySpecies`),
+      flowSensitivity: "moderate",
+    },
+    {
+      id: "planted",
+      name: t(`${NS}.ui.bioloadPlantedName`),
+      turnoverMin: 5,
+      turnoverMax: 8,
+      description: t(`${NS}.ui.bioloadPlantedDesc`),
+      recommendedSpecies: t(`${NS}.ui.bioloadPlantedSpecies`),
+      flowSensitivity: "brisk",
+    },
+    {
+      id: "heavy",
+      name: t(`${NS}.ui.bioloadHeavyName`),
+      turnoverMin: 8,
+      turnoverMax: 10,
+      description: t(`${NS}.ui.bioloadHeavyDesc`),
+      recommendedSpecies: t(`${NS}.ui.bioloadHeavySpecies`),
+      flowSensitivity: "high",
+    },
+    {
+      id: "marine",
+      name: t(`${NS}.ui.bioloadMarineName`),
+      turnoverMin: 10,
+      turnoverMax: 20,
+      description: t(`${NS}.ui.bioloadMarineDesc`),
+      recommendedSpecies: t(`${NS}.ui.bioloadMarineSpecies`),
+      flowSensitivity: "high",
+    },
+  ];
+}
 
 interface FilterTypeProfile {
   id: string;
@@ -84,61 +91,78 @@ interface FilterTypeProfile {
   description: string;
 }
 
-const FILTER_TYPES: FilterTypeProfile[] = [
-  {
-    id: "canister",
-    name: "External Canister Filter",
-    baselineMediaLoss: 0.35,
-    headLossFactor: 0.08,
-    description: "High media capacity; placed under cabinet. Experience 35–50% flow reduction from media + vertical tubing lift.",
-  },
-  {
-    id: "hob",
-    name: "Hang-on-Back (HOB) Filter",
-    baselineMediaLoss: 0.25,
-    headLossFactor: 0.02,
-    description: "Direct hang on tank rim. Minimal vertical lift, but media cartridges and sponges introduce 20–30% drag.",
-  },
-  {
-    id: "internal",
-    name: "Internal Power Filter",
-    baselineMediaLoss: 0.20,
-    headLossFactor: 0.01,
-    description: "Submerged inside the tank. Zero head height loss; 15–25% flow drop as filter sponges load with debris.",
-  },
-  {
-    id: "sponge",
-    name: "Air-Driven Sponge Filter",
-    baselineMediaLoss: 0.15,
-    headLossFactor: 0.04,
-    description: "Pneumatic airlift driven by air pump. Safe for fry and shrimp; best rated by air output and gentle water displacement.",
-  },
-  {
-    id: "sump",
-    name: "Sump / Wet-Dry Overflow System",
-    baselineMediaLoss: 0.20,
-    headLossFactor: 0.10,
-    description: "Under-tank reservoir. Powerful return pump subject to significant head pressure loss (30–45% typical drop).",
-  },
-];
+function getFilterTypes(t: T): FilterTypeProfile[] {
+  return [
+    {
+      id: "canister",
+      name: t(`${NS}.ui.filterCanisterName`),
+      baselineMediaLoss: 0.35,
+      headLossFactor: 0.08,
+      description: t(`${NS}.ui.filterCanisterDesc`),
+    },
+    {
+      id: "hob",
+      name: t(`${NS}.ui.filterHobName`),
+      baselineMediaLoss: 0.25,
+      headLossFactor: 0.02,
+      description: t(`${NS}.ui.filterHobDesc`),
+    },
+    {
+      id: "internal",
+      name: t(`${NS}.ui.filterInternalName`),
+      baselineMediaLoss: 0.20,
+      headLossFactor: 0.01,
+      description: t(`${NS}.ui.filterInternalDesc`),
+    },
+    {
+      id: "sponge",
+      name: t(`${NS}.ui.filterSpongeName`),
+      baselineMediaLoss: 0.15,
+      headLossFactor: 0.04,
+      description: t(`${NS}.ui.filterSpongeDesc`),
+    },
+    {
+      id: "sump",
+      name: t(`${NS}.ui.filterSumpName`),
+      baselineMediaLoss: 0.20,
+      headLossFactor: 0.10,
+      description: t(`${NS}.ui.filterSumpDesc`),
+    },
+  ];
+}
 
-const STANDARD_PRESETS = [
-  { label: "10 gal (38 L)", gal: 10 },
-  { label: "20 gal Long (76 L)", gal: 20 },
-  { label: "29 gal (110 L)", gal: 29 },
-  { label: "40 gal Breeder (151 L)", gal: 40 },
-  { label: "55 gal (208 L)", gal: 55 },
-  { label: "75 gal (284 L)", gal: 75 },
-  { label: "125 gal (473 L)", gal: 125 },
-];
+interface MediaTier {
+  id: "light" | "standard" | "dense";
+  label: string;
+  desc: string;
+}
+
+function getMediaTiers(t: T): MediaTier[] {
+  return [
+    { id: "light", label: t(`${NS}.ui.tierLightLabel`), desc: t(`${NS}.ui.tierLightDesc`) },
+    { id: "standard", label: t(`${NS}.ui.tierStandardLabel`), desc: t(`${NS}.ui.tierStandardDesc`) },
+    { id: "dense", label: t(`${NS}.ui.tierDenseLabel`), desc: t(`${NS}.ui.tierDenseDesc`) },
+  ];
+}
+
+const PRESET_GALLONS = [10, 20, 29, 40, 55, 75, 125];
+
+function presetLabel(t: T, gal: number): string {
+  return t(`${NS}.ui.presetLabel`, { gal, l: Math.round(gal * 3.78541) });
+}
 
 export function AquariumFilterFlowRate() {
+  const { t } = useTranslation("tools");
   const [unit, setUnit] = useState<"gal" | "liters">("gal");
   const [tankVolumeInput, setTankVolumeInput] = useState<number>(40);
   const [selectedBioload, setSelectedBioload] = useState<string>("community");
   const [selectedFilterType, setSelectedFilterType] = useState<string>("canister");
   const [mediaDensity, setMediaDensity] = useState<"light" | "standard" | "dense">("standard");
   const [headHeightFt, setHeadHeightFt] = useState<number>(3.5);
+
+  const BIOLOAD_PROFILES = useMemo(() => getBioloadProfiles(t), [t]);
+  const FILTER_TYPES = useMemo(() => getFilterTypes(t), [t]);
+  const MEDIA_TIERS = useMemo(() => getMediaTiers(t), [t]);
 
   const safeVolume = typeof tankVolumeInput === "number" && !isNaN(tankVolumeInput) && tankVolumeInput > 0 ? tankVolumeInput : 40;
 
@@ -152,12 +176,12 @@ export function AquariumFilterFlowRate() {
 
   const bioload = useMemo(
     () => BIOLOAD_PROFILES.find((b) => b.id === selectedBioload) ?? BIOLOAD_PROFILES[1],
-    [selectedBioload],
+    [selectedBioload, BIOLOAD_PROFILES],
   );
 
   const filterType = useMemo(
     () => FILTER_TYPES.find((f) => f.id === selectedFilterType) ?? FILTER_TYPES[0],
-    [selectedFilterType],
+    [selectedFilterType, FILTER_TYPES],
   );
 
   // Media drag modifier
@@ -247,12 +271,14 @@ export function AquariumFilterFlowRate() {
           </div>
           <div>
             <h2 className="font-display text-base font-semibold text-foreground">
-              Specialist Aquatic Filtration & Fluid Turnover Model
+              {t(`${NS}.ui.bannerTitle`)}
             </h2>
             <p className="mt-1 leading-relaxed">
-              Aquarium filter manufacturers test flow ratings on an <strong>empty pump chamber with zero filter media and zero vertical head lift</strong>.
-              In real-world setups, coarse foam, biological ceramic rings, fine polishing pads, and tubing friction reduce flow by <strong>30% to 50%</strong>.
-              This calculator computes both your <strong>True Net Flow</strong> and the exact <strong>Manufacturer Box Rating (Gross GPH/LPH)</strong> required to sustain continuous aerobic nitrification.
+              {t(`${NS}.ui.bannerP1`)} <strong>{t(`${NS}.ui.bannerP2`)}</strong>.{" "}
+              {t(`${NS}.ui.bannerP3`)} <strong>{t(`${NS}.ui.bannerP4`)}</strong>.{" "}
+              {t(`${NS}.ui.bannerP5`)} <strong>{t(`${NS}.ui.bannerP6`)}</strong>{" "}
+              {t(`${NS}.ui.bannerP7`)} <strong>{t(`${NS}.ui.bannerP8`)}</strong>{" "}
+              {t(`${NS}.ui.bannerP9`)}
             </p>
           </div>
         </div>
@@ -265,8 +291,8 @@ export function AquariumFilterFlowRate() {
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-xl">1. Aquarium Parameters</CardTitle>
-                  <CardDescription>Enter tank water volume and dimensions</CardDescription>
+                  <CardTitle className="text-xl">{t(`${NS}.ui.section1Title`)}</CardTitle>
+                  <CardDescription>{t(`${NS}.ui.section1Desc`)}</CardDescription>
                 </div>
                 <div className="inline-flex rounded-lg border bg-muted p-1 text-xs font-medium">
                   <button
@@ -281,7 +307,7 @@ export function AquariumFilterFlowRate() {
                       unit === "gal" ? "bg-background font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    US Gallons
+                    {t(`${NS}.ui.unitGallons`)}
                   </button>
                   <button
                     type="button"
@@ -295,7 +321,7 @@ export function AquariumFilterFlowRate() {
                       unit === "liters" ? "bg-background font-semibold text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    Liters
+                    {t(`${NS}.ui.unitLiters`)}
                   </button>
                 </div>
               </div>
@@ -303,9 +329,9 @@ export function AquariumFilterFlowRate() {
             <CardContent className="space-y-5">
               <div>
                 <div className="flex items-center justify-between text-sm font-medium">
-                  <Label htmlFor="tank-volume">Tank Water Volume</Label>
+                  <Label htmlFor="tank-volume">{t(`${NS}.ui.tankVolumeLabel`)}</Label>
                   <span className="text-primary font-mono text-base font-bold">
-                    {safeVolume} {unit === "gal" ? "gal" : "L"}
+                    {safeVolume} {unit === "gal" ? t(`${NS}.ui.unitShortGal`) : t(`${NS}.ui.unitShortLiter`)}
                   </span>
                 </div>
                 <Input
@@ -324,18 +350,18 @@ export function AquariumFilterFlowRate() {
 
               {/* Quick presets */}
               <div>
-                <Label className="text-xs text-muted-foreground">Standard Tank Size Presets:</Label>
+                <Label className="text-xs text-muted-foreground">{t(`${NS}.ui.presetsLabel`)}</Label>
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  {STANDARD_PRESETS.map((p) => (
+                  {PRESET_GALLONS.map((gal) => (
                     <Button
-                      key={p.label}
+                      key={gal}
                       type="button"
                       variant="outline"
                       size="sm"
-                      onClick={() => handlePresetClick(p.gal)}
+                      onClick={() => handlePresetClick(gal)}
                       className="h-7 text-xs"
                     >
-                      {p.label}
+                      {presetLabel(t, gal)}
                     </Button>
                   ))}
                 </div>
@@ -346,8 +372,8 @@ export function AquariumFilterFlowRate() {
           {/* Bioload & Inhabitant Profile */}
           <Card className="border-border/70 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl">2. Bioload & Species Swim Dynamics</CardTitle>
-              <CardDescription>Select the metabolic waste load and current sensitivity of your livestock</CardDescription>
+              <CardTitle className="text-xl">{t(`${NS}.ui.section2Title`)}</CardTitle>
+              <CardDescription>{t(`${NS}.ui.section2Desc`)}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {BIOLOAD_PROFILES.map((profile) => {
@@ -383,12 +409,12 @@ export function AquariumFilterFlowRate() {
           {/* Filtration Mechanics & Drag */}
           <Card className="border-border/70 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle className="text-xl">3. Hardware Architecture & Head Drag</CardTitle>
-              <CardDescription>Accounts for hydraulic friction, media density, and gravity head loss</CardDescription>
+              <CardTitle className="text-xl">{t(`${NS}.ui.section3Title`)}</CardTitle>
+              <CardDescription>{t(`${NS}.ui.section3Desc`)}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
               <div>
-                <Label className="text-sm font-medium">Filter Construction Style</Label>
+                <Label className="text-sm font-medium">{t(`${NS}.ui.filterStyleLabel`)}</Label>
                 <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {FILTER_TYPES.map((ft) => {
                     const isSelected = selectedFilterType === ft.id;
@@ -413,17 +439,13 @@ export function AquariumFilterFlowRate() {
 
               {/* Media Density */}
               <div>
-                <Label className="text-sm font-medium">Filter Media Density Tier</Label>
+                <Label className="text-sm font-medium">{t(`${NS}.ui.mediaDensityLabel`)}</Label>
                 <div className="mt-2 grid grid-cols-3 gap-2">
-                  {[
-                    { id: "light", label: "Coarse / Light", desc: "Open-cell coarse foam only" },
-                    { id: "standard", label: "Standard 3-Stage", desc: "Foam + Ceramic Rings + Carbon" },
-                    { id: "dense", label: "Dense Polishing", desc: "Micro-floss + Matrix + Purigen" },
-                  ].map((tier) => (
+                  {MEDIA_TIERS.map((tier) => (
                     <button
                       key={tier.id}
                       type="button"
-                      onClick={() => setMediaDensity(tier.id as typeof mediaDensity)}
+                      onClick={() => setMediaDensity(tier.id)}
                       className={`rounded-lg border p-2.5 text-left transition-all ${
                         mediaDensity === tier.id
                           ? "border-primary bg-primary/5 font-semibold text-primary"
@@ -443,10 +465,10 @@ export function AquariumFilterFlowRate() {
                   <div className="flex items-center justify-between text-xs font-medium">
                     <Label htmlFor="head-height" className="flex items-center gap-1.5">
                       <Gauge className="size-3.5 text-primary" />
-                      Vertical Head Height (Under-tank to Rim)
+                      {t(`${NS}.ui.headHeightLabel`)}
                     </Label>
                     <span className="font-mono font-bold text-foreground">
-                      {headHeightFt} ft (~{(headHeightFt * 0.3048).toFixed(1)} m)
+                      {t(`${NS}.ui.headHeightValue`, { ft: headHeightFt, m: (headHeightFt * 0.3048).toFixed(1) })}
                     </span>
                   </div>
                   <input
@@ -460,7 +482,7 @@ export function AquariumFilterFlowRate() {
                     className="w-full h-2 rounded-lg bg-muted-foreground/25 accent-primary cursor-pointer"
                   />
                   <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                    <span>1 ft (Low)</span>
+                    <span>{t(`${NS}.ui.headLow`)}</span>
                     <div className="flex gap-1.5">
                       {[2, 3.5, 5].map((h) => (
                         <button
@@ -473,14 +495,14 @@ export function AquariumFilterFlowRate() {
                               : "border-border/60 hover:bg-muted"
                           }`}
                         >
-                          {h} ft
+                          {t(`${NS}.ui.headQuick`, { h })}
                         </button>
                       ))}
                     </div>
-                    <span>6 ft (High)</span>
+                    <span>{t(`${NS}.ui.headHigh`)}</span>
                   </div>
                   <p className="text-[11px] text-muted-foreground">
-                    Vertical tubing elevation forces the impeller to push against gravity, dissipating pump head pressure.
+                    {t(`${NS}.ui.headHeightNote`)}
                   </p>
                 </div>
               )}
@@ -493,65 +515,70 @@ export function AquariumFilterFlowRate() {
           <Card className="sticky top-24 border-primary/30 bg-card shadow-md">
             <CardHeader className="border-b border-border/50 bg-primary/5 pb-4">
               <Badge variant="outline" className="w-fit border-primary/40 bg-background font-mono text-primary text-xs">
-                Hydrodynamic Sizing Output
+                {t(`${NS}.ui.outputBadge`)}
               </Badge>
-              <CardTitle className="text-2xl font-display mt-2">Filter Sizing Benchmark</CardTitle>
+              <CardTitle className="text-2xl font-display mt-2">{t(`${NS}.ui.outputTitle`)}</CardTitle>
               <CardDescription>
-                Calculated for {tankVolumeInput} {unit === "gal" ? "Gallons" : "Liters"} ({bioload.name})
+                {t(`${NS}.ui.outputDesc`, {
+                  vol: tankVolumeInput,
+                  unit: unit === "gal" ? t(`${NS}.ui.unitLongGallons`) : t(`${NS}.ui.unitLongLiters`),
+                  bioload: bioload.name,
+                })}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 pt-6">
               {/* Main Stat: Recommended Box Rating */}
               <div className="rounded-2xl border border-primary/30 bg-primary/10 p-5 text-center shadow-inner">
                 <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Required Manufacturer Box Rating
+                  {t(`${NS}.ui.boxRatingLabel`)}
                 </div>
                 <div className="mt-2 text-4xl font-black tracking-tight text-primary font-mono sm:text-5xl">
-                  {results.grossGphRecommended} <span className="text-2xl font-semibold">GPH</span>
+                  {results.grossGphRecommended} <span className="text-2xl font-semibold">{t(`${NS}.ui.boxRatingUnit`)}</span>
                 </div>
                 <div className="mt-1 font-mono text-sm font-semibold text-muted-foreground">
-                  ≈ {results.grossLphRecommended.toLocaleString()} Liters / Hour (LPH)
+                  {t(`${NS}.ui.boxRatingLph`, { lph: results.grossLphRecommended.toLocaleString() })}
                 </div>
                 <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-background px-3 py-1 text-xs text-foreground shadow-sm">
                   <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  Target Box Range: {results.grossGphMin} – {results.grossGphMax} GPH
+                  {t(`${NS}.ui.boxRange`, { min: results.grossGphMin, max: results.grossGphMax })}
                 </div>
               </div>
 
               {/* Real World Performance Breakdown */}
               <div className="space-y-3 rounded-xl border bg-muted/20 p-4 text-xs">
                 <div className="font-semibold text-foreground flex items-center justify-between">
-                  <span>Fluid Dynamics & Flow Drop Analysis</span>
+                  <span>{t(`${NS}.ui.breakdownTitle`)}</span>
                   <Badge variant="secondary" className="font-mono text-[10px]">
-                    ~{results.lossPercentage}% Friction Loss
+                    {t(`${NS}.ui.frictionLoss`, { pct: results.lossPercentage })}
                   </Badge>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-border/50">
-                  <span className="text-muted-foreground">True Net Flow Delivered:</span>
+                  <span className="text-muted-foreground">{t(`${NS}.ui.netFlowLabel`)}</span>
                   <span className="font-mono font-bold text-foreground">
-                    {results.netGphOptimal} GPH ({results.netLphOptimal} LPH)
+                    {t(`${NS}.ui.netFlowValue`, { gph: results.netGphOptimal, lph: results.netLphOptimal })}
                   </span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-border/50">
-                  <span className="text-muted-foreground">Effective Turnover Rate:</span>
+                  <span className="text-muted-foreground">{t(`${NS}.ui.turnoverLabel`)}</span>
                   <span className="font-mono font-bold text-primary">
-                    {results.turnoverTimes}× tank volume per hour
+                    {t(`${NS}.ui.turnoverValue`, { times: results.turnoverTimes })}
                   </span>
                 </div>
 
                 <div className="flex justify-between py-1 border-b border-border/50">
-                  <span className="text-muted-foreground">Recommended Bio-Media Volume:</span>
+                  <span className="text-muted-foreground">{t(`${NS}.ui.bioMediaLabel`)}</span>
                   <span className="font-mono font-bold text-foreground">
-                    {results.bioMediaLitersMin} – {results.bioMediaLitersOptimal} Liters
+                    {t(`${NS}.ui.bioMediaValue`, { min: results.bioMediaLitersMin, max: results.bioMediaLitersOptimal })}
                   </span>
                 </div>
 
                 <div className="flex justify-between py-1">
-                  <span className="text-muted-foreground">Inhabitant Flow Rating:</span>
+                  <span className="text-muted-foreground">{t(`${NS}.ui.flowRatingLabel`)}</span>
                   <span className="font-semibold uppercase tracking-wider text-primary">
-                    {bioload.flowSensitivity} current
+                    {t(`${NS}.ui.flow${bioload.flowSensitivity[0].toUpperCase()}${bioload.flowSensitivity.slice(1)}`)}{" "}
+                    {t(`${NS}.ui.flowCurrentSuffix`)}
                   </span>
                 </div>
               </div>
@@ -562,8 +589,8 @@ export function AquariumFilterFlowRate() {
                   <div className="flex items-start gap-2">
                     <AlertTriangle className="size-4 shrink-0 text-amber-500 mt-0.5" />
                     <div>
-                      <strong>Flow Baffling Recommended:</strong> For long-finned Bettas or Axolotls, install a 
-                      <strong> spray bar directed against the rear glass</strong> or a foam intake/outflow baffle to dissipate directional shear velocity while preserving filtration volume.
+                      <strong>{t(`${NS}.ui.baffleTitle`)}</strong> {t(`${NS}.ui.baffleBody1`)}{" "}
+                      <strong>{t(`${NS}.ui.baffleBody2`)}</strong> {t(`${NS}.ui.baffleBody3`)}
                     </div>
                   </div>
                 </div>
@@ -574,8 +601,8 @@ export function AquariumFilterFlowRate() {
                   <div className="flex items-start gap-2">
                     <Info className="size-4 shrink-0 text-blue-500 mt-0.5" />
                     <div>
-                      <strong>Dual Filtration Strategy:</strong> Goldfish and large cichlids thrive best with 
-                      <strong> dual redundant filters</strong> (e.g., two medium canisters or one canister + one large HOB). This prevents catastrophic ammonia spikes during maintenance cleaning.
+                      <strong>{t(`${NS}.ui.dualTitle`)}</strong> {t(`${NS}.ui.dualBody1`)}{" "}
+                      <strong>{t(`${NS}.ui.dualBody2`)}</strong> {t(`${NS}.ui.dualBody3`)}
                     </div>
                   </div>
                 </div>
@@ -585,20 +612,20 @@ export function AquariumFilterFlowRate() {
               <div className="space-y-2 text-xs">
                 <div className="font-semibold text-foreground flex items-center gap-1.5">
                   <Layers className="size-3.5 text-primary" />
-                  Optimal 3-Stage Media Configuration:
+                  {t(`${NS}.ui.mediaConfigTitle`)}
                 </div>
                 <ul className="space-y-1.5 text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-primary">1. Mechanical:</span>
-                    Coarse reticulated foam (20–30 PPI) to trap fish feces and uneaten food before it fouls biological media.
+                    <span className="font-mono font-bold text-primary">{t(`${NS}.ui.mediaStage1Label`)}</span>
+                    {t(`${NS}.ui.mediaStage1Text`)}
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-primary">2. Biological:</span>
-                    Porous sintered glass rings or Matrix ({results.bioMediaLitersOptimal}L) colonizing <em>Nitrosomonas</em> and <em>Nitrospira</em>.
+                    <span className="font-mono font-bold text-primary">{t(`${NS}.ui.mediaStage2Label`)}</span>
+                    {t(`${NS}.ui.mediaStage2Before`, { liters: results.bioMediaLitersOptimal })}<em>Nitrosomonas</em>{t(`${NS}.ui.mediaStage2Between`)}<em>Nitrospira</em>{t(`${NS}.ui.mediaStage2After`)}
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-primary">3. Chemical / Polish:</span>
-                    Synthetic resin (Seachem Purigen) or activated carbon to remove organic tannins and dissolved DOCs.
+                    <span className="font-mono font-bold text-primary">{t(`${NS}.ui.mediaStage3Label`)}</span>
+                    {t(`${NS}.ui.mediaStage3Text`)}
                   </li>
                 </ul>
               </div>
@@ -613,7 +640,7 @@ export function AquariumFilterFlowRate() {
                   className="w-full text-xs text-muted-foreground hover:text-foreground"
                 >
                   <RotateCcw className="mr-1.5 size-3.5" />
-                  Reset to Standard Community Defaults
+                  {t(`${NS}.ui.resetButton`)}
                 </Button>
               </div>
             </CardContent>

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FormattedMarkdown } from "@/components/ui/formatted-markdown";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,6 +18,8 @@ export interface PhotoAnalyzerProps {
   cta?: string;
   /** Whether to show the medical disclaimer badge (default true). */
   showDisclaimer?: boolean;
+  /** Tool slug for namespaced translations (defaults to the shared fallback). */
+  slug?: string;
 }
 
 async function fileToDataUrl(file: File): Promise<string> {
@@ -55,11 +58,17 @@ async function compressImage(file: File, maxDim = 1280, quality = 0.85): Promise
 export function PhotoAnalyzer({
   system,
   prompt,
-  uploadLabel = "Upload a clear, well-lit photo",
-  hint = "JPG, PNG or WebP. Best results with a bright, close-up image on a neutral background.",
-  cta = "Analyze photo",
+  uploadLabel,
+  hint,
+  cta,
   showDisclaimer = true,
+  slug,
 }: PhotoAnalyzerProps) {
+  const { t } = useTranslation("tools");
+  const p = slug ?? "shared.photo-analyzer";
+  const label = uploadLabel ?? t(`${p}.ui.defaultUploadLabel`);
+  const hintText = hint ?? t(`${p}.ui.defaultHint`);
+  const ctaText = cta ?? t(`${p}.ui.defaultCta`);
   const [preview, setPreview] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<string>("");
@@ -71,7 +80,7 @@ export function PhotoAnalyzer({
     setResult("");
     if (!f) return;
     if (!f.type.startsWith("image/")) {
-      setErr("Please choose an image file (JPG, PNG or WebP).");
+      setErr(t(`${p}.ui.errNotImage`));
       return;
     }
     try {
@@ -81,14 +90,14 @@ export function PhotoAnalyzer({
       try {
         setPreview(await fileToDataUrl(f));
       } catch {
-        setErr("Could not read that image. Try a different file.");
+        setErr(t(`${p}.ui.errReadImage`));
       }
     }
   }
 
   async function analyze() {
     if (!preview) {
-      setErr("Please upload a photo first.");
+      setErr(t(`${p}.ui.errNoPhoto`));
       return;
     }
     setBusy(true);
@@ -102,12 +111,12 @@ export function PhotoAnalyzer({
       });
       const data = (await res.json()) as { content?: string; error?: string };
       if (!res.ok || !data.content) {
-        setErr(data.error || "Something went wrong. Please try again.");
+        setErr(data.error || t(`${p}.ui.errGeneric`));
       } else {
         setResult(data.content);
       }
     } catch {
-      setErr("Network error. Please try again.");
+      setErr(t(`${p}.ui.errNetwork`));
     } finally {
       setBusy(false);
     }
@@ -134,8 +143,7 @@ export function PhotoAnalyzer({
         <div className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
           <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0" />
           <div>
-            <strong>Educational only.</strong> AI photo analysis is not a diagnosis. For any medical
-            or behavioural concern, please consult a licensed veterinarian.
+            <strong>{t(`${p}.ui.disclaimerStrong`)}</strong> {t(`${p}.ui.disclaimerBody`)}
           </div>
         </div>
       )}
@@ -144,8 +152,8 @@ export function PhotoAnalyzer({
         <Card>
           <CardContent className="space-y-4 p-6">
             <div>
-              <p className="mb-2 font-medium">{uploadLabel}</p>
-              <p className="text-sm text-muted-foreground">{hint}</p>
+              <p className="mb-2 font-medium">{label}</p>
+              <p className="text-sm text-muted-foreground">{hintText}</p>
             </div>
 
             <label
@@ -161,14 +169,14 @@ export function PhotoAnalyzer({
               {preview ? (
                 <img
                   src={preview}
-                  alt="Selected preview"
+                  alt={t(`${p}.ui.previewAlt`)}
                   className="max-h-64 rounded-lg object-contain"
                 />
               ) : (
                 <>
                   <Upload className="mb-2 h-8 w-8 text-muted-foreground" />
-                  <p className="font-medium">Click to upload a photo</p>
-                  <p className="text-xs text-muted-foreground">or drag &amp; drop</p>
+                  <p className="font-medium">{t(`${p}.ui.uploadPrompt`)}</p>
+                  <p className="text-xs text-muted-foreground">{t(`${p}.ui.dragDrop`)}</p>
                 </>
               )}
             </label>
@@ -177,15 +185,15 @@ export function PhotoAnalyzer({
               <Button onClick={analyze} disabled={!preview || busy}>
                 {busy ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analyzing…
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t(`${p}.ui.analyzingButton`)}
                   </>
                 ) : (
-                  cta
+                  ctaText
                 )}
               </Button>
               {preview && (
                 <Button variant="outline" onClick={reset} disabled={busy}>
-                  <RefreshCw className="mr-2 h-4 w-4" /> Reset
+                  <RefreshCw className="mr-2 h-4 w-4" /> {t(`${p}.ui.resetButton`)}
                 </Button>
               )}
             </div>
@@ -198,9 +206,9 @@ export function PhotoAnalyzer({
             {result ? (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display text-lg font-semibold">AI Analysis</h3>
+                  <h3 className="font-display text-lg font-semibold">{t(`${p}.ui.analysisTitle`)}</h3>
                   <Button variant="ghost" size="sm" onClick={copy}>
-                    <Copy className="mr-2 h-4 w-4" /> Copy
+                    <Copy className="mr-2 h-4 w-4" /> {t(`${p}.ui.copyButton`)}
                   </Button>
                 </div>
                 <FormattedMarkdown content={result} />
@@ -208,8 +216,7 @@ export function PhotoAnalyzer({
             ) : (
               <div className="flex h-full min-h-[220px] flex-col items-center justify-center text-center text-muted-foreground">
                 <p className="max-w-xs text-sm">
-                  Upload a photo and click <strong>{cta}</strong> to receive an educational, expert
-                  breakdown in seconds.
+                  {t(`${p}.ui.emptyBefore`)} <strong>{ctaText}</strong> {t(`${p}.ui.emptyAfter`)}
                 </p>
               </div>
             )}

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -26,7 +27,10 @@ const stageAdjustment: Record<Stage, number> = {
   senior: 0.9,
 };
 
+const NS = "dog-food-calculator";
+
 export function DogFoodCalculator() {
+  const { t } = useTranslation("tools");
   const [weight, setWeight] = useState(30); // lb
   const [activity, setActivity] = useState<Activity>("moderate");
   const [stage, setStage] = useState<Stage>("adult");
@@ -45,7 +49,7 @@ export function DogFoodCalculator() {
       form={
         <>
           <div>
-            <Label htmlFor="weight">Weight (lb)</Label>
+            <Label htmlFor="weight">{t(`${NS}.ui.weightLabel`)}</Label>
             <Input
               id="weight"
               type="number"
@@ -56,34 +60,34 @@ export function DogFoodCalculator() {
             />
           </div>
           <div>
-            <Label htmlFor="activity">Activity level</Label>
+            <Label htmlFor="activity">{t(`${NS}.ui.activityLabel`)}</Label>
             <Select value={activity} onValueChange={(v: Activity) => setActivity(v)}>
               <SelectTrigger id="activity" className="mt-1.5">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="low">Low (couch companion)</SelectItem>
-                <SelectItem value="moderate">Moderate (daily walks)</SelectItem>
-                <SelectItem value="active">Active (runs, hikes)</SelectItem>
-                <SelectItem value="working">Working / very active</SelectItem>
+                <SelectItem value="low">{t(`${NS}.ui.activityLow`)}</SelectItem>
+                <SelectItem value="moderate">{t(`${NS}.ui.activityModerate`)}</SelectItem>
+                <SelectItem value="active">{t(`${NS}.ui.activityActive`)}</SelectItem>
+                <SelectItem value="working">{t(`${NS}.ui.activityWorking`)}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label htmlFor="stage">Life stage</Label>
+            <Label htmlFor="stage">{t(`${NS}.ui.stageLabel`)}</Label>
             <Select value={stage} onValueChange={(v: Stage) => setStage(v)}>
               <SelectTrigger id="stage" className="mt-1.5">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="puppy">Puppy</SelectItem>
-                <SelectItem value="adult">Adult</SelectItem>
-                <SelectItem value="senior">Senior</SelectItem>
+                <SelectItem value="puppy">{t(`${NS}.ui.stagePuppy`)}</SelectItem>
+                <SelectItem value="adult">{t(`${NS}.ui.stageAdult`)}</SelectItem>
+                <SelectItem value="senior">{t(`${NS}.ui.stageSenior`)}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label htmlFor="kcal">Calories per cup of food</Label>
+            <Label htmlFor="kcal">{t(`${NS}.ui.kcalLabel`)}</Label>
             <Input
               id="kcal"
               type="number"
@@ -93,7 +97,7 @@ export function DogFoodCalculator() {
               className="mt-1.5"
             />
             <p className="mt-1 text-xs text-muted-foreground">
-              Check the label on your bag — most kibble is 300–450 kcal/cup.
+              {t(`${NS}.ui.kcalHint`)}
             </p>
           </div>
         </>
@@ -102,19 +106,19 @@ export function DogFoodCalculator() {
         <div className="space-y-4">
           <div>
             <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Daily food
+              {t(`${NS}.ui.resultEyebrow`)}
             </div>
             <div className="mt-1 font-display text-5xl font-semibold text-primary">{cups}</div>
-            <div className="text-sm text-muted-foreground">cups per day</div>
+            <div className="text-sm text-muted-foreground">{t(`${NS}.ui.cupsPerDay`)}</div>
           </div>
           <dl className="grid grid-cols-2 gap-3 border-t border-border/50 pt-4 text-sm">
             <div>
-              <dt className="text-muted-foreground">Maintenance kcal</dt>
-              <dd className="font-medium">{mer} kcal/day</dd>
+              <dt className="text-muted-foreground">{t(`${NS}.ui.maintenanceKcal`)}</dt>
+              <dd className="font-medium">{t(`${NS}.ui.kcalPerDay`, { kcal: mer })}</dd>
             </div>
             <div>
-              <dt className="text-muted-foreground">Resting kcal</dt>
-              <dd className="font-medium">{rer} kcal/day</dd>
+              <dt className="text-muted-foreground">{t(`${NS}.ui.restingKcal`)}</dt>
+              <dd className="font-medium">{t(`${NS}.ui.kcalPerDay`, { kcal: rer })}</dd>
             </div>
           </dl>
         </div>

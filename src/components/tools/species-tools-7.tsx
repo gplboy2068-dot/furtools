@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CalculatorLayout } from "@/components/layouts/tool-layouts";
+import { useTranslation } from "react-i18next";
 
 /* ---------- localStorage helpers ---------- */
 function useLocalState<T>(key: string, initial: T): [T, (v: T | ((p: T) => T)) => void] {
@@ -23,38 +24,39 @@ function useLocalState<T>(key: string, initial: T): [T, (v: T | ((p: T) => T)) =
 /* ═══════════════════════════════════════════════════════════
    1. CLICKER TRAINING PLANNER
 ═══════════════════════════════════════════════════════════ */
-const CLICKER_PHASES = [
-  { name: "Charge the clicker", days: "1-3", desc: "Click + treat 20 times with no expectation. Pet learns click = food." },
-  { name: "Capture behaviors", days: "4-10", desc: "Click the moment your pet sits, lies down, or looks at you naturally." },
-  { name: "Lure & reward", days: "11-20", desc: "Guide with a treat, click at success, then fade the lure over 10 reps." },
-  { name: "Add cue word", days: "21-30", desc: "Say the word right before the behavior, then click + treat when it happens." },
-  { name: "Proof in new places", days: "31-45", desc: "Practice in the yard, on walks, and around distractions." },
-  { name: "Reduce food rewards", days: "46+", desc: "Move to variable reinforcement: reward every 2-3 correct responses." },
-];
 export function ClickerTrainingPlanner() {
+  const { t } = useTranslation("tools");
   const [sessionsPerDay, setSessionsPerDay] = useState(3);
+  const phases = [
+    { key: "charge", days: "1-3", name: t("clicker-training-planner.ui.phaseChargeName"), desc: t("clicker-training-planner.ui.phaseChargeDesc") },
+    { key: "capture", days: "4-10", name: t("clicker-training-planner.ui.phaseCaptureName"), desc: t("clicker-training-planner.ui.phaseCaptureDesc") },
+    { key: "lure", days: "11-20", name: t("clicker-training-planner.ui.phaseLureName"), desc: t("clicker-training-planner.ui.phaseLureDesc") },
+    { key: "cue", days: "21-30", name: t("clicker-training-planner.ui.phaseCueName"), desc: t("clicker-training-planner.ui.phaseCueDesc") },
+    { key: "proof", days: "31-45", name: t("clicker-training-planner.ui.phaseProofName"), desc: t("clicker-training-planner.ui.phaseProofDesc") },
+    { key: "reduce", days: "46+", name: t("clicker-training-planner.ui.phaseReduceName"), desc: t("clicker-training-planner.ui.phaseReduceDesc") },
+  ];
   const form = (
     <div className="space-y-4">
       <div>
-        <Label>Training sessions per day</Label>
+        <Label>{t("clicker-training-planner.ui.sessionsLabel")}</Label>
         <Input type="number" min={1} max={6} value={sessionsPerDay} onChange={(e) => setSessionsPerDay(+e.target.value || 1)} />
-        <p className="mt-1 text-xs text-muted-foreground">3-5 minute sessions, 2-4x daily, work best for most pets.</p>
+        <p className="mt-1 text-xs text-muted-foreground">{t("clicker-training-planner.ui.sessionsHint")}</p>
       </div>
     </div>
   );
   const result = (
     <div className="space-y-3">
-      {CLICKER_PHASES.map((p) => (
-        <div key={p.name} className="rounded-lg bg-background/60 p-3">
+      {phases.map((p) => (
+        <div key={p.key} className="rounded-lg bg-background/60 p-3">
           <div className="flex items-center justify-between">
             <div className="font-medium">{p.name}</div>
-            <span className="text-xs text-muted-foreground">Days {p.days}</span>
+            <span className="text-xs text-muted-foreground">{t("clicker-training-planner.ui.phaseDays", { days: p.days })}</span>
           </div>
           <p className="mt-1 text-xs text-muted-foreground">{p.desc}</p>
         </div>
       ))}
       <div className="rounded-lg bg-primary/10 p-3 text-xs">
-        Total sessions to solid cue response: ≈ {sessionsPerDay * 30} short sessions over 30 days.
+        {t("clicker-training-planner.ui.totalSessions", { count: sessionsPerDay * 30 })}
       </div>
     </div>
   );
@@ -65,6 +67,7 @@ export function ClickerTrainingPlanner() {
    2. POTTY TRAINING SCHEDULE
 ═══════════════════════════════════════════════════════════ */
 export function PottyTrainingSchedule() {
+  const { t } = useTranslation("tools");
   const [ageMonths, setAgeMonths] = useState(3);
   const [wakeHour, setWakeHour] = useState(7);
   const [bedHour, setBedHour] = useState(22);
@@ -73,34 +76,34 @@ export function PottyTrainingSchedule() {
     const holdHours = Math.max(1, Math.min(6, ageMonths));
     const outings: string[] = [];
     for (let h = wakeHour; h <= bedHour; h += holdHours) {
-      outings.push(`${String(h).padStart(2, "0")}:00 — potty break`);
+      outings.push(t("potty-training-schedule.ui.outing", { time: `${String(h).padStart(2, "0")}:00` }));
     }
     // Always add key trigger outings.
     return {
       holdHours,
       outings,
       triggers: [
-        "Immediately after waking",
-        "10-20 minutes after each meal",
-        "After every play or training session",
-        "Before crate time and before bed",
+        t("potty-training-schedule.ui.triggerWake"),
+        t("potty-training-schedule.ui.triggerMeal"),
+        t("potty-training-schedule.ui.triggerPlay"),
+        t("potty-training-schedule.ui.triggerCrate"),
       ],
     };
-  }, [ageMonths, wakeHour, bedHour]);
+  }, [ageMonths, wakeHour, bedHour, t]);
 
   const form = (
     <div className="space-y-4">
       <div>
-        <Label>Puppy age (months)</Label>
+        <Label>{t("potty-training-schedule.ui.ageLabel")}</Label>
         <Input type="number" min={2} max={12} value={ageMonths} onChange={(e) => setAgeMonths(+e.target.value || 2)} />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <Label>Wake time (hour)</Label>
+          <Label>{t("potty-training-schedule.ui.wakeLabel")}</Label>
           <Input type="number" min={4} max={11} value={wakeHour} onChange={(e) => setWakeHour(+e.target.value || 7)} />
         </div>
         <div>
-          <Label>Bedtime (hour)</Label>
+          <Label>{t("potty-training-schedule.ui.bedLabel")}</Label>
           <Input type="number" min={18} max={24} value={bedHour} onChange={(e) => setBedHour(+e.target.value || 22)} />
         </div>
       </div>
@@ -109,18 +112,18 @@ export function PottyTrainingSchedule() {
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-primary/10 p-3 text-sm">
-        Bladder capacity ≈ <b>{plan.holdHours} hours</b> between outings.
+        {t("potty-training-schedule.ui.bladderCapacity", { hours: plan.holdHours })}
       </div>
       <div className="rounded-lg bg-background/60 p-3">
-        <div className="font-medium">Scheduled potty breaks</div>
+        <div className="font-medium">{t("potty-training-schedule.ui.scheduledTitle")}</div>
         <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
           {plan.outings.map((o) => <li key={o}>{o}</li>)}
         </ul>
       </div>
       <div className="rounded-lg bg-background/60 p-3">
-        <div className="font-medium">Also go out immediately after:</div>
+        <div className="font-medium">{t("potty-training-schedule.ui.triggersTitle")}</div>
         <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
-          {plan.triggers.map((t) => <li key={t}>• {t}</li>)}
+          {plan.triggers.map((trig) => <li key={trig}>• {trig}</li>)}
         </ul>
       </div>
     </div>
@@ -131,23 +134,24 @@ export function PottyTrainingSchedule() {
 /* ═══════════════════════════════════════════════════════════
    3. CRATE TRAINING TIMELINE
 ═══════════════════════════════════════════════════════════ */
-const CRATE_TIMELINE = [
-  { day: "Day 1-2", goal: "Introduce", detail: "Door open, treats and toys inside. Never force." },
-  { day: "Day 3-4", goal: "Meals inside", detail: "Feed all meals in the crate with door open." },
-  { day: "Day 5-7", goal: "Close door briefly", detail: "Close for 30 sec while eating, reopen calmly." },
-  { day: "Day 8-10", goal: "5-15 minute stays", detail: "You in the room, calm praise on quiet." },
-  { day: "Day 11-14", goal: "Leave the room", detail: "Step out 5-30 min, ignore whining, reward silence." },
-  { day: "Day 15-21", goal: "Absences", detail: "Short errands (30-60 min). Puppies max 3-4 hours." },
-  { day: "Day 22+", goal: "Overnight & workday", detail: "Adult dogs max 6-8 hours; puppies need midday break." },
-];
 export function CrateTrainingTimeline() {
+  const { t } = useTranslation("tools");
+  const timeline = [
+    { key: "d12", day: t("crate-training-timeline.ui.day12"), goal: t("crate-training-timeline.ui.goalIntroduce"), detail: t("crate-training-timeline.ui.detailIntroduce") },
+    { key: "d34", day: t("crate-training-timeline.ui.day34"), goal: t("crate-training-timeline.ui.goalMeals"), detail: t("crate-training-timeline.ui.detailMeals") },
+    { key: "d57", day: t("crate-training-timeline.ui.day57"), goal: t("crate-training-timeline.ui.goalCloseDoor"), detail: t("crate-training-timeline.ui.detailCloseDoor") },
+    { key: "d810", day: t("crate-training-timeline.ui.day810"), goal: t("crate-training-timeline.ui.goalStays"), detail: t("crate-training-timeline.ui.detailStays") },
+    { key: "d1114", day: t("crate-training-timeline.ui.day1114"), goal: t("crate-training-timeline.ui.goalLeave"), detail: t("crate-training-timeline.ui.detailLeave") },
+    { key: "d1521", day: t("crate-training-timeline.ui.day1521"), goal: t("crate-training-timeline.ui.goalAbsences"), detail: t("crate-training-timeline.ui.detailAbsences") },
+    { key: "d22p", day: t("crate-training-timeline.ui.day22p"), goal: t("crate-training-timeline.ui.goalOvernight"), detail: t("crate-training-timeline.ui.detailOvernight") },
+  ];
   return (
     <CalculatorLayout
-      form={<p className="text-sm text-muted-foreground">A 3-week desensitization plan. Never use the crate as punishment.</p>}
+      form={<p className="text-sm text-muted-foreground">{t("crate-training-timeline.ui.intro")}</p>}
       result={
         <div className="space-y-2">
-          {CRATE_TIMELINE.map((s) => (
-            <div key={s.day} className="rounded-lg bg-background/60 p-3">
+          {timeline.map((s) => (
+            <div key={s.key} className="rounded-lg bg-background/60 p-3">
               <div className="flex items-center justify-between">
                 <div className="font-medium">{s.day} — {s.goal}</div>
               </div>
@@ -163,36 +167,37 @@ export function CrateTrainingTimeline() {
 /* ═══════════════════════════════════════════════════════════
    4. LEASH TRAINING PROGRESS
 ═══════════════════════════════════════════════════════════ */
-const LEASH_MILESTONES = [
-  "Wears collar & leash indoors without fuss",
-  "Follows me across the living room",
-  "Walks 5 min in the yard without pulling",
-  "Sits at every curb",
-  "Ignores dropped food on sidewalk",
-  "Loose leash for a full 10-minute walk",
-  "Passes a stranger calmly",
-  "Passes another dog under threshold",
-  "Recall works on 20-ft long line",
-  "Neighborhood walk with no corrections",
-];
 export function LeashTrainingProgress() {
+  const { t } = useTranslation("tools");
+  const milestones = [
+    t("leash-training-progress.ui.m1"),
+    t("leash-training-progress.ui.m2"),
+    t("leash-training-progress.ui.m3"),
+    t("leash-training-progress.ui.m4"),
+    t("leash-training-progress.ui.m5"),
+    t("leash-training-progress.ui.m6"),
+    t("leash-training-progress.ui.m7"),
+    t("leash-training-progress.ui.m8"),
+    t("leash-training-progress.ui.m9"),
+    t("leash-training-progress.ui.m10"),
+  ];
   const [done, setDone] = useLocalState<Record<string, boolean>>("furtools:leash-progress", {});
-  const completed = LEASH_MILESTONES.filter((m) => done[m]).length;
-  const pct = Math.round((completed / LEASH_MILESTONES.length) * 100);
+  const completed = milestones.filter((m) => done[m]).length;
+  const pct = Math.round((completed / milestones.length) * 100);
   return (
     <CalculatorLayout
-      form={<p className="text-sm text-muted-foreground">Tick milestones as your dog masters them. Progress saves to this device.</p>}
+      form={<p className="text-sm text-muted-foreground">{t("leash-training-progress.ui.intro")}</p>}
       result={
         <div className="space-y-3">
           <div className="rounded-lg bg-primary/10 p-3 text-center">
-            <div className="text-3xl font-bold text-primary">{pct}%</div>
-            <div className="text-xs text-muted-foreground">{completed} of {LEASH_MILESTONES.length} milestones</div>
+            <div className="text-3xl font-bold text-primary">{t("leash-training-progress.ui.percent", { pct })}</div>
+            <div className="text-xs text-muted-foreground">{t("leash-training-progress.ui.progress", { completed, total: milestones.length })}</div>
           </div>
           <ul className="space-y-2">
-            {LEASH_MILESTONES.map((m, i) => (
+            {milestones.map((m, i) => (
               <li key={m} className="flex items-start gap-3 rounded-lg bg-background/60 p-3">
                 <Checkbox id={`ls-${i}`} checked={!!done[m]} onCheckedChange={(v) => setDone((p) => ({ ...p, [m]: !!v }))} />
-                <label htmlFor={`ls-${i}`} className="text-sm">{i + 1}. {m}</label>
+                <label htmlFor={`ls-${i}`} className="text-sm">{t("leash-training-progress.ui.milestoneLabel", { n: i + 1, label: m })}</label>
               </li>
             ))}
           </ul>
@@ -207,6 +212,14 @@ export function LeashTrainingProgress() {
 ═══════════════════════════════════════════════════════════ */
 type RecallLog = { date: string; env: string; success: number; total: number };
 export function RecallTrainingTracker() {
+  const { t } = useTranslation("tools");
+  const envOptions = [
+    { value: "Indoors", label: t("recall-training-tracker.ui.envIndoors") },
+    { value: "Yard", label: t("recall-training-tracker.ui.envYard") },
+    { value: "Quiet park", label: t("recall-training-tracker.ui.envQuietPark") },
+    { value: "Busy park", label: t("recall-training-tracker.ui.envBusyPark") },
+    { value: "Off-leash trail", label: t("recall-training-tracker.ui.envTrail") },
+  ];
   const [logs, setLogs] = useLocalState<RecallLog[]>("furtools:recall-log", []);
   const [env, setEnv] = useState("Yard");
   const [success, setSuccess] = useState(8);
@@ -216,41 +229,41 @@ export function RecallTrainingTracker() {
   const overall = useMemo(() => {
     if (!logs.length) return 0;
     const s = logs.reduce((a, l) => a + l.success, 0);
-    const t = logs.reduce((a, l) => a + l.total, 0);
-    return t ? Math.round((s / t) * 100) : 0;
+    const tot = logs.reduce((a, l) => a + l.total, 0);
+    return tot ? Math.round((s / tot) * 100) : 0;
   }, [logs]);
 
   const form = (
     <div className="space-y-4">
       <div>
-        <Label>Environment</Label>
+        <Label>{t("recall-training-tracker.ui.envLabel")}</Label>
         <Select value={env} onValueChange={setEnv}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            {["Indoors", "Yard", "Quiet park", "Busy park", "Off-leash trail"].map((e) => <SelectItem key={e} value={e}>{e}</SelectItem>)}
+            {envOptions.map((e) => <SelectItem key={e.value} value={e.value}>{e.label}</SelectItem>)}
           </SelectContent>
         </Select>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <div><Label>Successes</Label><Input type="number" min={0} value={success} onChange={(e) => setSuccess(+e.target.value || 0)} /></div>
-        <div><Label>Total attempts</Label><Input type="number" min={1} value={total} onChange={(e) => setTotal(+e.target.value || 1)} /></div>
+        <div><Label>{t("recall-training-tracker.ui.successesLabel")}</Label><Input type="number" min={0} value={success} onChange={(e) => setSuccess(+e.target.value || 0)} /></div>
+        <div><Label>{t("recall-training-tracker.ui.attemptsLabel")}</Label><Input type="number" min={1} value={total} onChange={(e) => setTotal(+e.target.value || 1)} /></div>
       </div>
-      <Button onClick={add} className="w-full">Log session</Button>
+      <Button onClick={add} className="w-full">{t("recall-training-tracker.ui.logButton")}</Button>
     </div>
   );
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-primary/10 p-3 text-center">
-        <div className="text-3xl font-bold text-primary">{overall}%</div>
-        <div className="text-xs text-muted-foreground">Overall recall reliability ({logs.length} sessions)</div>
-        <p className="mt-2 text-xs text-muted-foreground">Target 90%+ before trusting off-leash in unfenced areas.</p>
+        <div className="text-3xl font-bold text-primary">{t("recall-training-tracker.ui.percent", { pct: overall })}</div>
+        <div className="text-xs text-muted-foreground">{t("recall-training-tracker.ui.overallLabel", { count: logs.length })}</div>
+        <p className="mt-2 text-xs text-muted-foreground">{t("recall-training-tracker.ui.targetHint")}</p>
       </div>
       <ul className="space-y-2">
-        {logs.length === 0 && <li className="text-xs text-muted-foreground">Log your first session to start tracking.</li>}
+        {logs.length === 0 && <li className="text-xs text-muted-foreground">{t("recall-training-tracker.ui.emptyState")}</li>}
         {logs.map((l, i) => (
           <li key={i} className="flex items-center justify-between rounded-lg bg-background/60 p-2 text-xs">
-            <span>{l.date} · {l.env}: <b>{l.success}/{l.total}</b> ({Math.round((l.success / l.total) * 100)}%)</span>
-            <Button size="sm" variant="ghost" onClick={() => remove(i)}>Remove</Button>
+            <span>{l.date} · {l.env}: <b>{l.success}/{l.total}</b> {t("recall-training-tracker.ui.sessionPct", { pct: Math.round((l.success / l.total) * 100) })}</span>
+            <Button size="sm" variant="ghost" onClick={() => remove(i)}>{t("recall-training-tracker.ui.removeButton")}</Button>
           </li>
         ))}
       </ul>
@@ -262,28 +275,47 @@ export function RecallTrainingTracker() {
 /* ═══════════════════════════════════════════════════════════
    6. SOCIALIZATION CHECKLIST
 ═══════════════════════════════════════════════════════════ */
-const SOCIALIZATION_GROUPS = [
-  { title: "People", items: ["Men with beards", "Women wearing hats", "Small children", "Teens", "Elderly", "People with mobility aids", "Delivery workers in uniform"] },
-  { title: "Animals", items: ["Vaccinated adult dog", "Puppy of similar age", "Cat (calm)", "Livestock or horses at distance", "Birds"] },
-  { title: "Environments", items: ["Pet-friendly store", "Vet lobby (happy visit)", "Café patio", "Elevator", "Stairs (all types)", "Car ride", "Grooming salon visit"] },
-  { title: "Surfaces & sounds", items: ["Grass, sand, gravel, metal grate", "Wood floor", "Vacuum on", "Doorbell", "Traffic noise", "Fireworks recording (low volume)", "Baby crying recording"] },
-  { title: "Handling", items: ["Ear touch", "Paw handling", "Nail dremel sound", "Toothbrushing", "Wearing a harness", "Being held for exam"] },
-];
 export function SocializationChecklist() {
+  const { t } = useTranslation("tools");
+  const groups = [
+    { title: t("socialization-checklist.ui.groupPeople"), items: [
+      t("socialization-checklist.ui.people1"), t("socialization-checklist.ui.people2"), t("socialization-checklist.ui.people3"),
+      t("socialization-checklist.ui.people4"), t("socialization-checklist.ui.people5"), t("socialization-checklist.ui.people6"),
+      t("socialization-checklist.ui.people7"),
+    ] },
+    { title: t("socialization-checklist.ui.groupAnimals"), items: [
+      t("socialization-checklist.ui.animals1"), t("socialization-checklist.ui.animals2"), t("socialization-checklist.ui.animals3"),
+      t("socialization-checklist.ui.animals4"), t("socialization-checklist.ui.animals5"),
+    ] },
+    { title: t("socialization-checklist.ui.groupEnvironments"), items: [
+      t("socialization-checklist.ui.env1"), t("socialization-checklist.ui.env2"), t("socialization-checklist.ui.env3"),
+      t("socialization-checklist.ui.env4"), t("socialization-checklist.ui.env5"), t("socialization-checklist.ui.env6"),
+      t("socialization-checklist.ui.env7"),
+    ] },
+    { title: t("socialization-checklist.ui.groupSurfaces"), items: [
+      t("socialization-checklist.ui.surfaces1"), t("socialization-checklist.ui.surfaces2"), t("socialization-checklist.ui.surfaces3"),
+      t("socialization-checklist.ui.surfaces4"), t("socialization-checklist.ui.surfaces5"), t("socialization-checklist.ui.surfaces6"),
+      t("socialization-checklist.ui.surfaces7"),
+    ] },
+    { title: t("socialization-checklist.ui.groupHandling"), items: [
+      t("socialization-checklist.ui.handling1"), t("socialization-checklist.ui.handling2"), t("socialization-checklist.ui.handling3"),
+      t("socialization-checklist.ui.handling4"), t("socialization-checklist.ui.handling5"), t("socialization-checklist.ui.handling6"),
+    ] },
+  ];
   const [done, setDone] = useLocalState<Record<string, boolean>>("furtools:socialization", {});
-  const all = SOCIALIZATION_GROUPS.flatMap((g) => g.items);
+  const all = groups.flatMap((g) => g.items);
   const completed = all.filter((i) => done[i]).length;
   const pct = Math.round((completed / all.length) * 100);
   return (
     <CalculatorLayout
-      form={<p className="text-sm text-muted-foreground">Aim to expose your puppy positively to 100 new things before 16 weeks.</p>}
+      form={<p className="text-sm text-muted-foreground">{t("socialization-checklist.ui.intro")}</p>}
       result={
         <div className="space-y-3">
           <div className="rounded-lg bg-primary/10 p-3 text-center">
-            <div className="text-3xl font-bold text-primary">{pct}%</div>
-            <div className="text-xs text-muted-foreground">{completed} of {all.length} experiences</div>
+            <div className="text-3xl font-bold text-primary">{t("socialization-checklist.ui.percent", { pct })}</div>
+            <div className="text-xs text-muted-foreground">{t("socialization-checklist.ui.progress", { completed, total: all.length })}</div>
           </div>
-          {SOCIALIZATION_GROUPS.map((g) => (
+          {groups.map((g) => (
             <div key={g.title} className="rounded-lg bg-background/60 p-3">
               <div className="mb-2 font-medium">{g.title}</div>
               <ul className="space-y-2">
@@ -305,30 +337,31 @@ export function SocializationChecklist() {
 /* ═══════════════════════════════════════════════════════════
    7. PUPPY MILESTONE TRACKER
 ═══════════════════════════════════════════════════════════ */
-const PUPPY_MILESTONES = [
-  { week: 3, m: "Eyes and ears open" },
-  { week: 4, m: "Starts eating soft food" },
-  { week: 6, m: "First deworming complete" },
-  { week: 8, m: "Ready to go home; first vaccine" },
-  { week: 10, m: "Basic name recognition" },
-  { week: 12, m: "Second vaccine, socialization critical" },
-  { week: 16, m: "Third vaccine + rabies; adult teeth erupting" },
-  { week: 20, m: "Reliable sit/down/come indoors" },
-  { week: 26, m: "Spay/neuter discussion with vet" },
-  { week: 52, m: "Switch to adult food (breed-dependent)" },
-];
 export function PuppyMilestoneTracker() {
+  const { t } = useTranslation("tools");
+  const milestones = [
+    { week: 3, label: t("puppy-milestone-tracker.ui.w3") },
+    { week: 4, label: t("puppy-milestone-tracker.ui.w4") },
+    { week: 6, label: t("puppy-milestone-tracker.ui.w6") },
+    { week: 8, label: t("puppy-milestone-tracker.ui.w8") },
+    { week: 10, label: t("puppy-milestone-tracker.ui.w10") },
+    { week: 12, label: t("puppy-milestone-tracker.ui.w12") },
+    { week: 16, label: t("puppy-milestone-tracker.ui.w16") },
+    { week: 20, label: t("puppy-milestone-tracker.ui.w20") },
+    { week: 26, label: t("puppy-milestone-tracker.ui.w26") },
+    { week: 52, label: t("puppy-milestone-tracker.ui.w52") },
+  ];
   const [done, setDone] = useLocalState<Record<string, boolean>>("furtools:puppy-milestones", {});
   return (
     <CalculatorLayout
-      form={<p className="text-sm text-muted-foreground">Standard puppy developmental checkpoints. Confirm timing with your veterinarian.</p>}
+      form={<p className="text-sm text-muted-foreground">{t("puppy-milestone-tracker.ui.intro")}</p>}
       result={
         <ul className="space-y-2">
-          {PUPPY_MILESTONES.map((s) => (
+          {milestones.map((s) => (
             <li key={s.week} className="flex items-start gap-3 rounded-lg bg-background/60 p-3">
               <Checkbox id={`pm-${s.week}`} checked={!!done[String(s.week)]} onCheckedChange={(v) => setDone((p) => ({ ...p, [String(s.week)]: !!v }))} />
               <label htmlFor={`pm-${s.week}`} className="text-sm">
-                <span className="font-medium">Week {s.week}:</span> {s.m}
+                <span className="font-medium">{t("puppy-milestone-tracker.ui.weekLabel", { week: s.week })}</span> {s.label}
               </label>
             </li>
           ))}
@@ -341,24 +374,25 @@ export function PuppyMilestoneTracker() {
 /* ═══════════════════════════════════════════════════════════
    8. AGGRESSION RISK ASSESSMENT
 ═══════════════════════════════════════════════════════════ */
-const AGG_QUESTIONS = [
-  "Stiffens or freezes when approached while eating",
-  "Growls when touched or handled",
-  "Has bitten a person (any severity)",
-  "Reacts intensely to other dogs on leash",
-  "Guards toys, food bowl, or resting spot",
-  "Shows a hard stare at strangers",
-  "Snaps in the air as a warning",
-  "History of biting another animal",
-];
 export function AggressionRiskAssessment() {
+  const { t } = useTranslation("tools");
+  const questions = [
+    t("aggression-risk-assessment.ui.q1"),
+    t("aggression-risk-assessment.ui.q2"),
+    t("aggression-risk-assessment.ui.q3"),
+    t("aggression-risk-assessment.ui.q4"),
+    t("aggression-risk-assessment.ui.q5"),
+    t("aggression-risk-assessment.ui.q6"),
+    t("aggression-risk-assessment.ui.q7"),
+    t("aggression-risk-assessment.ui.q8"),
+  ];
   const [answers, setAnswers] = useState<Record<string, boolean>>({});
   const score = Object.values(answers).filter(Boolean).length;
-  const risk = score === 0 ? "Low" : score <= 2 ? "Moderate — behavior consultant recommended" : score <= 4 ? "High — professional intervention needed" : "Very high — see veterinary behaviorist";
+  const risk = score === 0 ? t("aggression-risk-assessment.ui.riskLow") : score <= 2 ? t("aggression-risk-assessment.ui.riskModerate") : score <= 4 ? t("aggression-risk-assessment.ui.riskHigh") : t("aggression-risk-assessment.ui.riskVeryHigh");
   const color = score === 0 ? "text-emerald-600" : score <= 2 ? "text-amber-600" : "text-red-600";
   const form = (
     <div className="space-y-3">
-      {AGG_QUESTIONS.map((q) => (
+      {questions.map((q) => (
         <label key={q} className="flex items-start gap-3 rounded-lg bg-background/60 p-3 text-sm">
           <Checkbox checked={!!answers[q]} onCheckedChange={(v) => setAnswers((p) => ({ ...p, [q]: !!v }))} />
           <span>{q}</span>
@@ -369,15 +403,12 @@ export function AggressionRiskAssessment() {
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-primary/10 p-4 text-center">
-        <div className="text-sm text-muted-foreground">Risk score</div>
-        <div className={`text-3xl font-bold ${color}`}>{score} / {AGG_QUESTIONS.length}</div>
+        <div className="text-sm text-muted-foreground">{t("aggression-risk-assessment.ui.riskScoreLabel")}</div>
+        <div className={`text-3xl font-bold ${color}`}>{t("aggression-risk-assessment.ui.scoreValue", { score, total: questions.length })}</div>
         <div className="mt-1 text-sm font-medium">{risk}</div>
       </div>
       <div className="rounded-lg border border-red-500/30 bg-red-50/60 p-3 text-xs dark:bg-red-950/20">
-        <b>Safety first.</b> This screening tool does not diagnose aggression. Any bite history, resource
-        guarding, or unpredictable reactivity requires evaluation by a certified veterinary behaviorist
-        (Dip ACVB) or a certified behavior consultant (CDBC / IAABC). Rule out pain and thyroid disease
-        with your veterinarian first — medical issues cause many "sudden" aggression cases.
+        {t("aggression-risk-assessment.ui.safetyNote")}
       </div>
     </div>
   );
@@ -387,30 +418,37 @@ export function AggressionRiskAssessment() {
 /* ═══════════════════════════════════════════════════════════
    9. SEPARATION ANXIETY SCORE
 ═══════════════════════════════════════════════════════════ */
-const SEP_QUESTIONS = [
-  "Vocalizes (barks/whines/howls) when alone",
-  "Destroys items only when alone",
-  "House soils only when alone (fully trained)",
-  "Follows you room to room constantly",
-  "Panics at pre-departure cues (keys, shoes)",
-  "Excessive drooling or pacing when alone",
-  "Won't eat treats or food while alone",
-  "Injures self trying to escape",
-];
 export function SeparationAnxietyScore() {
+  const { t } = useTranslation("tools");
+  const questions = [
+    t("separation-anxiety-score.ui.q1"),
+    t("separation-anxiety-score.ui.q2"),
+    t("separation-anxiety-score.ui.q3"),
+    t("separation-anxiety-score.ui.q4"),
+    t("separation-anxiety-score.ui.q5"),
+    t("separation-anxiety-score.ui.q6"),
+    t("separation-anxiety-score.ui.q7"),
+    t("separation-anxiety-score.ui.q8"),
+  ];
+  const freqOptions = [
+    { val: 0, label: t("separation-anxiety-score.ui.freqNever") },
+    { val: 1, label: t("separation-anxiety-score.ui.freqSometimes") },
+    { val: 2, label: t("separation-anxiety-score.ui.freqOften") },
+    { val: 3, label: t("separation-anxiety-score.ui.freqAlways") },
+  ];
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const total = Object.values(answers).reduce((a, b) => a + b, 0);
   const max = SEP_QUESTIONS.length * 3;
   const pct = Math.round((total / max) * 100);
-  const band = pct < 20 ? "Minimal" : pct < 40 ? "Mild" : pct < 65 ? "Moderate" : "Severe";
+  const band = pct < 20 ? t("separation-anxiety-score.ui.bandMinimal") : pct < 40 ? t("separation-anxiety-score.ui.bandMild") : pct < 65 ? t("separation-anxiety-score.ui.bandModerate") : t("separation-anxiety-score.ui.bandSevere");
   const color = pct < 20 ? "text-emerald-600" : pct < 40 ? "text-yellow-600" : pct < 65 ? "text-orange-600" : "text-red-600";
   const form = (
     <div className="space-y-3">
-      {SEP_QUESTIONS.map((q) => (
+      {questions.map((q) => (
         <div key={q} className="rounded-lg bg-background/60 p-3">
           <div className="mb-2 text-sm">{q}</div>
           <div className="flex gap-2">
-            {["Never", "Sometimes", "Often", "Always"].map((label, val) => (
+            {freqOptions.map(({ val, label }) => (
               <Button
                 key={label}
                 size="sm"
@@ -426,14 +464,12 @@ export function SeparationAnxietyScore() {
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-primary/10 p-4 text-center">
-        <div className="text-sm text-muted-foreground">Separation anxiety score</div>
-        <div className={`text-3xl font-bold ${color}`}>{pct}%</div>
+        <div className="text-sm text-muted-foreground">{t("separation-anxiety-score.ui.scoreLabel")}</div>
+        <div className={`text-3xl font-bold ${color}`}>{t("separation-anxiety-score.ui.percent", { pct })}</div>
         <div className="mt-1 font-medium">{band}</div>
       </div>
       <div className="rounded-lg bg-background/60 p-3 text-xs text-muted-foreground">
-        Mild cases respond to counter-conditioning and enrichment. Moderate to severe cases benefit from
-        a certified separation-anxiety trainer (CSAT) and, in many cases, medication prescribed by your
-        veterinarian. Do not use punishment or "cry it out" methods — they worsen panic.
+        {t("separation-anxiety-score.ui.adviceNote")}
       </div>
     </div>
   );
@@ -443,44 +479,50 @@ export function SeparationAnxietyScore() {
 /* ═══════════════════════════════════════════════════════════
    10. TRICK TRAINING LIBRARY
 ═══════════════════════════════════════════════════════════ */
-const TRICKS = [
-  { name: "Sit", level: "Beginner", steps: "Lure nose up until rear touches floor, click, treat. Add cue after 10 reps." },
-  { name: "Down", level: "Beginner", steps: "From sit, lure straight down to floor between paws." },
-  { name: "Shake", level: "Beginner", steps: "Tickle back of paw, click when it lifts. Add hand cue." },
-  { name: "Spin", level: "Beginner", steps: "Lure nose in a circle. Fade lure to a finger point." },
-  { name: "Roll over", level: "Intermediate", steps: "From down, lure nose over shoulder toward hip." },
-  { name: "Bow", level: "Intermediate", steps: "Capture the play bow, mark with clicker, name it." },
-  { name: "Speak / Quiet", level: "Intermediate", steps: "Capture a bark on cue, then reward silence to teach 'quiet'." },
-  { name: "Fetch to hand", level: "Intermediate", steps: "Trade a toy for a treat; only reward when placed in your hand." },
-  { name: "Weave through legs", level: "Advanced", steps: "Lure through leg → step → lure back. Chain into figure-8." },
-  { name: "Play dead", level: "Advanced", steps: "From roll-over, add finger-gun cue, wait 3 seconds before release." },
-  { name: "Put toys away", level: "Advanced", steps: "Chain 'take it' + 'drop it' over a bin. Reward the release into bin." },
-];
 export function TrickTrainingLibrary() {
+  const { t } = useTranslation("tools");
+  const tricks = [
+    { key: "sit", level: "Beginner", name: t("trick-training-library.ui.trickSitName"), steps: t("trick-training-library.ui.trickSitSteps") },
+    { key: "down", level: "Beginner", name: t("trick-training-library.ui.trickDownName"), steps: t("trick-training-library.ui.trickDownSteps") },
+    { key: "shake", level: "Beginner", name: t("trick-training-library.ui.trickShakeName"), steps: t("trick-training-library.ui.trickShakeSteps") },
+    { key: "spin", level: "Beginner", name: t("trick-training-library.ui.trickSpinName"), steps: t("trick-training-library.ui.trickSpinSteps") },
+    { key: "rollover", level: "Intermediate", name: t("trick-training-library.ui.trickRolloverName"), steps: t("trick-training-library.ui.trickRolloverSteps") },
+    { key: "bow", level: "Intermediate", name: t("trick-training-library.ui.trickBowName"), steps: t("trick-training-library.ui.trickBowSteps") },
+    { key: "speak", level: "Intermediate", name: t("trick-training-library.ui.trickSpeakName"), steps: t("trick-training-library.ui.trickSpeakSteps") },
+    { key: "fetch", level: "Intermediate", name: t("trick-training-library.ui.trickFetchName"), steps: t("trick-training-library.ui.trickFetchSteps") },
+    { key: "weave", level: "Advanced", name: t("trick-training-library.ui.trickWeaveName"), steps: t("trick-training-library.ui.trickWeaveSteps") },
+    { key: "playdead", level: "Advanced", name: t("trick-training-library.ui.trickPlaydeadName"), steps: t("trick-training-library.ui.trickPlaydeadSteps") },
+    { key: "tidy", level: "Advanced", name: t("trick-training-library.ui.trickTidyName"), steps: t("trick-training-library.ui.trickTidySteps") },
+  ];
+  const levelLabels: Record<string, string> = {
+    Beginner: t("trick-training-library.ui.levelBeginner"),
+    Intermediate: t("trick-training-library.ui.levelIntermediate"),
+    Advanced: t("trick-training-library.ui.levelAdvanced"),
+  };
   const [level, setLevel] = useState<string>("all");
-  const list = level === "all" ? TRICKS : TRICKS.filter((t) => t.level === level);
+  const list = level === "all" ? tricks : tricks.filter((x) => x.level === level);
   return (
     <CalculatorLayout
       form={
         <div>
-          <Label>Difficulty</Label>
+          <Label>{t("trick-training-library.ui.difficultyLabel")}</Label>
           <Select value={level} onValueChange={setLevel}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              {["all", "Beginner", "Intermediate", "Advanced"].map((l) => <SelectItem key={l} value={l}>{l === "all" ? "All levels" : l}</SelectItem>)}
+              {[["all", t("trick-training-library.ui.levelAll")], ["Beginner", levelLabels.Beginner], ["Intermediate", levelLabels.Intermediate], ["Advanced", levelLabels.Advanced]].map(([v, label]) => <SelectItem key={v} value={v}>{label}</SelectItem>)}
             </SelectContent>
           </Select>
         </div>
       }
       result={
         <ul className="space-y-2">
-          {list.map((t) => (
-            <li key={t.name} className="rounded-lg bg-background/60 p-3">
+          {list.map((tr) => (
+            <li key={tr.key} className="rounded-lg bg-background/60 p-3">
               <div className="flex items-center justify-between">
-                <div className="font-medium">{t.name}</div>
-                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs">{t.level}</span>
+                <div className="font-medium">{tr.name}</div>
+                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs">{levelLabels[tr.level]}</span>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">{t.steps}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{tr.steps}</p>
             </li>
           ))}
         </ul>
@@ -493,15 +535,16 @@ export function TrickTrainingLibrary() {
    11. COMMAND VOCABULARY BUILDER
 ═══════════════════════════════════════════════════════════ */
 type Command = { word: string; meaning: string; learned: boolean };
-const STARTER: Command[] = [
-  { word: "Sit", meaning: "Bum on floor", learned: false },
-  { word: "Down", meaning: "Full lie down", learned: false },
-  { word: "Come", meaning: "Recall to me", learned: false },
-  { word: "Stay", meaning: "Freeze in position", learned: false },
-  { word: "Leave it", meaning: "Ignore that item", learned: false },
-];
 export function CommandVocabularyBuilder() {
-  const [list, setList] = useLocalState<Command[]>("furtools:vocab", STARTER);
+  const { t } = useTranslation("tools");
+  const starter: Command[] = [
+    { word: t("command-vocabulary-builder.ui.cmdSitWord"), meaning: t("command-vocabulary-builder.ui.cmdSitMeaning"), learned: false },
+    { word: t("command-vocabulary-builder.ui.cmdDownWord"), meaning: t("command-vocabulary-builder.ui.cmdDownMeaning"), learned: false },
+    { word: t("command-vocabulary-builder.ui.cmdComeWord"), meaning: t("command-vocabulary-builder.ui.cmdComeMeaning"), learned: false },
+    { word: t("command-vocabulary-builder.ui.cmdStayWord"), meaning: t("command-vocabulary-builder.ui.cmdStayMeaning"), learned: false },
+    { word: t("command-vocabulary-builder.ui.cmdLeaveWord"), meaning: t("command-vocabulary-builder.ui.cmdLeaveMeaning"), learned: false },
+  ];
+  const [list, setList] = useLocalState<Command[]>("furtools:vocab", starter);
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
   const learned = list.filter((c) => c.learned).length;
@@ -518,16 +561,16 @@ export function CommandVocabularyBuilder() {
     <CalculatorLayout
       form={
         <div className="space-y-3">
-          <div><Label>New command word</Label><Input value={word} onChange={(e) => setWord(e.target.value)} placeholder="e.g. Touch" /></div>
-          <div><Label>What it means</Label><Input value={meaning} onChange={(e) => setMeaning(e.target.value)} placeholder="Nose to my palm" /></div>
-          <Button onClick={add} className="w-full">Add command</Button>
+          <div><Label>{t("command-vocabulary-builder.ui.wordLabel")}</Label><Input value={word} onChange={(e) => setWord(e.target.value)} placeholder={t("command-vocabulary-builder.ui.wordPlaceholder")} /></div>
+          <div><Label>{t("command-vocabulary-builder.ui.meaningLabel")}</Label><Input value={meaning} onChange={(e) => setMeaning(e.target.value)} placeholder={t("command-vocabulary-builder.ui.meaningPlaceholder")} /></div>
+          <Button onClick={add} className="w-full">{t("command-vocabulary-builder.ui.addButton")}</Button>
         </div>
       }
       result={
         <div className="space-y-3">
           <div className="rounded-lg bg-primary/10 p-3 text-center">
             <div className="text-3xl font-bold text-primary">{learned}</div>
-            <div className="text-xs text-muted-foreground">Commands mastered of {list.length}</div>
+            <div className="text-xs text-muted-foreground">{t("command-vocabulary-builder.ui.mastered", { total: list.length })}</div>
           </div>
           <ul className="space-y-2">
             {list.map((c, i) => (
@@ -552,6 +595,7 @@ export function CommandVocabularyBuilder() {
 ═══════════════════════════════════════════════════════════ */
 type JournalEntry = { date: string; trigger: string; behavior: string; response: string; notes: string };
 export function BehaviorJournal() {
+  const { t } = useTranslation("tools");
   const [entries, setEntries] = useLocalState<JournalEntry[]>("furtools:behavior-journal", []);
   const [e, setE] = useState<JournalEntry>({ date: new Date().toISOString().slice(0, 10), trigger: "", behavior: "", response: "", notes: "" });
   const add = () => {
@@ -564,26 +608,26 @@ export function BehaviorJournal() {
     <CalculatorLayout
       form={
         <div className="space-y-3">
-          <div><Label>Date</Label><Input type="date" value={e.date} onChange={(ev) => setE({ ...e, date: ev.target.value })} /></div>
-          <div><Label>Trigger (what happened right before?)</Label><Input value={e.trigger} onChange={(ev) => setE({ ...e, trigger: ev.target.value })} placeholder="Doorbell rang" /></div>
-          <div><Label>Behavior observed</Label><Input value={e.behavior} onChange={(ev) => setE({ ...e, behavior: ev.target.value })} placeholder="Barked and jumped at door" /></div>
-          <div><Label>Your response</Label><Input value={e.response} onChange={(ev) => setE({ ...e, response: ev.target.value })} placeholder="Redirected to mat + treat" /></div>
-          <div><Label>Notes</Label><Textarea rows={2} value={e.notes} onChange={(ev) => setE({ ...e, notes: ev.target.value })} /></div>
-          <Button onClick={add} className="w-full">Save entry</Button>
+          <div><Label>{t("behavior-journal.ui.dateLabel")}</Label><Input type="date" value={e.date} onChange={(ev) => setE({ ...e, date: ev.target.value })} /></div>
+          <div><Label>{t("behavior-journal.ui.triggerLabel")}</Label><Input value={e.trigger} onChange={(ev) => setE({ ...e, trigger: ev.target.value })} placeholder={t("behavior-journal.ui.triggerPlaceholder")} /></div>
+          <div><Label>{t("behavior-journal.ui.behaviorLabel")}</Label><Input value={e.behavior} onChange={(ev) => setE({ ...e, behavior: ev.target.value })} placeholder={t("behavior-journal.ui.behaviorPlaceholder")} /></div>
+          <div><Label>{t("behavior-journal.ui.responseLabel")}</Label><Input value={e.response} onChange={(ev) => setE({ ...e, response: ev.target.value })} placeholder={t("behavior-journal.ui.responsePlaceholder")} /></div>
+          <div><Label>{t("behavior-journal.ui.notesLabel")}</Label><Textarea rows={2} value={e.notes} onChange={(ev) => setE({ ...e, notes: ev.target.value })} /></div>
+          <Button onClick={add} className="w-full">{t("behavior-journal.ui.saveButton")}</Button>
         </div>
       }
       result={
         <div className="space-y-2">
-          {entries.length === 0 && <p className="text-xs text-muted-foreground">Consistent journaling reveals patterns — most owners spot the trigger cluster within 2 weeks.</p>}
+          {entries.length === 0 && <p className="text-xs text-muted-foreground">{t("behavior-journal.ui.emptyState")}</p>}
           {entries.map((en, i) => (
             <div key={i} className="rounded-lg bg-background/60 p-3 text-sm">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>{en.date}</span>
-                <Button size="sm" variant="ghost" onClick={() => remove(i)}>Remove</Button>
+                <Button size="sm" variant="ghost" onClick={() => remove(i)}>{t("behavior-journal.ui.removeButton")}</Button>
               </div>
-              <div className="mt-1"><b>Trigger:</b> {en.trigger || "—"}</div>
-              <div><b>Behavior:</b> {en.behavior}</div>
-              <div><b>Response:</b> {en.response || "—"}</div>
+              <div className="mt-1"><b>{t("behavior-journal.ui.triggerPrefix")}</b> {en.trigger || "—"}</div>
+              <div><b>{t("behavior-journal.ui.behaviorPrefix")}</b> {en.behavior}</div>
+              <div><b>{t("behavior-journal.ui.responsePrefix")}</b> {en.response || "—"}</div>
               {en.notes && <div className="mt-1 text-xs text-muted-foreground">{en.notes}</div>}
             </div>
           ))}
@@ -597,25 +641,26 @@ export function BehaviorJournal() {
    13. REWARD SCHEDULE CALCULATOR
 ═══════════════════════════════════════════════════════════ */
 export function RewardScheduleCalculator() {
+  const { t } = useTranslation("tools");
   const [stage, setStage] = useState<"acquisition" | "fluency" | "generalization" | "maintenance">("acquisition");
   const plan = {
-    acquisition: { schedule: "Continuous (100%)", ratio: "1:1", note: "Reward every correct response while pet is learning the behavior." },
-    fluency: { schedule: "Variable ratio (VR3)", ratio: "≈ 1 in 3", note: "Reward on average every 3rd rep — builds speed and reliability." },
-    generalization: { schedule: "Variable ratio (VR5)", ratio: "≈ 1 in 5", note: "In new environments, jackpot occasional big rewards. Keep verbal praise every time." },
-    maintenance: { schedule: "Intermittent (VR8-10)", ratio: "≈ 1 in 8-10", note: "Behavior is a lifestyle — reward once every 8-10 reps or after harder repetitions." },
+    acquisition: { schedule: t("reward-schedule-calculator.ui.scheduleAcquisition"), ratio: t("reward-schedule-calculator.ui.ratioAcquisition"), note: t("reward-schedule-calculator.ui.noteAcquisition") },
+    fluency: { schedule: t("reward-schedule-calculator.ui.scheduleFluency"), ratio: t("reward-schedule-calculator.ui.ratioFluency"), note: t("reward-schedule-calculator.ui.noteFluency") },
+    generalization: { schedule: t("reward-schedule-calculator.ui.scheduleGeneralization"), ratio: t("reward-schedule-calculator.ui.ratioGeneralization"), note: t("reward-schedule-calculator.ui.noteGeneralization") },
+    maintenance: { schedule: t("reward-schedule-calculator.ui.scheduleMaintenance"), ratio: t("reward-schedule-calculator.ui.ratioMaintenance"), note: t("reward-schedule-calculator.ui.noteMaintenance") },
   }[stage];
   return (
     <CalculatorLayout
       form={
         <div>
-          <Label>Training stage</Label>
+          <Label>{t("reward-schedule-calculator.ui.stageLabel")}</Label>
           <Select value={stage} onValueChange={(v) => setStage(v as typeof stage)}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="acquisition">Acquisition (just learning)</SelectItem>
-              <SelectItem value="fluency">Fluency (knows it well)</SelectItem>
-              <SelectItem value="generalization">Generalization (new places)</SelectItem>
-              <SelectItem value="maintenance">Maintenance (lifelong)</SelectItem>
+              <SelectItem value="acquisition">{t("reward-schedule-calculator.ui.stageAcquisition")}</SelectItem>
+              <SelectItem value="fluency">{t("reward-schedule-calculator.ui.stageFluency")}</SelectItem>
+              <SelectItem value="generalization">{t("reward-schedule-calculator.ui.stageGeneralization")}</SelectItem>
+              <SelectItem value="maintenance">{t("reward-schedule-calculator.ui.stageMaintenance")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -623,14 +668,13 @@ export function RewardScheduleCalculator() {
       result={
         <div className="space-y-3">
           <div className="rounded-lg bg-primary/10 p-4">
-            <div className="text-sm text-muted-foreground">Recommended schedule</div>
+            <div className="text-sm text-muted-foreground">{t("reward-schedule-calculator.ui.scheduleTitle")}</div>
             <div className="text-xl font-semibold text-primary">{plan.schedule}</div>
-            <div className="mt-1 text-xs text-muted-foreground">Reward ratio: <b>{plan.ratio}</b></div>
+            <div className="mt-1 text-xs text-muted-foreground">{t("reward-schedule-calculator.ui.rewardRatioLabel")}: <b>{plan.ratio}</b></div>
           </div>
           <p className="rounded-lg bg-background/60 p-3 text-sm">{plan.note}</p>
           <div className="rounded-lg bg-background/60 p-3 text-xs text-muted-foreground">
-            <b>Rule:</b> weaken rewards too fast and the behavior extinguishes. If reliability drops
-            below 80%, back up one stage for a few days before thinning the schedule again.
+            {t("reward-schedule-calculator.ui.ruleNote")}
           </div>
         </div>
       }
@@ -643,6 +687,16 @@ export function RewardScheduleCalculator() {
 ═══════════════════════════════════════════════════════════ */
 type Bark = { date: string; time: string; trigger: string; duration: number };
 export function BarkingLog() {
+  const { t } = useTranslation("tools");
+  const triggerOptions = [
+    { value: "Doorbell", label: t("barking-log.ui.triggerDoorbell") },
+    { value: "Stranger passing", label: t("barking-log.ui.triggerStranger") },
+    { value: "Other dog", label: t("barking-log.ui.triggerDog") },
+    { value: "Noise outside", label: t("barking-log.ui.triggerNoise") },
+    { value: "Alone/anxious", label: t("barking-log.ui.triggerAlone") },
+    { value: "Attention seeking", label: t("barking-log.ui.triggerAttention") },
+    { value: "Other", label: t("barking-log.ui.triggerOther") },
+  ];
   const [logs, setLogs] = useLocalState<Bark[]>("furtools:bark-log", []);
   const [trigger, setTrigger] = useState("Doorbell");
   const [duration, setDuration] = useState(2);
@@ -662,37 +716,37 @@ export function BarkingLog() {
       form={
         <div className="space-y-3">
           <div>
-            <Label>Trigger</Label>
+            <Label>{t("barking-log.ui.triggerLabel")}</Label>
             <Select value={trigger} onValueChange={setTrigger}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                {["Doorbell", "Stranger passing", "Other dog", "Noise outside", "Alone/anxious", "Attention seeking", "Other"].map((t) => (
-                  <SelectItem key={t} value={t}>{t}</SelectItem>
+                {triggerOptions.map((o) => (
+                  <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          <div><Label>Duration (minutes)</Label><Input type="number" min={0} value={duration} onChange={(e) => setDuration(+e.target.value || 0)} /></div>
-          <Button onClick={add} className="w-full">Log bark event</Button>
+          <div><Label>{t("barking-log.ui.durationLabel")}</Label><Input type="number" min={0} value={duration} onChange={(e) => setDuration(+e.target.value || 0)} /></div>
+          <Button onClick={add} className="w-full">{t("barking-log.ui.logButton")}</Button>
         </div>
       }
       result={
         <div className="space-y-3">
           <div className="rounded-lg bg-primary/10 p-3">
-            <div className="text-xs text-muted-foreground">Top triggers</div>
+            <div className="text-xs text-muted-foreground">{t("barking-log.ui.topTitle")}</div>
             {summary.top.length === 0 ? (
-              <div className="text-sm text-muted-foreground">No entries yet.</div>
+              <div className="text-sm text-muted-foreground">{t("barking-log.ui.emptyTop")}</div>
             ) : (
               <ul className="mt-1 space-y-1 text-sm">
-                {summary.top.map(([t, n]) => <li key={t}>• <b>{t}</b> — {n} events</li>)}
+                {summary.top.map(([trig, n]) => <li key={trig}>• <b>{trig}</b>{t("barking-log.ui.events", { n })}</li>)}
               </ul>
             )}
-            <div className="mt-2 text-xs text-muted-foreground">Total logged barking: <b>{summary.totalMinutes} min</b></div>
+            <div className="mt-2 text-xs text-muted-foreground">{t("barking-log.ui.totalLoggedLabel")}: <b>{t("barking-log.ui.totalMinutes", { minutes: summary.totalMinutes })}</b></div>
           </div>
           <ul className="space-y-2">
             {logs.slice(0, 15).map((l, i) => (
               <li key={i} className="flex items-center justify-between rounded-lg bg-background/60 p-2 text-xs">
-                <span>{l.date} {l.time} — {l.trigger} · {l.duration} min</span>
+                <span>{t("barking-log.ui.logEntry", { date: l.date, time: l.time, trigger: l.trigger, duration: l.duration })}</span>
                 <Button size="sm" variant="ghost" onClick={() => remove(i)}>×</Button>
               </li>
             ))}
@@ -707,32 +761,33 @@ export function BarkingLog() {
    15. LITTER TRAINING (cats / rabbits)
 ═══════════════════════════════════════════════════════════ */
 export function LitterTrainingPlanner() {
+  const { t } = useTranslation("tools");
   const [species, setSpecies] = useState<"cat" | "rabbit">("cat");
   const plan = species === "cat"
     ? [
-        { day: "Day 1", step: "Set up 1 box per cat +1 in a quiet, low-traffic spot. Use unscented clumping litter, 3 inches deep." },
-        { day: "Day 2-3", step: "Place kitten in box after meals and naps. Praise calmly if they dig or eliminate." },
-        { day: "Day 4-7", step: "Scoop twice daily. Never punish accidents — clean with enzymatic cleaner to remove scent markers." },
-        { day: "Week 2", step: "If accidents continue, add a second box near the accident location." },
-        { day: "Week 3-4", step: "Slowly transition litter type if needed (mix 25% new / 75% old for 3 days, then 50/50, then 100%)." },
+        { day: t("litter-training-planner.ui.catDay1"), step: t("litter-training-planner.ui.catStep1") },
+        { day: t("litter-training-planner.ui.catDay23"), step: t("litter-training-planner.ui.catStep23") },
+        { day: t("litter-training-planner.ui.catDay47"), step: t("litter-training-planner.ui.catStep47") },
+        { day: t("litter-training-planner.ui.catWeek2"), step: t("litter-training-planner.ui.catStepW2") },
+        { day: t("litter-training-planner.ui.catWeek34"), step: t("litter-training-planner.ui.catStepW34") },
       ]
     : [
-        { day: "Day 1", step: "Place a corner litter box inside the enclosure. Use paper-based litter (never clumping/clay)." },
-        { day: "Day 2-3", step: "Add a handful of hay on top — rabbits naturally chew and poop while eating." },
-        { day: "Day 4-7", step: "Move any stray droppings into the box to reinforce the scent location." },
-        { day: "Week 2", step: "Once 80% of droppings land in the box, allow supervised free-roam." },
-        { day: "Week 3+", step: "Spay/neuter around 4-6 months dramatically improves litter reliability." },
+        { day: t("litter-training-planner.ui.rabbitDay1"), step: t("litter-training-planner.ui.rabbitStep1") },
+        { day: t("litter-training-planner.ui.rabbitDay23"), step: t("litter-training-planner.ui.rabbitStep23") },
+        { day: t("litter-training-planner.ui.rabbitDay47"), step: t("litter-training-planner.ui.rabbitStep47") },
+        { day: t("litter-training-planner.ui.rabbitWeek2"), step: t("litter-training-planner.ui.rabbitStepW2") },
+        { day: t("litter-training-planner.ui.rabbitWeek3p"), step: t("litter-training-planner.ui.rabbitStepW3p") },
       ];
   return (
     <CalculatorLayout
       form={
         <div>
-          <Label>Species</Label>
+          <Label>{t("litter-training-planner.ui.speciesLabel")}</Label>
           <Select value={species} onValueChange={(v) => setSpecies(v as "cat" | "rabbit")}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="cat">Cat / kitten</SelectItem>
-              <SelectItem value="rabbit">Rabbit</SelectItem>
+              <SelectItem value="cat">{t("litter-training-planner.ui.speciesCat")}</SelectItem>
+              <SelectItem value="rabbit">{t("litter-training-planner.ui.speciesRabbit")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -746,7 +801,7 @@ export function LitterTrainingPlanner() {
             </li>
           ))}
           <li className="rounded-lg border border-amber-500/30 bg-amber-50/60 p-3 text-xs dark:bg-amber-950/20">
-            Sudden loss of litter-box habits often signals a UTI, bladder stones, or arthritis. Any regression lasting more than 3 days warrants a vet visit.
+            {t("litter-training-planner.ui.vetNote")}
           </li>
         </ul>
       }

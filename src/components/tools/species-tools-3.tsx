@@ -22,6 +22,7 @@ import {
   Box,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 function Big({ value, label, unit }: { value: string | number; label: string; unit?: string }) {
   return (
@@ -35,13 +36,13 @@ function Big({ value, label, unit }: { value: string | number; label: string; un
 function Note({ children }: { children: React.ReactNode }) {
   return <p className="text-sm text-muted-foreground text-center">{children}</p>;
 }
-function SelectField({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[] }) {
+function SelectField({ label, value, onChange, options, optionLabels }: { label: string; value: string; onChange: (v: string) => void; options: string[]; optionLabels?: string[] }) {
   return (
     <div>
       <Label>{label}</Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-        <SelectContent>{options.map((o) => <SelectItem key={o} value={o}>{o.replace(/-/g, " ")}</SelectItem>)}</SelectContent>
+        <SelectContent>{options.map((o, i) => <SelectItem key={o} value={o}>{optionLabels?.[i] ?? o.replace(/-/g, " ")}</SelectItem>)}</SelectContent>
       </Select>
     </div>
   );
@@ -57,6 +58,7 @@ function NumberField({ label, value, onChange, min = 0, step = 1 }: { label: str
 
 /* ─────────── DOGS ─────────── */
 export function DogSwimTimeCalculator() {
+  const { t } = useTranslation("tools");
   const [kg, setKg] = useState(20);
   const [fitness, setFitness] = useState("average");
   const base: Record<string, number> = { beginner: 5, average: 10, athletic: 20 };
@@ -64,56 +66,59 @@ export function DogSwimTimeCalculator() {
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
-        <NumberField label="Weight (kg)" value={kg} onChange={setKg} step={0.5} />
-        <SelectField label="Swim fitness" value={fitness} onChange={setFitness} options={Object.keys(base)} />
+        <NumberField label={t("dog-swim-time-calculator.ui.weightLabel")} value={kg} onChange={setKg} step={0.5} />
+        <SelectField label={t("dog-swim-time-calculator.ui.fitnessLabel")} value={fitness} onChange={setFitness} options={Object.keys(base)} optionLabels={[t("dog-swim-time-calculator.ui.fitnessBeginner"), t("dog-swim-time-calculator.ui.fitnessAverage"), t("dog-swim-time-calculator.ui.fitnessAthletic")]} />
       </div>}
       result={<div className="space-y-4">
-        <Big value={`${minutes} min`} label="Safe first swim session" />
-        <Note>Build up gradually. Rinse coat after chlorine or salt water.</Note>
+        <Big value={t("dog-swim-time-calculator.ui.minutesValue", { minutes })} label={t("dog-swim-time-calculator.ui.safeSessionLabel")} />
+        <Note>{t("dog-swim-time-calculator.ui.rinseNote")}</Note>
       </div>}
     />
   );
 }
 
 export function DogCarTravelPlanner() {
+  const { t } = useTranslation("tools");
   const [hours, setHours] = useState(6);
   const breaks = Math.max(1, Math.floor(hours / 2));
   const water = Math.round(hours * 100);
   return (
     <CalculatorLayout
-      form={<NumberField label="Trip length (hours)" value={hours} onChange={setHours} min={1} />}
+      form={<NumberField label={t("dog-car-travel-planner.ui.tripLengthLabel")} value={hours} onChange={setHours} min={1} />}
       result={<div className="space-y-4">
-        <Big value={breaks} label="Potty / stretch breaks" />
-        <Note>Bring ≈ {water} ml of water, a familiar blanket, and never leave your dog alone in the car.</Note>
+        <Big value={breaks} label={t("dog-car-travel-planner.ui.breaksLabel")} />
+        <Note>{t("dog-car-travel-planner.ui.waterNote", { water })}</Note>
       </div>}
     />
   );
 }
 
 export function DogParkVisitTracker() {
+  const { t } = useTranslation("tools");
   const [minutes, setMinutes] = useState(45);
   const [visits, setVisits] = useState(3);
   const weekly = minutes * visits;
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
-        <NumberField label="Minutes per visit" value={minutes} onChange={setMinutes} min={10} />
-        <NumberField label="Visits per week" value={visits} onChange={setVisits} min={1} />
+        <NumberField label={t("dog-park-visit-tracker.ui.minutesPerVisitLabel")} value={minutes} onChange={setMinutes} min={10} />
+        <NumberField label={t("dog-park-visit-tracker.ui.visitsPerWeekLabel")} value={visits} onChange={setVisits} min={1} />
       </div>}
-      result={<Big value={`${weekly} min / wk`} label="Total off-leash time" />}
+      result={<Big value={t("dog-park-visit-tracker.ui.weeklyValue", { weekly })} label={t("dog-park-visit-tracker.ui.totalLabel")} />}
     />
   );
 }
 
 export function DogCrateTrainingSchedule() {
+  const { t } = useTranslation("tools");
   const [weeks, setWeeks] = useState(8);
   const maxHours = Math.min(6, Math.max(1, Math.floor(weeks / 4) + 1));
   return (
     <CalculatorLayout
-      form={<NumberField label="Puppy age (weeks)" value={weeks} onChange={setWeeks} min={8} />}
+      form={<NumberField label={t("dog-crate-training-schedule.ui.puppyAgeLabel")} value={weeks} onChange={setWeeks} min={8} />}
       result={<div className="space-y-4">
-        <Big value={`${maxHours} hr`} label="Max time in crate" />
-        <Note>Rule of thumb: age-in-months + 1 = max hours. Never exceed 6 hours for adults.</Note>
+        <Big value={t("dog-crate-training-schedule.ui.maxHoursValue", { hours: maxHours })} label={t("dog-crate-training-schedule.ui.maxTimeLabel")} />
+        <Note>{t("dog-crate-training-schedule.ui.ruleNote")}</Note>
       </div>}
     />
   );
@@ -121,38 +126,41 @@ export function DogCrateTrainingSchedule() {
 
 /* ─────────── CATS ─────────── */
 export function CatWindowPerchGuide() {
+  const { t } = useTranslation("tools");
   const [cats, setCats] = useState(1);
   const perches = cats + 1;
   return (
     <CalculatorLayout
-      form={<NumberField label="Number of cats" value={cats} onChange={setCats} min={1} />}
+      form={<NumberField label={t("cat-window-perch-guide.ui.catsLabel")} value={cats} onChange={setCats} min={1} />}
       result={<div className="space-y-4">
-        <Big value={perches} label="Recommended perches" />
-        <Note>One perch per cat plus a spare avoids resource guarding. Choose sunny east or south windows.</Note>
+        <Big value={perches} label={t("cat-window-perch-guide.ui.perchesLabel")} />
+        <Note>{t("cat-window-perch-guide.ui.perchNote")}</Note>
       </div>}
     />
   );
 }
 
 export function CatWeightLossPlanner() {
+  const { t } = useTranslation("tools");
   const [current, setCurrent] = useState(6);
   const [target, setTarget] = useState(5);
   const weeks = Math.max(1, Math.round((current - target) / 0.05));
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
-        <NumberField label="Current weight (kg)" value={current} onChange={setCurrent} step={0.1} />
-        <NumberField label="Target weight (kg)" value={target} onChange={setTarget} step={0.1} />
+        <NumberField label={t("cat-weight-loss-planner.ui.currentWeightLabel")} value={current} onChange={setCurrent} step={0.1} />
+        <NumberField label={t("cat-weight-loss-planner.ui.targetWeightLabel")} value={target} onChange={setTarget} step={0.1} />
       </div>}
       result={<div className="space-y-4">
-        <Big value={`${weeks} weeks`} label="Safe timeline" />
-        <Note>Cats should lose no more than 0.5–1% body weight per week — rapid loss risks fatty liver.</Note>
+        <Big value={t("cat-weight-loss-planner.ui.weeksValue", { weeks })} label={t("cat-weight-loss-planner.ui.timelineLabel")} />
+        <Note>{t("cat-weight-loss-planner.ui.lossNote")}</Note>
       </div>}
     />
   );
 }
 
 export function CatAgeAdjustedFeeding() {
+  const { t } = useTranslation("tools");
   const [age, setAge] = useState(3);
   const [kg, setKg] = useState(4);
   const factor = age < 1 ? 2.5 : age > 10 ? 0.9 : 1.0;
@@ -160,10 +168,10 @@ export function CatAgeAdjustedFeeding() {
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
-        <NumberField label="Age (years)" value={age} onChange={setAge} step={0.5} />
-        <NumberField label="Weight (kg)" value={kg} onChange={setKg} step={0.1} />
+        <NumberField label={t("cat-age-adjusted-feeding.ui.ageLabel")} value={age} onChange={setAge} step={0.5} />
+        <NumberField label={t("cat-age-adjusted-feeding.ui.weightLabel")} value={kg} onChange={setKg} step={0.1} />
       </div>}
-      result={<Big value={`${kcal} kcal`} label="Daily calorie target" />}
+      result={<Big value={t("cat-age-adjusted-feeding.ui.kcalValue", { kcal })} label={t("cat-age-adjusted-feeding.ui.calorieLabel")} />}
     />
   );
 }
@@ -188,6 +196,7 @@ const BIRD_MOLT_PROFILES: Record<string, BirdMoltData> = {
 };
 
 export function BirdMoltingTracker() {
+  const { t } = useTranslation("tools");
   const [sp, setSp] = useState("cockatiel");
   const [start, setStart] = useState("2026-08-01");
   const d = BIRD_MOLT_PROFILES[sp] || BIRD_MOLT_PROFILES.cockatiel;
@@ -200,34 +209,34 @@ export function BirdMoltingTracker() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Bird Species</Label>
+            <Label>{t("bird-molting-tracker.ui.speciesLabel")}</Label>
             <Select value={sp} onValueChange={setSp}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
                 {Object.entries(BIRD_MOLT_PROFILES).map(([k, v]) => (
-                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                  <SelectItem key={k} value={k}>{t(`bird-molting-tracker.ui.molt.${k}.name`)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Molt Start Date (First Pin Feathers / Heavy Drop)</Label>
+            <Label>{t("bird-molting-tracker.ui.moltStartLabel")}</Label>
             <Input type="date" value={start} onChange={(e) => setStart(e.target.value)} className="mt-1.5" />
           </div>
         </div>
       }
       result={
         <div className="space-y-4">
-          <Big value={endDate.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })} label={`Estimated Completion (≈ ${d.durationWeeks} weeks)`} />
+          <Big value={endDate.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })} label={t("bird-molting-tracker.ui.completionLabel", { weeks: d.durationWeeks })} />
           <Rows items={[
-            { label: "Annual Molt Frequency", value: d.frequencyPerYear },
-            { label: "Pin Feather & Grooming Care", value: d.pinFeatherCare },
+            { label: t("bird-molting-tracker.ui.freqLabel"), value: t(`bird-molting-tracker.ui.molt.${sp}.frequency`) },
+            { label: t("bird-molting-tracker.ui.pinCareLabel"), value: t(`bird-molting-tracker.ui.molt.${sp}.pinCare`) },
           ]} />
           <div className="rounded-lg bg-primary/10 p-3 text-xs text-primary font-medium">
-            🧬 <strong>Nutritional Support Mandate:</strong> {d.nutritionalNeeds}
+            🧬 <strong>{t("bird-molting-tracker.ui.nutritionTitle")}</strong> {t(`bird-molting-tracker.ui.molt.${sp}.nutrition`)}
           </div>
           <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
-            <strong>🩸 Active Blood Feather Warning:</strong> New growing feathers are filled with pressurized blood vessels. If a growing pin feather snaps and bleeds, apply styptic powder or cornstarch with direct pressure for 2 minutes and consult an avian vet if bleeding persists.
+            <strong>🩸 {t("bird-molting-tracker.ui.bloodWarningTitle")}</strong> {t("bird-molting-tracker.ui.bloodWarningBody")}
           </div>
         </div>
       }
@@ -254,7 +263,9 @@ const BIRD_SLEEP_PROFILES: Record<string, BirdSleepData> = {
   macaw: { name: "Large Macaw", sleepHours: 12, bedtimeSuggestion: "8:00 PM – 8:00 AM (12 hours)", hormonalControlAdvice: "Equatorial jungle species naturally evolved with equal 12-hour day / 12-hour night cycles." },
 };
 
-export function BirdSleepSchedule() {
+export function BirdSleepSchedule({ slug }: { slug?: string }) {
+  const p = slug ?? "shared.BirdSleepSchedule";
+  const { t } = useTranslation("tools");
   const [sp, setSp] = useState("cockatiel");
   const [wakeTime, setWakeTime] = useState("07:00");
   const d = BIRD_SLEEP_PROFILES[sp] || BIRD_SLEEP_PROFILES.cockatiel;
@@ -272,34 +283,34 @@ export function BirdSleepSchedule() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Bird Species</Label>
+            <Label>{t(`${p}.ui.speciesLabel`)}</Label>
             <Select value={sp} onValueChange={setSp}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
                 {Object.entries(BIRD_SLEEP_PROFILES).map(([k, v]) => (
-                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                  <SelectItem key={k} value={k}>{t(`${p}.ui.sleep.${k}.name`)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Target Morning Wakeup Time</Label>
+            <Label>{t(`${p}.ui.wakeupLabel`)}</Label>
             <Input type="time" value={wakeTime} onChange={(e) => setWakeTime(e.target.value)} className="mt-1.5" />
           </div>
         </div>
       }
       result={
         <div className="space-y-4">
-          <Big value={bedStr} label={`Calculated Bedtime (${d.sleepHours}h dark sleep)`} unit={`Wake: ${wakeTime}`} />
+          <Big value={bedStr} label={t(`${p}.ui.bedtimeLabel`, { hours: d.sleepHours })} unit={t(`${p}.ui.wakeUnit`, { time: wakeTime })} />
           <Rows items={[
-            { label: "Nightly Sleep Duration", value: `${d.sleepHours} uninterrupted hours` },
-            { label: "Equatorial Standard", value: d.bedtimeSuggestion },
+            { label: t(`${p}.ui.sleepDurationLabel`), value: t(`${p}.ui.sleepDurationValue`, { hours: d.sleepHours }) },
+            { label: t(`${p}.ui.equatorialLabel`), value: t(`${p}.ui.sleep.${sp}.suggestion`) },
           ]} />
           <div className="rounded-lg bg-primary/10 p-3 text-xs text-primary font-medium">
-            🌙 <strong>Hormonal & Behavioral Control:</strong> {d.hormonalControlAdvice}
+            🌙 <strong>{t(`${p}.ui.hormonalTitle`)}</strong> {t(`${p}.ui.sleep.${sp}.hormonal`)}
           </div>
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
-            <p><strong>Sleep Cage Best Practice:</strong> A smaller dedicated sleep cage in a quiet, dark spare bedroom prevents sleep disruption from family TV/kitchen activity and eliminates night frights.</p>
+            <p><strong>{t(`${p}.ui.sleepCageTitle`)}</strong> {t(`${p}.ui.sleepCageBody`)}</p>
           </div>
         </div>
       }
@@ -309,6 +320,7 @@ export function BirdSleepSchedule() {
 
 /* ─────────── FISH ─────────── */
 export function AquariumNitrateCalculator() {
+  const { t } = useTranslation("tools");
   const [gallons, setGallons] = useState(30);
   const [ppm, setPpm] = useState(40);
   const targetPpm = 20;
@@ -317,30 +329,31 @@ export function AquariumNitrateCalculator() {
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
-        <NumberField label="Tank volume (gal)" value={gallons} onChange={setGallons} min={1} />
-        <NumberField label="Current nitrate (ppm)" value={ppm} onChange={setPpm} min={0} />
+        <NumberField label={t("aquarium-nitrate-calculator.ui.tankVolumeLabel")} value={gallons} onChange={setGallons} min={1} />
+        <NumberField label={t("aquarium-nitrate-calculator.ui.nitrateLabel")} value={ppm} onChange={setPpm} min={0} />
       </div>}
       result={<div className="space-y-4">
-        <Big value={`${changePct}%`} label="Water change needed" />
-        <Note>Change ≈ {gallonsOut} gal using dechlorinated, temperature-matched water.</Note>
+        <Big value={`${changePct}%`} label={t("aquarium-nitrate-calculator.ui.changeLabel")} />
+        <Note>{t("aquarium-nitrate-calculator.ui.changeNote", { gal: gallonsOut })}</Note>
       </div>}
     />
   );
 }
 
 export function FishMedicationDose() {
+  const { t } = useTranslation("tools");
   const [gallons, setGallons] = useState(20);
   const [mgPerGal, setMgPerGal] = useState(10);
   const totalMg = gallons * mgPerGal;
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
-        <NumberField label="Tank volume (gal)" value={gallons} onChange={setGallons} min={1} />
-        <NumberField label="Medication dose (mg / gal)" value={mgPerGal} onChange={setMgPerGal} step={0.5} />
+        <NumberField label={t("fish-medication-dose.ui.tankVolumeLabel")} value={gallons} onChange={setGallons} min={1} />
+        <NumberField label={t("fish-medication-dose.ui.doseLabel")} value={mgPerGal} onChange={setMgPerGal} step={0.5} />
       </div>}
       result={<div className="space-y-4">
-        <Big value={`${totalMg} mg`} label="Total dose per treatment" />
-        <Note>Always remove activated carbon and follow the medication's exact protocol.</Note>
+        <Big value={t("fish-medication-dose.ui.totalDoseValue", { mg: totalMg })} label={t("fish-medication-dose.ui.totalDoseLabel")} />
+        <Note>{t("fish-medication-dose.ui.carbonNote")}</Note>
       </div>}
     />
   );
@@ -348,6 +361,7 @@ export function FishMedicationDose() {
 
 /* ─────────── SMALL PETS (ADVANCED CALCULATORS) ─────────── */
 export function RabbitPelletCalculator() {
+  const { t } = useTranslation("tools");
   const [kg, setKg] = useState(2.2);
   const [stage, setStage] = useState<"young" | "adult" | "senior">("adult");
   const [bcs, setBcs] = useState<"underweight" | "ideal" | "overweight">("ideal");
@@ -370,36 +384,38 @@ export function RabbitPelletCalculator() {
     <CalculatorLayout
       form={
         <div className="space-y-4">
-          <NumberField label="Rabbit weight (kg)" value={kg} onChange={setKg} step={0.1} min={0.5} />
+          <NumberField label={t("rabbit-pellet-calculator.ui.rabbitWeightLabel")} value={kg} onChange={setKg} step={0.1} min={0.5} />
           <div className="grid grid-cols-2 gap-3">
             <SelectField
-              label="Life stage"
+              label={t("rabbit-pellet-calculator.ui.lifeStageLabel")}
               value={stage}
               onChange={(v) => setStage(v as typeof stage)}
               options={["young", "adult", "senior"]}
+              optionLabels={[t("rabbit-pellet-calculator.ui.lifeStageYoung"), t("rabbit-pellet-calculator.ui.lifeStageAdult"), t("rabbit-pellet-calculator.ui.lifeStageSenior")]}
             />
             <SelectField
-              label="Body condition (BCS)"
+              label={t("rabbit-pellet-calculator.ui.bcsLabel")}
               value={bcs}
               onChange={(v) => setBcs(v as typeof bcs)}
               options={["underweight", "ideal", "overweight"]}
+              optionLabels={[t("rabbit-pellet-calculator.ui.bcsUnderweight"), t("rabbit-pellet-calculator.ui.bcsIdeal"), t("rabbit-pellet-calculator.ui.bcsOverweight")]}
             />
           </div>
         </div>
       }
       result={
         <div className="space-y-4">
-          <Big value={`${finalGrams} g/day`} label="Measured daily pellets" unit={`≈ ${tbsp} tbsp (${cups} cup)`} />
+          <Big value={t("rabbit-pellet-calculator.ui.pelletsValue", { grams: finalGrams })} label={t("rabbit-pellet-calculator.ui.pelletsLabel")} unit={t("rabbit-pellet-calculator.ui.pelletsUnit", { tbsp, cups })} />
           <Rows
             items={[
-              { label: "Timothy hay target", value: "Unlimited (80%–85% of daily intake)" },
-              { label: "Fresh leafy greens", value: `${Math.max(1, Math.round(weightLb * 0.5))} packed cups daily` },
-              { label: "Pellet nutritional standard", value: ">22% crude fiber, <14% protein, <0.8% calcium" },
-              { label: "Feeding frequency", value: "Divide into 1 morning & 1 evening portion" },
+              { label: t("rabbit-pellet-calculator.ui.hayTargetLabel"), value: t("rabbit-pellet-calculator.ui.hayTargetValue") },
+              { label: t("rabbit-pellet-calculator.ui.greensLabel"), value: t("rabbit-pellet-calculator.ui.greensValue", { cups: Math.max(1, Math.round(weightLb * 0.5)) }) },
+              { label: t("rabbit-pellet-calculator.ui.pelletStandardLabel"), value: t("rabbit-pellet-calculator.ui.pelletStandardValue") },
+              { label: t("rabbit-pellet-calculator.ui.feedingFreqLabel"), value: t("rabbit-pellet-calculator.ui.feedingFreqValue") },
             ]}
           />
           <Note>
-            Rabbits fed excess pellets develop selective anorexia towards hay, leading to molar dental spurs and lethal cecal dysbiosis. Pellets are a concentrated vitamin supplement, not the primary diet.
+            {t("rabbit-pellet-calculator.ui.pelletNote")}
           </Note>
         </div>
       }
@@ -408,6 +424,7 @@ export function RabbitPelletCalculator() {
 }
 
 export function RabbitWeightTracker() {
+  const { t } = useTranslation("tools");
   const [last, setLast] = useState(2.2);
   const [current, setCurrent] = useState(2.15);
   const [days, setDays] = useState(7);
@@ -418,38 +435,38 @@ export function RabbitWeightTracker() {
 
   const status =
     absPct <= 2.0
-      ? { tone: "safe" as const, label: "Weight is stable (Normal variation ±2%)", alert: false }
+      ? { tone: "safe" as const, label: t("rabbit-weight-tracker.ui.statusSafe"), alert: false }
       : absPct <= 4.5
-      ? { tone: "caution" as const, label: "Mild fluctuation (Monitor closely)", alert: false }
-      : { tone: "danger" as const, label: "CRITICAL DANGER: Rapid weight shift", alert: true };
+      ? { tone: "caution" as const, label: t("rabbit-weight-tracker.ui.statusCaution"), alert: false }
+      : { tone: "danger" as const, label: t("rabbit-weight-tracker.ui.statusDanger"), alert: true };
 
   return (
     <CalculatorLayout
       form={
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <NumberField label="Previous weight (kg)" value={last} onChange={setLast} step={0.01} min={0.5} />
-            <NumberField label="Current weight (kg)" value={current} onChange={setCurrent} step={0.01} min={0.5} />
+            <NumberField label={t("rabbit-weight-tracker.ui.prevWeightLabel")} value={last} onChange={setLast} step={0.01} min={0.5} />
+            <NumberField label={t("rabbit-weight-tracker.ui.currWeightLabel")} value={current} onChange={setCurrent} step={0.01} min={0.5} />
           </div>
-          <NumberField label="Days between weigh-ins" value={days} onChange={setDays} min={1} max={60} />
+          <NumberField label={t("rabbit-weight-tracker.ui.daysLabel")} value={days} onChange={setDays} min={1} max={60} />
         </div>
       }
       result={
         <div className="space-y-4">
           <Big
-            value={`${pct >= 0 ? "+" : ""}${pct}%`}
-            label="Weight percentage change"
-            unit={`${diff >= 0 ? "+" : ""}${Math.round(diff * 1000)} g change over ${days} days`}
+            value={t("rabbit-weight-tracker.ui.changeValue", { sign: pct >= 0 ? "+" : "", pct })}
+            label={t("rabbit-weight-tracker.ui.changeLabel")}
+            unit={t("rabbit-weight-tracker.ui.changeUnit", { sign: diff >= 0 ? "+" : "", grams: Math.round(diff * 1000), days })}
           />
           <Rows
             items={[
-              { label: "Clinical triage verdict", value: status.label },
-              { label: "GI motility risk", value: status.alert ? "HIGH RISK: Possible subclinical GI Stasis / Dental Disease" : "Low / Normal" },
-              { label: "Recommended action", value: status.alert ? "URGENT exotic vet exam & oral cavity endoscopy" : "Continue weekly weigh-in on digital kitchen scale" },
+              { label: t("rabbit-weight-tracker.ui.triageLabel"), value: status.label },
+              { label: t("rabbit-weight-tracker.ui.giRiskLabel"), value: status.alert ? t("rabbit-weight-tracker.ui.riskHigh") : t("rabbit-weight-tracker.ui.riskLow") },
+              { label: t("rabbit-weight-tracker.ui.actionLabel"), value: status.alert ? t("rabbit-weight-tracker.ui.actionUrgent") : t("rabbit-weight-tracker.ui.actionNormal") },
             ]}
           />
           <Note>
-            Because rabbits are prey animals, they hide severe illness until body reserves are depleted. A sudden weight loss of &gt;5% in 7 days is an emergency requiring immediate veterinary diagnostics.
+            {t("rabbit-weight-tracker.ui.weightNote")}
           </Note>
         </div>
       }
@@ -458,6 +475,7 @@ export function RabbitWeightTracker() {
 }
 
 export function GuineaPigFoodCalculator() {
+  const { t } = useTranslation("tools");
   const [count, setCount] = useState(2);
   const [stage, setStage] = useState<"adult" | "pup">("adult");
 
@@ -471,29 +489,30 @@ export function GuineaPigFoodCalculator() {
       form={
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <NumberField label="Number of guinea pigs" value={count} onChange={setCount} min={1} max={10} />
+            <NumberField label={t("guinea-pig-food-calculator.ui.countLabel")} value={count} onChange={setCount} min={1} max={10} />
             <SelectField
-              label="Life stage"
+              label={t("guinea-pig-food-calculator.ui.lifeStageLabel")}
               value={stage}
               onChange={(v) => setStage(v as typeof stage)}
               options={["adult", "pup"]}
+              optionLabels={[t("guinea-pig-food-calculator.ui.stageAdult"), t("guinea-pig-food-calculator.ui.stagePup")]}
             />
           </div>
         </div>
       }
       result={
         <div className="space-y-4">
-          <Big value={`${hayG} g/day`} label="Unlimited grass hay (80% diet)" unit={`≈ ${Math.round(hayG * 7 / 1000 * 10) / 10} kg weekly for ${count} pig(s)`} />
+          <Big value={t("guinea-pig-food-calculator.ui.hayValue", { grams: hayG })} label={t("guinea-pig-food-calculator.ui.hayLabel")} unit={t("guinea-pig-food-calculator.ui.hayUnit", { kg: Math.round(hayG * 7 / 1000 * 10) / 10, count })} />
           <Rows
             items={[
-              { label: "Stabilized Vitamin C pellets", value: `${pelletsG} g daily (${count} × 1/8 cup)` },
-              { label: "Fresh dark leafy greens & veg", value: `${veggiesG} g daily (${count} packed cups)` },
-              { label: "Daily fresh water consumption", value: `≈ ${waterMl} ml / day` },
-              { label: "High-value Vitamin C produce", value: "Yellow bell pepper, cilantro, romaine (rotate daily)" },
+              { label: t("guinea-pig-food-calculator.ui.pelletsLabel"), value: t("guinea-pig-food-calculator.ui.pelletsRow", { grams: pelletsG, count }) },
+              { label: t("guinea-pig-food-calculator.ui.greensLabel"), value: t("guinea-pig-food-calculator.ui.greensRow", { grams: veggiesG, count }) },
+              { label: t("guinea-pig-food-calculator.ui.waterLabel"), value: t("guinea-pig-food-calculator.ui.waterRow", { ml: waterMl }) },
+              { label: t("guinea-pig-food-calculator.ui.vitaminCLabel"), value: t("guinea-pig-food-calculator.ui.vitaminCValue") },
             ]}
           />
           <Note>
-            Guinea pigs lack the L-gulonolactone oxidase enzyme and cannot synthesize Vitamin C internally. Always feed fresh bell peppers and stabilized pellets to prevent painful scurvy and joint hemorrhages.
+            {t("guinea-pig-food-calculator.ui.vitaminCNote")}
           </Note>
         </div>
       }
@@ -581,6 +600,7 @@ const SHEDDING_SPECIES_DATA: Record<string, SheddingSpecies> = {
 };
 
 export function ReptileSheddingTracker() {
+  const { t } = useTranslation("tools");
   const [spKey, setSpKey] = useState("ball-python");
   const [lifeStage, setLifeStage] = useState<"baby" | "juvenile" | "adult">("juvenile");
   const [daysSinceLast, setDaysSinceLast] = useState<number>(20);
@@ -595,36 +615,36 @@ export function ReptileSheddingTracker() {
   return (
     <div className="space-y-6">
       <div className="rounded-2xl border bg-card/60 p-5 shadow-xs">
-        <h3 className="font-semibold text-foreground">Reptile Ecdysis &amp; Shedding Cycle Tracker</h3>
-        <p className="text-xs text-muted-foreground mt-0.5">Track shedding frequency, predict next ecdysis dates, and troubleshoot stuck sheds.</p>
+        <h3 className="font-semibold text-foreground">{t("reptile-shedding-tracker.ui.title")}</h3>
+        <p className="text-xs text-muted-foreground mt-0.5">{t("reptile-shedding-tracker.ui.subtitle")}</p>
 
         <div className="mt-4 grid gap-4 sm:grid-cols-3">
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Reptile Species</Label>
+            <Label className="text-xs font-medium text-muted-foreground">{t("reptile-shedding-tracker.ui.speciesLabel")}</Label>
             <Select value={spKey} onValueChange={setSpKey}>
               <SelectTrigger className="h-10"><SelectValue /></SelectTrigger>
               <SelectContent>
                 {Object.entries(SHEDDING_SPECIES_DATA).map(([k, v]) => (
-                  <SelectItem key={k} value={k}>{v.name}</SelectItem>
+                  <SelectItem key={k} value={k}>{t(`reptile-shedding-tracker.ui.shed.${k}.name`)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Life Stage</Label>
+            <Label className="text-xs font-medium text-muted-foreground">{t("reptile-shedding-tracker.ui.lifeStageLabel")}</Label>
             <Select value={lifeStage} onValueChange={(v: "baby" | "juvenile" | "adult") => setLifeStage(v)}>
               <SelectTrigger className="h-10"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="baby">Hatchling / Baby (Rapid Growth)</SelectItem>
-                <SelectItem value="juvenile">Juvenile / Sub-Adult</SelectItem>
-                <SelectItem value="adult">Adult (Maintenance Cycle)</SelectItem>
+                <SelectItem value="baby">{t("reptile-shedding-tracker.ui.optBaby")}</SelectItem>
+                <SelectItem value="juvenile">{t("reptile-shedding-tracker.ui.optJuvenile")}</SelectItem>
+                <SelectItem value="adult">{t("reptile-shedding-tracker.ui.optAdult")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Days Since Last Shed</Label>
+            <Label className="text-xs font-medium text-muted-foreground">{t("reptile-shedding-tracker.ui.daysSinceLabel")}</Label>
             <Input
               type="number"
               min={0}
@@ -641,26 +661,26 @@ export function ReptileSheddingTracker() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <span className="text-xs font-semibold tracking-wider text-indigo-600 dark:text-indigo-400 uppercase">
-              Projected Shed Cycle
+              {t("reptile-shedding-tracker.ui.projectedTitle")}
             </span>
             <div className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">
-              ~{cycleDays} Days ({daysRemaining === 0 ? "Due Any Day!" : `Due in ~${daysRemaining} Days`})
+              {daysRemaining === 0 ? t("reptile-shedding-tracker.ui.dueAnyDay", { days: cycleDays }) : t("reptile-shedding-tracker.ui.dueInDays", { days: cycleDays, remaining: daysRemaining })}
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              Species: <strong className="text-foreground">{sp.name}</strong> • Pattern: <Badge variant="outline" className="ml-1 text-[11px] capitalize">{sp.shedType.replace(/-/g, " ")}</Badge>
+              {t("reptile-shedding-tracker.ui.speciesPrefix")}<strong className="text-foreground">{t(`reptile-shedding-tracker.ui.shed.${spKey}.name`)}</strong> • {t("reptile-shedding-tracker.ui.patternPrefix")}<Badge variant="outline" className="ml-1 text-[11px] capitalize">{t(`reptile-shedding-tracker.ui.shedType.${sp.shedType}`)}</Badge>
             </p>
           </div>
 
           <Badge variant="outline" className="text-xs px-3 py-1.5 font-medium">
-            {progressPct}% Cycle Complete
+            {t("reptile-shedding-tracker.ui.cycleComplete", { pct: progressPct })}
           </Badge>
         </div>
 
         {/* Progress bar */}
         <div className="mt-5 space-y-1.5">
           <div className="flex justify-between text-xs text-muted-foreground font-medium">
-            <span>Last Shed ({daysSinceLast}d ago)</span>
-            <span>Next Estimated Shed (~{cycleDays}d)</span>
+            <span>{t("reptile-shedding-tracker.ui.lastShed", { days: daysSinceLast })}</span>
+            <span>{t("reptile-shedding-tracker.ui.nextShed", { days: cycleDays })}</span>
           </div>
           <div className="h-3 w-full rounded-full bg-muted overflow-hidden">
             <div
@@ -672,47 +692,47 @@ export function ReptileSheddingTracker() {
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
           <div className="rounded-xl border bg-card/80 p-3 text-center">
-            <div className="text-[11px] font-medium text-muted-foreground uppercase">Average Interval</div>
-            <div className="mt-1 text-base font-bold text-foreground">{cycleDays} Days</div>
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("reptile-shedding-tracker.ui.avgIntervalLabel")}</div>
+            <div className="mt-1 text-base font-bold text-foreground">{t("reptile-shedding-tracker.ui.intervalDays", { days: cycleDays })}</div>
           </div>
 
           <div className="rounded-xl border bg-card/80 p-3 text-center">
-            <div className="text-[11px] font-medium text-muted-foreground uppercase">Target Humidity</div>
-            <div className="mt-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 truncate">{sp.humidHideTarget}</div>
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("reptile-shedding-tracker.ui.targetHumidityLabel")}</div>
+            <div className="mt-1 text-xs font-bold text-indigo-600 dark:text-indigo-400 truncate">{t(`reptile-shedding-tracker.ui.shed.${spKey}.humidity`)}</div>
           </div>
 
           <div className="rounded-xl border bg-card/80 p-3 text-center">
-            <div className="text-[11px] font-medium text-muted-foreground uppercase">Current Status</div>
-            <div className="mt-1 text-sm font-bold text-foreground">{daysRemaining === 0 ? "Imminent" : "Building Layer"}</div>
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("reptile-shedding-tracker.ui.currentStatusLabel")}</div>
+            <div className="mt-1 text-sm font-bold text-foreground">{daysRemaining === 0 ? t("reptile-shedding-tracker.ui.statusImminent") : t("reptile-shedding-tracker.ui.statusBuilding")}</div>
           </div>
 
           <div className="rounded-xl border bg-card/80 p-3 text-center">
-            <div className="text-[11px] font-medium text-muted-foreground uppercase">Feeding Policy</div>
-            <div className="mt-1 text-xs font-bold text-amber-600 dark:text-amber-400">Pause if Blue</div>
+            <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("reptile-shedding-tracker.ui.feedingPolicyLabel")}</div>
+            <div className="mt-1 text-xs font-bold text-amber-600 dark:text-amber-400">{t("reptile-shedding-tracker.ui.pauseIfBlue")}</div>
           </div>
         </div>
 
         {/* Ecdysis Phase Guide */}
         <div className="mt-5 rounded-xl border bg-card/90 p-4 space-y-2 text-xs">
-          <span className="font-semibold text-foreground">5 Key Biological Phases of Ecdysis:</span>
+          <span className="font-semibold text-foreground">{t("reptile-shedding-tracker.ui.phasesTitle")}</span>
           <div className="grid gap-2 sm:grid-cols-3 pt-1">
             <div className="rounded-lg border p-2.5 bg-muted/20">
-              <strong>1. Dull Skin: </strong>
-              <span className="text-muted-foreground">Colors fade, belly turns light pink.</span>
+              <strong>{t("reptile-shedding-tracker.ui.phase1Title")}</strong>
+              <span className="text-muted-foreground">{t("reptile-shedding-tracker.ui.phase1Text")}</span>
             </div>
             <div className="rounded-lg border p-2.5 bg-muted/20">
-              <strong>2. Opaque / Blue Eyes: </strong>
-              <span className="text-muted-foreground">Lymph fluid separates old skin. Snake is blind &amp; defensive.</span>
+              <strong>{t("reptile-shedding-tracker.ui.phase2Title")}</strong>
+              <span className="text-muted-foreground">{t("reptile-shedding-tracker.ui.phase2Text")}</span>
             </div>
             <div className="rounded-lg border p-2.5 bg-muted/20">
-              <strong>3. Cleared &amp; Slough: </strong>
-              <span className="text-muted-foreground">Eyes turn clear 24–48h before active shed.</span>
+              <strong>{t("reptile-shedding-tracker.ui.phase3Title")}</strong>
+              <span className="text-muted-foreground">{t("reptile-shedding-tracker.ui.phase3Text")}</span>
             </div>
           </div>
         </div>
 
         <div className="mt-4 rounded-xl border border-indigo-500/20 bg-indigo-500/5 p-3.5 text-xs text-muted-foreground">
-          <strong>Husbandry Tip: </strong>{sp.tips}
+          <strong>{t("reptile-shedding-tracker.ui.husbandryTip")}</strong>{t(`reptile-shedding-tracker.ui.shed.${spKey}.tips`)}
         </div>
       </div>
     </div>
@@ -984,6 +1004,7 @@ const SNAKE_SPECIES: Record<string, SnakeSpeciesData> = {
 };
 
 export function SnakeTankSizeCalculator() {
+  const { t } = useTranslation("tools");
   const [speciesKey, setSpeciesKey] = useState<string>("ball-python");
   const [unitSystem, setUnitSystem] = useState<"imperial" | "metric">("imperial");
   const [lifeStage, setLifeStage] = useState<"baby" | "juvenile" | "adult">("adult");
@@ -1020,6 +1041,18 @@ export function SnakeTankSizeCalculator() {
 
   const activeHabit = isCustom ? customHabit : species.habit;
   const activeBodyType = isCustom ? customBodyType : species.bodyType;
+  const habitLabel: Record<string, string> = {
+    terrestrial: t("snake-tank-size-calculator.ui.habitTerrestrial"),
+    "semi-arboreal": t("snake-tank-size-calculator.ui.habitSemiArboreal"),
+    arboreal: t("snake-tank-size-calculator.ui.habitArboreal"),
+    fossorial: t("snake-tank-size-calculator.ui.habitFossorial"),
+  };
+  const bodyTypeLabel: Record<string, string> = {
+    slender: t("snake-tank-size-calculator.ui.bodyTypeSlender"),
+    moderate: t("snake-tank-size-calculator.ui.bodyTypeModerate"),
+    heavy: t("snake-tank-size-calculator.ui.bodyTypeHeavy"),
+    giant: t("snake-tank-size-calculator.ui.bodyTypeGiant"),
+  };
 
   const dimensions = useMemo(() => {
     const lenFt = currentLengthFt;
@@ -1054,14 +1087,14 @@ export function SnakeTankSizeCalculator() {
     const widthCm = Math.round(minWidthIn * 2.54);
     const heightCm = Math.round(minHeightIn * 2.54);
 
-    let marketName = `${Math.round(minLengthIn / 12)}x${Math.round(minWidthIn / 12)}x${Math.round(minHeightIn / 12)} ft (${volumeGallons} Gal) Vivarium`;
-    if (volumeGallons <= 25) marketName = "20 Gallon Long (30\"×12\"×12\")";
-    else if (volumeGallons <= 45) marketName = "40 Gallon Breeder (36\"×18\"×18\")";
-    else if (volumeGallons <= 75) marketName = "75 Gallon (48\"×18\"×21\")";
-    else if (volumeGallons <= 130) marketName = "4×2×2 ft (120 Gallon) Standard PVC Vivarium";
-    else if (volumeGallons <= 190) marketName = "5×2×2 ft (150 Gallon) or 4×2×3 ft Enclosure";
-    else if (volumeGallons <= 260) marketName = "6×2×2 ft (180 Gallon) or 6×2×3 ft Enclosure";
-    else marketName = "8×3×3 ft / 8×4×4 ft Custom Giant Vivarium";
+    let marketName = t("snake-tank-size-calculator.ui.market.customSize", { l: Math.round(minLengthIn / 12), w: Math.round(minWidthIn / 12), h: Math.round(minHeightIn / 12), gal: volumeGallons });
+    if (volumeGallons <= 25) marketName = t("snake-tank-size-calculator.ui.market.size20Long");
+    else if (volumeGallons <= 45) marketName = t("snake-tank-size-calculator.ui.market.size40Breeder");
+    else if (volumeGallons <= 75) marketName = t("snake-tank-size-calculator.ui.market.size75Gallon");
+    else if (volumeGallons <= 130) marketName = t("snake-tank-size-calculator.ui.market.size4x2x2");
+    else if (volumeGallons <= 190) marketName = t("snake-tank-size-calculator.ui.market.size5x2x2");
+    else if (volumeGallons <= 260) marketName = t("snake-tank-size-calculator.ui.market.size6x2x2");
+    else marketName = t("snake-tank-size-calculator.ui.market.sizeCustomGiant");
 
     const subDepth = species.substrate.depthInches;
     const substrateLiters = Math.round((minLengthIn * 2.54 * (widthCm) * (subDepth * 2.54)) / 1000);
@@ -1086,7 +1119,7 @@ export function SnakeTankSizeCalculator() {
       substrateQuarts,
       subDepth,
     };
-  }, [currentLengthFt, activeHabit, activeBodyType, species]);
+  }, [currentLengthFt, activeHabit, activeBodyType, species, t]);
 
   const checkResults = useMemo(() => {
     const checkVolGal = Math.round((checkLengthInches * checkWidthInches * checkHeightInches) / 231);
@@ -1097,16 +1130,16 @@ export function SnakeTankSizeCalculator() {
     const heightRatio = checkHeightInches / dimensions.heightIn;
 
     let score = "optimal";
-    let message = "This tank is generous and exceeds minimum welfare standards! Your snake will have ample space to stretch, thermoregulate, and thrive.";
+    let message = t("snake-tank-size-calculator.ui.checkMessage.optimal");
     let badgeColor = "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-300";
 
     if (lengthRatio < 0.75 || floorRatio < 0.75) {
       score = "too-small";
-      message = "Too small for this snake. Snakes in undersized tanks suffer from obesity, spinal kinks, respiratory issues, and chronic stress.";
+      message = t("snake-tank-size-calculator.ui.checkMessage.too-small");
       badgeColor = "bg-destructive/15 text-destructive border-destructive/30";
     } else if (lengthRatio < 0.95 || floorRatio < 0.95 || heightRatio < 0.85) {
       score = "bare-minimum";
-      message = "Borderline / Bare minimum. It will work temporarily, but upgrading to the recommended size is advised for natural behavior.";
+      message = t("snake-tank-size-calculator.ui.checkMessage.bare-minimum");
       badgeColor = "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-300";
     }
 
@@ -1117,24 +1150,31 @@ export function SnakeTankSizeCalculator() {
       message,
       badgeColor,
     };
-  }, [checkLengthInches, checkWidthInches, checkHeightInches, dimensions]);
+  }, [checkLengthInches, checkWidthInches, checkHeightInches, dimensions, t]);
 
   const copySummary = () => {
-    const text = `🐍 Snake Enclosure Specs (${species.name})
-- Snake Length: ${currentLengthFt} ft (${Math.round(currentLengthFt * 30.48)} cm) - ${lifeStage.toUpperCase()}
-- Recommended Dimensions: ${dimensions.lengthIn}"L × ${dimensions.widthIn}"W × ${dimensions.heightIn}"H (${dimensions.lengthCm} × ${dimensions.widthCm} × ${dimensions.heightCm} cm)
-- Floor Area: ${dimensions.floorAreaSqFt} sq ft (${dimensions.floorAreaSqM} m²)
-- Enclosure Volume: ~${dimensions.volumeGallons} Gallons (${dimensions.volumeLiters} Liters)
-- Recommended Setup: ${dimensions.marketName}
-- Target Basking Temp: ${species.tempBaskingF.min}-${species.tempBaskingF.max}°F (${Math.round(((species.tempBaskingF.min - 32) * 5) / 9)}-${Math.round(((species.tempBaskingF.max - 32) * 5) / 9)}°C)
-- Target Cool Temp: ${species.tempCoolAmbientF.min}-${species.tempCoolAmbientF.max}°F
-- Target Humidity: ${species.humidity.min}% - ${species.humidity.max}%
-- Recommended Substrate: ${species.substrate.recommended} (${dimensions.substrateLiters} Liters needed for ${dimensions.subDepth}" depth)
-Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-size-calculator)`;
+    const text = t("snake-tank-size-calculator.ui.copySummary", {
+      speciesName: t(`snake-tank-size-calculator.ui.snake.${speciesKey}.name`),
+      lengthFt: currentLengthFt,
+      lengthCm: Math.round(currentLengthFt * 30.48),
+      stage: lifeStage.toUpperCase(),
+      dimL: dimensions.lengthIn, dimW: dimensions.widthIn, dimH: dimensions.heightIn,
+      dimCmL: dimensions.lengthCm, dimCmW: dimensions.widthCm, dimCmH: dimensions.heightCm,
+      floorSqFt: dimensions.floorAreaSqFt, floorSqM: dimensions.floorAreaSqM,
+      volGal: dimensions.volumeGallons, volL: dimensions.volumeLiters,
+      market: dimensions.marketName,
+      baskMin: species.tempBaskingF.min, baskMax: species.tempBaskingF.max,
+      baskCMin: Math.round(((species.tempBaskingF.min - 32) * 5) / 9),
+      baskCMax: Math.round(((species.tempBaskingF.max - 32) * 5) / 9),
+      coolMin: species.tempCoolAmbientF.min, coolMax: species.tempCoolAmbientF.max,
+      humMin: species.humidity.min, humMax: species.humidity.max,
+      substrate: t(`snake-tank-size-calculator.ui.snake.${speciesKey}.substrateRecommended`),
+      subL: dimensions.substrateLiters, subDepth: dimensions.subDepth,
+    });
 
     navigator.clipboard.writeText(text);
     setCopied(true);
-    toast.success("Enclosure specs copied to clipboard!");
+    toast.success(t("snake-tank-size-calculator.ui.copiedToast"));
     setTimeout(() => setCopied(false), 2500);
   };
 
@@ -1146,8 +1186,8 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
       <div className="rounded-2xl border bg-card/60 p-5 shadow-xs backdrop-blur-sm sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b pb-4">
           <div>
-            <h2 className="text-lg font-semibold text-foreground">Snake Profile &amp; Parameters</h2>
-            <p className="text-xs text-muted-foreground">Select species or customize your snake&apos;s biological profile.</p>
+            <h2 className="text-lg font-semibold text-foreground">{t("snake-tank-size-calculator.ui.profileTitle")}</h2>
+            <p className="text-xs text-muted-foreground">{t("snake-tank-size-calculator.ui.profileSubtitle")}</p>
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -1156,7 +1196,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
               onClick={() => setUnitSystem("imperial")}
               className="h-8 text-xs font-medium"
             >
-              US Imperial (ft / in / gal)
+              {t("snake-tank-size-calculator.ui.unitImperial")}
             </Button>
             <Button
               variant={unitSystem === "metric" ? "default" : "outline"}
@@ -1164,7 +1204,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
               onClick={() => setUnitSystem("metric")}
               className="h-8 text-xs font-medium"
             >
-              Metric (cm / m / L)
+              {t("snake-tank-size-calculator.ui.unitMetric")}
             </Button>
           </div>
         </div>
@@ -1172,15 +1212,15 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {/* Species Selector */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Snake Species Preset</Label>
+            <Label className="text-xs font-medium text-muted-foreground">{t("snake-tank-size-calculator.ui.speciesPresetLabel")}</Label>
             <Select value={speciesKey} onValueChange={handleSpeciesChange}>
               <SelectTrigger className="h-10">
-                <SelectValue placeholder="Select species" />
+                <SelectValue placeholder={t("snake-tank-size-calculator.ui.selectSpeciesPlaceholder")} />
               </SelectTrigger>
               <SelectContent className="max-h-80">
                 {Object.entries(SNAKE_SPECIES).map(([k, s]) => (
                   <SelectItem key={k} value={k}>
-                    <span className="font-medium">{s.name}</span>
+                    <span className="font-medium">{t(`snake-tank-size-calculator.ui.snake.${k}.name`)}</span>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -1189,7 +1229,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
 
           {/* Life Stage */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Life Stage</Label>
+            <Label className="text-xs font-medium text-muted-foreground">{t("snake-tank-size-calculator.ui.lifeStageLabel")}</Label>
             <Select
               value={lifeStage}
               onValueChange={(v: "baby" | "juvenile" | "adult") => {
@@ -1206,9 +1246,9 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="adult">Adult (Full Grown)</SelectItem>
-                <SelectItem value="juvenile">Juvenile / Sub-Adult (1-2 yrs)</SelectItem>
-                <SelectItem value="baby">Hatchling / Baby (&lt;1 yr)</SelectItem>
+                <SelectItem value="adult">{t("snake-tank-size-calculator.ui.lifeStageAdult")}</SelectItem>
+                <SelectItem value="juvenile">{t("snake-tank-size-calculator.ui.lifeStageJuvenile")}</SelectItem>
+                <SelectItem value="baby">{t("snake-tank-size-calculator.ui.lifeStageBaby")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -1217,12 +1257,12 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <Label className="text-xs font-medium text-muted-foreground">
-                Snake Length ({unitSystem === "imperial" ? "feet" : "cm"})
+                {unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.snakeLengthFeet") : t("snake-tank-size-calculator.ui.snakeLengthCm")}
               </Label>
               <span className="text-xs font-semibold text-primary">
                 {unitSystem === "imperial"
-                  ? `${currentLengthFt} ft`
-                  : `${Math.round(currentLengthFt * 30.48)} cm`}
+                  ? t("snake-tank-size-calculator.ui.lengthValueImperial", { ft: currentLengthFt })
+                  : t("snake-tank-size-calculator.ui.lengthValueMetric", { cm: Math.round(currentLengthFt * 30.48) })}
               </span>
             </div>
             {unitSystem === "imperial" ? (
@@ -1253,7 +1293,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
 
           {/* Habit Type */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium text-muted-foreground">Natural Habit &amp; Behavior</Label>
+            <Label className="text-xs font-medium text-muted-foreground">{t("snake-tank-size-calculator.ui.habitLabel")}</Label>
             <Select
               value={activeHabit}
               onValueChange={(v: "terrestrial" | "semi-arboreal" | "arboreal" | "fossorial") =>
@@ -1265,10 +1305,10 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="semi-arboreal">Semi-Arboreal (Ground + Climbing)</SelectItem>
-                <SelectItem value="terrestrial">Terrestrial (Ground Dwelling)</SelectItem>
-                <SelectItem value="arboreal">Strictly Arboreal (Tree Climber)</SelectItem>
-                <SelectItem value="fossorial">Fossorial (Burrowing Specialist)</SelectItem>
+                <SelectItem value="semi-arboreal">{t("snake-tank-size-calculator.ui.habitOptSemiArboreal")}</SelectItem>
+                <SelectItem value="terrestrial">{t("snake-tank-size-calculator.ui.habitOptTerrestrial")}</SelectItem>
+                <SelectItem value="arboreal">{t("snake-tank-size-calculator.ui.habitOptArboreal")}</SelectItem>
+                <SelectItem value="fossorial">{t("snake-tank-size-calculator.ui.habitOptFossorial")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -1276,17 +1316,17 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
 
         {/* Species badge bar */}
         <div className="mt-4 flex flex-wrap items-center gap-2 rounded-xl bg-muted/40 p-3 text-xs text-muted-foreground">
-          <span className="font-semibold text-foreground">{species.name}</span>
+          <span className="font-semibold text-foreground">{t(`snake-tank-size-calculator.ui.snake.${speciesKey}.name`)}</span>
           <span className="italic">({species.scientific})</span>
           <span>•</span>
           <Badge variant="outline" className="capitalize">
-            {activeHabit}
+            {habitLabel[activeHabit]}
           </Badge>
           <Badge variant="secondary" className="capitalize">
-            {activeBodyType} Body
+            {bodyTypeLabel[activeBodyType]}
           </Badge>
           <span>•</span>
-          <span>Typical Adult Size: {species.adultLengthFt.min}–{species.adultLengthFt.max} ft</span>
+          <span>{t("snake-tank-size-calculator.ui.typicalAdultSize", { min: species.adultLengthFt.min, max: species.adultLengthFt.max })}</span>
         </div>
       </div>
 
@@ -1294,16 +1334,16 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
       <Tabs defaultValue="enclosure" className="w-full">
         <TabsList className="grid h-12 w-full grid-cols-2 md:grid-cols-4">
           <TabsTrigger value="enclosure" className="text-xs sm:text-sm font-medium">
-            <Box className="mr-1.5 h-4 w-4" /> Recommended Tank
+            <Box className="mr-1.5 h-4 w-4" /> {t("snake-tank-size-calculator.ui.tabEnclosure")}
           </TabsTrigger>
           <TabsTrigger value="diagram" className="text-xs sm:text-sm font-medium">
-            <Maximize2 className="mr-1.5 h-4 w-4" /> Layout &amp; Gradient
+            <Maximize2 className="mr-1.5 h-4 w-4" /> {t("snake-tank-size-calculator.ui.tabDiagram")}
           </TabsTrigger>
           <TabsTrigger value="environment" className="text-xs sm:text-sm font-medium">
-            <Thermometer className="mr-1.5 h-4 w-4" /> Husbandry Specs
+            <Thermometer className="mr-1.5 h-4 w-4" /> {t("snake-tank-size-calculator.ui.tabEnvironment")}
           </TabsTrigger>
           <TabsTrigger value="checker" className="text-xs sm:text-sm font-medium">
-            <CheckCircle2 className="mr-1.5 h-4 w-4" /> Tank Size Checker
+            <CheckCircle2 className="mr-1.5 h-4 w-4" /> {t("snake-tank-size-calculator.ui.tabChecker")}
           </TabsTrigger>
         </TabsList>
 
@@ -1315,21 +1355,21 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
               <div className="flex items-start justify-between">
                 <div>
                   <span className="text-xs font-semibold tracking-wider text-primary uppercase">
-                    Minimum Recommended Enclosure
+                    {t("snake-tank-size-calculator.ui.minEnclosureTitle")}
                   </span>
                   <div className="mt-2 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                     {unitSystem === "imperial" ? (
                       <>
-                        {dimensions.lengthIn}&quot; L × {dimensions.widthIn}&quot; W × {dimensions.heightIn}&quot; H
+                        {t("snake-tank-size-calculator.ui.dimsImperial", { l: dimensions.lengthIn, w: dimensions.widthIn, h: dimensions.heightIn })}
                       </>
                     ) : (
                       <>
-                        {dimensions.lengthCm} × {dimensions.widthCm} × {dimensions.heightCm} cm
+                        {t("snake-tank-size-calculator.ui.dimsMetric", { l: dimensions.lengthCm, w: dimensions.widthCm, h: dimensions.heightCm })}
                       </>
                     )}
                   </div>
                   <div className="mt-1 text-sm font-medium text-muted-foreground">
-                    Equivalent to {dimensions.lengthFt} × {dimensions.widthFt} × {dimensions.heightFt} ft ({dimensions.marketName})
+                    {t("snake-tank-size-calculator.ui.equivalentTo", { l: dimensions.lengthFt, w: dimensions.widthFt, h: dimensions.heightFt, market: dimensions.marketName })}
                   </div>
                 </div>
                 <Button
@@ -1339,40 +1379,40 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
                   className="gap-1.5 text-xs font-medium shrink-0"
                 >
                   {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
-                  {copied ? "Copied" : "Copy Specs"}
+                  {copied ? t("snake-tank-size-calculator.ui.copied") : t("snake-tank-size-calculator.ui.copySpecs")}
                 </Button>
               </div>
 
               {/* Metric badges grid */}
               <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <div className="rounded-xl border bg-card/80 p-3 text-center">
-                  <div className="text-[11px] font-medium text-muted-foreground uppercase">Floor Footprint</div>
+                  <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("snake-tank-size-calculator.ui.floorFootprint")}</div>
                   <div className="mt-1 text-lg font-bold text-foreground">
-                    {unitSystem === "imperial" ? `${dimensions.floorAreaSqFt} sq ft` : `${dimensions.floorAreaSqM} m²`}
+                    {unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.floorFootprintImperial", { area: dimensions.floorAreaSqFt }) : t("snake-tank-size-calculator.ui.floorFootprintMetric", { area: dimensions.floorAreaSqM })}
                   </div>
-                  <div className="text-[10px] text-muted-foreground">Min floor space</div>
+                  <div className="text-[10px] text-muted-foreground">{t("snake-tank-size-calculator.ui.minFloorSpace")}</div>
                 </div>
 
                 <div className="rounded-xl border bg-card/80 p-3 text-center">
-                  <div className="text-[11px] font-medium text-muted-foreground uppercase">Tank Volume</div>
+                  <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("snake-tank-size-calculator.ui.tankVolume")}</div>
                   <div className="mt-1 text-lg font-bold text-foreground">
-                    {unitSystem === "imperial" ? `${dimensions.volumeGallons} Gallons` : `${dimensions.volumeLiters} Liters`}
+                    {unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.tankVolumeImperial", { vol: dimensions.volumeGallons }) : t("snake-tank-size-calculator.ui.tankVolumeMetric", { vol: dimensions.volumeLiters })}
                   </div>
-                  <div className="text-[10px] text-muted-foreground">Internal air capacity</div>
+                  <div className="text-[10px] text-muted-foreground">{t("snake-tank-size-calculator.ui.internalAirCapacity")}</div>
                 </div>
 
                 <div className="rounded-xl border bg-card/80 p-3 text-center">
-                  <div className="text-[11px] font-medium text-muted-foreground uppercase">Snake Ratio</div>
-                  <div className="mt-1 text-lg font-bold text-emerald-600 dark:text-emerald-400">100% Stretch</div>
-                  <div className="text-[10px] text-muted-foreground">L ≥ 1.0x snake length</div>
+                  <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("snake-tank-size-calculator.ui.snakeRatio")}</div>
+                  <div className="mt-1 text-lg font-bold text-emerald-600 dark:text-emerald-400">{t("snake-tank-size-calculator.ui.stretch100")}</div>
+                  <div className="text-[10px] text-muted-foreground">{t("snake-tank-size-calculator.ui.stretchRule")}</div>
                 </div>
 
                 <div className="rounded-xl border bg-card/80 p-3 text-center">
-                  <div className="text-[11px] font-medium text-muted-foreground uppercase">Substrate Needed</div>
+                  <div className="text-[11px] font-medium text-muted-foreground uppercase">{t("snake-tank-size-calculator.ui.substrateNeeded")}</div>
                   <div className="mt-1 text-lg font-bold text-foreground">
-                    {unitSystem === "imperial" ? `~${dimensions.substrateQuarts} qts` : `~${dimensions.substrateLiters} L`}
+                    {unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.substrateImperial", { vol: dimensions.substrateQuarts }) : t("snake-tank-size-calculator.ui.substrateMetric", { vol: dimensions.substrateLiters })}
                   </div>
-                  <div className="text-[10px] text-muted-foreground">For {dimensions.subDepth}&quot; base layer</div>
+                  <div className="text-[10px] text-muted-foreground">{t("snake-tank-size-calculator.ui.substrateForDepth", { depth: dimensions.subDepth })}</div>
                 </div>
               </div>
 
@@ -1380,10 +1420,10 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
               <div className="mt-5 rounded-xl border border-primary/20 bg-primary/5 p-3.5 text-xs text-muted-foreground">
                 <div className="flex items-center gap-1.5 font-semibold text-foreground">
                   <Sparkles className="h-3.5 w-3.5 text-primary" />
-                  Modern Welfare Rule Applied (1.0 × Total Length)
+                  {t("snake-tank-size-calculator.ui.welfareRuleTitle")}
                 </div>
                 <p className="mt-1 leading-relaxed">
-                  Contemporary herpetological standards require the enclosure length to be at least equal to the snake&apos;s full body length. This allows the snake to stretch completely along one wall without curling, promoting joint health, digestive motility, and muscular tone.
+                  {t("snake-tank-size-calculator.ui.welfareRuleBody")}
                 </p>
               </div>
             </div>
@@ -1391,19 +1431,19 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
             {/* Quick Material & Checklist Card */}
             <div className="rounded-2xl border bg-card p-5 shadow-xs flex flex-col justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-foreground">Enclosure Construction</h3>
-                <p className="text-xs text-muted-foreground mt-0.5">Recommended material for {species.name}</p>
+                <h3 className="text-sm font-semibold text-foreground">{t("snake-tank-size-calculator.ui.constructionTitle")}</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">{t("snake-tank-size-calculator.ui.materialFor", { species: t(`snake-tank-size-calculator.ui.snake.${speciesKey}.name`) })}</p>
 
                 <div className="mt-4 space-y-3 text-xs">
                   <div className="rounded-xl border p-3 bg-muted/20">
-                    <div className="font-medium text-foreground">Best Enclosure Material:</div>
-                    <div className="mt-1 text-muted-foreground leading-relaxed">{species.enclosureMaterial}</div>
+                    <div className="font-medium text-foreground">{t("snake-tank-size-calculator.ui.bestMaterialLabel")}</div>
+                    <div className="mt-1 text-muted-foreground leading-relaxed">{t(`snake-tank-size-calculator.ui.snake.${speciesKey}.enclosureMaterial`)}</div>
                   </div>
 
                   <div className="rounded-xl border p-3 bg-muted/20">
-                    <div className="font-medium text-foreground">Door &amp; Ventilation Style:</div>
+                    <div className="font-medium text-foreground">{t("snake-tank-size-calculator.ui.doorStyleLabel")}</div>
                     <div className="mt-1 text-muted-foreground leading-relaxed">
-                      Front-sliding or swinging glass doors with sturdy safety key lock. Top-opening tanks can trigger predatory stress in snakes.
+                      {t("snake-tank-size-calculator.ui.doorStyleBody")}
                     </div>
                   </div>
                 </div>
@@ -1411,62 +1451,62 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
 
               <div className="mt-4 pt-3 border-t text-[11px] text-muted-foreground flex items-center gap-1.5">
                 <ShieldAlert className="h-4 w-4 text-amber-500 shrink-0" />
-                <span>Snakes can squeeze through any gap wider than their skull!</span>
+                <span>{t("snake-tank-size-calculator.ui.escapeWarning")}</span>
               </div>
             </div>
           </div>
 
           {/* Life-Stage Growth Transition Timeline */}
           <div className="rounded-2xl border bg-card p-5 sm:p-6 shadow-xs">
-            <h3 className="text-sm font-semibold text-foreground">Growth Stages &amp; Upgrades for {species.name}</h3>
-            <p className="text-xs text-muted-foreground mt-0.5">How your snake grows and when to upgrade vivarium size.</p>
+            <h3 className="text-sm font-semibold text-foreground">{t("snake-tank-size-calculator.ui.growthTitle", { species: t(`snake-tank-size-calculator.ui.snake.${speciesKey}.name`) })}</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">{t("snake-tank-size-calculator.ui.growthSubtitle")}</p>
 
             <div className="mt-4 grid gap-4 sm:grid-cols-3">
               <div className={`rounded-xl border p-4 transition-all ${lifeStage === "baby" ? "ring-2 ring-primary bg-primary/5" : "bg-card"}`}>
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-sm">Hatchling / Baby</span>
-                  <Badge variant="outline">0 – 12 Months</Badge>
+                  <span className="font-semibold text-sm">{t("snake-tank-size-calculator.ui.stageBaby")}</span>
+                  <Badge variant="outline">{t("snake-tank-size-calculator.ui.stageBabyAge")}</Badge>
                 </div>
                 <div className="mt-2 text-xs text-muted-foreground">
-                  Typical Length: ~{(species.adultLengthFt.typical * 0.35).toFixed(1)} ft ({Math.round(species.adultLengthFt.typical * 0.35 * 30.48)} cm)
+                  {t("snake-tank-size-calculator.ui.typicalLength", { ft: (species.adultLengthFt.typical * 0.35).toFixed(1), cm: Math.round(species.adultLengthFt.typical * 0.35 * 30.48) })}
                 </div>
                 <div className="mt-3 text-xs font-medium text-foreground">
-                  Minimum Tank: 20 Gallon Long (30&quot;×12&quot;×12&quot;)
+                  {t("snake-tank-size-calculator.ui.babyTank")}
                 </div>
                 <p className="mt-1 text-[11px] text-muted-foreground">
-                  Babies need abundant clutter and snug hides to feel secure and feed reliably.
+                  {t("snake-tank-size-calculator.ui.babyNote")}
                 </p>
               </div>
 
               <div className={`rounded-xl border p-4 transition-all ${lifeStage === "juvenile" ? "ring-2 ring-primary bg-primary/5" : "bg-card"}`}>
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-sm">Juvenile / Sub-Adult</span>
-                  <Badge variant="outline">1 – 2 Years</Badge>
+                  <span className="font-semibold text-sm">{t("snake-tank-size-calculator.ui.stageJuvenile")}</span>
+                  <Badge variant="outline">{t("snake-tank-size-calculator.ui.stageJuvenileAge")}</Badge>
                 </div>
                 <div className="mt-2 text-xs text-muted-foreground">
-                  Typical Length: ~{(species.adultLengthFt.typical * 0.65).toFixed(1)} ft ({Math.round(species.adultLengthFt.typical * 0.65 * 30.48)} cm)
+                  {t("snake-tank-size-calculator.ui.typicalLength", { ft: (species.adultLengthFt.typical * 0.65).toFixed(1), cm: Math.round(species.adultLengthFt.typical * 0.65 * 30.48) })}
                 </div>
                 <div className="mt-3 text-xs font-medium text-foreground">
-                  Minimum Tank: 40–75 Gallon (36&quot;×18&quot;×18&quot;)
+                  {t("snake-tank-size-calculator.ui.juvenileTank")}
                 </div>
                 <p className="mt-1 text-[11px] text-muted-foreground">
-                  Rapid growth phase. Transition to larger adult food items and sturdy branches.
+                  {t("snake-tank-size-calculator.ui.juvenileNote")}
                 </p>
               </div>
 
               <div className={`rounded-xl border p-4 transition-all ${lifeStage === "adult" ? "ring-2 ring-primary bg-primary/5" : "bg-card"}`}>
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-sm">Adult (Final Size)</span>
-                  <Badge variant="outline">3+ Years</Badge>
+                  <span className="font-semibold text-sm">{t("snake-tank-size-calculator.ui.stageAdult")}</span>
+                  <Badge variant="outline">{t("snake-tank-size-calculator.ui.stageAdultAge")}</Badge>
                 </div>
                 <div className="mt-2 text-xs text-muted-foreground">
-                  Typical Length: ~{species.adultLengthFt.typical} ft ({Math.round(species.adultLengthFt.typical * 30.48)} cm)
+                  {t("snake-tank-size-calculator.ui.typicalLength", { ft: species.adultLengthFt.typical, cm: Math.round(species.adultLengthFt.typical * 30.48) })}
                 </div>
                 <div className="mt-3 text-xs font-medium text-foreground">
-                  Permanent Vivarium: {dimensions.marketName}
+                  {t("snake-tank-size-calculator.ui.permanentVivarium", { market: dimensions.marketName })}
                 </div>
                 <p className="mt-1 text-[11px] text-muted-foreground">
-                  Permanent forever home allowing full thermal and photoperiod regulation.
+                  {t("snake-tank-size-calculator.ui.adultNote")}
                 </p>
               </div>
             </div>
@@ -1478,21 +1518,21 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
           <div className="rounded-2xl border bg-card p-6 shadow-xs">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b pb-4">
               <div>
-                <h3 className="text-base font-semibold text-foreground">Enclosure Layout &amp; Thermal Gradient Map</h3>
-                <p className="text-xs text-muted-foreground">Visual setup guide showing heat gradient, hide locations, and enrichment zones.</p>
+                <h3 className="text-base font-semibold text-foreground">{t("snake-tank-size-calculator.ui.diagramTitle")}</h3>
+                <p className="text-xs text-muted-foreground">{t("snake-tank-size-calculator.ui.diagramSubtitle")}</p>
               </div>
               <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-full bg-rose-500 inline-block"></span> Warm / Basking</span>
-                <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-full bg-amber-500 inline-block"></span> Ambient Mid</span>
-                <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-full bg-cyan-500 inline-block"></span> Cool Zone</span>
+                <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-full bg-rose-500 inline-block"></span> {t("snake-tank-size-calculator.ui.legendWarm")}</span>
+                <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-full bg-amber-500 inline-block"></span> {t("snake-tank-size-calculator.ui.legendAmbient")}</span>
+                <span className="flex items-center gap-1"><span className="h-3 w-3 rounded-full bg-cyan-500 inline-block"></span> {t("snake-tank-size-calculator.ui.legendCool")}</span>
               </div>
             </div>
 
             {/* Rendered Vivarium Enclosure Box */}
             <div className="mt-6 overflow-hidden rounded-2xl border-4 border-muted/80 bg-neutral-950 p-4 text-white shadow-inner">
               <div className="mb-2 flex items-center justify-between text-[11px] font-mono text-neutral-400">
-                <span>FRONT VIEW VIVARIUM ({dimensions.lengthIn}&quot; L × {dimensions.heightIn}&quot; H)</span>
-                <span>DEPTH: {dimensions.widthIn}&quot; ({dimensions.widthCm} cm)</span>
+                <span>{t("snake-tank-size-calculator.ui.frontView", { l: dimensions.lengthIn, h: dimensions.heightIn })}</span>
+                <span>{t("snake-tank-size-calculator.ui.depthLabel", { w: dimensions.widthIn, wc: dimensions.widthCm })}</span>
               </div>
 
               <div className="relative min-h-[260px] rounded-xl border border-neutral-800 bg-gradient-to-r from-rose-950/60 via-amber-950/30 to-cyan-950/60 p-4 flex flex-col justify-between">
@@ -1500,33 +1540,33 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
                   <div className="flex items-center gap-2 rounded-lg bg-rose-900/60 px-3 py-1.5 text-xs font-medium text-rose-200 border border-rose-700/50">
                     <Sun className="h-4 w-4 text-amber-400 animate-pulse" />
-                    <span>Halogen / DHP ({unitSystem === "imperial" ? `${species.tempBaskingF.min}-${species.tempBaskingF.max}°F` : `${toCelsius(species.tempBaskingF.min)}-${toCelsius(species.tempBaskingF.max)}°C`})</span>
+                    <span>{unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.halogenImperial", { min: species.tempBaskingF.min, max: species.tempBaskingF.max }) : t("snake-tank-size-calculator.ui.halogenMetric", { min: toCelsius(species.tempBaskingF.min), max: toCelsius(species.tempBaskingF.max) })}</span>
                   </div>
 
                   <div className="flex items-center gap-2 rounded-lg bg-neutral-900/80 px-3 py-1.5 text-xs text-neutral-300 border border-neutral-700">
-                    <span>{species.uvbZone} (Overhead Linear Tube)</span>
+                    <span>{t("snake-tank-size-calculator.ui.uvbTube", { zone: t(`snake-tank-size-calculator.ui.snake.${speciesKey}.uvbZone`) })}</span>
                   </div>
 
                   <div className="rounded-lg bg-cyan-900/60 px-3 py-1.5 text-xs font-medium text-cyan-200 border border-cyan-700/50">
-                    <span>Cool Ambient ({unitSystem === "imperial" ? `${species.tempCoolAmbientF.min}-${species.tempCoolAmbientF.max}°F` : `${toCelsius(species.tempCoolAmbientF.min)}-${toCelsius(species.tempCoolAmbientF.max)}°C`})</span>
+                    <span>{unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.coolAmbientImperial", { min: species.tempCoolAmbientF.min, max: species.tempCoolAmbientF.max }) : t("snake-tank-size-calculator.ui.coolAmbientMetric", { min: toCelsius(species.tempCoolAmbientF.min), max: toCelsius(species.tempCoolAmbientF.max) })}</span>
                   </div>
                 </div>
 
                 {/* Mid Zone (Climbing, Branches & Foliage) */}
                 <div className="my-6 grid grid-cols-3 items-center gap-4 text-center">
                   <div className="rounded-xl border border-dashed border-rose-500/30 bg-rose-950/20 p-3">
-                    <div className="text-xs font-semibold text-rose-300">Basking Surface / Slate</div>
-                    <p className="mt-1 text-[10px] text-neutral-400">Natural flat stone under basking lamp</p>
+                    <div className="text-xs font-semibold text-rose-300">{t("snake-tank-size-calculator.ui.baskingSurface")}</div>
+                    <p className="mt-1 text-[10px] text-neutral-400">{t("snake-tank-size-calculator.ui.baskingSurfaceNote")}</p>
                   </div>
 
                   <div className="rounded-xl border border-dashed border-neutral-700 bg-neutral-900/40 p-3">
-                    <div className="text-xs font-semibold text-amber-300">Climbing Perches / Foliage</div>
-                    <p className="mt-1 text-[10px] text-neutral-400">Enrichment, sturdy branches &amp; leaves</p>
+                    <div className="text-xs font-semibold text-amber-300">{t("snake-tank-size-calculator.ui.climbingPerches")}</div>
+                    <p className="mt-1 text-[10px] text-neutral-400">{t("snake-tank-size-calculator.ui.climbingPerchesNote")}</p>
                   </div>
 
                   <div className="rounded-xl border border-dashed border-cyan-500/30 bg-cyan-950/20 p-3">
-                    <div className="text-xs font-semibold text-cyan-300">Large Water Dish</div>
-                    <p className="mt-1 text-[10px] text-neutral-400">Fresh water for soaking &amp; drinking</p>
+                    <div className="text-xs font-semibold text-cyan-300">{t("snake-tank-size-calculator.ui.waterDish")}</div>
+                    <p className="mt-1 text-[10px] text-neutral-400">{t("snake-tank-size-calculator.ui.waterDishNote")}</p>
                   </div>
                 </div>
 
@@ -1534,20 +1574,20 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
                 <div className="rounded-xl border border-amber-900/40 bg-amber-950/40 p-3">
                   <div className="flex items-center justify-between text-xs text-amber-200 mb-2">
                     <span className="font-semibold flex items-center gap-1.5">
-                      <Layers className="h-3.5 w-3.5" /> Substrate Layer ({dimensions.subDepth}&quot; / {Math.round(dimensions.subDepth * 2.54)} cm deep)
+                      <Layers className="h-3.5 w-3.5" /> {t("snake-tank-size-calculator.ui.substrateLayer", { depth: dimensions.subDepth, cm: Math.round(dimensions.subDepth * 2.54) })}
                     </span>
-                    <span className="text-[11px] text-neutral-400">Humidity: {species.humidity.min}%–{species.humidity.max}%</span>
+                    <span className="text-[11px] text-neutral-400">{t("snake-tank-size-calculator.ui.humidityRange", { min: species.humidity.min, max: species.humidity.max })}</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     <div className="rounded-lg bg-neutral-900/90 border border-neutral-700 p-2 text-center">
-                      <div className="font-medium text-rose-300">Warm Hide (Enclosed)</div>
-                      <div className="text-[10px] text-neutral-400">Snug fit, 1 entrance only</div>
+                      <div className="font-medium text-rose-300">{t("snake-tank-size-calculator.ui.warmHide")}</div>
+                      <div className="text-[10px] text-neutral-400">{t("snake-tank-size-calculator.ui.warmHideNote")}</div>
                     </div>
 
                     <div className="rounded-lg bg-neutral-900/90 border border-neutral-700 p-2 text-center">
-                      <div className="font-medium text-cyan-300">Cool / Moist Hide</div>
-                      <div className="text-[10px] text-neutral-400">Sphagnum moss inside for shedding</div>
+                      <div className="font-medium text-cyan-300">{t("snake-tank-size-calculator.ui.coolHide")}</div>
+                      <div className="text-[10px] text-neutral-400">{t("snake-tank-size-calculator.ui.coolHideNote")}</div>
                     </div>
                   </div>
                 </div>
@@ -1557,13 +1597,13 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
             {/* Essential rules below diagram */}
             <div className="mt-4 grid gap-3 sm:grid-cols-3 text-xs text-muted-foreground">
               <div className="rounded-xl border p-3 bg-muted/20">
-                <span className="font-semibold text-foreground">1. Dual Tight Hides:</span> Snake needs at least 2 identical snug hides (1 warm, 1 cool) so it doesn&apos;t choose between security and temperature.
+                <span className="font-semibold text-foreground">{t("snake-tank-size-calculator.ui.rule1Title")}</span> {t("snake-tank-size-calculator.ui.rule1Body")}
               </div>
               <div className="rounded-xl border p-3 bg-muted/20">
-                <span className="font-semibold text-foreground">2. Thermostat is Non-Negotiable:</span> Every heat source MUST be plugged into a digital dimming or pulse proportional thermostat.
+                <span className="font-semibold text-foreground">{t("snake-tank-size-calculator.ui.rule2Title")}</span> {t("snake-tank-size-calculator.ui.rule2Body")}
               </div>
               <div className="rounded-xl border p-3 bg-muted/20">
-                <span className="font-semibold text-foreground">3. Clean Water Bowl:</span> Place on cool side to prevent rapid bacteria proliferation and uncontrolled humidity spikes.
+                <span className="font-semibold text-foreground">{t("snake-tank-size-calculator.ui.rule3Title")}</span> {t("snake-tank-size-calculator.ui.rule3Body")}
               </div>
             </div>
           </div>
@@ -1576,47 +1616,47 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
             <div className="rounded-2xl border bg-card p-5 shadow-xs">
               <div className="flex items-center gap-2 text-primary font-semibold text-sm mb-3">
                 <Thermometer className="h-4 w-4" />
-                <span>Thermal Temperature Gradient</span>
+                <span>{t("snake-tank-size-calculator.ui.thermalTitle")}</span>
               </div>
               <div className="space-y-3 text-xs">
                 <div className="flex items-center justify-between rounded-xl border p-3 bg-muted/20">
                   <div>
-                    <div className="font-medium text-foreground">Basking Surface Temperature</div>
-                    <div className="text-muted-foreground">Direct surface beneath heat lamp</div>
+                    <div className="font-medium text-foreground">{t("snake-tank-size-calculator.ui.baskingTempLabel")}</div>
+                    <div className="text-muted-foreground">{t("snake-tank-size-calculator.ui.baskingTempNote")}</div>
                   </div>
                   <div className="text-right font-bold text-rose-600 dark:text-rose-400 text-sm">
                     {unitSystem === "imperial" ? (
-                      <>{species.tempBaskingF.min} – {species.tempBaskingF.max} °F</>
+                      <>{t("snake-tank-size-calculator.ui.tempImperial", { min: species.tempBaskingF.min, max: species.tempBaskingF.max })}</>
                     ) : (
-                      <>{toCelsius(species.tempBaskingF.min)} – {toCelsius(species.tempBaskingF.max)} °C</>
+                      <>{t("snake-tank-size-calculator.ui.tempMetric", { min: toCelsius(species.tempBaskingF.min), max: toCelsius(species.tempBaskingF.max) })}</>
                     )}
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between rounded-xl border p-3 bg-muted/20">
                   <div>
-                    <div className="font-medium text-foreground">Warm Side Ambient (Air)</div>
-                    <div className="text-muted-foreground">Warm end general ambient air</div>
+                    <div className="font-medium text-foreground">{t("snake-tank-size-calculator.ui.warmAmbientLabel")}</div>
+                    <div className="text-muted-foreground">{t("snake-tank-size-calculator.ui.warmAmbientNote")}</div>
                   </div>
                   <div className="text-right font-bold text-amber-600 dark:text-amber-400 text-sm">
                     {unitSystem === "imperial" ? (
-                      <>{species.tempWarmAmbientF.min} – {species.tempWarmAmbientF.max} °F</>
+                      <>{t("snake-tank-size-calculator.ui.tempImperial", { min: species.tempWarmAmbientF.min, max: species.tempWarmAmbientF.max })}</>
                     ) : (
-                      <>{toCelsius(species.tempWarmAmbientF.min)} – {toCelsius(species.tempWarmAmbientF.max)} °C</>
+                      <>{t("snake-tank-size-calculator.ui.tempMetric", { min: toCelsius(species.tempWarmAmbientF.min), max: toCelsius(species.tempWarmAmbientF.max) })}</>
                     )}
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between rounded-xl border p-3 bg-muted/20">
                   <div>
-                    <div className="font-medium text-foreground">Cool Side Ambient (Air)</div>
-                    <div className="text-muted-foreground">Cool end for thermal retreat</div>
+                    <div className="font-medium text-foreground">{t("snake-tank-size-calculator.ui.coolAmbientLabel")}</div>
+                    <div className="text-muted-foreground">{t("snake-tank-size-calculator.ui.coolAmbientNote")}</div>
                   </div>
                   <div className="text-right font-bold text-cyan-600 dark:text-cyan-400 text-sm">
                     {unitSystem === "imperial" ? (
-                      <>{species.tempCoolAmbientF.min} – {species.tempCoolAmbientF.max} °F</>
+                      <>{t("snake-tank-size-calculator.ui.tempImperial", { min: species.tempCoolAmbientF.min, max: species.tempCoolAmbientF.max })}</>
                     ) : (
-                      <>{toCelsius(species.tempCoolAmbientF.min)} – {toCelsius(species.tempCoolAmbientF.max)} °C</>
+                      <>{t("snake-tank-size-calculator.ui.tempMetric", { min: toCelsius(species.tempCoolAmbientF.min), max: toCelsius(species.tempCoolAmbientF.max) })}</>
                     )}
                   </div>
                 </div>
@@ -1627,32 +1667,32 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
             <div className="rounded-2xl border bg-card p-5 shadow-xs">
               <div className="flex items-center gap-2 text-primary font-semibold text-sm mb-3">
                 <Droplets className="h-4 w-4" />
-                <span>Humidity &amp; Substrate Requirements</span>
+                <span>{t("snake-tank-size-calculator.ui.humidityTitle")}</span>
               </div>
               <div className="space-y-3 text-xs">
                 <div className="rounded-xl border p-3 bg-muted/20">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-medium text-foreground">Target Relative Humidity</span>
-                    <span className="font-bold text-primary text-sm">{species.humidity.min}% – {species.humidity.max}%</span>
+                    <span className="font-medium text-foreground">{t("snake-tank-size-calculator.ui.targetHumidityLabel")}</span>
+                    <span className="font-bold text-primary text-sm">{t("snake-tank-size-calculator.ui.relHumidity", { min: species.humidity.min, max: species.humidity.max })}</span>
                   </div>
-                  <p className="text-muted-foreground">{species.humidity.note}</p>
+                  <p className="text-muted-foreground">{t(`snake-tank-size-calculator.ui.snake.${speciesKey}.humidityNote`)}</p>
                 </div>
 
                 <div className="rounded-xl border p-3 bg-muted/20">
-                  <div className="font-medium text-foreground mb-1">Recommended Substrate Type</div>
-                  <p className="text-muted-foreground">{species.substrate.recommended}</p>
+                  <div className="font-medium text-foreground mb-1">{t("snake-tank-size-calculator.ui.substrateTypeLabel")}</div>
+                  <p className="text-muted-foreground">{t(`snake-tank-size-calculator.ui.snake.${speciesKey}.substrateRecommended`)}</p>
                   <div className="mt-2 text-destructive font-medium text-[11px]">
-                    Avoid: {species.substrate.avoid}
+                    {t("snake-tank-size-calculator.ui.avoidSubstrate", { avoid: t(`snake-tank-size-calculator.ui.snake.${speciesKey}.substrateAvoid`) })}
                   </div>
                 </div>
 
                 <div className="rounded-xl border p-3 bg-muted/20 flex items-center justify-between">
                   <div>
-                    <div className="font-medium text-foreground">Calculated Substrate Volume</div>
-                    <div className="text-muted-foreground">For {dimensions.subDepth}&quot; ({Math.round(dimensions.subDepth * 2.54)} cm) base depth</div>
+                    <div className="font-medium text-foreground">{t("snake-tank-size-calculator.ui.substrateVolumeLabel")}</div>
+                    <div className="text-muted-foreground">{t("snake-tank-size-calculator.ui.substrateVolumeFor", { depth: dimensions.subDepth, cm: Math.round(dimensions.subDepth * 2.54) })}</div>
                   </div>
                   <div className="text-right font-bold text-foreground text-sm">
-                    {dimensions.substrateLiters} Liters ({dimensions.substrateQuarts} Quarts)
+                    {t("snake-tank-size-calculator.ui.substrateVolume", { l: dimensions.substrateLiters, q: dimensions.substrateQuarts })}
                   </div>
                 </div>
               </div>
@@ -1663,14 +1703,14 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
         {/* ─────────── TAB 4: TANK SIZE CHECKER ─────────── */}
         <TabsContent value="checker" className="mt-6 space-y-6">
           <div className="rounded-2xl border bg-card p-6 shadow-xs">
-            <h3 className="text-base font-semibold text-foreground">Custom Enclosure Compliance Evaluator</h3>
+            <h3 className="text-base font-semibold text-foreground">{t("snake-tank-size-calculator.ui.checkerTitle")}</h3>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Enter your current or prospective tank dimensions to verify if it satisfies your snake&apos;s welfare needs.
+              {t("snake-tank-size-calculator.ui.checkerSubtitle")}
             </p>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium text-muted-foreground">Length ({unitSystem === "imperial" ? "inches" : "cm"})</Label>
+                <Label className="text-xs font-medium text-muted-foreground">{unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.checkerLengthImperial") : t("snake-tank-size-calculator.ui.checkerLengthMetric")}</Label>
                 <Input
                   type="number"
                   min={10}
@@ -1685,7 +1725,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium text-muted-foreground">Width / Depth ({unitSystem === "imperial" ? "inches" : "cm"})</Label>
+                <Label className="text-xs font-medium text-muted-foreground">{unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.checkerWidthImperial") : t("snake-tank-size-calculator.ui.checkerWidthMetric")}</Label>
                 <Input
                   type="number"
                   min={10}
@@ -1700,7 +1740,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium text-muted-foreground">Height ({unitSystem === "imperial" ? "inches" : "cm"})</Label>
+                <Label className="text-xs font-medium text-muted-foreground">{unitSystem === "imperial" ? t("snake-tank-size-calculator.ui.checkerHeightImperial") : t("snake-tank-size-calculator.ui.checkerHeightMetric")}</Label>
                 <Input
                   type="number"
                   min={8}
@@ -1723,9 +1763,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
                 {checkResults.score === "too-small" && <XCircle className="h-5 w-5 text-destructive" />}
 
                 <span className="font-bold text-base uppercase tracking-wide">
-                  {checkResults.score === "optimal" && "Optimal Enclosure Size 🎉"}
-                  {checkResults.score === "bare-minimum" && "Bare Minimum (Upgrade Recommended) ⚠️"}
-                  {checkResults.score === "too-small" && "Undersized / Inadequate Enclosure ❌"}
+                  {t(`snake-tank-size-calculator.ui.checkTitle.${checkResults.score}`)}
                 </span>
               </div>
 
@@ -1733,20 +1771,20 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
 
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 text-xs font-medium pt-3 border-t border-current/20">
                 <div>
-                  <span className="opacity-75">Your Volume:</span>
-                  <div className="text-sm font-bold">{checkResults.checkVolGal} Gallons</div>
+                  <span className="opacity-75">{t("snake-tank-size-calculator.ui.yourVolume")}</span>
+                  <div className="text-sm font-bold">{t("snake-tank-size-calculator.ui.yourVolumeValue", { gal: checkResults.checkVolGal })}</div>
                 </div>
                 <div>
-                  <span className="opacity-75">Your Floor Area:</span>
-                  <div className="text-sm font-bold">{checkResults.checkFloorSqFt} sq ft</div>
+                  <span className="opacity-75">{t("snake-tank-size-calculator.ui.yourFloorArea")}</span>
+                  <div className="text-sm font-bold">{t("snake-tank-size-calculator.ui.floorAreaValue", { area: checkResults.checkFloorSqFt })}</div>
                 </div>
                 <div>
-                  <span className="opacity-75">Target Floor Area:</span>
-                  <div className="text-sm font-bold">{dimensions.floorAreaSqFt} sq ft</div>
+                  <span className="opacity-75">{t("snake-tank-size-calculator.ui.targetFloorArea")}</span>
+                  <div className="text-sm font-bold">{t("snake-tank-size-calculator.ui.floorAreaValue", { area: dimensions.floorAreaSqFt })}</div>
                 </div>
                 <div>
-                  <span className="opacity-75">Target Min Length:</span>
-                  <div className="text-sm font-bold">{dimensions.lengthIn}&quot; ({dimensions.lengthCm} cm)</div>
+                  <span className="opacity-75">{t("snake-tank-size-calculator.ui.targetMinLength")}</span>
+                  <div className="text-sm font-bold">{t("snake-tank-size-calculator.ui.targetMinLengthValue", { inches: dimensions.lengthIn, cm: dimensions.lengthCm })}</div>
                 </div>
               </div>
             </div>
@@ -1759,6 +1797,7 @@ Calculated with FurTools Platform (https://www.furtools.com/tools/snake-tank-siz
 
 /* ─────────── HORSES ─────────── */
 export function HorseSupplementCost() {
+  const { t } = useTranslation("tools");
   const [suppType, setSuppType] = useState<"joint" | "hoof" | "digestive" | "calming" | "electrolyte" | "custom">("joint");
   const [dailyCost, setDailyCost] = useState(2.50);
   const [horseCount, setHorseCount] = useState(1);
@@ -1788,34 +1827,34 @@ export function HorseSupplementCost() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Supplement Category</Label>
+            <Label>{t("horse-supplement-cost.ui.suppCategoryLabel")}</Label>
             <Select value={suppType} onValueChange={(v) => handleTypeChange(v as typeof suppType)}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="joint">Joint & Mobility (MSM, Glucosamine, HA, Chondroitin)</SelectItem>
-                <SelectItem value="hoof">Hoof & Coat Health (20mg+ Biotin, Zinc, Methionine)</SelectItem>
-                <SelectItem value="digestive">Gastric & Hindgut Buffer (Saccharomyces, Prebiotics)</SelectItem>
-                <SelectItem value="calming">Calming & Muscle Tension (Chelated Magnesium, B1)</SelectItem>
-                <SelectItem value="electrolyte">Electrolytes & Rehydration (Summer / Hard Work)</SelectItem>
-                <SelectItem value="custom">Custom Specialty Supplement</SelectItem>
+                <SelectItem value="joint">{t("horse-supplement-cost.ui.suppJoint")}</SelectItem>
+                <SelectItem value="hoof">{t("horse-supplement-cost.ui.suppHoof")}</SelectItem>
+                <SelectItem value="digestive">{t("horse-supplement-cost.ui.suppDigestive")}</SelectItem>
+                <SelectItem value="calming">{t("horse-supplement-cost.ui.suppCalming")}</SelectItem>
+                <SelectItem value="electrolyte">{t("horse-supplement-cost.ui.suppElectrolyte")}</SelectItem>
+                <SelectItem value="custom">{t("horse-supplement-cost.ui.suppCustom")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Retail Cost Per Daily Serving ($)</Label>
+            <Label>{t("horse-supplement-cost.ui.retailCostLabel")}</Label>
             <Input type="number" min={0.25} max={25} step={0.05} value={dailyCost} onChange={(e) => setDailyCost(+e.target.value || 0)} className="mt-1.5" />
           </div>
           <div>
-            <Label>Number of Horses on Supplement</Label>
+            <Label>{t("horse-supplement-cost.ui.horseCountLabel")}</Label>
             <Input type="number" min={1} max={20} value={horseCount} onChange={(e) => setHorseCount(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
           </div>
           <div>
-            <Label>Packaging Purchasing Format</Label>
+            <Label>{t("horse-supplement-cost.ui.packagingLabel")}</Label>
             <Select value={purchaseFormat} onValueChange={(v) => setPurchaseFormat(v as typeof purchaseFormat)}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="small">Retail Size (30–60 day tub / pail)</SelectItem>
-                <SelectItem value="bulk">Bulk Commercial Pail (10–20 kg / 28% Avg Savings)</SelectItem>
+                <SelectItem value="small">{t("horse-supplement-cost.ui.packSmall")}</SelectItem>
+                <SelectItem value="bulk">{t("horse-supplement-cost.ui.packBulk")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -1823,14 +1862,14 @@ export function HorseSupplementCost() {
       }
       result={
         <div className="space-y-4">
-          <Big value={`$${monthlyTotal}`} label={`Estimated Monthly Spend (${horseCount} ${horseCount > 1 ? "horses" : "horse"})`} unit={`$${yearlyTotal} / year`} />
+          <Big value={`$${monthlyTotal}`} label={horseCount > 1 ? t("horse-supplement-cost.ui.monthlySpendPlural", { count: horseCount }) : t("horse-supplement-cost.ui.monthlySpendSingle")} unit={t("horse-supplement-cost.ui.yearlyUnit", { total: yearlyTotal })} />
           <Rows items={[
-            { label: "Cost Per Day Per Horse", value: `$${adjustedDailyCost.toFixed(2)} / day` },
-            { label: "Projected Annual Spend", value: `$${yearlyTotal.toLocaleString()} per year` },
-            { label: "Bulk Purchasing Savings", value: purchaseFormat === "bulk" ? `Saving ≈ $${annualSavings.toLocaleString()} / year` : "Switching to bulk 10kg pails saves 25–35%" },
+            { label: t("horse-supplement-cost.ui.costPerDayLabel"), value: t("horse-supplement-cost.ui.costPerDayValue", { cost: adjustedDailyCost.toFixed(2) }) },
+            { label: t("horse-supplement-cost.ui.annualSpendLabel"), value: t("horse-supplement-cost.ui.annualSpendValue", { total: yearlyTotal.toLocaleString() }) },
+            { label: t("horse-supplement-cost.ui.bulkSavingsLabel"), value: purchaseFormat === "bulk" ? t("horse-supplement-cost.ui.bulkSavingsValue", { savings: annualSavings.toLocaleString() }) : t("horse-supplement-cost.ui.bulkSavingsTip") },
           ]} />
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
-            <p><strong>Equine Nutrition Best Practice:</strong> Always audit supplement stacks with an equine nutritionist. Overlapping multi-vitamins can cause dangerous selenium toxicosis (blind staggers) or inverted calcium-to-phosphorus ratios.</p>
+            <p><strong>{t("horse-supplement-cost.ui.nutritionTitle")}</strong> {t("horse-supplement-cost.ui.nutritionBody")}</p>
           </div>
         </div>
       }
@@ -1840,6 +1879,7 @@ export function HorseSupplementCost() {
 
 /* ─────────── FARM ─────────── */
 export function ChickenNestingBoxCount() {
+  const { t } = useTranslation("tools");
   const [hens, setHens] = useState(8);
   const [breedType, setBreedType] = useState<"standard" | "heavy" | "bantam">("standard");
   const [boxStyle, setBoxStyle] = useState<"traditional" | "rollaway">("traditional");
@@ -1853,27 +1893,27 @@ export function ChickenNestingBoxCount() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Flock Hen Count</Label>
+            <Label>{t("chicken-nesting-box-count.ui.henCountLabel")}</Label>
             <Input type="number" min={1} max={500} value={hens} onChange={(e) => setHens(Math.max(1, +e.target.value || 1))} className="mt-1.5" />
           </div>
           <div>
-            <Label>Breed Size Class</Label>
+            <Label>{t("chicken-nesting-box-count.ui.breedSizeLabel")}</Label>
             <Select value={breedType} onValueChange={(v) => setBreedType(v as typeof breedType)}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="standard">Standard Layers (Rhode Island Red, Leghorn, Australorp)</SelectItem>
-                <SelectItem value="heavy">Heavy Breeds (Brahma, Jersey Giant, Orpington)</SelectItem>
-                <SelectItem value="bantam">Bantams (Silkies, Pekins, Sebrights)</SelectItem>
+                <SelectItem value="standard">{t("chicken-nesting-box-count.ui.breedStandard")}</SelectItem>
+                <SelectItem value="heavy">{t("chicken-nesting-box-count.ui.breedHeavy")}</SelectItem>
+                <SelectItem value="bantam">{t("chicken-nesting-box-count.ui.breedBantam")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Nesting Box Design Style</Label>
+            <Label>{t("chicken-nesting-box-count.ui.boxStyleLabel")}</Label>
             <Select value={boxStyle} onValueChange={(v) => setBoxStyle(v as typeof boxStyle)}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="traditional">Traditional Wood / Metal with Straw Bedding</SelectItem>
-                <SelectItem value="rollaway">Slanted Floor Roll-Away Box (Zero Egg Eating)</SelectItem>
+                <SelectItem value="traditional">{t("chicken-nesting-box-count.ui.boxTraditional")}</SelectItem>
+                <SelectItem value="rollaway">{t("chicken-nesting-box-count.ui.boxRollaway")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -1881,15 +1921,15 @@ export function ChickenNestingBoxCount() {
       }
       result={
         <div className="space-y-4">
-          <Big value={`${boxCount} Nesting Boxes`} label="Recommended Nest Box Capacity" unit={`Ratio: 1 box per ${ratio} hens`} />
+          <Big value={t("chicken-nesting-box-count.ui.boxCountValue", { count: boxCount })} label={t("chicken-nesting-box-count.ui.capacityLabel")} unit={t("chicken-nesting-box-count.ui.ratioUnit", { ratio })} />
           <Rows items={[
-            { label: "Optimal Box Dimensions", value: dimensions },
-            { label: "Mounting Height Above Floor", value: "18 to 24 inches (Always lower than roost bars)" },
-            { label: "Bedding Material", value: boxStyle === "traditional" ? "3–4 inches clean pine shavings or aspen nesting pads" : "Turf nesting mat on 5° forward slope" },
-            { label: "Decoy Training Tip", value: "Place 1 ceramic or wooden fake egg in box to guide pullets" },
+            { label: t("chicken-nesting-box-count.ui.dimsLabel"), value: dimensions },
+            { label: t("chicken-nesting-box-count.ui.heightLabel"), value: t("chicken-nesting-box-count.ui.heightValue") },
+            { label: t("chicken-nesting-box-count.ui.beddingLabel"), value: boxStyle === "traditional" ? t("chicken-nesting-box-count.ui.beddingTraditional") : t("chicken-nesting-box-count.ui.beddingRollaway") },
+            { label: t("chicken-nesting-box-count.ui.decoyLabel"), value: t("chicken-nesting-box-count.ui.decoyValue") },
           ]} />
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
-            <p><strong>Clean Egg Placement Rule:</strong> Always mount nesting boxes LOWER than your highest nighttime roosting bar. Chickens instinctively roost at the highest point in the coop; if boxes are higher than roosts, hens will sleep and defecate inside the boxes, soiling eggs.</p>
+            <p><strong>{t("chicken-nesting-box-count.ui.eggRuleTitle")}</strong> {t("chicken-nesting-box-count.ui.eggRuleBody")}</p>
           </div>
         </div>
       }
@@ -1899,20 +1939,22 @@ export function ChickenNestingBoxCount() {
 
 /* ─────────── GENERAL ─────────── */
 export function PetVetVisitCostEstimator() {
+  const { t } = useTranslation("tools");
   const [type, setType] = useState("wellness");
   const cost: Record<string, number> = { wellness: 75, vaccinations: 120, sick: 200, dental: 500, emergency: 1500 };
   return (
     <CalculatorLayout
-      form={<SelectField label="Visit type" value={type} onChange={setType} options={Object.keys(cost)} />}
+      form={<SelectField label={t("pet-vet-visit-cost-estimator.ui.visitTypeLabel")} value={type} onChange={setType} options={Object.keys(cost)} optionLabels={[t("pet-vet-visit-cost-estimator.ui.visitWellness"), t("pet-vet-visit-cost-estimator.ui.visitVaccinations"), t("pet-vet-visit-cost-estimator.ui.visitSick"), t("pet-vet-visit-cost-estimator.ui.visitDental"), t("pet-vet-visit-cost-estimator.ui.visitEmergency")]} />}
       result={<div className="space-y-4">
-        <Big value={`$${cost[type]}`} label="Estimated typical cost (US)" />
-        <Note>Regional pricing varies widely. Pet insurance often reimburses 70–90%.</Note>
+        <Big value={`$${cost[type]}`} label={t("pet-vet-visit-cost-estimator.ui.costLabel")} />
+        <Note>{t("pet-vet-visit-cost-estimator.ui.pricingNote")}</Note>
       </div>}
     />
   );
 }
 
 export function PetGroomingCostEstimator() {
+  const { t } = useTranslation("tools");
   const [type, setType] = useState("full-groom");
   const [monthly, setMonthly] = useState(1);
   const cost: Record<string, number> = { bath: 35, "full-groom": 75, "de-shed": 90, "nail-trim": 15 };
@@ -1920,12 +1962,12 @@ export function PetGroomingCostEstimator() {
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
-        <SelectField label="Grooming service" value={type} onChange={setType} options={Object.keys(cost)} />
-        <NumberField label="Visits per month" value={monthly} onChange={setMonthly} min={1} />
+        <SelectField label={t("pet-grooming-cost-estimator.ui.serviceLabel")} value={type} onChange={setType} options={Object.keys(cost)} optionLabels={[t("pet-grooming-cost-estimator.ui.serviceBath"), t("pet-grooming-cost-estimator.ui.serviceFullGroom"), t("pet-grooming-cost-estimator.ui.serviceDeShed"), t("pet-grooming-cost-estimator.ui.serviceNailTrim")]} />
+        <NumberField label={t("pet-grooming-cost-estimator.ui.visitsLabel")} value={monthly} onChange={setMonthly} min={1} />
       </div>}
       result={<div className="space-y-4">
-        <Big value={`$${yearly}`} label="Annual grooming cost" />
-        <Note>DIY basics (nail trims, brushing) can cut this by half.</Note>
+        <Big value={`$${yearly}`} label={t("pet-grooming-cost-estimator.ui.annualCostLabel")} />
+        <Note>{t("pet-grooming-cost-estimator.ui.diyNote")}</Note>
       </div>}
     />
   );

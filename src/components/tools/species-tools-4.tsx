@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CalculatorLayout } from "@/components/layouts/tool-layouts";
+import { useTranslation } from "react-i18next";
 import { AlertTriangle, Search, ShieldAlert, MapPin, Pill, Stethoscope, Syringe } from "lucide-react";
 
 /* ─────────── shared ─────────── */
@@ -17,11 +18,14 @@ function SectionTitle({ icon: Icon, children }: { icon: React.ElementType; child
     </div>
   );
 }
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
 function Disclaimer() {
+  const { t } = useTranslation("tools");
   return (
     <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
-      <strong>Educational only.</strong> This tool does not diagnose disease or replace veterinary care.
-      For any emergency call your vet or a 24/7 animal poison control line immediately.
+      <strong>{t("shared.disclaimer.title")}</strong> {t("shared.disclaimer.body")}
     </div>
   );
 }
@@ -60,6 +64,7 @@ const URGENCY_STYLE = {
 } as const;
 
 export function SymptomCheckerWizard() {
+  const { t } = useTranslation("tools");
   const [species, setSpecies] = useState("dog");
   const [duration, setDuration] = useState("hours");
   const [selected, setSelected] = useState<Set<SymptomKey>>(new Set());
@@ -88,30 +93,30 @@ export function SymptomCheckerWizard() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Species</Label>
+            <Label>{t("pet-symptom-checker.ui.speciesLabel")}</Label>
             <Select value={species} onValueChange={setSpecies}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                {["dog","cat","rabbit","bird","reptile","other"].map((s) => (
-                  <SelectItem key={s} value={s}>{s[0].toUpperCase() + s.slice(1)}</SelectItem>
+                {["dog","cat","rabbit","bird","reptile","other"].map((sp) => (
+                  <SelectItem key={sp} value={sp}>{t(`pet-symptom-checker.ui.species.${sp}`)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>How long?</Label>
+            <Label>{t("pet-symptom-checker.ui.durationLabel")}</Label>
             <Select value={duration} onValueChange={setDuration}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="hours">A few hours</SelectItem>
-                <SelectItem value="1day">About 1 day</SelectItem>
-                <SelectItem value="days">2–3 days</SelectItem>
-                <SelectItem value="week+">A week or more</SelectItem>
+                <SelectItem value="hours">{t("pet-symptom-checker.ui.durationHours")}</SelectItem>
+                <SelectItem value="1day">{t("pet-symptom-checker.ui.duration1Day")}</SelectItem>
+                <SelectItem value="days">{t("pet-symptom-checker.ui.durationDays")}</SelectItem>
+                <SelectItem value="week+">{t("pet-symptom-checker.ui.durationWeek")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Symptoms (tap all that apply)</Label>
+            <Label>{t("pet-symptom-checker.ui.symptomsLabel")}</Label>
             <div className="mt-2 flex flex-wrap gap-2">
               {(Object.keys(SYMPTOM_MAP) as SymptomKey[]).map((k) => (
                 <button
@@ -123,7 +128,7 @@ export function SymptomCheckerWizard() {
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border bg-background hover:border-primary/50"
                   }`}
-                >{SYMPTOM_MAP[k].label}</button>
+                >{t(`pet-symptom-checker.ui.symptom.${k}`)}</button>
               ))}
             </div>
           </div>
@@ -131,19 +136,19 @@ export function SymptomCheckerWizard() {
       }
       result={
         <div className="space-y-4">
-          {!analysis && <p className="text-sm text-muted-foreground text-center">Select at least one symptom to see possible causes.</p>}
+          {!analysis && <p className="text-sm text-muted-foreground text-center">{t("pet-symptom-checker.ui.selectSymptomHint")}</p>}
           {analysis && (
             <>
               <div className={`rounded-lg p-4 ${URGENCY_STYLE[analysis.urgency].color}`}>
                 <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide">
-                  <AlertTriangle className="h-4 w-4" /> {analysis.urgency} urgency
+                  <AlertTriangle className="h-4 w-4" /> {t(`pet-symptom-checker.ui.urgency.${analysis.urgency}`)} {t("pet-symptom-checker.ui.urgencyWord")}
                 </div>
-                <p className="mt-1 text-sm">{URGENCY_STYLE[analysis.urgency].note}</p>
+                <p className="mt-1 text-sm">{t(`pet-symptom-checker.ui.urgencyNote.${analysis.urgency}`)}</p>
               </div>
               <div>
-                <SectionTitle icon={Stethoscope}>Possible causes to discuss with your vet</SectionTitle>
+                <SectionTitle icon={Stethoscope}>{t("pet-symptom-checker.ui.causesTitle")}</SectionTitle>
                 <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                  {analysis.causes.slice(0, 10).map((c) => <li key={c}>• {c}</li>)}
+                  {analysis.causes.slice(0, 10).map((c) => <li key={c}>• {t(`pet-symptom-checker.ui.cause.${slugify(c)}`)}</li>)}
                 </ul>
               </div>
               <Disclaimer />
@@ -183,6 +188,7 @@ const PET_MEDS = [
 ];
 
 export function PillIdentifierForPets() {
+  const { t } = useTranslation("tools");
   const [q, setQ] = useState("");
   const [species, setSpecies] = useState<string>("all");
   const results = useMemo(() => {
@@ -203,29 +209,29 @@ export function PillIdentifierForPets() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Search by name, generic, use, or shape</Label>
+            <Label>{t("pet-pill-identifier.ui.searchLabel")}</Label>
             <div className="relative mt-1.5">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g. carprofen, white scored tablet" className="pl-9" />
+              <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("pet-pill-identifier.ui.searchPlaceholder")} className="pl-9" />
             </div>
           </div>
           <div>
-            <Label>Species</Label>
+            <Label>{t("pet-pill-identifier.ui.speciesLabel")}</Label>
             <Select value={species} onValueChange={setSpecies}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="dog">Dog</SelectItem>
-                <SelectItem value="cat">Cat</SelectItem>
+                <SelectItem value="all">{t("pet-pill-identifier.ui.speciesAll")}</SelectItem>
+                <SelectItem value="dog">{t("pet-pill-identifier.ui.speciesDog")}</SelectItem>
+                <SelectItem value="cat">{t("pet-pill-identifier.ui.speciesCat")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
-          <p className="text-xs text-muted-foreground">Database: {PET_MEDS.length} common veterinary medications. Always confirm identity with your vet before administering.</p>
+          <p className="text-xs text-muted-foreground">{t("pet-pill-identifier.ui.databaseNote", { count: PET_MEDS.length })}</p>
         </div>
       }
       result={
         <div className="space-y-3">
-          {results.length === 0 && <p className="text-sm text-muted-foreground text-center">No matches. Try a different keyword.</p>}
+          {results.length === 0 && <p className="text-sm text-muted-foreground text-center">{t("pet-pill-identifier.ui.noMatches")}</p>}
           {results.slice(0, 12).map((m) => (
             <div key={m.name} className="rounded-lg border border-border bg-card p-3">
               <div className="flex items-start justify-between gap-2">
@@ -233,14 +239,14 @@ export function PillIdentifierForPets() {
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <Pill className="h-4 w-4 text-primary" /> {m.name}
                   </div>
-                  <div className="text-xs text-muted-foreground">Generic: {m.generic}</div>
+                  <div className="text-xs text-muted-foreground">{t("pet-pill-identifier.ui.genericLabel")}{m.generic}</div>
                 </div>
-                <div className="flex gap-1">{m.species.map((s) => <Badge key={s} variant="secondary" className="text-[10px]">{s}</Badge>)}</div>
+                <div className="flex gap-1">{m.species.map((sp) => <Badge key={sp} variant="secondary" className="text-[10px]">{t(`pet-pill-identifier.ui.badgeSpecies.${sp}`)}</Badge>)}</div>
               </div>
               <div className="mt-2 space-y-1 text-sm">
-                <p><span className="text-muted-foreground">Use:</span> {m.use}</p>
-                <p><span className="text-muted-foreground">Appearance:</span> {m.form}</p>
-                <p className="text-xs text-muted-foreground italic">⚠ {m.notes}</p>
+                <p><span className="text-muted-foreground">{t("pet-pill-identifier.ui.useLabel")}</span> {t(`pet-pill-identifier.ui.med.${slugify(m.name)}.use`)}</p>
+                <p><span className="text-muted-foreground">{t("pet-pill-identifier.ui.appearanceLabel")}</span> {t(`pet-pill-identifier.ui.med.${slugify(m.name)}.form`)}</p>
+                <p className="text-xs text-muted-foreground italic">⚠ {t(`pet-pill-identifier.ui.med.${slugify(m.name)}.notes`)}</p>
               </div>
             </div>
           ))}
@@ -284,6 +290,7 @@ const POISONS: { name: string; category: string; severity: Severity; dog: boolea
 ];
 
 export function PoisonLookupDatabase() {
+  const { t } = useTranslation("tools");
   const [q, setQ] = useState("");
   const [species, setSpecies] = useState<"dog" | "cat" | "all">("all");
   const results = useMemo(() => {
@@ -304,7 +311,7 @@ export function PoisonLookupDatabase() {
       toxic: "bg-orange-500/15 text-orange-700 dark:text-orange-400",
       deadly: "bg-destructive/15 text-destructive",
     };
-    return <Badge className={`${map[s]} border-0 text-[10px] uppercase`}>{s}</Badge>;
+    return <Badge className={`${map[s]} border-0 text-[10px] uppercase`}>{t(`pet-poison-lookup.ui.severity.${s}`)}</Badge>;
   };
 
   return (
@@ -312,43 +319,43 @@ export function PoisonLookupDatabase() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Search anything — food, plant, chemical, medication</Label>
+            <Label>{t("pet-poison-lookup.ui.searchLabel")}</Label>
             <div className="relative mt-1.5">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g. chocolate, lily, ibuprofen" className="pl-9" />
+              <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("pet-poison-lookup.ui.searchPlaceholder")} className="pl-9" />
             </div>
           </div>
           <div>
-            <Label>Species</Label>
+            <Label>{t("pet-poison-lookup.ui.speciesLabel")}</Label>
             <Select value={species} onValueChange={(v: "dog" | "cat" | "all") => setSpecies(v)}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Both</SelectItem>
-                <SelectItem value="dog">Dog</SelectItem>
-                <SelectItem value="cat">Cat</SelectItem>
+                <SelectItem value="all">{t("pet-poison-lookup.ui.speciesBoth")}</SelectItem>
+                <SelectItem value="dog">{t("pet-poison-lookup.ui.speciesDog")}</SelectItem>
+                <SelectItem value="cat">{t("pet-poison-lookup.ui.speciesCat")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-xs">
-            <div className="flex items-center gap-2 font-semibold text-destructive"><ShieldAlert className="h-4 w-4" /> If your pet just ingested something:</div>
+            <div className="flex items-center gap-2 font-semibold text-destructive"><ShieldAlert className="h-4 w-4" /> {t("pet-poison-lookup.ui.ingestedTitle")}</div>
             <p className="mt-1 text-destructive/90">
-              <strong>ASPCA:</strong> +1 (888) 426-4435 · <strong>Pet Poison Helpline:</strong> +1 (855) 764-7661 (fees apply, 24/7).
+              <strong>{t("pet-poison-lookup.ui.aspcaLabel")}</strong> +1 (888) 426-4435 · <strong>{t("pet-poison-lookup.ui.helplineLabel")}</strong> +1 (855) 764-7661 {t("pet-poison-lookup.ui.helplineNote")}
             </p>
           </div>
         </div>
       }
       result={
         <div className="space-y-3">
-          {results.length === 0 && <p className="text-sm text-muted-foreground text-center">Nothing matches — but if it's not in this list, still call poison control.</p>}
+          {results.length === 0 && <p className="text-sm text-muted-foreground text-center">{t("pet-poison-lookup.ui.noMatches")}</p>}
           {results.slice(0, 15).map((p) => (
             <div key={p.name} className="rounded-lg border border-border bg-card p-3">
               <div className="flex items-start justify-between gap-2">
-                <div className="font-semibold text-foreground">{p.name}</div>
+                <div className="font-semibold text-foreground">{t(`pet-poison-lookup.ui.poison.${slugify(p.name)}.name`)}</div>
                 {badge(p.severity)}
               </div>
-              <div className="mt-1 text-xs text-muted-foreground">{p.category}</div>
-              <p className="mt-2 text-sm"><span className="text-muted-foreground">Symptoms:</span> {p.symptoms}</p>
-              <p className="mt-1 text-sm"><span className="text-muted-foreground">What to do:</span> {p.action}</p>
+              <div className="mt-1 text-xs text-muted-foreground">{t(`pet-poison-lookup.ui.category.${slugify(p.category)}`)}</div>
+              <p className="mt-2 text-sm"><span className="text-muted-foreground">{t("pet-poison-lookup.ui.symptomsLabel")}</span> {t(`pet-poison-lookup.ui.poison.${slugify(p.name)}.symptoms`)}</p>
+              <p className="mt-1 text-sm"><span className="text-muted-foreground">{t("pet-poison-lookup.ui.actionLabel")}</span> {t(`pet-poison-lookup.ui.poison.${slugify(p.name)}.action`)}</p>
             </div>
           ))}
           <Disclaimer />
@@ -393,11 +400,12 @@ const FERRET_VACCINES: Vaccine[] = [
 ];
 
 export function VaccineScheduleGenerator() {
+  const { t } = useTranslation("tools");
   const [species, setSpecies] = useState<"dog" | "cat" | "rabbit" | "ferret">("dog");
   const [months, setMonths] = useState(3);
 
   const table = { dog: DOG_VACCINES, cat: CAT_VACCINES, rabbit: RABBIT_VACCINES, ferret: FERRET_VACCINES }[species];
-  const stage = months < 4 ? "puppy/kitten series" : months < 12 ? "juvenile boosters" : "adult maintenance";
+  const stageKey = months < 4 ? "puppy" : months < 12 ? "juvenile" : "adult";
   const next = table.find((v) => {
     const match = v.age.match(/(\d+)/);
     const age = match ? Number(match[1]) : 999;
@@ -410,19 +418,19 @@ export function VaccineScheduleGenerator() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Species</Label>
+            <Label>{t("pet-vaccine-schedule-generator.ui.speciesLabel")}</Label>
             <Select value={species} onValueChange={(v) => setSpecies(v as typeof species)}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="dog">Dog / puppy</SelectItem>
-                <SelectItem value="cat">Cat / kitten</SelectItem>
-                <SelectItem value="rabbit">Rabbit</SelectItem>
-                <SelectItem value="ferret">Ferret</SelectItem>
+                <SelectItem value="dog">{t("pet-vaccine-schedule-generator.ui.speciesDog")}</SelectItem>
+                <SelectItem value="cat">{t("pet-vaccine-schedule-generator.ui.speciesCat")}</SelectItem>
+                <SelectItem value="rabbit">{t("pet-vaccine-schedule-generator.ui.speciesRabbit")}</SelectItem>
+                <SelectItem value="ferret">{t("pet-vaccine-schedule-generator.ui.speciesFerret")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label>Current age (months)</Label>
+            <Label>{t("pet-vaccine-schedule-generator.ui.ageLabel")}</Label>
             <Input type="number" min={0} step={0.5} value={months} onChange={(e) => setMonths(Number(e.target.value))} className="mt-1.5" />
           </div>
         </div>
@@ -430,17 +438,17 @@ export function VaccineScheduleGenerator() {
       result={
         <div className="space-y-3">
           <div className="rounded-lg bg-primary/10 p-3">
-            <div className="flex items-center gap-2 text-sm font-semibold text-primary"><Syringe className="h-4 w-4" /> Life stage: {stage}</div>
-            {next && <p className="mt-1 text-sm text-muted-foreground">Next up: <strong>{next.name}</strong> at {next.age}.</p>}
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary"><Syringe className="h-4 w-4" /> {t("pet-vaccine-schedule-generator.ui.lifeStagePrefix")}{t(`pet-vaccine-schedule-generator.ui.stage.${stageKey}`)}</div>
+            {next && <p className="mt-1 text-sm text-muted-foreground">{t("pet-vaccine-schedule-generator.ui.nextUpPrefix")}<strong>{t(`pet-vaccine-schedule-generator.ui.vaccine.${species}.${slugify(next.name)}.name`)}</strong>{t("pet-vaccine-schedule-generator.ui.nextUpSuffix", { age: t(`pet-vaccine-schedule-generator.ui.vaccine.${species}.${slugify(next.name)}.age`) })}</p>}
           </div>
           <div className="space-y-2">
             {table.map((v) => (
               <div key={v.name} className="rounded-md border border-border p-3">
                 <div className="flex items-start justify-between gap-2">
-                  <div className="text-sm font-medium">{v.name}</div>
-                  <Badge variant={v.core ? "default" : "secondary"} className="text-[10px]">{v.core ? "Core" : "Optional"}</Badge>
+                  <div className="text-sm font-medium">{t(`pet-vaccine-schedule-generator.ui.vaccine.${species}.${slugify(v.name)}.name`)}</div>
+                  <Badge variant={v.core ? "default" : "secondary"} className="text-[10px]">{v.core ? t("pet-vaccine-schedule-generator.ui.badgeCore") : t("pet-vaccine-schedule-generator.ui.badgeOptional")}</Badge>
                 </div>
-                <div className="mt-1 text-xs text-muted-foreground">{v.age} · {v.notes}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{t(`pet-vaccine-schedule-generator.ui.vaccine.${species}.${slugify(v.name)}.age`)} · {t(`pet-vaccine-schedule-generator.ui.vaccine.${species}.${slugify(v.name)}.notes`)}</div>
               </div>
             ))}
           </div>
@@ -455,16 +463,17 @@ export function VaccineScheduleGenerator() {
    5. EMERGENCY VET FINDER
 ═══════════════════════════════════════════════════════════ */
 export function EmergencyVetFinder() {
+  const { t } = useTranslation("tools");
   const [zip, setZip] = useState("");
   const [loc, setLoc] = useState<{ lat: number; lng: number } | null>(null);
   const [status, setStatus] = useState<string>("");
 
   const useMyLocation = () => {
-    if (!navigator.geolocation) { setStatus("Geolocation not supported by this browser."); return; }
-    setStatus("Locating…");
+    if (!navigator.geolocation) { setStatus(t("shared.EmergencyVetFinder.ui.geoUnsupported")); return; }
+    setStatus(t("shared.EmergencyVetFinder.ui.locating"));
     navigator.geolocation.getCurrentPosition(
       (pos) => { setLoc({ lat: pos.coords.latitude, lng: pos.coords.longitude }); setStatus(""); },
-      (err) => setStatus(`Could not get location: ${err.message}`),
+      (err) => setStatus(t("shared.EmergencyVetFinder.ui.geoError", { message: err.message })),
       { enableHighAccuracy: true, timeout: 8000 }
     );
   };
@@ -484,15 +493,15 @@ export function EmergencyVetFinder() {
     <CalculatorLayout
       form={
         <div className="space-y-4">
-          <Button type="button" onClick={useMyLocation} className="w-full"><MapPin className="mr-2 h-4 w-4" /> Use my location</Button>
+          <Button type="button" onClick={useMyLocation} className="w-full"><MapPin className="mr-2 h-4 w-4" /> {t("shared.EmergencyVetFinder.ui.useLocation")}</Button>
           <div className="relative flex items-center gap-3">
             <span className="h-px flex-1 bg-border" />
-            <span className="text-xs text-muted-foreground">or</span>
+            <span className="text-xs text-muted-foreground">{t("shared.EmergencyVetFinder.ui.orDivider")}</span>
             <span className="h-px flex-1 bg-border" />
           </div>
           <div>
-            <Label>ZIP / postcode / city</Label>
-            <Input value={zip} onChange={(e) => setZip(e.target.value)} placeholder="e.g. 10001 or Berlin" className="mt-1.5" />
+            <Label>{t("shared.EmergencyVetFinder.ui.zipLabel")}</Label>
+            <Input value={zip} onChange={(e) => setZip(e.target.value)} placeholder={t("shared.EmergencyVetFinder.ui.zipPlaceholder")} className="mt-1.5" />
           </div>
           {status && <p className="text-xs text-muted-foreground">{status}</p>}
         </div>
@@ -500,29 +509,29 @@ export function EmergencyVetFinder() {
       result={
         <div className="space-y-4">
           <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-4">
-            <div className="flex items-center gap-2 text-sm font-semibold text-destructive"><ShieldAlert className="h-4 w-4" /> 24/7 poison hotlines</div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-destructive"><ShieldAlert className="h-4 w-4" /> {t("shared.EmergencyVetFinder.ui.hotlinesTitle")}</div>
             <ul className="mt-2 space-y-1 text-sm">
-              <li><strong>ASPCA (US):</strong> <a className="underline" href="tel:+18884264435">+1 (888) 426-4435</a></li>
-              <li><strong>Pet Poison Helpline:</strong> <a className="underline" href="tel:+18557647661">+1 (855) 764-7661</a></li>
-              <li><strong>UK Vet Poisons:</strong> <a className="underline" href="tel:+442073055055">+44 20 7305 5055</a></li>
+              <li><strong>{t("shared.EmergencyVetFinder.ui.aspcaLabel")}</strong> <a className="underline" href="tel:+18884264435">+1 (888) 426-4435</a></li>
+              <li><strong>{t("shared.EmergencyVetFinder.ui.helplineLabel")}</strong> <a className="underline" href="tel:+18557647661">+1 (855) 764-7661</a></li>
+              <li><strong>{t("shared.EmergencyVetFinder.ui.ukLabel")}</strong> <a className="underline" href="tel:+442073055055">+44 20 7305 5055</a></li>
             </ul>
           </div>
           {mapsLink && (
             <div className="space-y-2">
-              <SectionTitle icon={MapPin}>Nearby emergency vets</SectionTitle>
+              <SectionTitle icon={MapPin}>{t("shared.EmergencyVetFinder.ui.nearbyTitle")}</SectionTitle>
               <a href={mapsLink} target="_blank" rel="noopener noreferrer" className="block rounded-md border border-primary bg-primary/10 p-3 text-sm font-semibold text-primary hover:bg-primary/20">
-                Open Google Maps →
+                {t("shared.EmergencyVetFinder.ui.openGoogle")}
               </a>
               {appleLink && (
                 <a href={appleLink} target="_blank" rel="noopener noreferrer" className="block rounded-md border border-border bg-card p-3 text-sm hover:bg-muted">
-                  Open Apple Maps →
+                  {t("shared.EmergencyVetFinder.ui.openApple")}
                 </a>
               )}
             </div>
           )}
-          {!mapsLink && <p className="text-sm text-muted-foreground text-center">Share your location or enter a ZIP/city to see nearby 24-hour clinics.</p>}
+          {!mapsLink && <p className="text-sm text-muted-foreground text-center">{t("shared.EmergencyVetFinder.ui.shareHint")}</p>}
           <div className="rounded-md border border-border bg-card p-3 text-xs text-muted-foreground">
-            <strong>While you travel:</strong> keep the pet warm and quiet, don't offer food or water unless the clinic instructs, bring any suspected toxin's packaging, and call ahead so the clinic can prepare.
+            <strong>{t("shared.EmergencyVetFinder.ui.whileTravelTitle")}</strong> {t("shared.EmergencyVetFinder.ui.whileTravelBody")}
           </div>
         </div>
       }
@@ -563,6 +572,7 @@ const LABS: LabDef[] = [
 
 type LabStatus = "low" | "normal" | "high";
 export function BloodTestExplainer() {
+  const { t } = useTranslation("tools");
   const [species, setSpecies] = useState<"dog" | "cat">("dog");
   const [values, setValues] = useState<Record<string, string>>({});
   const setV = (k: string, v: string) => setValues((prev) => ({ ...prev, [k]: v }));
@@ -581,7 +591,7 @@ export function BloodTestExplainer() {
   const statusBadge = (s: LabStatus | null) => {
     if (!s) return null;
     const map = { low: "bg-blue-500/15 text-blue-700 dark:text-blue-400", normal: "bg-green-500/15 text-green-700 dark:text-green-400", high: "bg-destructive/15 text-destructive" } as const;
-    return <Badge className={`${map[s]} border-0 text-[10px] uppercase`}>{s}</Badge>;
+    return <Badge className={`${map[s]} border-0 text-[10px] uppercase`}>{t(`pet-blood-test-explainer.ui.status.${s}`)}</Badge>;
   };
 
   return (
@@ -589,46 +599,46 @@ export function BloodTestExplainer() {
       form={
         <div className="space-y-4">
           <div>
-            <Label>Species</Label>
+            <Label>{t("pet-blood-test-explainer.ui.speciesLabel")}</Label>
             <Select value={species} onValueChange={(v: "dog" | "cat") => setSpecies(v)}>
               <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="dog">Dog</SelectItem>
-                <SelectItem value="cat">Cat</SelectItem>
+                <SelectItem value="dog">{t("pet-blood-test-explainer.ui.speciesDog")}</SelectItem>
+                <SelectItem value="cat">{t("pet-blood-test-explainer.ui.speciesCat")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
             {LABS.map((l) => (
               <div key={l.key} className="grid grid-cols-[1fr_100px] items-center gap-2">
-                <Label className="text-xs">{l.label} <span className="text-muted-foreground">({l.unit})</span></Label>
+                <Label className="text-xs">{t(`pet-blood-test-explainer.ui.lab.${l.key}.label`)} <span className="text-muted-foreground">({l.unit})</span></Label>
                 <Input type="number" step="0.1" value={values[l.key] ?? ""} onChange={(e) => setV(l.key, e.target.value)} placeholder="—" />
               </div>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground">Enter only what appears on your report. Blank rows are skipped.</p>
+          <p className="text-xs text-muted-foreground">{t("pet-blood-test-explainer.ui.enterHint")}</p>
         </div>
       }
       result={
         <div className="space-y-3">
-          {rows.every((r) => r.status === null) && <p className="text-sm text-muted-foreground text-center">Enter one or more values from your report to see what they mean.</p>}
+          {rows.every((r) => r.status === null) && <p className="text-sm text-muted-foreground text-center">{t("pet-blood-test-explainer.ui.emptyHint")}</p>}
           {flagged.length > 0 && (
             <div className="rounded-md border border-amber-500/30 bg-amber-500/10 p-3 text-sm">
-              <strong className="text-amber-700 dark:text-amber-400">{flagged.length} value(s) outside the reference range.</strong>
-              <p className="mt-1 text-muted-foreground text-xs">Discuss these with your vet — a single out-of-range value is often meaningless without the full clinical picture.</p>
+              <strong className="text-amber-700 dark:text-amber-400">{t("pet-blood-test-explainer.ui.outsideRange", { count: flagged.length })}</strong>
+              <p className="text-xs text-muted-foreground mt-1">{t("pet-blood-test-explainer.ui.discussNote")}</p>
             </div>
           )}
           {rows.filter((r) => r.status).map((r) => (
             <div key={r.def.key} className="rounded-lg border border-border bg-card p-3">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <div className="text-sm font-semibold">{r.def.label}</div>
-                  <div className="text-xs text-muted-foreground">Your value: <strong>{r.value} {r.def.unit}</strong> · Reference: {r.low}–{r.high}</div>
+                  <div className="text-sm font-semibold">{t(`pet-blood-test-explainer.ui.lab.${r.def.key}.label`)}</div>
+                  <div className="text-xs text-muted-foreground">{t("pet-blood-test-explainer.ui.yourValue")} <strong>{r.value} {r.def.unit}</strong> · {t("pet-blood-test-explainer.ui.referenceRange", { low: r.low, high: r.high })}</div>
                 </div>
                 {statusBadge(r.status)}
               </div>
-              {r.status === "high" && <p className="mt-2 text-sm">{r.def.high}</p>}
-              {r.status === "low"  && <p className="mt-2 text-sm">{r.def.low}</p>}
+              {r.status === "high" && <p className="mt-2 text-sm">{t(`pet-blood-test-explainer.ui.lab.${r.def.key}.high`)}</p>}
+              {r.status === "low"  && <p className="mt-2 text-sm">{t(`pet-blood-test-explainer.ui.lab.${r.def.key}.low`)}</p>}
             </div>
           ))}
           <Disclaimer />

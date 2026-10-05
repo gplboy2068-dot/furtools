@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
   VET_CLINICS_DIRECTORY,
   VET_EMERGENCY_HOTLINES,
@@ -42,8 +43,10 @@ import {
   Flame,
 } from "lucide-react";
 
-export function VetFinderTool() {
-  const [searchQuery, setSearchQuery] = useState("Austin");
+export function VetFinderTool({ slug }: { slug?: string }) {
+  const { t } = useTranslation("tools");
+  const p = slug ?? "shared.vet-finder-tool";
+  const [searchQuery, setSearchQuery] = useState(t(`${p}.ui.defaultSearch`));
   const [selectedRadius, setSelectedRadius] = useState<number>(25);
   const [filter24Hour, setFilter24Hour] = useState(false);
   const [filterLowCost, setFilterLowCost] = useState(false);
@@ -71,7 +74,7 @@ export function VetFinderTool() {
 
   function handleUseMyLocation() {
     if (!navigator.geolocation) {
-      toast.error("Geolocation is not supported by your browser");
+      toast.error(t(`${p}.ui.toastGeoUnsupported`));
       return;
     }
     setLocating(true);
@@ -80,15 +83,15 @@ export function VetFinderTool() {
         setUserLocation({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
-          name: "Current Location",
+          name: t(`${p}.ui.currentLocation`),
         });
         setLocating(false);
-        toast.success("Location detected! Showing nearest vet clinics.");
+        toast.success(t(`${p}.ui.toastLocationOk`));
       },
       (err) => {
         console.warn("Geolocation error:", err);
         setLocating(false);
-        toast.error("Could not fetch location. Please enter a city or ZIP code.");
+        toast.error(t(`${p}.ui.toastLocationFail`));
       },
       { timeout: 10000, enableHighAccuracy: true },
     );
@@ -169,12 +172,10 @@ export function VetFinderTool() {
   function handleRegisterClinic(e: React.FormEvent) {
     e.preventDefault();
     if (!newClinicName.trim() || !newClinicPhone.trim() || !newClinicCity.trim()) {
-      toast.error("Please fill in Clinic Name, City, and Phone Number.");
+      toast.error(t(`${p}.ui.toastFormError`));
       return;
     }
-    toast.success(
-      "Thank you! Your clinic submission has been received and queued for directory verification.",
-    );
+    toast.success(t(`${p}.ui.toastSubmitOk`));
     setIsSubmitOpen(false);
     setNewClinicName("");
     setNewClinicCity("");
@@ -191,82 +192,82 @@ export function VetFinderTool() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-2">
-              <Compass className="size-3.5" /> Verified Veterinary & Emergency Directory
+              <Compass className="size-3.5" /> {t(`${p}.ui.headerBadge`)}
             </div>
             <h2 className="font-display text-2xl font-bold tracking-tight">
-              Find Local Vet Clinics & 24/7 Pet Emergency Hospitals
+              {t(`${p}.ui.headerTitle`)}
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Search real accredited veterinarians, low-cost community clinics, and 24-hour trauma hospitals with verified phone numbers, addresses, and ratings.
+              {t(`${p}.ui.headerDesc`)}
             </p>
           </div>
 
           <Dialog open={isSubmitOpen} onOpenChange={setIsSubmitOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" className="rounded-full gap-2 text-xs font-semibold shrink-0 shadow-xs">
-                <PlusCircle className="size-4 text-primary" /> Register a Clinic
+                <PlusCircle className="size-4 text-primary" /> {t(`${p}.ui.registerButton`)}
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md">
               <DialogHeader>
-                <DialogTitle>Register a Veterinary Clinic</DialogTitle>
+                <DialogTitle>{t(`${p}.ui.dialogTitle`)}</DialogTitle>
                 <DialogDescription>
-                  Are you a veterinary practice manager or recommending a trusted clinic? Submit verified details below.
+                  {t(`${p}.ui.dialogDesc`)}
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleRegisterClinic} className="space-y-3 pt-2">
                 <div>
-                  <Label htmlFor="cname" className="text-xs font-semibold">Clinic / Hospital Name *</Label>
+                  <Label htmlFor="cname" className="text-xs font-semibold">{t(`${p}.ui.clinicNameLabel`)}</Label>
                   <Input
                     id="cname"
                     value={newClinicName}
                     onChange={(e) => setNewClinicName(e.target.value)}
-                    placeholder="e.g. Metro Animal Hospital"
+                    placeholder={t(`${p}.ui.clinicNamePh`)}
                     className="mt-1 text-sm"
                     required
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <Label htmlFor="ccity" className="text-xs font-semibold">City *</Label>
+                    <Label htmlFor="ccity" className="text-xs font-semibold">{t(`${p}.ui.cityLabel`)}</Label>
                     <Input
                       id="ccity"
                       value={newClinicCity}
                       onChange={(e) => setNewClinicCity(e.target.value)}
-                      placeholder="e.g. Austin"
+                      placeholder={t(`${p}.ui.cityPh`)}
                       className="mt-1 text-sm"
                       required
                     />
                   </div>
                   <div>
-                    <Label htmlFor="cphone" className="text-xs font-semibold">Phone Number *</Label>
+                    <Label htmlFor="cphone" className="text-xs font-semibold">{t(`${p}.ui.phoneLabel`)}</Label>
                     <Input
                       id="cphone"
                       value={newClinicPhone}
                       onChange={(e) => setNewClinicPhone(e.target.value)}
-                      placeholder="e.g. (512) 555-0199"
+                      placeholder={t(`${p}.ui.phonePh`)}
                       className="mt-1 text-sm"
                       required
                     />
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="caddr" className="text-xs font-semibold">Street Address</Label>
+                  <Label htmlFor="caddr" className="text-xs font-semibold">{t(`${p}.ui.addressLabel`)}</Label>
                   <Input
                     id="caddr"
                     value={newClinicAddress}
                     onChange={(e) => setNewClinicAddress(e.target.value)}
-                    placeholder="123 Main St"
+                    placeholder={t(`${p}.ui.addressPh`)}
                     className="mt-1 text-sm"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="cweb" className="text-xs font-semibold">Official Website URL</Label>
+                  <Label htmlFor="cweb" className="text-xs font-semibold">{t(`${p}.ui.websiteLabel`)}</Label>
                   <Input
                     id="cweb"
                     value={newClinicWebsite}
                     onChange={(e) => setNewClinicWebsite(e.target.value)}
-                    placeholder="https://..."
+                    placeholder={t(`${p}.ui.websitePh`)}
                     className="mt-1 text-sm"
                   />
                 </div>
@@ -279,22 +280,22 @@ export function VetFinderTool() {
                     className="rounded border-slate-300 text-primary size-4"
                   />
                   <Label htmlFor="c247" className="text-xs font-medium cursor-pointer">
-                    This is an accredited 24/7 Emergency Animal Hospital
+                    {t(`${p}.ui.er247Label`)}
                   </Label>
                 </div>
                 <div>
-                  <Label htmlFor="cnotes" className="text-xs font-semibold">Specialties / Notes</Label>
+                  <Label htmlFor="cnotes" className="text-xs font-semibold">{t(`${p}.ui.notesLabel`)}</Label>
                   <Textarea
                     id="cnotes"
                     value={newClinicNotes}
                     onChange={(e) => setNewClinicNotes(e.target.value)}
-                    placeholder="Exotic pets, low-cost spay/neuter, dental, etc."
+                    placeholder={t(`${p}.ui.notesPh`)}
                     className="mt-1 text-xs"
                     rows={2}
                   />
                 </div>
                 <Button type="submit" className="w-full rounded-xl font-bold mt-2">
-                  Submit Clinic for Directory Verification
+                  {t(`${p}.ui.submitButton`)}
                 </Button>
               </form>
             </DialogContent>
@@ -308,7 +309,7 @@ export function VetFinderTool() {
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by City, State, or ZIP code (e.g. Austin, 78704, New York, London, Seattle)..."
+              placeholder={t(`${p}.ui.searchPh`)}
               className="pl-10 h-11 rounded-2xl bg-card border-border/80 text-sm shadow-xs font-medium"
             />
             {searchQuery && (
@@ -317,7 +318,7 @@ export function VetFinderTool() {
                 onClick={() => setSearchQuery("")}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-foreground"
               >
-                Clear
+                {t(`${p}.ui.clearButton`)}
               </button>
             )}
           </div>
@@ -331,14 +332,14 @@ export function VetFinderTool() {
               className="w-full h-11 rounded-2xl gap-2 text-xs font-semibold shadow-xs"
             >
               <Navigation className={`size-4 ${locating ? "animate-spin" : ""}`} />
-              {locating ? "Locating..." : userLocation ? "📍 Near Me (GPS Active)" : "Use My Location"}
+              {locating ? t(`${p}.ui.locatingButton`) : userLocation ? t(`${p}.ui.nearMeButton`) : t(`${p}.ui.useLocationButton`)}
             </Button>
           </div>
         </div>
 
         {/* Quick City Presets */}
         <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
-          <span className="text-muted-foreground font-medium mr-1">Popular Cities:</span>
+          <span className="text-muted-foreground font-medium mr-1">{t(`${p}.ui.popularLabel`)}</span>
           {["Austin", "New York", "Los Angeles", "Chicago", "Seattle", "Miami", "London", "Toronto"].map((city) => (
             <button
               key={city}
@@ -363,12 +364,12 @@ export function VetFinderTool() {
       <div className="rounded-2xl border border-border bg-card p-4 shadow-xs space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
-            <Filter className="size-3.5 text-primary" /> Filter by Care Type:
+            <Filter className="size-3.5 text-primary" /> {t(`${p}.ui.filterLabel`)}
           </div>
 
           {userLocation && (
             <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
-              <span>Radius:</span>
+              <span>{t(`${p}.ui.radiusLabel`)}</span>
               {[5, 10, 25, 50].map((r) => (
                 <button
                   key={r}
@@ -380,7 +381,7 @@ export function VetFinderTool() {
                       : "bg-muted/40 hover:bg-muted text-muted-foreground border-border"
                   }`}
                 >
-                  {r} mi
+                  {t(`${p}.ui.radiusMi`, { r })}
                 </button>
               ))}
             </div>
@@ -395,7 +396,7 @@ export function VetFinderTool() {
             onClick={() => setFilter24Hour(!filter24Hour)}
             className="rounded-xl text-xs gap-1.5 h-8 font-semibold shadow-xs"
           >
-            🚨 24/7 Emergency ER
+            {t(`${p}.ui.filter24h`)}
           </Button>
 
           <Button
@@ -405,7 +406,7 @@ export function VetFinderTool() {
             onClick={() => setFilterLowCost(!filterLowCost)}
             className="rounded-xl text-xs gap-1.5 h-8 font-semibold shadow-xs"
           >
-            💰 Low-Cost & Affordable
+            {t(`${p}.ui.filterLowCost`)}
           </Button>
 
           <Button
@@ -415,7 +416,7 @@ export function VetFinderTool() {
             onClick={() => setFilterExotics(!filterExotics)}
             className="rounded-xl text-xs gap-1.5 h-8 font-semibold shadow-xs"
           >
-            🦜 Exotic & Small Pets
+            {t(`${p}.ui.filterExotics`)}
           </Button>
 
           <Button
@@ -425,7 +426,7 @@ export function VetFinderTool() {
             onClick={() => setFilterDental(!filterDental)}
             className="rounded-xl text-xs gap-1.5 h-8 font-semibold shadow-xs"
           >
-            🦷 Dental Suite
+            {t(`${p}.ui.filterDental`)}
           </Button>
 
           <Button
@@ -435,7 +436,7 @@ export function VetFinderTool() {
             onClick={() => setFilterTelehealth(!filterTelehealth)}
             className="rounded-xl text-xs gap-1.5 h-8 font-semibold shadow-xs"
           >
-            📱 Telehealth Available
+            {t(`${p}.ui.filterTelehealth`)}
           </Button>
 
           {(filter24Hour || filterLowCost || filterExotics || filterDental || filterTelehealth) && (
@@ -450,7 +451,7 @@ export function VetFinderTool() {
               }}
               className="text-xs text-primary font-semibold hover:underline px-2"
             >
-              Reset Filters
+              {t(`${p}.ui.resetFilters`)}
             </button>
           )}
         </div>
@@ -459,8 +460,8 @@ export function VetFinderTool() {
       {/* 3. Results Header & Count */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div className="text-sm font-semibold text-muted-foreground">
-          Showing <span className="font-bold text-foreground">{filteredClinics.length}</span> verified veterinary hospitals & clinics
-          {searchQuery ? ` matching "${searchQuery}"` : ""}
+          {t(`${p}.ui.resultsBefore`)} <span className="font-bold text-foreground">{filteredClinics.length}</span> {t(`${p}.ui.resultsAfter`)}
+          {searchQuery ? t(`${p}.ui.resultsMatching`, { query: searchQuery }) : ""}
         </div>
 
         <a
@@ -469,7 +470,7 @@ export function VetFinderTool() {
           rel="noopener noreferrer"
           className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1.5"
         >
-          <Map className="size-3.5" /> Search Live Clinics on Google Maps
+          <Map className="size-3.5" /> {t(`${p}.ui.mapsLink`)}
           <ExternalLink className="size-3" />
         </a>
       </div>
@@ -481,15 +482,15 @@ export function VetFinderTool() {
             🏥
           </div>
           <div>
-            <h3 className="font-display font-bold text-lg">No direct directory matches for &ldquo;{searchQuery}&rdquo;</h3>
+            <h3 className="font-display font-bold text-lg">{t(`${p}.ui.emptyTitle`, { query: searchQuery })}</h3>
             <p className="text-sm text-muted-foreground max-w-md mx-auto mt-1">
-              You can search all active veterinary practices, walk-in clinics, and 24/7 ERs in &ldquo;{searchQuery}&rdquo; directly on Google Maps:
+              {t(`${p}.ui.emptyDesc`, { query: searchQuery })}
             </p>
           </div>
           <div className="flex justify-center gap-3">
             <Button asChild className="rounded-full gap-2 text-xs font-bold">
               <a href={liveGoogleMapsSearchUrl} target="_blank" rel="noopener noreferrer">
-                <MapPin className="size-3.5" /> Open {searchQuery} Vets on Google Maps
+                <MapPin className="size-3.5" /> {t(`${p}.ui.emptyMapsButton`, { query: searchQuery })}
               </a>
             </Button>
             <Button
@@ -502,7 +503,7 @@ export function VetFinderTool() {
               }}
               className="rounded-full text-xs"
             >
-              View All Cities
+              {t(`${p}.ui.viewAllButton`)}
             </Button>
           </div>
         </div>
@@ -528,29 +529,29 @@ export function VetFinderTool() {
                     <div className="flex flex-wrap items-center gap-1.5">
                       {clinic.is24HourEmergency && (
                         <Badge variant="destructive" className="font-bold text-[10px] uppercase tracking-wider">
-                          🚨 24/7 Emergency ER
+                          {t(`${p}.ui.filter24h`)}
                         </Badge>
                       )}
                       {clinic.isLowCost && (
                         <Badge variant="secondary" className="font-bold text-[10px] bg-emerald-50 text-emerald-700 border-emerald-200">
-                          💰 Low-Cost Community
+                          {t(`${p}.ui.badgeLowCost`)}
                         </Badge>
                       )}
                       {clinic.offersExotics && (
                         <Badge variant="outline" className="text-[10px]">
-                          🦜 Exotics
+                          {t(`${p}.ui.badgeExotics`)}
                         </Badge>
                       )}
                       {clinic.offersTelehealth && (
                         <Badge variant="outline" className="text-[10px]">
-                          📱 Telehealth
+                          {t(`${p}.ui.badgeTelehealth`)}
                         </Badge>
                       )}
                     </div>
 
                     {clinic.distance !== undefined && (
                       <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full shrink-0">
-                        {clinic.distance} mi
+                        {t(`${p}.ui.distanceMi`, { d: clinic.distance })}
                       </span>
                     )}
                   </div>
@@ -560,7 +561,7 @@ export function VetFinderTool() {
                     <h3 className="font-display font-bold text-lg leading-tight text-foreground flex items-center gap-1.5">
                       {clinic.name}
                       {clinic.verified && (
-                        <CheckCircle2 className="size-4 text-primary shrink-0" title="Verified Practice" />
+                        <CheckCircle2 className="size-4 text-primary shrink-0" title={t(`${p}.ui.verifiedTitle`)} />
                       )}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
@@ -573,7 +574,7 @@ export function VetFinderTool() {
                     <div className="flex items-center gap-1 font-bold text-amber-500">
                       <Star className="size-3.5 fill-amber-400 text-amber-400" />
                       <span>{clinic.rating.toFixed(1)}</span>
-                      <span className="text-muted-foreground font-normal">({clinic.reviewCount.toLocaleString()} reviews)</span>
+                      <span className="text-muted-foreground font-normal">({t(`${p}.ui.reviews`, { count: clinic.reviewCount.toLocaleString() })})</span>
                     </div>
 
                     <div className="flex items-center gap-1 text-muted-foreground">
@@ -594,7 +595,7 @@ export function VetFinderTool() {
 
                   {/* Services Tags */}
                   <div className="pt-2">
-                    <div className="text-[11px] font-semibold text-muted-foreground mb-1">Key Services:</div>
+                    <div className="text-[11px] font-semibold text-muted-foreground mb-1">{t(`${p}.ui.servicesLabel`)}</div>
                     <div className="flex flex-wrap gap-1">
                       {clinic.services.slice(0, 3).map((s) => (
                         <span
@@ -617,7 +618,7 @@ export function VetFinderTool() {
                     className="rounded-xl text-xs font-bold gap-1.5 shadow-xs"
                   >
                     <a href={`tel:${clinic.emergencyPhone || clinic.phone}`}>
-                      <Phone className="size-3.5" /> Call Now
+                      <Phone className="size-3.5" /> {t(`${p}.ui.callNow`)}
                     </a>
                   </Button>
 
@@ -628,7 +629,7 @@ export function VetFinderTool() {
                     className="rounded-xl text-xs font-semibold gap-1.5 shadow-xs"
                   >
                     <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                      <Navigation className="size-3.5 text-primary" /> Directions
+                      <Navigation className="size-3.5 text-primary" /> {t(`${p}.ui.directions`)}
                     </a>
                   </Button>
 
@@ -639,7 +640,7 @@ export function VetFinderTool() {
                     className="rounded-xl text-xs font-semibold gap-1.5 shadow-xs col-span-2 sm:col-span-1"
                   >
                     <a href={clinic.website} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="size-3.5" /> Website
+                      <ExternalLink className="size-3.5" /> {t(`${p}.ui.websiteButton`)}
                     </a>
                   </Button>
                 </div>
@@ -652,7 +653,7 @@ export function VetFinderTool() {
       {/* 5. 24/7 Animal Poison Control Hotlines */}
       <div className="rounded-3xl border border-border bg-card p-6 shadow-xs space-y-4">
         <div className="flex items-center gap-2 text-foreground font-display font-bold text-base">
-          <Flame className="size-4 text-red-500" /> 24/7 National Pet Poison & Triage Hotlines
+          <Flame className="size-4 text-red-500" /> {t(`${p}.ui.hotlinesTitle`)}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {VET_EMERGENCY_HOTLINES.map((hotline) => (
@@ -672,7 +673,7 @@ export function VetFinderTool() {
               </div>
               <Button asChild size="sm" className="w-full rounded-xl text-xs font-bold gap-1.5 shadow-xs">
                 <a href={`tel:${hotline.phone.replace(/[^0-9+]/g, "")}`}>
-                  <Phone className="size-3.5" /> Call {hotline.phone}
+                  <Phone className="size-3.5" /> {t(`${p}.ui.hotlineCall`, { phone: hotline.phone })}
                 </a>
               </Button>
             </div>
@@ -683,20 +684,20 @@ export function VetFinderTool() {
       {/* 6. Pet Emergency Triage Guide Banner */}
       <div className="rounded-3xl border border-red-500/30 bg-gradient-to-r from-red-500/10 via-amber-500/5 to-background p-6 shadow-xs space-y-3">
         <div className="flex items-center gap-2 text-red-600 dark:text-red-400 font-bold text-sm">
-          <AlertTriangle className="size-4" /> Pet Emergency Triage Checklist (When to Rush to the ER)
+          <AlertTriangle className="size-4" /> {t(`${p}.ui.triageTitle`)}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-muted-foreground leading-relaxed pt-1">
           <div className="p-3 bg-card rounded-2xl border border-border">
-            <strong className="text-foreground block mb-1">🚨 Critical Red Signs:</strong>
-            Difficulty breathing, pale/blue gums, unresponsive, seizures lasting &gt;2 minutes, suspected poison ingestion, or bloat / distended hard stomach.
+            <strong className="text-foreground block mb-1">{t(`${p}.ui.triageRedTitle`)}</strong>
+            {t(`${p}.ui.triageRedBody`)}
           </div>
           <div className="p-3 bg-card rounded-2xl border border-border">
-            <strong className="text-foreground block mb-1">⚠️ Urgent Amber Signs:</strong>
-            Repeated vomiting or diarrhea (&gt;3 times in 24h), inability to urinate (especially male cats), eye injuries, or sudden inability to walk.
+            <strong className="text-foreground block mb-1">{t(`${p}.ui.triageAmberTitle`)}</strong>
+            {t(`${p}.ui.triageAmberBody`)}
           </div>
           <div className="p-3 bg-card rounded-2xl border border-border">
-            <strong className="text-foreground block mb-1">📞 Before You Drive:</strong>
-            Call the emergency hospital ahead of time so the veterinary triage team can prepare an oxygen tank, IV fluids, and a stretcher at the entrance.
+            <strong className="text-foreground block mb-1">{t(`${p}.ui.triageDriveTitle`)}</strong>
+            {t(`${p}.ui.triageDriveBody`)}
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CalculatorLayout } from "@/components/layouts/tool-layouts";
+import { useTranslation } from "react-i18next";
 
 /* ---------- localStorage helper ---------- */
 function useLocalState<T>(key: string, initial: T): [T, (v: T | ((p: T) => T)) => void] {
@@ -30,79 +31,83 @@ function addDays(d: Date, n: number) {
    1. HEAT CYCLE TRACKER (Dog / Cat / Rabbit)
 ═══════════════════════════════════════════════════════════ */
 type HeatEvent = { id: string; date: string; stage: string; notes: string };
-const HEAT_CYCLE_INFO: Record<string, { intervalDays: number; heatDuration: string; note: string }> = {
-  dog: { intervalDays: 180, heatDuration: "2-4 weeks", note: "Most dogs cycle every 6 months. Small breeds sometimes every 4, giants every 12-18." },
-  cat: { intervalDays: 21, heatDuration: "4-10 days", note: "Cats are seasonally polyestrous — they cycle every 2-3 weeks during breeding season (spring–fall)." },
-  rabbit: { intervalDays: 16, heatDuration: "receptive most days", note: "Rabbits are induced ovulators — no true heat cycle; they can conceive nearly any day." },
-};
 export function HeatCycleTracker() {
+  const { t } = useTranslation("tools");
+  const cycleInfo: Record<string, { intervalDays: number; heatDuration: string; note: string }> = {
+    dog: { intervalDays: 180, heatDuration: t("heat-cycle-tracker.ui.dogDuration"), note: t("heat-cycle-tracker.ui.dogNote") },
+    cat: { intervalDays: 21, heatDuration: t("heat-cycle-tracker.ui.catDuration"), note: t("heat-cycle-tracker.ui.catNote") },
+    rabbit: { intervalDays: 16, heatDuration: t("heat-cycle-tracker.ui.rabbitDuration"), note: t("heat-cycle-tracker.ui.rabbitNote") },
+  };
+  const stageOptions = [
+    { value: "Proestrus (bleeding starts)", label: t("heat-cycle-tracker.ui.stageProestrus") },
+    { value: "Estrus (receptive to males)", label: t("heat-cycle-tracker.ui.stageEstrus") },
+    { value: "Diestrus (cycle ending)", label: t("heat-cycle-tracker.ui.stageDiestrus") },
+    { value: "Anestrus (rest phase)", label: t("heat-cycle-tracker.ui.stageAnestrus") },
+    { value: "Behavioral change only", label: t("heat-cycle-tracker.ui.stageBehavioral") },
+  ];
   const [species, setSpecies] = useState("dog");
   const [events, setEvents] = useLocalState<HeatEvent[]>("furtools:heat-cycle", []);
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [stage, setStage] = useState("Proestrus (bleeding starts)");
   const [notes, setNotes] = useState("");
-  const info = HEAT_CYCLE_INFO[species];
+  const info = cycleInfo[species];
   const lastCycle = events[0];
   const nextExpected = lastCycle ? addDays(new Date(lastCycle.date), info.intervalDays) : null;
 
   const form = (
     <div className="space-y-3">
       <div>
-        <Label>Species</Label>
+        <Label>{t("heat-cycle-tracker.ui.speciesLabel")}</Label>
         <Select value={species} onValueChange={setSpecies}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="dog">Dog</SelectItem>
-            <SelectItem value="cat">Cat</SelectItem>
-            <SelectItem value="rabbit">Rabbit</SelectItem>
+            <SelectItem value="dog">{t("heat-cycle-tracker.ui.speciesDog")}</SelectItem>
+            <SelectItem value="cat">{t("heat-cycle-tracker.ui.speciesCat")}</SelectItem>
+            <SelectItem value="rabbit">{t("heat-cycle-tracker.ui.speciesRabbit")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
-      <div><Label>Date observed</Label><Input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></div>
+      <div><Label>{t("heat-cycle-tracker.ui.dateLabel")}</Label><Input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></div>
       <div>
-        <Label>Stage / observation</Label>
+        <Label>{t("heat-cycle-tracker.ui.stageLabel")}</Label>
         <Select value={stage} onValueChange={setStage}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="Proestrus (bleeding starts)">Proestrus (bleeding starts)</SelectItem>
-            <SelectItem value="Estrus (receptive to males)">Estrus (receptive to males)</SelectItem>
-            <SelectItem value="Diestrus (cycle ending)">Diestrus (cycle ending)</SelectItem>
-            <SelectItem value="Anestrus (rest phase)">Anestrus (rest phase)</SelectItem>
-            <SelectItem value="Behavioral change only">Behavioral change only</SelectItem>
+            {stageOptions.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
           </SelectContent>
         </Select>
       </div>
-      <div><Label>Notes</Label><Input value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Discharge color, mood, appetite…" /></div>
+      <div><Label>{t("heat-cycle-tracker.ui.notesLabel")}</Label><Input value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={t("heat-cycle-tracker.ui.notesPlaceholder")} /></div>
       <Button
         onClick={() => {
           setEvents((prev) => [{ id: crypto.randomUUID(), date, stage, notes }, ...prev]);
           setNotes("");
         }}
-      >Log entry</Button>
+      >{t("heat-cycle-tracker.ui.logButton")}</Button>
     </div>
   );
 
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-background/60 p-3 text-sm">
-        <div><strong>Typical interval:</strong> ~{info.intervalDays} days</div>
-        <div><strong>Heat duration:</strong> {info.heatDuration}</div>
+        <div><strong>{t("heat-cycle-tracker.ui.typicalIntervalLabel")}</strong> {t("heat-cycle-tracker.ui.typicalIntervalValue", { days: info.intervalDays })}</div>
+        <div><strong>{t("heat-cycle-tracker.ui.heatDurationLabel")}</strong> {info.heatDuration}</div>
         <p className="mt-1 text-xs text-muted-foreground">{info.note}</p>
       </div>
       {nextExpected && (
         <div className="rounded-lg bg-primary/10 p-3 text-sm">
-          <strong>Next cycle estimate:</strong> {fmt(nextExpected)}
+          <strong>{t("heat-cycle-tracker.ui.nextCycleLabel")}</strong> {fmt(nextExpected)}
         </div>
       )}
       {events.length === 0 ? (
-        <p className="text-sm text-muted-foreground">No entries yet — log your first observation.</p>
+        <p className="text-sm text-muted-foreground">{t("heat-cycle-tracker.ui.emptyState")}</p>
       ) : (
         <ul className="space-y-2">
           {events.slice(0, 10).map((e) => (
             <li key={e.id} className="rounded-lg bg-background/60 p-3 text-xs">
               <div className="flex justify-between">
                 <span className="font-medium">{fmt(new Date(e.date))}</span>
-                <button className="text-destructive" onClick={() => setEvents((p) => p.filter((x) => x.id !== e.id))}>Delete</button>
+                <button className="text-destructive" onClick={() => setEvents((p) => p.filter((x) => x.id !== e.id))}>{t("heat-cycle-tracker.ui.deleteButton")}</button>
               </div>
               <div>{e.stage}</div>
               {e.notes && <div className="mt-1 text-muted-foreground">{e.notes}</div>}
@@ -118,21 +123,22 @@ export function HeatCycleTracker() {
 /* ═══════════════════════════════════════════════════════════
    2. PREGNANCY CALENDAR (species-specific)
 ═══════════════════════════════════════════════════════════ */
-const GESTATION: Record<string, { days: number; label: string }> = {
-  dog: { days: 63, label: "Dog (58-68 days)" },
-  cat: { days: 65, label: "Cat (63-67 days)" },
-  rabbit: { days: 31, label: "Rabbit (28-33 days)" },
-  "guinea-pig": { days: 68, label: "Guinea pig (59-72 days)" },
-  hamster: { days: 18, label: "Hamster (16-22 days)" },
-  ferret: { days: 42, label: "Ferret (41-42 days)" },
-  horse: { days: 340, label: "Horse (320-370 days)" },
-  goat: { days: 150, label: "Goat (145-155 days)" },
-  sheep: { days: 147, label: "Sheep (144-152 days)" },
-};
 export function PregnancyCalendarSpecies() {
+  const { t } = useTranslation("tools");
+  const gestation: Record<string, { days: number; label: string }> = {
+    dog: { days: 63, label: t("pregnancy-calendar.ui.speciesDog") },
+    cat: { days: 65, label: t("pregnancy-calendar.ui.speciesCat") },
+    rabbit: { days: 31, label: t("pregnancy-calendar.ui.speciesRabbit") },
+    "guinea-pig": { days: 68, label: t("pregnancy-calendar.ui.speciesGuineaPig") },
+    hamster: { days: 18, label: t("pregnancy-calendar.ui.speciesHamster") },
+    ferret: { days: 42, label: t("pregnancy-calendar.ui.speciesFerret") },
+    horse: { days: 340, label: t("pregnancy-calendar.ui.speciesHorse") },
+    goat: { days: 150, label: t("pregnancy-calendar.ui.speciesGoat") },
+    sheep: { days: 147, label: t("pregnancy-calendar.ui.speciesSheep") },
+  };
   const [species, setSpecies] = useState("dog");
   const [mated, setMated] = useState(new Date().toISOString().slice(0, 10));
-  const g = GESTATION[species];
+  const g = gestation[species];
   const start = new Date(mated);
   const due = addDays(start, g.days);
   const week1 = addDays(start, Math.round(g.days * 0.33));
@@ -140,51 +146,51 @@ export function PregnancyCalendarSpecies() {
   const nestingPrep = addDays(due, -10);
 
   const milestones = species === "dog" ? [
-    { day: 21, label: "Nipples enlarge, appetite may drop briefly" },
-    { day: 28, label: "Vet ultrasound confirms pregnancy" },
-    { day: 45, label: "X-ray can count puppies (skeletons visible)" },
-    { day: 55, label: "Set up whelping box, isolate mom" },
-    { day: 60, label: "Rectal temp 2x daily — drop below 99°F = 24h to labor" },
-    { day: 63, label: "Expected whelping day" },
+    { day: 21, label: t("pregnancy-calendar.ui.dogM21") },
+    { day: 28, label: t("pregnancy-calendar.ui.dogM28") },
+    { day: 45, label: t("pregnancy-calendar.ui.dogM45") },
+    { day: 55, label: t("pregnancy-calendar.ui.dogM55") },
+    { day: 60, label: t("pregnancy-calendar.ui.dogM60") },
+    { day: 63, label: t("pregnancy-calendar.ui.dogM63") },
   ] : species === "cat" ? [
-    { day: 21, label: "Pink swollen nipples ('pinking up')" },
-    { day: 28, label: "Vet can palpate kittens" },
-    { day: 50, label: "Kittens visibly move in abdomen" },
-    { day: 58, label: "Set up kittening box in quiet room" },
-    { day: 65, label: "Expected kittening day" },
+    { day: 21, label: t("pregnancy-calendar.ui.catM21") },
+    { day: 28, label: t("pregnancy-calendar.ui.catM28") },
+    { day: 50, label: t("pregnancy-calendar.ui.catM50") },
+    { day: 58, label: t("pregnancy-calendar.ui.catM58") },
+    { day: 65, label: t("pregnancy-calendar.ui.catM65") },
   ] : [
-    { day: Math.round(g.days * 0.33), label: "Early gestation — normal diet, gentle handling" },
-    { day: Math.round(g.days * 0.66), label: "Mid gestation — increase nutrition ~25%" },
-    { day: g.days - 7, label: "Prepare nest area, quiet environment" },
-    { day: g.days, label: "Expected birth day" },
+    { day: Math.round(g.days * 0.33), label: t("pregnancy-calendar.ui.genEarly") },
+    { day: Math.round(g.days * 0.66), label: t("pregnancy-calendar.ui.genMid") },
+    { day: g.days - 7, label: t("pregnancy-calendar.ui.genNest") },
+    { day: g.days, label: t("pregnancy-calendar.ui.genBirth") },
   ];
 
   const form = (
     <div className="space-y-3">
       <div>
-        <Label>Species</Label>
+        <Label>{t("pregnancy-calendar.ui.speciesLabel")}</Label>
         <Select value={species} onValueChange={setSpecies}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            {Object.entries(GESTATION).map(([k, v]) => <SelectItem key={k} value={k}>{v.label}</SelectItem>)}
+            {Object.entries(gestation).map(([k, v]) => <SelectItem key={k} value={k}>{v.label}</SelectItem>)}
           </SelectContent>
         </Select>
       </div>
-      <div><Label>Mating / breeding date</Label><Input type="date" value={mated} onChange={(e) => setMated(e.target.value)} /></div>
+      <div><Label>{t("pregnancy-calendar.ui.matingLabel")}</Label><Input type="date" value={mated} onChange={(e) => setMated(e.target.value)} /></div>
     </div>
   );
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-primary/10 p-3">
-        <div className="text-xs uppercase text-muted-foreground">Expected due date</div>
+        <div className="text-xs uppercase text-muted-foreground">{t("pregnancy-calendar.ui.dueTitle")}</div>
         <div className="text-2xl font-semibold">{fmt(due)}</div>
-        <div className="mt-1 text-xs text-muted-foreground">First trimester ends {fmt(week1)} · nesting prep by {fmt(nestingPrep)}</div>
+        <div className="mt-1 text-xs text-muted-foreground">{t("pregnancy-calendar.ui.trimesterNote", { week1: fmt(week1), nesting: fmt(nestingPrep) })}</div>
       </div>
       <ul className="space-y-2">
         {milestones.map((m) => (
           <li key={m.day} className="rounded-lg bg-background/60 p-3 text-sm">
             <div className="flex justify-between">
-              <strong>Day {m.day}</strong>
+              <strong>{t("pregnancy-calendar.ui.dayLabel", { day: m.day })}</strong>
               <span className="text-xs text-muted-foreground">{fmt(addDays(start, m.day))}</span>
             </div>
             <div className="text-xs text-muted-foreground">{m.label}</div>
@@ -199,64 +205,41 @@ export function PregnancyCalendarSpecies() {
 /* ═══════════════════════════════════════════════════════════
    3. WHELPING / KITTENING PREP CHECKLIST
 ═══════════════════════════════════════════════════════════ */
-const WHELPING_GROUPS = [
-  {
-    title: "Whelping box setup (2-3 weeks before due date)",
-    items: [
-      "Sturdy whelping box 1.5x mom's body length, with pig rails to prevent crushing",
-      "Newspaper base + clean towels/vet-bed on top",
-      "Heat lamp or heating pad set to 85-90°F for first week (one warm corner only)",
-      "Quiet, low-traffic room where mom feels safe",
-      "Introduce mom to the box 7-10 days early so she claims it",
-    ],
-  },
-  {
-    title: "Whelping kit (assemble by day 55)",
-    items: [
-      "Clean towels (10-15) for drying newborns",
-      "Bulb syringe to clear airways",
-      "Unscented dental floss for tying umbilical cords",
-      "Blunt scissors sterilized in alcohol",
-      "Iodine or chlorhexidine for cord stumps",
-      "Digital scale (gram accuracy) for daily weigh-ins",
-      "Hemostats (for cord clamping if needed)",
-      "Puppy/kitten milk replacer + bottle (emergency only)",
-      "Rectal thermometer + lubricant",
-      "Notebook + pen — log time of birth, weight, sex, markings",
-    ],
-  },
-  {
-    title: "Health & vet prep",
-    items: [
-      "Pre-whelping vet check at day 55",
-      "X-ray at day 45+ to confirm puppy/kitten count",
-      "Emergency vet phone number posted on the wall",
-      "Know the address of the nearest 24-hour ER vet",
-      "Learn signs of dystocia: >2h active straining with no birth, >4h between births, green discharge before first pup",
-      "Discuss C-section threshold with your vet in advance",
-    ],
-  },
-  {
-    title: "Postpartum (first 48 hours)",
-    items: [
-      "Confirm each newborn nurses within 2 hours (colostrum window)",
-      "Weigh every newborn daily — no weight loss beyond day 2",
-      "Check mom's temperature 2x daily for 5 days (>103°F = infection risk)",
-      "Watch for retained placenta, mastitis, eclampsia (milk fever)",
-      "Keep visitors away for 2 weeks — stress can trigger cannibalism or rejection",
-    ],
-  },
-];
 export function WhelpingKitteningChecklist() {
+  const { t } = useTranslation("tools");
+  const groups = [
+    { title: t("whelping-kittening-checklist.ui.groupBox"), items: [
+      t("whelping-kittening-checklist.ui.box1"), t("whelping-kittening-checklist.ui.box2"),
+      t("whelping-kittening-checklist.ui.box3"), t("whelping-kittening-checklist.ui.box4"),
+      t("whelping-kittening-checklist.ui.box5"),
+    ] },
+    { title: t("whelping-kittening-checklist.ui.groupKit"), items: [
+      t("whelping-kittening-checklist.ui.kit1"), t("whelping-kittening-checklist.ui.kit2"),
+      t("whelping-kittening-checklist.ui.kit3"), t("whelping-kittening-checklist.ui.kit4"),
+      t("whelping-kittening-checklist.ui.kit5"), t("whelping-kittening-checklist.ui.kit6"),
+      t("whelping-kittening-checklist.ui.kit7"), t("whelping-kittening-checklist.ui.kit8"),
+      t("whelping-kittening-checklist.ui.kit9"), t("whelping-kittening-checklist.ui.kit10"),
+    ] },
+    { title: t("whelping-kittening-checklist.ui.groupVet"), items: [
+      t("whelping-kittening-checklist.ui.vet1"), t("whelping-kittening-checklist.ui.vet2"),
+      t("whelping-kittening-checklist.ui.vet3"), t("whelping-kittening-checklist.ui.vet4"),
+      t("whelping-kittening-checklist.ui.vet5"), t("whelping-kittening-checklist.ui.vet6"),
+    ] },
+    { title: t("whelping-kittening-checklist.ui.groupPostpartum"), items: [
+      t("whelping-kittening-checklist.ui.post1"), t("whelping-kittening-checklist.ui.post2"),
+      t("whelping-kittening-checklist.ui.post3"), t("whelping-kittening-checklist.ui.post4"),
+      t("whelping-kittening-checklist.ui.post5"),
+    ] },
+  ];
   const [checked, setChecked] = useLocalState<Record<string, boolean>>("furtools:whelping-checklist", {});
-  const total = WHELPING_GROUPS.reduce((a, g) => a + g.items.length, 0);
+  const total = groups.reduce((a, g) => a + g.items.length, 0);
   const done = Object.values(checked).filter(Boolean).length;
   return (
     <div className="space-y-4">
       <div className="rounded-lg bg-primary/10 p-3 text-sm">
-        Progress: <strong>{done} / {total}</strong> ({Math.round((done / total) * 100)}%)
+        {t("whelping-kittening-checklist.ui.progressLabel")}: <strong>{done} / {total}</strong> {t("whelping-kittening-checklist.ui.progressPct", { pct: Math.round((done / total) * 100) })}
       </div>
-      {WHELPING_GROUPS.map((g) => (
+      {groups.map((g) => (
         <div key={g.title} className="rounded-lg border p-4">
           <h3 className="mb-2 font-semibold">{g.title}</h3>
           <div className="space-y-2">
@@ -280,6 +263,7 @@ export function WhelpingKitteningChecklist() {
    4. STUD FEE CALCULATOR
 ═══════════════════════════════════════════════════════════ */
 export function StudFeeCalculator() {
+  const { t } = useTranslation("tools");
   const [avgPuppyPrice, setAvgPuppyPrice] = useState(1500);
   const [avgLitterSize, setAvgLitterSize] = useState(6);
   const [studQuality, setStudQuality] = useState("titled");
@@ -296,27 +280,27 @@ export function StudFeeCalculator() {
 
   const form = (
     <div className="space-y-3">
-      <div><Label>Average puppy price ($)</Label><Input type="number" value={avgPuppyPrice} onChange={(e) => setAvgPuppyPrice(+e.target.value || 0)} /></div>
-      <div><Label>Average litter size</Label><Input type="number" value={avgLitterSize} onChange={(e) => setAvgLitterSize(+e.target.value || 1)} /></div>
+      <div><Label>{t("stud-fee-calculator.ui.priceLabel")}</Label><Input type="number" value={avgPuppyPrice} onChange={(e) => setAvgPuppyPrice(+e.target.value || 0)} /></div>
+      <div><Label>{t("stud-fee-calculator.ui.litterLabel")}</Label><Input type="number" value={avgLitterSize} onChange={(e) => setAvgLitterSize(+e.target.value || 1)} /></div>
       <div>
-        <Label>Stud quality tier</Label>
+        <Label>{t("stud-fee-calculator.ui.qualityLabel")}</Label>
         <Select value={studQuality} onValueChange={setStudQuality}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="pet-quality">Pet quality (no titles)</SelectItem>
-            <SelectItem value="titled">Titled (conformation/working)</SelectItem>
-            <SelectItem value="champion">Champion (CH/GCH)</SelectItem>
-            <SelectItem value="top-producer">Top producer / imported bloodline</SelectItem>
+            <SelectItem value="pet-quality">{t("stud-fee-calculator.ui.qualityPet")}</SelectItem>
+            <SelectItem value="titled">{t("stud-fee-calculator.ui.qualityTitled")}</SelectItem>
+            <SelectItem value="champion">{t("stud-fee-calculator.ui.qualityChampion")}</SelectItem>
+            <SelectItem value="top-producer">{t("stud-fee-calculator.ui.qualityTop")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div>
-        <Label>Fee structure</Label>
+        <Label>{t("stud-fee-calculator.ui.feeLabel")}</Label>
         <Select value={feeType} onValueChange={(v) => setFeeType(v as "cash" | "pick")}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="cash">Cash fee</SelectItem>
-            <SelectItem value="pick">Pick of the litter</SelectItem>
+            <SelectItem value="cash">{t("stud-fee-calculator.ui.feeCash")}</SelectItem>
+            <SelectItem value="pick">{t("stud-fee-calculator.ui.feePick")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -326,23 +310,23 @@ export function StudFeeCalculator() {
     <div className="space-y-3">
       {feeType === "cash" ? (
         <div className="rounded-lg bg-primary/10 p-3">
-          <div className="text-xs uppercase text-muted-foreground">Suggested cash stud fee</div>
+          <div className="text-xs uppercase text-muted-foreground">{t("stud-fee-calculator.ui.cashTitle")}</div>
           <div className="text-2xl font-semibold">${suggestedCash.toLocaleString()}</div>
-          <p className="mt-1 text-xs text-muted-foreground">Industry norm: 1 puppy price for titled studs, up to 2x for champions.</p>
+          <p className="mt-1 text-xs text-muted-foreground">{t("stud-fee-calculator.ui.cashNote")}</p>
         </div>
       ) : (
         <div className="rounded-lg bg-primary/10 p-3">
-          <div className="text-xs uppercase text-muted-foreground">Pick-of-litter value (approx.)</div>
+          <div className="text-xs uppercase text-muted-foreground">{t("stud-fee-calculator.ui.pickTitle")}</div>
           <div className="text-2xl font-semibold">${pickPupValue.toLocaleString()}</div>
-          <p className="mt-1 text-xs text-muted-foreground">Stud owner selects 1st pick after the breeder's own retention.</p>
+          <p className="mt-1 text-xs text-muted-foreground">{t("stud-fee-calculator.ui.pickNote")}</p>
         </div>
       )}
       <div className="rounded-lg bg-background/60 p-3 text-sm">
-        <div><strong>Projected litter revenue:</strong> ${(avgPuppyPrice * avgLitterSize).toLocaleString()}</div>
-        <div><strong>Stud fee as % of revenue:</strong> {Math.round((suggestedCash / (avgPuppyPrice * avgLitterSize)) * 100)}%</div>
+        <div><strong>{t("stud-fee-calculator.ui.revenueLabel")}</strong> {t("stud-fee-calculator.ui.revenueValue", { amount: (avgPuppyPrice * avgLitterSize).toLocaleString() })}</div>
+        <div><strong>{t("stud-fee-calculator.ui.feePctLabel")}</strong> {t("stud-fee-calculator.ui.feePctValue", { pct: Math.round((suggestedCash / (avgPuppyPrice * avgLitterSize)) * 100) })}</div>
       </div>
       <div className="rounded-lg border bg-yellow-50 p-3 text-xs text-yellow-900 dark:bg-yellow-950 dark:text-yellow-100">
-        Always use a written stud contract. Cover: repeat breeding rights if litter fails, health-test requirements, payment timing, and pick order.
+        {t("stud-fee-calculator.ui.contractNote")}
       </div>
     </div>
   );
@@ -353,6 +337,7 @@ export function StudFeeCalculator() {
    5. GENETIC DIVERSITY / COI CALCULATOR
 ═══════════════════════════════════════════════════════════ */
 export function GeneticDiversityCOI() {
+  const { t } = useTranslation("tools");
   const [commonAncestors, setCommonAncestors] = useState(1);
   const [generations, setGenerations] = useState(5);
   // Wright's simplified inbreeding coefficient using shared ancestors N generations back
@@ -363,44 +348,44 @@ export function GeneticDiversityCOI() {
   }, [commonAncestors, generations]);
 
   const band =
-    coi < 6.25 ? { label: "Low", color: "bg-green-500/15 text-green-700 dark:text-green-300", note: "Similar to unrelated pairing. Healthy diversity." } :
-    coi < 12.5 ? { label: "Moderate", color: "bg-yellow-500/15 text-yellow-700 dark:text-yellow-300", note: "Comparable to first-cousin pairing. Acceptable if health tests are clean." } :
-    coi < 25 ? { label: "High", color: "bg-orange-500/15 text-orange-700 dark:text-orange-300", note: "Half-sibling equivalent. Reduced litter vigor and immune diversity likely." } :
-    { label: "Very High", color: "bg-red-500/15 text-red-700 dark:text-red-300", note: "Full-sibling / parent-offspring pairing. Not recommended — strong risk of recessive disease expression." };
+    coi < 6.25 ? { label: t("genetic-diversity-calculator.ui.bandLow"), color: "bg-green-500/15 text-green-700 dark:text-green-300", note: t("genetic-diversity-calculator.ui.noteLow") } :
+    coi < 12.5 ? { label: t("genetic-diversity-calculator.ui.bandModerate"), color: "bg-yellow-500/15 text-yellow-700 dark:text-yellow-300", note: t("genetic-diversity-calculator.ui.noteModerate") } :
+    coi < 25 ? { label: t("genetic-diversity-calculator.ui.bandHigh"), color: "bg-orange-500/15 text-orange-700 dark:text-orange-300", note: t("genetic-diversity-calculator.ui.noteHigh") } :
+    { label: t("genetic-diversity-calculator.ui.bandVeryHigh"), color: "bg-red-500/15 text-red-700 dark:text-red-300", note: t("genetic-diversity-calculator.ui.noteVeryHigh") };
 
   const form = (
     <div className="space-y-3">
-      <div><Label>Number of shared ancestors within pedigree</Label><Input type="number" min={0} value={commonAncestors} onChange={(e) => setCommonAncestors(+e.target.value || 0)} /></div>
+      <div><Label>{t("genetic-diversity-calculator.ui.ancestorsLabel")}</Label><Input type="number" min={0} value={commonAncestors} onChange={(e) => setCommonAncestors(+e.target.value || 0)} /></div>
       <div>
-        <Label>Generations back to shared ancestor</Label>
+        <Label>{t("genetic-diversity-calculator.ui.generationsLabel")}</Label>
         <Select value={String(generations)} onValueChange={(v) => setGenerations(+v)}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => <SelectItem key={n} value={String(n)}>{n} generations</SelectItem>)}
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => <SelectItem key={n} value={String(n)}>{t("genetic-diversity-calculator.ui.generationsOption", { n })}</SelectItem>)}
           </SelectContent>
         </Select>
-        <p className="mt-1 text-xs text-muted-foreground">Full 5-generation pedigrees give the most reliable estimate.</p>
+        <p className="mt-1 text-xs text-muted-foreground">{t("genetic-diversity-calculator.ui.pedigreeHint")}</p>
       </div>
     </div>
   );
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-primary/10 p-3">
-        <div className="text-xs uppercase text-muted-foreground">Estimated Coefficient of Inbreeding (COI)</div>
-        <div className="text-2xl font-semibold">{coi.toFixed(2)}%</div>
+        <div className="text-xs uppercase text-muted-foreground">{t("genetic-diversity-calculator.ui.coiTitle")}</div>
+        <div className="text-2xl font-semibold">{t("genetic-diversity-calculator.ui.coiValue", { coi: coi.toFixed(2) })}</div>
       </div>
       <div className={`rounded-lg p-3 text-sm ${band.color}`}>
         <strong>{band.label}</strong> — {band.note}
       </div>
       <div className="rounded-lg bg-background/60 p-3 text-xs text-muted-foreground">
-        <p className="mb-1"><strong>Reference bands:</strong></p>
+        <p className="mb-1"><strong>{t("genetic-diversity-calculator.ui.refLabel")}</strong></p>
         <ul className="list-disc pl-4 space-y-0.5">
-          <li>0-6.25% — unrelated to distant cousins (ideal)</li>
-          <li>6.25-12.5% — first-cousin equivalent</li>
-          <li>12.5-25% — half-sibling equivalent</li>
-          <li>25%+ — full-sibling / parent-offspring (avoid)</li>
+          <li>{t("genetic-diversity-calculator.ui.refBand1")}</li>
+          <li>{t("genetic-diversity-calculator.ui.refBand2")}</li>
+          <li>{t("genetic-diversity-calculator.ui.refBand3")}</li>
+          <li>{t("genetic-diversity-calculator.ui.refBand4")}</li>
         </ul>
-        <p className="mt-2">For accurate pedigree-based COI, use software like Breedmate or the breed database's COI calculator with a full 10-generation pedigree.</p>
+        <p className="mt-2">{t("genetic-diversity-calculator.ui.accurateNote")}</p>
       </div>
     </div>
   );
@@ -412,6 +397,7 @@ export function GeneticDiversityCOI() {
 ═══════════════════════════════════════════════════════════ */
 type WeightEntry = { id: string; day: number; grams: number };
 export function PuppyKittenWeightChart() {
+  const { t } = useTranslation("tools");
   const [species, setSpecies] = useState<"puppy" | "kitten">("puppy");
   const [entries, setEntries] = useLocalState<WeightEntry[]>("furtools:pk-weight-chart", []);
   const [day, setDay] = useState(1);
@@ -429,40 +415,40 @@ export function PuppyKittenWeightChart() {
   const form = (
     <div className="space-y-3">
       <div>
-        <Label>Species</Label>
+        <Label>{t("puppy-kitten-weight-chart.ui.speciesLabel")}</Label>
         <Select value={species} onValueChange={(v) => setSpecies(v as "puppy" | "kitten")}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="puppy">Puppy</SelectItem>
-            <SelectItem value="kitten">Kitten</SelectItem>
+            <SelectItem value="puppy">{t("puppy-kitten-weight-chart.ui.speciesPuppy")}</SelectItem>
+            <SelectItem value="kitten">{t("puppy-kitten-weight-chart.ui.speciesKitten")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="grid grid-cols-2 gap-2">
-        <div><Label>Day of life</Label><Input type="number" min={1} value={day} onChange={(e) => setDay(+e.target.value || 1)} /></div>
-        <div><Label>Weight (grams)</Label><Input type="number" value={grams} onChange={(e) => setGrams(+e.target.value || 0)} /></div>
+        <div><Label>{t("puppy-kitten-weight-chart.ui.dayLabel")}</Label><Input type="number" min={1} value={day} onChange={(e) => setDay(+e.target.value || 1)} /></div>
+        <div><Label>{t("puppy-kitten-weight-chart.ui.weightLabel")}</Label><Input type="number" value={grams} onChange={(e) => setGrams(+e.target.value || 0)} /></div>
       </div>
-      <Button onClick={() => setEntries((p) => [...p, { id: crypto.randomUUID(), day, grams }])}>Add weigh-in</Button>
+      <Button onClick={() => setEntries((p) => [...p, { id: crypto.randomUUID(), day, grams }])}>{t("puppy-kitten-weight-chart.ui.addButton")}</Button>
     </div>
   );
 
   const result = (
     <div className="space-y-3">
       <div className="rounded-lg bg-background/60 p-3 text-sm">
-        <strong>Expected {species} range (breed-dependent):</strong>
+        {t("puppy-kitten-weight-chart.ui.expectedTitle", { species })}
         <ul className="mt-1 text-xs text-muted-foreground">
           {expected.map((r) => (
-            <li key={r.day}>Day {r.day}: {r.low}–{r.high} g</li>
+            <li key={r.day}>{t("puppy-kitten-weight-chart.ui.expectedRow", { day: r.day, low: r.low, high: r.high })}</li>
           ))}
         </ul>
       </div>
       {sorted.length > 0 && (
         <div className="rounded-lg bg-primary/10 p-3 text-sm">
-          <div><strong>Last weight:</strong> {sorted[sorted.length - 1].grams} g on day {sorted[sorted.length - 1].day}</div>
+          <div>{t("puppy-kitten-weight-chart.ui.lastWeight", { grams: sorted[sorted.length - 1].grams, day: sorted[sorted.length - 1].day })}</div>
           {sorted.length >= 2 && (
             <div className={gain <= 0 ? "text-destructive font-medium" : ""}>
-              Gain since previous: {gain > 0 ? `+${gain}` : gain} g
-              {gain <= 0 && " — 🚨 Weight loss or stagnation in a neonate is an emergency. Call your vet."}
+              {t("puppy-kitten-weight-chart.ui.gainLabel")}: {t("puppy-kitten-weight-chart.ui.gainValue", { gain: gain > 0 ? `+${gain}` : gain })}
+              {gain <= 0 && t("puppy-kitten-weight-chart.ui.gainWarning")}
             </div>
           )}
         </div>
@@ -471,7 +457,7 @@ export function PuppyKittenWeightChart() {
         <ul className="space-y-1 text-xs">
           {sorted.map((e) => (
             <li key={e.id} className="flex justify-between rounded bg-background/60 px-2 py-1">
-              <span>Day {e.day}</span><span>{e.grams} g</span>
+              <span>{t("puppy-kitten-weight-chart.ui.entryDay", { day: e.day })}</span><span>{t("puppy-kitten-weight-chart.ui.entryGrams", { grams: e.grams })}</span>
               <button className="text-destructive" onClick={() => setEntries((p) => p.filter((x) => x.id !== e.id))}>×</button>
             </li>
           ))}
@@ -485,63 +471,64 @@ export function PuppyKittenWeightChart() {
 /* ═══════════════════════════════════════════════════════════
    7. WEANING SCHEDULE
 ═══════════════════════════════════════════════════════════ */
-const WEANING_PLAN: Record<string, { start: number; end: number; steps: { week: string; desc: string }[] }> = {
-  puppy: {
-    start: 3, end: 8,
-    steps: [
-      { week: "Week 3", desc: "Introduce puppy gruel: soaked kibble + puppy milk replacer, 4x daily. Nursing still primary." },
-      { week: "Week 4", desc: "Thicker gruel, less milk replacer. Puppies eating solids ~30% of intake." },
-      { week: "Week 5", desc: "Soaked kibble only (no milk replacer). Nursing 2-3x daily." },
-      { week: "Week 6", desc: "Dry kibble + water on side. Nursing reduced to 1-2x daily." },
-      { week: "Week 7", desc: "Fully on solid puppy food. Separate mom for longer periods." },
-      { week: "Week 8", desc: "Weaning complete. Ready to leave litter (US minimum; 10 weeks better)." },
-    ],
-  },
-  kitten: {
-    start: 4, end: 8,
-    steps: [
-      { week: "Week 4", desc: "Introduce wet food gruel (kitten formula + KMR). 4x daily, small amounts." },
-      { week: "Week 5", desc: "Thicker wet food. Kittens tasting more solids." },
-      { week: "Week 6", desc: "Full wet kitten food, dry kibble available. Nursing reduces." },
-      { week: "Week 7", desc: "Mostly weaned. Mom regulates nursing." },
-      { week: "Week 8", desc: "Weaning complete. Do NOT rehome before 10-12 weeks (social development)." },
-    ],
-  },
-  rabbit: {
-    start: 4, end: 8,
-    steps: [
-      { week: "Week 3-4", desc: "Kits nibble mom's pellets and hay. Do not offer greens yet." },
-      { week: "Week 5-6", desc: "Free-fed alfalfa hay and alfalfa-based pellets." },
-      { week: "Week 7-8", desc: "Fully weaned. Introduce small amounts of leafy greens one at a time." },
-    ],
-  },
-};
 export function WeaningSchedule() {
+  const { t } = useTranslation("tools");
+  const weaningPlan: Record<string, { start: number; end: number; steps: { week: string; desc: string }[] }> = {
+    puppy: {
+      start: 3, end: 8,
+      steps: [
+        { week: t("weaning-schedule.ui.puppyW3"), desc: t("weaning-schedule.ui.puppyD3") },
+        { week: t("weaning-schedule.ui.puppyW4"), desc: t("weaning-schedule.ui.puppyD4") },
+        { week: t("weaning-schedule.ui.puppyW5"), desc: t("weaning-schedule.ui.puppyD5") },
+        { week: t("weaning-schedule.ui.puppyW6"), desc: t("weaning-schedule.ui.puppyD6") },
+        { week: t("weaning-schedule.ui.puppyW7"), desc: t("weaning-schedule.ui.puppyD7") },
+        { week: t("weaning-schedule.ui.puppyW8"), desc: t("weaning-schedule.ui.puppyD8") },
+      ],
+    },
+    kitten: {
+      start: 4, end: 8,
+      steps: [
+        { week: t("weaning-schedule.ui.kittenW4"), desc: t("weaning-schedule.ui.kittenD4") },
+        { week: t("weaning-schedule.ui.kittenW5"), desc: t("weaning-schedule.ui.kittenD5") },
+        { week: t("weaning-schedule.ui.kittenW6"), desc: t("weaning-schedule.ui.kittenD6") },
+        { week: t("weaning-schedule.ui.kittenW7"), desc: t("weaning-schedule.ui.kittenD7") },
+        { week: t("weaning-schedule.ui.kittenW8"), desc: t("weaning-schedule.ui.kittenD8") },
+      ],
+    },
+    rabbit: {
+      start: 4, end: 8,
+      steps: [
+        { week: t("weaning-schedule.ui.rabbitW34"), desc: t("weaning-schedule.ui.rabbitD34") },
+        { week: t("weaning-schedule.ui.rabbitW56"), desc: t("weaning-schedule.ui.rabbitD56") },
+        { week: t("weaning-schedule.ui.rabbitW78"), desc: t("weaning-schedule.ui.rabbitD78") },
+      ],
+    },
+  };
   const [species, setSpecies] = useState("puppy");
   const [birthDate, setBirthDate] = useState(new Date().toISOString().slice(0, 10));
-  const plan = WEANING_PLAN[species];
+  const plan = weaningPlan[species];
   const start = new Date(birthDate);
 
   const form = (
     <div className="space-y-3">
       <div>
-        <Label>Species</Label>
+        <Label>{t("weaning-schedule.ui.speciesLabel")}</Label>
         <Select value={species} onValueChange={setSpecies}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="puppy">Puppy</SelectItem>
-            <SelectItem value="kitten">Kitten</SelectItem>
-            <SelectItem value="rabbit">Rabbit kit</SelectItem>
+            <SelectItem value="puppy">{t("weaning-schedule.ui.speciesPuppy")}</SelectItem>
+            <SelectItem value="kitten">{t("weaning-schedule.ui.speciesKitten")}</SelectItem>
+            <SelectItem value="rabbit">{t("weaning-schedule.ui.speciesRabbit")}</SelectItem>
           </SelectContent>
         </Select>
       </div>
-      <div><Label>Litter birth date</Label><Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} /></div>
+      <div><Label>{t("weaning-schedule.ui.birthLabel")}</Label><Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} /></div>
     </div>
   );
   const result = (
     <div className="space-y-2">
       <div className="rounded-lg bg-primary/10 p-3 text-sm">
-        Weaning starts week {plan.start}, complete by week {plan.end}. Do not rehome before minimum age.
+        {t("weaning-schedule.ui.summary", { start: plan.start, end: plan.end })}
       </div>
       {plan.steps.map((s, i) => (
         <div key={s.week} className="rounded-lg bg-background/60 p-3 text-sm">
@@ -560,35 +547,57 @@ export function WeaningSchedule() {
 /* ═══════════════════════════════════════════════════════════
    8. NEWBORN CARE TIMELINE
 ═══════════════════════════════════════════════════════════ */
-const NEWBORN_STAGES = [
-  { range: "Day 0-2", title: "Colostrum window", tasks: ["Confirm all newborns nurse within 2 hours", "Weigh at birth, then every 12h for 3 days", "Room temp 85-90°F for puppies, 88°F for kittens", "Watch for fading — cold, limp, or crying constantly = emergency vet"] },
-  { range: "Day 3-7", title: "Adjustment week", tasks: ["Weight should increase 5-10% daily", "Cord stumps fall off around day 3", "Reduce ambient temp gradually to 80°F", "Deworm mom (safe wormer only) — nematodes pass through milk"] },
-  { range: "Week 2", title: "Eyes and ears open", tasks: ["Eyes open days 10-14 (never force)", "Ears open days 14-17", "Introduce firm bedding for footing", "Ambient temp 75°F now safe"] },
-  { range: "Week 3", title: "First movements", tasks: ["Puppies/kittens start walking wobbly", "Introduce a shallow litter tray (kittens) or paper (puppies)", "First deworming for babies", "Begin gentle handling — 30 sec per pup, 3-4x daily"] },
-  { range: "Week 4-5", title: "Weaning begins", tasks: ["Introduce gruel (see Weaning Schedule tool)", "Playtime with littermates — critical socialization", "Nails trimmed weekly (mom's teats get scratched)", "First vet check-up"] },
-  { range: "Week 6-8", title: "Independence", tasks: ["Full weaning complete", "First vaccines (typically 6-8 weeks)", "Socialization with humans — new sounds, gentle handling", "Deworming boosters"] },
-  { range: "Week 8-12", title: "Ready to rehome", tasks: ["Puppies: 8 weeks US minimum, 10-12 ideal", "Kittens: 10-12 weeks minimum", "Second vaccines", "Provide new owners with weight/vaccine/deworming records"] },
-];
 export function NewbornCareTimeline() {
+  const { t } = useTranslation("tools");
+  const stages = [
+    { range: t("newborn-care-timeline.ui.range02"), title: t("newborn-care-timeline.ui.titleColostrum"), tasks: [
+      t("newborn-care-timeline.ui.colostrum1"), t("newborn-care-timeline.ui.colostrum2"),
+      t("newborn-care-timeline.ui.colostrum3"), t("newborn-care-timeline.ui.colostrum4"),
+    ] },
+    { range: t("newborn-care-timeline.ui.range37"), title: t("newborn-care-timeline.ui.titleAdjustment"), tasks: [
+      t("newborn-care-timeline.ui.adjustment1"), t("newborn-care-timeline.ui.adjustment2"),
+      t("newborn-care-timeline.ui.adjustment3"), t("newborn-care-timeline.ui.adjustment4"),
+    ] },
+    { range: t("newborn-care-timeline.ui.rangeW2"), title: t("newborn-care-timeline.ui.titleEyes"), tasks: [
+      t("newborn-care-timeline.ui.eyes1"), t("newborn-care-timeline.ui.eyes2"),
+      t("newborn-care-timeline.ui.eyes3"), t("newborn-care-timeline.ui.eyes4"),
+    ] },
+    { range: t("newborn-care-timeline.ui.rangeW3"), title: t("newborn-care-timeline.ui.titleMovements"), tasks: [
+      t("newborn-care-timeline.ui.movements1"), t("newborn-care-timeline.ui.movements2"),
+      t("newborn-care-timeline.ui.movements3"), t("newborn-care-timeline.ui.movements4"),
+    ] },
+    { range: t("newborn-care-timeline.ui.rangeW45"), title: t("newborn-care-timeline.ui.titleWeaning"), tasks: [
+      t("newborn-care-timeline.ui.weaning1"), t("newborn-care-timeline.ui.weaning2"),
+      t("newborn-care-timeline.ui.weaning3"), t("newborn-care-timeline.ui.weaning4"),
+    ] },
+    { range: t("newborn-care-timeline.ui.rangeW68"), title: t("newborn-care-timeline.ui.titleIndependence"), tasks: [
+      t("newborn-care-timeline.ui.independence1"), t("newborn-care-timeline.ui.independence2"),
+      t("newborn-care-timeline.ui.independence3"), t("newborn-care-timeline.ui.independence4"),
+    ] },
+    { range: t("newborn-care-timeline.ui.rangeW812"), title: t("newborn-care-timeline.ui.titleRehome"), tasks: [
+      t("newborn-care-timeline.ui.rehome1"), t("newborn-care-timeline.ui.rehome2"),
+      t("newborn-care-timeline.ui.rehome3"), t("newborn-care-timeline.ui.rehome4"),
+    ] },
+  ];
   const [birthDate, setBirthDate] = useState(new Date().toISOString().slice(0, 10));
   const start = new Date(birthDate);
   const form = (
-    <div><Label>Litter birth date</Label><Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} /></div>
+    <div><Label>{t("newborn-care-timeline.ui.birthLabel")}</Label><Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} /></div>
   );
   const result = (
     <div className="space-y-2">
-      {NEWBORN_STAGES.map((s) => (
+      {stages.map((s) => (
         <div key={s.range} className="rounded-lg bg-background/60 p-3">
           <div className="flex justify-between text-sm font-medium">
             <span>{s.range} — {s.title}</span>
           </div>
           <ul className="mt-1 list-disc pl-5 text-xs text-muted-foreground space-y-0.5">
-            {s.tasks.map((t) => <li key={t}>{t}</li>)}
+            {s.tasks.map((task) => <li key={task}>{task}</li>)}
           </ul>
         </div>
       ))}
       <div className="rounded-lg border bg-yellow-50 p-3 text-xs text-yellow-900 dark:bg-yellow-950 dark:text-yellow-100">
-        <strong>Emergency signs:</strong> constant crying, cold to touch, no weight gain by day 2, refusing to nurse, blue/pale gums. Call an emergency vet immediately — neonates crash within hours.
+        {t("newborn-care-timeline.ui.emergencyNote")}
       </div>
     </div>
   );

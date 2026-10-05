@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -20,6 +21,7 @@ const DOG_EXERCISE: Record<string, [number, number]> = {
   toy: [20, 40], small: [30, 60], medium: [45, 90], large: [60, 120], giant: [45, 90],
 };
 export function DogWalkingCalculator() {
+  const { t } = useTranslation("tools");
   const [size, setSize] = useState("medium");
   const [age, setAge] = useState<"puppy" | "adult" | "senior">("adult");
   const [low, high] = DOG_EXERCISE[size];
@@ -27,23 +29,25 @@ export function DogWalkingCalculator() {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>Breed size</Label>
+        <div><Label>{t("dog-walking-calculator.ui.breedSizeLabel")}</Label>
           <Select value={size} onValueChange={setSize}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>{Object.keys(DOG_EXERCISE).map((k) => <SelectItem key={k} value={k}>{k[0].toUpperCase() + k.slice(1)}</SelectItem>)}</SelectContent>
+            <SelectContent>{Object.keys(DOG_EXERCISE).map((k) => <SelectItem key={k} value={k}>{t(`dog-walking-calculator.ui.size${k[0].toUpperCase() + k.slice(1)}`)}</SelectItem>)}</SelectContent>
           </Select></div>
-        <div><Label>Life stage</Label>
+        <div><Label>{t("dog-walking-calculator.ui.lifeStageLabel")}</Label>
           <Select value={age} onValueChange={(v: "puppy" | "adult" | "senior") => setAge(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent><SelectItem value="puppy">Puppy</SelectItem><SelectItem value="adult">Adult</SelectItem><SelectItem value="senior">Senior</SelectItem></SelectContent>
+            <SelectContent><SelectItem value="puppy">{t("dog-walking-calculator.ui.stagePuppy")}</SelectItem><SelectItem value="adult">{t("dog-walking-calculator.ui.stageAdult")}</SelectItem><SelectItem value="senior">{t("dog-walking-calculator.ui.stageSenior")}</SelectItem></SelectContent>
           </Select></div>
       </>}
-      result={<BigResult value={`${Math.round(low * factor)}–${Math.round(high * factor)}`} label="Walking minutes / day" unit="split into 2 walks" />}
+      result={<BigResult value={`${Math.round(low * factor)}–${Math.round(high * factor)}`} label={t("dog-walking-calculator.ui.walkingMinutesLabel")} unit={t("dog-walking-calculator.ui.splitInto2Walks")} />}
     />
   );
 }
 
-export function DogExerciseCalculator() {
+export function DogExerciseCalculator({ slug }: { slug?: string }) {
+  const { t } = useTranslation("tools");
+  const p = slug ?? "shared.DogExerciseCalculator";
   const [energy, setEnergy] = useState<"low" | "medium" | "high">("medium");
   const [age, setAge] = useState<"puppy" | "adult" | "senior">("adult");
   const base = { low: 30, medium: 60, high: 100 }[energy];
@@ -52,24 +56,25 @@ export function DogExerciseCalculator() {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>Energy level</Label>
+        <div><Label>{t(`${p}.ui.energyLabel`)}</Label>
           <Select value={energy} onValueChange={(v: "low" | "medium" | "high") => setEnergy(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent><SelectItem value="low">Low</SelectItem><SelectItem value="medium">Medium</SelectItem><SelectItem value="high">High</SelectItem></SelectContent>
+            <SelectContent><SelectItem value="low">{t(`${p}.ui.energyLow`)}</SelectItem><SelectItem value="medium">{t(`${p}.ui.energyMedium`)}</SelectItem><SelectItem value="high">{t(`${p}.ui.energyHigh`)}</SelectItem></SelectContent>
           </Select></div>
-        <div><Label>Life stage</Label>
+        <div><Label>{t(`${p}.ui.lifeStageLabel`)}</Label>
           <Select value={age} onValueChange={(v: "puppy" | "adult" | "senior") => setAge(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent><SelectItem value="puppy">Puppy</SelectItem><SelectItem value="adult">Adult</SelectItem><SelectItem value="senior">Senior</SelectItem></SelectContent>
+            <SelectContent><SelectItem value="puppy">{t(`${p}.ui.stagePuppy`)}</SelectItem><SelectItem value="adult">{t(`${p}.ui.stageAdult`)}</SelectItem><SelectItem value="senior">{t(`${p}.ui.stageSenior`)}</SelectItem></SelectContent>
           </Select></div>
       </>}
-      result={<BigResult value={mins} label="Total exercise minutes/day" unit="walks, play, and training" />}
+      result={<BigResult value={mins} label={t(`${p}.ui.exerciseMinutesLabel`)} unit={t(`${p}.ui.exerciseUnit`)} />}
     />
   );
 }
 
 /* Puppy growth */
 export function PuppyGrowthCalculator() {
+  const { t } = useTranslation("tools");
   const [weight, setWeight] = useState(10);
   const [weeks, setWeeks] = useState(16);
   const [size, setSize] = useState<"small" | "medium" | "large">("medium");
@@ -78,21 +83,22 @@ export function PuppyGrowthCalculator() {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>Current weight (lb)</Label><Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Age (weeks)</Label><Input type="number" value={weeks} onChange={(e) => setWeeks(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Expected adult size</Label>
+        <div><Label>{t("puppy-growth-calculator.ui.weightLabel")}</Label><Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t("puppy-growth-calculator.ui.ageWeeksLabel")}</Label><Input type="number" value={weeks} onChange={(e) => setWeeks(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t("puppy-growth-calculator.ui.adultSizeLabel")}</Label>
           <Select value={size} onValueChange={(v: "small" | "medium" | "large") => setSize(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent><SelectItem value="small">Small</SelectItem><SelectItem value="medium">Medium</SelectItem><SelectItem value="large">Large</SelectItem></SelectContent>
+            <SelectContent><SelectItem value="small">{t("puppy-growth-calculator.ui.sizeSmall")}</SelectItem><SelectItem value="medium">{t("puppy-growth-calculator.ui.sizeMedium")}</SelectItem><SelectItem value="large">{t("puppy-growth-calculator.ui.sizeLarge")}</SelectItem></SelectContent>
           </Select></div>
       </>}
-      result={<BigResult value={`${adult} lb`} label="Estimated adult weight" />}
+      result={<BigResult value={t("puppy-growth-calculator.ui.adultWeightValue", { adult })} label={t("puppy-growth-calculator.ui.adultWeightLabel")} />}
     />
   );
 }
 
 /* Heat cycle */
 export function DogHeatCycleTracker() {
+  const { t } = useTranslation("tools");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [interval, setInterval] = useState(6); // months
   const next = addDays(new Date(date), interval * 30);
@@ -101,16 +107,16 @@ export function DogHeatCycleTracker() {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>Last heat start date</Label><Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="mt-1.5" /></div>
-        <div><Label>Cycle interval (months)</Label>
+        <div><Label>{t("dog-heat-cycle-tracker.ui.lastHeatLabel")}</Label><Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="mt-1.5" /></div>
+        <div><Label>{t("dog-heat-cycle-tracker.ui.cycleIntervalLabel")}</Label>
           <Select value={String(interval)} onValueChange={(v) => setInterval(+v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>{[5, 6, 7, 8].map((n) => <SelectItem key={n} value={String(n)}>{n} months</SelectItem>)}</SelectContent>
+            <SelectContent>{[5, 6, 7, 8].map((n) => <SelectItem key={n} value={String(n)}>{t("dog-heat-cycle-tracker.ui.intervalMonths", { n })}</SelectItem>)}</SelectContent>
           </Select></div>
       </>}
       result={<div className="space-y-3">
-        <BigResult value={formatDate(next)} label="Next heat expected" />
-        <div className="text-center text-sm text-muted-foreground">Fertile window ~ {formatDate(fertileStart)} to {formatDate(fertileEnd)}</div>
+        <BigResult value={formatDate(next)} label={t("dog-heat-cycle-tracker.ui.nextHeatLabel")} />
+        <div className="text-center text-sm text-muted-foreground">{t("dog-heat-cycle-tracker.ui.fertileWindow", { start: formatDate(fertileStart), end: formatDate(fertileEnd) })}</div>
       </div>}
     />
   );

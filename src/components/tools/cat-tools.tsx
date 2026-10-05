@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -17,6 +18,7 @@ function BigResult({ value, label, unit }: { value: string | number; label: stri
 /* Cat food (like dog food but feline factors) */
 import { catMER, type CatActivity, type CatStage } from "@/lib/pet-formulas";
 export function CatFoodCalculator() {
+  const { t } = useTranslation("tools");
   const [weight, setWeight] = useState(10);
   const [activity, setActivity] = useState<CatActivity>("indoor");
   const [stage, setStage] = useState<CatStage>("adult");
@@ -26,28 +28,28 @@ export function CatFoodCalculator() {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>Weight (lb)</Label><Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Activity</Label>
+        <div><Label>{t("cat-food-calculator.ui.weightLabel")}</Label><Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t("cat-food-calculator.ui.activityLabel")}</Label>
           <Select value={activity} onValueChange={(v: CatActivity) => setActivity(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="indoor">Indoor</SelectItem>
-              <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="outdoor">Outdoor</SelectItem>
+              <SelectItem value="indoor">{t("cat-food-calculator.ui.activityIndoor")}</SelectItem>
+              <SelectItem value="active">{t("cat-food-calculator.ui.activityActive")}</SelectItem>
+              <SelectItem value="outdoor">{t("cat-food-calculator.ui.activityOutdoor")}</SelectItem>
             </SelectContent></Select></div>
-        <div><Label>Life stage</Label>
+        <div><Label>{t("cat-food-calculator.ui.lifeStageLabel")}</Label>
           <Select value={stage} onValueChange={(v: CatStage) => setStage(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="kitten">Kitten</SelectItem>
-              <SelectItem value="adult">Adult</SelectItem>
-              <SelectItem value="senior">Senior</SelectItem>
+              <SelectItem value="kitten">{t("cat-food-calculator.ui.stageKitten")}</SelectItem>
+              <SelectItem value="adult">{t("cat-food-calculator.ui.stageAdult")}</SelectItem>
+              <SelectItem value="senior">{t("cat-food-calculator.ui.stageSenior")}</SelectItem>
             </SelectContent></Select></div>
-        <div><Label>Kcal per cup (dry food)</Label>
+        <div><Label>{t("cat-food-calculator.ui.kcalPerCupLabel")}</Label>
           <Input type="number" value={kcalPerCup} onChange={(e) => setKcalPerCup(+e.target.value || 0)} className="mt-1.5" /></div>
       </>}
       result={<div className="space-y-3">
-        <BigResult value={cups} label="Cups per day" unit={`${mer} kcal/day`} />
+        <BigResult value={cups} label={t("cat-food-calculator.ui.cupsPerDayLabel")} unit={t("cat-food-calculator.ui.kcalPerDay", { mer })} />
       </div>}
     />
   );
@@ -55,6 +57,7 @@ export function CatFoodCalculator() {
 
 /* Kitten growth */
 export function KittenGrowthCalculator() {
+  const { t } = useTranslation("tools");
   const [weight, setWeight] = useState(4);
   const [months, setMonths] = useState(4);
   const [breed, setBreed] = useState<"domestic" | "large">("domestic");
@@ -63,23 +66,24 @@ export function KittenGrowthCalculator() {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>Current weight (lb)</Label><Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Age (months)</Label><Input type="number" value={months} onChange={(e) => setMonths(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>Breed group</Label>
+        <div><Label>{t("kitten-growth-calculator.ui.weightLabel")}</Label><Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t("kitten-growth-calculator.ui.ageMonthsLabel")}</Label><Input type="number" value={months} onChange={(e) => setMonths(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t("kitten-growth-calculator.ui.breedGroupLabel")}</Label>
           <Select value={breed} onValueChange={(v: "domestic" | "large") => setBreed(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="domestic">Domestic (average)</SelectItem>
-              <SelectItem value="large">Large breed (Maine Coon, Ragdoll)</SelectItem>
+              <SelectItem value="domestic">{t("kitten-growth-calculator.ui.breedDomestic")}</SelectItem>
+              <SelectItem value="large">{t("kitten-growth-calculator.ui.breedLarge")}</SelectItem>
             </SelectContent></Select></div>
       </>}
-      result={<BigResult value={`${adult} lb`} label="Estimated adult weight" />}
+      result={<BigResult value={t("kitten-growth-calculator.ui.adultWeightValue", { adult })} label={t("kitten-growth-calculator.ui.adultWeightLabel")} />}
     />
   );
 }
 
 /* Litter */
 export function CatLitterCalculator() {
+  const { t } = useTranslation("tools");
   const [cats, setCats] = useState(1);
   const [type, setType] = useState<"clay" | "silica" | "plant">("clay");
   const perCatLb = { clay: 15, silica: 8, plant: 12 }[type];
@@ -89,18 +93,18 @@ export function CatLitterCalculator() {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>Number of cats</Label><Input type="number" min={1} value={cats} onChange={(e) => setCats(+e.target.value || 1)} className="mt-1.5" /></div>
-        <div><Label>Litter type</Label>
+        <div><Label>{t("cat-litter-calculator.ui.catsLabel")}</Label><Input type="number" min={1} value={cats} onChange={(e) => setCats(+e.target.value || 1)} className="mt-1.5" /></div>
+        <div><Label>{t("cat-litter-calculator.ui.litterTypeLabel")}</Label>
           <Select value={type} onValueChange={(v: "clay" | "silica" | "plant") => setType(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="clay">Clumping clay</SelectItem>
-              <SelectItem value="silica">Silica crystal</SelectItem>
-              <SelectItem value="plant">Plant-based (pine, corn)</SelectItem>
+              <SelectItem value="clay">{t("cat-litter-calculator.ui.typeClay")}</SelectItem>
+              <SelectItem value="silica">{t("cat-litter-calculator.ui.typeSilica")}</SelectItem>
+              <SelectItem value="plant">{t("cat-litter-calculator.ui.typePlant")}</SelectItem>
             </SelectContent></Select></div>
       </>}
       result={<div className="space-y-3">
-        <BigResult value={`${lb} lb`} label="Litter per month" unit={`~$${cost}/mo • Use ${cats + 1} boxes (N+1)`} />
+        <BigResult value={t("cat-litter-calculator.ui.litterValue", { lb })} label={t("cat-litter-calculator.ui.litterPerMonthLabel")} unit={t("cat-litter-calculator.ui.monthlyUnit", { cost, boxes: cats + 1 })} />
       </div>}
     />
   );
@@ -108,21 +112,22 @@ export function CatLitterCalculator() {
 
 /* Play time */
 export function CatPlayTimeCalculator() {
+  const { t } = useTranslation("tools");
   const [age, setAge] = useState<"kitten" | "adult" | "senior">("adult");
   const mins = { kitten: 60, adult: 30, senior: 15 }[age];
   const sessions = { kitten: 6, adult: 2, senior: 2 }[age];
   return (
     <CalculatorLayout
-      form={<div><Label>Life stage</Label>
+      form={<div><Label>{t("cat-play-time-calculator.ui.lifeStageLabel")}</Label>
         <Select value={age} onValueChange={(v: "kitten" | "adult" | "senior") => setAge(v)}>
           <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="kitten">Kitten</SelectItem>
-            <SelectItem value="adult">Adult</SelectItem>
-            <SelectItem value="senior">Senior</SelectItem>
+            <SelectItem value="kitten">{t("cat-play-time-calculator.ui.stageKitten")}</SelectItem>
+            <SelectItem value="adult">{t("cat-play-time-calculator.ui.stageAdult")}</SelectItem>
+            <SelectItem value="senior">{t("cat-play-time-calculator.ui.stageSenior")}</SelectItem>
           </SelectContent></Select></div>}
       result={<div className="space-y-3">
-        <BigResult value={mins} label="Play minutes / day" unit={`Split into ${sessions} session${sessions > 1 ? "s" : ""}`} />
+        <BigResult value={mins} label={t("cat-play-time-calculator.ui.playMinutesLabel")} unit={t("cat-play-time-calculator.ui.splitSessions", { sessions, plural: sessions > 1 ? "s" : "" })} />
       </div>}
     />
   );
