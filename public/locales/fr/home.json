@@ -1,28 +1,122 @@
 {
-  "heroTitle": "Outils de soins intelligents pour des animaux plus heureux et en meilleure santé",
-  "heroDescription": "De la conversion de l'âge du chien aux plans de nutrition personnalisés, accédez à des calculatrices conçues par des experts et à des assistants de soins IA.",
-  "exploreTools": "Explorer les outils",
-  "popularTools": "Outils populaires",
-  "featuredBreeds": "Guides de races en vedette",
-  "latestArticles": "Derniers articles de soins",
+  "heroBadge": "{{toolCount}}+ outils gratuits · {{aiCount}} assistants IA · {{speciesCount}} espèces",
+  "heroTitlePrefix": "Tous les outils gratuits dont un",
+  "heroTitleHighlight": "maître d'animal",
+  "heroTitleSuffix": "pourrait rêver — au même endroit.",
+  "heroDescription": "Calculateurs, assistants IA, bases de données sur les races et l'alimentation, trouveurs de noms, planificateurs de budget et un tableau de bord santé complet pour chiens, chats, oiseaux, poissons, reptiles, chevaux et bien plus. Gratuit pour toujours. Sans inscription.",
   "browseAllTools": "Parcourir les {{count}}+ outils",
-  "askAi": "Demander à l'IA",
-  "searchTools": "Rechercher des outils",
-  "seeAll": "Voir tout →",
-  "explore": "Explorer",
-  "open": "Ouvrir",
+  "askAi": "Poser une question à l'IA",
+  "searchTools": "Rechercher un outil",
+  "quickLinks": {
+    "breedDatabase": "Base de données des races",
+    "foodSafety": "Sécurité alimentaire",
+    "nameFinder": "Trouveur de noms",
+    "breedCompare": "Comparer les races",
+    "costPlanner": "Planificateur de budget",
+    "carePlanner": "Planificateur de soins",
+    "myPets": "Mes animaux",
+    "blog": "Blog"
+  },
   "stats": {
     "freeTools": "Outils gratuits",
     "aiAssistants": "Assistants IA",
     "speciesCovered": "Espèces couvertes",
-    "breedProfiles": "Profils de races"
+    "breedProfiles": "Fiches de races"
   },
-  "categoriesHeading": "Trouvez le bon outil pour votre animal",
-  "everythingOnFurTools": "Tout sur FurTools",
-  "exploreEveryHub": "Explorer chaque hub",
-  "hubDescription": "Une plateforme pour les calculatrices, les conseils en IA, la recherche sur les races, la sécurité alimentaire, l'inspiration pour les noms, la planification des coûts et les carnets de santé complets.",
-  "aiSubheading": "{{count}} assistants IA — jamais diagnostiques, toujours bienveillants",
-  "aiDescription": "Posez des questions sur les soins, l'éducation, le toilettage, la sécurité alimentaire, les voyages ou l'élevage spécifique à une espèce.",
-  "breedHeading": "Plus de 500 profils de races dans toutes les espèces",
-  "browseAllBreeds": "Parcourir toutes les races →"
+  "categoriesEyebrow": "Catégories",
+  "categoriesHeading": "Trouvez l'outil idéal pour votre animal",
+  "seeAll": "Tout voir →",
+  "explore": "Explorer",
+  "popularTools": "Outils populaires",
+  "hubsEyebrow": "Tout FurTools",
+  "hubsHeading": "Explorez chaque univers",
+  "hubDescription": "Une seule plateforme pour les calculateurs, les conseils IA, la recherche sur les races, la sécurité alimentaire, l'inspiration de noms, la planification budgétaire et le carnet de santé complet de votre animal.",
+  "hubs": {
+    "tools": {
+      "title": "Tous les outils",
+      "desc": "{{count}}+ calculateurs, générateurs et planificateurs gratuits dans chaque catégorie."
+    },
+    "ai": {
+      "title": "Assistants IA",
+      "desc": "{{count}} assistants IA par espèce et par thème pour les soins, l'éducation, l'alimentation et les voyages."
+    },
+    "breeds": {
+      "title": "Base de données des races",
+      "desc": "Plus de 500 fiches de races pour chiens, chats, oiseaux, lapins, poissons et chevaux."
+    },
+    "foods": {
+      "title": "Sécurité alimentaire",
+      "desc": "C'est sans danger ? Recherchez n'importe quel aliment et obtenez un verdict : sûr / avec modération / déconseillé / toxique."
+    },
+    "names": {
+      "title": "Trouveur de noms",
+      "desc": "IA + base de données sélectionnée — plus de 10 000 noms d'animaux filtrés par espèce, style et ambiance."
+    },
+    "compare": {
+      "title": "Comparateur de races",
+      "desc": "Comparaison côte à côte des races : taille, tempérament, soins et budget."
+    },
+    "costPlanner": {
+      "title": "Planificateur de budget",
+      "desc": "Estimez le coût de la première année et le coût total d'un animal, poste par poste."
+    },
+    "care": {
+      "title": "Planificateur de soins",
+      "desc": "Rappels, suivi du poids et événements santé pour chaque animal de la maison."
+    },
+    "dashboard": {
+      "title": "Tableau de bord Mes animaux",
+      "desc": "Profils multi-animaux, vaccins, médicaments, visites véto, dépenses et analyses IA."
+    },
+    "blog": {
+      "title": "Blog & guides",
+      "desc": "Des guides détaillés écrits pour les maîtres d'animaux — pensés SEO, relus par des vétérinaires."
+    },
+    "search": {
+      "title": "Recherche globale",
+      "desc": "Recherchez instantanément chaque outil, race, aliment et article de la plateforme."
+    },
+    "contact": {
+      "title": "Contact",
+      "desc": "Suggérez un outil, demandez une race ou envoyez un retour — nous lisons chaque message."
+    }
+  },
+  "open": "Ouvrir",
+  "aiEyebrow": "Assistants IA",
+  "aiHeading": "{{count}} assistants IA — jamais de diagnostic, toujours bienveillants",
+  "aiDescription": "Posez vos questions sur les soins, l'éducation, le toilettage, la sécurité alimentaire, les voyages ou l'élevage par espèce. Chaque assistant vous renvoie vers un vétérinaire pour tout ce qui est médical.",
+  "breedEyebrow": "Base de données des races",
+  "breedHeading": "Plus de 500 fiches de races, toutes espèces confondues",
+  "breedDescription": "Des fiches de races détaillées en langage simple : taille, tempérament, toilettage, problèmes de santé courants et budget.",
+  "browseAllBreeds": "Parcourir toutes les races →",
+  "speciesEyebrow": "Écosystème multi-animaux",
+  "speciesHeading": "16 espèces, un seul tableau de bord",
+  "speciesDescription": "Du python royal aux poules du jardin, chaque espèce a ses propres champs de soins, son assistant IA et sa boîte à outils.",
+  "ctaTitle": "Suivez chaque animal de votre foyer — vaccins, médicaments, visites véto & dépenses.",
+  "ctaDescription": "Mes animaux est un tableau de bord santé gratuit avec analyses IA (jamais de diagnostic). Ajoutez autant d'animaux que vous voulez, dans 16 espèces.",
+  "openMyPets": "Ouvrir Mes animaux",
+  "carePlanner": "Planificateur de soins",
+  "faqTitle": "Questions fréquentes",
+  "faqs": [
+    {
+      "q": "Combien d'outils gratuits FurTools propose-t-il ?",
+      "a": "FurTools propose actuellement plus de {{count}} calculateurs, générateurs et planificateurs gratuits pour chiens, chats, oiseaux, poissons, petits animaux, reptiles, chevaux et animaux de ferme — avec de nouveaux outils chaque semaine."
+    },
+    {
+      "q": "Faut-il créer un compte pour utiliser les outils ?",
+      "a": "Non. Chaque calculateur, générateur et guide est gratuit et fonctionne instantanément sans inscription. Un compte n'est utile que si vous voulez enregistrer les profils, carnets de santé ou rappels de vos animaux dans le tableau de bord Mes animaux."
+    },
+    {
+      "q": "Les assistants IA sont-ils fiables pour les questions médicales ?",
+      "a": "Nos {{count}} assistants IA sont purement éducatifs — ils ne posent jamais de diagnostic et ne remplacent pas un vétérinaire diplômé. Pour tout ce qui vous inquiète, contactez immédiatement votre vétérinaire."
+    },
+    {
+      "q": "Quels animaux sont pris en charge ?",
+      "a": "16 espèces : chiens, chats, oiseaux, lapins, poissons, hamsters, cochons d'Inde, furets, tortues, serpents, lézards, chevaux, chèvres, moutons, poules et canards."
+    },
+    {
+      "q": "Puis-je vérifier si un aliment est sans danger pour mon animal ?",
+      "a": "Oui — utilisez la base de données gratuite de sécurité alimentaire ou l'assistant IA « Mon animal peut-il manger ça ? » pour savoir si un aliment est sûr, à donner avec modération ou toxique pour votre espèce."
+    }
+  ]
 }
