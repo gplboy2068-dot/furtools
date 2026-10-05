@@ -1,10 +1,934 @@
 {
-  "ageCalculatorTitle": "Calculadora de Edad de Mascotas",
-  "ageCalculatorDesc": "Convierte años humanos a la equivalencia exacta en perros y gatos.",
-  "foodCalculatorTitle": "Calculadora de Porciones de Comida",
-  "foodCalculatorDesc": "Calcula calorías diarias y porciones según peso y actividad.",
-  "nameGeneratorTitle": "Generador de Nombres IA",
-  "nameGeneratorDesc": "Genera nombres únicos basados en raza y personalidad.",
-  "calculateBtn": "Calcular Ahora",
-  "results": "Resultados del Cálculo"
+  "dog-age-calculator": {
+    "name": "Calculadora de Edad del Perro",
+    "description": "Calcula la edad de tu perro en años humanos con una fórmula moderna según su tamaño, respaldada por investigación veterinaria."
+  },
+  "dog-food-calculator": {
+    "name": "Calculadora de Porciones de Comida para Perros",
+    "description": "Calcula las calorías diarias recomendadas y las porciones de comida para tu perro según su peso, actividad y etapa de vida."
+  },
+  "dog-water-calculator": {
+    "name": "Calculadora de Consumo de Agua para Perros",
+    "description": "Estima cuánta agua necesita tu perro al día según su peso, nivel de actividad y el clima."
+  },
+  "dog-calorie-calculator": {
+    "name": "Calculadora de Calorías para Perros",
+    "description": "Obtén las calorías diarias que necesita tu perro en un solo número claro: ideal para planificar porciones entre distintas marcas."
+  },
+  "dog-bmi-calculator": {
+    "name": "Calculadora de Condición Corporal del Perro",
+    "description": "Evalúa la condición corporal de tu perro según su peso, tamaño de raza y revisión física, como palpar las costillas y observar la cintura."
+  },
+  "dog-weight-calculator": {
+    "name": "Calculadora de Peso Ideal del Perro",
+    "description": "Encuentra un rango de peso saludable aproximado para tu perro según su tamaño de raza. Es un punto de partida, no un diagnóstico."
+  },
+  "dog-pregnancy-calculator": {
+    "name": "Calculadora de Fecha de Parto Canina",
+    "description": "Estima la fecha probable de parto de tu perra y los hitos semanales desde la monta. La gestación canina dura en promedio 63 días."
+  },
+  "dog-vaccination-schedule": {
+    "name": "Calendario de Vacunación Canina",
+    "description": "Obtén un calendario de vacunas imprimible para tu perro, con vacunas esenciales y opcionales desde cachorro hasta adulto."
+  },
+  "dog-walking-calculator": {
+    "name": "Calculadora de Paseos para Perros",
+    "description": "Estima el tiempo ideal de paseo diario para tu perro según su tamaño, edad y nivel de energía."
+  },
+  "dog-cost-calculator": {
+    "name": "Calculadora de Costos de un Perro",
+    "description": "Calcula un estimado realista del costo anual y de por vida de tu perro: comida, veterinario, seguro, peluquería y gastos únicos."
+  },
+  "dog-name-generator": {
+    "name": "Generador de Nombres para Perros",
+    "description": "Genera nombres tiernos, clásicos, inspirados en comida o creativos para tu nuevo perro. Filtra por estilo, letra y longitud."
+  },
+  "puppy-growth-calculator": {
+    "name": "Calculadora de Crecimiento del Cachorro",
+    "description": "Estima el peso adulto de tu cachorro según su peso actual, edad y tamaño de raza."
+  },
+  "dog-size-predictor": {
+    "name": "Predictor de Tamaño del Perro",
+    "description": "Predice con precisión el peso adulto, la altura a la cruz, la curva de crecimiento y los hitos de madurez ósea de tu cachorro con modelos veterinarios pediátricos."
+  },
+  "dog-life-expectancy-calculator": {
+    "name": "Calculadora de Esperanza de Vida del Perro",
+    "description": "Obtén un estimado de longevidad para tu perro según su tamaño y salud: una forma amable de planificar y aprovechar los buenos años."
+  },
+  "dog-treat-calorie-calculator": {
+    "name": "Calculadora de Calorías de Premios para Perros",
+    "description": "Los veterinarios recomiendan que los premios no superen el 10% de las calorías diarias. Ingresa la ración y las kcal de los premios para ver tu presupuesto diario seguro."
+  },
+  "dog-grooming-schedule": {
+    "name": "Generador de Rutina de Peluquería Canina",
+    "description": "Obtén un calendario de baños, cepillado, corte de uñas y limpieza de oídos adaptado al tipo de pelo y estilo de vida de tu perro."
+  },
+  "dog-heat-cycle-tracker": {
+    "name": "Registro del Celo de la Perra",
+    "description": "Lleva el control del ciclo de celo de tu perra no esterilizada y predice el próximo. Los ciclos suelen repetirse cada 6 meses."
+  },
+  "dog-exercise-calculator": {
+    "name": "Calculadora de Ejercicio para Perros",
+    "description": "Calcula los minutos totales de ejercicio diario (juego, adiestramiento y paseos) según la edad y energía de tu perro."
+  },
+  "dog-exercise-needs-calculator": {
+    "name": "Calculadora de Necesidades de Ejercicio del Perro",
+    "description": "Calcula los minutos exactos de ejercicio diario, la duración de los paseos y el enriquecimiento mental según el grupo racial, la edad y el nivel de energía de tu perro."
+  },
+  "dog-lifespan-calculator": {
+    "name": "Calculadora de Longevidad Canina",
+    "description": "Pronostica la esperanza de vida de tu perro según su complexión adulta, esterilización, condición corporal y cuidados preventivos."
+  },
+  "dog-bath-frequency-calculator": {
+    "name": "Calculadora de Frecuencia de Baño para Perros",
+    "description": "Determina cada cuánto bañar a tu perro según la densidad de su pelaje, su vida al aire libre, si nada y la salud de su piel."
+  },
+  "dog-adoption-checklist": {
+    "name": "Lista para Adoptar un Perro",
+    "description": "Una lista imprimible con todo lo que un nuevo dueño necesita: suministros, preparación, plan del primer día y visitas al veterinario."
+  },
+  "cat-age-calculator": {
+    "name": "Calculadora de Edad Felina",
+    "description": "Descubre la edad de tu gato en años humanos con la conversión estándar por etapas de vida felina."
+  },
+  "cat-food-calculator": {
+    "name": "Calculadora de Porciones de Comida para Gatos",
+    "description": "Calcula las calorías diarias y las porciones de comida de tu gato según su peso, etapa de vida y actividad."
+  },
+  "cat-water-calculator": {
+    "name": "Calculadora de Consumo de Agua para Gatos",
+    "description": "Los gatos necesitan unos 120 ml de agua por cada 2,3 kg de peso corporal al día. Obtén la cantidad exacta para tu gato."
+  },
+  "cat-calorie-calculator": {
+    "name": "Calculadora de Calorías para Gatos",
+    "description": "Obtén un número único y claro de calorías diarias para tu gato: perfecto para comparar marcas de comida."
+  },
+  "cat-bmi-calculator": {
+    "name": "Calculadora de Condición Corporal del Gato",
+    "description": "Evalúa la condición corporal de tu gato con la escala estándar de 9 puntos, combinando peso y revisión física."
+  },
+  "cat-weight-calculator": {
+    "name": "Calculadora de Peso Ideal del Gato",
+    "description": "Encuentra un rango de peso saludable para tu gato según su raza y complexión."
+  },
+  "cat-pregnancy-calculator": {
+    "name": "Calculadora de Fecha de Parto Felina",
+    "description": "Estima la fecha probable de parto de tu gata y los hitos semanales desde la monta. La gestación felina dura en promedio 65 días."
+  },
+  "cat-vaccination-schedule": {
+    "name": "Calendario de Vacunación Felina",
+    "description": "Obtén un calendario de vacunas para tu gato, con las esenciales (trivalente felina y rabia) desde gatito hasta adulto."
+  },
+  "cat-name-generator": {
+    "name": "Generador de Nombres para Gatos",
+    "description": "Genera nombres elegantes, traviesos, mitológicos o inspirados en comida para tu gatito o gato adoptado."
+  },
+  "kitten-growth-calculator": {
+    "name": "Calculadora de Crecimiento del Gatito",
+    "description": "Estima el peso adulto de tu gatito según su edad y peso actuales. Los gatitos crecen cerca de 450 g por mes durante sus primeros seis meses."
+  },
+  "cat-cost-calculator": {
+    "name": "Calculadora de Costos de un Gato",
+    "description": "Estima el costo real anual y de por vida de tu gato: comida, arena, veterinario, seguro y gastos iniciales."
+  },
+  "cat-life-expectancy-calculator": {
+    "name": "Calculadora de Esperanza de Vida del Gato",
+    "description": "Obtén un estimado de longevidad para tu gato según si vive dentro o fuera de casa, su raza y su salud general."
+  },
+  "cat-litter-calculator": {
+    "name": "Calculadora de Arena para Gatos",
+    "description": "Estima el consumo mensual de arena y su costo según cuántos gatos tengas y el tipo de arena."
+  },
+  "cat-treat-calorie-calculator": {
+    "name": "Calculadora de Calorías de Premios para Gatos",
+    "description": "Calcula el presupuesto diario seguro de premios para tu gato y evita que suba de peso sin darte cuenta."
+  },
+  "cat-grooming-schedule": {
+    "name": "Generador de Rutina de Aseo Felino",
+    "description": "Una rutina de aseo a medida para tu gato: cepillado, corte de uñas, cuidado dental y baños (casi nunca necesarios)."
+  },
+  "cat-play-time-calculator": {
+    "name": "Calculadora de Tiempo de Juego para Gatos",
+    "description": "Los gatos necesitan juego estructurado para mantenerse en forma y felices. Obtén una recomendación diaria según su edad y energía."
+  },
+  "pet-name-generator": {
+    "name": "Generador de Nombres para Mascotas",
+    "description": "Un generador universal de nombres para perros, gatos, conejos, aves y cualquier pequeña mascota."
+  },
+  "pet-cost-calculator": {
+    "name": "Calculadora de Costos de Mascotas",
+    "description": "Un estimador universal del costo anual para perros, gatos, conejos y mascotas pequeñas."
+  },
+  "pet-expense-tracker": {
+    "name": "Registro de Gastos de Mascotas",
+    "description": "Registra tus gastos reales en mascotas y ve los totales mensuales. Tus datos se quedan en tu navegador."
+  },
+  "pet-feeding-planner": {
+    "name": "Planificador de Alimentación para Mascotas",
+    "description": "Genera un horario diario de comidas imprimible, con horarios y porciones para tu mascota."
+  },
+  "pet-medication-calculator": {
+    "name": "Calculadora de Dosis de Medicamentos para Mascotas",
+    "description": "Convierte las dosis en mg/kg recetadas por el veterinario a miligramos totales según el peso de tu mascota. Confírmalo siempre con tu veterinario."
+  },
+  "pet-insurance-calculator": {
+    "name": "Calculadora de Seguro para Mascotas",
+    "description": "Compara el costo anual estimado del seguro frente al ahorro por tu cuenta, y decide si una póliza conviene para tu mascota."
+  },
+  "pet-adoption-checklist": {
+    "name": "Lista para Adoptar una Mascota",
+    "description": "Una lista universal previa a la adopción: suministros, preparación, primeros días y cuidado veterinario, para cualquier mascota."
+  },
+  "pet-emergency-kit": {
+    "name": "Lista del Botiquín de Emergencia para Mascotas",
+    "description": "Una lista seleccionada de primeros auxilios y preparación ante desastres: lo que todo hogar con mascotas debería tener a mano."
+  },
+  "pet-qr-tag-generator": {
+    "name": "Generador de Placa QR Inteligente para Mascotas",
+    "description": "Diseña una placa inteligente personalizable para el collar y un cartel de mascota perdida con código QR. Al escanearlo, quien la encuentre puede llamar, escribir por WhatsApp o enviar su ubicación GPS exacta con alertas médicas importantes."
+  },
+  "pet-care-planner": {
+    "name": "Planificador Semanal de Cuidado de Mascotas",
+    "description": "Organiza las tareas semanales de cuidado: alimentación, paseos, aseo, adiestramiento y limpieza, para que nada se te pase."
+  },
+  "pet-bmi-calculator": {
+    "name": "Calculadora Universal de Condición Corporal",
+    "description": "Una herramienta universal de condición corporal para perros y gatos. Obtén un estimado y orientación sobre los próximos pasos."
+  },
+  "pet-birthday-age-calculator": {
+    "name": "Calculadora de Edad por Cumpleaños de tu Mascota",
+    "description": "Ingresa la fecha de nacimiento de tu mascota y mira su edad exacta en años, meses y días, además de la cuenta regresiva para su próximo cumpleaños."
+  },
+  "pet-travel-checklist": {
+    "name": "Lista para Viajar con tu Mascota",
+    "description": "Una lista a medida para viajes en auto, vuelos y hospedaje: documentos, suministros y artículos de confort."
+  },
+  "pet-sitter-rate-calculator": {
+    "name": "Calculadora de Tarifas de Cuidadores de Mascotas",
+    "description": "Calcula una tarifa justa para pagarle a quien cuida tu mascota según el tipo de visita, la cantidad de animales y los precios de tu zona."
+  },
+  "pet-boarding-cost-estimator": {
+    "name": "Estimador de Costos de Hospedaje para Mascotas",
+    "description": "Estima el costo total del hospedaje según la duración de tu viaje, la cantidad de mascotas y el nivel del servicio."
+  },
+  "multi-pet-cost-calculator": {
+    "name": "Calculadora de Costos para Varias Mascotas",
+    "description": "Estima el costo real de un hogar con varias mascotas: perros, gatos y animales pequeños combinados."
+  },
+  "pet-vaccine-reminder": {
+    "name": "Recordatorio de Vacunas para Mascotas",
+    "description": "Ingresa las fechas de las últimas vacunas de tu mascota y mira exactamente cuándo tocan los próximos refuerzos."
+  },
+  "bird-cage-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Aves",
+    "description": "Encuentra las dimensiones mínimas recomendadas de jaula para loros, cacatúas ninfa, periquitos y pinzones."
+  },
+  "bird-food-calculator": {
+    "name": "Calculadora de Comida Diaria para Aves",
+    "description": "Cantidades diarias de pellets, semillas y alimento fresco para aves de compañía según especie y peso."
+  },
+  "bird-seed-portion-calculator": {
+    "name": "Calculadora de Porciones de Semillas para Aves",
+    "description": "Calcula porciones diarias seguras de semillas, proporción de pellets y cantidad de vegetales frescos según el peso de tu ave, para prevenir la enfermedad del hígado graso."
+  },
+  "bird-lifespan-estimator": {
+    "name": "Estimador de Esperanza de Vida de las Aves",
+    "description": "Rango típico de vida de las aves de compañía más populares: una herramienta para planificar junto a compañeros longevos."
+  },
+  "bird-name-generator": {
+    "name": "Generador de Nombres para Aves",
+    "description": "Genera nombres divertidos, elegantes o clásicos para tus aves. Filtra por estilo."
+  },
+  "bird-wing-clip-guide": {
+    "name": "Guía de Corte de Alas para Aves",
+    "description": "Guía interactiva sobre el corte de alas: pros, contras, técnicas y cuándo consultar al veterinario."
+  },
+  "aquarium-volume-calculator": {
+    "name": "Calculadora de Volumen del Acuario",
+    "description": "Calcula el volumen real de agua de cualquier acuario rectangular, panorámico o cilíndrico."
+  },
+  "aquarium-filter-flow-rate": {
+    "name": "Calculadora de Caudal del Filtro del Acuario",
+    "description": "Determina el caudal exacto del filtro (galones y litros por hora) y la tasa de recirculación, ajustados por carga biológica, pérdida de carga y la natación de tus especies."
+  },
+  "fish-stocking-calculator": {
+    "name": "Calculadora de Población del Acuario",
+    "description": "Estima una densidad de peces segura con el enfoque moderno de carga biológica, no solo la regla de centímetros por litro."
+  },
+  "tank-cycling-tracker": {
+    "name": "Registro del Ciclado del Acuario",
+    "description": "Registra tus mediciones de amoníaco, nitritos y nitratos para saber si tu acuario nuevo ya está ciclado."
+  },
+  "water-change-scheduler": {
+    "name": "Calendario de Cambios de Agua del Acuario",
+    "description": "Obtén un plan personalizado de cambios de agua según el tamaño del acuario, la población y las plantas."
+  },
+  "fish-food-calculator": {
+    "name": "Calculadora de Comida para Peces",
+    "description": "Calcula porciones para acuarios comunitarios, de cíclidos y de goldfish. Evita sobrealimentar."
+  },
+  "aquarium-heater-wattage-calculator": {
+    "name": "Calculadora de Potencia del Calentador del Acuario",
+    "description": "Recomienda la potencia del calentador según el volumen del acuario y cuánto quieres elevar la temperatura ambiente."
+  },
+  "aquarium-lighting-calculator": {
+    "name": "Calculadora de Iluminación del Acuario",
+    "description": "Estima la intensidad de luz necesaria según la profundidad del acuario y las necesidades de tus plantas (baja, media o alta)."
+  },
+  "fish-tank-cost-calculator": {
+    "name": "Calculadora de Costo Inicial del Acuario",
+    "description": "Estima el costo real de empezar: acuario, filtro, calentador, luz, sustrato, decoración, tests de agua y los primeros peces."
+  },
+  "fish-name-generator": {
+    "name": "Generador de Nombres para Peces",
+    "description": "Nombres tiernos, divertidos o elegantes para tu nueva mascota acuática."
+  },
+  "rabbit-hay-calculator": {
+    "name": "Calculadora de Heno para Conejos",
+    "description": "Cuánto heno necesita tu conejo al día: el factor número uno para su salud digestiva."
+  },
+  "rabbit-hay-portion-calculator": {
+    "name": "Calculadora de Porciones de Heno para Conejos",
+    "description": "Calcula las porciones diarias de heno fibroso, el tamaño del montón según su cuerpo y las variedades de heno para una digestión sana y prevenir la estasis gastrointestinal."
+  },
+  "rabbit-cage-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Conejos",
+    "description": "Tamaños mínimos recomendados de corral y jaula para uno o más conejos."
+  },
+  "rabbit-food-calculator": {
+    "name": "Calculadora de Pellets para Conejos",
+    "description": "Calcula la porción diaria de pellets para tu conejo (normalmente 1/4 de taza por cada 2,3 kg), junto con heno ilimitado."
+  },
+  "rabbit-age-calculator": {
+    "name": "Calculadora de Edad del Conejo",
+    "description": "Convierte la edad de tu conejo a años humanos con tasas ajustadas por etapa de vida."
+  },
+  "rabbit-name-generator": {
+    "name": "Generador de Nombres para Conejos",
+    "description": "Ideas seleccionadas de nombres para conejos: tiernos, acogedores, mitológicos e inspirados en comida."
+  },
+  "hamster-cage-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Hámsteres",
+    "description": "Área mínima recomendada de jaula para hámsteres sirios, enanos y Roborovski (estándar moderno: 2900 cm²)."
+  },
+  "hamster-food-calculator": {
+    "name": "Calculadora de Comida para Hámsteres",
+    "description": "Porciones diarias de comida para hámsteres sirios y enanos según objetivos de peso corporal."
+  },
+  "guinea-pig-vitamin-c-calculator": {
+    "name": "Calculadora de Vitamina C para Cobayas",
+    "description": "Las cobayas no producen vitamina C: calcula su necesidad diaria y las mejores fuentes en la comida."
+  },
+  "small-pet-name-generator": {
+    "name": "Generador de Nombres para Mascotas Pequeñas",
+    "description": "Nombres divertidos y originales, perfectos para hámsteres, hurones, jerbos y otras mascotas pequeñas."
+  },
+  "hamster-lifespan-estimator": {
+    "name": "Estimador de Esperanza de Vida del Hámster",
+    "description": "Rangos típicos de vida para hámsteres sirios, enanos y Roborovski."
+  },
+  "reptile-enclosure-size-calculator": {
+    "name": "Calculadora de Tamaño del Terrario para Reptiles",
+    "description": "Dimensiones mínimas del terrario para los reptiles más populares: dragón barbudo, gecko leopardo, pitón bola y más."
+  },
+  "reptile-uvb-distance-guide": {
+    "name": "Guía de Distancia UVB para Reptiles",
+    "description": "A qué distancia debe estar el foco UVB del punto de asoleo de tu reptil: clave para su metabolismo del calcio."
+  },
+  "reptile-feeder-size-calculator": {
+    "name": "Calculadora de Tamaño de Presas para Reptiles",
+    "description": "El tamaño correcto de insecto o roedor para tu reptil: si es muy pequeño desperdicia energía, si es muy grande hay riesgo de impactación."
+  },
+  "snake-feeding-schedule": {
+    "name": "Calendario de Alimentación para Serpientes",
+    "description": "Calendario de alimentación personalizado para las serpientes más comunes: pitón bola, serpiente del maíz, serpiente real y boa."
+  },
+  "turtle-tank-calculator": {
+    "name": "Calculadora de Tamaño de Acuario para Tortugas",
+    "description": "El tamaño correcto para tortugas acuáticas: la clásica regla de 38 litros por cada 2,5 cm, con mínimos reales."
+  },
+  "reptile-name-generator": {
+    "name": "Generador de Nombres para Reptiles",
+    "description": "Ideas seleccionadas de nombres para serpientes, lagartos, geckos y tortugas."
+  },
+  "horse-feed-calculator": {
+    "name": "Calculadora de Alimento para Caballos",
+    "description": "Calcula las necesidades diarias de forraje y concentrado de tu caballo según su peso y carga de trabajo."
+  },
+  "horse-water-intake-calculator": {
+    "name": "Calculadora de Consumo de Agua para Caballos",
+    "description": "Estima cuánta agua necesita tu caballo al día según su peso, trabajo, temperatura y dieta."
+  },
+  "horse-age-calculator": {
+    "name": "Calculadora de Edad del Caballo",
+    "description": "Convierte la edad de tu caballo a años humanos con las curvas estándar de envejecimiento equino."
+  },
+  "horse-body-condition-score": {
+    "name": "Evaluación de Condición Corporal del Caballo",
+    "description": "Evalúa a tu caballo con la escala estándar Henneke de condición corporal (del 1 al 9)."
+  },
+  "horse-name-generator": {
+    "name": "Generador de Nombres para Caballos",
+    "description": "Generador de nombres de cuadra y de competencia: desde clásicos hasta mitológicos e inspirados en la naturaleza."
+  },
+  "chicken-coop-size-calculator": {
+    "name": "Calculadora de Tamaño del Gallinero",
+    "description": "Cuánto espacio de gallinero y corral necesita tu parvada: razas estándar, enanas o pesadas."
+  },
+  "chicken-egg-production-tracker": {
+    "name": "Registro de Producción de Huevos",
+    "description": "Estima la producción semanal de huevos de tu parvada según raza, edad y temporada."
+  },
+  "goat-feed-calculator": {
+    "name": "Calculadora de Alimento para Cabras",
+    "description": "Porciones diarias de alimento para cabras lecheras y de carne según peso y etapa productiva."
+  },
+  "duck-pond-size-calculator": {
+    "name": "Calculadora de Tamaño del Estanque para Patos",
+    "description": "Espacio recomendado de agua y tierra para patos de traspatio: estanque, alberca infantil o bebederos de tetina."
+  },
+  "dog-chocolate-toxicity-calculator": {
+    "name": "Calculadora de Toxicidad del Chocolate en Perros",
+    "description": "Evalúa el riesgo si tu perro comió chocolate, según el tipo, la cantidad y su peso."
+  },
+  "dog-benadryl-dose-calculator": {
+    "name": "Calculadora de Dosis de Benadryl para Perros",
+    "description": "Dosis estándar de Benadryl (difenhidramina) recomendada por veterinarios. Confírmala siempre con tu veterinario primero."
+  },
+  "canine-fluid-therapy-calculator": {
+    "name": "Calculadora de Fluidoterapia Canina",
+    "description": "Calculadora clínica de fluidoterapia para perros en recuperación tras cirugía o enfermedad. Calcula el déficit por deshidratación, el mantenimiento diario, las pérdidas continuas, la velocidad de infusión por hora y el goteo por gravedad."
+  },
+  "cat-litter-box-count-calculator": {
+    "name": "Calculadora de Areneros para Gatos",
+    "description": "La regla clásica: un arenero por gato más uno extra, repartidos entre pisos y zonas tranquilas."
+  },
+  "pet-microchip-checklist": {
+    "name": "Lista de Registro del Microchip de tu Mascota",
+    "description": "Lista interactiva para verificar que el microchip de tu mascota esté registrado y vigente: la razón número uno por la que las mascotas perdidas no regresan a casa."
+  },
+  "pet-loss-memorial-generator": {
+    "name": "Generador de Homenajes para Mascotas",
+    "description": "Crea un texto conmemorativo para compartir en memoria de tu mascota: personalizado con su nombre, sus años y sus mejores cualidades."
+  },
+  "pet-carbon-pawprint-calculator": {
+    "name": "Calculadora de Huella de Carbono de tu Mascota",
+    "description": "Estima la huella anual de CO2 de tu mascota (comida, arena y empaques), con consejos para reducirla."
+  },
+  "dog-poop-bag-calculator": {
+    "name": "Calculadora de Bolsas para Excrementos de Perro",
+    "description": "Estima cuántas bolsas necesitas al mes según cuántos perros tengas y sus hábitos diarios."
+  },
+  "dog-crate-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Perros",
+    "description": "Obtén las dimensiones recomendadas de jaula para cada tamaño de perro adulto, con estrategia de divisor para cachorros."
+  },
+  "dog-collar-size-calculator": {
+    "name": "Calculadora de Talla de Collar para Perros",
+    "description": "Ingresa la circunferencia del cuello de tu perro y obtén el rango de collar ajustable que cumple la regla de los dos dedos."
+  },
+  "dog-ear-cleaning-schedule": {
+    "name": "Calendario de Limpieza de Oídos para Perros",
+    "description": "Obtén la frecuencia ideal de limpieza de oídos según el tipo de oreja: caída, erecta, amante del agua o propensa a infecciones."
+  },
+  "dog-dental-care-schedule": {
+    "name": "Rutina de Cuidado Dental para Perros",
+    "description": "Rutina de cuidado dental en casa por etapa de vida: frecuencia de cepillado, tipo de mordedor y cuándo programar limpiezas veterinarias."
+  },
+  "cat-hairball-risk-calculator": {
+    "name": "Calculadora de Riesgo de Bolas de Pelo en Gatos",
+    "description": "Estima el riesgo de bolas de pelo según el largo del pelaje y la frecuencia de cepillado, con consejos de prevención."
+  },
+  "cat-scratching-post-selector": {
+    "name": "Selector de Rascadores para Gatos",
+    "description": "Encuentra la altura y el material ideales para que tu gato arañe el rascador, y no tu sofá."
+  },
+  "cat-carrier-size-calculator": {
+    "name": "Calculadora de Tamaño de Transportín para Gatos",
+    "description": "Ingresa las medidas de tu gato y obtén el tamaño ideal de transportín para viajes y visitas al veterinario sin estrés."
+  },
+  "cat-catio-size-calculator": {
+    "name": "Calculadora de Tamaño del Catio",
+    "description": "Dimensiona tu catio exterior según cuántos gatos tengas, con consejos de enriquecimiento vertical."
+  },
+  "bird-bath-frequency-guide": {
+    "name": "Guía de Frecuencia de Baño para Aves",
+    "description": "Calendario de baños por especie para que el plumaje de tu ave se mantenga limpio y cuidado."
+  },
+  "bird-flight-space-calculator": {
+    "name": "Calculadora de Espacio de Vuelo para Aves",
+    "description": "Dimensiones mínimas de la zona de vuelo por especie: porque una jaula no sustituye el vuelo."
+  },
+  "bird-toy-rotation-planner": {
+    "name": "Planificador de Rotación de Juguetes para Aves",
+    "description": "Optimiza cuántos juguetes mostrar y cada cuánto rotarlos para mantener a tu loro mentalmente estimulado."
+  },
+  "fish-quarantine-timer": {
+    "name": "Temporizador de Cuarentena para Peces",
+    "description": "Duración recomendada de cuarentena para peces nuevos según su origen y el riesgo de enfermedades."
+  },
+  "aquarium-plant-count-calculator": {
+    "name": "Calculadora de Cantidad de Plantas para Acuarios",
+    "description": "Cuántas plantas de tallo, tapizantes y de fondo comprar según tu acuario, más una sugerencia de punto focal."
+  },
+  "aquarium-substrate-calculator": {
+    "name": "Calculadora de Sustrato para Acuarios",
+    "description": "Calcula el peso de grava o sustrato nutritivo necesario para lograr la profundidad deseada."
+  },
+  "aquarium-co2-calculator": {
+    "name": "Calculadora de CO2 para Acuarios",
+    "description": "Tasa inicial de burbujas de CO2 para acuarios plantados con inyección, con consejos de drop checker y fotoperiodo."
+  },
+  "hamster-wheel-size-calculator": {
+    "name": "Calculadora de Tamaño de Rueda para Hámsteres",
+    "description": "El tamaño correcto de rueda según la especie de hámster, para que su columna se mantenga recta al correr."
+  },
+  "ferret-cage-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Hurones",
+    "description": "Volumen de jaula para uno o más hurones, más recomendaciones de enriquecimiento y tiempo diario fuera de la jaula."
+  },
+  "guinea-pig-cage-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Cobayas",
+    "description": "Espacio correcto según la cantidad de cobayas, con estándares modernos de bienestar."
+  },
+  "rabbit-litter-training-guide": {
+    "name": "Guía para Enseñar a tu Conejo a Usar el Arenero",
+    "description": "Orientación por etapa de vida sobre qué tan rápido aprenden los conejos y qué instalación funciona mejor."
+  },
+  "reptile-humidity-guide": {
+    "name": "Guía de Humedad para Reptiles",
+    "description": "Rangos de humedad ideales para los reptiles más populares, con consejos prácticos para subir o bajar la humedad."
+  },
+  "reptile-basking-temp-guide": {
+    "name": "Guía de Temperatura de Asoleo para Reptiles",
+    "description": "Temperaturas de la superficie de asoleo para reptiles comunes, medidas con termómetro infrarrojo, no la temperatura del aire."
+  },
+  "bearded-dragon-food-calculator": {
+    "name": "Calculadora de Alimentación para Dragones Barbudos",
+    "description": "Proporción de la dieta y frecuencia de alimentación para dragones barbudos en cada etapa de vida."
+  },
+  "horse-blanket-size-calculator": {
+    "name": "Calculadora de Talla de Manta para Caballos",
+    "description": "Obtén la talla correcta de manta con dos medidas corporales y una regla de redondeo."
+  },
+  "horse-stall-size-calculator": {
+    "name": "Calculadora de Tamaño del Establo para Caballos",
+    "description": "Dimensiones recomendadas del establo, desde ponis hasta caballos de tiro, más orientación para boxes de parto."
+  },
+  "horse-hoof-trimming-schedule": {
+    "name": "Calendario de Recorte de Cascos del Caballo",
+    "description": "Intervalos recomendados de visita del herrador según la carga de trabajo y si tu caballo usa herraduras."
+  },
+  "chicken-feed-calculator": {
+    "name": "Calculadora de Alimento para Gallinas",
+    "description": "Calcula el alimento diario y mensual para tu parvada por etapa: pollito, polla, ponedora o ave de engorde."
+  },
+  "goat-water-calculator": {
+    "name": "Calculadora de Agua para Cabras",
+    "description": "Necesidades diarias de agua para tu rebaño de cabras según el clima y la cantidad de animales."
+  },
+  "sheep-feed-calculator": {
+    "name": "Calculadora de Alimento para Ovejas",
+    "description": "Requerimientos diarios de materia seca para tu rebaño por etapa: mantenimiento, crecimiento o lactancia."
+  },
+  "duck-feed-calculator": {
+    "name": "Calculadora de Alimento para Patos",
+    "description": "Peso diario de alimento para patitos, jóvenes, ponedoras y patos de engorde, con recordatorio de niacina."
+  },
+  "pet-hydration-calculator": {
+    "name": "Calculadora Universal de Hidratación para Mascotas",
+    "description": "Meta diaria de agua por especie para perros, gatos, conejos, cobayas, aves y hurones."
+  },
+  "training-treat-planner": {
+    "name": "Planificador de Premios de Adiestramiento",
+    "description": "Calcula las calorías máximas que tu mascota puede comer al día en premios de adiestramiento."
+  },
+  "dog-swim-time-calculator": {
+    "name": "Calculadora de Tiempo de Natación para Perros",
+    "description": "Estima una duración inicial segura de nado para tu perro según su peso y condición física."
+  },
+  "dog-car-travel-planner": {
+    "name": "Planificador de Viajes en Auto con tu Perro",
+    "description": "Planifica pausas para sus necesidades, agua y lo esencial de seguridad para un viaje largo en auto con tu perro."
+  },
+  "dog-park-visit-tracker": {
+    "name": "Registro de Visitas al Parque Canino",
+    "description": "Lleva el control del tiempo semanal de socialización sin correa de tu perro."
+  },
+  "dog-crate-training-schedule": {
+    "name": "Calendario de Adiestramiento en Jaula para Perros",
+    "description": "Tiempo máximo seguro en la jaula según la edad de tu cachorro."
+  },
+  "cat-window-perch-guide": {
+    "name": "Guía de Repisas de Ventana para Gatos",
+    "description": "Cantidad recomendada de repisas de ventana según cuántos gatos vivan en casa."
+  },
+  "cat-weight-loss-planner": {
+    "name": "Planificador de Pérdida de Peso para Gatos",
+    "description": "Estima un cronograma seguro (avalado por veterinarios) para que tu gato alcance su peso ideal."
+  },
+  "cat-age-adjusted-feeding": {
+    "name": "Calculadora de Alimentación por Edad para Gatos",
+    "description": "Necesidades calóricas diarias ajustadas para gatito, adulto o senior."
+  },
+  "bird-molting-tracker": {
+    "name": "Registro de Muda de Plumaje en Aves",
+    "description": "Estima cuándo terminará la muda de tu ave a partir de la fecha de inicio."
+  },
+  "bird-sleep-schedule": {
+    "name": "Calculadora de Horario de Sueño para Aves",
+    "description": "Necesidades de sueño nocturno por especie para aves de compañía."
+  },
+  "bird-sleep-schedule-calculator": {
+    "name": "Calculadora de Horario de Sueño para Aves",
+    "description": "Determina la hora exacta de dormir y despertar, y las horas continuas de oscuridad que necesitan loros, cacatúas ninfa y otras aves para regular sus hormonas circadianas."
+  },
+  "aquarium-nitrate-calculator": {
+    "name": "Calculadora de Nitratos del Acuario",
+    "description": "Calcula el porcentaje de cambio de agua necesario para llevar los nitratos a un nivel seguro."
+  },
+  "fish-medication-dose": {
+    "name": "Calculadora de Dosis de Medicamentos para Peces",
+    "description": "Miligramos totales de medicamento que necesita tu acuario según la dosis por galón."
+  },
+  "rabbit-pellet-calculator": {
+    "name": "Calculadora de Pellets para Conejos",
+    "description": "Porción diaria de pellets para conejos adultos según su peso corporal."
+  },
+  "rabbit-weight-tracker": {
+    "name": "Registro de Peso del Conejo",
+    "description": "Controla los cambios de peso de tu conejo entre pesajes para detectar a tiempo la estasis gastrointestinal."
+  },
+  "guinea-pig-food-calculator": {
+    "name": "Calculadora de Comida para Cobayas",
+    "description": "Porciones diarias de heno, pellets y verduras para tus cobayas."
+  },
+  "reptile-shedding-tracker": {
+    "name": "Registro de Mudas de tu Reptil",
+    "description": "Predice la próxima muda de tu reptil según los ciclos de su especie."
+  },
+  "snake-tank-size-calculator": {
+    "name": "Calculadora de Tamaño del Terrario para Serpientes",
+    "description": "Espacio mínimo de suelo según la longitud total de tu serpiente."
+  },
+  "horse-supplement-cost": {
+    "name": "Calculadora de Costo de Suplementos para Caballos",
+    "description": "Proyecta el costo mensual y anual de los suplementos diarios de tu caballo."
+  },
+  "chicken-nesting-box-count": {
+    "name": "Calculadora de Nidales para Gallinas",
+    "description": "Cantidad de nidales que necesita tu parvada de ponedoras."
+  },
+  "pet-vet-visit-cost-estimator": {
+    "name": "Estimador de Costos de Visitas al Veterinario",
+    "description": "Rangos típicos de precios para visitas de rutina, por enfermedad, dentales y de emergencia."
+  },
+  "pet-grooming-cost-estimator": {
+    "name": "Estimador de Costos de Peluquería para Mascotas",
+    "description": "Proyecta tu costo anual de peluquería profesional por servicio y frecuencia."
+  },
+  "pet-symptom-checker": {
+    "name": "Asistente de Síntomas de Mascotas",
+    "description": "Un verificador guiado que relaciona los síntomas de tu mascota con posibles causas y nivel de urgencia. Herramienta educativa de orientación, nunca un diagnóstico. Cubre perros, gatos, conejos, aves y reptiles en 15 síntomas comunes."
+  },
+  "pet-pill-identifier": {
+    "name": "Identificador de Pastillas para Mascotas",
+    "description": "Busca más de 21 medicamentos veterinarios comunes por marca, genérico, forma o uso. Incluye para qué especies sirven, su aspecto típico y notas críticas de manejo, para confirmar una pastilla antes de administrarla."
+  },
+  "pet-poison-lookup": {
+    "name": "Base de Datos de Tóxicos para Mascotas",
+    "description": "Verifica al instante si un alimento, planta, medicamento o químico del hogar es seguro o tóxico para perros y gatos. Incluye gravedad, síntomas y qué hacer, más teléfonos de emergencia toxicológica 24/7."
+  },
+  "pet-vaccine-schedule-generator": {
+    "name": "Generador de Calendario de Vacunas para Mascotas",
+    "description": "Genera un calendario de vacunas personalizado para tu perro, gato, conejo o hurón según su edad. Muestra vacunas esenciales y opcionales, el momento ideal y la próxima dosis, siguiendo las guías de AAHA/AAFP."
+  },
+  "emergency-vet-finder": {
+    "name": "Buscador de Veterinarios de Emergencia",
+    "description": "Encuentra al instante clínicas veterinarias de emergencia 24 horas cerca de tu ubicación, con acceso directo a líneas de toxicología. Funciona en todo el mundo con Google Maps y Apple Maps."
+  },
+  "local-vet-finder": {
+    "name": "Buscador de Veterinarios Cercanos",
+    "description": "Busca clínicas veterinarias por ciudad o código postal: opciones económicas, especialistas en animales exóticos y hospitales 24/7, con calificaciones, distancia en tiempo real y llamada o ruta con un toque."
+  },
+  "pet-blood-test-explainer": {
+    "name": "Explicador de Análisis de Sangre para Mascotas",
+    "description": "Ingresa los resultados de hemograma y bioquímica de tu perro o gato y obtén explicaciones claras de cualquier valor anormal. Cubre 12 parámetros clave con rangos de referencia y causas comunes de valores altos o bajos."
+  },
+  "pet-personality-quiz": {
+    "name": "Test de Personalidad de tu Mascota",
+    "description": "Responde 10 preguntas rápidas sobre cómo se comporta tu perro o gato en casa, jugando y con desconocidos. Relacionamos tus respuestas con uno de cinco arquetipos (Aventurero, Compañero, Espíritu Libre, Animador o Maestro Zen), con consejos prácticos de adiestramiento y enriquecimiento para cada tipo."
+  },
+  "which-breed-suits-me": {
+    "name": "Test: ¿Qué Raza Va Conmigo?",
+    "description": "Cuéntanos tu nivel de actividad, tamaño de hogar, tolerancia al aseo y tu situación familiar: evaluamos más de 13 razas populares de perros y gatos según tu perfil y te mostramos las cinco más compatibles. Un punto de partida antes de conocer animales en un refugio o criadero."
+  },
+  "pet-compatibility-test": {
+    "name": "Test de Compatibilidad entre Mascotas",
+    "description": "Ingresa especie, edad, temperamento, sexo y esterilización de ambas mascotas y obtén una puntuación de compatibilidad de 0 a 100 con una recomendación clara. Útil si piensas sumar una segunda mascota o presentar un rescatado a tu animal residente."
+  },
+  "human-to-pet-age": {
+    "name": "De Edad Humana a Edad Mascota",
+    "description": "Ingresa tu edad humana y aplicamos la tabla estándar de envejecimiento al revés para decirte cuántos años tendrías como perro pequeño, mediano o grande, o como gato. Una herramienta divertida para compartir, basada en las mismas curvas aprobadas por veterinarios de nuestras calculadoras."
+  },
+  "pet-zodiac-birthday-card": {
+    "name": "Generador de Tarjetas de Cumpleaños y Zodiaco para Mascotas",
+    "description": "Ingresa el nombre y cumpleaños de tu mascota para descubrir su signo zodiacal con una divertida descripción de personalidad, e imprime una tarjeta para compartir. Ideal para redes sociales y aniversarios de adopción."
+  },
+  "pet-name-meaning-lookup": {
+    "name": "Significado de Nombres para Mascotas",
+    "description": "Busca entre más de 25 de los nombres más populares de perros y gatos y descubre su origen, significado literal y la personalidad que transmiten. Útil para decidir entre finalistas o para contarle a tus amigos la historia del nombre elegido."
+  },
+  "adoption-vs-buying-cost-comparator": {
+    "name": "Comparador: Adoptar vs Comprar",
+    "description": "Compara el costo real del primer año entre adoptar en un refugio y comprar a un criador o tienda. La adopción suele incluir esterilización, vacunas esenciales y microchip, servicios que suman cientos de dólares si compras por otro lado. Ingresa precios locales y obtén una comparativa personalizada lado a lado para ver la diferencia real antes de llevar tu mascota a casa."
+  },
+  "litter-size-predictor": {
+    "name": "Predictor de Tamaño de Camada",
+    "description": "Predice cuántos cachorros, gatitos o gazapos esperar según el tamaño de la raza, la edad de la madre y cuántas veces ha parido. El tamaño varía mucho: un chihuahua promedia 3 cachorros mientras un gran danés puede tener 12, y las primerizas suelen tener menos crías. Úsalo como estimado educativo antes de que tu veterinario confirme con ultrasonido o radiografía."
+  },
+  "clicker-training-planner": {
+    "name": "Planificador de Adiestramiento con Clicker",
+    "description": "El adiestramiento con clicker es el estándar de oro del aprendizaje moderno sin fuerza. El clic se convierte en una marca precisa en la que tu mascota aprende a confiar: significa que ese comportamiento exacto le ganó un premio. Este planificador te guía por las seis fases que usan los profesionales: cargar el clicker, capturar conductas, señuelo, añadir señales verbales, probar con distracciones y reducir los premios. Funciona en perros, gatos, loros, conejos, hurones e incluso caballos, y logra un aprendizaje más limpio que solo con la voz."
+  },
+  "potty-training-schedule": {
+    "name": "Calendario para Enseñar a Hacer sus Necesidades",
+    "description": "El adiestramiento en casa es la razón número uno por la que devuelven cachorros a los refugios, y casi siempre se soluciona con mejor horario. Un cachorro aguanta la vejiga tantas horas como meses tiene (uno de 3 meses aguanta unas 3 horas), y necesita salir después de cada comida, siesta, juego y sesión de adiestramiento. Esta herramienta crea un horario diario personalizado según la edad de tu cachorro y tus horarios, para pegarlo en el refrigerador y dejar de adivinar."
+  },
+  "crate-training-timeline": {
+    "name": "Cronograma de Adiestramiento en Jaula",
+    "description": "Bien hecha, la jaula es una de las herramientas más valiosas del adiestramiento moderno: acelera el control de esfínteres, mantiene seguro al cachorro sin supervisión y da a los adultos una guarida portátil para viajes y el veterinario. Mal hecha, crea pánico de por vida. Este cronograma sigue la progresión estándar de la conducta veterinaria: tres semanas de desensibilización gradual, desde que la jaula es una mágica dispensadora de premios hasta que duerme tranquilo toda la noche. Acelerar este proceso es la principal causa del rechazo a la jaula."
+  },
+  "leash-training-progress": {
+    "name": "Progreso del Adiestramiento con Correa",
+    "description": "Un perro que tira de la correa no es terco: simplemente recibe refuerzo continuo, porque cada tirón lo acerca a donde quiere ir. Caminar sin tirar es una habilidad que se construye criterio por criterio: primero dentro de casa, luego en el patio, luego con distracciones. Este registro lista los diez hitos medibles que usan los adiestradores certificados, desde llevar la correa tranquilo en casa hasta pasar junto a otro perro sin reaccionar. Márcalos a tu ritmo y tu progreso se guarda en tu dispositivo."
+  },
+  "recall-training-tracker": {
+    "name": "Registro del Entrenamiento de Llamada",
+    "description": "Acudir a la llamada es la conducta más importante que aprenderá tu mascota, y la más difícil de consolidar. Este registro te permite anotar cada intento en distintos entornos, desde casa hasta parques concurridos, para ver crecer tu porcentaje de éxito. Los adiestradores usan la regla del 90%: no sueltes a tu perro sin correa en zonas abiertas hasta lograr más del 90% de éxito en al menos 20 sesiones en ese entorno. Adivinar sin datos es la razón por la que se pierden tantas mascotas cada año."
+  },
+  "socialization-checklist": {
+    "name": "Lista de Socialización del Cachorro",
+    "description": "La ventana de socialización se cierra entre las 12 y 16 semanas: después, lo nuevo genera desconfianza en vez de seguridad. Un cachorro que conoce 100 personas amables, vive 50 entornos con calma y escucha 30 sonidos inusuales antes de las 16 semanas será un adulto estable. Uno que solo conoce a la familia y a otros perros será un adulto reactivo y miedoso. Esta lista cubre las cinco categorías que recomienda AVSAB: personas, animales, entornos, superficies y sonidos, y manipulación."
+  },
+  "puppy-milestone-tracker": {
+    "name": "Registro de Hitos del Cachorro",
+    "description": "El desarrollo del cachorro sigue un cronograma predecible: abre los ojos en la semana 3, le salen los dientes adultos hacia la semana 16 y la madurez hormonal llega entre los 6 y 12 meses según la raza. Si se atrasa más de 1-2 semanas en un hito, consulta al veterinario. Este registro lista los diez hitos más importantes, con la semana típica y qué observar. Márcalos a medida que ocurran y lleva la lista a tus visitas al veterinario."
+  },
+  "aggression-risk-assessment": {
+    "name": "Evaluación de Riesgo de Agresividad",
+    "description": "La agresividad en mascotas casi siempre nace del miedo y es predecible: la mayoría de las mordidas vienen precedidas de semanas o meses de señales que los dueños pasan por alto. Esta herramienta repasa ocho factores de riesgo basados en evidencia que usan los especialistas en conducta veterinaria: protección de recursos, quedarse inmóvil, miradas fijas, intentos de morder e historial de mordidas. No diagnostica agresividad, pero indica si debes buscar ayuda profesional. Cualquier respuesta positiva sobre mordidas requiere consulta inmediata con un especialista en conducta."
+  },
+  "separation-anxiety-score": {
+    "name": "Test de Ansiedad por Separación",
+    "description": "El estrés por separación afecta al 20-40% de los perros y es uno de los problemas de conducta más incomprendidos. No es estar consentido ni portarse mal: es un verdadero trastorno de pánico, parecido a un ataque de pánico humano. Los perros que lo sufren pueden orinarse, destruir puertas o lastimarse a los pocos minutos de quedarse solos. Esta evaluación puntúa ocho indicadores validados y te da un nivel de gravedad: mínimo, leve, moderado o grave. Los casos leves suelen responder a enriquecimiento y entrenamiento gradual de ausencias; los moderados a graves se benefician de medicación y apoyo especializado."
+  },
+  "trick-training-library": {
+    "name": "Biblioteca de Trucos para Perros",
+    "description": "Enseñar trucos es más que un espectáculo: desarrolla concentración, ejercita el cerebro y fortalece el vínculo humano-animal. Diez minutos de trucos cansan a la mayoría de los perros más que una hora de paseo. Esta biblioteca lista once trucos clásicos por dificultad, desde Sentado hasta Guarda tus juguetes, cada uno con los pasos exactos de señuelo y moldeado que usan los profesionales. Filtra por nivel para tu próximo reto, y recuerda: cada truco se enseña en pasos pequeñísimos."
+  },
+  "command-vocabulary-builder": {
+    "name": "Constructor de Vocabulario de Órdenes",
+    "description": "El perro promedio entiende 165 palabras; los excepcionales aprenden más de 1000 (Chaser, la border collie, aprendió 1022 sustantivos en estudios controlados). Cada señal que enseñas es un nuevo canal de comunicación que reduce la frustración de ambos lados. Este constructor empieza con cinco órdenes básicas (Sentado, Echado, Ven, Quieto, Déjalo) y te permite añadir señales ilimitadas con su significado. Marca las dominadas y mira crecer tu vocabulario total: un registro genial para llevar al veterinario o adiestrador."
+  },
+  "behavior-journal": {
+    "name": "Diario de Conducta de tu Mascota",
+    "description": "La mayoría de los misterios de conducta no lo son: son patrones esperando a ser vistos. Anotar durante dos semanas revela qué provoca realmente los ladridos, gruñidos o la ansiedad de tu mascota, frente a lo que tú creías. Este diario captura el ABC de la ciencia conductual: Antecedente (qué pasó justo antes), Conducta (qué hizo tu mascota) y Consecuencia (tu respuesta). Lleva las últimas 30 entradas a tu especialista en conducta o adiestrador: el patrón suele revelar el diagnóstico antes que las palabras."
+  },
+  "reward-schedule-calculator": {
+    "name": "Calculadora de Programa de Recompensas",
+    "description": "Cuándo premiar, y cada cuánto, es lo que separa a los perros adiestrados de los que solo trabajan si ven un premio. El refuerzo continuo (premiar cada vez) es esencial al aprender, pero destruye la fiabilidad si se mantiene para siempre. El refuerzo variable (premiar de forma impredecible) es lo que hace permanentes las conductas: el mismo principio que hace adictivas las máquinas tragamonedas. Esta herramienta te dice exactamente qué programa de refuerzo usar en cada etapa: adquisición, fluidez, generalización o mantenimiento."
+  },
+  "barking-log": {
+    "name": "Registro de Ladridos",
+    "description": "El ladrido excesivo es la queja número uno de los vecinos ante control animal, y la razón número uno por la que entregan perros a refugios. Pero rara vez es un solo problema: suelen ser 3 o 4 detonantes distintos con el mismo patrón. Este registro te permite anotar cada episodio notable con su detonante y duración, y luego clasifica tus principales detonantes para que ataques primero el más grande. Dos semanas de registro suelen revelar al culpable del 60-80% de los ladridos."
+  },
+  "litter-training-planner": {
+    "name": "Planificador de Entrenamiento con Arenero (Gatos y Conejos)",
+    "description": "Gatos y conejos son de las especies más fáciles de entrenar con arenero (instintivamente prefieren un lugar fijo), pero la instalación es totalmente distinta para cada uno. Los gatos necesitan arena aglomerante sin aroma en un arenero de poco tránsito, con la regla de uno por gato más uno. Los conejos necesitan sustrato de papel con heno encima, y nunca arena aglomerante de arcilla (tóxica si la ingieren). Este planificador recorre el cronograma de 3 semanas para cada especie, desde la instalación hasta el acceso libre confiable. Si retroceden tras aprender, suele ser médico (infección urinaria, cálculos), no conductual."
+  },
+  "heat-cycle-tracker": {
+    "name": "Registro del Celo (Perra, Gata, Coneja)",
+    "description": "Entender el ciclo de celo de tu hembra no esterilizada es esencial, tanto si crías intencionalmente como si quieres evitar camadas no deseadas. Este registro anota cada etapa observada (proestro, estro, diestro, anestro) y estima el próximo ciclo según intervalos típicos: cada 6 meses en perras, cada 2-3 semanas en temporada de cría en gatas, y receptividad continua (ovulación inducida) en conejas. Un registro constante ayuda a detectar celos silenciosos, sangrados prolongados y factores de riesgo de piómetra mucho antes de que sean emergencias."
+  },
+  "pregnancy-calendar": {
+    "name": "Calendario de Gestación por Especie",
+    "description": "Ingresa la fecha de monta y elige tu especie (perra, gata, coneja, cobaya, hámster, hurón, yegua, cabra u oveja) y obtén un calendario personalizado con fecha de parto, trimestres, hitos de revisión veterinaria y preparación del nido. Cada especie tiene una gestación distinta (perra 63 días, gata 65, coneja 31, yegua 340) y un ritmo diferente de cambios físicos y de conducta. Saber qué esperar semana a semana marca la diferencia entre un parto tranquilo y una emergencia evitable."
+  },
+  "whelping-kittening-checklist": {
+    "name": "Lista de Preparación para el Parto",
+    "description": "Las dos semanas antes de que llegue la camada es cuando se evitan la mayoría de los problemas prevenibles. Esta lista repasa todo lo que necesitas en tu kit de parto, cómo montar una paridera adecuada, qué hablar con tu veterinario en la revisión del día 55 y la ventana crítica de monitoreo posparto (calostro, peso, temperatura de la mamá). Si omites alguno de estos pasos, un parto de rutina puede volverse una emergencia a las 2 a.m."
+  },
+  "stud-fee-calculator": {
+    "name": "Calculadora de Tarifa de Semental",
+    "description": "Fijar bien la tarifa de un semental es una de las decisiones más difíciles en la cría ética. Si cobras poco, devalúas su línea; si cobras de más, las buenas hembras irán a otro lado. Esta calculadora usa la fórmula estándar de la industria (precio promedio del cachorro por multiplicador de calidad) para sugerir una tarifa justa en efectivo, y la compara con el acuerdo de quedarse con un cachorro de la camada."
+  },
+  "genetic-diversity-calculator": {
+    "name": "Calculadora de Diversidad Genética / COI",
+    "description": "El Coeficiente de Consanguinidad (COI) es el número más importante en las decisiones de cría ética. Mide qué tan similares genéticamente son el padre y la madre: cuanto más alto, mayor el riesgo de que enfermedades recesivas ocultas aparezcan en la camada. Esta calculadora da un estimado rápido según ancestros compartidos, más el contexto de cada rango (0-6.25% ideal, 25%+ nivel de hermanos completos y peligroso). Para decisiones finales, calcula siempre el COI completo de 10 generaciones con software de clubes de raza o veterinario."
+  },
+  "puppy-kitten-weight-chart": {
+    "name": "Tabla de Peso para Cachorros y Gatitos",
+    "description": "En las primeras cuatro semanas de vida, el peso es el indicador más fiable de la salud del recién nacido. Cachorros y gatitos deben ganar 5-10% de su peso corporal cada día; un estancamiento de incluso 12 horas es una emergencia real. Este registro anota cada pesaje (en gramos, no onzas: la precisión importa), grafica la ganancia y alerta ante cualquier estancamiento. Los rangos de referencia son promedios conservadores; lo que importa es la tendencia, no el número absoluto."
+  },
+  "weaning-schedule": {
+    "name": "Calendario de Destete (Cachorros, Gatitos, Conejos)",
+    "description": "El destete es un proceso gradual, no un interruptor. Cachorros y gatitos deben probar alimento sólido hacia la semana 3-4, con transición de 3-5 semanas y destete completo en la semana 7-8, pero deben quedarse con su mamá y hermanos para su desarrollo social hasta las 8-10 semanas (cachorros) o 10-12 (gatitos). Los gazapos siguen otro ritmo: solo dieta a base de alfalfa, con verduras mucho después del destete. Esta herramienta crea un plan semana a semana por especie desde la fecha de nacimiento."
+  },
+  "newborn-care-timeline": {
+    "name": "Cronograma de Cuidado del Recién Nacido",
+    "description": "Las primeras 12 semanas de vida de un cachorro o gatito tienen más hitos que ningún otro periodo: calostro en las primeras 2 horas, ojos que se abren hacia el día 10-14, primer alimento sólido a las 3-4 semanas, primeras vacunas a las 6-8 semanas, y ventanas de socialización que se cierran para siempre si se pierden. Este cronograma detalla cada etapa desde el día 0 hasta la entrega, con las tareas del criador o cuidador temporal en cada paso. La diferencia entre un adulto equilibrado y uno problemático se define en estas semanas."
+  },
+  "heatstroke-risk-calculator": {
+    "name": "Calculadora de Riesgo de Golpe de Calor",
+    "description": "Combina temperatura, humedad, tipo de pelaje, raza y nivel de actividad para estimar el riesgo real de golpe de calor y recibir orientación veterinaria sobre la exposición al aire libre."
+  },
+  "cold-weather-safety-score": {
+    "name": "Puntuación de Seguridad ante el Frío",
+    "description": "La sensación térmica, el pelaje, el tamaño y la humedad se combinan en una puntuación personalizada de seguridad ante el frío, con orientación clara sobre riesgo de congelación e hipotermia."
+  },
+  "paw-pad-temperature-checker": {
+    "name": "Verificador de Temperatura para Almohadillas",
+    "description": "Estima la temperatura del suelo según el aire, el material y la exposición al sol, más el tiempo máximo de contacto seguro antes de quemaduras."
+  },
+  "fireworks-anxiety-prep": {
+    "name": "Preparación ante la Ansiedad por Pirotecnia",
+    "description": "Lista paso a paso con desensibilización, preparación del entorno, escondites seguros y plan de emergencia para ayudar a las mascotas que temen a los fuegos artificiales."
+  },
+  "halloween-safety-checker": {
+    "name": "Verificador de Seguridad en Halloween",
+    "description": "Consulta chocolate, dulces, disfraces, pulseras luminosas y más para saber qué artículos de Halloween son tóxicos, peligrosos o solo de precaución para tu mascota."
+  },
+  "christmas-hazard-lookup": {
+    "name": "Base de Datos de Peligros Navideños",
+    "description": "Una base de datos con respaldo veterinario sobre los peligros de la temporada navideña (nochebuena, espumillón, huesos de pavo, alcohol), con niveles de gravedad y consejos de seguridad."
+  },
+  "allergy-season-tracker": {
+    "name": "Registro de Temporada de Alergias",
+    "description": "Registra día a día el nivel de picazón, el índice de polen y los síntomas de tu mascota. Identifica las peores semanas, detecta detonantes alimentarios o ambientales y comparte el registro con tu veterinario."
+  },
+  "air-quality-impact-assessor": {
+    "name": "Evaluador del Impacto de la Calidad del Aire",
+    "description": "Ingresa el ICA local y el perfil de tu mascota para saber si es seguro pasear, ejercitar o dejar a tu mascota afuera durante episodios de humo, smog y contaminación."
+  },
+  "reptile-uvb-schedule": {
+    "name": "Calendario de Iluminación UVB para Reptiles",
+    "description": "Obtén horas de luz UVB por especie, índice UV objetivo, tipo de foco recomendado y fecha automática de reemplazo, para que tu reptil nunca desarrolle en silencio la enfermedad ósea metabólica."
+  },
+  "tank-temperature-gradient-calculator": {
+    "name": "Calculadora de Gradiente de Temperatura del Terrario",
+    "description": "Compara las temperaturas de tu terrario con los rangos correctos por especie (asoleo, ambiente, zona fresca y noche), con advertencias claras cuando una zona es peligrosa."
+  },
+  "bird-wing-clipping-guide": {
+    "name": "Guía de Corte de Alas para Aves",
+    "description": "Aprende cuántas plumas primarias recortar por especie, por qué ambas alas deben cortarse siempre por igual y cuándo dejar a tu loro sin cortar es en realidad la opción más segura."
+  },
+  "ferret-litter-trainer": {
+    "name": "Entrenador de Arenero para Hurones",
+    "description": "Sigue un plan probado de 10 pasos para enseñar a tus hurones a usar el arenero, registra accidentes para detectar patrones y coloca areneros en varias habitaciones para que tu hogar huela bien."
+  },
+  "turtle-basking-time-calculator": {
+    "name": "Calculadora de Tiempo de Asoleo para Tortugas",
+    "description": "Fotoperiodo de asoleo por especie, índice UV objetivo y temperaturas del agua y la superficie de asoleo para tortugas de orejas rojas, pintadas, almizcleras, terrestres y más."
+  },
+  "goat-hoof-trim-reminder": {
+    "name": "Recordatorio de Recorte de Pezuñas para Cabras",
+    "description": "Lleva el control de cada cabra de tu rebaño, define intervalos individuales de recorte y recibe alertas de atraso para prevenir pudrición de pezuña, laminitis y cojera."
+  },
+  "horse-farrier-schedule": {
+    "name": "Calendario del Herrador para Caballos",
+    "description": "Gestiona caballos descalzos y herrados con un calendario rotativo configurable y alertas claras de atraso, para que ningún caballo pase de 8 semanas."
+  },
+  "vivarium-humidity-calculator": {
+    "name": "Calculadora de Humedad del Vivario",
+    "description": "Compara la humedad de tu recinto con los rangos correctos para reptiles, anfibios y tortugas, con frecuencia de nebulización, elección de sustrato y consejos para resolver problemas."
+  },
+  "pet-breed-identifier": {
+    "name": "Identificador de Razas con Foto",
+    "description": "Sube una foto de tu perro, gato o mascota pequeña y obtén una identificación de raza con IA: posibles mezclas, rasgos visibles, temperamento y resumen de cuidados."
+  },
+  "pet-age-estimator-photo": {
+    "name": "Estimador de Edad con Foto de tu Mascota",
+    "description": "Sube un primer plano de la cara de tu mascota y obtén un estimado educativo de su edad, con etapa de vida, equivalencia en años humanos, señales de envejecimiento y prioridades de cuidado."
+  },
+  "pet-emotion-detector": {
+    "name": "Detector de Emociones de tu Mascota",
+    "description": "Sube una foto y deja que una IA interprete el estado emocional probable de tu mascota (relajado, alerta, juguetón, ansioso o temeroso), con las señales explicadas."
+  },
+  "skin-condition-analyzer": {
+    "name": "Analizador de la Piel de tu Mascota (Educativo)",
+    "description": "Sube un primer plano de una zona de piel, punto caliente, bulto o sarpullido y obtén un desglose educativo de lo que un veterinario consideraría, con señales de alarma."
+  },
+  "pet-body-condition-photo": {
+    "name": "Condición Corporal con Foto de tu Mascota",
+    "description": "Sube una foto desde arriba o de perfil y obtén un puntaje educativo de condición corporal en la escala veterinaria del 1 al 9, más un plan de acción."
+  },
+  "poop-health-analyzer": {
+    "name": "Analizador de Salud Fecal con Foto",
+    "description": "Sube una foto de las heces de tu mascota para obtener el puntaje fecal 1-7, análisis de color, revisión de señales visibles y orientación sobre cuándo ir al veterinario."
+  },
+  "dog-wolf-coyote-identifier": {
+    "name": "Identificador: Perro vs Lobo vs Coyote",
+    "description": "Sube una foto de un cánido y descubre si es un perro doméstico, lobo, coyote, zorro o híbrido, con las marcas de campo que llevaron a la respuesta."
+  },
+  "cat-coat-pattern-identifier": {
+    "name": "Identificador del Patrón del Pelaje del Gato",
+    "description": "Sube una foto de tu gato y obtén una lectura experta del color base, el patrón (atigrado, carey, calicó), el largo del pelo y posibles influencias de raza."
+  },
+  "bird-species-identifier": {
+    "name": "Identificador de Especies de Aves con Foto",
+    "description": "Sube una foto de un ave y obtén su especie, alternativas, marcas de campo, hábitat y (si es especie de compañía) cuidados básicos en cautiverio."
+  },
+  "fish-disease-spot-checker": {
+    "name": "Detector de Enfermedades en Peces con Foto",
+    "description": "Sube una foto de tu pez para una lectura educativa de síntomas visibles (punto blanco, podredumbre de aletas, hidropesía, columnaris y más), con soluciones de manejo."
+  },
+  "tarantula-enclosure-size-calculator": {
+    "name": "Calculadora de Tamaño del Terrario para Tarántulas",
+    "description": "Calcula el espacio seguro de suelo, la altura y la profundidad del sustrato para tu tarántula según su envergadura y si es terrestre, arborícola o fosorial."
+  },
+  "tarantula-feeding-schedule": {
+    "name": "Calendario de Alimentación para Tarántulas",
+    "description": "Obtén el intervalo de alimentación, el tamaño máximo de presa y la cantidad mensual para tu tarántula, con ajustes automáticos previos a la muda."
+  },
+  "hedgehog-wheel-size-calculator": {
+    "name": "Calculadora de Tamaño de Rueda para Erizos",
+    "description": "Calcula el diámetro mínimo seguro de rueda para tu erizo pigmeo africano y verifica si tu superficie actual es segura."
+  },
+  "hedgehog-diet-calculator": {
+    "name": "Calculadora de Dieta para Erizos",
+    "description": "Estima las calorías diarias y las porciones para un erizo pigmeo africano según su peso, actividad y si quieres que suba, mantenga o baje de peso."
+  },
+  "axolotl-tank-temperature-calculator": {
+    "name": "Verificador de Temperatura del Agua para Ajolotes",
+    "description": "Compara la temperatura del agua de tu ajolote con los rangos seguros en Celsius o Fahrenheit, y obtén soluciones prácticas de enfriamiento si está muy caliente."
+  },
+  "axolotl-tank-size-calculator": {
+    "name": "Calculadora de Tamaño del Acuario para Ajolotes",
+    "description": "Calcula el volumen mínimo, el área de suelo y la cantidad de escondites para uno o más ajolotes, más consejos de flujo según tu tipo de filtro."
+  },
+  "sugar-glider-diet-calculator": {
+    "name": "Calculadora de Dieta para Petauros del Azúcar",
+    "description": "Calcula el peso de comida nocturna para tu colonia de petauros y repártelo bien entre mezcla base, frutas y verduras, y proteína."
+  },
+  "sugar-glider-cage-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Petauros del Azúcar",
+    "description": "Obtén el ancho, fondo y alto mínimos de jaula para tu colonia de petauros, más verificación de seguridad del espacio entre barrotes y cantidad de bolsas."
+  },
+  "chinchilla-dust-bath-schedule": {
+    "name": "Calendario de Baños de Polvo para Chinchillas",
+    "description": "Crea un calendario de baños de polvo según la humedad del ambiente y el estado del pelaje, con duración de cada sesión y recordatorio del próximo baño."
+  },
+  "chinchilla-cage-size-calculator": {
+    "name": "Calculadora de Tamaño de Jaula para Chinchillas",
+    "description": "Calcula las dimensiones mínimas de la jaula, el área útil total, la cantidad de niveles y la seguridad del espacio entre barrotes para una o más chinchillas."
+  },
+  "tortoise-hibernation-planner": {
+    "name": "Planificador de Hibernación para Tortugas",
+    "description": "Planifica una hibernación segura con duración por especie, verificación de condición corporal (índice de Jackson), temperaturas objetivo y un cronograma completo de fechas."
+  },
+  "quail-coop-size-calculator": {
+    "name": "Calculadora de Tamaño del Gallinero para Codornices",
+    "description": "Calcula el espacio de suelo, la altura segura del techo, la cantidad de comederos y bebederos, y la proporción correcta de machos y hembras para codornices coturnix, bobwhite o chinas."
+  }
 }

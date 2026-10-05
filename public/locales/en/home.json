@@ -1,28 +1,122 @@
 {
-  "heroTitle": "Smart Care Tools for Happier, Healthier Pets",
-  "heroDescription": "From dog age conversion to personalized nutrition plans, access expert-designed calculators and AI care assistants.",
-  "exploreTools": "Explore Tools",
-  "popularTools": "Popular Tools",
-  "featuredBreeds": "Featured Breed Guides",
-  "latestArticles": "Latest Care Articles",
+  "heroBadge": "{{toolCount}}+ free tools · {{aiCount}} AI assistants · {{speciesCount}} species",
+  "heroTitlePrefix": "Every free tool a",
+  "heroTitleHighlight": "pet parent",
+  "heroTitleSuffix": "could need — in one place.",
+  "heroDescription": "Calculators, AI assistants, breed and food databases, name finders, cost planners, and a full health dashboard for dogs, cats, birds, fish, reptiles, horses, and more. Free forever. No signup.",
   "browseAllTools": "Browse all {{count}}+ tools",
   "askAi": "Ask AI",
   "searchTools": "Search tools",
-  "seeAll": "See all →",
-  "explore": "Explore",
-  "open": "Open",
+  "quickLinks": {
+    "breedDatabase": "Breed Database",
+    "foodSafety": "Food Safety",
+    "nameFinder": "Name Finder",
+    "breedCompare": "Breed Compare",
+    "costPlanner": "Cost Planner",
+    "carePlanner": "Care Planner",
+    "myPets": "My Pets",
+    "blog": "Blog"
+  },
   "stats": {
     "freeTools": "Free tools",
     "aiAssistants": "AI assistants",
     "speciesCovered": "Species covered",
     "breedProfiles": "Breed profiles"
   },
+  "categoriesEyebrow": "Categories",
   "categoriesHeading": "Find the right tool for your pet",
-  "everythingOnFurTools": "Everything on FurTools",
-  "exploreEveryHub": "Explore every hub",
+  "seeAll": "See all →",
+  "explore": "Explore",
+  "popularTools": "Popular Tools",
+  "hubsEyebrow": "Everything on FurTools",
+  "hubsHeading": "Explore every hub",
   "hubDescription": "One platform for calculators, AI advice, breed research, food safety, name inspiration, cost planning, and end-to-end pet health records.",
-  "aiSubheading": "{{count}} AI helpers — never diagnostic, always kind",
-  "aiDescription": "Ask about care, training, grooming, food safety, travel, or species-specific husbandry.",
+  "hubs": {
+    "tools": {
+      "title": "All Tools",
+      "desc": "{{count}}+ free calculators, generators and planners across every category."
+    },
+    "ai": {
+      "title": "AI Assistants",
+      "desc": "{{count}} species- and topic-specific AI helpers for care, training, food and travel."
+    },
+    "breeds": {
+      "title": "Breed Database",
+      "desc": "500+ breed profiles for dogs, cats, birds, rabbits, fish and horses."
+    },
+    "foods": {
+      "title": "Food Safety",
+      "desc": "Is it safe? Look up any food and see safe / moderation / unsafe / toxic verdicts."
+    },
+    "names": {
+      "title": "Name Finder",
+      "desc": "AI + curated database — 10,000+ pet names filtered by species, style and vibe."
+    },
+    "compare": {
+      "title": "Breed Comparison",
+      "desc": "Side-by-side breed comparison for size, temperament, care and cost."
+    },
+    "costPlanner": {
+      "title": "Cost Planner",
+      "desc": "Estimate first-year and lifetime costs of owning a pet, itemized."
+    },
+    "care": {
+      "title": "Care Planner",
+      "desc": "Reminders, weight logs and health events for every pet in your home."
+    },
+    "dashboard": {
+      "title": "My Pets Dashboard",
+      "desc": "Multi-pet profiles, vaccines, medications, vet visits, expenses & AI insights."
+    },
+    "blog": {
+      "title": "Blog & Guides",
+      "desc": "Long-form guides written for pet parents — SEO-first, vet-informed."
+    },
+    "search": {
+      "title": "Global Search",
+      "desc": "Instantly search every tool, breed, food and article on the platform."
+    },
+    "contact": {
+      "title": "Contact",
+      "desc": "Suggest a tool, request a breed, or send feedback — we read every message."
+    }
+  },
+  "open": "Open",
+  "aiEyebrow": "AI Assistants",
+  "aiHeading": "{{count}} AI helpers — never diagnostic, always kind",
+  "aiDescription": "Ask about care, training, grooming, food safety, travel, or species-specific husbandry. Every assistant redirects to a vet for anything medical.",
+  "breedEyebrow": "Breed Database",
   "breedHeading": "500+ breed profiles across every species",
-  "browseAllBreeds": "Browse all breeds →"
+  "breedDescription": "Deep, plain-language breed pages with size, temperament, grooming, common health issues, and cost.",
+  "browseAllBreeds": "Browse all breeds →",
+  "speciesEyebrow": "Multi-pet ecosystem",
+  "speciesHeading": "16 species, one dashboard",
+  "speciesDescription": "From ball pythons to backyard chickens, every species gets its own care fields, AI assistant, and toolset.",
+  "ctaTitle": "Track every pet in your home — vaccines, meds, vet visits & expenses.",
+  "ctaDescription": "My Pets is a free health dashboard with AI insights (never diagnostic). Add unlimited pets across 16 species.",
+  "openMyPets": "Open My Pets",
+  "carePlanner": "Care Planner",
+  "faqTitle": "Frequently asked questions",
+  "faqs": [
+    {
+      "q": "How many free tools does FurTools offer?",
+      "a": "FurTools currently offers {{count}}+ free calculators, generators, and planners for dogs, cats, birds, fish, small pets, reptiles, horses, and farm animals — with new tools shipping every week."
+    },
+    {
+      "q": "Do I need an account to use the tools?",
+      "a": "No. Every calculator, generator, and guide is free and works instantly with no signup. You only need an account if you want to save pet profiles, health records, or reminders in the My Pets dashboard."
+    },
+    {
+      "q": "Are the AI assistants safe to use for medical questions?",
+      "a": "Our {{count}} AI assistants are educational only — they never diagnose disease or replace a licensed veterinarian. For anything concerning, contact your vet immediately."
+    },
+    {
+      "q": "Which pets are supported?",
+      "a": "16 species: dogs, cats, birds, rabbits, fish, hamsters, guinea pigs, ferrets, turtles, snakes, lizards, horses, goats, sheep, chickens, and ducks."
+    },
+    {
+      "q": "Can I check if a food is safe for my pet?",
+      "a": "Yes — use the free Food Safety Database or the \"Can My Pet Eat This?\" AI assistant to check whether a food is safe, needs moderation, or is toxic for your species."
+    }
+  ]
 }

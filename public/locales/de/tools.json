@@ -1,10 +1,934 @@
 {
-  "ageCalculatorTitle": "Pet Age Calculator",
-  "ageCalculatorDesc": "Convert human years to accurate dog and cat age equivalency.",
-  "foodCalculatorTitle": "Pet Food Portion Calculator",
-  "foodCalculatorDesc": "Calculate exact daily calories and portion sizes based on weight and activity.",
-  "nameGeneratorTitle": "AI Pet Name Generator",
-  "nameGeneratorDesc": "Generate cute and unique pet names based on breed, color, and personality.",
-  "calculateBtn": "Calculate Now",
-  "results": "Calculation Results"
+  "dog-age-calculator": {
+    "description": "Schätze das Alter deines Hundes in Menschenjahren mit einer modernen, größenbewussten Formel auf Basis tiermedizinischer Forschung.",
+    "name": "Hundealter-Rechner"
+  },
+  "dog-food-calculator": {
+    "description": "Berechne die empfohlene Tagesration an Kalorien und Futter für deinen Hund – basierend auf Gewicht, Aktivität und Lebensphase.",
+    "name": "Hundefutter-Portionenrechner"
+  },
+  "dog-water-calculator": {
+    "description": "Schätze den täglichen Wasserbedarf deines Hundes anhand von Gewicht, Aktivitätslevel und Klima.",
+    "name": "Trinkwasser-Rechner für Hunde"
+  },
+  "dog-calorie-calculator": {
+    "description": "Ermittle den täglichen Kalorienbedarf deines Hundes mit einem klaren Ergebnis – ideal für die Portionsplanung über Marken hinweg.",
+    "name": "Hunde-Kalorienrechner"
+  },
+  "dog-bmi-calculator": {
+    "description": "Schätze die Körperkondition deines Hundes anhand von Gewicht, Rassegröße und Körperchecks wie Rippenfühlen und Taillensichtbarkeit.",
+    "name": "Hunde-BMI- und Figur-Rechner"
+  },
+  "dog-weight-calculator": {
+    "description": "Finde einen ungefähren gesunden Gewichtsbereich für deinen Hund anhand der Rassegrößen-Kategorie – als Orientierung, nicht als Diagnose.",
+    "name": "Hunde-Idealgewicht-Rechner"
+  },
+  "dog-pregnancy-calculator": {
+    "description": "Schätze den Geburtstermin deiner Hündin und die wöchentlichen Meilensteine ab dem Deckdatum. Die Trächtigkeit dauert im Schnitt 63 Tage.",
+    "name": "Trächtigkeits-Rechner für Hündinnen"
+  },
+  "dog-vaccination-schedule": {
+    "description": "Hol dir einen ausdruckbaren Impfkalender für deinen Hund – Kern- und Zusatzimpfungen vom Welpenalter bis ins Erwachsenenalter.",
+    "name": "Hunde-Impfplan"
+  },
+  "dog-walking-calculator": {
+    "description": "Schätze die ideale tägliche Gassizeit für deinen Hund anhand von Rassegröße, Alter und Energielevel.",
+    "name": "Hunde-Gassirunden-Rechner"
+  },
+  "dog-cost-calculator": {
+    "description": "Erhalte eine realistische Schätzung der jährlichen und lebenslangen Kosten für deinen Hund – Futter, Tierarzt, Versicherung, Pflege und Einmalkosten.",
+    "name": "Hundekosten-Rechner"
+  },
+  "dog-name-generator": {
+    "description": "Generiere niedliche, klassische, kulinarische oder kreative Namen für deinen neuen Hund. Filtere nach Stil, Anfangsbuchstabe und Länge.",
+    "name": "Hundenamen-Generator"
+  },
+  "puppy-growth-calculator": {
+    "description": "Schätze das Erwachsenengewicht deines Welpen anhand von aktuellem Gewicht, Alter und Rassegrößen-Kategorie.",
+    "name": "Welpen-Wachstumsrechner"
+  },
+  "dog-size-predictor": {
+    "description": "Prognostiziere präzise das ausgewachsene Gewicht, die Schulterhöhe, die Wachstumskurve und die Meilensteine der Skelettreife deines Welpen mithilfe tiermedizinischer pädiatrischer Modelle.",
+    "name": "Hundegrößen-Prognose"
+  },
+  "dog-life-expectancy-calculator": {
+    "description": "Erhalte eine Lebenserwartungsschätzung für deinen Hund anhand von Rassegröße und Gesundheitsfaktoren – ein sanfter Weg, um gute Jahre zu planen und zu priorisieren.",
+    "name": "Hunde-Lebenserwartungsrechner"
+  },
+  "dog-treat-calorie-calculator": {
+    "description": "Tierärzte empfehlen, Leckerlis unter 10 % der Tageskalorien zu halten. Gib Futtermenge und Leckerli-Kalorien ein und sieh dein sicheres Tagesbudget.",
+    "name": "Hunde-Leckerli-Kalorienrechner"
+  },
+  "dog-grooming-schedule": {
+    "description": "Erhalte einen Plan für Baden, Bürsten, Krallenschneiden und Ohrenreinigung – abgestimmt auf Felltyp und Lebensstil deines Hundes.",
+    "name": "Hunde-Pflegeplan-Generator"
+  },
+  "dog-heat-cycle-tracker": {
+    "description": "Verfolge den Läufigkeitszyklus deiner unkastrierten Hündin und prognostiziere die nächste Läufigkeit. Die Zyklen wiederholen sich typischerweise alle 6 Monate.",
+    "name": "Läufigkeits-Tracker für Hündinnen"
+  },
+  "dog-exercise-calculator": {
+    "description": "Berechne die gesamten täglichen Bewegungsminuten – inklusive Spielen, Training und Spaziergänge – für Alter und Energielevel deines Hundes.",
+    "name": "Hunde-Bewegungsrechner"
+  },
+  "dog-exercise-needs-calculator": {
+    "description": "Berechne exakte tägliche Bewegungsminuten, Spaziergangsdauern und den Bedarf an geistiger Beschäftigung anhand von Rassegruppe, Alter und Energielevel deines Hundes.",
+    "name": "Hunde-Bewegungsbedarfsrechner"
+  },
+  "dog-lifespan-calculator": {
+    "description": "Prognostiziere die Lebenserwartung deines Hundes anhand von Erwachsenengewicht, Kastration, Körperkonditions-Score und Vorsorgemaßnahmen.",
+    "name": "Hunde-Lebensdauer-Rechner"
+  },
+  "dog-bath-frequency-calculator": {
+    "description": "Bestimme die ideale Badehäufigkeit für deinen Hund anhand von Felldichte, Outdoor-Lebensstil, Schwimmgewohnheiten und Hautbarriere-Gesundheit.",
+    "name": "Hunde-Badehäufigkeits-Rechner"
+  },
+  "dog-adoption-checklist": {
+    "description": "Eine ausdruckbare Checkliste mit allem, was neue Hundebesitzer brauchen – Ausstattung, Vorbereitung, Plan für den ersten Tag und Tierarztbesuche.",
+    "name": "Hunde-Adoptions-Checkliste"
+  },
+  "cat-age-calculator": {
+    "description": "Finde das Alter deiner Katze in Menschenjahren heraus – mit der standardmäßigen Umrechnung nach Katzen-Lebensphasen.",
+    "name": "Katzenalter-Rechner"
+  },
+  "cat-food-calculator": {
+    "description": "Berechne die Tageskalorien und Futterportionen deiner Katze anhand von Gewicht, Lebensphase und Aktivität.",
+    "name": "Katzenfutter-Portionenrechner"
+  },
+  "cat-water-calculator": {
+    "description": "Katzen brauchen etwa 120 ml Wasser pro 2,3 kg Körpergewicht pro Tag. Erhalte die genaue Zahl für deine Katze.",
+    "name": "Trinkwasser-Rechner für Katzen"
+  },
+  "cat-calorie-calculator": {
+    "description": "Erhalte eine einzige, klare Tageskalorienzahl für deine Katze – perfekt zum Vergleichen von Futtermarken.",
+    "name": "Katzen-Kalorienrechner"
+  },
+  "cat-bmi-calculator": {
+    "description": "Beurteile die Körperkondition deiner Katze mit dem standardmäßigen 9-Punkte-Score – kombiniert Gewicht und Körperchecks.",
+    "name": "Katzen-BMI- und Figur-Rechner"
+  },
+  "cat-weight-calculator": {
+    "description": "Finde einen gesunden Gewichtsbereich für deine Katze anhand von Rasse und Körperbau.",
+    "name": "Katzen-Idealgewicht-Rechner"
+  },
+  "cat-pregnancy-calculator": {
+    "description": "Schätze den Geburtstermin deiner Katze und die wöchentlichen Meilensteine ab dem Deckdatum. Die Trächtigkeit dauert im Schnitt 65 Tage.",
+    "name": "Trächtigkeits-Rechner für Katzen"
+  },
+  "cat-vaccination-schedule": {
+    "description": "Hol dir einen Impfkalender für deine Katze – Kernimpfungen gegen Katzenseuche, Katzenschnupfen und Tollwut vom Kittenalter bis ins Erwachsenenalter.",
+    "name": "Katzen-Impfplan"
+  },
+  "cat-name-generator": {
+    "description": "Generiere elegante, freche, mythologische und kulinarische Namen für dein Kitten oder deine adoptierte Katze.",
+    "name": "Katzennamen-Generator"
+  },
+  "kitten-growth-calculator": {
+    "description": "Schätze das Erwachsenengewicht deines Kittens anhand von Alter und Gewicht. Kittens nehmen in den ersten sechs Monaten etwa 450 g pro Monat zu.",
+    "name": "Kitten-Wachstumsrechner"
+  },
+  "cat-cost-calculator": {
+    "description": "Schätze die wahren jährlichen und lebenslangen Kosten deiner Katze – Futter, Streu, Tierarzt, Versicherung und Einmalkosten.",
+    "name": "Katzenkosten-Rechner"
+  },
+  "cat-life-expectancy-calculator": {
+    "description": "Erhalte eine Lebenserwartungsschätzung für deine Katze anhand von Wohnungs- oder Freigangshaltung, Rasse und allgemeiner Gesundheit.",
+    "name": "Katzen-Lebenserwartungsrechner"
+  },
+  "cat-litter-calculator": {
+    "description": "Schätze den monatlichen Streuverbrauch und die Kosten anhand von Katzenanzahl und Streuart.",
+    "name": "Katzenstreu-Rechner"
+  },
+  "cat-treat-calorie-calculator": {
+    "description": "Berechne das sichere tägliche Leckerli-Budget deiner Katze, damit sie nicht versehentlich zunimmt.",
+    "name": "Katzen-Leckerli-Kalorienrechner"
+  },
+  "cat-grooming-schedule": {
+    "description": "Ein maßgeschneiderter Pflegeplan für deine Katze – Bürsten, Krallenschneiden, Zahnpflege und Baden (selten).",
+    "name": "Katzen-Pflegeplan-Generator"
+  },
+  "cat-play-time-calculator": {
+    "description": "Katzen brauchen strukturiertes Spielen, um schlank und zufrieden zu bleiben. Erhalte eine tägliche Spielzeit-Empfehlung nach Alter und Energie.",
+    "name": "Katzen-Spielzeit-Rechner"
+  },
+  "pet-name-generator": {
+    "description": "Ein universeller Namensgenerator für Hunde, Katzen, Kaninchen, Vögel und alle kleinen Begleiter.",
+    "name": "Haustiernamen-Generator"
+  },
+  "pet-cost-calculator": {
+    "description": "Ein universeller Jahreskosten-Schätzer für Hunde, Katzen, Kaninchen und Kleintiere.",
+    "name": "Haustierkosten-Rechner"
+  },
+  "pet-expense-tracker": {
+    "description": "Erfasse deine Haustier-Ausgaben über die Zeit und sieh Monatssummen. Die Daten bleiben in deinem Browser.",
+    "name": "Haustier-Ausgaben-Tracker"
+  },
+  "pet-feeding-planner": {
+    "description": "Erstelle einen ausdruckbaren täglichen Fütterungsplan mit Mahlzeitenzeiten und Portionen für dein Haustier.",
+    "name": "Haustier-Fütterungsplaner"
+  },
+  "pet-medication-calculator": {
+    "description": "Rechne die vom Tierarzt verordneten mg/kg-Dosen in Gesamtmilligramm für das Gewicht deines Haustiers um. Immer mit dem Tierarzt absprechen.",
+    "name": "Haustier-Medikamenten-Dosisrechner"
+  },
+  "pet-insurance-calculator": {
+    "description": "Vergleiche die erwarteten jährlichen Versicherungsprämien mit eigenem Sparen, um zu entscheiden, ob sich eine Versicherung für dein Haustier lohnt.",
+    "name": "Tierkrankenversicherungs-Rechner"
+  },
+  "pet-adoption-checklist": {
+    "description": "Eine universelle Checkliste vor der Adoption – Ausstattung, Vorbereitung, erste Tage und Tierarztbesuche – für jedes Haustier.",
+    "name": "Haustier-Adoptions-Checkliste"
+  },
+  "pet-emergency-kit": {
+    "description": "Eine kuratierte Checkliste für Erste Hilfe und Katastrophenvorsorge bei Haustieren – die Dinge, die jeder Haustierhaushalt parat haben sollte.",
+    "name": "Haustier-Notfallset-Checkliste"
+  },
+  "pet-qr-tag-generator": {
+    "description": "Gestalte einen anpassbaren Smart-Halsbandanhänger und ein Vermisst-Flugblatt mit eingebettetem QR-Code. Beim Scannen können Finder sofort anrufen, per WhatsApp schreiben oder ihren genauen GPS-Standort mit wichtigen medizinischen Hinweisen senden.",
+    "name": "QR-Code-Halsbandanhänger-Generator"
+  },
+  "pet-care-planner": {
+    "description": "Baue einen Wochenplan für die Haustierpflege – Füttern, Gassigehen, Fellpflege, Training und Reinigung – damit nichts untergeht.",
+    "name": "Haustierpflege-Wochenplaner"
+  },
+  "pet-bmi-calculator": {
+    "description": "Ein universelles Körperkonditions-Tool für Hunde und Katzen. Erhalte eine BCS-Schätzung und Tipps für die nächsten Schritte.",
+    "name": "Universeller Haustier-BMI-Rechner"
+  },
+  "pet-birthday-age-calculator": {
+    "description": "Gib den Geburtstag deines Haustiers ein und sieh sein exaktes Alter in Jahren, Monaten und Tagen – plus Countdown bis zum nächsten Geburtstag.",
+    "name": "Haustier-Geburtstags-Altersrechner"
+  },
+  "pet-travel-checklist": {
+    "description": "Eine maßgeschneiderte Checkliste für Autofahrten, Flüge und Pension – inklusive Dokumente, Ausstattung und Wohlfühl-Dinge.",
+    "name": "Haustier-Reise-Checkliste"
+  },
+  "pet-sitter-rate-calculator": {
+    "description": "Berechne einen fairen Preis für deinen Tiersitter anhand von Besuchsart, Tieranzahl und ortsüblichem Preis.",
+    "name": "Tiersitter-Preisrechner"
+  },
+  "pet-boarding-cost-estimator": {
+    "description": "Schätze die Gesamtkosten für die Tierpension anhand von Reisedauer, Tieranzahl und Pensionsklasse.",
+    "name": "Tierpensions-Kostenschätzer"
+  },
+  "multi-pet-cost-calculator": {
+    "description": "Schätze die wahren Kosten eines Mehrtier-Haushalts – Hunde, Katzen und Kleintiere kombiniert.",
+    "name": "Kostenrechner für Mehrtier-Haushalte"
+  },
+  "pet-vaccine-reminder": {
+    "description": "Gib die letzten Impfungen deines Haustiers ein und sieh genau, wann die nächsten Auffrischungen fällig sind.",
+    "name": "Haustier-Impf-Erinnerung"
+  },
+  "bird-cage-size-calculator": {
+    "description": "Finde die empfohlenen Mindestmaße für Papageien, Nymphensittiche, Wellensittiche und Finken.",
+    "name": "Vogelkäfig-Größenrechner"
+  },
+  "bird-food-calculator": {
+    "description": "Tagesziele für Pellets, Samen und Frischfutter bei Ziervögeln – nach Art und Gewicht.",
+    "name": "Vogel-Futterrechner"
+  },
+  "bird-seed-portion-calculator": {
+    "description": "Berechne sichere tägliche Samenportionen, Pellet-Anteile und Frischfutter-Mengen anhand des Artgewichts deines Vogels, um Fettleber vorzubeugen.",
+    "name": "Vogel-Samenportionen-Rechner"
+  },
+  "bird-lifespan-estimator": {
+    "description": "Typische Lebenserwartungsbereiche beliebter Ziervogelarten – ein Planungswerkzeug für langlebige Begleiter.",
+    "name": "Vogel-Lebenserwartungs-Schätzer"
+  },
+  "bird-name-generator": {
+    "description": "Finde verspielte, elegante oder klassische Namen für deinen Vogel — filterbar nach Stimmung.",
+    "name": "Vogelnamen-Generator"
+  },
+  "bird-wing-clip-guide": {
+    "description": "Interaktive Anleitung zum Flügelstutzen — Vor- und Nachteile, Techniken und wann du besser zum Tierarzt gehst.",
+    "name": "Vogelflügel-Stutz-Anleitung"
+  },
+  "aquarium-volume-calculator": {
+    "description": "Berechne das tatsächliche Wasservolumen jedes rechteckigen, Panoramen- oder Säulenaquariums.",
+    "name": "Aquarienvolumen-Rechner"
+  },
+  "aquarium-filter-flow-rate": {
+    "description": "Bestimme die exakte Durchflussleistung deines Aquarienfilters (GPH und LPH) — angepasst an biologische Belastung, Außenfilter-Verlust und Schwimmverhalten deiner Arten.",
+    "name": "Aquarienfilter-Durchfluss-Rechner"
+  },
+  "fish-stocking-calculator": {
+    "description": "Schätze einen sicheren Besatz nach der modernen Bioload-Methode — nicht nur nach der Zentimeter-pro-Liter-Regel.",
+    "name": "Fischbesatz-Rechner"
+  },
+  "tank-cycling-tracker": {
+    "description": "Protokolliere Ammonium-, Nitrit- und Nitratwerte und erkenne, ob dein neues Becken eingefahren ist.",
+    "name": "Aquarium-Einfahr-Tracker"
+  },
+  "water-change-scheduler": {
+    "description": "Erhalte einen persönlichen Wasserwechselplan — abgestimmt auf Beckengröße, Besatz und Pflanzenmasse.",
+    "name": "Wasserwechsel-Planer"
+  },
+  "fish-food-calculator": {
+    "description": "Portionsrechner für Gesellschafts-, Buntbarsch- und Goldfischbecken — so vermeidest du Überfütterung.",
+    "name": "Fischfutter-Rechner"
+  },
+  "aquarium-heater-wattage-calculator": {
+    "description": "Empfiehlt die passende Heizleistung nach Beckenvolumen und gewünschter Temperaturdifferenz zur Raumtemperatur.",
+    "name": "Aquarienheizer-Leistung-Rechner"
+  },
+  "aquarium-lighting-calculator": {
+    "description": "Schätzt die nötige Lichtintensität nach Beckentiefe und Pflanzenbedarf (gering, mittel, hoch).",
+    "name": "Aquarienbeleuchtung-Rechner"
+  },
+  "fish-tank-cost-calculator": {
+    "description": "Kalkuliere die echten Startkosten: Becken, Filter, Heizung, Licht, Bodengrund, Deko, Wassertests und erste Fische.",
+    "name": "Aquarium-Startkosten-Rechner"
+  },
+  "fish-name-generator": {
+    "description": "Süße, lustige oder elegante Namen für dein neues Wassertier.",
+    "name": "Fischnamen-Generator"
+  },
+  "rabbit-hay-calculator": {
+    "description": "Wie viel Heu dein Kaninchen täglich braucht — der wichtigste Faktor für eine gesunde Verdauung.",
+    "name": "Kaninchen-Heu-Rechner"
+  },
+  "rabbit-hay-portion-calculator": {
+    "description": "Berechnet tägliche Heuportionen, Häufchenvolumen nach Körpergröße und Wiesengras-Heusorten — für gesunde Darmbeweglichkeit und zur Vorbeugung von Magen-Darm-Stillstand.",
+    "name": "Kaninchen-Heuportionen-Rechner"
+  },
+  "rabbit-cage-size-calculator": {
+    "description": "Empfohlene Mindestgrößen für Käfige und Gehege — für ein oder mehrere Kaninchen.",
+    "name": "Kaninchengehege-Größen-Rechner"
+  },
+  "rabbit-food-calculator": {
+    "description": "Berechnet die tägliche Pelletportion deines Kaninchens — üblicherweise 1/4 Tasse pro 5 Pfund, dazu unbegrenzt Heu.",
+    "name": "Kaninchen-Pellet-Rechner"
+  },
+  "rabbit-age-calculator": {
+    "description": "Rechnet das Alter deines Kaninchens mit lebensphasenabhängigen Faktoren in Menschenjahre um.",
+    "name": "Kaninchen-Alter-Rechner"
+  },
+  "rabbit-name-generator": {
+    "description": "Ausgewählte Kaninchennamen — süß, gemütlich, mythologisch oder von Futter inspiriert.",
+    "name": "Kaninchennamen-Generator"
+  },
+  "hamster-cage-size-calculator": {
+    "description": "Empfohlene Mindest-Grundfläche für Gold-, Zwerg- und Roborowski-Hamster (moderner Standard: 450 Quadratzoll).",
+    "name": "Hamsterkäfig-Größen-Rechner"
+  },
+  "hamster-food-calculator": {
+    "description": "Tägliche Futterportionen für Gold- und Zwerghamster anhand des Körpergewichtsziels.",
+    "name": "Hamsterfutter-Rechner"
+  },
+  "guinea-pig-vitamin-c-calculator": {
+    "description": "Meerschweinchen können kein Vitamin C bilden — berechne ihren Tagesbedarf und die besten Futterquellen.",
+    "name": "Meerschweinchen-Vitamin-C-Rechner"
+  },
+  "small-pet-name-generator": {
+    "description": "Witzige, ausgefallene Namen — perfekt für Hamster, Frettchen, Rennmäuse und andere Kleintiere.",
+    "name": "Kleintiernamen-Generator"
+  },
+  "hamster-lifespan-estimator": {
+    "description": "Typische Lebenserwartung von Gold-, Zwerg- und Roborowski-Hamstern.",
+    "name": "Hamster-Lebenserwartung-Schätzer"
+  },
+  "reptile-enclosure-size-calculator": {
+    "description": "Mindestmaße für beliebte Haustierreptilien — Bartagame, Leopardgecko, Königspython und mehr.",
+    "name": "Reptilien-Terrarien-Rechner"
+  },
+  "reptile-uvb-distance-guide": {
+    "description": "Wie weit die UVB-Lampe vom Sonnenplatz deines Reptils entfernt sein muss — entscheidend für den Kalziumstoffwechsel.",
+    "name": "Reptilien-UVB-Abstand-Anleitung"
+  },
+  "reptile-feeder-size-calculator": {
+    "description": "Die richtige Futterinsekt- oder Nagergröße für dein Reptil — zu klein verschwendet Energie, zu groß riskiert Verstopfung.",
+    "name": "Reptilien-Futtertier-Rechner"
+  },
+  "snake-feeding-schedule": {
+    "description": "Persönlicher Fütterungsplan für gängige Haustierschlangen — Königspython, Kornnatter, Kettennatter, Boa.",
+    "name": "Schlangen-Fütterungsplan"
+  },
+  "turtle-tank-calculator": {
+    "description": "Die richtige Beckengröße für Wasserschildkröten — die klassische 10-Gallonen-pro-Zoll-Regel mit echten Mindestwerten.",
+    "name": "Schildkrötenbecken-Rechner"
+  },
+  "reptile-name-generator": {
+    "description": "Ausgewählte Namen für Schlangen, Echsen, Geckos und Schildkröten.",
+    "name": "Reptiliennamen-Generator"
+  },
+  "horse-feed-calculator": {
+    "description": "Berechnet den täglichen Raufutter- und Kraftfutterbedarf deines Pferdes nach Gewicht und Arbeitsleistung.",
+    "name": "Pferdefutter-Rechner"
+  },
+  "horse-water-intake-calculator": {
+    "description": "Schätzt den täglichen Wasserbedarf deines Pferdes nach Gewicht, Arbeit, Temperatur und Fütterung.",
+    "name": "Pferde-Trinkwasser-Rechner"
+  },
+  "horse-age-calculator": {
+    "description": "Rechnet das Alter deines Pferdes mit Standard-Alterungskurven in Menschenjahre um.",
+    "name": "Pferdealter-Rechner"
+  },
+  "horse-body-condition-score": {
+    "description": "Bewerte deinen Pferde nach dem Henneke Body Condition Score (BCS 1–9).",
+    "name": "Pferde-BCS-Bewertung"
+  },
+  "horse-name-generator": {
+    "description": "Stall- und Turniernamen — von klassisch über mythologisch bis naturverbunden.",
+    "name": "Pferdenamen-Generator"
+  },
+  "chicken-coop-size-calculator": {
+    "description": "Wie viel Stall- und Auslauffläche deine Herde braucht — Standard-, Zwerg- oder schwere Rassen.",
+    "name": "Hühnerstall-Größen-Rechner"
+  },
+  "chicken-egg-production-tracker": {
+    "description": "Schätze die wöchentliche Eierleistung deiner Herde nach Rasse, Alter und Jahreszeit.",
+    "name": "Hühner-Legeleistung-Tracker"
+  },
+  "goat-feed-calculator": {
+    "description": "Tägliche Futterportionen für Milch- und Fleischziegen nach Gewicht und Leistungsphase.",
+    "name": "Ziegenfutter-Rechner"
+  },
+  "duck-pond-size-calculator": {
+    "description": "Empfohlene Wasser- und Landfläche für Enten im Garten — Teich, Planschbecken oder Nippeltränken.",
+    "name": "Ententeich-Größen-Rechner"
+  },
+  "dog-chocolate-toxicity-calculator": {
+    "description": "Bewertet das Risiko, wenn dein Hund Schokolade gefressen hat — nach Schokoladensorte, Menge und Körpergewicht.",
+    "name": "Hund-Schokolade-Toxizität-Rechner"
+  },
+  "dog-benadryl-dose-calculator": {
+    "description": "Standard-Tierarzt-Dosis Benadryl (Diphenhydramin) für Hunde — bitte immer zuerst mit deinem Tierarzt absprechen.",
+    "name": "Hund-Benadryl-Dosis-Rechner"
+  },
+  "canine-fluid-therapy-calculator": {
+    "description": "Klinischer Flüssigkeitstherapie-Rechner für Hunde nach OP oder Krankheit — berechnet Dehydrationsdefizit, Tagesbedarf, laufende Verluste, Infusionsrate pro Stunde und Tropfgeschwindigkeit.",
+    "name": "Hund-Flüssigkeitstherapie-Rechner"
+  },
+  "cat-litter-box-count-calculator": {
+    "description": "Die klassische Regel: 1 Klo pro Katze + 1 Reserve — verteilt über Etagen und ruhige Ecken.",
+    "name": "Katzenklo-Anzahl-Rechner"
+  },
+  "pet-microchip-checklist": {
+    "description": "Interaktive Checkliste zur Prüfung, ob der Mikrochip deines Haustiers registriert und aktuell ist — der Hauptgrund, warum vermisste Tiere nicht heimfinden.",
+    "name": "Haustier-Mikrochip-Checkliste"
+  },
+  "pet-loss-memorial-generator": {
+    "description": "Erstellt einen teilbaren Gedenktext für ein verstorbenes Haustier — individuell nach Name, Lebensjahren und schönsten Eigenschaften.",
+    "name": "Haustier-Trauergedenken-Generator"
+  },
+  "pet-carbon-pawprint-calculator": {
+    "description": "Schätzt den jährlichen CO2e-Fußabdruck deines Haustiers aus Futter, Streu und Verpackung — mit Tipps zur Reduzierung.",
+    "name": "Haustier-CO2-Pfotenabdruck-Rechner"
+  },
+  "dog-poop-bag-calculator": {
+    "description": "Schätzt, wie viele Kotbeutel dein Haushalt monatlich braucht — nach Hundeanzahl und täglicher Routine.",
+    "name": "Hundekotbeutel-Rechner"
+  },
+  "dog-crate-size-calculator": {
+    "description": "Empfohlene Boxmaße für jede erwachsene Hundegröße — mit Trennwand-Strategie für Welpen.",
+    "name": "Hundebox-Größen-Rechner"
+  },
+  "dog-collar-size-calculator": {
+    "description": "Gib den Halsumfang deines Hundes ein und erhalte einen verstellbaren Bereich nach der Zwei-Finger-Regel.",
+    "name": "Hundehalsband-Größen-Rechner"
+  },
+  "dog-ear-cleaning-schedule": {
+    "description": "Der richtige Reinigungsrhythmus nach Ohrentyp — Schlapp-, Steh-, wasserliebende oder entzündungsanfällige Ohren.",
+    "name": "Hundeohren-Reinigungsplan"
+  },
+  "dog-dental-care-schedule": {
+    "description": "Zahnpflege-Routine für zu Hause nach Lebensphase — Putzfrequenz, Kauartikel und wann die Zahnsteinreinigung beim Tierarzt fällig ist.",
+    "name": "Hunde-Zahnpflege-Plan"
+  },
+  "cat-hairball-risk-calculator": {
+    "description": "Schätzt das Haarballenrisiko nach Felllänge und Bürstfrequenz — mit gezielten Vorbeugetipps.",
+    "name": "Katzen-Haarballen-Risiko-Rechner"
+  },
+  "cat-scratching-post-selector": {
+    "description": "Findet die richtige Kratzbaumhöhe und das passende Material — damit deine Katze den Baum kratzt und nicht das Sofa.",
+    "name": "Kratzbaum-Finder"
+  },
+  "cat-carrier-size-calculator": {
+    "description": "Gib die Maße deiner Katze ein und finde die passende Transportbox für stressfreie Reisen und Tierarztbesuche.",
+    "name": "Katzentransportbox-Rechner"
+  },
+  "cat-catio-size-calculator": {
+    "description": "Dimensioniere das Außengehege nach deiner Katzenanzahl — mit Tipps zu Ebenen und Beschäftigung.",
+    "name": "Katzengarten-Größen-Rechner"
+  },
+  "bird-bath-frequency-guide": {
+    "description": "Artgerechter Baderhythmus, damit das Gefieder deines Vogels sauber und gepflegt bleibt.",
+    "name": "Vogel-Bade-Anleitung"
+  },
+  "bird-flight-space-calculator": {
+    "description": "Mindest-Flugraummaße pro Art — denn ein Käfig ersetzt keinen Flug.",
+    "name": "Vogel-Flugraum-Rechner"
+  },
+  "bird-toy-rotation-planner": {
+    "description": "Optimiere Anzahl und Wechselrhythmus der Spielzeuge, damit dein Papagei geistig ausgelastet bleibt.",
+    "name": "Vogel-Spielzeug-Rotationsplaner"
+  },
+  "fish-quarantine-timer": {
+    "description": "Empfohlene Quarantänedauer für neue Fische nach Herkunft und Krankheitsrisiko.",
+    "name": "Fisch-Quarantäne-Timer"
+  },
+  "aquarium-plant-count-calculator": {
+    "description": "Wie viele Stängel-, Teppich- und Hintergrundpflanzen du für dein Becken brauchst — plus Blickfang-Empfehlung.",
+    "name": "Aquarienpflanzen-Anzahl-Rechner"
+  },
+  "aquarium-substrate-calculator": {
+    "name": "Aquarien-Bodengrund-Rechner",
+    "description": "Berechne, wie viel Kies oder Aquasoil du brauchst, um dein Becken bis zur gewünschten Höhe zu füllen."
+  },
+  "aquarium-co2-calculator": {
+    "name": "Aquarien-CO2-Rechner",
+    "description": "CO2-Blasenrate als Startwert für Pflanzenbecken mit CO2-Anlage — inklusive Drop-Checker- und Beleuchtungsdauer-Tipps."
+  },
+  "hamster-wheel-size-calculator": {
+    "name": "Hamsterrad-Größen-Rechner",
+    "description": "Die richtige Laufradgröße nach Hamsterart — damit die Wirbelsäule deines Tieres beim Laufen gerade bleibt."
+  },
+  "ferret-cage-size-calculator": {
+    "name": "Frettchen-Käfiggrößen-Rechner",
+    "description": "Käfigvolumen für ein oder mehrere Frettchen — plus Empfehlungen zu Beschäftigung und täglichem Freilauf."
+  },
+  "guinea-pig-cage-size-calculator": {
+    "name": "Meerschweinchen-Käfiggrößen-Rechner",
+    "description": "Die richtige Grundfläche nach Anzahl der Meerschweinchen — abgestimmt auf moderne Tierschutzstandards."
+  },
+  "rabbit-litter-training-guide": {
+    "name": "Kaninchen-Stubenreinheits-Ratgeber",
+    "description": "Anleitung nach Lebensphase: wie schnell Kaninchen stubenrein werden und welches Setup am besten funktioniert."
+  },
+  "reptile-humidity-guide": {
+    "name": "Reptilien-Luftfeuchtigkeits-Ratgeber",
+    "description": "Zielwerte für die Luftfeuchtigkeit beliebter Reptilien — mit praktischen Tipps zum Erhöhen oder Senken der Feuchte."
+  },
+  "reptile-basking-temp-guide": {
+    "name": "Reptilien-Sonnenplatz-Ratgeber",
+    "description": "Temperaturen für den Sonnenplatz gängiger Reptilien — gemessen mit Infrarot-Thermometer, nicht als Lufttemperatur."
+  },
+  "bearded-dragon-food-calculator": {
+    "name": "Bartagamen-Futter-Rechner",
+    "description": "Futterverhältnis und Fütterungshäufigkeit für Bartagamen in jeder Lebensphase."
+  },
+  "horse-blanket-size-calculator": {
+    "name": "Pferdedecken-Größen-Rechner",
+    "description": "Die richtige Pferdedeckengröße mit zwei Körpermaßen und einer einfachen Rundungsregel bestimmen."
+  },
+  "horse-stall-size-calculator": {
+    "name": "Pferdebox-Größen-Rechner",
+    "description": "Empfohlene Boxenmaße vom Pony bis zum Kaltblut — inklusive Richtwerten für Abfohlboxen."
+  },
+  "horse-hoof-trimming-schedule": {
+    "name": "Hufbearbeitungs-Plan",
+    "description": "Empfohlene Intervalle für die Hufbearbeitung — je nach Belastung und Beschlag deines Pferdes."
+  },
+  "chicken-feed-calculator": {
+    "name": "Hühner-Futter-Rechner",
+    "description": "Tägliche und monatliche Futtermenge für deine Herde nach Lebensphase — Küken, Junghenne, Legehenne oder Masthahn."
+  },
+  "goat-water-calculator": {
+    "name": "Ziegen-Wasser-Rechner",
+    "description": "Täglicher Wasserbedarf deiner Ziegenherde — je nach Klima und Tierzahl."
+  },
+  "sheep-feed-calculator": {
+    "name": "Schaf-Futter-Rechner",
+    "description": "Täglicher Trockenmassebedarf deiner Schafherde nach Phase — Erhaltung, Aufzucht oder Laktation."
+  },
+  "duck-feed-calculator": {
+    "name": "Enten-Futter-Rechner",
+    "description": "Tägliche Futtermenge für Entenküken, Jung-, Lege- und Mastenten — mit Niacin-Hinweis."
+  },
+  "pet-hydration-calculator": {
+    "name": "Haustier-Wasserbedarfs-Rechner",
+    "description": "Artgerechter täglicher Wasserbedarf für Hunde, Katzen, Kaninchen, Meerschweinchen, Vögel und Frettchen."
+  },
+  "training-treat-planner": {
+    "name": "Trainingsleckerli-Planer",
+    "description": "Berechne, wie viele Kalorien dein Tier täglich maximal als Trainingsleckerli bekommen darf."
+  },
+  "dog-swim-time-calculator": {
+    "name": "Hunde-Schwimmzeit-Rechner",
+    "description": "Schätze die sichere Anfangs-Schwimmdauer für deinen Hund nach Gewicht und Fitness ab."
+  },
+  "dog-car-travel-planner": {
+    "name": "Hunde-Autoreise-Planer",
+    "description": "Plane Gassipausen, Wasser und Sicherheitsausrüstung für eine lange Autofahrt mit deinem Hund."
+  },
+  "dog-park-visit-tracker": {
+    "name": "Hundepark-Besuchs-Tracker",
+    "description": "Behalte die wöchentliche Auslaufzeit deines Hundes ohne Leine im Blick."
+  },
+  "dog-crate-training-schedule": {
+    "name": "Boxentrainings-Plan für Welpen",
+    "description": "Sichere maximale Boxenzeit je nach Alter deines Welpen."
+  },
+  "cat-window-perch-guide": {
+    "name": "Katzen-Fensterliegeplatz-Ratgeber",
+    "description": "Empfohlene Anzahl an Fensterliegeplätzen je nach Katzenzahl im Haushalt."
+  },
+  "cat-weight-loss-planner": {
+    "name": "Katzen-Abnehm-Planer",
+    "description": "Schätze einen tierärztlich sicheren Zeitrahmen ab, in dem deine Katze ihr Zielgewicht erreicht."
+  },
+  "cat-age-adjusted-feeding": {
+    "name": "Katzen-Futterrechner nach Alter",
+    "description": "Täglicher Kalorienbedarf — angepasst an Kitten, erwachsene oder Senior-Katzen."
+  },
+  "bird-molting-tracker": {
+    "name": "Vogel-Mauser-Tracker",
+    "description": "Schätze anhand des Startdatums ab, wann die Mauser deines Vogels endet."
+  },
+  "bird-sleep-schedule": {
+    "name": "Vogel-Schlafplan-Rechner",
+    "description": "Artgerechter nächtlicher Schlafbedarf für Ziervögel."
+  },
+  "bird-sleep-schedule-calculator": {
+    "name": "Vogel-Schlafenszeiten-Rechner",
+    "description": "Exakte Bettgeh- und Aufwachzeiten plus nötige Dunkelstunden für Papageien, Nymphensittiche und Ziervögel — zur Regulierung der Hormone."
+  },
+  "aquarium-nitrate-calculator": {
+    "name": "Aquarien-Nitrat-Rechner",
+    "description": "Berechne den Wasserwechsel-Anteil, um den Nitratwert auf ein sicheres Niveau zu senken."
+  },
+  "fish-medication-dose": {
+    "name": "Fisch-Medikamenten-Dosierungsrechner",
+    "description": "Die nötige Gesamtmenge eines Medikaments für dein Becken — basierend auf der Dosierung pro Gallone."
+  },
+  "rabbit-pellet-calculator": {
+    "name": "Kaninchen-Pellet-Rechner",
+    "description": "Tägliche Pelletportion für erwachsene Kaninchen nach Körpergewicht."
+  },
+  "rabbit-weight-tracker": {
+    "name": "Kaninchen-Gewichts-Tracker",
+    "description": "Behalte die Gewichtsveränderung deines Kaninchens zwischen den Wiegeterminen im Blick — um eine Magenüberladung früh zu erkennen."
+  },
+  "guinea-pig-food-calculator": {
+    "name": "Meerschweinchen-Futter-Rechner",
+    "description": "Tägliche Heu-, Pellet- und Gemüseportionen für deine Meerschweinchen."
+  },
+  "reptile-shedding-tracker": {
+    "name": "Reptilien-Häutungs-Tracker",
+    "description": "Sage die nächste Häutung deines Reptils anhand artspezifischer Zyklen voraus."
+  },
+  "snake-tank-size-calculator": {
+    "name": "Schlangen-Terrarien-Rechner",
+    "description": "Mindestgrundfläche anhand der Gesamtlänge deiner Schlange."
+  },
+  "horse-supplement-cost": {
+    "name": "Pferde-Zusatzfutter-Kostenrechner",
+    "description": "Prognostiziere die monatlichen und jährlichen Kosten für tägliches Ergänzungsfutter."
+  },
+  "chicken-nesting-box-count": {
+    "name": "Hühner-Legenest-Rechner",
+    "description": "Anzahl der benötigten Legenester für deine Legehennen."
+  },
+  "pet-vet-visit-cost-estimator": {
+    "name": "Tierarztkosten-Schätzer",
+    "description": "Typische Preisspannen für Vorsorge-, Krankheits-, Zahn- und Notfall-Tierarztbesuche in den USA."
+  },
+  "pet-grooming-cost-estimator": {
+    "name": "Tierpflege-Kostenschätzer",
+    "description": "Prognostiziere deine jährlichen Kosten für professionelle Pflege nach Leistung und Häufigkeit."
+  },
+  "pet-symptom-checker": {
+    "name": "Haustier-Symptom-Checker",
+    "description": "Ein geführter Symptom-Checker, der die Symptome deines Tieres möglichen Ursachen und einer Dringlichkeitsstufe zuordnet. Ein Aufklärungs-Tool zur Ersteinschätzung — keine Diagnose. Für Hunde, Katzen, Kaninchen, Vögel und Reptilien bei 15 häufigen Symptomen."
+  },
+  "pet-pill-identifier": {
+    "name": "Tiermedikament-Identifikator",
+    "description": "Finde 21+ gängige Tiermedikamente nach Markenname, Wirkstoff, Form oder Anwendungsfall. Mit Eignung je Tierart, typischem Aussehen und wichtigen Anwendungshinweisen — damit du eine Tablette vor der Gabe prüfen kannst."
+  },
+  "pet-poison-lookup": {
+    "name": "Haustier-Gift-Datenbank",
+    "description": "Prüfe sofort, ob ein Lebensmittel, eine Pflanze, ein Medikament oder eine Haushaltschemikalie für Hunde und Katzen sicher oder giftig ist. Mit Schweregrad, Symptomen und Erste-Hilfe-Maßnahmen — plus Giftnotruf-Nummern rund um die Uhr."
+  },
+  "pet-vaccine-schedule-generator": {
+    "name": "Haustier-Impfplan-Generator",
+    "description": "Erstelle einen persönlichen Impfplan für Hund, Katze, Kaninchen oder Frettchen nach Alter. Mit Kern- und optionalen Impfungen, idealem Timing und der nächsten fälligen Dosis — nach AAHA/AAFP-Leitlinien."
+  },
+  "emergency-vet-finder": {
+    "name": "Notfall-Tierarzt-Finder",
+    "description": "Finde sofort 24-Stunden-Notfall-Tierkliniken an deinem aktuellen Standort oder per Postleitzahl — mit direktem Zugang zu Giftnotruf-Hotlines. Weltweit über Google Maps und Apple Karten."
+  },
+  "local-vet-finder": {
+    "name": "Tierarzt-Finder",
+    "description": "Suche Tierarztpraxen nach Stadt und Postleitzahl, günstige Vorsorgeanbieter, Spezialisten für Exoten und 24/7-Tiertrauma-Kliniken — mit Bewertungen, Echtzeit-Entfernungssortierung und Anruf/Navigation per Fingertipp."
+  },
+  "pet-blood-test-explainer": {
+    "name": "Blutwert-Erklärer für Haustiere",
+    "description": "Gib das Blutbild und die Organwerte deines Hundes oder deiner Katze ein und erhalte verständliche Erklärungen zu auffälligen Werten. Mit 12 Schlüsselparametern, Referenzbereichen für Hund und Katze sowie häufigen Ursachen erhöhter oder niedriger Werte."
+  },
+  "pet-personality-quiz": {
+    "name": "Haustier-Persönlichkeits-Quiz",
+    "description": "Beantworte 10 kurze Fragen zum Verhalten deines Hundes oder deiner Katze zu Hause, beim Spiel und gegenüber Fremden. Wir ordnen die Antwortmuster einem von fünf Persönlichkeitstypen zu — Abenteurer, Begleiter, Freigeist, Entertainer oder Zen-Meister — mit praktischen Trainings- und Beschäftigungstipps pro Typ."
+  },
+  "which-breed-suits-me": {
+    "name": "Welche Rasse passt zu mir?",
+    "description": "Verrate uns Aktivitätslevel, Wohnungsgröße, Pflegetoleranz und Haushaltszusammensetzung — wir bewerten 13+ beliebte Hunde- und Katzenrassen nach deinem Profil und zeigen dir die fünf passendsten. Ein Startpunkt, bevor du einzelne Tiere im Tierheim oder beim Züchter kennenlernst."
+  },
+  "pet-compatibility-test": {
+    "name": "Haustier-Verträglichkeits-Test",
+    "description": "Gib Art, Alter, Temperament, Geschlecht und Kastrationsstatus beider Tiere ein und erhalte einen Verträglichkeitswert von 0–100 mit klarer Empfehlung. Hilfreich, wenn du über ein zweites Tier nachdenkst oder ein Tierheimtier zu einem vorhandenen Tier geben willst."
+  },
+  "human-to-pet-age": {
+    "name": "Menschenalter → Tieralter (umgekehrt)",
+    "description": "Gib dein Menschenalter ein — wir rechnen die übliche Altersumrechnung rückwärts und sagen dir, wie alt du als kleiner, mittelgroßer oder großer Hund wärst — oder als Katze. Ein spaßiges Share-Tool, basierend auf denselben tierärztlich anerkannten Kurven wie unsere Vorwärts-Altersrechner."
+  },
+  "pet-zodiac-birthday-card": {
+    "name": "Haustier-Sternzeichen- & Geburtstagskarten-Generator",
+    "description": "Gib Name und Geburtstag deines Tieres ein, erfahre sein Sternzeichen mit lustigem Persönlichkeitssteckbrief und drucke eine teilbare Geburtstagskarte. Ideal für Social Media und Adoptions-Jahrestage."
+  },
+  "pet-name-meaning-lookup": {
+    "name": "Haustiernamen-Herkunfts-Lexikon",
+    "description": "Suche unter 25+ der beliebtesten Hunde- und Katzennamen nach sprachlicher Herkunft, wörtlicher Bedeutung und Persönlichkeitsvibe. Hilfreich bei der Entscheidung zwischen Favoriten — oder für eine schöne Geschichte über den gewählten Namen."
+  },
+  "adoption-vs-buying-cost-comparator": {
+    "name": "Adoptions- vs. Kaufkosten-Vergleich",
+    "description": "Vergleiche die wahren Kosten im ersten Jahr: Adoption aus dem Tierheim versus Kauf beim Züchter oder im Zoofachhandel. Die Schutzgebühr enthält meist Kastration, Kernimpfungen und Mikrochip — Leistungen, die beim Kauf 500–800 Dollar extra kosten. Gib lokale Preise ein für einen persönlichen Vergleich beider Wege und sieh den echten Preisunterschied, bevor dein neues Tier einzieht."
+  },
+  "litter-size-predictor": {
+    "name": "Wurfgrößen-Prognose",
+    "description": "Prognostiziere, wie viele Welpen, Kitten oder Kaninchenbabys dich im Wurf erwarten — nach Größenkategorie der Rasse, Alter der Mutter und Anzahl vorheriger Würfe. Die Wurfgröße schwankt stark: Ein Chihuahua bekommt im Schnitt 3 Welpen, eine Dogge kann 12 werfen — und Erstlingsmütter bringen meist weniger Jungtiere als erfahrene Mütter in ihrer besten Zeit. Nutze dies als planerische Schätzung, bevor dein Tierarzt die Zahl per Ultraschall oder Röntgen bestätigt."
+  },
+  "clicker-training-planner": {
+    "name": "Klicker-Trainings-Planer",
+    "description": "Klickertraining ist der Goldstandard des modernen, gewaltfreien Tierlernens. Der Klick wird zum präzisen Marker, dem dein Tier vertraut — er sagt: „Genau dieses Verhalten hat dir ein Leckerli verdient.“ Dieser Planer führt dich durch den Sechs-Phasen-Zeitplan professioneller Trainer: Klicker konditionieren, Verhaltensweisen einfangen, Locken, Signalwörter hinzufügen, unter Ablenkung festigen und schließlich Futterbelohnungen abbauen. Er funktioniert für Hunde, Katzen, Papageien, Kaninchen, Frettchen und sogar Pferde — und liefert saubereres Lernen als reine Stimmmarker, weil Tonfallschwankungen und Körpersprache wegfallen."
+  },
+  "potty-training-schedule": {
+    "name": "Stubenreinheits-Trainingsplan",
+    "description": "Stubenreinheit ist der Hauptgrund, warum Welpen ins Tierheim zurückgebracht werden — und fast immer mit besserem Zeitplan lösbar. Welpen halten ihre Blase etwa so viele Stunden, wie sie Monate alt sind (ein 3 Monate alter Welpe hält ca. 3 Stunden), und müssen raus nach jeder Mahlzeit, jedem Nickerchen, jeder Spiel- und Trainingseinheit. Dieses Tool erstellt einen persönlichen Tagesplan aus dem Alter deines Welpen und den Wach-/Schlafzeiten deines Haushalts — zum Ausdrucken für den Kühlschrank, statt zu raten."
+  },
+  "crate-training-timeline": {
+    "name": "Boxentrainings-Zeitplan",
+    "description": "Richtig gemacht ist die Box eines der wertvollsten Werkzeuge im modernen Hundetraining — sie beschleunigt die Stubenreinheit, schützt Welpen bei Abwesenheit und gibt erwachsenen Hunden eine tragbare Höhle für Reisen und Tierarztaufenthalte. Falsch gemacht erzeugt sie lebenslange Panik und Barrierenfrust. Dieser Zeitplan folgt der Standardprogression der Veterinär-Verhaltenstherapie: drei Wochen schrittweise Desensibilisierung von „Box ist ein magischer Leckerli-Automat“ bis „schläft friedlich über Nacht und während deines Arbeitstags“. Zu schnelles Vorgehen ist die häufigste Ursache für Boxenhass."
+  },
+  "leash-training-progress": {
+    "name": "Leinenführigkeits-Fortschritts-Tracker",
+    "description": "Ein Hund, der an der Leine zieht, ist nicht „stur“ — er wird nur ständig dafür belohnt, weil jeder Zugschritt ihn ans Ziel bringt. Lockeres Gehen an der Leine ist eine trainierte Fertigkeit, Schritt für Schritt aufgebaut: erst drinnen, dann im Garten, dann bei Ablenkungen. Dieser Tracker listet die zehn messbaren Meilensteine zertifizierter Trainer — von „trägt die Leine ruhig drinnen“ bis „passiert einen anderen Hund entspannt“. Hake jeden ab; der Fortschritt bleibt auf deinem Gerät gespeichert."
+  },
+  "recall-training-tracker": {
+    "name": "Rückruf-Trainings-Tracker",
+    "description": "Der Rückruf — auf Zuruf kommen — ist das wichtigste und schwierigste Verhalten, das ein Tier je lernt. Dieser Tracker protokolliert jeden Rückrufversuch in verschiedenen Umgebungen, vom Wohnzimmer bis zum vollen Park, damit du deine Zuverlässigkeitsquote wachsen siehst. Zertifizierte Trainer nutzen die „90-%-Regel“: Vertraue deinem Hund erst ohne Leine auf unumzäuntem Gelände, wenn er in mindestens 20 Trainingseinheiten in dieser Umgebung über 90 % zuverlässig ist. Die Zuverlässigkeit ohne Daten zu schätzen, ist der Grund, warum jedes Jahr so viele Tiere verloren gehen."
+  },
+  "socialization-checklist": {
+    "description": "Die Sozialisierungsphase schließt sich zwischen der 12. und 16. Lebenswoche — danach erzeugt Neues Misstrauen statt Selbstbewusstsein. Ein Welpe, der bis zur 16. Woche 100 freundliche Menschen kennengelernt, 50 Umgebungen in Ruhe erlebt und 30 ungewöhnliche Geräusche gehört hat, wird zu einem stabilen erwachsenen Hund. Ein Welpe, der nur Familie und andere Hunde kennt, wird zu einem reaktiven, ängstlichen Erwachsenen, der Tausende an Verhaltenstherapeuten kostet. Diese Checkliste deckt die fünf Kategorien ab, die AVSAB empfiehlt: Menschen, Tiere, Umgebungen, Untergründe & Geräusche sowie Handling.",
+    "name": "Sozialisierungs-Checkliste"
+  },
+  "puppy-milestone-tracker": {
+    "description": "Die Welpenentwicklung folgt einem vorhersehbaren Zeitplan — die Augen öffnen sich in Woche 3, die bleibenden Zähne brechen etwa in Woche 16 durch und die Geschlechtsreife tritt je nach Rassengröße zwischen 6 und 12 Monaten ein. Das Verpassen eines Meilensteins um mehr als 1–2 Wochen ist ein Grund für einen Tierarztbesuch. Dieser Tracker listet die zehn wichtigsten Entwicklungsmeilensteine auf — jeweils mit der typischen Woche und worauf zu achten ist. Hake sie ab, sobald sie eintreten, und halte die Liste für Tierarztbesuche bereit.",
+    "name": "Welpen-Meilenstein-Tracker"
+  },
+  "aggression-risk-assessment": {
+    "description": "Aggression bei Haustieren ist fast immer angstbasiert und vorhersehbar — den meisten Bissen gehen wochen- oder monatelange Warnsignale voraus, die Besitzer übersehen oder verharmlosen. Dieses Screening führt durch acht evidenzbasierte Risikofaktoren, wie sie zertifizierte Tierverhaltenstherapeuten verwenden: Ressourcenschutz, Erstarren, starre Blicke, Schnappen und Biss-Historie. Es diagnostiziert keine Aggression, zeigt aber an, ob du professionelle Hilfe suchen solltest. Jede positive Antwort zur Biss-Historie erfordert sofortige Beratung durch einen Tierverhaltenstherapeuten.",
+    "name": "Aggressions-Risiko-Check"
+  },
+  "separation-anxiety-score": {
+    "description": "Trennungsbedingter Stress betrifft 20–40 % aller Haushunde und ist eines der am meisten missverstandenen Verhaltensprobleme. Es ist keine „Verwöhnung“ und kein „Trotz“ — es ist eine echte Panikstörung, die einer menschlichen Panikattacke ähnelt. Betroffene Hunde können innerhalb von Minuten nach dem Alleinlassen urinieren, Türen zerstören oder sich selbst verletzen. Dieser Test bewertet acht validierte Indikatoren aus dem Overall/CSAT-Screening und ordnet eine Schwere ein: minimal, leicht, mittel oder schwer. Leichte Fälle sprechen oft auf Beschäftigung und langsames Alleinsein-Training an; mittlere bis schwere Fälle profitieren von Medikamenten und spezialisierter Unterstützung.",
+    "name": "Trennungsangst-Score"
+  },
+  "trick-training-library": {
+    "description": "Trick-Training ist mehr als ein Partygag — es fördert Konzentration, fordert das Gehirn und stärkt die Bindung zwischen Mensch und Tier. Zehn Minuten Trick-Training ermüden die meisten Hunde mehr als eine Stunde Spaziergang. Diese Bibliothek listet elf klassische Tricks nach Schwierigkeit sortiert — von „Sitz“ bis „Räum die Spielsachen weg“ — jeweils mit den exakten Lock- und Shaping-Schritten professioneller Trainer. Filtere nach Level, um deine nächste Herausforderung zu finden, und denk dran: Jeder Trick wird in winzigen Schritten trainiert, nicht in einem großen Sprung.",
+    "name": "Trick-Trainings-Bibliothek"
+  },
+  "command-vocabulary-builder": {
+    "description": "Der durchschnittliche Haushund versteht 165 Wörter; Ausnahmetalente lernen über 1.000 (Border Collie Chaser lernte in kontrollierten Studien 1.022 Substantive). Jedes Signal, das du beibringst, ist ein neuer Kommunikationskanal, der Frust auf beiden Seiten reduziert. Dieser Builder startet mit fünf Grundkommandos (Sitz, Platz, Hier, Bleib, Nein) und lässt dich unbegrenzt neue Signale mit Bedeutung hinzufügen. Hake ab, welche sitzen, und sieh deinen Wortschatz wachsen — eine schöne Aufzeichnung für jeden Tierarzt- oder Trainerbesuch.",
+    "name": "Kommando-Wortschatz-Builder"
+  },
+  "behavior-journal": {
+    "description": "Die meisten Verhaltens-„Rätsel“ sind keine Rätsel — sie sind Muster, die darauf warten, erkannt zu werden. Zwei Wochen Tagebuch zeigen, was das Bellen, Knurren oder die Angst deines Haustiers wirklich auslöst — im Gegensatz zu dem, was du vermutest. Dieses Tagebuch erfasst das ABC der Verhaltenswissenschaft: Antezedens (was direkt davor passierte), Verhalten (was dein Tier tat) und Konsequenz (deine Reaktion). Dazu ein Notizfeld für Kontext. Bringe die letzten 30 Einträge zu deinem Tierverhaltenstherapeuten oder Trainer — oft verrät das Muster die Diagnose, bevor Worte es tun.",
+    "name": "Verhaltens-Tagebuch für Haustiere"
+  },
+  "reward-schedule-calculator": {
+    "description": "Wann du belohnst — und wie oft — entscheidet darüber, ob aus einem Hund ein verlässlicher Partner wird oder einer, der nur arbeitet, wenn er ein Leckerli sieht. Kontinuierliche Verstärkung (jede Wiederholung belohnen) ist in der Lernphase essenziell, zerstört aber die Verlässlichkeit, wenn sie für immer beibehalten wird. Variable Verstärkung (unvorhersehbar belohnen) macht trainiertes Verhalten dauerhaft — dasselbe Prinzip, das Spielautomaten so süchtig macht. Dieses Tool sagt dir genau, welchen Verstärkungsplan du für jede Trainingsphase nutzt: Aufbau, Flüssigkeit, Generalisierung oder Erhaltung.",
+    "name": "Belohnungsplan-Rechner"
+  },
+  "barking-log": {
+    "description": "Übermäßiges Bellen ist die häufigste Nachbarbeschwerde beim Ordnungsamt — und der häufigste Abgabegrund im Tierheim. Aber „übermäßiges Bellen“ ist selten ein Problem; meist laufen 3–4 verschiedene Auslöser nach demselben Muster. Dieses Protokoll lässt dich jedes auffällige Bellereignis mit Auslöser und Dauer erfassen und sortiert automatisch deine Top-Auslöser, damit du den größten zuerst angehst. Zwei Wochen Protokoll zeigen meist den Übeltäter, der für 60–80 % des Bellens verantwortlich ist.",
+    "name": "Bell-Protokoll"
+  },
+  "litter-training-planner": {
+    "description": "Katzen und Kaninchen gehören zu den am leichtesten stubenrein zu bekommenden Tierarten — sie bevorzugen instinktiv einen festen Toilettenplatz — doch der Aufbau ist für jede Art völlig anders. Katzen brauchen geruchlose Klumpstreu in einer ruhigen Kiste nach der Regel „1 pro Katze + 1“. Kaninchen brauchen Papierstreu, Heu darüber und niemals klumpende Tonstreu (die beim Fressen giftig ist). Dieser Planer führt durch den 3-Wochen-Zeitplan für jede Art — vom ersten Aufbau bis zur verlässlichen Freilauf-Phase. Rückfälle nach dem Training sind meist medizinisch (Blasenentzündung, Steine) — nicht verhaltensbedingt.",
+    "name": "Klo-Training-Planer (Katzen & Kaninchen)"
+  },
+  "heat-cycle-tracker": {
+    "description": "Den Zyklus deiner unkastrierten Hündin beziehungsweise Häsin zu verstehen ist essenziell — egal ob du gezielt züchtest oder ungewollte Würfe vermeiden willst. Dieser Tracker erfasst jede beobachtete Phase — Proöstrus, Östrus, Diöstrus, Anöstrus — und schätzt den nächsten erwarteten Zyklus anhand artentypischer Abstände: etwa alle 6 Monate bei Hunden, alle 2–3 Wochen in der Fortpflanzungssaison bei Katzen, und dauerhaft paarungsbereit (induzierter Eisprung) bei Kaninchen. Konsequentes Protokollieren hilft, stille Hitzen, Split-Hitzen, verlängerte Blutungen und Pyometra-Risikofaktoren früh zu erkennen — lange bevor sie zum Notfall werden.",
+    "name": "Rolligkeits-Tracker (Hund, Katze, Kaninchen)"
+  },
+  "pregnancy-calendar": {
+    "description": "Gib das Deckdatum ein und wähle deine Tierart — Hund, Katze, Kaninchen, Meerschweinchen, Hamster, Frettchen, Pferd, Ziege oder Schaf — und erhalte einen persönlichen Trächtigkeitskalender mit errechnetem Termin, Trimester-Markierungen, Tierarzt-Meilensteinen und Nestbau-Fristen. Hunde (63 Tage), Katzen (65 Tage), Kaninchen (31 Tage), Pferde (340 Tage) — jede Art hat eine eigene Tragdauer und einen eigenen Rhythmus körperlicher und verhaltensbedingter Veränderungen. Woche für Woche zu wissen, was kommt, ist der Unterschied zwischen einer reibungslosen Geburt und einem vermeidbaren Notfall.",
+    "name": "Trächtigkeitskalender (artenspezifisch)"
+  },
+  "whelping-kittening-checklist": {
+    "description": "Die zwei Wochen vor der Geburt sind die Phase, in der sich die meisten vermeidbaren Probleme verhindern lassen. Diese Checkliste führt durch alles, was du in deinem Wurfkoffer brauchst, wie du eine richtige Wurfbox aufbaust, was du beim 55-Tage-Check mit deinem Tierarzt besprechen solltest und das kritische Überwachungsfenster nach der Geburt (Kolostrum, Gewicht, Temperatur der Mutter). Überspringst du einen dieser Schritte, kann aus einer Routinegeburt um 2 Uhr nachts ein Notfall werden.",
+    "name": "Wurf-Checkliste (Welpen & Kitten)"
+  },
+  "stud-fee-calculator": {
+    "description": "Die Deckgebühr richtig zu kalkulieren gehört zu den schwierigeren Entscheidungen in der seriösen Zucht. Zu niedrig angesetzt, entwertest du die Linie deines Rüden; zu hoch, und Qualitätshündinnen gehen woandershin. Dieser Rechner nutzt die branchenübliche Formel — durchschnittlicher Welpenpreis × Qualitätsmultiplikator — um eine faire Bar-Gebühr vorzuschlagen, und vergleicht sie mit einer Wurfanteil-Vereinbarung. Rüden in Liebhaberqualität erzielen typischerweise 40 % eines Welpenpreises, titulierte Hunde 100 %, Champions 150 % und bewährte Top-Vererber mit importierten Blutlinien 200 % und mehr.",
+    "name": "Deckgebühren-Rechner"
+  },
+  "genetic-diversity-calculator": {
+    "description": "Der Inzuchtkoeffizient (COI) ist die wichtigste Einzelzahl bei seriösen Zuchtentscheidungen. Er misst, wie genetisch ähnlich Vater- und Muttertier sind — je höher die Zahl, desto größer das Risiko, dass versteckte rezessive Krankheiten in den Welpen ausbrechen. Dieser Rechner liefert eine schnelle Schätzung anhand gemeinsamer Vorfahren und Generationen, plus Einordnung, was jeder COI-Bereich bedeutet (0–6,25 % ideal, 25 %+ auf Vollgeschwister-Niveau und gefährlich). Für finale Entscheidungen führe immer einen vollständigen 10-Generationen-COI über Zuchtvereins- oder Tierarztsoftware durch.",
+    "name": "Genvielfalt-/COI-Rechner"
+  },
+  "puppy-kitten-weight-chart": {
+    "description": "In den ersten vier Lebenswochen ist das Gewicht der verlässlichste Gesundheitsindikator eines Neugeborenen. Welpen und Kitten sollten täglich 5–10 % ihres Körpergewichts zulegen — ein Plateau von nur 12 Stunden ist ein echter Notfall. Dieser Tracker protokolliert jede Wägung (in Gramm, nicht Unzen — bei diesem Stadium zählt die Genauigkeit), zeigt die Zunahme seit der letzten Sitzung und warnt bei Stagnation. Die Referenzbereiche sind konservative Durchschnittswerte; kleine Zwerg- und große Riesenrassen liegen weit außerhalb der typischen Zahlen, daher zählt der Trend mehr als das absolute Gewicht.",
+    "name": "Welpen- & Kitten-Gewichtstabelle"
+  },
+  "weaning-schedule": {
+    "description": "Absetzen ist ein Prozess, kein Schalter. Welpen und Kitten sollten ab Woche 3–4 an feste Nahrung herangeführt, über 3–5 Wochen umgestellt und bis Woche 7–8 vollständig abgesetzt sein — aber zur Sozialentwicklung bis mindestens Woche 8–10 (Welpen) beziehungsweise 10–12 (Kitten) bei Mutter und Geschwistern bleiben. Kaninchenbabys folgen einem anderen Rhythmus: nur Luzerne-basierte Kost, Grünzeug erst deutlich nach dem Absetzen. Dieses Tool erstellt ab dem Wurfdatum einen artenspezifischen Wochenplan.",
+    "name": "Absetzplan (Welpen, Kitten, Kaninchen)"
+  },
+  "newborn-care-timeline": {
+    "description": "Die ersten 12 Lebenswochen eines Welpen oder Kittens enthalten mehr Meilensteine als jede andere Phase. Kolostrum in den ersten 2 Stunden, Augen öffnen sich um Tag 10–14, erste feste Nahrung mit 3–4 Wochen, erste Impfungen mit 6–8 Wochen, Sozialisierungsfenster, die sich für immer schließen, wenn sie verpasst werden. Diese Zeitleiste legt jede Phase von Tag 0 bis zur Abgabe dar — mit den Aufgaben, die ein Züchter oder eine Pflegestelle an jedem Schritt erledigen muss. Halte dich eng daran — ob aus einem Welpen oder Kitten ein ausgeglichener Erwachsener oder ein Problemtier wird, entscheidet sich in diesen Wochen.",
+    "name": "Neugeborenen-Pflege-Zeitleiste"
+  },
+  "heatstroke-risk-calculator": {
+    "description": "Kombiniere Temperatur, Luftfeuchtigkeit, Felltyp, Rasse und Aktivitätslevel, um das Hitzschlag-Risiko in Echtzeit zu schätzen — mit tierärztlich fundierten Empfehlungen zum Aufenthalt im Freien.",
+    "name": "Hitzschlag-Risiko-Rechner"
+  },
+  "cold-weather-safety-score": {
+    "description": "Windchill, Felltyp, Größe und Nässe ergeben einen persönlichen Kälte-Sicherheits-Score — mit klaren Hinweisen zum Erfrierungs- und Unterkühlungsrisiko.",
+    "name": "Kälte-Sicherheits-Score"
+  },
+  "paw-pad-temperature-checker": {
+    "description": "Schätze die Bodentemperatur aus Lufttemperatur, Belag und Sonneneinstrahlung — plus die maximal sichere Kontaktzeit, bevor Verbrennungen drohen.",
+    "name": "Pfoten-Temperatur-Check"
+  },
+  "fireworks-anxiety-prep": {
+    "description": "Schritt-für-Schritt-Checkliste mit Desensibilisierung, Umgebungsvorbereitung, sicheren Rückzugsorten und Notfallplanung — damit feuerwerksängstliche Haustiere besser durchkommen.",
+    "name": "Feuerwerk-Angst-Vorbereitung"
+  },
+  "halloween-safety-checker": {
+    "description": "Schlag nach bei Schokolade, Süßigkeiten, Kostümen, Knicklichtern und mehr — welche Halloween-Artikel für Haustiere giftig, gefährlich oder nur mit Vorsicht zu genießen sind.",
+    "name": "Halloween-Sicherheits-Check"
+  },
+  "christmas-hazard-lookup": {
+    "description": "Eine tierärztlich fundierte Datenbank weihnachtlicher Gefahren — vom Weihnachtsstern und Lametta bis zu Putenknochen und Festtags-Alkohol — mit Schweregraden und Sicherheitstipps.",
+    "name": "Weihnachts-Gefahren-Lexikon"
+  },
+  "allergy-season-tracker": {
+    "description": "Protokolliere täglich Juckreizlevel, Pollenindex und Symptome deines Haustiers. Finde die schlimmsten Wochen, entdecke Futter- oder Umweltauslöser und teile das Protokoll mit deinem Tierarzt.",
+    "name": "Allergiesaison-Tracker"
+  },
+  "air-quality-impact-assessor": {
+    "description": "Gib den lokalen AQI und das Profil deines Haustiers ein, um zu sehen, ob bei Rauch, Smog und Luftverschmutzung Spaziergänge, Bewegung oder Freilauf draußen sicher sind.",
+    "name": "Luftqualitäts-Check für Haustiere"
+  },
+  "reptile-uvb-schedule": {
+    "description": "Artenspezifische UVB-Beleuchtungszeiten, Ziel-UV-Index, Lampentyp-Empfehlungen und automatisches Wechsel-Datum — damit dein Reptil nie unbemerkt an metabolischer Knochenerkrankung erkrankt.",
+    "name": "Reptilien-UVB-Plan"
+  },
+  "tank-temperature-gradient-calculator": {
+    "description": "Vergleiche die Temperaturen in deinem Terrarium mit artgerechten Bereichen für Sonnenplatz, Umgebung, Kältezone und Nacht — mit verständlichen Warnungen, wenn eine Zone gefährlich ist.",
+    "name": "Terrarium-Temperaturgradient-Rechner"
+  },
+  "bird-wing-clipping-guide": {
+    "description": "Lerne, wie viele Handschwingen je Art zu kürzen sind, warum beide Flügel immer gleichmäßig gestutzt werden müssen — und wann dein Papagei flugfähig tatsächlich sicherer lebt.",
+    "name": "Vogel-Flügelstutzen-Anleitung"
+  },
+  "ferret-litter-trainer": {
+    "description": "Folge einem bewährten 10-Schritte-Plan, um Frettchen stubenrein zu bekommen, protokolliere Unfälle zur Mustererkennung und richte Kisten in mehreren Räumen ein — damit der Haushalt sauber riecht.",
+    "name": "Frettchen-Klo-Trainer"
+  },
+  "turtle-basking-time-calculator": {
+    "description": "Artenspezifische Sonnenlichtdauer, Ziel-UV-Index sowie Wasser- und Sonnenplatztemperaturen für Rotwangen-, Zier-, Moschusschildkröten, Landschildkröten und mehr.",
+    "name": "Schildkröten-Sonnenzeit-Rechner"
+  },
+  "goat-hoof-trim-reminder": {
+    "description": "Verwalte jede Ziege deiner Herde, lege individuelle Pflegeintervalle fest und erhalte Überfälligkeitswarnungen — gegen Klauenfäule, Hufrehe und Lahmheit bei Milch-, Fleisch- und Hobbyziegen.",
+    "name": "Ziegen-Klauenpflege-Erinnerung"
+  },
+  "horse-farrier-schedule": {
+    "description": "Verwalte barhufge und beschlagene Pferde in einem laufenden Hufschmied-Plan mit einstellbaren Intervallen und klaren Überfälligkeitswarnungen — damit kein Pferd über 8 Wochen hinaus rutscht.",
+    "name": "Pferde-Hufschmied-Planer"
+  },
+  "vivarium-humidity-calculator": {
+    "description": "Vergleiche die Luftfeuchtigkeit in deinem Terrarium mit artgerechten Bereichen für Reptilien, Amphibien und Landschildkröten — mit Sprühhäufigkeit, Substratwahl und Fehlerbehebungs-Tipps.",
+    "name": "Vivarium-Feuchtigkeits-Rechner"
+  },
+  "pet-breed-identifier": {
+    "description": "Lade ein Foto deines Hundes, deiner Katze oder deines Kleintiers hoch und erhalte eine KI-gestützte Rassenerkennung mit wahrscheinlichen Mischungen, sichtbaren Merkmalen, Temperament und Pflege-Übersicht.",
+    "name": "Haustier-Rassen-Erkennung (Foto-Upload)"
+  },
+  "pet-age-estimator-photo": {
+    "description": "Lade eine Nahaufnahme vom Gesicht deines Haustiers hoch und erhalte eine pädagogische Altersschätzung mit Lebensphase, Menschenalter-Äquivalent, Altersanzeichen und Pflegeprioritäten.",
+    "name": "Haustier-Altersschätzung per Foto"
+  },
+  "pet-emotion-detector": {
+    "description": "Lade ein Foto hoch und lass einen KI-Verhaltensexperten den wahrscheinlichen Gefühlszustand deines Haustiers deuten — entspannt, aufmerksam, verspielt, ängstlich oder furchtsam — mit erklärten Signalen.",
+    "name": "Haustier-Stimmungs-Detektor"
+  },
+  "skin-condition-analyzer": {
+    "description": "Lade eine Nahaufnahme einer Hautstelle, eines Hotspots, einer Beule oder eines Ausschlags hoch und erhalte eine pädagogische Einschätzung, was ein Tierarzt ein- oder ausschließen könnte — mit Warnsignalen.",
+    "name": "Hautanalyse für Haustiere (pädagogisch)"
+  },
+  "pet-body-condition-photo": {
+    "description": "Lade ein Foto von oben oder aus dem Seitenprofil hoch und erhalte einen pädagogischen Body-Condition-Score auf der tierärztlichen 1–9-Skala — plus Maßnahmenplan.",
+    "name": "Body-Condition-Score per Foto"
+  },
+  "poop-health-analyzer": {
+    "description": "Lade ein Foto vom Kot deines Haustiers hoch für einen Purina-Kot-Score 1–7, Farbanalyse, Auffälligkeits-Check und Tierarztbesuchs-Empfehlung.",
+    "name": "Kot-Gesundheits-Analyse (Foto)"
+  },
+  "dog-wolf-coyote-identifier": {
+    "description": "Lade ein Foto eines Hundeartigen hoch und finde heraus, ob es sich um Haushund, Wolf, Kojote, Fuchs oder Hybrid handelt — mit den Feldmerkmalen, die zur Antwort führten.",
+    "name": "Hund-vs-Wolf-vs-Kojote-Erkennung"
+  },
+  "cat-coat-pattern-identifier": {
+    "description": "Lade ein Foto deiner Katze hoch und erhalte eine Experteneinschätzung zu Grundfarbe, Muster (Tabby, Tortie, Calico), Felllänge und möglichen Rasseneinflüssen.",
+    "name": "Katzen-Fellmuster-Erkennung"
+  },
+  "bird-species-identifier": {
+    "description": "Lade ein Vogelfoto hoch und erhalte Art, Alternativen, Feldmerkmale, Lebensraum — und bei Heimvogelarten die Grundlagen der Haltung.",
+    "name": "Vogelarten-Erkennung per Foto"
+  },
+  "fish-disease-spot-checker": {
+    "description": "Lade ein Foto deines Fisches hoch für eine pädagogische Einschätzung sichtbarer Symptome — Ichthyo, Flossenfäule, Bauchwassersucht, Columnaris und mehr — mit Haltungs-Tipps.",
+    "name": "Fischkrankheiten-Check (Foto)"
+  },
+  "tarantula-enclosure-size-calculator": {
+    "description": "Berechne die sichere Grundfläche, Höhe und Substrattiefe für deine Vogelspinne anhand der Beinspannweite und ob sie boden-, baum- oder grablebend ist.",
+    "name": "Vogelspinnen-Terrarium-Rechner"
+  },
+  "tarantula-feeding-schedule": {
+    "description": "Erhalte Fütterungsintervall, Beutetier-Größenlimit und monatliche Fütterungsanzahl für deine Vogelspinne — mit automatischer Anpassung vor der Häutung.",
+    "name": "Vogelspinnen-Fütterungsplan"
+  },
+  "hedgehog-wheel-size-calculator": {
+    "description": "Berechne den minimal sicheren Laufrad-Durchmesser für deinen Afrikanischen Weißbauchigel und prüfe, ob deine aktuelle Lauffläche sicher ist.",
+    "name": "Igel-Laufrad-Rechner"
+  },
+  "hedgehog-diet-calculator": {
+    "description": "Schätze die täglichen Kalorien und Futterportionen für deinen Afrikanischen Weißbauchigel anhand von Gewicht, Aktivitätslevel und ob er zu-, abnehmen oder halten soll.",
+    "name": "Igel-Futter-Rechner"
+  },
+  "axolotl-tank-temperature-calculator": {
+    "description": "Prüfe die Wassertemperatur deines Axolotls gegen sichere Bereiche in Celsius oder Fahrenheit und erhalte praktische Kühl-Tipps, wenn es zu warm wird.",
+    "name": "Axolotl-Wassertemperatur-Check"
+  },
+  "axolotl-tank-size-calculator": {
+    "description": "Berechne das Mindestvolumen, die Grundfläche und die Versteck-Anzahl für einen oder mehrere Axolotl — plus Strömungsempfehlung für deinen Filtertyp.",
+    "name": "Axolotl-Becken-Rechner"
+  },
+  "sugar-glider-diet-calculator": {
+    "description": "Berechne das nächtliche Futtergewicht für deine Sugar-Glider-Kolonie und teile es korrekt auf Grundmischung, Obst/Gemüse und Protein auf.",
+    "name": "Sugar-Glider-Futter-Rechner"
+  },
+  "sugar-glider-cage-size-calculator": {
+    "description": "Erhalte Mindestbreite, -tiefe und -höhe für den Käfig deiner Sugar-Glider-Kolonie — plus Gitterabstands-Sicherheitscheck und Beutel-Anzahl.",
+    "name": "Sugar-Glider-Käfig-Rechner"
+  },
+  "chinchilla-dust-bath-schedule": {
+    "description": "Erstelle einen Chinchilla-Sandbad-Plan anhand von Raumluftfeuchtigkeit und Fellzustand — mit Bade-Dauer und Erinnerung ans nächste Bad.",
+    "name": "Chinchilla-Sandbad-Plan"
+  },
+  "chinchilla-cage-size-calculator": {
+    "description": "Berechne Mindestmaße, nutzbare Gesamtgrundfläche, Ebenenanzahl und Gitterabstandssicherheit des Chinchilla-Käfigs für ein oder mehrere Tiere.",
+    "name": "Chinchilla-Käfig-Rechner"
+  },
+  "tortoise-hibernation-planner": {
+    "description": "Plane eine sichere Winterstarre deiner Schildkröte mit artenspezifischer Dauer, Jackson-Ratio-Körperzustandscheck, Zieltemperaturen und vollständigem Zeitplan.",
+    "name": "Schildkröten-Winterstarre-Planer"
+  },
+  "quail-coop-size-calculator": {
+    "description": "Berechne Wachtelstall-Grundfläche, sichere Deckenhöhe, Futter- und Tränkenanzahl sowie das richtige Hahn-zu-Hennen-Verhältnis für Japan-, Virginia- oder Zwergwachteln.",
+    "name": "Wachtelstall-Rechner"
+  }
 }

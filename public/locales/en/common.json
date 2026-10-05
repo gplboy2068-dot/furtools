@@ -1,21 +1,53 @@
 {
   "siteName": "FurTools",
-  "tagline": "Essential Digital Tools for Pet Parents & Veterinarians",
+  "tagline": "Free tools for happy pets",
+  "description": "FurTools is a growing library of free calculators, generators, and guides for dog, cat, and small-pet owners.",
   "nav": {
     "tools": "Tools",
-    "ai": "AI Assistant",
+    "ai": "AI",
     "breeds": "Breeds",
     "foods": "Foods",
-    "names": "Pet Names",
+    "names": "Names",
     "myPets": "My Pets",
     "blog": "Blog",
     "admin": "Admin",
     "dashboard": "Dashboard",
     "about": "About",
     "contact": "Contact",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
+    "privacy": "Privacy",
+    "terms": "Terms",
     "disclaimer": "Disclaimer"
+  },
+  "header": {
+    "searchTools": "Search tools",
+    "login": "Login",
+    "logout": "Logout",
+    "account": "Account",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "explore": "Explore",
+    "categories": "Categories",
+    "legal": "Legal",
+    "home": "Home",
+    "allCategories": "All Categories",
+    "breedDatabase": "Breed Database",
+    "foodSafetyGuide": "Food Safety Guide",
+    "aiAssistants": "AI Pet Assistants",
+    "compareBreeds": "Compare Breeds",
+    "costPlanner": "Pet Cost Planner",
+    "nameFinder": "Pet Name Finder",
+    "careReminders": "Care & Reminders",
+    "blogGuides": "Blog & Guides",
+    "searchTools": "Search Tools",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "disclaimer": "Disclaimer",
+    "madeWith": "Made with ♥ for pets everywhere.",
+    "disclaimerText": "Tools are informational and not a substitute for veterinary advice."
   },
   "actions": {
     "search": "Search tools...",
@@ -34,5 +66,5 @@
     "import": "Import",
     "language": "Language"
   },
-  "rights": "Made with ♥ for pets everywhere. Tools are informational and not a substitute for veterinary advice."
+  "rights": "Made with ♥ for pets everywhere. Tools are informational."
 }

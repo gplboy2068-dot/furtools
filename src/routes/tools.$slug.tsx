@@ -8,6 +8,7 @@ import { breadcrumbSchema, faqSchema, softwareApplicationSchema } from "@/lib/sc
 import { getDirectAnswer, buildEnhancedSoftwareSchema } from "@/lib/geo";
 import { SITE } from "@/lib/site";
 import { toAbsoluteUrl } from "@/lib/seo";
+import { useTranslation } from "react-i18next";
 
 const DEFAULT_FAQS = [
   { q: "Is this tool free?", a: "Yes — every tool on FurTools is free and requires no signup." },
@@ -136,22 +137,27 @@ export const Route = createFileRoute("/tools/$slug")({
 
 function ToolPage() {
   const { tool, category } = Route.useLoaderData();
+  const { t } = useTranslation("tools");
+  const { t: tc } = useTranslation("common");
+  // Translated name/description with English fallback (SEO head stays English canonical)
+  const tName = t(`${tool.slug}.name`, { defaultValue: tool.name });
+  const tDesc = t(`${tool.slug}.description`, { defaultValue: tool.description });
   const ToolComponent = TOOL_COMPONENTS[tool.slug];
   const directAnswer = getDirectAnswer(tool.slug, tool);
 
   return (
     <ToolPageShell
       slug={tool.slug}
-      title={tool.name}
-      description={tool.description}
+      title={tName}
+      description={tDesc}
       directAnswer={directAnswer}
       category={category ? { slug: category.slug, name: category.name } : { slug: "", name: "" }}
       crumbs={[
-        { label: "Categories", to: "/categories" },
+        { label: tc("footer.allCategories"), to: "/categories" },
         ...(category
           ? [{ label: category.name, to: "/categories/$slug", params: { slug: category.slug } }]
           : []),
-        { label: tool.name },
+        { label: tName },
       ]}
       faqs={tool.faqs?.length ? tool.faqs : DEFAULT_FAQS}
       examples={tool.examples}

@@ -105,7 +105,18 @@ export function setWebsiteLanguage(langCode: string) {
   }
   window.history.replaceState({}, '', url.toString());
 
-  // 5. Trigger Google Translate combo box or reload DOM translation
+  // 5. Switch i18next to the native translation (es/de have full locale files).
+  // Google Translate widget remains as fallback for languages without native files.
+  import("./i18n").then((m) => {
+    const i18n = m.default;
+    if (["es", "de"].includes(langCode)) {
+      i18n.changeLanguage(langCode);
+    } else if (i18n.language !== "en") {
+      i18n.changeLanguage("en");
+    }
+  }).catch(() => {});
+
+  // 6. Trigger Google Translate combo box or reload DOM translation
   const selectElem = document.querySelector<HTMLSelectElement>('.goog-te-combo');
   if (selectElem) {
     selectElem.value = targetGoogleCode;

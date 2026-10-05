@@ -1,10 +1,36 @@
 import { Link } from "@tanstack/react-router";
 import { PawPrint } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { SITE } from "@/lib/site";
 import { CATEGORIES } from "@/data/categories";
 import { LanguageSwitcher } from "@/components/language-switcher";
 
 export function SiteFooter() {
+  const { t } = useTranslation("common");
+  const year = new Date().getFullYear();
+
+  const exploreLinks = [
+    { to: "/", key: "footer.home" },
+    { to: "/categories", key: "footer.allCategories" },
+    { to: "/breeds", key: "footer.breedDatabase" },
+    { to: "/foods", key: "footer.foodSafetyGuide" },
+    { to: "/ai", key: "footer.aiAssistants" },
+    { to: "/compare", key: "footer.compareBreeds" },
+    { to: "/cost-planner", key: "footer.costPlanner" },
+    { to: "/names", key: "footer.nameFinder" },
+    { to: "/care", key: "footer.careReminders" },
+    { to: "/blog", key: "footer.blogGuides" },
+    { to: "/search", key: "footer.searchTools" },
+  ] as const;
+
+  const legalLinks = [
+    { to: "/about", key: "footer.about" },
+    { to: "/contact", key: "footer.contact" },
+    { to: "/privacy", key: "footer.privacy" },
+    { to: "/terms", key: "footer.terms" },
+    { to: "/disclaimer", key: "footer.disclaimer" },
+  ] as const;
+
   return (
     <footer className="mt-24 border-t border-border/60 bg-cream">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
@@ -15,54 +41,26 @@ export function SiteFooter() {
             </span>
             <span>{SITE.name}</span>
           </Link>
-          <p className="mt-3 max-w-xs text-sm text-muted-foreground">{SITE.description}</p>
+          <p className="mt-3 max-w-xs text-sm text-muted-foreground">{t("description")}</p>
           <div className="mt-4">
             <LanguageSwitcher variant="select" className="w-full max-w-[200px]" />
           </div>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Explore
+            {t("footer.explore")}
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
-            <li>
-              <Link to="/" className="hover:text-primary">Home</Link>
-            </li>
-            <li>
-              <Link to="/categories" className="hover:text-primary">All Categories</Link>
-            </li>
-            <li>
-              <Link to="/breeds" className="hover:text-primary">Breed Database</Link>
-            </li>
-            <li>
-              <Link to="/foods" className="hover:text-primary">Food Safety Guide</Link>
-            </li>
-            <li>
-              <Link to="/ai" className="hover:text-primary">AI Pet Assistants</Link>
-            </li>
-            <li>
-              <Link to="/compare" className="hover:text-primary">Compare Breeds</Link>
-            </li>
-            <li>
-              <Link to="/cost-planner" className="hover:text-primary">Pet Cost Planner</Link>
-            </li>
-            <li>
-              <Link to="/names" className="hover:text-primary">Pet Name Finder</Link>
-            </li>
-            <li>
-              <Link to="/care" className="hover:text-primary">Care & Reminders</Link>
-            </li>
-            <li>
-              <Link to="/blog" className="hover:text-primary">Blog & Guides</Link>
-            </li>
-            <li>
-              <Link to="/search" className="hover:text-primary">Search Tools</Link>
-            </li>
+            {exploreLinks.map((l) => (
+              <li key={l.to}>
+                <Link to={l.to} className="hover:text-primary">{t(l.key)}</Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Categories
+            {t("footer.categories")}
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
             {CATEGORIES.map((c) => (
@@ -80,33 +78,23 @@ export function SiteFooter() {
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Legal
+            {t("footer.legal")}
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
-            <li>
-              <Link to="/about" className="hover:text-primary">About</Link>
-            </li>
-            <li>
-              <Link to="/contact" className="hover:text-primary">Contact</Link>
-            </li>
-            <li>
-              <Link to="/privacy" className="hover:text-primary">Privacy</Link>
-            </li>
-            <li>
-              <Link to="/terms" className="hover:text-primary">Terms</Link>
-            </li>
-            <li>
-              <Link to="/disclaimer" className="hover:text-primary">Disclaimer</Link>
-            </li>
+            {legalLinks.map((l) => (
+              <li key={l.to}>
+                <Link to={l.to} className="hover:text-primary">{t(l.key)}</Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
       <div className="border-t border-border/60">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6">
-          <p>© {new Date().getFullYear()} {SITE.name}. Made with ♥ for pets everywhere.</p>
+          <p>© {year} {SITE.name}. {t("footer.madeWith")}</p>
           <div className="flex items-center gap-4">
             <LanguageSwitcher variant="compact" />
-            <p>Tools are informational and not a substitute for veterinary advice.</p>
+            <p>{t("footer.disclaimerText")}</p>
           </div>
         </div>
       </div>

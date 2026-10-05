@@ -1,6 +1,7 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { LogIn, LogOut, Menu, PawPrint, Search, User as UserIcon, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
 import { LanguageSwitcher } from "./language-switcher";
@@ -12,17 +13,18 @@ const GlobalSearch = lazy(() =>
   import("./global-search").then((m) => ({ default: m.GlobalSearch }))
 );
 
-const NAV = [
-  { to: "/categories", label: "Tools" },
-  { to: "/ai", label: "AI" },
-  { to: "/breeds", label: "Breeds" },
-  { to: "/foods", label: "Foods" },
-  { to: "/names", label: "Names" },
-  { to: "/dashboard", label: "My Pets" },
-  { to: "/blog", label: "Blog" },
+const NAV_KEYS = [
+  { to: "/categories", key: "nav.tools" },
+  { to: "/ai", key: "nav.ai" },
+  { to: "/breeds", key: "nav.breeds" },
+  { to: "/foods", key: "nav.foods" },
+  { to: "/names", key: "nav.names" },
+  { to: "/dashboard", key: "nav.myPets" },
+  { to: "/blog", key: "nav.blog" },
 ] as const;
 
 export function SiteHeader() {
+  const { t } = useTranslation("common");
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeUser, setActiveUser] = useState<ActiveUser | null>(null);
@@ -67,7 +69,7 @@ export function SiteHeader() {
             <span>{SITE.name}</span>
           </Link>
           <nav className="ml-4 hidden items-center gap-1 md:flex" aria-label="Primary">
-            {NAV.map((n) => (
+            {NAV_KEYS.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
@@ -75,7 +77,7 @@ export function SiteHeader() {
                 activeProps={{ className: "text-foreground bg-accent" }}
                 activeOptions={{ exact: false }}
               >
-                {n.label}
+                {t(n.key)}
               </Link>
             ))}
           </nav>
@@ -84,7 +86,7 @@ export function SiteHeader() {
               variant="ghost"
               size="icon"
               className="rounded-full"
-              aria-label="Search tools"
+              aria-label={t("header.searchTools")}
               onClick={() => setSearchOpen(true)}
             >
               <Search className="size-5" />
@@ -101,19 +103,19 @@ export function SiteHeader() {
                     ) : (
                       <UserIcon className="size-4" />
                     )}
-                    <span className="max-w-[100px] truncate">{activeUser.name || "Account"}</span>
+                    <span className="max-w-[100px] truncate">{activeUser.name || t("header.account")}</span>
                   </Link>
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleLogout} className="rounded-full gap-1 text-xs">
                   <LogOut className="size-3.5" />
-                  <span>Logout</span>
+                  <span>{t("header.logout")}</span>
                 </Button>
               </div>
             ) : (
               <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex rounded-full gap-1.5 font-medium">
                 <Link to="/auth">
                   <LogIn className="size-4" />
-                  <span>Login</span>
+                  <span>{t("header.login")}</span>
                 </Link>
               </Button>
             )}
@@ -122,7 +124,7 @@ export function SiteHeader() {
               variant="ghost"
               size="icon"
               className="rounded-full md:hidden"
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t("header.closeMenu") : t("header.openMenu")}
               onClick={() => setOpen((s) => !s)}
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -136,7 +138,7 @@ export function SiteHeader() {
             onClick={() => setOpen(false)}
           >
             <ul className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
-              {NAV.map((n) => (
+              {NAV_KEYS.map((n) => (
                 <li key={n.to}>
                   <Link
                     to={n.to}
@@ -144,7 +146,7 @@ export function SiteHeader() {
                     activeProps={{ className: "bg-accent" }}
                     activeOptions={{ exact: false }}
                   >
-                    {n.label}
+                    {t(n.key)}
                   </Link>
                 </li>
               ))}
@@ -163,7 +165,7 @@ export function SiteHeader() {
                       className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-destructive hover:bg-accent"
                     >
                       <LogOut className="size-4" />
-                      <span>Logout</span>
+                      <span>{t("header.logout")}</span>
                     </button>
                   </div>
                 ) : (
@@ -172,7 +174,7 @@ export function SiteHeader() {
                     className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-primary hover:bg-accent"
                   >
                     <LogIn className="size-4" />
-                    <span>Login</span>
+                    <span>{t("header.login")}</span>
                   </Link>
                 )}
               </li>

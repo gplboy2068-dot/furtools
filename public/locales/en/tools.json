@@ -1,10 +1,934 @@
 {
-  "ageCalculatorTitle": "Pet Age Calculator",
-  "ageCalculatorDesc": "Convert human years to accurate dog and cat age equivalency.",
-  "foodCalculatorTitle": "Pet Food Portion Calculator",
-  "foodCalculatorDesc": "Calculate exact daily calories and portion sizes based on weight and activity.",
-  "nameGeneratorTitle": "AI Pet Name Generator",
-  "nameGeneratorDesc": "Generate cute and unique pet names based on breed, color, and personality.",
-  "calculateBtn": "Calculate Now",
-  "results": "Calculation Results"
+  "dog-age-calculator": {
+    "name": "Dog Age Calculator",
+    "description": "Estimate your dog's age in human years using a modern size-aware formula backed by veterinary research."
+  },
+  "dog-food-calculator": {
+    "name": "Dog Food Portion Calculator",
+    "description": "Calculate the recommended daily calories and food portions for your dog based on weight, activity, and life stage."
+  },
+  "dog-water-calculator": {
+    "name": "Dog Water Intake Calculator",
+    "description": "Estimate your dog's daily water requirements based on weight, activity level, and climate."
+  },
+  "dog-calorie-calculator": {
+    "name": "Dog Calorie Calculator",
+    "description": "Get your dog's daily calorie need with a clean, single-number result — great for portion planning across brands."
+  },
+  "dog-bmi-calculator": {
+    "name": "Dog BMI & Body Condition Calculator",
+    "description": "Estimate your dog's body condition score using weight, breed size, and physical checks like rib feel and waist visibility."
+  },
+  "dog-weight-calculator": {
+    "name": "Dog Ideal Weight Calculator",
+    "description": "Find a ballpark healthy weight range for your dog based on breed size category — a starting point, not a diagnosis."
+  },
+  "dog-pregnancy-calculator": {
+    "name": "Dog Pregnancy Due Date Calculator",
+    "description": "Estimate your dog's due date and weekly milestones from the breeding date. Dog gestation averages 63 days."
+  },
+  "dog-vaccination-schedule": {
+    "name": "Dog Vaccination Schedule",
+    "description": "Get a printable vaccine timeline for your dog — core and non-core vaccines from puppyhood through adulthood."
+  },
+  "dog-walking-calculator": {
+    "name": "Dog Walking Calculator",
+    "description": "Estimate the ideal daily walking time for your dog based on breed size, age, and energy level."
+  },
+  "dog-cost-calculator": {
+    "name": "Dog Cost Calculator",
+    "description": "Get a realistic annual and lifetime cost estimate for your dog — food, vet, insurance, grooming, and one-time costs."
+  },
+  "dog-name-generator": {
+    "name": "Dog Name Generator",
+    "description": "Generate cute, classic, food-inspired, or creative names for your new dog. Filter by vibe, letter, and length."
+  },
+  "puppy-growth-calculator": {
+    "name": "Puppy Growth Calculator",
+    "description": "Estimate your puppy's adult weight based on their current weight, age, and breed size category."
+  },
+  "dog-size-predictor": {
+    "name": "Dog Size Predictor",
+    "description": "Accurately predict your puppy's full-grown adult weight, wither height, growth chart curve, and skeletal maturity milestones using veterinary pediatric allometric models."
+  },
+  "dog-life-expectancy-calculator": {
+    "name": "Dog Life Expectancy Calculator",
+    "description": "Get a lifespan estimate for your dog based on breed size and health factors — a gentle way to plan and prioritize good years."
+  },
+  "dog-treat-calorie-calculator": {
+    "name": "Dog Treat Calorie Calculator",
+    "description": "Vets recommend keeping treats under 10% of daily calories. Enter your dog's meal size and treat kcal to see your safe daily budget."
+  },
+  "dog-grooming-schedule": {
+    "name": "Dog Grooming Schedule Generator",
+    "description": "Get a bathing, brushing, nail-trim, and ear-cleaning schedule tailored to your dog's coat type and lifestyle."
+  },
+  "dog-heat-cycle-tracker": {
+    "name": "Dog Heat Cycle Tracker",
+    "description": "Track your intact female dog's estrus cycle and predict her next heat. Cycles typically repeat every 6 months."
+  },
+  "dog-exercise-calculator": {
+    "name": "Dog Exercise Calculator",
+    "description": "Calculate total daily exercise minutes — including play, training, and walks — for your dog's age and energy level."
+  },
+  "dog-exercise-needs-calculator": {
+    "name": "Dog Exercise Needs Calculator",
+    "description": "Calculate exact daily exercise minutes, walk durations, and cognitive enrichment requirements based on your dog's breed group, age, and energy tier."
+  },
+  "dog-lifespan-calculator": {
+    "name": "Dog Lifespan Calculator",
+    "description": "Forecast your dog's life expectancy based on adult weight somatotype, sterilization, body condition score, and preventative healthcare compliance."
+  },
+  "dog-bath-frequency-calculator": {
+    "name": "Dog Bath Frequency Calculator",
+    "description": "Determine the ideal bathing frequency for your dog based on coat fiber density, outdoor lifestyle, swimming habits, and dermatological skin barrier health."
+  },
+  "dog-adoption-checklist": {
+    "name": "Dog Adoption Checklist",
+    "description": "A printable checklist of everything a new dog owner should have — supplies, prep, first-day plan, and vet visits."
+  },
+  "cat-age-calculator": {
+    "name": "Cat Age Calculator",
+    "description": "Find out your cat's age in human years using the standard feline life-stage conversion."
+  },
+  "cat-food-calculator": {
+    "name": "Cat Food Portion Calculator",
+    "description": "Calculate your cat's daily calories and food portions based on weight, life stage, and activity."
+  },
+  "cat-water-calculator": {
+    "name": "Cat Water Intake Calculator",
+    "description": "Cats need about 4 oz of water per 5 lb of body weight per day. Get the exact number for your cat."
+  },
+  "cat-calorie-calculator": {
+    "name": "Cat Calorie Calculator",
+    "description": "Get a single, clear daily calorie number for your cat — perfect for comparing food brands."
+  },
+  "cat-bmi-calculator": {
+    "name": "Cat BMI & Body Condition Calculator",
+    "description": "Assess your cat's body condition using the standard 9-point score — combines weight and physical checks."
+  },
+  "cat-weight-calculator": {
+    "name": "Cat Ideal Weight Calculator",
+    "description": "Find a healthy weight range for your cat based on breed and frame size."
+  },
+  "cat-pregnancy-calculator": {
+    "name": "Cat Pregnancy Due Date Calculator",
+    "description": "Estimate your cat's due date and weekly milestones from the mating date. Feline gestation averages 65 days."
+  },
+  "cat-vaccination-schedule": {
+    "name": "Cat Vaccination Schedule",
+    "description": "Get a vaccine timeline for your cat — core FVRCP and rabies vaccines from kittenhood through adulthood."
+  },
+  "cat-name-generator": {
+    "name": "Cat Name Generator",
+    "description": "Generate elegant, mischievous, mythological, and food-inspired names for your kitten or adopted cat."
+  },
+  "kitten-growth-calculator": {
+    "name": "Kitten Growth Calculator",
+    "description": "Estimate your kitten's adult weight based on current age and weight. Kittens grow roughly 1 lb per month for their first six months."
+  },
+  "cat-cost-calculator": {
+    "name": "Cat Cost Calculator",
+    "description": "Estimate your cat's true annual and lifetime cost — food, litter, vet, insurance, and one-time setup costs."
+  },
+  "cat-life-expectancy-calculator": {
+    "name": "Cat Life Expectancy Calculator",
+    "description": "Get a lifespan estimate for your cat based on indoor/outdoor status, breed, and general health."
+  },
+  "cat-litter-calculator": {
+    "name": "Cat Litter Calculator",
+    "description": "Estimate monthly litter use and cost based on cat count and litter type."
+  },
+  "cat-treat-calorie-calculator": {
+    "name": "Cat Treat Calorie Calculator",
+    "description": "Calculate your cat's safe daily treat budget so you don't accidentally cause weight gain."
+  },
+  "cat-grooming-schedule": {
+    "name": "Cat Grooming Schedule Generator",
+    "description": "A tailored grooming schedule for your cat — brushing, nail trims, dental care, and bathing (rarely)."
+  },
+  "cat-play-time-calculator": {
+    "name": "Cat Play Time Calculator",
+    "description": "Cats need structured play to stay lean and content. Get a daily play-time recommendation by age and energy."
+  },
+  "pet-name-generator": {
+    "name": "Pet Name Generator",
+    "description": "A universal name generator that works for dogs, cats, rabbits, birds, and any small companion."
+  },
+  "pet-cost-calculator": {
+    "name": "Pet Cost Calculator",
+    "description": "A universal annual cost estimator for dogs, cats, rabbits, and small pets."
+  },
+  "pet-expense-tracker": {
+    "name": "Pet Expense Tracker",
+    "description": "Log real pet expenses over time and see monthly totals. Data stays in your browser."
+  },
+  "pet-feeding-planner": {
+    "name": "Pet Feeding Planner",
+    "description": "Generate a printable daily feeding schedule with meal times and portions for your pet."
+  },
+  "pet-medication-calculator": {
+    "name": "Pet Medication Dose Calculator",
+    "description": "Convert vet-prescribed mg/kg doses into total milligrams for your pet's weight. Always confirm with your vet."
+  },
+  "pet-insurance-calculator": {
+    "name": "Pet Insurance Calculator",
+    "description": "Compare expected annual insurance premiums vs. self-insured savings to decide if a policy makes sense for your pet."
+  },
+  "pet-adoption-checklist": {
+    "name": "Pet Adoption Checklist",
+    "description": "A universal pre-adoption checklist covering supplies, prep, first days, and vet care — for any pet."
+  },
+  "pet-emergency-kit": {
+    "name": "Pet Emergency Kit Checklist",
+    "description": "A curated pet first-aid and disaster prep checklist — the items every household with pets should keep on hand."
+  },
+  "pet-qr-tag-generator": {
+    "name": "Smart Collar QR Code & Lost Pet Tag Generator",
+    "description": "Design a customizable smart collar tag and lost pet flyer with embedded QR code. When scanned, finders can instantly call, WhatsApp, or send their exact GPS location with critical medical alerts."
+  },
+  "pet-care-planner": {
+    "name": "Pet Care Weekly Planner",
+    "description": "Build a weekly plan of pet care tasks — feeding, walks, grooming, training, and cleaning — so nothing slips."
+  },
+  "pet-bmi-calculator": {
+    "name": "Universal Pet BMI Calculator",
+    "description": "A universal body condition tool that works for both dogs and cats. Get a BCS estimate and next-step guidance."
+  },
+  "pet-birthday-age-calculator": {
+    "name": "Pet Birthday Age Calculator",
+    "description": "Enter your pet's birthday and see their exact age in years, months, and days — plus their next birthday countdown."
+  },
+  "pet-travel-checklist": {
+    "name": "Pet Travel Checklist",
+    "description": "A tailored checklist for road trips, flights, and boarding — including documents, supplies, and comfort items."
+  },
+  "pet-sitter-rate-calculator": {
+    "name": "Pet Sitter Rate Calculator",
+    "description": "Calculate a fair rate to pay your pet sitter based on visit type, number of pets, and local going rate."
+  },
+  "pet-boarding-cost-estimator": {
+    "name": "Pet Boarding Cost Estimator",
+    "description": "Estimate total boarding cost based on your trip length, pet count, and boarding tier."
+  },
+  "multi-pet-cost-calculator": {
+    "name": "Multi-Pet Household Cost Calculator",
+    "description": "Estimate the true cost of a multi-pet household — dogs, cats, and small pets combined."
+  },
+  "pet-vaccine-reminder": {
+    "name": "Pet Vaccine Reminder",
+    "description": "Enter your pet's last vaccine dates and see exactly when the next boosters are due."
+  },
+  "bird-cage-size-calculator": {
+    "name": "Bird Cage Size Calculator",
+    "description": "Find the minimum recommended cage dimensions for parrots, cockatiels, budgies, and finches."
+  },
+  "bird-food-calculator": {
+    "name": "Bird Daily Food Calculator",
+    "description": "Daily pellet, seed, and fresh-food targets for pet birds by species and weight."
+  },
+  "bird-seed-portion-calculator": {
+    "name": "Bird Seed Portion Calculator",
+    "description": "Calculate safe daily seed portions, pellet ratios, and fresh chop amounts based on bird species weight to prevent fatty liver disease."
+  },
+  "bird-lifespan-estimator": {
+    "name": "Bird Lifespan Estimator",
+    "description": "Typical lifespan range for popular pet bird species — a planning tool for long-lived companions."
+  },
+  "bird-name-generator": {
+    "name": "Bird Name Generator",
+    "description": "Generate fun, elegant, or classic names for pet birds — filter by vibe."
+  },
+  "bird-wing-clip-guide": {
+    "name": "Bird Wing Clip Guide",
+    "description": "Interactive guide to wing clipping — pros, cons, techniques, and when to consult a vet."
+  },
+  "aquarium-volume-calculator": {
+    "name": "Aquarium Volume Calculator",
+    "description": "Calculate the true water volume of any rectangular, bowfront, or cylinder aquarium."
+  },
+  "aquarium-filter-flow-rate": {
+    "name": "Aquarium Filter Flow Rate Calculator",
+    "description": "Determine exact aquarium filter flow rate (GPH and LPH) and turnover multipliers adjusted for biological waste, canister head loss, and species swim dynamics."
+  },
+  "fish-stocking-calculator": {
+    "name": "Fish Stocking Calculator",
+    "description": "Estimate a safe stocking level using the modern bioload approach — not just inches-per-gallon."
+  },
+  "tank-cycling-tracker": {
+    "name": "Aquarium Cycling Tracker",
+    "description": "Log ammonia, nitrite, and nitrate readings to see whether your new tank is cycled."
+  },
+  "water-change-scheduler": {
+    "name": "Aquarium Water Change Scheduler",
+    "description": "Get a personalized water-change plan based on tank size, stocking, and plant load."
+  },
+  "fish-food-calculator": {
+    "name": "Fish Feeding Calculator",
+    "description": "Portion calculator for community, cichlid, and goldfish tanks — avoid overfeeding."
+  },
+  "aquarium-heater-wattage-calculator": {
+    "name": "Aquarium Heater Wattage Calculator",
+    "description": "Recommend heater wattage based on tank volume and desired temperature rise above room."
+  },
+  "aquarium-lighting-calculator": {
+    "name": "Aquarium Lighting Calculator",
+    "description": "Estimate needed lighting intensity based on tank depth and plant demand (low, medium, high-light)."
+  },
+  "fish-tank-cost-calculator": {
+    "name": "Aquarium Startup Cost Calculator",
+    "description": "Estimate the true startup cost: tank, filter, heater, light, substrate, decor, water tests, and first fish."
+  },
+  "fish-name-generator": {
+    "name": "Fish Name Generator",
+    "description": "Cute, funny, or elegant names for your new aquatic pet."
+  },
+  "rabbit-hay-calculator": {
+    "name": "Rabbit Hay Calculator",
+    "description": "How much hay your rabbit needs each day — the #1 factor in rabbit gut health."
+  },
+  "rabbit-hay-portion-calculator": {
+    "name": "Rabbit Hay Portion Calculator",
+    "description": "Calculate daily fibrous hay portions, body-size pile volume, and grass hay varieties to ensure healthy gut motility and prevent GI stasis in rabbits."
+  },
+  "rabbit-cage-size-calculator": {
+    "name": "Rabbit Cage Size Calculator",
+    "description": "Minimum recommended pen and cage sizes for one or more rabbits."
+  },
+  "rabbit-food-calculator": {
+    "name": "Rabbit Pellet Calculator",
+    "description": "Calculate a rabbit's daily pellet portion — usually 1/4 cup per 5 lb, alongside unlimited hay."
+  },
+  "rabbit-age-calculator": {
+    "name": "Rabbit Age Calculator",
+    "description": "Convert your rabbit's age to human years using life-stage-adjusted rates."
+  },
+  "rabbit-name-generator": {
+    "name": "Rabbit Name Generator",
+    "description": "Curated rabbit name ideas — cute, cozy, mythology, and food-inspired."
+  },
+  "hamster-cage-size-calculator": {
+    "name": "Hamster Cage Size Calculator",
+    "description": "Minimum recommended cage floor area for Syrian, dwarf, and Roborovski hamsters (450 sq in modern standard)."
+  },
+  "hamster-food-calculator": {
+    "name": "Hamster Food Calculator",
+    "description": "Daily food portions for Syrian and dwarf hamsters using body-weight targets."
+  },
+  "guinea-pig-vitamin-c-calculator": {
+    "name": "Guinea Pig Vitamin C Calculator",
+    "description": "Guinea pigs can't make vitamin C — calculate their daily need and best food sources."
+  },
+  "small-pet-name-generator": {
+    "name": "Small Pet Name Generator",
+    "description": "Fun, quirky names perfect for hamsters, ferrets, gerbils, and other small pets."
+  },
+  "hamster-lifespan-estimator": {
+    "name": "Hamster Lifespan Estimator",
+    "description": "Typical lifespan ranges for Syrian, dwarf, and Roborovski hamsters."
+  },
+  "reptile-enclosure-size-calculator": {
+    "name": "Reptile Enclosure Size Calculator",
+    "description": "Minimum enclosure dimensions for popular pet reptiles — bearded dragon, leopard gecko, ball python, and more."
+  },
+  "reptile-uvb-distance-guide": {
+    "name": "Reptile UVB Distance Guide",
+    "description": "How far the UVB bulb should sit from your reptile's basking spot — critical for calcium metabolism."
+  },
+  "reptile-feeder-size-calculator": {
+    "name": "Reptile Feeder Size Calculator",
+    "description": "Correct feeder insect or rodent size for your reptile — under-sized wastes energy, over-sized risks impaction."
+  },
+  "snake-feeding-schedule": {
+    "name": "Snake Feeding Schedule",
+    "description": "Personalized feeding schedule for common pet snakes — ball python, corn snake, king snake, boa."
+  },
+  "turtle-tank-calculator": {
+    "name": "Turtle Tank Size Calculator",
+    "description": "Correct tank size for aquatic turtles — the classic 10-gallons-per-inch rule with real minimums."
+  },
+  "reptile-name-generator": {
+    "name": "Reptile Name Generator",
+    "description": "Curated name ideas for snakes, lizards, geckos, and turtles."
+  },
+  "horse-feed-calculator": {
+    "name": "Horse Feed Calculator",
+    "description": "Calculate a horse's daily forage and concentrate needs based on weight and workload."
+  },
+  "horse-water-intake-calculator": {
+    "name": "Horse Water Intake Calculator",
+    "description": "Estimate a horse's daily water requirement based on weight, work, temperature, and diet."
+  },
+  "horse-age-calculator": {
+    "name": "Horse Age Calculator",
+    "description": "Convert a horse's age to human years using standard equine aging curves."
+  },
+  "horse-body-condition-score": {
+    "name": "Horse Body Condition Score",
+    "description": "Score your horse using the standard Henneke Body Condition Score (BCS 1–9)."
+  },
+  "horse-name-generator": {
+    "name": "Horse Name Generator",
+    "description": "Barn and show name generator — from classic to mythology to nature-inspired."
+  },
+  "chicken-coop-size-calculator": {
+    "name": "Chicken Coop Size Calculator",
+    "description": "How much coop space and run area your flock needs — standard, bantam, or heavy breeds."
+  },
+  "chicken-egg-production-tracker": {
+    "name": "Chicken Egg Production Tracker",
+    "description": "Estimate weekly egg output from your flock based on breed, age, and season."
+  },
+  "goat-feed-calculator": {
+    "name": "Goat Feed Calculator",
+    "description": "Daily feed portions for dairy and meat goats based on weight and production stage."
+  },
+  "duck-pond-size-calculator": {
+    "name": "Duck Pond Size Calculator",
+    "description": "Recommended water and land space for backyard ducks — pond, kiddie pool, or nipple waterers."
+  },
+  "dog-chocolate-toxicity-calculator": {
+    "name": "Dog Chocolate Toxicity Calculator",
+    "description": "Assess the risk if your dog ate chocolate — based on chocolate type, amount, and your dog's weight."
+  },
+  "dog-benadryl-dose-calculator": {
+    "name": "Dog Benadryl Dose Calculator",
+    "description": "Standard vet-recommended Benadryl (diphenhydramine) dosage for dogs — always confirm with your vet first."
+  },
+  "canine-fluid-therapy-calculator": {
+    "name": "Canine Dehydration & Fluid Therapy Calculator",
+    "description": "Clinical fluid therapy calculator for dogs recovering from surgery or illness. Calculates dehydration deficit, daily maintenance, ongoing losses, pump hourly infusion rate, and gravity drip speeds."
+  },
+  "cat-litter-box-count-calculator": {
+    "name": "Cat Litter Box Count Calculator",
+    "description": "The classic rule is 1 box per cat + 1 spare — spread across floors and quiet areas."
+  },
+  "pet-microchip-checklist": {
+    "name": "Pet Microchip Registration Checklist",
+    "description": "Interactive checklist to verify your pet's microchip is registered and current — the #1 reason lost pets don't get home."
+  },
+  "pet-loss-memorial-generator": {
+    "name": "Pet Memorial Generator",
+    "description": "Create a shareable memorial paragraph for a pet you've lost — customized to their name, years, and best qualities."
+  },
+  "pet-carbon-pawprint-calculator": {
+    "name": "Pet Carbon Pawprint Calculator",
+    "description": "Estimate your pet's yearly CO2e footprint from food, litter, and packaging — with tips to reduce it."
+  },
+  "dog-poop-bag-calculator": {
+    "name": "Dog Poop Bag Calculator",
+    "description": "Estimate how many poop bags your household needs each month based on number of dogs and daily habits."
+  },
+  "dog-crate-size-calculator": {
+    "name": "Dog Crate Size Calculator",
+    "description": "Get the recommended crate dimensions for every adult dog size — with a divider strategy for puppies."
+  },
+  "dog-collar-size-calculator": {
+    "name": "Dog Collar Size Calculator",
+    "description": "Enter your dog's neck circumference and get an adjustable collar range that meets the two-finger rule."
+  },
+  "dog-ear-cleaning-schedule": {
+    "name": "Dog Ear Cleaning Schedule",
+    "description": "Get the right ear cleaning cadence based on ear type — floppy, erect, water-loving, or infection-prone."
+  },
+  "dog-dental-care-schedule": {
+    "name": "Dog Dental Care Schedule",
+    "description": "Life-stage dental home-care routine — brushing frequency, chew type, and when to schedule vet dentals."
+  },
+  "cat-hairball-risk-calculator": {
+    "name": "Cat Hairball Risk Calculator",
+    "description": "Estimate hairball risk from coat length and grooming frequency — with targeted prevention tips."
+  },
+  "cat-scratching-post-selector": {
+    "name": "Cat Scratching Post Selector",
+    "description": "Find the right post height and material so your cat scratches the post — not your sofa."
+  },
+  "cat-carrier-size-calculator": {
+    "name": "Cat Carrier Size Calculator",
+    "description": "Enter your cat's measurements to get the right carrier size for stress-free travel and vet visits."
+  },
+  "cat-catio-size-calculator": {
+    "name": "Catio Size Calculator",
+    "description": "Size your outdoor catio based on how many cats you have — with vertical and enrichment tips."
+  },
+  "bird-bath-frequency-guide": {
+    "name": "Bird Bathing Frequency Guide",
+    "description": "Species-specific bathing schedule so your bird's feathers stay clean and preened."
+  },
+  "bird-flight-space-calculator": {
+    "name": "Bird Flight Space Calculator",
+    "description": "Minimum flight-room dimensions per species — because a cage is not a substitute for flight."
+  },
+  "bird-toy-rotation-planner": {
+    "name": "Bird Toy Rotation Planner",
+    "description": "Optimize how many toys to display and how often to rotate to keep your parrot mentally engaged."
+  },
+  "fish-quarantine-timer": {
+    "name": "Fish Quarantine Timer",
+    "description": "Recommended quarantine duration for new fish based on source and disease risk."
+  },
+  "aquarium-plant-count-calculator": {
+    "name": "Aquarium Plant Count Calculator",
+    "description": "How many stem, carpet, and background plants to buy for your tank size — plus a focal-point suggestion."
+  },
+  "aquarium-substrate-calculator": {
+    "name": "Aquarium Substrate Calculator",
+    "description": "Calculate the weight of gravel or aquasoil to fill your tank to the target depth."
+  },
+  "aquarium-co2-calculator": {
+    "name": "Aquarium CO2 Calculator",
+    "description": "Starting CO2 bubble-rate for injected planted tanks — with drop-checker and photoperiod tips."
+  },
+  "hamster-wheel-size-calculator": {
+    "name": "Hamster Wheel Size Calculator",
+    "description": "Correct wheel size by hamster species so your pet's spine stays straight while running."
+  },
+  "ferret-cage-size-calculator": {
+    "name": "Ferret Cage Size Calculator",
+    "description": "Cage volume for one or more ferrets — plus enrichment and daily out-time recommendations."
+  },
+  "guinea-pig-cage-size-calculator": {
+    "name": "Guinea Pig Cage Size Calculator",
+    "description": "Correct floor space by number of guinea pigs — sized to modern welfare standards."
+  },
+  "rabbit-litter-training-guide": {
+    "name": "Rabbit Litter Training Guide",
+    "description": "Life-stage guidance on how quickly rabbits can be litter-trained and what setup works best."
+  },
+  "reptile-humidity-guide": {
+    "name": "Reptile Humidity Guide",
+    "description": "Target humidity ranges for popular reptiles with practical tips to raise or lower moisture."
+  },
+  "reptile-basking-temp-guide": {
+    "name": "Reptile Basking Temperature Guide",
+    "description": "Basking surface temperatures for common reptiles — measured with an IR gun, not air temp."
+  },
+  "bearded-dragon-food-calculator": {
+    "name": "Bearded Dragon Food Calculator",
+    "description": "Diet ratio and feeding frequency for bearded dragons at every life stage."
+  },
+  "horse-blanket-size-calculator": {
+    "name": "Horse Blanket Size Calculator",
+    "description": "Get the correct horse blanket size using two body measurements and a rounding rule."
+  },
+  "horse-stall-size-calculator": {
+    "name": "Horse Stall Size Calculator",
+    "description": "Recommended stall dimensions from ponies to draft horses — plus foaling stall guidance."
+  },
+  "horse-hoof-trimming-schedule": {
+    "name": "Horse Hoof Trimming Schedule",
+    "description": "Recommended farrier intervals based on your horse's workload and shoeing status."
+  },
+  "chicken-feed-calculator": {
+    "name": "Chicken Feed Calculator",
+    "description": "Calculate daily and monthly feed for your flock by life stage — chick, pullet, layer, or meat bird."
+  },
+  "goat-water-calculator": {
+    "name": "Goat Water Calculator",
+    "description": "Daily water needs for your goat herd based on climate and count."
+  },
+  "sheep-feed-calculator": {
+    "name": "Sheep Feed Calculator",
+    "description": "Daily dry-matter requirements for your sheep flock by stage — maintenance, growing, or lactating."
+  },
+  "duck-feed-calculator": {
+    "name": "Duck Feed Calculator",
+    "description": "Daily feed weight for ducklings, growers, layers, and meat ducks — with niacin reminder."
+  },
+  "pet-hydration-calculator": {
+    "name": "Universal Pet Hydration Calculator",
+    "description": "Species-specific daily water target for dogs, cats, rabbits, guinea pigs, birds, and ferrets."
+  },
+  "training-treat-planner": {
+    "name": "Training Treat Planner",
+    "description": "Calculate the maximum calories your pet can safely eat as training treats each day."
+  },
+  "dog-swim-time-calculator": {
+    "name": "Dog Swim Time Calculator",
+    "description": "Estimate a safe starting swim duration for your dog based on weight and fitness level."
+  },
+  "dog-car-travel-planner": {
+    "name": "Dog Car Travel Planner",
+    "description": "Plan potty breaks, water, and safety essentials for a long car trip with your dog."
+  },
+  "dog-park-visit-tracker": {
+    "name": "Dog Park Visit Tracker",
+    "description": "Track weekly off-leash socialization time for your dog."
+  },
+  "dog-crate-training-schedule": {
+    "name": "Dog Crate Training Schedule",
+    "description": "Safe maximum crate time based on your puppy's age."
+  },
+  "cat-window-perch-guide": {
+    "name": "Cat Window Perch Guide",
+    "description": "Recommended number of window perches based on household cat count."
+  },
+  "cat-weight-loss-planner": {
+    "name": "Cat Weight Loss Planner",
+    "description": "Estimate a vet-safe timeline for your cat to reach its target weight."
+  },
+  "cat-age-adjusted-feeding": {
+    "name": "Cat Age-Adjusted Feeding Calculator",
+    "description": "Daily calorie needs adjusted for kitten, adult, or senior life stage."
+  },
+  "bird-molting-tracker": {
+    "name": "Bird Molting Tracker",
+    "description": "Estimate when your bird's molt will finish based on the start date."
+  },
+  "bird-sleep-schedule": {
+    "name": "Bird Sleep Schedule Calculator",
+    "description": "Species-specific nightly sleep requirements for pet birds."
+  },
+  "bird-sleep-schedule-calculator": {
+    "name": "Bird Sleep Schedule Calculator",
+    "description": "Determine exact bedtime, wake time, and required continuous dark hours for parrots, cockatiels, and pet birds to regulate circadian hormones."
+  },
+  "aquarium-nitrate-calculator": {
+    "name": "Aquarium Nitrate Calculator",
+    "description": "Calculate the water-change percentage needed to bring nitrate to a safe level."
+  },
+  "fish-medication-dose": {
+    "name": "Fish Medication Dose Calculator",
+    "description": "Total milligrams of medication needed for your tank based on dose per gallon."
+  },
+  "rabbit-pellet-calculator": {
+    "name": "Rabbit Pellet Calculator",
+    "description": "Daily pellet portion for adult rabbits based on body weight."
+  },
+  "rabbit-weight-tracker": {
+    "name": "Rabbit Weight Tracker",
+    "description": "Track your rabbit's weight change between weigh-ins to catch GI stasis early."
+  },
+  "guinea-pig-food-calculator": {
+    "name": "Guinea Pig Food Calculator",
+    "description": "Daily hay, pellet, and vegetable portions for your guinea pig household."
+  },
+  "reptile-shedding-tracker": {
+    "name": "Reptile Shedding Tracker",
+    "description": "Predict your reptile's next shed based on species-specific cycles."
+  },
+  "snake-tank-size-calculator": {
+    "name": "Snake Tank Size Calculator",
+    "description": "Minimum floor space based on your snake's total body length."
+  },
+  "horse-supplement-cost": {
+    "name": "Horse Supplement Cost Calculator",
+    "description": "Project the monthly and yearly cost of daily equine supplements."
+  },
+  "chicken-nesting-box-count": {
+    "name": "Chicken Nesting Box Count Calculator",
+    "description": "Number of nesting boxes needed for your laying flock."
+  },
+  "pet-vet-visit-cost-estimator": {
+    "name": "Pet Vet Visit Cost Estimator",
+    "description": "Typical price ranges for wellness, sick, dental, and emergency vet visits in the US."
+  },
+  "pet-grooming-cost-estimator": {
+    "name": "Pet Grooming Cost Estimator",
+    "description": "Project your annual professional grooming cost by service and frequency."
+  },
+  "pet-symptom-checker": {
+    "name": "Pet Symptom Checker Wizard",
+    "description": "A guided symptom checker that maps your pet's symptoms to possible causes and urgency level. Educational triage tool — never a diagnosis. Covers dogs, cats, rabbits, birds and reptiles across 15 common symptoms."
+  },
+  "pet-pill-identifier": {
+    "name": "Pill Identifier for Pets",
+    "description": "Search 21+ common veterinary medications by brand name, generic, shape or use case. Includes species suitability, typical appearance, and critical handling notes so you can confirm a pill before you administer it."
+  },
+  "pet-poison-lookup": {
+    "name": "Pet Poison Lookup Database",
+    "description": "Instantly check whether a food, plant, medication or household chemical is safe or toxic to dogs and cats. Includes severity, symptoms, and what to do next — plus 24/7 poison-hotline numbers."
+  },
+  "pet-vaccine-schedule-generator": {
+    "name": "Pet Vaccine Schedule Generator",
+    "description": "Generate a personalized vaccine schedule for your dog, cat, rabbit or ferret based on age. Shows core vs optional vaccines, ideal timing, and the next dose due — following AAHA/AAFP guidelines."
+  },
+  "emergency-vet-finder": {
+    "name": "Emergency Vet Finder",
+    "description": "Instantly find 24-hour emergency veterinary clinics near your current location or ZIP code, with one-tap access to poison-control hotlines. Works globally via Google Maps and Apple Maps."
+  },
+  "local-vet-finder": {
+    "name": "Local Vet & Pet Hospital Finder",
+    "description": "Search city and ZIP-code based veterinary clinics, low-cost wellness providers, exotic animal specialists, and 24/7 animal trauma hospitals with ratings, real-time distance sorting, and 1-tap call/directions."
+  },
+  "pet-blood-test-explainer": {
+    "name": "Pet Blood Test Result Explainer",
+    "description": "Enter your dog or cat's CBC and chemistry results and get plain-language explanations of any abnormal values. Covers 12 key parameters with dog/cat reference ranges and common causes of high or low results."
+  },
+  "pet-personality-quiz": {
+    "name": "Pet Personality Quiz",
+    "description": "Answer 10 quick questions about how your dog or cat behaves at home, at play, and around new people. We match the pattern of answers to one of five personality archetypes — Adventurer, Companion, Free Spirit, Entertainer, or Zen Master — with practical training and enrichment tips for each type."
+  },
+  "which-breed-suits-me": {
+    "name": "Which Breed Suits Me? Quiz",
+    "description": "Tell us your activity level, home size, grooming tolerance, and household setup — we score 13+ popular dog and cat breeds against your profile and return the five most likely to fit. A starting point before you meet individual animals at a shelter or breeder."
+  },
+  "pet-compatibility-test": {
+    "name": "Pet Compatibility Test",
+    "description": "Enter the species, age, temperament, sex, and neuter status of both pets and get a 0–100 compatibility score with a clear recommendation. Helpful when you're thinking about adding a second pet or introducing rescues to a resident animal."
+  },
+  "human-to-pet-age": {
+    "name": "Human Age → Pet Age (Reverse)",
+    "description": "Enter your human age and we run the standard pet-aging table in reverse to tell you how old you'd be as a small, medium, or large dog — or as a cat. A fun social-share tool built on the same veterinary-approved curves used in our forward age calculators."
+  },
+  "pet-zodiac-birthday-card": {
+    "name": "Pet Zodiac & Birthday Card Generator",
+    "description": "Enter your pet's name and birthday to reveal their Western zodiac sign with a fun personality blurb, then print a shareable birthday card. Great for social posts and adoption anniversaries."
+  },
+  "pet-name-meaning-lookup": {
+    "name": "Pet Name Meaning Lookup",
+    "description": "Search 25+ of the most popular dog and cat names to see their linguistic origin, literal meaning, and personality vibe. Helpful when you're deciding between shortlisted names or want a story to tell friends about the name you picked."
+  },
+  "adoption-vs-buying-cost-comparator": {
+    "name": "Adoption vs Buying Cost Comparator",
+    "description": "Compare the true first-year cost of adopting a pet from a shelter versus buying from a breeder or pet store. Adoption fees typically include spay/neuter, core vaccines, and microchipping — services that add $500-$800 when you buy a pet elsewhere. Enter local prices to get a personalized side-by-side breakdown of both paths and see the real dollar difference before you bring a pet home."
+  },
+  "litter-size-predictor": {
+    "name": "Litter Size Predictor",
+    "description": "Predict how many puppies, kittens, or rabbit kits to expect in a litter based on breed size category, the mother's age, and how many times she has bred before. Litter size varies widely — a Chihuahua averages 3 puppies while a Great Dane may deliver 12 — and first-time mothers typically produce fewer offspring than experienced dams in their prime. Use this as an educational planning estimate before your reproductive veterinarian confirms the count with ultrasound or X-ray."
+  },
+  "clicker-training-planner": {
+    "name": "Clicker Training Planner",
+    "description": "Clicker training is the gold standard of modern, force-free animal learning. The click sound becomes a precise marker your pet learns to trust — it says 'that exact behavior earned you a treat.' This planner walks you through the six-phase timeline used by professional trainers: charging the clicker, capturing behaviors, luring, adding cue words, proofing under distraction, and finally thinning food rewards. It works for dogs, cats, parrots, rabbits, ferrets, and even horses, and it produces cleaner learning than voice-only markers because it eliminates tone variation and body-language noise."
+  },
+  "potty-training-schedule": {
+    "name": "Potty Training Schedule",
+    "description": "House training is the number-one reason puppies get returned to shelters — and it's almost always fixable with better scheduling. Puppies can hold their bladder for roughly their age-in-months in hours (a 3-month-old holds ~3 hours), and they need to go out after every meal, nap, play session, and training block. This tool builds a personalized daily schedule from your puppy's age and your household's wake/bedtime hours, so you can post it on the fridge and stop guessing."
+  },
+  "crate-training-timeline": {
+    "name": "Crate Training Timeline",
+    "description": "Done well, the crate is one of the most valuable tools in modern dog training — it accelerates house training, keeps puppies safe when unsupervised, and gives adult dogs a portable den for travel and vet stays. Done poorly, it creates lifelong panic and barrier frustration. This timeline follows the standard veterinary behavior progression: three weeks of gradual desensitization from 'crate is a magical treat dispenser' to 'sleeps peacefully overnight and during your workday.' Rushing this timeline is the single biggest cause of crate hate."
+  },
+  "leash-training-progress": {
+    "name": "Leash Training Progress",
+    "description": "A dog that pulls on leash isn't 'stubborn' — they're simply on a schedule of continuous reinforcement, because every step of pulling gets them where they want to go. Loose-leash walking is a trained skill built one criterion at a time: first indoors, then in the yard, then around distractions. This tracker lists the ten measurable milestones that certified trainers use, from 'wears the leash calmly indoors' to 'passes another dog under threshold.' Tick each one as you go and progress persists on your device."
+  },
+  "recall-training-tracker": {
+    "name": "Recall Training Tracker",
+    "description": "Recall — coming when called — is the most important behavior any pet will learn, and the hardest to build reliably. This tracker lets you log every recall attempt across environments, from indoors to busy parks, so you can watch your reliability percentage grow over time. Certified trainers use the '90% rule': you should not trust your dog off-leash in unfenced areas until they hit 90%+ reliability across at least 20 sessions in that environment. Guessing your dog's reliability without data is why so many pets are lost each year."
+  },
+  "socialization-checklist": {
+    "name": "Puppy Socialization Checklist",
+    "description": "The socialization window closes between 12-16 weeks of age — after that, novelty exposure creates suspicion instead of confidence. A puppy who meets 100 friendly people, calmly experiences 50 environments, and hears 30 unusual sounds before 16 weeks grows into a stable adult dog. A puppy that only meets family and other dogs grows into a reactive, fearful adult that costs thousands in behavior consultants. This checklist covers the five categories AVSAB recommends: people, animals, environments, surfaces & sounds, and handling."
+  },
+  "puppy-milestone-tracker": {
+    "name": "Puppy Milestone Tracker",
+    "description": "Puppy development follows a predictable timeline — eyes open at week 3, adult teeth erupt around week 16, and hormonal maturity arrives between 6-12 months depending on breed size. Missing a milestone by more than 1-2 weeks warrants a veterinary check-in. This tracker lists the ten most important developmental checkpoints, each with the typical week it occurs and what to watch for. Tick them off as they happen and keep this list handy for vet visits."
+  },
+  "aggression-risk-assessment": {
+    "name": "Aggression Risk Assessment",
+    "description": "Aggression in pets is almost always fear-based and predictable — most bites are preceded by weeks or months of warning signs that owners miss or minimize. This screening tool walks through eight evidence-based risk factors used by certified veterinary behaviorists: resource guarding, freezing, hard stares, snapping, and bite history. It does not diagnose aggression, but it flags whether you should seek professional help. Any positive answer to a bite-history question warrants immediate consultation with a veterinary behaviorist (Dip ACVB)."
+  },
+  "separation-anxiety-score": {
+    "name": "Separation Anxiety Score",
+    "description": "Separation-related distress affects 20-40% of pet dogs and is one of the most misunderstood behavior problems. It is not 'being spoiled' or 'acting out' — it is a genuine panic disorder that resembles a human panic attack. Dogs experiencing it can urinate, destroy doors, or injure themselves within minutes of being left alone. This assessment scores eight validated indicators from the Overall/CSAT screening framework and provides a severity band: minimal, mild, moderate, or severe. Mild cases often respond to enrichment and slow absence training; moderate to severe cases benefit from medication and specialist support."
+  },
+  "trick-training-library": {
+    "name": "Trick Training Library",
+    "description": "Trick training is more than a party trick — it builds focus, exercises the brain, and strengthens the human-animal bond. Ten minutes of trick training tires most dogs more than an hour of walking. This library lists eleven classic tricks organized by difficulty, from 'Sit' to 'Put toys away,' each with the exact luring and shaping steps used by professional trainers. Filter by level to find your next challenge, and remember: every trick is trained in tiny increments, not one big leap."
+  },
+  "command-vocabulary-builder": {
+    "name": "Command Vocabulary Builder",
+    "description": "The average pet dog understands 165 words; exceptional dogs learn 1,000+ (Chaser the Border Collie learned 1,022 nouns in controlled studies). Every cue you teach is a fresh channel of communication that reduces frustration on both sides. This builder starts with five foundational commands (Sit, Down, Come, Stay, Leave it) and lets you add unlimited new cues with their meanings. Tick off which are mastered and see your total vocabulary grow — a wonderful record to bring to every vet or trainer visit."
+  },
+  "behavior-journal": {
+    "name": "Pet Behavior Journal",
+    "description": "Most behavior 'mysteries' aren't mysteries — they're patterns waiting to be seen. Journaling for two weeks reveals what actually triggers your pet's barking, growling, or anxiety, versus what you assume triggers it. This journal captures the ABC of behavior science: Antecedent (what happened right before), Behavior (what your pet did), and Consequence (your response). Add a note field for context. Bring the last 30 entries to your veterinary behaviorist or trainer — the pattern often reveals the diagnosis before words do."
+  },
+  "reward-schedule-calculator": {
+    "name": "Reward Schedule Calculator",
+    "description": "When to reward — and how often — is what separates trained dogs from dogs who only work if they see a treat. Continuous reinforcement (reward every rep) is essential during learning but destroys reliability if kept forever. Variable reinforcement (reward unpredictably) is what makes trained behaviors permanent — the same principle that makes slot machines addictive. This tool tells you exactly what reinforcement schedule to use for each training stage: acquisition, fluency, generalization, or maintenance."
+  },
+  "barking-log": {
+    "name": "Barking Log",
+    "description": "Excessive barking is the number-one complaint neighbors report to animal control — and the number-one reason dogs are surrendered to shelters. But 'excessive barking' is rarely one problem; it's usually 3-4 different triggers running on the same pattern. This log lets you record every notable bark event with its trigger and duration, then automatically ranks your top triggers so you can address the biggest one first. Two weeks of logging usually reveals the culprit that's driving 60-80% of the barking."
+  },
+  "litter-training-planner": {
+    "name": "Litter Training Planner (Cats & Rabbits)",
+    "description": "Cats and rabbits are two of the easiest species to litter train — they instinctively prefer a consistent bathroom spot — but the setup is completely different for each. Cats need unscented clumping litter in a low-traffic box with the '1 per cat + 1' rule. Rabbits need paper-based litter, hay on top, and never clumping clay (which is toxic if ingested). This planner walks through the 3-week timeline for each species, from first setup to reliable free-roam privileges. Regression after training is usually medical (UTI, stones) — not behavioral."
+  },
+  "heat-cycle-tracker": {
+    "name": "Heat Cycle Tracker (Dog, Cat, Rabbit)",
+    "description": "Understanding your intact female's heat cycle is essential whether you're breeding intentionally or simply avoiding unwanted litters. This tracker records each observed stage — proestrus, estrus, diestrus, anestrus — and estimates the next expected cycle based on species-typical intervals: roughly every 6 months for dogs, every 2-3 weeks during breeding season for cats, and continuously receptive (induced ovulator) for rabbits. Consistent logging helps identify silent heats, split heats, prolonged bleeding, and pyometra risk factors long before they become emergencies."
+  },
+  "pregnancy-calendar": {
+    "name": "Pregnancy Calendar (Species-Specific)",
+    "description": "Enter the mating date and pick your species — dog, cat, rabbit, guinea pig, hamster, ferret, horse, goat, or sheep — and get a personalized pregnancy calendar with due date, trimester markers, vet-check milestones, and nesting-prep deadlines. Dogs (63 days), cats (65 days), rabbits (31 days), horses (340 days) — each species has a distinct gestation length and a different rhythm of physical and behavioral changes. Knowing what to expect week by week is the difference between a smooth delivery and a preventable emergency."
+  },
+  "whelping-kittening-checklist": {
+    "name": "Whelping / Kittening Prep Checklist",
+    "description": "The two weeks before a litter arrives are when most preventable problems are avoided. This checklist walks through every physical item you need in your whelping kit, how to set up a proper whelping or kittening box, what to discuss with your vet at the 55-day check, and the critical postpartum monitoring window (colostrum, weight, mom's temperature). Skip any of these steps and a routine birth can turn into an emergency at 2 a.m."
+  },
+  "stud-fee-calculator": {
+    "name": "Stud Fee Calculator",
+    "description": "Pricing a stud fee correctly is one of the harder decisions in ethical breeding. Undercharge and you devalue your stud's line; overcharge and quality bitches go elsewhere. This calculator uses the industry-standard formula — average puppy price × stud quality multiplier — to suggest a fair cash fee, and compares it to a pick-of-litter arrangement. Pet-quality males typically fetch 40% of one puppy price, titled dogs 100%, champions 150%, and proven top producers with imported bloodlines 200%+."
+  },
+  "genetic-diversity-calculator": {
+    "name": "Genetic Diversity / COI Calculator",
+    "description": "The Coefficient of Inbreeding (COI) is the single most important number in ethical breeding decisions. It measures how genetically similar the sire and dam are — the higher the number, the greater the risk that hidden recessive diseases will express in the litter. This calculator gives a quick estimate based on shared ancestors and generations back, plus context on what each COI band means (0-6.25% ideal, 25%+ full-sibling level and dangerous). For final decisions, always run a full 10-generation pedigree COI through breed-club or veterinary software."
+  },
+  "puppy-kitten-weight-chart": {
+    "name": "Puppy & Kitten Weight Chart",
+    "description": "In the first four weeks of life, weight is the single most reliable indicator of a newborn's health. Puppies and kittens should gain 5-10% of their body weight every day — a plateau of even 12 hours is a genuine emergency. This tracker logs every weigh-in (grams, not ounces — accuracy matters at this stage), plots gain since the previous session, and flags any stagnation. Reference ranges are conservative averages; small toy breeds and giant breeds will fall well outside typical numbers, so trend matters more than absolute weight."
+  },
+  "weaning-schedule": {
+    "name": "Weaning Schedule (Puppies, Kittens, Rabbits)",
+    "description": "Weaning is a gradual process, not a switch. Puppies and kittens should be introduced to solid food around week 3-4, transitioned over 3-5 weeks, and fully weaned by week 7-8 — but they should stay with mom and littermates for social development until at least 8-10 weeks (puppies) or 10-12 weeks (kittens). Rabbit kits follow a different rhythm: alfalfa-based diet only, greens delayed until well after weaning. This tool builds a species-specific week-by-week plan from the litter's birth date."
+  },
+  "newborn-care-timeline": {
+    "name": "Newborn Care Timeline",
+    "description": "The first 12 weeks of a puppy or kitten's life have more milestones than any other period. Colostrum in the first 2 hours, eyes opening around day 10-14, first solid food at 3-4 weeks, first vaccines at 6-8 weeks, socialization windows that close forever if missed. This timeline lays out every stage from day 0 to rehoming, with the tasks a breeder or foster caregiver needs to complete at each step. Follow it closely — the difference between a well-adjusted puppy or kitten and a problem adult is set in these weeks."
+  },
+  "heatstroke-risk-calculator": {
+    "name": "Heatstroke Risk Calculator",
+    "description": "Combine temperature, humidity, coat type, breed and activity level to estimate real-time heatstroke risk and get vet-informed guidance on outdoor exposure."
+  },
+  "cold-weather-safety-score": {
+    "name": "Cold Weather Safety Score",
+    "description": "Wind chill, coat type, size and wetness combine into a personalized cold-weather safety score with clear guidance on frostbite and hypothermia risk."
+  },
+  "paw-pad-temperature-checker": {
+    "name": "Paw Pad Temperature Checker",
+    "description": "Estimate ground surface temperature from air temp, surface material and sun exposure — plus the maximum safe contact time before burns occur."
+  },
+  "fireworks-anxiety-prep": {
+    "name": "Fireworks Anxiety Prep",
+    "description": "Step-by-step checklist covering desensitization, environment setup, safe hideaways, and emergency planning to help firework-fearful pets cope."
+  },
+  "halloween-safety-checker": {
+    "name": "Halloween Safety Checker",
+    "description": "Look up chocolate, candy, costumes, glow sticks and more to see which Halloween items are toxic, hazardous or just cautionary for pets."
+  },
+  "christmas-hazard-lookup": {
+    "name": "Christmas Hazard Lookup",
+    "description": "A veterinary-informed database of Christmas-season dangers — from poinsettia and tinsel to turkey bones and holiday alcohol — with severity ratings and safety advice."
+  },
+  "allergy-season-tracker": {
+    "name": "Allergy Season Tracker",
+    "description": "Track your pet's itch level, pollen index and symptoms day by day. Identify the worst weeks, spot food or environmental triggers, and share the log with your vet."
+  },
+  "air-quality-impact-assessor": {
+    "name": "Air Quality Impact Assessor",
+    "description": "Enter the local AQI and pet profile to see whether it's safe to walk, exercise or leave your pet outdoors during smoke, smog and pollution events."
+  },
+  "reptile-uvb-schedule": {
+    "name": "Reptile UVB Schedule",
+    "description": "Get species-specific UVB lighting hours, target UV Index, bulb type recommendations, and an automatic replacement date so your reptile never silently develops metabolic bone disease."
+  },
+  "tank-temperature-gradient-calculator": {
+    "name": "Tank Temperature Gradient Calculator",
+    "description": "Compare your reptile enclosure temperatures to species-correct basking, ambient, cool-zone and nighttime ranges — with plain-English warnings when a zone is dangerous."
+  },
+  "bird-wing-clipping-guide": {
+    "name": "Bird Wing Clipping Guide",
+    "description": "Learn how many primary flight feathers to trim by species, why both wings must always be clipped equally, and when leaving your parrot flighted is actually the safer choice."
+  },
+  "ferret-litter-trainer": {
+    "name": "Ferret Litter Trainer",
+    "description": "Follow a proven 10-step plan to litter-train ferrets, track accidents to spot patterns, and set up multi-room boxes so your household stays clean-smelling."
+  },
+  "turtle-basking-time-calculator": {
+    "name": "Turtle Basking Time Calculator",
+    "description": "Species-specific basking photoperiod, UV Index target, water and basking-surface temperatures for sliders, painted turtles, musk turtles, tortoises and more."
+  },
+  "goat-hoof-trim-reminder": {
+    "name": "Goat Hoof Trim Reminder",
+    "description": "Track every goat in your herd, set individual trim intervals, and get overdue alerts to prevent hoof rot, laminitis and lameness across dairy, meat and pet goats."
+  },
+  "horse-farrier-schedule": {
+    "name": "Horse Farrier Schedule",
+    "description": "Manage barefoot and shod horses on a rolling farrier schedule with configurable intervals and clear overdue warnings so no horse slips past 8 weeks."
+  },
+  "vivarium-humidity-calculator": {
+    "name": "Vivarium Humidity Calculator",
+    "description": "Compare your enclosure humidity to species-correct ranges for reptiles, amphibians and tortoises — with misting frequency, substrate choice and troubleshooting tips."
+  },
+  "pet-breed-identifier": {
+    "name": "Pet Breed Identifier (Photo Upload)",
+    "description": "Upload a photo of your dog, cat or small pet and get an AI-powered breed identification with likely mixes, visible traits, temperament and care snapshot."
+  },
+  "pet-age-estimator-photo": {
+    "name": "Pet Age Estimator from Photo",
+    "description": "Upload a close-up of your pet's face and get an educational age estimate with life stage, human-age equivalent, ageing signals and care priorities."
+  },
+  "pet-emotion-detector": {
+    "name": "Pet Emotion / Mood Detector",
+    "description": "Upload a photo and let an AI behaviourist interpret your pet's likely emotional state — relaxed, alert, playful, anxious or fearful — with signals explained."
+  },
+  "skin-condition-analyzer": {
+    "name": "Pet Skin Condition Analyzer (Educational)",
+    "description": "Upload a close-up of a skin patch, hot spot, lump or rash and get an educational breakdown of what a vet might rule in or out, with red-flag warnings."
+  },
+  "pet-body-condition-photo": {
+    "name": "Pet Body Condition Score from Photo",
+    "description": "Upload a top-down or side-profile photo and get an educational Body Condition Score on the veterinary 1–9 scale, plus an action plan."
+  },
+  "poop-health-analyzer": {
+    "name": "Pet Poop Health Analyzer (Photo)",
+    "description": "Upload a photo of your pet's stool for a Purina Fecal Score 1–7, colour analysis, visible-concern check and vet-visit guidance."
+  },
+  "dog-wolf-coyote-identifier": {
+    "name": "Dog vs Wolf vs Coyote Identifier",
+    "description": "Upload a photo of a canid and find out whether it is a domestic dog, wolf, coyote, fox or hybrid — with the field marks that drove the answer."
+  },
+  "cat-coat-pattern-identifier": {
+    "name": "Cat Coat Pattern Identifier",
+    "description": "Upload a photo of your cat and get an expert read on base colour, pattern (tabby, tortie, calico), coat length and possible breed influences."
+  },
+  "bird-species-identifier": {
+    "name": "Bird Species Identifier from Photo",
+    "description": "Upload a photo of a bird and get its species, alternatives, field marks, habitat and — if it is a companion species — captive-care basics."
+  },
+  "fish-disease-spot-checker": {
+    "name": "Fish Disease Spot Checker (Photo)",
+    "description": "Upload a photo of your fish for an educational read on visible symptoms — ich, fin rot, dropsy, columnaris and more — with husbandry fixes."
+  },
+  "tarantula-enclosure-size-calculator": {
+    "name": "Tarantula Enclosure Size Calculator",
+    "description": "Work out the safe floor space, height and substrate depth for your tarantula based on diagonal leg span and whether it is terrestrial, arboreal or fossorial."
+  },
+  "tarantula-feeding-schedule": {
+    "name": "Tarantula Feeding Schedule",
+    "description": "Get a feeding interval, prey size limit and monthly feeding count for your tarantula, with automatic pre-moult adjustments."
+  },
+  "hedgehog-wheel-size-calculator": {
+    "name": "Hedgehog Wheel Size Calculator",
+    "description": "Calculate the minimum safe wheel diameter for your African pygmy hedgehog and check whether your current running surface is safe."
+  },
+  "hedgehog-diet-calculator": {
+    "name": "Hedgehog Diet Calculator",
+    "description": "Estimate daily calories and food portions for an African pygmy hedgehog based on weight, activity level and whether you want it to gain, hold or lose weight."
+  },
+  "axolotl-tank-temperature-calculator": {
+    "name": "Axolotl Tank Temperature Checker",
+    "description": "Check axolotl water temperature against safe ranges in Celsius or Fahrenheit and get practical cooling fixes when it runs too warm."
+  },
+  "axolotl-tank-size-calculator": {
+    "name": "Axolotl Tank Size Calculator",
+    "description": "Calculate the minimum tank volume, floor footprint and hide count for one or more axolotls, plus flow advice for your filter type."
+  },
+  "sugar-glider-diet-calculator": {
+    "name": "Sugar Glider Diet Calculator",
+    "description": "Calculate nightly food weight for your sugar glider colony and split it correctly between staple mix, produce and protein."
+  },
+  "sugar-glider-cage-size-calculator": {
+    "name": "Sugar Glider Cage Size Calculator",
+    "description": "Get minimum cage width, depth and height for your sugar glider colony, plus a bar-spacing safety check and pouch count."
+  },
+  "chinchilla-dust-bath-schedule": {
+    "name": "Chinchilla Dust Bath Schedule",
+    "description": "Build a chinchilla dust-bath schedule based on room humidity and coat condition, with session length and a next-bath reminder."
+  },
+  "chinchilla-cage-size-calculator": {
+    "name": "Chinchilla Cage Size Calculator",
+    "description": "Calculate minimum chinchilla cage dimensions, total usable floor area, level count and bar spacing safety for one or more chinchillas."
+  },
+  "tortoise-hibernation-planner": {
+    "name": "Tortoise Hibernation Planner",
+    "description": "Plan a safe tortoise hibernation with species-specific duration, a Jackson ratio body-condition check, target temperatures and a full date timeline."
+  },
+  "quail-coop-size-calculator": {
+    "name": "Quail Coop Size Calculator",
+    "description": "Calculate quail coop floor space, safe ceiling height, feeder and waterer counts and the correct male-to-hen ratio for coturnix, bobwhite or button quail."
+  }
 }
