@@ -1,0 +1,1867 @@
+{
+  "ui": {
+    "breadcrumbFoods": "Lebensmittel",
+    "title": "Darf mein Haustier das fressen?",
+    "subtitle": "Durchsuche über 500 menschliche Lebensmittel und prüfe, ob sie für Hunde, Katzen, Kaninchen, Vögel, Hamster, Meerschweinchen, Frettchen, Pferde, Schildkröten und Fische sicher sind. Mit Vorteilen, Risiken, Symptomen, Tierarzt-Tipps und sichereren Alternativen.",
+    "searchPlaceholder": "Lebensmittel suchen (z. B. Schokolade, Apfel, Hähnchen)",
+    "searchAriaLabel": "Lebensmittel suchen",
+    "categoryFilterAriaLabel": "Kategoriefilter",
+    "safetyFilterAriaLabel": "Sicherheitsfilter",
+    "allCategories": "Alle Kategorien",
+    "allSafetyLevels": "Alle Sicherheitsstufen",
+    "noResults": "Keine Lebensmittel passen zu deinen Filtern.",
+    "detailBreadcrumbFoods": "Lebensmittel",
+    "foodGuide": "Futterratgeber",
+    "detailTitle": "Dürfen Haustiere {{name}} fressen?",
+    "forSpecies": "Für {{species}}",
+    "emergencyBanner": "Bei Aufnahme sofort deinen Tierarzt oder die Pet Poison Helpline unter 1-855-764-7661 (USA) anrufen.",
+    "emergencyBannerSuffix": "Zeitpunkt und aufgenommene Menge sind entscheidend.",
+    "sectionBenefits": "Vorteile",
+    "sectionRisks": "Risiken",
+    "sectionSymptoms": "Symptome, auf die du achten solltest",
+    "sectionVetAdvice": "Tierarzt-Tipp",
+    "saferAlternatives": "Sicherere Alternativen",
+    "relatedFoods": "Ähnliche Lebensmittel",
+    "disclaimerTitle": "Kein medizinischer Rat.",
+    "disclaimerBody": "Dieser Ratgeber dient nur zur Information — wende dich bei medizinischen Fragen, besonders in Notfällen, immer an deinen Tierarzt.",
+    "notFoundTitle": "Lebensmittel nicht gefunden",
+    "notFoundLink": "Lebensmitteldatenbank durchsuchen"
+  },
+  "categories": {
+    "fruit": "Obst",
+    "vegetable": "Gemüse",
+    "protein": "Fleisch & Protein",
+    "dairy": "Milchprodukte",
+    "grain": "Getreide",
+    "nut": "Nüsse",
+    "seed": "Samen",
+    "herb": "Kräuter",
+    "sweets": "Süßigkeiten",
+    "sweetener": "Süßungsmittel",
+    "spice": "Gewürze",
+    "drink": "Getränke",
+    "snack": "Snacks",
+    "other": "Sonstiges"
+  },
+  "species": {
+    "dog": {
+      "label": "Hund",
+      "plural": "Hunde"
+    },
+    "cat": {
+      "label": "Katze",
+      "plural": "Katzen"
+    },
+    "rabbit": {
+      "label": "Kaninchen",
+      "plural": "Kaninchen"
+    },
+    "bird": {
+      "label": "Vogel",
+      "plural": "Vögel"
+    },
+    "hamster": {
+      "label": "Hamster",
+      "plural": "Hamster"
+    },
+    "guinea_pig": {
+      "label": "Meerschweinchen",
+      "plural": "Meerschweinchen"
+    },
+    "ferret": {
+      "label": "Frettchen",
+      "plural": "Frettchen"
+    },
+    "horse": {
+      "label": "Pferd",
+      "plural": "Pferde"
+    },
+    "turtle": {
+      "label": "Schildkröte",
+      "plural": "Schildkröten"
+    },
+    "fish": {
+      "label": "Fisch",
+      "plural": "Fische"
+    }
+  },
+  "safety": {
+    "safe": "Sicher",
+    "moderation": "In Maßen",
+    "unsafe": "Unsicher",
+    "unknown": "Unbekannt"
+  },
+  "foods": {
+    "apple": {
+      "name": "Apfel",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Reich an Vitamin C und Ballaststoffen. Kerne und Kerngehäuse immer entfernen, da Apfelkerne Amygdalin (Blausäure) enthalten.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Apfel fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Reich an Vitamin C und Ballaststoffen. Kerne und Kerngehäuse immer entfernen, da Apfelkerne Amygdalin (Blausäure) enthalten."
+        },
+        {
+          "question": "Ist Apfel sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "banana": {
+      "name": "Banane",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Reich an Kalium und Vitaminen, aber auch zuckerreich. Nur gelegentlich und in kleinen Mengen als Leckerli geben.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Banane fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Reich an Kalium und Vitaminen, aber auch zuckerreich. Nur gelegentlich und in kleinen Mengen als Leckerli geben."
+        },
+        {
+          "question": "Ist Banane sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "blueberries": {
+      "name": "Blaubeeren",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Superfood voller Antioxidantien, Ballaststoffe und sekundärer Pflanzenstoffe. Hervorragendes kalorienarmes Leckerli.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Blaubeeren fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Superfood voller Antioxidantien, Ballaststoffe und sekundärer Pflanzenstoffe. Hervorragendes kalorienarmes Leckerli."
+        },
+        {
+          "question": "Sind Blaubeeren sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "strawberries": {
+      "name": "Erdbeeren",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Vollgepackt mit Vitamin C und einem Enzym (Apfelsäure), das die Zähne deines Tieres aufhellen kann.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Erdbeeren fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Vollgepackt mit Vitamin C und einem Enzym (Apfelsäure), das die Zähne deines Tieres aufhellen kann."
+        },
+        {
+          "question": "Sind Erdbeeren sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "watermelon": {
+      "name": "Wassermelone",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Mit 92 % Wassergehalt ideal für heiße Sommertage. Kerne und die harte äußere Schale entfernen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Wassermelone fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Mit 92 % Wassergehalt ideal für heiße Sommertage. Kerne und die harte äußere Schale entfernen."
+        },
+        {
+          "question": "Ist Wassermelone sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cantaloupe": {
+      "name": "Cantaloupe-Melone",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Reich an Beta-Carotin und Feuchtigkeit. In kleine, mundgerechte Stücke schneiden; in Maßen füttern.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Cantaloupe-Melone fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Reich an Beta-Carotin und Feuchtigkeit. In kleine, mundgerechte Stücke schneiden; in Maßen füttern."
+        },
+        {
+          "question": "Ist Cantaloupe-Melone sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "mango": {
+      "name": "Mango",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Süßer, tropischer Leckerbissen voller Vitamine A, B6, C und E. Schale abziehen und den großen, harten Kern entsorgen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Mango fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Süßer, tropischer Leckerbissen voller Vitamine A, B6, C und E. Schale abziehen und den großen, harten Kern entsorgen."
+        },
+        {
+          "question": "Ist Mango sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "pineapple": {
+      "name": "Ananas",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Enthält das Enzym Bromelain, das den Eiweißabbau unterstützt. Stachelige Schale und harten, faserigen Strunk entfernen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Ananas fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Enthält das Enzym Bromelain, das den Eiweißabbau unterstützt. Stachelige Schale und harten, faserigen Strunk entfernen."
+        },
+        {
+          "question": "Ist Ananas sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "orange": {
+      "name": "Orange",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Ätherische Zitrusöle und Psoralene verursachen bei Katzen und Hamstern schwere Magenreizungen. Nur als kleiner Leckerbissen für Hunde.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Ätherische Zitrusöle und Psoralene verursachen bei Katzen und Hamstern schwere Magenreizungen. Nur als kleiner Leckerbissen für Hunde.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Orange fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Ätherische Zitrusöle und Psoralene verursachen bei Katzen und Hamstern schwere Magenreizungen. Nur als kleiner Leckerbissen für Hunde."
+        },
+        {
+          "question": "Ist Orange sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "pear": {
+      "name": "Birne",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Reich an Kupfer und Ballaststoffen. Stiel, Kerngehäuse und Kerne vor dem Servieren entfernen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Birne fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Reich an Kupfer und Ballaststoffen. Stiel, Kerngehäuse und Kerne vor dem Servieren entfernen."
+        },
+        {
+          "question": "Ist Birne sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "peach": {
+      "name": "Pfirsich",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Frisches Pfirsichfruchtfleisch ist unbedenklich. Der Kern enthält cyanogene Glykoside und stellt ein ernstes Erstickungs- und Darmverschlussrisiko dar.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Pfirsich fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Frisches Pfirsichfruchtfleisch ist unbedenklich. Der Kern enthält cyanogene Glykoside und stellt ein ernstes Erstickungs- und Darmverschlussrisiko dar."
+        },
+        {
+          "question": "Ist Pfirsich sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "plum": {
+      "name": "Pflaume",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Kerne enthalten tödliches Cyanid (Blausäure). Keinem Tier ganze Früchte geben.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Kerne enthalten tödliches Cyanid (Blausäure). Keinem Tier ganze Früchte geben.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Pflaume fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Kerne enthalten tödliches Cyanid (Blausäure). Keinem Tier ganze Früchte geben."
+        },
+        {
+          "question": "Ist Pflaume sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cherry": {
+      "name": "Kirsche",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Kerne, Stiele und Blätter enthalten giftiges Cyanid, das den Sauerstofftransport in den Zellen blockiert.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Kerne, Stiele und Blätter enthalten giftiges Cyanid, das den Sauerstofftransport in den Zellen blockiert.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kirsche fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Kerne, Stiele und Blätter enthalten giftiges Cyanid, das den Sauerstofftransport in den Zellen blockiert."
+        },
+        {
+          "question": "Ist Kirsche sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "avocado": {
+      "name": "Avocado",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Enthält Persin, ein pilzabtötendes Gift, das für Vögel, Kaninchen, Nager und Pferde tödlich ist. Der Kern ist eine Erstickungsgefahr.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Avocado fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Enthält Persin, ein pilzabtötendes Gift, das für Vögel, Kaninchen, Nager und Pferde tödlich ist. Der Kern ist eine Erstickungsgefahr."
+        },
+        {
+          "question": "Ist Avocado sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: IN MAßEN. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "grapes-raisins": {
+      "name": "Trauben & Rosinen",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. ÄUßERST GEFÄHRLICH für Hunde und Katzen; Weinsäure verursacht plötzliches, irreversibles akutes Nierenversagen.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "ÄUßERST GEFÄHRLICH für Hunde und Katzen; Weinsäure verursacht plötzliches, irreversibles akutes Nierenversagen.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Trauben & Rosinen fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. ÄUßERST GEFÄHRLICH für Hunde und Katzen; Weinsäure verursacht plötzliches, irreversibles akutes Nierenversagen."
+        },
+        {
+          "question": "Sind Trauben & Rosinen sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "raspberries": {
+      "name": "Himbeeren",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Enthält Xylit in Spuren in natürlicher Form; auf 1/2 Tasse bei mittelgroßen Hunden begrenzen; hervorragend entzündungshemmend.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Himbeeren fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Enthält Xylit in Spuren in natürlicher Form; auf 1/2 Tasse bei mittelgroßen Hunden begrenzen; hervorragend entzündungshemmend."
+        },
+        {
+          "question": "Sind Himbeeren sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "blackberries": {
+      "name": "Brombeeren",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Vollgepackt mit den Vitaminen C und K sowie Anthocyanen. Tolle kalorienarme Belohnung.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Brombeeren fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Vollgepackt mit den Vitaminen C und K sowie Anthocyanen. Tolle kalorienarme Belohnung."
+        },
+        {
+          "question": "Sind Brombeeren sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cranberries": {
+      "name": "Cranberries",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Unterstützt die Gesundheit der Harnwege. Handelsübliche getrocknete Cranberries mit viel raffiniertem Zucker meiden.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Cranberries fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Unterstützt die Gesundheit der Harnwege. Handelsübliche getrocknete Cranberries mit viel raffiniertem Zucker meiden."
+        },
+        {
+          "question": "Sind Cranberries sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "kiwi": {
+      "name": "Kiwi",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Die pelzige Schale abziehen; kleine Scheiben füttern. Reich an Kalium und Vitamin C.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kiwi fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Die pelzige Schale abziehen; kleine Scheiben füttern. Reich an Kalium und Vitamin C."
+        },
+        {
+          "question": "Ist Kiwi sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "papaya": {
+      "name": "Papaya",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Enthält Papain, ein natürliches Verdauungsenzym. Vor dem Füttern entkernen und schälen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Papaya fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Enthält Papain, ein natürliches Verdauungsenzym. Vor dem Füttern entkernen und schälen."
+        },
+        {
+          "question": "Ist Papaya sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "coconut": {
+      "name": "Kokosnuss",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Laurinsäure sorgt für glänzendes Fell und lindert Hautentzündungen; wegen des hohen Gehalts an gesättigten Fettsäuren nur kleine Mengen füttern.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kokosnuss fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Laurinsäure sorgt für glänzendes Fell und lindert Hautentzündungen; wegen des hohen Gehalts an gesättigten Fettsäuren nur kleine Mengen füttern."
+        },
+        {
+          "question": "Ist Kokosnuss sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "lemon-lime": {
+      "name": "Zitrone & Limette",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Zitronensäure, Limonen und Linalool verursachen eine Dämpfung des zentralen Nervensystems, Zittern und Erbrechen.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Zitronensäure, Limonen und Linalool verursachen eine Dämpfung des zentralen Nervensystems, Zittern und Erbrechen.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Zitrone & Limette fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Zitronensäure, Limonen und Linalool verursachen eine Dämpfung des zentralen Nervensystems, Zittern und Erbrechen."
+        },
+        {
+          "question": "Ist Zitrone & Limette sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "carrot": {
+      "name": "Karotte",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Hervorragend knackiger Leckerbissen, der die Hundezähne reinigt und Vitamin A / Beta-Carotin liefert.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Karotte fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Hervorragend knackiger Leckerbissen, der die Hundezähne reinigt und Vitamin A / Beta-Carotin liefert."
+        },
+        {
+          "question": "Ist Karotte sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "broccoli": {
+      "name": "Brokkoli",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Reich an Lutein und Vitamin C. Röschen enthalten Isothiocyanate; Anteil unter 10 % der Gesamtfuttermenge halten.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Brokkoli fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Reich an Lutein und Vitamin C. Röschen enthalten Isothiocyanate; Anteil unter 10 % der Gesamtfuttermenge halten."
+        },
+        {
+          "question": "Ist Brokkoli sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "spinach": {
+      "name": "Spinat",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Enthält lösliche Oxalate. Tiere mit einer Vorgeschichte von Calciumoxalat-Blasensteinen sollten Spinat meiden.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Spinat fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Enthält lösliche Oxalate. Tiere mit einer Vorgeschichte von Calciumoxalat-Blasensteinen sollten Spinat meiden."
+        },
+        {
+          "question": "Ist Spinat sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: IN MAßEN. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cucumber": {
+      "name": "Gurke",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. 96 % Wasser und fast keine Kalorien. Der ultimative Leckerbissen für übergewichtige oder diabetische Tiere.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Gurke fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. 96 % Wasser und fast keine Kalorien. Der ultimative Leckerbissen für übergewichtige oder diabetische Tiere."
+        },
+        {
+          "question": "Ist Gurke sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "green-beans": {
+      "name": "Grüne Bohnen",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Tierarzt-Favorit für die „Grüne-Bohnen-Abnehm-Diät“; roh, gedünstet oder natur aus der Dose füttern.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Grüne Bohnen fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Tierarzt-Favorit für die „Grüne-Bohnen-Abnehm-Diät“; roh, gedünstet oder natur aus der Dose füttern."
+        },
+        {
+          "question": "Ist Grüne Bohnen sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "sweet-potato": {
+      "name": "Süßkartoffel",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Immer gründlich garen; niemals rohe Süßkartoffel füttern. Reich an Ballaststoffen und Vitamin B6.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Süßkartoffel fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Immer gründlich garen; niemals rohe Süßkartoffel füttern. Reich an Ballaststoffen und Vitamin B6."
+        },
+        {
+          "question": "Ist Süßkartoffel sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "pumpkin": {
+      "name": "Kürbis",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Das bewährte Hausmittel bei Darmproblemen von Tieren. Reines Kürbispüree aus der Dose hilft gegen Durchfall und Verstopfung.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kürbis fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Das bewährte Hausmittel bei Darmproblemen von Tieren. Reines Kürbispüree aus der Dose hilft gegen Durchfall und Verstopfung."
+        },
+        {
+          "question": "Ist Kürbis sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "zucchini": {
+      "name": "Zucchini",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Mildes, wasserreiches Gemüse voller Folat, Kalium und Vitamin A. Roh oder gedünstet füttern.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Zucchini fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Mildes, wasserreiches Gemüse voller Folat, Kalium und Vitamin A. Roh oder gedünstet füttern."
+        },
+        {
+          "question": "Ist Zucchini sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "celery": {
+      "name": "Sellerie",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Knackiger Snack, der Zahnstein entfernt und den Atem erfrischt; in kleine Stücke schneiden, um Ersticken an Fäden zu vermeiden.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Sellerie fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Knackiger Snack, der Zahnstein entfernt und den Atem erfrischt; in kleine Stücke schneiden, um Ersticken an Fäden zu vermeiden."
+        },
+        {
+          "question": "Ist Sellerie sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "bell-pepper": {
+      "name": "Paprika",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Rote und gelbe Paprika enthalten 3-mal so viel Vitamin C wie Orangen; Meerschweinchen lieben und brauchen das.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Paprika fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Rote und gelbe Paprika enthalten 3-mal so viel Vitamin C wie Orangen; Meerschweinchen lieben und brauchen das."
+        },
+        {
+          "question": "Ist Paprika sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "asparagus": {
+      "name": "Spargel",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Leicht dämpfen, um die zähen Stangen weich zu machen. Lässt den Urin streng riechen, ist aber völlig harmlos.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Spargel fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Leicht dämpfen, um die zähen Stangen weich zu machen. Lässt den Urin streng riechen, ist aber völlig harmlos."
+        },
+        {
+          "question": "Ist Spargel sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cauliflower": {
+      "name": "Blumenkohl",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Kalorienarm und reich an Cholin; kann in großen Portionen harmlose Blähungen verursachen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Blumenkohl fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Kalorienarm und reich an Cholin; kann in großen Portionen harmlose Blähungen verursachen."
+        },
+        {
+          "question": "Ist Blumenkohl sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cabbage": {
+      "name": "Kohl",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Reich an sekundären Pflanzenstoffen und Rohfaser; sparsam füttern, um Blähungen zu vermeiden.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kohl fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Reich an sekundären Pflanzenstoffen und Rohfaser; sparsam füttern, um Blähungen zu vermeiden."
+        },
+        {
+          "question": "Ist Kohl sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "lettuce-romaine": {
+      "name": "Salat (Römersalat)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Hellen Eisbergsalat meiden (Wasser ohne Nährstoffe); dunkler Römersalat und grüner Blattsalat sind fantastisch.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Salat (Römersalat) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Hellen Eisbergsalat meiden (Wasser ohne Nährstoffe); dunkler Römersalat und grüner Blattsalat sind fantastisch."
+        },
+        {
+          "question": "Ist Salat (Römersalat) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "peas": {
+      "name": "Erbsen",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Gartenerbsen, Zuckerschoten und Knackerbsen sind unbedenklich; frisch oder aufgetaut gefroren füttern; salzige Dosenerbsen meiden.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Erbsen fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Gartenerbsen, Zuckerschoten und Knackerbsen sind unbedenklich; frisch oder aufgetaut gefroren füttern; salzige Dosenerbsen meiden."
+        },
+        {
+          "question": "Sind Erbsen sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "onion": {
+      "name": "Zwiebel",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. ALLIUM-GIFT: N-Propyldisulfid verursacht oxidativen Abbau der roten Blutkörperchen, hämolytische Heinz-Körper-Anämie und Kreislaufkollaps.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "ALLIUM-GIFT: N-Propyldisulfid verursacht oxidativen Abbau der roten Blutkörperchen, hämolytische Heinz-Körper-Anämie und Kreislaufkollaps.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Zwiebel fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. ALLIUM-GIFT: N-Propyldisulfid verursacht oxidativen Abbau der roten Blutkörperchen, hämolytische Heinz-Körper-Anämie und Kreislaufkollaps."
+        },
+        {
+          "question": "Ist Zwiebel sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "garlic": {
+      "name": "Knoblauch",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. 5-MAL GIFTIGER als Zwiebeln. Zerstört rote Blutkörperchen bei Hunden, Katzen und allen Heimtieren.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "5-MAL GIFTIGER als Zwiebeln. Zerstört rote Blutkörperchen bei Hunden, Katzen und allen Heimtieren.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Knoblauch fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. 5-MAL GIFTIGER als Zwiebeln. Zerstört rote Blutkörperchen bei Hunden, Katzen und allen Heimtieren."
+        },
+        {
+          "question": "Ist Knoblauch sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "leek-shallot": {
+      "name": "Lauch & Schalotte",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Gehört zur giftigen Allium-Gattung; verursacht schwere Magen-Darm-Geschwüre und tödliche Zerstörung roter Blutkörperchen.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Gehört zur giftigen Allium-Gattung; verursacht schwere Magen-Darm-Geschwüre und tödliche Zerstörung roter Blutkörperchen.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Lauch & Schalotte fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Gehört zur giftigen Allium-Gattung; verursacht schwere Magen-Darm-Geschwüre und tödliche Zerstörung roter Blutkörperchen."
+        },
+        {
+          "question": "Ist Lauch & Schalotte sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "mushroom-wild": {
+      "name": "Pilz (wild)",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Wildpilze (Knollenblätterpilz, Risspilze) verursachen rasches Leber- und Nierenversagen, Krämpfe und Tod.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Wildpilze (Knollenblätterpilz, Risspilze) verursachen rasches Leber- und Nierenversagen, Krämpfe und Tod.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Pilz (wild) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Wildpilze (Knollenblätterpilz, Risspilze) verursachen rasches Leber- und Nierenversagen, Krämpfe und Tod."
+        },
+        {
+          "question": "Ist Pilz (wild) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "corn-cob": {
+      "name": "Mais (Kolben)",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Maiskörner sind verdaulich, aber Maiskolben sind völlig unverdaulich und verursachen tödliche Darmverschlüsse, die eine Notoperation erfordern.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Maiskörner sind verdaulich, aber Maiskolben sind völlig unverdaulich und verursachen tödliche Darmverschlüsse, die eine Notoperation erfordern.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Mais (Kolben) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Maiskörner sind verdaulich, aber Maiskolben sind völlig unverdaulich und verursachen tödliche Darmverschlüsse, die eine Notoperation erfordern."
+        },
+        {
+          "question": "Ist Mais (Kolben) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "potato-raw-green": {
+      "name": "Kartoffel (roh/grün)",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Grüne Schalen und rohe Kartoffeln enthalten Solanin-Glykoalkaloide. Vollständig gegarte, naturbelassene weiße Kartoffel ist unbedenklich.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Grüne Schalen und rohe Kartoffeln enthalten Solanin-Glykoalkaloide. Vollständig gegarte, naturbelassene weiße Kartoffel ist unbedenklich.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kartoffel (roh/grün) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Grüne Schalen und rohe Kartoffeln enthalten Solanin-Glykoalkaloide. Vollständig gegarte, naturbelassene weiße Kartoffel ist unbedenklich."
+        },
+        {
+          "question": "Ist Kartoffel (roh/grün) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "tomato-green-plant": {
+      "name": "Tomate (grün/Pflanze)",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Grüne, unreife Tomaten und Ranken enthalten giftiges Solanin und Tomatin. Reifes, rotes Tomatenfruchtfleisch ist ungiftig.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Grüne, unreife Tomaten und Ranken enthalten giftiges Solanin und Tomatin. Reifes, rotes Tomatenfruchtfleisch ist ungiftig.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Tomate (grün/Pflanze) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Grüne, unreife Tomaten und Ranken enthalten giftiges Solanin und Tomatin. Reifes, rotes Tomatenfruchtfleisch ist ungiftig."
+        },
+        {
+          "question": "Ist Tomate (grün/Pflanze) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "rhubarb": {
+      "name": "Rhabarber",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Blätter und Stiele enthalten lösliche Calciumoxalat-Kristalle, die dem Körper Calcium entziehen und Nierenversagen verursachen.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Blätter und Stiele enthalten lösliche Calciumoxalat-Kristalle, die dem Körper Calcium entziehen und Nierenversagen verursachen.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Rhabarber fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Blätter und Stiele enthalten lösliche Calciumoxalat-Kristalle, die dem Körper Calcium entziehen und Nierenversagen verursachen."
+        },
+        {
+          "question": "Ist Rhabarber sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cooked-chicken": {
+      "name": "Hähnchen (gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Mageres, hochverdauliches Protein-Grundnahrungsmittel. Niemals gekochte Knochen füttern, da sie splittern und Magenwände durchbohren.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Hähnchen (gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Mageres, hochverdauliches Protein-Grundnahrungsmittel. Niemals gekochte Knochen füttern, da sie splittern und Magenwände durchbohren."
+        },
+        {
+          "question": "Ist Hähnchen (gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cooked-turkey": {
+      "name": "Pute (gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Naturbelassene, hautlose, gegarte Putenbrust ist ein hervorragendes fettarmes Protein. Gewürzte Festtagspute meiden.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Pute (gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Naturbelassene, hautlose, gegarte Putenbrust ist ein hervorragendes fettarmes Protein. Gewürzte Festtagspute meiden."
+        },
+        {
+          "question": "Ist Pute (gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cooked-beef": {
+      "name": "Rindfleisch (gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Mageres Rinderhack unterstützt Muskelmasse sowie Zink- und Eisenspiegel. Fett vor dem Füttern abgießen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Rindfleisch (gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Mageres Rinderhack unterstützt Muskelmasse sowie Zink- und Eisenspiegel. Fett vor dem Füttern abgießen."
+        },
+        {
+          "question": "Ist Rindfleisch (gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cooked-salmon": {
+      "name": "Lachs (gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Vollgepackt mit essenziellen Omega-3-Fettsäuren (EPA/DHA) für Gehirn, Fell und Gelenke. Muss gegart werden, um Parasiten abzutöten.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Lachs (gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Vollgepackt mit essenziellen Omega-3-Fettsäuren (EPA/DHA) für Gehirn, Fell und Gelenke. Muss gegart werden, um Parasiten abzutöten."
+        },
+        {
+          "question": "Ist Lachs (gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "tuna-in-water": {
+      "name": "Thunfisch (in Wasser)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Nur Thunfisch aus der Dose in Wasser füttern; wegen der Anreicherung des Schwermetalls Quecksilber nur begrenzt füttern.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Thunfisch (in Wasser) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Nur Thunfisch aus der Dose in Wasser füttern; wegen der Anreicherung des Schwermetalls Quecksilber nur begrenzt füttern."
+        },
+        {
+          "question": "Ist Thunfisch (in Wasser) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: IN MAßEN. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "eggs-cooked": {
+      "name": "Eier (gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Vorbildliches, vollständiges Aminosäureprofil; als Rührei oder hartgekochtes Ei natur, ohne Butter oder Salz.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Eier (gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Vorbildliches, vollständiges Aminosäureprofil; als Rührei oder hartgekochtes Ei natur, ohne Butter oder Salz."
+        },
+        {
+          "question": "Sind Eier (gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "pork-lean-cooked": {
+      "name": "Schwein (mager, gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Reich an Thiamin. Muss gründlich gegart werden, um Trichinen abzutöten; salzigen Schinken oder Speck meiden.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Schwein (mager, gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Reich an Thiamin. Muss gründlich gegart werden, um Trichinen abzutöten; salzigen Schinken oder Speck meiden."
+        },
+        {
+          "question": "Ist Schwein (mager, gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "lamb-cooked": {
+      "name": "Lamm (gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Hypoallergene, neuartige Proteinoption für Hunde mit Hähnchen- oder Rindfleisch-Unverträglichkeiten.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Lamm (gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Hypoallergene, neuartige Proteinoption für Hunde mit Hähnchen- oder Rindfleisch-Unverträglichkeiten."
+        },
+        {
+          "question": "Ist Lamm (gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "sardines-in-water": {
+      "name": "Sardinen (in Wasser)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Kleiner Schwarmfisch mit winzigen, essbaren Gräten, reich an bioverfügbarem Calcium, CoQ10 und Omega-3.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Sardinen (in Wasser) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Kleiner Schwarmfisch mit winzigen, essbaren Gräten, reich an bioverfügbarem Calcium, CoQ10 und Omega-3."
+        },
+        {
+          "question": "Sind Sardinen (in Wasser) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "bacon-sausage": {
+      "name": "Speck & Wurst",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Extrem hoher Natrium-, Nitrat- und gesättigter Fettgehalt löst eine akute, schwere Bauchspeicheldrüsenentzündung aus — ein tierärztlicher Notfall.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Extrem hoher Natrium-, Nitrat- und gesättigter Fettgehalt löst eine akute, schwere Bauchspeicheldrüsenentzündung aus — ein tierärztlicher Notfall.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Speck & Wurst fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Extrem hoher Natrium-, Nitrat- und gesättigter Fettgehalt löst eine akute, schwere Bauchspeicheldrüsenentzündung aus — ein tierärztlicher Notfall."
+        },
+        {
+          "question": "Ist Speck & Wurst sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cooked-bones": {
+      "name": "Gekochte Knochen",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Garen macht Tierknochen brüchig und scharf, was zu durchbohrter Speiseröhre, Magen oder Darm führt.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Garen macht Tierknochen brüchig und scharf, was zu durchbohrter Speiseröhre, Magen oder Darm führt.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Gekochte Knochen fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Garen macht Tierknochen brüchig und scharf, was zu durchbohrter Speiseröhre, Magen oder Darm führt."
+        },
+        {
+          "question": "Sind Gekochte Knochen sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "raw-fish": {
+      "name": "Roher Fisch",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Enthält Thiaminase-Enzyme, die Vitamin B1 (Thiamin) zerstören, was Kopfzittern, Ataxie und Krämpfe verursacht.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Enthält Thiaminase-Enzyme, die Vitamin B1 (Thiamin) zerstören, was Kopfzittern, Ataxie und Krämpfe verursacht.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Roher Fisch fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Enthält Thiaminase-Enzyme, die Vitamin B1 (Thiamin) zerstören, was Kopfzittern, Ataxie und Krämpfe verursacht."
+        },
+        {
+          "question": "Ist Roher Fisch sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "shrimp-cooked": {
+      "name": "Garnelen (gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Gründlich garen, Schalen entfernen und Darm entdarmen; reich an Phosphor, Protein und B12.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Garnelen (gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Gründlich garen, Schalen entfernen und Darm entdarmen; reich an Phosphor, Protein und B12."
+        },
+        {
+          "question": "Ist Garnelen (gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "liver-beef-chicken": {
+      "name": "Leber (Rind/Hähnchen)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Kraftpaket aus Vitamin A und Eisen; in Maßen füttern, da zu viel Leber eine Vitamin-A-Vergiftung (Hypervitaminose A) verursachen kann.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Leber (Rind/Hähnchen) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Kraftpaket aus Vitamin A und Eisen; in Maßen füttern, da zu viel Leber eine Vitamin-A-Vergiftung (Hypervitaminose A) verursachen kann."
+        },
+        {
+          "question": "Ist Leber (Rind/Hähnchen) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cheese-cheddar": {
+      "name": "Käse (Cheddar)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Hartkäse enthält sehr wenig Laktose; fantastisch zum Verstecken von Medikamenten und Tabletten.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Käse (Cheddar) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Hartkäse enthält sehr wenig Laktose; fantastisch zum Verstecken von Medikamenten und Tabletten."
+        },
+        {
+          "question": "Ist Käse (Cheddar) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: IN MAßEN. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "greek-yogurt-plain": {
+      "name": "Griechischer Joghurt (natur)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Enthält lebende, aktive probiotische Kulturen, die nützliche Darmflora aufbauen; auf 0 % Xylit prüfen.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Griechischer Joghurt (natur) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Enthält lebende, aktive probiotische Kulturen, die nützliche Darmflora aufbauen; auf 0 % Xylit prüfen."
+        },
+        {
+          "question": "Ist Griechischer Joghurt (natur) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cottage-cheese": {
+      "name": "Hüttenkäse",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Milder, proteinreicher Frischkäse, der für Tiere mit Magenverstimmung leicht verdaulich ist.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Hüttenkäse fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Milder, proteinreicher Frischkäse, der für Tiere mit Magenverstimmung leicht verdaulich ist."
+        },
+        {
+          "question": "Ist Hüttenkäse sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "cow-milk": {
+      "name": "Kuhmilch",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Die meisten erwachsenen Hunde und Katzen verlieren Laktase-Enzyme, was Durchfall, Blähungen und Bauchkrämpfe verursacht.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kuhmilch fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Die meisten erwachsenen Hunde und Katzen verlieren Laktase-Enzyme, was Durchfall, Blähungen und Bauchkrämpfe verursacht."
+        },
+        {
+          "question": "Ist Kuhmilch sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: IN MAßEN. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "ice-cream": {
+      "name": "Eiscreme",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Viel raffinierter Milchzucker, mögliches Xylit als künstlicher Süßstoff und hohes Risiko für Schokoladenbestandteile.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Viel raffinierter Milchzucker, mögliches Xylit als künstlicher Süßstoff und hohes Risiko für Schokoladenbestandteile.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Eiscreme fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Viel raffinierter Milchzucker, mögliches Xylit als künstlicher Süßstoff und hohes Risiko für Schokoladenbestandteile."
+        },
+        {
+          "question": "Ist Eiscreme sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "white-rice-cooked": {
+      "name": "Reis (weiß, gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Die tierärztliche Diät-Empfehlung Nummer eins zur Beruhigung eines gereizten Magen-Darm-Trakts.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Reis (weiß, gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Die tierärztliche Diät-Empfehlung Nummer eins zur Beruhigung eines gereizten Magen-Darm-Trakts."
+        },
+        {
+          "question": "Ist Reis (weiß, gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "oatmeal-plain-cooked": {
+      "name": "Haferbrei (natur, gekocht)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Lösliche Ballaststoffe beruhigen gereizten Darm und liefern Linolsäure für feuchtes Fell.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Haferbrei (natur, gekocht) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Lösliche Ballaststoffe beruhigen gereizten Darm und liefern Linolsäure für feuchtes Fell."
+        },
+        {
+          "question": "Ist Haferbrei (natur, gekocht) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "peanut-butter-xylitol-free": {
+      "name": "Erdnussbutter (xylitfrei)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Top-Trainingsbelohnung und Beschäftigungsfüllung für Kong-Spielzeug. Etikett prüfen: DARF KEIN Xylit enthalten.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Erdnussbutter (xylitfrei) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Top-Trainingsbelohnung und Beschäftigungsfüllung für Kong-Spielzeug. Etikett prüfen: DARF KEIN Xylit enthalten."
+        },
+        {
+          "question": "Ist Erdnussbutter (xylitfrei) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: IN MAßEN. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "bread-plain-white": {
+      "name": "Brot (Weißbrot, natur)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Naturbelassenes, gebackenes Brot ist in winzigen Stücken als gelegentlicher Leckerbissen unbedenklich; ohne Nährwert.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Brot (Weißbrot, natur) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Naturbelassenes, gebackenes Brot ist in winzigen Stücken als gelegentlicher Leckerbissen unbedenklich; ohne Nährwert."
+        },
+        {
+          "question": "Ist Brot (Weißbrot, natur) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "raw-yeast-dough": {
+      "name": "Roher Hefeteig",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. DEHNT SICH IM MAGEN AUS und schnürt die Durchblutung ab; gärende Hefe verursacht eine giftige Ethanolvergiftung.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "DEHNT SICH IM MAGEN AUS und schnürt die Durchblutung ab; gärende Hefe verursacht eine giftige Ethanolvergiftung.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Roher Hefeteig fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. DEHNT SICH IM MAGEN AUS und schnürt die Durchblutung ab; gärende Hefe verursacht eine giftige Ethanolvergiftung."
+        },
+        {
+          "question": "Ist Roher Hefeteig sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "popcorn-air-popped": {
+      "name": "Popcorn (luftgepoppt)",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Luftgepopptes, naturbelassenes Popcorn ohne Salz, Butter oder harte, ungepoppte Körner ist ein lustiger, knackiger Snack.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Popcorn (luftgepoppt) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: SICHER. Luftgepopptes, naturbelassenes Popcorn ohne Salz, Butter oder harte, ungepoppte Körner ist ein lustiger, knackiger Snack."
+        },
+        {
+          "question": "Ist Popcorn (luftgepoppt) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: SICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "macadamia-nuts": {
+      "name": "Macadamianüsse",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Hochgiftig für Hunde; verursacht Hinterlaufschwäche, Lähmung, Erbrechen, Hyperthermie und Zittern.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Hochgiftig für Hunde; verursacht Hinterlaufschwäche, Lähmung, Erbrechen, Hyperthermie und Zittern.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Macadamianüsse fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Hochgiftig für Hunde; verursacht Hinterlaufschwäche, Lähmung, Erbrechen, Hyperthermie und Zittern."
+        },
+        {
+          "question": "Sind Macadamianüsse sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "walnuts-black": {
+      "name": "Walnuss (schwarze)",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Schwarze Walnüsse enthalten das Gift Juglon und tremorgene Mykotoxine, die Neurotoxizität und Krämpfe verursachen.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Schwarze Walnüsse enthalten das Gift Juglon und tremorgene Mykotoxine, die Neurotoxizität und Krämpfe verursachen.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Walnuss (schwarze) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Schwarze Walnüsse enthalten das Gift Juglon und tremorgene Mykotoxine, die Neurotoxizität und Krämpfe verursachen."
+        },
+        {
+          "question": "Ist Walnuss (schwarze) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "almonds": {
+      "name": "Mandeln",
+      "short_answer": "Im Allgemeinen unbedenklich, wenn naturbelassen zubereitet und in Maßen gefüttert. Nicht grundsätzlich giftig, aber schwer verdaulich; kann kleine Luftröhren verstopfen; hoher Fettgehalt verursacht Bauchspeicheldrüsenentzündung.",
+      "benefits": "Liefert wichtige Vitamine, Mineralstoffe und gesunde Flüssigkeitszufuhr.",
+      "risks": "Verdauungsstörungen bei übermäßigen Portionen oder gewürzter Zubereitung.",
+      "symptoms": "Keine bei angemessenen Leckerli-Portionen.",
+      "vet_advice": "Gründlich waschen, bei Bedarf schälen/entkernen und als gelegentlichen Leckerbissen anbieten.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Mandeln fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: IN MAßEN. Nicht grundsätzlich giftig, aber schwer verdaulich; kann kleine Luftröhren verstopfen; hoher Fettgehalt verursacht Bauchspeicheldrüsenentzündung."
+        },
+        {
+          "question": "Sind Mandeln sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: IN MAßEN. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "chocolate-dark-milk": {
+      "name": "Schokolade (dunkel/Vollmilch)",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. THEOBROMIN-VERGIFTUNG: Verursacht Tachykardie, Herzrhythmusstörungen, Muskelkrämpfe, Anfälle und Tod.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "THEOBROMIN-VERGIFTUNG: Verursacht Tachykardie, Herzrhythmusstörungen, Muskelkrämpfe, Anfälle und Tod.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Schokolade (dunkel/Vollmilch) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. THEOBROMIN-VERGIFTUNG: Verursacht Tachykardie, Herzrhythmusstörungen, Muskelkrämpfe, Anfälle und Tod."
+        },
+        {
+          "question": "Ist Schokolade (dunkel/Vollmilch) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "xylitol-birch-sugar": {
+      "name": "Xylit (Birkenzucker)",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. TÖDLICH FÜR HUNDE: Verursacht extreme Insulinausschüttung, schwere Unterzuckerung innerhalb von 30 Minuten und akutes Leberversagen.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "TÖDLICH FÜR HUNDE: Verursacht extreme Insulinausschüttung, schwere Unterzuckerung innerhalb von 30 Minuten und akutes Leberversagen.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Xylit (Birkenzucker) fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. TÖDLICH FÜR HUNDE: Verursacht extreme Insulinausschüttung, schwere Unterzuckerung innerhalb von 30 Minuten und akutes Leberversagen."
+        },
+        {
+          "question": "Ist Xylit (Birkenzucker) sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "coffee-caffeine": {
+      "name": "Kaffee & Koffein",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Methylxanthine stimulieren Nerven- und Herz-Kreislauf-System und verursachen Bluthochdruck und Hyperthermie.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Methylxanthine stimulieren Nerven- und Herz-Kreislauf-System und verursachen Bluthochdruck und Hyperthermie.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Kaffee & Koffein fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Methylxanthine stimulieren Nerven- und Herz-Kreislauf-System und verursachen Bluthochdruck und Hyperthermie."
+        },
+        {
+          "question": "Ist Kaffee & Koffein sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    },
+    "alcohol-beer": {
+      "name": "Alkohol & Bier",
+      "short_answer": "Für bestimmte Tiere gefährlich oder giftig. Ethanol verursacht schwere metabolische Azidose, Dämpfung des zentralen Nervensystems, Atemstillstand und Koma.",
+      "benefits": "Kein Nährwert; potenzielles Gesundheitsrisiko.",
+      "risks": "Ethanol verursacht schwere metabolische Azidose, Dämpfung des zentralen Nervensystems, Atemstillstand und Koma.",
+      "symptoms": "Erbrechen, Durchfall, Lethargie, Appetitlosigkeit, Bauchschmerzen.",
+      "vet_advice": "Wende dich sofort an deinen Tierarzt oder die Giftnotruf-Hotline für Tiere.",
+      "alternatives": [
+        "Naturbelassen gebackener Kürbis",
+        "Karottenscheiben",
+        "Apfelschnitze (ohne Kerne)"
+      ],
+      "faqs": [
+        {
+          "question": "Darf mein Hund Alkohol & Bier fressen?",
+          "answer": "Für Hunde ist dieses Lebensmittel bewertet: UNSICHER. Ethanol verursacht schwere metabolische Azidose, Dämpfung des zentralen Nervensystems, Atemstillstand und Koma."
+        },
+        {
+          "question": "Ist Alkohol & Bier sicher für Katzen?",
+          "answer": "Für Katzen ist dieses Lebensmittel bewertet: UNSICHER. Katzen sind strikte Fleischfresser mit anderen Ernährungsbedürfnissen."
+        }
+      ]
+    }
+  }
+}

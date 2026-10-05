@@ -46,6 +46,7 @@ export const NAMESPACES = [
   'forms',
   'faq',
   'notifications',
+  'foods',
 ] as const;
 
 export type TranslationNamespace = typeof NAMESPACES[number];

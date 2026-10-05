@@ -1,0 +1,1867 @@
+{
+  "ui": {
+    "breadcrumbFoods": "Alimentos",
+    "title": "Meu pet pode comer isso?",
+    "subtitle": "Pesquise mais de 500 alimentos para saber se são seguros para cães, gatos, coelhos, pássaros, hamsters, porquinhos-da-índia, furões, cavalos, tartarugas e peixes. Benefícios, riscos, sintomas, conselhos do veterinário e alternativas mais seguras.",
+    "searchPlaceholder": "Pesquisar alimentos (ex.: chocolate, maçã, frango)",
+    "searchAriaLabel": "Pesquisar alimentos",
+    "categoryFilterAriaLabel": "Filtro de categoria",
+    "safetyFilterAriaLabel": "Filtro de segurança",
+    "allCategories": "Todas as categorias",
+    "allSafetyLevels": "Todos os níveis de segurança",
+    "noResults": "Nenhum alimento corresponde aos filtros.",
+    "detailBreadcrumbFoods": "Alimentos",
+    "foodGuide": "Guia de alimentos",
+    "detailTitle": "Meu pet pode comer {{name}}?",
+    "forSpecies": "Para {{species}}",
+    "emergencyBanner": "Em caso de ingestão, ligue para o seu veterinário ou para a Pet Poison Helpline no 1-855-764-7661 (EUA).",
+    "emergencyBannerSuffix": "O tempo e a quantidade ingerida importam.",
+    "sectionBenefits": "Benefícios",
+    "sectionRisks": "Riscos",
+    "sectionSymptoms": "Sintomas a observar",
+    "sectionVetAdvice": "Conselho do veterinário",
+    "saferAlternatives": "Alternativas mais seguras",
+    "relatedFoods": "Alimentos relacionados",
+    "disclaimerTitle": "Não é um conselho médico.",
+    "disclaimerBody": "Este guia é educacional — sempre consulte seu veterinário para decisões médicas, especialmente em emergências.",
+    "notFoundTitle": "Alimento não encontrado",
+    "notFoundLink": "Explorar a base de alimentos"
+  },
+  "categories": {
+    "fruit": "Frutas",
+    "vegetable": "Legumes",
+    "protein": "Carnes e proteínas",
+    "dairy": "Laticínios",
+    "grain": "Cereais",
+    "nut": "Oleaginosas",
+    "seed": "Sementes",
+    "herb": "Ervas",
+    "sweets": "Doces",
+    "sweetener": "Adoçantes",
+    "spice": "Temperos",
+    "drink": "Bebidas",
+    "snack": "Petiscos",
+    "other": "Outros"
+  },
+  "species": {
+    "dog": {
+      "label": "Cachorro",
+      "plural": "Cachorros"
+    },
+    "cat": {
+      "label": "Gato",
+      "plural": "Gatos"
+    },
+    "rabbit": {
+      "label": "Coelho",
+      "plural": "Coelhos"
+    },
+    "bird": {
+      "label": "Pássaro",
+      "plural": "Pássaros"
+    },
+    "hamster": {
+      "label": "Hamster",
+      "plural": "Hamsters"
+    },
+    "guinea_pig": {
+      "label": "Porquinho-da-índia",
+      "plural": "Porquinhos-da-índia"
+    },
+    "ferret": {
+      "label": "Furão",
+      "plural": "Furões"
+    },
+    "horse": {
+      "label": "Cavalo",
+      "plural": "Cavalos"
+    },
+    "turtle": {
+      "label": "Tartaruga",
+      "plural": "Tartarugas"
+    },
+    "fish": {
+      "label": "Peixe",
+      "plural": "Peixes"
+    }
+  },
+  "safety": {
+    "safe": "Seguro",
+    "moderation": "Com moderação",
+    "unsafe": "Perigoso",
+    "unknown": "Desconhecido"
+  },
+  "foods": {
+    "apple": {
+      "name": "Maçã",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Rica em vitamina C e fibras. Remova sempre as sementes e o miolo, pois as sementes de maçã contêm amigdalina (cianeto).",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer maçã?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Rico em vitamina C e fibras. Remova sempre as sementes e o miolo, pois as sementes de maçã contêm amigdalina (cianeto)."
+        },
+        {
+          "question": "Maçã é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "banana": {
+      "name": "Banana",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Rica em potássio e vitaminas, mas com alto teor de açúcar. Ofereça apenas como um pequeno petisco ocasional.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer banana?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Rica em potássio e vitaminas, mas com alto teor de açúcar. Ofereça apenas como um pequeno petisco ocasional."
+        },
+        {
+          "question": "Banana é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "blueberries": {
+      "name": "Mirtilos",
+      "short_answer": "Geralmente seguros quando preparados de forma simples e oferecidos com moderação. Superalimento cheio de antioxidantes, fibras e fitoquímicos. Excelente petisco de baixa caloria.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidos em porções excessivas ou preparados com temperos.",
+      "symptoms": "Nenhum, quando oferecidos em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer mirtilos?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Superalimento cheio de antioxidantes, fibras e fitoquímicos. Excelente petisco de baixa caloria."
+        },
+        {
+          "question": "Mirtilos são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "strawberries": {
+      "name": "Morangos",
+      "short_answer": "Geralmente seguros quando preparados de forma simples e oferecidos com moderação. Cheios de vitamina C e uma enzima (ácido málico) que pode ajudar a clarear os dentes dos pets.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidos em porções excessivas ou preparados com temperos.",
+      "symptoms": "Nenhum, quando oferecidos em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer morangos?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Cheios de vitamina C e uma enzima (ácido málico) que pode ajudar a clarear os dentes dos pets."
+        },
+        {
+          "question": "Morangos são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "watermelon": {
+      "name": "Melancia",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Com 92% de água, é perfeita para os dias quentes de verão. Remova as sementes e a casca dura.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer melancia?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Com 92% de água, é perfeita para os dias quentes de verão. Remova as sementes e a casca dura."
+        },
+        {
+          "question": "Melancia é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cantaloupe": {
+      "name": "Melão cantalupo",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Rico em betacaroteno e umidade. Corte em pedacinhos; ofereça com moderação.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer melão cantalupo?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Rico em betacaroteno e umidade. Corte em pedacinhos; ofereça com moderação."
+        },
+        {
+          "question": "Melão cantalupo é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "mango": {
+      "name": "Manga",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Petisco doce e tropical, cheio de vitaminas A, B6, C e E. Descasque e descarte o caroço grande e duro.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer manga?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Petisco doce e tropical, cheio de vitaminas A, B6, C e E. Descasque e descarte o caroço grande e duro."
+        },
+        {
+          "question": "Manga é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "pineapple": {
+      "name": "Abacaxi",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Contém a enzima bromelina, que ajuda na quebra de proteínas. Remova a casca espinhosa e o miolo fibroso duro.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer abacaxi?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Contém a enzima bromelina, que ajuda na quebra de proteínas. Remova a casca espinhosa e o miolo fibroso duro."
+        },
+        {
+          "question": "Abacaxi é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "orange": {
+      "name": "Laranja",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Os óleos essenciais cítricos e os psoralenos causam forte irritação estomacal em gatos e hamsters. Apenas como pequeno petisco para cães.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Os óleos essenciais cítricos e os psoralenos causam forte irritação estomacal em gatos e hamsters. Apenas como pequeno petisco para cães.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer laranja?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. Os óleos essenciais cítricos e os psoralenos causam forte irritação estomacal em gatos e hamsters. Apenas como pequeno petisco para cães."
+        },
+        {
+          "question": "Laranja é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "pear": {
+      "name": "Pera",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Rica em cobre e fibras alimentares. Remova o talo, o miolo e as sementes antes de servir.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer pera?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Rica em cobre e fibras alimentares. Remova o talo, o miolo e as sementes antes de servir."
+        },
+        {
+          "question": "Pera é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "peach": {
+      "name": "Pêssego",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. A polpa fresca do pêssego é segura. O caroço contém glicosídeos cianogênicos e representa grave risco de engasgo/obstrução.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer pêssego?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. A polpa fresca do pêssego é segura. O caroço contém glicosídeos cianogênicos e representa grave risco de engasgo/obstrução."
+        },
+        {
+          "question": "Pêssego é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "plum": {
+      "name": "Ameixa",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Os caroços contêm cianeto letal. Evite oferecer a fruta inteira a qualquer pet.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Os caroços contêm cianeto letal. Evite oferecer a fruta inteira a qualquer pet.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer ameixa?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. Os caroços contêm cianeto letal. Evite oferecer a fruta inteira a qualquer pet."
+        },
+        {
+          "question": "Ameixa é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cherry": {
+      "name": "Cereja",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Caroços, talos e folhas contêm cianeto tóxico, que bloqueia o transporte celular de oxigênio.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Caroços, talos e folhas contêm cianeto tóxico, que bloqueia o transporte celular de oxigênio.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer cereja?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Caroços, talos e folhas contêm cianeto tóxico, que bloqueia o transporte celular de oxigênio."
+        },
+        {
+          "question": "Cereja é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "avocado": {
+      "name": "Abacate",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Contém persina, uma toxina fungicida letal para pássaros, coelhos, roedores e cavalos. O caroço é um risco de engasgo.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer abacate?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. Contém persina, uma toxina fungicida letal para pássaros, coelhos, roedores e cavalos. O caroço é um risco de engasgo."
+        },
+        {
+          "question": "Abacate é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: COM MODERAÇÃO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "grapes-raisins": {
+      "name": "Uvas e passas",
+      "short_answer": "Perigoso ou tóxico para alguns pets. EXTREMAMENTE PERIGOSO para cães e gatos; o ácido tartárico causa insuficiência renal aguda súbita e irreversível.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "EXTREMAMENTE PERIGOSO para cães e gatos; o ácido tartárico causa insuficiência renal aguda súbita e irreversível.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer uvas e passas?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. EXTREMAMENTE PERIGOSO para cães e gatos; o ácido tartárico causa insuficiência renal aguda súbita e irreversível."
+        },
+        {
+          "question": "Uvas e passas são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "raspberries": {
+      "name": "Framboesas",
+      "short_answer": "Geralmente seguras quando preparadas de forma simples e oferecidas com moderação. Contêm xilitol natural em quantidades mínimas; limite a 1/2 xícara para cães de porte médio; ótimo anti-inflamatório.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidas em porções excessivas ou preparadas com temperos.",
+      "symptoms": "Nenhum, quando oferecidas em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer framboesas?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Contém xilitol natural em quantidades mínimas; limite a 1/2 xícara para cães de porte médio; ótimo anti-inflamatório."
+        },
+        {
+          "question": "Framboesas são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "blackberries": {
+      "name": "Amoras",
+      "short_answer": "Geralmente seguras quando preparadas de forma simples e oferecidas com moderação. Cheias de vitaminas C, K e antocianinas. Ótima recompensa de baixa caloria.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidas em porções excessivas ou preparadas com temperos.",
+      "symptoms": "Nenhum, quando oferecidas em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer amoras?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Cheias de vitaminas C, K e antocianinas. Ótima recompensa de baixa caloria."
+        },
+        {
+          "question": "Amoras são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cranberries": {
+      "name": "Cranberries",
+      "short_answer": "Geralmente seguros quando preparados de forma simples e oferecidos com moderação. Apoiam a saúde do trato urinário. Evite cranberries desidratadas industrializadas, cheias de açúcar refinado.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidos em porções excessivas ou preparados com temperos.",
+      "symptoms": "Nenhum, quando oferecidos em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer cranberries?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Apoia a saúde do trato urinário. Evite cranberries desidratadas industrializadas, cheias de açúcar refinado."
+        },
+        {
+          "question": "Cranberries são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "kiwi": {
+      "name": "Kiwi",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Descasque a casca com pelos; ofereça fatias pequenas. Rico em potássio e vitamina C.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer kiwi?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Descasque a casca com pelos; ofereça fatias pequenas. Rico em potássio e vitamina C."
+        },
+        {
+          "question": "Kiwi é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "papaya": {
+      "name": "Mamão",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Contém papaína, uma enzima digestiva natural. Retire as sementes e descasque antes de oferecer.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer mamão?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Contém papaína, uma enzima digestiva natural. Retire as sementes e descasque antes de oferecer."
+        },
+        {
+          "question": "Mamão é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "coconut": {
+      "name": "Coco",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. O ácido láurico ajuda no brilho da pelagem e em inflamações da pele; ofereça pequenas quantidades devido ao alto teor de gorduras saturadas.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer coco?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. O ácido láurico ajuda no brilho da pelagem e em inflamações da pele; ofereça pequenas quantidades devido ao alto teor de gorduras saturadas."
+        },
+        {
+          "question": "Coco é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "lemon-lime": {
+      "name": "Limão e lima",
+      "short_answer": "Perigoso ou tóxico para alguns pets. O ácido cítrico, o limoneno e o linalol causam depressão do sistema nervoso central, tremores e vômitos.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "O ácido cítrico, o limoneno e o linalol causam depressão do sistema nervoso central, tremores e vômitos.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer limão e lima?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. O ácido cítrico, o limoneno e o linalol causam depressão do sistema nervoso central, tremores e vômitos."
+        },
+        {
+          "question": "Limão e lima são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "carrot": {
+      "name": "Cenoura",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Petisco crocante excelente que ajuda a limpar os dentes do cachorro e fornece vitamina A / betacaroteno.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer cenoura?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Petisco crocante excelente que ajuda a limpar os dentes do cachorro e fornece vitamina A / betacaroteno."
+        },
+        {
+          "question": "Cenoura é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "broccoli": {
+      "name": "Brócolis",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Rico em luteína e vitamina C. Os floretes contêm isotiocianatos; mantenha abaixo de 10% da dieta total.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer brócolis?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Rico em luteína e vitamina C. Os floretes contêm isotiocianatos; mantenha abaixo de 10% da dieta total."
+        },
+        {
+          "question": "Brócolis é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "spinach": {
+      "name": "Espinafre",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Contém oxalatos solúveis. Pets com histórico de cálculos de oxalato de cálcio na bexiga devem evitar.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer espinafre?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. Contém oxalatos solúveis. Pets com histórico de cálculos de oxalato de cálcio na bexiga devem evitar."
+        },
+        {
+          "question": "Espinafre é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: COM MODERAÇÃO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cucumber": {
+      "name": "Pepino",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. 96% de água e quase zero calorias. O petisco ideal para pets com sobrepeso ou diabéticos.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer pepino?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. 96% de água e quase zero calorias. O petisco ideal para pets com sobrepeso ou diabéticos."
+        },
+        {
+          "question": "Pepino é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "green-beans": {
+      "name": "Vagem",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Queridinha dos veterinários para a dieta da vagem para emagrecimento; ofereça crua, no vapor ou em lata sem tempero.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer vagem?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Queridinha dos veterinários para a dieta da vagem para emagrecimento; ofereça crua, no vapor ou em lata sem tempero."
+        },
+        {
+          "question": "Vagem é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "sweet-potato": {
+      "name": "Batata-doce",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Cozinhe sempre muito bem; nunca ofereça batata-doce crua. Rica em fibras alimentares e vitamina B6.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer batata-doce?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Cozinhe sempre muito bem; nunca ofereça batata-doce crua. Rica em fibras alimentares e vitamina B6."
+        },
+        {
+          "question": "Batata-doce é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "pumpkin": {
+      "name": "Abóbora",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Remédio padrão-ouro para problemas intestinais de pets. O purê puro em lata resolve diarreia e prisão de ventre.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer abóbora?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Remédio padrão-ouro para problemas intestinais de pets. O purê puro em lata resolve diarreia e prisão de ventre."
+        },
+        {
+          "question": "Abóbora é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "zucchini": {
+      "name": "Abobrinha",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Verdura suave e hidratante, cheia de folato, potássio e vitamina A. Ofereça crua ou no vapor.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer abobrinha?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Verdura suave e hidratante, cheia de folato, potássio e vitamina A. Ofereça crua ou no vapor."
+        },
+        {
+          "question": "Abobrinha é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "celery": {
+      "name": "Salsão",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Petisco crocante que limpa o tártaro e refresca o hálito; corte em pedacinhos para evitar engasgo com as fibras.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer salsão?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Petisco crocante que limpa o tártaro e refresca o hálito; corte em pedacinhos para evitar engasgo com as fibras."
+        },
+        {
+          "question": "Salsão é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "bell-pepper": {
+      "name": "Pimentão",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Pimentões vermelhos e amarelos têm 3x mais vitamina C que as laranjas; porquinhos-da-índia adoram e precisam dela.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer pimentão?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Pimentões vermelhos e amarelos têm 3x mais vitamina C que as laranjas; porquinhos-da-índia adoram e precisam dela."
+        },
+        {
+          "question": "Pimentão é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "asparagus": {
+      "name": "Aspargos",
+      "short_answer": "Geralmente seguros quando preparados de forma simples e oferecidos com moderação. Cozinhe levemente no vapor para amaciar os talos duros. Deixa a urina com cheiro forte, mas é totalmente inofensivo.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidos em porções excessivas ou preparados com temperos.",
+      "symptoms": "Nenhum, quando oferecidos em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer aspargos?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Cozinhe levemente no vapor para amaciar os talos duros. Deixa a urina com cheiro forte, mas é totalmente inofensivo."
+        },
+        {
+          "question": "Aspargos são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cauliflower": {
+      "name": "Couve-flor",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Baixa caloria e rica em colina; pode causar gases inofensivos se oferecida em grandes porções.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer couve-flor?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Baixa caloria e rica em colina; pode causar gases inofensivos se oferecida em grandes porções."
+        },
+        {
+          "question": "Couve-flor é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cabbage": {
+      "name": "Repolho",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Rico em fitonutrientes e fibras; ofereça com moderação para evitar gases e inchaço.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer repolho?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Rico em fitonutrientes e fibras; ofereça com moderação para evitar gases e inchaço."
+        },
+        {
+          "question": "Repolho é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "lettuce-romaine": {
+      "name": "Alface romana",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Evite a alface americana clara (água sem nutrientes); a romana escura e a de folha verde são fantásticas.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer alface romana?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Evite a alface americana clara (água sem nutrientes); a romana escura e a de folha verde são fantásticas."
+        },
+        {
+          "question": "Alface romana é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "peas": {
+      "name": "Ervilhas",
+      "short_answer": "Geralmente seguras quando preparadas de forma simples e oferecidas com moderação. Ervilhas comuns, ervilhas-torta e ervilhas-de-cheiro são seguras; ofereça frescas ou congeladas descongeladas; evite as enlatadas com sódio.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidas em porções excessivas ou preparadas com temperos.",
+      "symptoms": "Nenhum, quando oferecidas em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer ervilhas?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Ervilhas comuns, ervilhas-torta e ervilhas-de-cheiro são seguras; ofereça frescas ou congeladas descongeladas; evite as enlatadas com sódio."
+        },
+        {
+          "question": "Ervilhas são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "onion": {
+      "name": "Cebola",
+      "short_answer": "Perigoso ou tóxico para alguns pets. TOXINA ALLIUM: o dissulfeto de N-propila causa destruição oxidativa dos glóbulos vermelhos, anemia hemolítica com corpúsculos de Heinz e colapso.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "TOXINA ALLIUM: o dissulfeto de N-propila causa destruição oxidativa dos glóbulos vermelhos, anemia hemolítica com corpúsculos de Heinz e colapso.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer cebola?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. TOXINA ALLIUM: o dissulfeto de N-propila causa destruição oxidativa dos glóbulos vermelhos, anemia hemolítica com corpúsculos de Heinz e colapso."
+        },
+        {
+          "question": "Cebola é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "garlic": {
+      "name": "Alho",
+      "short_answer": "Perigoso ou tóxico para alguns pets. 5 VEZES MAIS TÓXICO que a cebola. Destrói os glóbulos vermelhos de cães, gatos e todos os animais de companhia.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "5 VEZES MAIS TÓXICO que a cebola. Destrói os glóbulos vermelhos de cães, gatos e todos os animais de companhia.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer alho?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. 5 VEZES MAIS TÓXICO que a cebola. Destrói os glóbulos vermelhos de cães, gatos e todos os animais de companhia."
+        },
+        {
+          "question": "Alho é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "leek-shallot": {
+      "name": "Alho-poró e chalota",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Parte do gênero tóxico Allium; causa úlceras gastrointestinais graves e destruição fatal dos glóbulos vermelhos.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Parte do gênero tóxico Allium; causa úlceras gastrointestinais graves e destruição fatal dos glóbulos vermelhos.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer alho-poró e chalota?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Parte do gênero tóxico Allium; causa úlceras gastrointestinais graves e destruição fatal dos glóbulos vermelhos."
+        },
+        {
+          "question": "Alho-poró e chalota são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "mushroom-wild": {
+      "name": "Cogumelo selvagem",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Cogumelos selvagens (Amanita, Inocybe) causam falência hepática e renal rápida, convulsões e morte.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Cogumelos selvagens (Amanita, Inocybe) causam falência hepática e renal rápida, convulsões e morte.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer cogumelo selvagem?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Cogumelos selvagens (Amanita, Inocybe) causam falência hepática e renal rápida, convulsões e morte."
+        },
+        {
+          "question": "Cogumelo selvagem é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "corn-cob": {
+      "name": "Milho (espiga)",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Os grãos de milho são digeríveis, mas as espigas são totalmente indigestas e causam obstruções intestinais fatais que exigem cirurgia de emergência.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Os grãos de milho são digeríveis, mas as espigas são totalmente indigestas e causam obstruções intestinais fatais que exigem cirurgia de emergência.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer milho (espiga)?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Os grãos de milho são digeríveis, mas as espigas são totalmente indigestas e causam obstruções intestinais fatais que exigem cirurgia de emergência."
+        },
+        {
+          "question": "Milho (espiga) é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "potato-raw-green": {
+      "name": "Batata (crua/verde)",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Cascas verdes e batatas cruas contêm glicoalcaloides de solanina. A batata branca totalmente cozida e sem tempero é segura.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Cascas verdes e batatas cruas contêm glicoalcaloides de solanina. A batata branca totalmente cozida e sem tempero é segura.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer batata (crua/verde)?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Cascas verdes e batatas cruas contêm glicoalcaloides de solanina. A batata branca totalmente cozida e sem tempero é segura."
+        },
+        {
+          "question": "Batata (crua/verde) é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "tomato-green-plant": {
+      "name": "Tomate (verde/planta)",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Tomates verdes não maduros e as ramas contêm solanina e tomatina tóxicas. A polpa do tomate vermelho maduro não é tóxica.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Tomates verdes não maduros e as ramas contêm solanina e tomatina tóxicas. A polpa do tomate vermelho maduro não é tóxica.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer tomate (verde/planta)?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Tomates verdes não maduros e as ramas contêm solanina e tomatina tóxicas. A polpa do tomate vermelho maduro não é tóxica."
+        },
+        {
+          "question": "Tomate (verde/planta) é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "rhubarb": {
+      "name": "Ruibarbo",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Folhas e talos contêm cristais solúveis de oxalato de cálcio, que esgotam o cálcio do organismo e causam insuficiência renal.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Folhas e talos contêm cristais solúveis de oxalato de cálcio, que esgotam o cálcio do organismo e causam insuficiência renal.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer ruibarbo?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Folhas e talos contêm cristais solúveis de oxalato de cálcio, que esgotam o cálcio do organismo e causam insuficiência renal."
+        },
+        {
+          "question": "Ruibarbo é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cooked-chicken": {
+      "name": "Frango cozido",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Base proteica magra e altamente digerível. Nunca ofereça ossos cozidos, pois eles se estilhaçam e perfuram as paredes do estômago.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer frango cozido?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Base proteica magra e altamente digerível. Nunca ofereça ossos cozidos, pois eles se estilhaçam e perfuram as paredes do estômago."
+        },
+        {
+          "question": "Frango cozido é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cooked-turkey": {
+      "name": "Peru cozido",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. O peito de peru cozido sem pele e sem tempero é uma excelente proteína magra. Evite o peru de festas temperado.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer peru cozido?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. O peito de peru cozido sem pele e sem tempero é uma excelente proteína magra. Evite o peru de festas temperado."
+        },
+        {
+          "question": "Peru cozido é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cooked-beef": {
+      "name": "Carne bovina cozida",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. A carne moída magra ajuda na massa muscular e nos níveis de zinco e ferro. Escorra a gordura antes de oferecer.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer carne bovina cozida?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. A carne moída magra ajuda na massa muscular e nos níveis de zinco e ferro. Escorra a gordura antes de oferecer."
+        },
+        {
+          "question": "Carne bovina cozida é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cooked-salmon": {
+      "name": "Salmão cozido",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Cheio de ácidos graxos ômega-3 essenciais (EPA/DHA) para o cérebro, a pelagem e as articulações. Precisa ser cozido para eliminar parasitas.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer salmão cozido?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Cheio de ácidos graxos ômega-3 essenciais (EPA/DHA) para o cérebro, a pelagem e as articulações. Precisa ser cozido para eliminar parasitas."
+        },
+        {
+          "question": "Salmão cozido é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "tuna-in-water": {
+      "name": "Atum (em água)",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Ofereça apenas atum em lata na água; limite a oferta devido ao acúmulo do metal pesado mercúrio.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer atum (em água)?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. Ofereça apenas atum em lata na água; limite a oferta devido ao acúmulo do metal pesado mercúrio."
+        },
+        {
+          "question": "Atum (em água) é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: COM MODERAÇÃO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "eggs-cooked": {
+      "name": "Ovos cozidos",
+      "short_answer": "Geralmente seguros quando preparados de forma simples e oferecidos com moderação. Perfil padrão-ouro de aminoácidos completos; mexidos ou cozidos, simples, sem manteiga nem sal.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidos em porções excessivas ou preparados com temperos.",
+      "symptoms": "Nenhum, quando oferecidos em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer ovos cozidos?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Perfil padrão-ouro de aminoácidos completos; mexidos ou cozidos, simples, sem manteiga nem sal."
+        },
+        {
+          "question": "Ovos cozidos são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "pork-lean-cooked": {
+      "name": "Carne de porco (magra, cozida)",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Rica em tiamina. Precisa ser muito bem cozida para eliminar o parasita da triquinose; evite presunto ou bacon salgados.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer carne de porco (magra, cozida)?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Rica em tiamina. Precisa ser muito bem cozida para eliminar o parasita da triquinose; evite presunto ou bacon salgados."
+        },
+        {
+          "question": "Carne de porco (magra, cozida) é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "lamb-cooked": {
+      "name": "Cordeiro cozido",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Opção de proteína nova hipoalergênica para cães com intolerância a frango ou carne bovina.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer cordeiro cozido?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Opção de proteína nova hipoalergênica para cães com intolerância a frango ou carne bovina."
+        },
+        {
+          "question": "Cordeiro cozido é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "sardines-in-water": {
+      "name": "Sardinhas (em água)",
+      "short_answer": "Geralmente seguras quando preparadas de forma simples e oferecidas com moderação. Peixinhos com espinhas minúsculas comestíveis, ricos em cálcio biodisponível, CoQ10 e ômega-3.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidas em porções excessivas ou preparadas com temperos.",
+      "symptoms": "Nenhum, quando oferecidas em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer sardinhas (em água)?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Peixinhos com espinhas minúsculas comestíveis, ricos em cálcio biodisponível, CoQ10 e ômega-3."
+        },
+        {
+          "question": "Sardinhas (em água) são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "bacon-sausage": {
+      "name": "Bacon e linguiça",
+      "short_answer": "Perigoso ou tóxico para alguns pets. O altíssimo teor de sódio, nitratos e gordura saturada pode desencadear pancreatite aguda grave, uma emergência veterinária.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "O altíssimo teor de sódio, nitratos e gordura saturada pode desencadear pancreatite aguda grave, uma emergência veterinária.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer bacon e linguiça?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. O altíssimo teor de sódio, nitratos e gordura saturada pode desencadear pancreatite aguda grave, uma emergência veterinária."
+        },
+        {
+          "question": "Bacon e linguiça são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cooked-bones": {
+      "name": "Ossos cozidos",
+      "short_answer": "Perigoso ou tóxico para alguns pets. O cozimento deixa os ossos de animais quebradiços e afiados, o que pode perfurar o esôfago, o estômago ou o intestino.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "O cozimento deixa os ossos de animais quebradiços e afiados, o que pode perfurar o esôfago, o estômago ou o intestino.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer ossos cozidos?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. O cozimento deixa os ossos de animais quebradiços e afiados, o que pode perfurar o esôfago, o estômago ou o intestino."
+        },
+        {
+          "question": "Ossos cozidos são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "raw-fish": {
+      "name": "Peixe cru",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Contém enzimas tiaminase que destroem a vitamina B1 (tiamina), causando tremores na cabeça, ataxia e convulsões.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Contém enzimas tiaminase que destroem a vitamina B1 (tiamina), causando tremores na cabeça, ataxia e convulsões.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer peixe cru?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Contém enzimas tiaminase que destroem a vitamina B1 (tiamina), causando tremores na cabeça, ataxia e convulsões."
+        },
+        {
+          "question": "Peixe cru é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "shrimp-cooked": {
+      "name": "Camarão cozido",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Cozinhe bem, descasque e retire a veia; rico em fósforo, proteína e vitamina B12.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer camarão cozido?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Cozinhe bem, descasque e retire a veia; rico em fósforo, proteína e vitamina B12."
+        },
+        {
+          "question": "Camarão cozido é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "liver-beef-chicken": {
+      "name": "Fígado (bovino/de frango)",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Fonte poderosa de vitamina A e ferro; ofereça com moderação, pois fígado demais pode causar intoxicação por vitamina A (hipervitaminose A).",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer fígado (bovino/de frango)?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Fonte poderosa de vitamina A e ferro; ofereça com moderação, pois fígado demais pode causar intoxicação por vitamina A (hipervitaminose A)."
+        },
+        {
+          "question": "Fígado (bovino/de frango) é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cheese-cheddar": {
+      "name": "Queijo cheddar",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Queijos duros têm pouquíssima lactose; ótimos para esconder remédios e comprimidos.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer queijo cheddar?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. Queijos duros têm pouquíssima lactose; ótimos para esconder remédios e comprimidos."
+        },
+        {
+          "question": "Queijo cheddar é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: COM MODERAÇÃO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "greek-yogurt-plain": {
+      "name": "Iogurte grego natural",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Contém culturas probióticas vivas que povoam a flora intestinal benéfica; confira se tem 0% de xilitol.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer iogurte grego natural?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Contém culturas probióticas vivas que povoam a flora intestinal benéfica; confira se tem 0% de xilitol."
+        },
+        {
+          "question": "Iogurte grego natural é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cottage-cheese": {
+      "name": "Queijo cottage",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Coalhada macia, suave e rica em proteína, fácil de digerir para pets se recuperando de um mal-estar estomacal.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer queijo cottage?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Coalhada macia, suave e rica em proteína, fácil de digerir para pets se recuperando de um mal-estar estomacal."
+        },
+        {
+          "question": "Queijo cottage é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "cow-milk": {
+      "name": "Leite de vaca",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. A maioria dos cães e gatos adultos perde as enzimas lactase, o que causa diarreia, gases e cólicas abdominais.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer leite de vaca?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. A maioria dos cães e gatos adultos perde as enzimas lactase, o que causa diarreia, gases e cólicas abdominais."
+        },
+        {
+          "question": "Leite de vaca é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: COM MODERAÇÃO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "ice-cream": {
+      "name": "Sorvete",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Alto teor de açúcares refinados do leite, possível adoçante artificial xilitol e alto risco de ingredientes de chocolate.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Alto teor de açúcares refinados do leite, possível adoçante artificial xilitol e alto risco de ingredientes de chocolate.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer sorvete?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Alto teor de açúcares refinados do leite, possível adoçante artificial xilitol e alto risco de ingredientes de chocolate."
+        },
+        {
+          "question": "Sorvete é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "white-rice-cooked": {
+      "name": "Arroz branco cozido",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. A escolha alimentar número um dos veterinários para acalmar um trato gastrointestinal irritado.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer arroz branco cozido?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. A escolha alimentar número um dos veterinários para acalmar um trato gastrointestinal irritado."
+        },
+        {
+          "question": "Arroz branco cozido é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "oatmeal-plain-cooked": {
+      "name": "Aveia cozida simples",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. A fibra alimentar solúvel acalma o intestino irritado e fornece ácido linoleico para hidratar a pelagem.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer aveia cozida simples?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. A fibra alimentar solúvel acalma o intestino irritado e fornece ácido linoleico para hidratar a pelagem."
+        },
+        {
+          "question": "Aveia cozida simples é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "peanut-butter-xylitol-free": {
+      "name": "Pasta de amendoim (sem xilitol)",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Recompensa top para adestramento e recheio de enriquecimento para brinquedos tipo Kong. Confira o rótulo: NÃO pode conter xilitol.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer pasta de amendoim (sem xilitol)?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Recompensa top para adestramento e recheio de enriquecimento para brinquedos tipo Kong. Confira o rótulo: NÃO pode conter xilitol."
+        },
+        {
+          "question": "Pasta de amendoim (sem xilitol) é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: COM MODERAÇÃO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "bread-plain-white": {
+      "name": "Pão branco simples",
+      "short_answer": "Geralmente seguro quando preparado de forma simples e oferecido com moderação. Pão assado simples é seguro em pedacinhos como petisco ocasional; sem benefício nutricional.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecido em porções excessivas ou preparado com temperos.",
+      "symptoms": "Nenhum, quando oferecido em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer pão branco simples?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Pão assado simples é seguro em pedacinhos como petisco ocasional; sem benefício nutricional."
+        },
+        {
+          "question": "Pão branco simples é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "raw-yeast-dough": {
+      "name": "Massa crua de fermento",
+      "short_answer": "Perigoso ou tóxico para alguns pets. EXPANDE NO ESTÔMAGO, cortando a circulação; o fermento em fermentação produz intoxicação tóxica por etanol.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "EXPANDE NO ESTÔMAGO, cortando a circulação; o fermento em fermentação produz intoxicação tóxica por etanol.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer massa crua de fermento?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. EXPANDE NO ESTÔMAGO, cortando a circulação; o fermento em fermentação produz intoxicação tóxica por etanol."
+        },
+        {
+          "question": "Massa crua de fermento é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "popcorn-air-popped": {
+      "name": "Pipoca (sem óleo)",
+      "short_answer": "Geralmente segura quando preparada de forma simples e oferecida com moderação. Pipoca estourada sem óleo, simples, sem sal, manteiga ou grãos duros não estourados, é um petisco crocante divertido.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecida em porções excessivas ou preparada com temperos.",
+      "symptoms": "Nenhum, quando oferecida em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer pipoca (sem óleo)?",
+          "answer": "Para cães, este alimento é classificado como: SEGURO. Pipoca estourada sem óleo, simples, sem sal, manteiga ou grãos duros não estourados, é um petisco crocante divertido."
+        },
+        {
+          "question": "Pipoca (sem óleo) é segura para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: SEGURO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "macadamia-nuts": {
+      "name": "Nozes-macadâmia",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Severamente tóxicas para cães; causam fraqueza nas patas traseiras, paralisia, vômitos, hipertermia e tremores.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Severamente tóxicas para cães; causam fraqueza nas patas traseiras, paralisia, vômitos, hipertermia e tremores.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer nozes-macadâmia?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Severamente tóxicas para cães; causam fraqueza nas patas traseiras, paralisia, vômitos, hipertermia e tremores."
+        },
+        {
+          "question": "Nozes-macadâmia são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "walnuts-black": {
+      "name": "Nozes-pretas",
+      "short_answer": "Perigoso ou tóxico para alguns pets. Nozes-pretas contêm a toxina juglona e micotoxinas tremorgênicas, que causam neurotoxicidade e convulsões.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "Nozes-pretas contêm a toxina juglona e micotoxinas tremorgênicas, que causam neurotoxicidade e convulsões.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer nozes-pretas?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. Nozes-pretas contêm a toxina juglona e micotoxinas tremorgênicas, que causam neurotoxicidade e convulsões."
+        },
+        {
+          "question": "Nozes-pretas são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "almonds": {
+      "name": "Amêndoas",
+      "short_answer": "Geralmente seguras quando preparadas de forma simples e oferecidas com moderação. Não são inerentemente tóxicas, mas são difíceis de digerir; podem obstruir traqueias pequenas; o alto teor de gordura causa pancreatite.",
+      "benefits": "Fornece vitaminas essenciais, minerais e hidratação saudável.",
+      "risks": "Pode causar desconforto digestivo se oferecidas em porções excessivas ou preparadas com temperos.",
+      "symptoms": "Nenhum, quando oferecidas em porções adequadas de petisco.",
+      "vet_advice": "Lave bem, descasque/retire as sementes se necessário e ofereça como petisco ocasional.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer amêndoas?",
+          "answer": "Para cães, este alimento é classificado como: COM MODERAÇÃO. Não são inerentemente tóxicas, mas são difíceis de digerir; podem obstruir traqueias pequenas; o alto teor de gordura causa pancreatite."
+        },
+        {
+          "question": "Amêndoas são seguras para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: COM MODERAÇÃO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "chocolate-dark-milk": {
+      "name": "Chocolate (amargo/ao leite)",
+      "short_answer": "Perigoso ou tóxico para alguns pets. INTOXICAÇÃO POR TEOBROMINA: causa taquicardia, arritmias cardíacas, espasmos musculares, convulsões e morte.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "INTOXICAÇÃO POR TEOBROMINA: causa taquicardia, arritmias cardíacas, espasmos musculares, convulsões e morte.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer chocolate (amargo/ao leite)?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. INTOXICAÇÃO POR TEOBROMINA: causa taquicardia, arritmias cardíacas, espasmos musculares, convulsões e morte."
+        },
+        {
+          "question": "Chocolate (amargo/ao leite) é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "xylitol-birch-sugar": {
+      "name": "Xilitol (açúcar de bétula)",
+      "short_answer": "Perigoso ou tóxico para alguns pets. FATAL PARA CÃES: causa liberação extrema de insulina, hipoglicemia grave em 30 min e falência hepática aguda.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "FATAL PARA CÃES: causa liberação extrema de insulina, hipoglicemia grave em 30 min e falência hepática aguda.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer xilitol (açúcar de bétula)?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. FATAL PARA CÃES: causa liberação extrema de insulina, hipoglicemia grave em 30 min e falência hepática aguda."
+        },
+        {
+          "question": "Xilitol (açúcar de bétula) é seguro para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "coffee-caffeine": {
+      "name": "Café e cafeína",
+      "short_answer": "Perigoso ou tóxico para alguns pets. As metilxantinas estimulam os sistemas nervoso e cardiovascular, causando hipertensão e hipertermia.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "As metilxantinas estimulam os sistemas nervoso e cardiovascular, causando hipertensão e hipertermia.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer café e cafeína?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. As metilxantinas estimulam os sistemas nervoso e cardiovascular, causando hipertensão e hipertermia."
+        },
+        {
+          "question": "Café e cafeína são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    },
+    "alcohol-beer": {
+      "name": "Álcool e cerveja",
+      "short_answer": "Perigoso ou tóxico para alguns pets. O etanol causa acidose metabólica grave, depressão do sistema nervoso central, parada respiratória e coma.",
+      "benefits": "Sem benefício nutricional; risco potencial à saúde.",
+      "risks": "O etanol causa acidose metabólica grave, depressão do sistema nervoso central, parada respiratória e coma.",
+      "symptoms": "Vômitos, diarreia, letargia, perda de apetite, dor abdominal.",
+      "vet_advice": "Entre em contato com seu veterinário ou com a linha de emergência para intoxicações de animais imediatamente.",
+      "alternatives": [
+        "Abóbora assada simples",
+        "Rodelas de cenoura",
+        "Fatias de maçã (sem sementes)"
+      ],
+      "faqs": [
+        {
+          "question": "Meu cachorro pode comer álcool e cerveja?",
+          "answer": "Para cães, este alimento é classificado como: PERIGOSO. O etanol causa acidose metabólica grave, depressão do sistema nervoso central, parada respiratória e coma."
+        },
+        {
+          "question": "Álcool e cerveja são seguros para gatos?",
+          "answer": "Para gatos, este alimento é classificado como: PERIGOSO. Gatos são carnívoros obrigatórios com necessidades nutricionais diferentes."
+        }
+      ]
+    }
+  }
+}

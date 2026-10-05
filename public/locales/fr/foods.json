@@ -1,0 +1,1867 @@
+{
+  "ui": {
+    "breadcrumbFoods": "Aliments",
+    "title": "Mon animal peut-il manger ça ?",
+    "subtitle": "Recherchez plus de 500 aliments pour savoir s'ils sont sans danger pour les chiens, les chats, les lapins, les oiseaux, les hamsters, les cochons d'Inde, les furets, les chevaux, les tortues et les poissons. Bienfaits, risques, symptômes, conseils vétérinaires et alternatives plus sûres.",
+    "searchPlaceholder": "Rechercher un aliment (ex. : chocolat, pomme, poulet)",
+    "searchAriaLabel": "Rechercher un aliment",
+    "categoryFilterAriaLabel": "Filtre par catégorie",
+    "safetyFilterAriaLabel": "Filtre par niveau de sécurité",
+    "allCategories": "Toutes les catégories",
+    "allSafetyLevels": "Tous les niveaux de sécurité",
+    "noResults": "Aucun aliment ne correspond à vos filtres.",
+    "detailBreadcrumbFoods": "Aliments",
+    "foodGuide": "Guide alimentaire",
+    "detailTitle": "Les animaux peuvent-ils manger {{name}} ?",
+    "forSpecies": "Pour {{species}}",
+    "emergencyBanner": "En cas d'ingestion, appelez votre vétérinaire ou la Pet Poison Helpline au 1-855-764-7661 (États-Unis).",
+    "emergencyBannerSuffix": "Le délai et la quantité ingérée comptent.",
+    "sectionBenefits": "Bienfaits",
+    "sectionRisks": "Risques",
+    "sectionSymptoms": "Symptômes à surveiller",
+    "sectionVetAdvice": "Conseils du vétérinaire",
+    "saferAlternatives": "Alternatives plus sûres",
+    "relatedFoods": "Aliments similaires",
+    "disclaimerTitle": "Ceci n'est pas un avis médical.",
+    "disclaimerBody": "Ce guide est informatif — consultez toujours votre vétérinaire pour toute décision médicale, surtout en cas d'urgence.",
+    "notFoundTitle": "Aliment introuvable",
+    "notFoundLink": "Parcourir la base de données alimentaire"
+  },
+  "categories": {
+    "fruit": "Fruits",
+    "vegetable": "Légumes",
+    "protein": "Viandes & protéines",
+    "dairy": "Produits laitiers",
+    "grain": "Céréales",
+    "nut": "Noix",
+    "seed": "Graines",
+    "herb": "Herbes",
+    "sweets": "Sucreries",
+    "sweetener": "Édulcorants",
+    "spice": "Épices",
+    "drink": "Boissons",
+    "snack": "En-cas",
+    "other": "Autres"
+  },
+  "species": {
+    "dog": {
+      "label": "Chien",
+      "plural": "Chiens"
+    },
+    "cat": {
+      "label": "Chat",
+      "plural": "Chats"
+    },
+    "rabbit": {
+      "label": "Lapin",
+      "plural": "Lapins"
+    },
+    "bird": {
+      "label": "Oiseau",
+      "plural": "Oiseaux"
+    },
+    "hamster": {
+      "label": "Hamster",
+      "plural": "Hamsters"
+    },
+    "guinea_pig": {
+      "label": "Cochon d'Inde",
+      "plural": "Cochons d'Inde"
+    },
+    "ferret": {
+      "label": "Furet",
+      "plural": "Furets"
+    },
+    "horse": {
+      "label": "Cheval",
+      "plural": "Chevaux"
+    },
+    "turtle": {
+      "label": "Tortue",
+      "plural": "Tortues"
+    },
+    "fish": {
+      "label": "Poisson",
+      "plural": "Poissons"
+    }
+  },
+  "safety": {
+    "safe": "Sans danger",
+    "moderation": "Avec modération",
+    "unsafe": "Dangereux",
+    "unknown": "Inconnu"
+  },
+  "foods": {
+    "apple": {
+      "name": "Pomme",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en vitamine C et en fibres. Retirez toujours les pépins et le trognon, car les pépins de pomme contiennent de l'amygdaline (cyanure).",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la pomme ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en vitamine C et en fibres. Retirez toujours les pépins et le trognon, car les pépins de pomme contiennent de l'amygdaline (cyanure)."
+        },
+        {
+          "question": "Mon chat peut-il manger de la pomme ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "banana": {
+      "name": "Banane",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en potassium et en vitamines, mais riche en sucre. À donner uniquement comme petite friandise occasionnelle.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la banane ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en potassium et en vitamines, mais riche en sucre. À donner uniquement comme petite friandise occasionnelle."
+        },
+        {
+          "question": "Mon chat peut-il manger de la banane ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "blueberries": {
+      "name": "Myrtilles",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Superaliment chargé d'antioxydants, de fibres et de composés phytochimiques. Excellente friandise peu calorique.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des myrtilles ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Superaliment chargé d'antioxydants, de fibres et de composés phytochimiques. Excellente friandise peu calorique."
+        },
+        {
+          "question": "Mon chat peut-il manger des myrtilles ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "strawberries": {
+      "name": "Fraises",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riches en vitamine C et en une enzyme (l'acide malique) qui peut aider à blanchir les dents des animaux.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des fraises ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riches en vitamine C et en une enzyme (l'acide malique) qui peut aider à blanchir les dents des animaux."
+        },
+        {
+          "question": "Mon chat peut-il manger des fraises ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "watermelon": {
+      "name": "Pastèque",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Composée à 92 % d'eau, idéale pour les chaudes journées d'été. Retirez les pépins et la peau extérieure dure.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la pastèque ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Composée à 92 % d'eau, idéale pour les chaudes journées d'été. Retirez les pépins et la peau extérieure dure."
+        },
+        {
+          "question": "Mon chat peut-il manger de la pastèque ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cantaloupe": {
+      "name": "Melon cantaloup",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en bêta-carotène et en eau. Coupez en petits morceaux ; à donner avec modération.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du melon cantaloup ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en bêta-carotène et en eau. Coupez en petits morceaux ; à donner avec modération."
+        },
+        {
+          "question": "Mon chat peut-il manger du melon cantaloup ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "mango": {
+      "name": "Mangue",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Douce friandise tropicale riche en vitamines A, B6, C et E. Épluchez la peau et jetez le gros noyau dur.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la mangue ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Douce friandise tropicale riche en vitamines A, B6, C et E. Épluchez la peau et jetez le gros noyau dur."
+        },
+        {
+          "question": "Mon chat peut-il manger de la mangue ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "pineapple": {
+      "name": "Ananas",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Contient la bromélaïne, une enzyme qui aide à la digestion des protéines. Retirez la peau piquante et le cœur fibreux.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de l'ananas ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Contient la bromélaïne, une enzyme qui aide à la digestion des protéines. Retirez la peau piquante et le cœur fibreux."
+        },
+        {
+          "question": "Mon chat peut-il manger de l'ananas ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "orange": {
+      "name": "Orange",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les huiles essentielles d'agrumes et les psoralènes provoquent une sévère irritation gastrique chez les chats et les hamsters. Petite friandise pour chien uniquement.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les huiles essentielles d'agrumes et les psoralènes provoquent une sévère irritation gastrique chez les chats et les hamsters. Petite friandise pour chien uniquement.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de l'orange ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. Les huiles essentielles d'agrumes et les psoralènes provoquent une sévère irritation gastrique chez les chats et les hamsters. Petite friandise pour chien uniquement."
+        },
+        {
+          "question": "Mon chat peut-il manger de l'orange ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "pear": {
+      "name": "Poire",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en cuivre et en fibres alimentaires. Retirez la queue, le trognon et les pépins avant de servir.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la poire ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en cuivre et en fibres alimentaires. Retirez la queue, le trognon et les pépins avant de servir."
+        },
+        {
+          "question": "Mon chat peut-il manger de la poire ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "peach": {
+      "name": "Pêche",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. La chair de la pêche fraîche est sans danger. Le noyau contient des glycosides cyanogènes et présente un grave risque d'étouffement et d'occlusion.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la pêche ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. La chair de la pêche fraîche est sans danger. Le noyau contient des glycosides cyanogènes et présente un grave risque d'étouffement et d'occlusion."
+        },
+        {
+          "question": "Mon chat peut-il manger de la pêche ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "plum": {
+      "name": "Prune",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les noyaux contiennent du cyanure mortel. Ne donnez jamais le fruit entier à un animal.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les noyaux contiennent du cyanure mortel. Ne donnez jamais le fruit entier à un animal.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la prune ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. Les noyaux contiennent du cyanure mortel. Ne donnez jamais le fruit entier à un animal."
+        },
+        {
+          "question": "Mon chat peut-il manger de la prune ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cherry": {
+      "name": "Cerise",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Noyaux, tiges et feuilles contiennent du cyanure toxique qui bloque le transport cellulaire de l'oxygène.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Noyaux, tiges et feuilles contiennent du cyanure toxique qui bloque le transport cellulaire de l'oxygène.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la cerise ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Noyaux, tiges et feuilles contiennent du cyanure toxique qui bloque le transport cellulaire de l'oxygène."
+        },
+        {
+          "question": "Mon chat peut-il manger de la cerise ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "avocado": {
+      "name": "Avocat",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Contient de la persine, une toxine fongicide mortelle pour les oiseaux, les lapins, les rongeurs et les chevaux. Le noyau présente un risque d'étouffement.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de l'avocat ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. Contient de la persine, une toxine fongicide mortelle pour les oiseaux, les lapins, les rongeurs et les chevaux. Le noyau présente un risque d'étouffement."
+        },
+        {
+          "question": "Mon chat peut-il manger de l'avocat ?",
+          "answer": "Pour les chats, cet aliment est classé : AVEC MODÉRATION. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "grapes-raisins": {
+      "name": "Raisins & raisins secs",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. EXTRÊMEMENT DANGEREUX pour les chiens et les chats ; l'acide tartrique provoque une insuffisance rénale aiguë soudaine et irréversible.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "EXTRÊMEMENT DANGEREUX pour les chiens et les chats ; l'acide tartrique provoque une insuffisance rénale aiguë soudaine et irréversible.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des raisins ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. EXTRÊMEMENT DANGEREUX pour les chiens et les chats ; l'acide tartrique provoque une insuffisance rénale aiguë soudaine et irréversible."
+        },
+        {
+          "question": "Mon chat peut-il manger des raisins ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "raspberries": {
+      "name": "Framboises",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Contiennent naturellement du xylitol en traces ; limitez à environ 120 ml pour les chiens de taille moyenne ; excellent anti-inflammatoire.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des framboises ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Contiennent naturellement du xylitol en traces ; limitez à environ 120 ml pour les chiens de taille moyenne ; excellent anti-inflammatoire."
+        },
+        {
+          "question": "Mon chat peut-il manger des framboises ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "blackberries": {
+      "name": "Mûres",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riches en vitamines C, K et en anthocyanes. Excellente récompense peu calorique.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des mûres ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riches en vitamines C, K et en anthocyanes. Excellente récompense peu calorique."
+        },
+        {
+          "question": "Mon chat peut-il manger des mûres ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cranberries": {
+      "name": "Canneberges",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Favorisent la santé des voies urinaires. Évitez les canneberges séchées du commerce, chargées en sucre raffiné.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des canneberges ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Favorisent la santé des voies urinaires. Évitez les canneberges séchées du commerce, chargées en sucre raffiné."
+        },
+        {
+          "question": "Mon chat peut-il manger des canneberges ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "kiwi": {
+      "name": "Kiwi",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Épluchez la peau duveteuse ; donnez de petites tranches. Riche en potassium et en vitamine C.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du kiwi ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Épluchez la peau duveteuse ; donnez de petites tranches. Riche en potassium et en vitamine C."
+        },
+        {
+          "question": "Mon chat peut-il manger du kiwi ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "papaya": {
+      "name": "Papaye",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Contient la papaïne, une enzyme digestive naturelle. Épépinez et épluchez avant de servir.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la papaye ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Contient la papaïne, une enzyme digestive naturelle. Épépinez et épluchez avant de servir."
+        },
+        {
+          "question": "Mon chat peut-il manger de la papaye ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "coconut": {
+      "name": "Noix de coco",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. L'acide laurique favorise la brillance du pelage et apaise les inflammations cutanées ; à donner en petites quantités en raison de sa teneur élevée en graisses saturées.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la noix de coco ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. L'acide laurique favorise la brillance du pelage et apaise les inflammations cutanées ; à donner en petites quantités en raison de sa teneur élevée en graisses saturées."
+        },
+        {
+          "question": "Mon chat peut-il manger de la noix de coco ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "lemon-lime": {
+      "name": "Citron & citron vert",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. L'acide citrique, le limonène et le linalol provoquent une dépression du système nerveux central, des tremblements et des vomissements.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "L'acide citrique, le limonène et le linalol provoquent une dépression du système nerveux central, des tremblements et des vomissements.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du citron ou du citron vert ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. L'acide citrique, le limonène et le linalol provoquent une dépression du système nerveux central, des tremblements et des vomissements."
+        },
+        {
+          "question": "Mon chat peut-il manger du citron ou du citron vert ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "carrot": {
+      "name": "Carotte",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Excellente friandise croquante qui aide à nettoyer les dents du chien et apporte vitamine A et bêta-carotène.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la carotte ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Excellente friandise croquante qui aide à nettoyer les dents du chien et apporte vitamine A et bêta-carotène."
+        },
+        {
+          "question": "Mon chat peut-il manger de la carotte ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "broccoli": {
+      "name": "Brocoli",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en lutéine et en vitamine C. Les bouquets contiennent des isothiocyanates ; à limiter à moins de 10 % de l'alimentation totale.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du brocoli ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en lutéine et en vitamine C. Les bouquets contiennent des isothiocyanates ; à limiter à moins de 10 % de l'alimentation totale."
+        },
+        {
+          "question": "Mon chat peut-il manger du brocoli ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "spinach": {
+      "name": "Épinards",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Contient des oxalates solubles. Les animaux ayant des antécédents de calculs vésicaux d'oxalate de calcium doivent les éviter.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des épinards ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. Contient des oxalates solubles. Les animaux ayant des antécédents de calculs vésicaux d'oxalate de calcium doivent les éviter."
+        },
+        {
+          "question": "Mon chat peut-il manger des épinards ?",
+          "answer": "Pour les chats, cet aliment est classé : AVEC MODÉRATION. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cucumber": {
+      "name": "Concombre",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Composé à 96 % d'eau et presque zéro calorie. La friandise idéale pour les animaux en surpoids ou diabétiques.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du concombre ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Composé à 96 % d'eau et presque zéro calorie. La friandise idéale pour les animaux en surpoids ou diabétiques."
+        },
+        {
+          "question": "Mon chat peut-il manger du concombre ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "green-beans": {
+      "name": "Haricots verts",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Friandise favorite des vétérinaires pour le « régime haricots verts » d'amaigrissement ; à donner crus, cuits à la vapeur ou en conserve nature.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des haricots verts ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Friandise favorite des vétérinaires pour le « régime haricots verts » d'amaigrissement ; à donner crus, cuits à la vapeur ou en conserve nature."
+        },
+        {
+          "question": "Mon chat peut-il manger des haricots verts ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "sweet-potato": {
+      "name": "Patate douce",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Toujours bien cuire ; ne jamais donner de patate douce crue. Riche en fibres alimentaires et en vitamine B6.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la patate douce ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Toujours bien cuire ; ne jamais donner de patate douce crue. Riche en fibres alimentaires et en vitamine B6."
+        },
+        {
+          "question": "Mon chat peut-il manger de la patate douce ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "pumpkin": {
+      "name": "Citrouille",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Le remède de référence contre les troubles digestifs des animaux. La purée en conserve nature résout diarrhée et constipation.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la citrouille ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Le remède de référence contre les troubles digestifs des animaux. La purée en conserve nature résout diarrhée et constipation."
+        },
+        {
+          "question": "Mon chat peut-il manger de la citrouille ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "zucchini": {
+      "name": "Courgette",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Légume doux et hydratant, riche en folates, en potassium et en vitamine A. À donner cru ou cuit à la vapeur.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la courgette ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Légume doux et hydratant, riche en folates, en potassium et en vitamine A. À donner cru ou cuit à la vapeur."
+        },
+        {
+          "question": "Mon chat peut-il manger de la courgette ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "celery": {
+      "name": "Céleri",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. En-cas croquant qui nettoie le tartre et rafraîchit l'haleine ; coupez en petits morceaux pour éviter tout risque d'étouffement avec les fibres.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du céleri ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. En-cas croquant qui nettoie le tartre et rafraîchit l'haleine ; coupez en petits morceaux pour éviter tout risque d'étouffement avec les fibres."
+        },
+        {
+          "question": "Mon chat peut-il manger du céleri ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "bell-pepper": {
+      "name": "Poivron",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Les poivrons rouges et jaunes contiennent 3 fois plus de vitamine C que les oranges ; les cochons d'Inde en raffolent et en ont besoin.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du poivron ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Les poivrons rouges et jaunes contiennent 3 fois plus de vitamine C que les oranges ; les cochons d'Inde en raffolent et en ont besoin."
+        },
+        {
+          "question": "Mon chat peut-il manger du poivron ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "asparagus": {
+      "name": "Asperges",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Cuire légèrement à la vapeur pour attendrir les tiges dures. Donne une odeur forte à l'urine, mais totalement sans danger.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des asperges ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Cuire légèrement à la vapeur pour attendrir les tiges dures. Donne une odeur forte à l'urine, mais totalement sans danger."
+        },
+        {
+          "question": "Mon chat peut-il manger des asperges ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cauliflower": {
+      "name": "Chou-fleur",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Peu calorique et riche en choline ; peut provoquer des gaz bénins en grandes quantités.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du chou-fleur ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Peu calorique et riche en choline ; peut provoquer des gaz bénins en grandes quantités."
+        },
+        {
+          "question": "Mon chat peut-il manger du chou-fleur ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cabbage": {
+      "name": "Chou",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en phytonutriments et en fibres ; à donner avec parcimonie pour éviter gaz et ballonnements.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du chou ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en phytonutriments et en fibres ; à donner avec parcimonie pour éviter gaz et ballonnements."
+        },
+        {
+          "question": "Mon chat peut-il manger du chou ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "lettuce-romaine": {
+      "name": "Laitue romaine",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Évitez la laitue iceberg claire (de l'eau sans nutriments) ; la romaine foncée et la laitue verte sont excellentes.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la laitue romaine ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Évitez la laitue iceberg claire (de l'eau sans nutriments) ; la romaine foncée et la laitue verte sont excellentes."
+        },
+        {
+          "question": "Mon chat peut-il manger de la laitue romaine ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "peas": {
+      "name": "Petits pois",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Les petits pois, pois gourmands et pois mange-tout sont sans danger ; à donner frais ou décongelés ; évitez les conserves trop salées.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des petits pois ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Les petits pois, pois gourmands et pois mange-tout sont sans danger ; à donner frais ou décongelés ; évitez les conserves trop salées."
+        },
+        {
+          "question": "Mon chat peut-il manger des petits pois ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "onion": {
+      "name": "Oignon",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. TOXINE ALLIUM : le disulfure de N-propyle provoque la destruction oxydative des globules rouges, une anémie hémolytique à corps de Heinz et un collapsus.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "TOXINE ALLIUM : le disulfure de N-propyle provoque la destruction oxydative des globules rouges, une anémie hémolytique à corps de Heinz et un collapsus.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de l'oignon ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. TOXINE ALLIUM : le disulfure de N-propyle provoque la destruction oxydative des globules rouges, une anémie hémolytique à corps de Heinz et un collapsus."
+        },
+        {
+          "question": "Mon chat peut-il manger de l'oignon ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "garlic": {
+      "name": "Ail",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. 5 FOIS PLUS TOXIQUE que l'oignon. Détruit les globules rouges chez les chiens, les chats et tous les animaux de compagnie.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "5 FOIS PLUS TOXIQUE que l'oignon. Détruit les globules rouges chez les chiens, les chats et tous les animaux de compagnie.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de l'ail ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. 5 FOIS PLUS TOXIQUE que l'oignon. Détruit les globules rouges chez les chiens, les chats et tous les animaux de compagnie."
+        },
+        {
+          "question": "Mon chat peut-il manger de l'ail ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "leek-shallot": {
+      "name": "Poireau & échalote",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Fait partie du genre toxique Allium ; provoque de graves ulcères gastro-intestinaux et une destruction mortelle des globules rouges.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Fait partie du genre toxique Allium ; provoque de graves ulcères gastro-intestinaux et une destruction mortelle des globules rouges.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du poireau ou de l'échalote ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Fait partie du genre toxique Allium ; provoque de graves ulcères gastro-intestinaux et une destruction mortelle des globules rouges."
+        },
+        {
+          "question": "Mon chat peut-il manger du poireau ou de l'échalote ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "mushroom-wild": {
+      "name": "Champignon sauvage",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les champignons sauvages (amanites, inocybes) provoquent une insuffisance hépatique et rénale rapide, des convulsions et la mort.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les champignons sauvages (amanites, inocybes) provoquent une insuffisance hépatique et rénale rapide, des convulsions et la mort.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du champignon sauvage ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Les champignons sauvages (amanites, inocybes) provoquent une insuffisance hépatique et rénale rapide, des convulsions et la mort."
+        },
+        {
+          "question": "Mon chat peut-il manger du champignon sauvage ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "corn-cob": {
+      "name": "Maïs (épi)",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les grains de maïs sont digestes, mais les rafles sont totalement indigestes et provoquent des occlusions intestinales mortelles nécessitant une chirurgie d'urgence.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les grains de maïs sont digestes, mais les rafles sont totalement indigestes et provoquent des occlusions intestinales mortelles nécessitant une chirurgie d'urgence.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du maïs ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Les grains de maïs sont digestes, mais les rafles sont totalement indigestes et provoquent des occlusions intestinales mortelles nécessitant une chirurgie d'urgence."
+        },
+        {
+          "question": "Mon chat peut-il manger du maïs ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "potato-raw-green": {
+      "name": "Pomme de terre (crue/verte)",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les peaux vertes et les pommes de terre crues contiennent des glycoalcaloïdes de solanine. La pomme de terre blanche bien cuite et nature est sans danger.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les peaux vertes et les pommes de terre crues contiennent des glycoalcaloïdes de solanine. La pomme de terre blanche bien cuite et nature est sans danger.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la pomme de terre (crue ou verte) ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Les peaux vertes et les pommes de terre crues contiennent des glycoalcaloïdes de solanine. La pomme de terre blanche bien cuite et nature est sans danger."
+        },
+        {
+          "question": "Mon chat peut-il manger de la pomme de terre (crue ou verte) ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "tomato-green-plant": {
+      "name": "Tomate (verte/plant)",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les tomates vertes non mûres et les plants contiennent de la solanine et de la tomatine toxiques. La chair de la tomate rouge mûre est non toxique.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les tomates vertes non mûres et les plants contiennent de la solanine et de la tomatine toxiques. La chair de la tomate rouge mûre est non toxique.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la tomate (verte ou du plant) ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Les tomates vertes non mûres et les plants contiennent de la solanine et de la tomatine toxiques. La chair de la tomate rouge mûre est non toxique."
+        },
+        {
+          "question": "Mon chat peut-il manger de la tomate (verte ou du plant) ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "rhubarb": {
+      "name": "Rhubarbe",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les feuilles et les tiges contiennent des cristaux d'oxalate de calcium soluble qui épuisent le calcium systémique et provoquent une insuffisance rénale.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les feuilles et les tiges contiennent des cristaux d'oxalate de calcium soluble qui épuisent le calcium systémique et provoquent une insuffisance rénale.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la rhubarbe ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Les feuilles et les tiges contiennent des cristaux d'oxalate de calcium soluble qui épuisent le calcium systémique et provoquent une insuffisance rénale."
+        },
+        {
+          "question": "Mon chat peut-il manger de la rhubarbe ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cooked-chicken": {
+      "name": "Poulet cuit",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Protéine maigre très digeste, aliment de base. Ne jamais donner d'os cuits car ils se fendent et perforent les parois de l'estomac.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du poulet cuit ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Protéine maigre très digeste, aliment de base. Ne jamais donner d'os cuits car ils se fendent et perforent les parois de l'estomac."
+        },
+        {
+          "question": "Mon chat peut-il manger du poulet cuit ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cooked-turkey": {
+      "name": "Dinde cuite",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Le blanc de dinde cuit nature, sans la peau, est une excellente protéine maigre. Évitez la dinde de Thanksgiving assaisonnée.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la dinde cuite ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Le blanc de dinde cuit nature, sans la peau, est une excellente protéine maigre. Évitez la dinde de Thanksgiving assaisonnée."
+        },
+        {
+          "question": "Mon chat peut-il manger de la dinde cuite ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cooked-beef": {
+      "name": "Bœuf cuit",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Le bœuf haché maigre soutient la masse musculaire et les niveaux de zinc et de fer. Égouttez la graisse avant de servir.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du bœuf cuit ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Le bœuf haché maigre soutient la masse musculaire et les niveaux de zinc et de fer. Égouttez la graisse avant de servir."
+        },
+        {
+          "question": "Mon chat peut-il manger du bœuf cuit ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cooked-salmon": {
+      "name": "Saumon cuit",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en acides gras oméga-3 essentiels (EPA/DHA) pour le cerveau, le pelage et les articulations. Doit être cuit pour tuer les parasites.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du saumon cuit ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en acides gras oméga-3 essentiels (EPA/DHA) pour le cerveau, le pelage et les articulations. Doit être cuit pour tuer les parasites."
+        },
+        {
+          "question": "Mon chat peut-il manger du saumon cuit ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "tuna-in-water": {
+      "name": "Thon (au naturel)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Donnez uniquement du thon en conserve au naturel ; limitez la quantité en raison de l'accumulation de mercure (métal lourd).",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du thon (au naturel) ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. Donnez uniquement du thon en conserve au naturel ; limitez la quantité en raison de l'accumulation de mercure (métal lourd)."
+        },
+        {
+          "question": "Mon chat peut-il manger du thon (au naturel) ?",
+          "answer": "Pour les chats, cet aliment est classé : AVEC MODÉRATION. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "eggs-cooked": {
+      "name": "Œufs (cuits)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Profil complet en acides aminés de référence ; brouillés ou durs, nature, sans beurre ni sel.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des œufs (cuits) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Profil complet en acides aminés de référence ; brouillés ou durs, nature, sans beurre ni sel."
+        },
+        {
+          "question": "Mon chat peut-il manger des œufs (cuits) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "pork-lean-cooked": {
+      "name": "Porc (maigre, cuit)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Riche en thiamine. Doit être bien cuit pour éliminer le parasite de la trichinose ; évitez le jambon et le lard trop salés.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du porc (maigre, cuit) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Riche en thiamine. Doit être bien cuit pour éliminer le parasite de la trichinose ; évitez le jambon et le lard trop salés."
+        },
+        {
+          "question": "Mon chat peut-il manger du porc (maigre, cuit) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "lamb-cooked": {
+      "name": "Agneau (cuit)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Protéine nouvelle hypoallergénique pour les chiens intolérants au poulet ou au bœuf.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de l'agneau (cuit) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Protéine nouvelle hypoallergénique pour les chiens intolérants au poulet ou au bœuf."
+        },
+        {
+          "question": "Mon chat peut-il manger de l'agneau (cuit) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "sardines-in-water": {
+      "name": "Sardines (au naturel)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Petits poissons fourrage aux minuscules arêtes comestibles, riches en calcium biodisponible, en coenzyme Q10 et en oméga-3.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des sardines (au naturel) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Petits poissons fourrage aux minuscules arêtes comestibles, riches en calcium biodisponible, en coenzyme Q10 et en oméga-3."
+        },
+        {
+          "question": "Mon chat peut-il manger des sardines (au naturel) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "bacon-sausage": {
+      "name": "Lard & saucisse",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Teneur extrêmement élevée en sodium, nitrates et graisses saturées : déclenche une pancréatite aiguë sévère, une urgence vétérinaire.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Teneur extrêmement élevée en sodium, nitrates et graisses saturées : déclenche une pancréatite aiguë sévère, une urgence vétérinaire.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du lard ou de la saucisse ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Teneur extrêmement élevée en sodium, nitrates et graisses saturées : déclenche une pancréatite aiguë sévère, une urgence vétérinaire."
+        },
+        {
+          "question": "Mon chat peut-il manger du lard ou de la saucisse ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cooked-bones": {
+      "name": "Os cuits",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. La cuisson rend les os cassants et tranchants, ce qui peut perforer l'œsophage, l'estomac ou les intestins.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "La cuisson rend les os cassants et tranchants, ce qui peut perforer l'œsophage, l'estomac ou les intestins.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des os cuits ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. La cuisson rend les os cassants et tranchants, ce qui peut perforer l'œsophage, l'estomac ou les intestins."
+        },
+        {
+          "question": "Mon chat peut-il manger des os cuits ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "raw-fish": {
+      "name": "Poisson cru",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Contient des enzymes thiaminases qui détruisent la vitamine B1 (thiamine), provoquant tremblements de tête, ataxie et convulsions.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Contient des enzymes thiaminases qui détruisent la vitamine B1 (thiamine), provoquant tremblements de tête, ataxie et convulsions.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du poisson cru ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Contient des enzymes thiaminases qui détruisent la vitamine B1 (thiamine), provoquant tremblements de tête, ataxie et convulsions."
+        },
+        {
+          "question": "Mon chat peut-il manger du poisson cru ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "shrimp-cooked": {
+      "name": "Crevettes (cuites)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Bien cuire, décortiquer et retirer le boyau ; riches en phosphore, en protéines et en vitamine B12.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des crevettes (cuites) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Bien cuire, décortiquer et retirer le boyau ; riches en phosphore, en protéines et en vitamine B12."
+        },
+        {
+          "question": "Mon chat peut-il manger des crevettes (cuites) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "liver-beef-chicken": {
+      "name": "Foie (bœuf/poulet)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Concentré de vitamine A et de fer ; à donner avec modération, car trop de foie peut provoquer une toxicité à la vitamine A (hypervitaminose A).",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du foie (de bœuf ou de poulet) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Concentré de vitamine A et de fer ; à donner avec modération, car trop de foie peut provoquer une toxicité à la vitamine A (hypervitaminose A)."
+        },
+        {
+          "question": "Mon chat peut-il manger du foie (de bœuf ou de poulet) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cheese-cheddar": {
+      "name": "Fromage (cheddar)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Les fromages à pâte dure sont très pauvres en lactose ; idéaux pour faire avaler médicaments et pilules.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du fromage (cheddar) ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. Les fromages à pâte dure sont très pauvres en lactose ; idéaux pour faire avaler médicaments et pilules."
+        },
+        {
+          "question": "Mon chat peut-il manger du fromage (cheddar) ?",
+          "answer": "Pour les chats, cet aliment est classé : AVEC MODÉRATION. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "greek-yogurt-plain": {
+      "name": "Yaourt grec (nature)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Contient des cultures probiotiques vivantes qui favorisent la flore intestinale bénéfique ; vérifiez qu'il contient 0 % de xylitol.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du yaourt grec (nature) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Contient des cultures probiotiques vivantes qui favorisent la flore intestinale bénéfique ; vérifiez qu'il contient 0 % de xylitol."
+        },
+        {
+          "question": "Mon chat peut-il manger du yaourt grec (nature) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cottage-cheese": {
+      "name": "Fromage cottage",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Fromage frais doux et riche en protéines, facile à digérer pour les animaux qui se remettent d'un trouble gastrique.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du fromage cottage ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Fromage frais doux et riche en protéines, facile à digérer pour les animaux qui se remettent d'un trouble gastrique."
+        },
+        {
+          "question": "Mon chat peut-il manger du fromage cottage ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "cow-milk": {
+      "name": "Lait de vache",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. La plupart des chiens et chats adultes perdent les enzymes lactase, ce qui provoque diarrhée, gaz et crampes abdominales.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du lait de vache ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. La plupart des chiens et chats adultes perdent les enzymes lactase, ce qui provoque diarrhée, gaz et crampes abdominales."
+        },
+        {
+          "question": "Mon chat peut-il manger du lait de vache ?",
+          "answer": "Pour les chats, cet aliment est classé : AVEC MODÉRATION. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "ice-cream": {
+      "name": "Glace",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Teneur élevée en sucres laitiers raffinés, risque d'édulcorant artificiel (xylitol) et risque élevé de chocolat.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Teneur élevée en sucres laitiers raffinés, risque d'édulcorant artificiel (xylitol) et risque élevé de chocolat.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la glace ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Teneur élevée en sucres laitiers raffinés, risque d'édulcorant artificiel (xylitol) et risque élevé de chocolat."
+        },
+        {
+          "question": "Mon chat peut-il manger de la glace ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "white-rice-cooked": {
+      "name": "Riz blanc (cuit)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. L'aliment diététique de référence des vétérinaires pour calmer les troubles gastro-intestinaux.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du riz blanc (cuit) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. L'aliment diététique de référence des vétérinaires pour calmer les troubles gastro-intestinaux."
+        },
+        {
+          "question": "Mon chat peut-il manger du riz blanc (cuit) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "oatmeal-plain-cooked": {
+      "name": "Flocons d'avoine (nature, cuits)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Les fibres alimentaires solubles apaisent les intestins irrités et apportent de l'acide linoléique pour l'hydratation du pelage.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des flocons d'avoine (nature, cuits) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Les fibres alimentaires solubles apaisent les intestins irrités et apportent de l'acide linoléique pour l'hydratation du pelage."
+        },
+        {
+          "question": "Mon chat peut-il manger des flocons d'avoine (nature, cuits) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "peanut-butter-xylitol-free": {
+      "name": "Beurre de cacahuète (sans xylitol)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Récompense d'entraînement de choix et fourrage d'enrichissement pour les jouets Kong. Vérifiez l'étiquette : il NE DOIT PAS contenir de xylitol.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du beurre de cacahuète (sans xylitol) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Récompense d'entraînement de choix et fourrage d'enrichissement pour les jouets Kong. Vérifiez l'étiquette : il NE DOIT PAS contenir de xylitol."
+        },
+        {
+          "question": "Mon chat peut-il manger du beurre de cacahuète (sans xylitol) ?",
+          "answer": "Pour les chats, cet aliment est classé : AVEC MODÉRATION. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "bread-plain-white": {
+      "name": "Pain (blanc nature)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Le pain nature est sans danger en tout petits morceaux comme friandise occasionnelle ; sans bénéfice nutritionnel.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du pain (blanc nature) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Le pain nature est sans danger en tout petits morceaux comme friandise occasionnelle ; sans bénéfice nutritionnel."
+        },
+        {
+          "question": "Mon chat peut-il manger du pain (blanc nature) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "raw-yeast-dough": {
+      "name": "Pâte levée crue",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. GONFLE DANS L'ESTOMAC, coupant la circulation ; la levure en fermentation produit une intoxication toxique à l'éthanol.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "GONFLE DANS L'ESTOMAC, coupant la circulation ; la levure en fermentation produit une intoxication toxique à l'éthanol.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de la pâte levée crue ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. GONFLE DANS L'ESTOMAC, coupant la circulation ; la levure en fermentation produit une intoxication toxique à l'éthanol."
+        },
+        {
+          "question": "Mon chat peut-il manger de la pâte levée crue ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "popcorn-air-popped": {
+      "name": "Pop-corn (éclaté à air)",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Le pop-corn éclaté à air, nature, sans sel ni beurre ni grains durs non éclatés, est un en-cas croquant amusant.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du pop-corn (éclaté à air) ?",
+          "answer": "Pour les chiens, cet aliment est classé : SANS DANGER. Le pop-corn éclaté à air, nature, sans sel ni beurre ni grains durs non éclatés, est un en-cas croquant amusant."
+        },
+        {
+          "question": "Mon chat peut-il manger du pop-corn (éclaté à air) ?",
+          "answer": "Pour les chats, cet aliment est classé : SANS DANGER. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "macadamia-nuts": {
+      "name": "Noix de macadamia",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Gravement toxique pour les chiens ; provoque faiblesse des pattes arrière, paralysie, vomissements, hyperthermie et tremblements.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Gravement toxique pour les chiens ; provoque faiblesse des pattes arrière, paralysie, vomissements, hyperthermie et tremblements.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des noix de macadamia ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Gravement toxique pour les chiens ; provoque faiblesse des pattes arrière, paralysie, vomissements, hyperthermie et tremblements."
+        },
+        {
+          "question": "Mon chat peut-il manger des noix de macadamia ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "walnuts-black": {
+      "name": "Noix noires",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les noix noires contiennent la toxine juglone et des mycotoxines trémorigènes qui provoquent neurotoxicité et convulsions.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les noix noires contiennent la toxine juglone et des mycotoxines trémorigènes qui provoquent neurotoxicité et convulsions.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des noix noires ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Les noix noires contiennent la toxine juglone et des mycotoxines trémorigènes qui provoquent neurotoxicité et convulsions."
+        },
+        {
+          "question": "Mon chat peut-il manger des noix noires ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "almonds": {
+      "name": "Amandes",
+      "short_answer": "Généralement sans danger lorsqu'il est préparé nature et servi avec modération. Pas intrinsèquement toxiques, mais difficiles à digérer ; peuvent obstruer les petites trachées ; la teneur élevée en graisses provoque des pancréatites.",
+      "benefits": "Apporte des vitamines et minéraux essentiels ainsi qu'une bonne hydratation.",
+      "risks": "Troubles digestifs en cas de portions excessives ou d'aliment assaisonné.",
+      "symptoms": "Aucun, si servi en portions raisonnables.",
+      "vet_advice": "Bien laver, peler/épépiner si nécessaire, et proposer comme friandise occasionnelle.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger des amandes ?",
+          "answer": "Pour les chiens, cet aliment est classé : AVEC MODÉRATION. Pas intrinsèquement toxiques, mais difficiles à digérer ; peuvent obstruer les petites trachées ; la teneur élevée en graisses provoque des pancréatites."
+        },
+        {
+          "question": "Mon chat peut-il manger des amandes ?",
+          "answer": "Pour les chats, cet aliment est classé : AVEC MODÉRATION. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "chocolate-dark-milk": {
+      "name": "Chocolat (noir/lait)",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. TOXICITÉ À LA THÉOBROMINE : provoque tachycardie, arythmies cardiaques, spasmes musculaires, convulsions et la mort.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "TOXICITÉ À LA THÉOBROMINE : provoque tachycardie, arythmies cardiaques, spasmes musculaires, convulsions et la mort.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du chocolat (noir/lait) ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. TOXICITÉ À LA THÉOBROMINE : provoque tachycardie, arythmies cardiaques, spasmes musculaires, convulsions et la mort."
+        },
+        {
+          "question": "Mon chat peut-il manger du chocolat (noir/lait) ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "xylitol-birch-sugar": {
+      "name": "Xylitol (sucre de bouleau)",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. MORTEL POUR LES CHIENS : provoque une libération extrême d'insuline, une hypoglycémie sévère en 30 minutes et une insuffisance hépatique aiguë.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "MORTEL POUR LES CHIENS : provoque une libération extrême d'insuline, une hypoglycémie sévère en 30 minutes et une insuffisance hépatique aiguë.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du xylitol (sucre de bouleau) ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. MORTEL POUR LES CHIENS : provoque une libération extrême d'insuline, une hypoglycémie sévère en 30 minutes et une insuffisance hépatique aiguë."
+        },
+        {
+          "question": "Mon chat peut-il manger du xylitol (sucre de bouleau) ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "coffee-caffeine": {
+      "name": "Café & caféine",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. Les méthylxanthines stimulent les systèmes nerveux et cardiovasculaire, provoquant hypertension et hyperthermie.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "Les méthylxanthines stimulent les systèmes nerveux et cardiovasculaire, provoquant hypertension et hyperthermie.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger du café ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. Les méthylxanthines stimulent les systèmes nerveux et cardiovasculaire, provoquant hypertension et hyperthermie."
+        },
+        {
+          "question": "Mon chat peut-il manger du café ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    },
+    "alcohol-beer": {
+      "name": "Alcool & bière",
+      "short_answer": "Dangereux ou toxique pour certains animaux de compagnie. L'éthanol provoque une acidose métabolique sévère, une dépression du système nerveux central, un arrêt respiratoire et un coma.",
+      "benefits": "Aucun bénéfice nutritionnel ; risque potentiel pour la santé.",
+      "risks": "L'éthanol provoque une acidose métabolique sévère, une dépression du système nerveux central, un arrêt respiratoire et un coma.",
+      "symptoms": "Vomissements, diarrhée, léthargie, perte d'appétit, douleurs abdominales.",
+      "vet_advice": "Contactez immédiatement votre vétérinaire ou le service d'urgence anti-poison pour animaux.",
+      "alternatives": [
+        "Citrouille cuite au four nature",
+        "Rondelles de carotte",
+        "Quartiers de pomme (sans pépins)"
+      ],
+      "faqs": [
+        {
+          "question": "Mon chien peut-il manger de l'alcool ou de la bière ?",
+          "answer": "Pour les chiens, cet aliment est classé : DANGEREUX. L'éthanol provoque une acidose métabolique sévère, une dépression du système nerveux central, un arrêt respiratoire et un coma."
+        },
+        {
+          "question": "Mon chat peut-il manger de l'alcool ou de la bière ?",
+          "answer": "Pour les chats, cet aliment est classé : DANGEREUX. Les chats sont des carnivores stricts aux besoins nutritionnels spécifiques."
+        }
+      ]
+    }
+  }
+}

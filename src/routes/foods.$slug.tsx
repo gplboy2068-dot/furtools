@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
+import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
   BookOpen,
@@ -11,7 +12,8 @@ import {
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Faq } from "@/components/faq";
-import { foodDetailQuery, safetyMeta, FOOD_SPECIES, type SafetyLevel } from "@/lib/foods";
+import { foodDetailQuery, safetyMeta, type SafetyLevel } from "@/lib/foods";
+import { useTranslatedFood, useTranslatedFoodLabels } from "@/lib/use-translated-foods";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 import { toAbsoluteUrl } from "@/lib/seo";
@@ -99,15 +101,20 @@ export const Route = createFileRoute("/foods/$slug")({
     };
   },
   component: FoodPage,
-  notFoundComponent: () => (
+  notFoundComponent: FoodNotFound,
+});
+
+function FoodNotFound() {
+  const { t } = useTranslation("foods");
+  return (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center">
-      <h1 className="font-display text-3xl font-semibold">Food not found</h1>
+      <h1 className="font-display text-3xl font-semibold">{t("ui.notFoundTitle")}</h1>
       <p className="mt-3 text-muted-foreground">
-        Browse the <Link to="/foods" className="text-primary underline">food database</Link>.
+        <Link to="/foods" className="text-primary underline">{t("ui.notFoundLink")}</Link>
       </p>
     </div>
-  ),
-});
+  );
+}
 
 function FoodPage() {
   return (
@@ -118,11 +125,14 @@ function FoodPage() {
 }
 
 function FoodBody() {
+  const { t } = useTranslation("foods");
   const { slug } = Route.useParams();
   const { data: food } = useSuspenseQuery(foodDetailQuery(slug));
+  const tf = useTranslatedFood(food!);
+  const { species, safetyLabel } = useTranslatedFoodLabels();
   if (!food) return null;
 
-  const anyUnsafe = FOOD_SPECIES.some(
+  const anyUnsafe = species.some(
     (s) => ((food.species_safety[s.slug] ?? "unknown") as SafetyLevel) === "unsafe",
   );
 
@@ -130,29 +140,30 @@ function FoodBody() {
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
       <Breadcrumbs
         items={[
-          { label: "Foods", to: "/foods" },
-          { label: food.name },
+          { label: t("ui.detailBreadcrumbFoods"), to: "/foods" },
+          { label: tf.name },
         ]}
       />
 
       <header className="mt-6">
         <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-          Food guide
+          {t("ui.foodGuide")}
         </p>
         <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          Can pets eat {food.name}?
+          {t("ui.detailTitle", { name: tf.name })}
         </h1>
-        <p className="mt-3 text-lg text-muted-foreground">{food.short_answer}</p>
+        <p className="mt-3 text-lg text-muted-foreground">{tf.short_answer}</p>
       </header>
 
       {/* Safety grid — all supported species */}
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {FOOD_SPECIES.map((s) => (
+        {species.map((s) => (
           <SafetyCard
             key={s.slug}
-            species={s.plural}
+            species={t("ui.forSpecies", { species: s.plural })}
             emoji={s.emoji}
             level={(food.species_safety[s.slug] ?? "unknown") as SafetyLevel}
+            label={safetyLabel((food.species_safety[s.slug] ?? "unknown") as SafetyLevel)}
           />
         ))}
       </div>
@@ -162,35 +173,35 @@ function FoodBody() {
         <div className="mt-6 flex items-start gap-3 rounded-xl border border-red-500/40 bg-red-50/60 p-4 text-sm dark:bg-red-950/20">
           <AlertTriangle className="mt-0.5 size-5 shrink-0 text-red-600" aria-hidden />
           <div>
-            <strong>If ingested, call your vet or the Pet Poison Helpline at 1-855-764-7661 (USA).</strong>{" "}
-            Time and amount consumed matter.
+            <strong>{t("ui.emergencyBanner")}</strong>{" "}
+            {t("ui.emergencyBannerSuffix")}
           </div>
         </div>
       )}
 
-      {food.benefits && (
-        <Section title="Benefits" icon={<Leaf className="size-5" />}>{food.benefits}</Section>
+      {tf.benefits && (
+        <Section title={t("ui.sectionBenefits")} icon={<Leaf className="size-5" />}>{tf.benefits}</Section>
       )}
-      {food.risks && (
-        <Section title="Risks" icon={<AlertTriangle className="size-5" />}>{food.risks}</Section>
+      {tf.risks && (
+        <Section title={t("ui.sectionRisks")} icon={<AlertTriangle className="size-5" />}>{tf.risks}</Section>
       )}
-      {food.symptoms && (
-        <Section title="Symptoms to watch for" icon={<Heart className="size-5" />}>{food.symptoms}</Section>
+      {tf.symptoms && (
+        <Section title={t("ui.sectionSymptoms")} icon={<Heart className="size-5" />}>{tf.symptoms}</Section>
       )}
-      {food.vet_advice && (
-        <Section title="Vet advice" icon={<Stethoscope className="size-5" />}>{food.vet_advice}</Section>
+      {tf.vet_advice && (
+        <Section title={t("ui.sectionVetAdvice")} icon={<Stethoscope className="size-5" />}>{tf.vet_advice}</Section>
       )}
 
-      {food.alternatives.length > 0 && (
+      {tf.alternatives.length > 0 && (
         <section className="mt-12 max-w-3xl">
           <h2 className="flex items-center gap-2 font-display text-2xl font-semibold">
             <span className="grid size-9 place-items-center rounded-full bg-primary/10 text-primary">
               <ShieldCheck className="size-5" />
             </span>
-            Safer alternatives
+            {t("ui.saferAlternatives")}
           </h2>
           <ul className="mt-4 flex flex-wrap gap-2">
-            {food.alternatives.map((a) => (
+            {tf.alternatives.map((a) => (
               <li
                 key={a}
                 className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-700 dark:text-emerald-300"
@@ -204,7 +215,7 @@ function FoodBody() {
 
       {food.related_food_slugs.length > 0 && (
         <section className="mt-12">
-          <h2 className="font-display text-2xl font-semibold">Related foods</h2>
+          <h2 className="font-display text-2xl font-semibold">{t("ui.relatedFoods")}</h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {food.related_food_slugs.map((s) => (
               <Link
@@ -223,15 +234,14 @@ function FoodBody() {
         </section>
       )}
 
-      {food.faqs.length > 0 && (
+      {tf.faqs.length > 0 && (
         <div className="mt-12">
-          <Faq items={food.faqs.map((f) => ({ q: f.question, a: f.answer }))} />
+          <Faq items={tf.faqs.map((f) => ({ q: f.question, a: f.answer }))} />
         </div>
       )}
 
       <div className="mt-14 rounded-2xl border border-amber-500/30 bg-amber-50/60 p-4 text-sm dark:bg-amber-950/20">
-        <strong>Not medical advice.</strong> This guide is educational — always consult your veterinarian
-        for medical decisions, especially in emergencies.
+        <strong>{t("ui.disclaimerTitle")}</strong> {t("ui.disclaimerBody")}
       </div>
     </div>
   );
@@ -249,13 +259,13 @@ function Section({ title, icon, children }: { title: string; icon: React.ReactNo
   );
 }
 
-function SafetyCard({ species, emoji, level }: { species: string; emoji?: string; level: SafetyLevel }) {
+function SafetyCard({ species, emoji, level, label }: { species: string; emoji?: string; level: SafetyLevel; label: string }) {
   const m = safetyMeta(level);
   return (
     <div className={"flex items-center justify-between rounded-2xl border border-border bg-card p-4 ring-1 " + m.ring}>
       <div>
-        <div className="text-xs text-muted-foreground">For {species}</div>
-        <div className={"mt-1 font-display text-lg font-semibold " + m.color}>{m.label}</div>
+        <div className="text-xs text-muted-foreground">{species}</div>
+        <div className={"mt-1 font-display text-lg font-semibold " + m.color}>{label}</div>
       </div>
       <div className={"grid size-10 place-items-center rounded-full text-lg " + m.bg}>
         {emoji ?? (level === "safe" ? "✓" : level === "moderation" ? "!" : level === "unsafe" ? "✕" : "?")}

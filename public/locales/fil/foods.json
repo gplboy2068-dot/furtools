@@ -1,0 +1,1867 @@
+{
+  "ui": {
+    "breadcrumbFoods": "Mga Pagkain",
+    "title": "Puwede bang kainin ng alaga ko ito?",
+    "subtitle": "Maghanap sa 500+ na pagkain ng tao para malaman kung ligtas ito para sa mga aso, pusa, kuneho, ibon, hamster, guinea pig, ferret, kabayo, pagong, at isda. Mga benepisyo, panganib, sintomas, payo ng vet, at mas ligtas na alternatibo.",
+    "searchPlaceholder": "Maghanap ng pagkain (hal. tsokolate, mansanas, manok)",
+    "searchAriaLabel": "Maghanap ng pagkain",
+    "categoryFilterAriaLabel": "Filter ng kategorya",
+    "safetyFilterAriaLabel": "Filter ng antas ng kaligtasan",
+    "allCategories": "Lahat ng kategorya",
+    "allSafetyLevels": "Lahat ng antas ng kaligtasan",
+    "noResults": "Walang pagkaing tumutugma sa iyong mga filter.",
+    "detailBreadcrumbFoods": "Mga Pagkain",
+    "foodGuide": "Gabay sa Pagkain",
+    "detailTitle": "Puwede bang kainin ng mga alaga ang {{name}}?",
+    "forSpecies": "Para sa {{species}}",
+    "emergencyBanner": "Kung nakain, tawagan ang iyong vet o ang Pet Poison Helpline sa 1-855-764-7661 (USA).",
+    "emergencyBannerSuffix": "Mahalaga ang oras at dami ng nakain.",
+    "sectionBenefits": "Mga Benepisyo",
+    "sectionRisks": "Mga Panganib",
+    "sectionSymptoms": "Mga Sintomas na Bantayan",
+    "sectionVetAdvice": "Payo ng Vet",
+    "saferAlternatives": "Mas Ligtas na Alternatibo",
+    "relatedFoods": "Kaugnay na Pagkain",
+    "disclaimerTitle": "Hindi ito medical advice.",
+    "disclaimerBody": "Ang gabay na ito ay pang-edukasyon lamang — palaging kumonsulta sa iyong beterinaryo para sa mga medikal na desisyon, lalo na sa emergency.",
+    "notFoundTitle": "Hindi nahanap ang pagkain",
+    "notFoundLink": "Tingnan ang database ng pagkain"
+  },
+  "categories": {
+    "fruit": "Mga Prutas",
+    "vegetable": "Mga Gulay",
+    "protein": "Karne at Protina",
+    "dairy": "Mga Produktong Gatas",
+    "grain": "Mga Butil",
+    "nut": "Mga Mani",
+    "seed": "Mga Buto",
+    "herb": "Mga Herbs",
+    "sweets": "Mga Matatamis",
+    "sweetener": "Mga Pampatamis",
+    "spice": "Mga Pampalasa",
+    "drink": "Mga Inumin",
+    "snack": "Mga Meryenda",
+    "other": "Iba pa"
+  },
+  "species": {
+    "dog": {
+      "label": "Aso",
+      "plural": "Mga Aso"
+    },
+    "cat": {
+      "label": "Pusa",
+      "plural": "Mga Pusa"
+    },
+    "rabbit": {
+      "label": "Kuneho",
+      "plural": "Mga Kuneho"
+    },
+    "bird": {
+      "label": "Ibon",
+      "plural": "Mga Ibon"
+    },
+    "hamster": {
+      "label": "Hamster",
+      "plural": "Mga Hamster"
+    },
+    "guinea_pig": {
+      "label": "Guinea Pig",
+      "plural": "Mga Guinea Pig"
+    },
+    "ferret": {
+      "label": "Ferret",
+      "plural": "Mga Ferret"
+    },
+    "horse": {
+      "label": "Kabayo",
+      "plural": "Mga Kabayo"
+    },
+    "turtle": {
+      "label": "Pagong",
+      "plural": "Mga Pagong"
+    },
+    "fish": {
+      "label": "Isda",
+      "plural": "Mga Isda"
+    }
+  },
+  "safety": {
+    "safe": "Ligtas",
+    "moderation": "Katamtaman",
+    "unsafe": "Hindi Ligtas",
+    "unknown": "Hindi Tiyak"
+  },
+  "foods": {
+    "apple": {
+      "name": "Mansanas",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mayaman sa vitamin C at fiber. Palaging tanggalin ang mga buto at ubod dahil ang buto ng mansanas ay may amygdalin (cyanide).",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng mansanas ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mayaman sa vitamin C at fiber. Palaging tanggalin ang mga buto at ubod dahil ang buto ng mansanas ay may amygdalin (cyanide)."
+        },
+        {
+          "question": "Ligtas ba ang mansanas para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "banana": {
+      "name": "Saging",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mataas sa potassium at mga bitamina, pero mataas din sa asukal. Ibigay lang paminsan-minsan at kaunti.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng saging ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mataas sa potassium at mga bitamina, pero mataas din sa asukal. Ibigay lang paminsan-minsan at kaunti."
+        },
+        {
+          "question": "Ligtas ba ang saging para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "blueberries": {
+      "name": "Blueberries",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Superfood na puno ng antioxidants, fiber, at phytochemicals. Napakagandang low-calorie treat.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng blueberries ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Superfood na puno ng antioxidants, fiber, at phytochemicals. Napakagandang low-calorie treat."
+        },
+        {
+          "question": "Ligtas ba ang blueberries para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "strawberries": {
+      "name": "Strawberries",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Puno ng vitamin C at may enzyme (malic acid) na puwedeng makatulong magpaputi ng ngipin ng alaga.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng strawberries ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Puno ng vitamin C at may enzyme (malic acid) na puwedeng makatulong magpaputi ng ngipin ng alaga."
+        },
+        {
+          "question": "Ligtas ba ang strawberries para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "watermelon": {
+      "name": "Pakwan",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. 92% tubig kaya napakaganda sa mainit na araw ng tag-araw. Tanggalin ang mga buto at matigas na balat.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng pakwan ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. 92% tubig kaya napakaganda sa mainit na araw ng tag-araw. Tanggalin ang mga buto at matigas na balat."
+        },
+        {
+          "question": "Ligtas ba ang pakwan para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cantaloupe": {
+      "name": "Cantaloupe",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mayaman sa beta-carotene at tubig. Hiwain nang maliliit na kagat; ibigay nang katamtaman.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng cantaloupe ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mayaman sa beta-carotene at tubig. Hiwain nang maliliit na kagat; ibigay nang katamtaman."
+        },
+        {
+          "question": "Ligtas ba ang cantaloupe para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "mango": {
+      "name": "Mangga",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Matamis na tropical treat na puno ng vitamins A, B6, C, at E. Balatan at itapon ang malaki at matigas na buto.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng mangga ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Matamis na tropical treat na puno ng vitamins A, B6, C, at E. Balatan at itapon ang malaki at matigas na buto."
+        },
+        {
+          "question": "Ligtas ba ang mangga para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "pineapple": {
+      "name": "Pinya",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. May bromelain enzyme na tumutulong sa pagtunaw ng protina. Tanggalin ang matinik na balat at matigas na ubod.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng pinya ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. May bromelain enzyme na tumutulong sa pagtunaw ng protina. Tanggalin ang matinik na balat at matigas na ubod."
+        },
+        {
+          "question": "Ligtas ba ang pinya para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "orange": {
+      "name": "Orange",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang citrus essential oils at psoralens ay nagdudulot ng matinding pananakit ng tiyan sa mga pusa at hamster. Maliit na treat lang para sa aso.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang citrus essential oils at psoralens ay nagdudulot ng matinding pananakit ng tiyan sa mga pusa at hamster. Maliit na treat lang para sa aso.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng orange ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. Ang citrus essential oils at psoralens ay nagdudulot ng matinding pananakit ng tiyan sa mga pusa at hamster. Maliit na treat lang para sa aso."
+        },
+        {
+          "question": "Ligtas ba ang orange para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "pear": {
+      "name": "Peras",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mataas sa copper at dietary fiber. Tanggalin ang tangkay, ubod, at mga buto bago ihain.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng peras ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mataas sa copper at dietary fiber. Tanggalin ang tangkay, ubod, at mga buto bago ihain."
+        },
+        {
+          "question": "Ligtas ba ang peras para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "peach": {
+      "name": "Melokoton",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ligtas ang laman ng sariwang melokoton. Ang buto ay may cyanogenic glycosides at malaking panganib na mabilaukan o mabarahan.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng melokoton ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ligtas ang laman ng sariwang melokoton. Ang buto ay may cyanogenic glycosides at malaking panganib na mabilaukan o mabarahan."
+        },
+        {
+          "question": "Ligtas ba ang melokoton para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "plum": {
+      "name": "Plum",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang mga buto ay may nakamamatay na cyanide. Huwag pakainin ng buong prutas ang anumang alaga.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang mga buto ay may nakamamatay na cyanide. Huwag pakainin ng buong prutas ang anumang alaga.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng plum ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga buto ay may nakamamatay na cyanide. Huwag pakainin ng buong prutas ang anumang alaga."
+        },
+        {
+          "question": "Ligtas ba ang plum para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cherry": {
+      "name": "Cherry",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang mga buto, tangkay, at dahon ay may nakakalasong cyanide na humahadlang sa pagdaloy ng oxygen sa cells.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang mga buto, tangkay, at dahon ay may nakakalasong cyanide na humahadlang sa pagdaloy ng oxygen sa cells.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng cherry ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga buto, tangkay, at dahon ay may nakakalasong cyanide na humahadlang sa pagdaloy ng oxygen sa cells."
+        },
+        {
+          "question": "Ligtas ba ang cherry para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "avocado": {
+      "name": "Abokado",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. May persin, isang fungicidal toxin na nakamamatay sa mga ibon, kuneho, daga, at kabayo. Panganib na mabilaukan ang buto.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng abokado ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. May persin, isang fungicidal toxin na nakamamatay sa mga ibon, kuneho, daga, at kabayo. Panganib na mabilaukan ang buto."
+        },
+        {
+          "question": "Ligtas ba ang abokado para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "grapes-raisins": {
+      "name": "Ubas at Pasas",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. LUBHANG MAPANGANIB sa mga aso at pusa; ang tartaric acid ay nagdudulot ng biglaan at hindi na maibabalik na acute renal failure.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "LUBHANG MAPANGANIB sa mga aso at pusa; ang tartaric acid ay nagdudulot ng biglaan at hindi na maibabalik na acute renal failure.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng ubas at pasas ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. LUBHANG MAPANGANIB sa mga aso at pusa; ang tartaric acid ay nagdudulot ng biglaan at hindi na maibabalik na acute renal failure."
+        },
+        {
+          "question": "Ligtas ba ang ubas at pasas para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "raspberries": {
+      "name": "Raspberries",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. May natural na xylitol sa napakaliit na dami; limitahan sa 1/2 tasa para sa katamtamang aso; magandang anti-inflammatory.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng raspberries ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. May natural na xylitol sa napakaliit na dami; limitahan sa 1/2 tasa para sa katamtamang aso; magandang anti-inflammatory."
+        },
+        {
+          "question": "Ligtas ba ang raspberries para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "blackberries": {
+      "name": "Blackberries",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Puno ng vitamins C, K, at anthocyanins. Magandang low-calorie reward.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng blackberries ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Puno ng vitamins C, K, at anthocyanins. Magandang low-calorie reward."
+        },
+        {
+          "question": "Ligtas ba ang blackberries para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cranberries": {
+      "name": "Cranberries",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Sumusuporta sa kalusugan ng urinary tract. Iwasan ang commercial dried cranberries na puno ng refined sugar.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng cranberries ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Sumusuporta sa kalusugan ng urinary tract. Iwasan ang commercial dried cranberries na puno ng refined sugar."
+        },
+        {
+          "question": "Ligtas ba ang cranberries para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "kiwi": {
+      "name": "Kiwi",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Balatan ang mabalahibong balat; pakainin ng maliliit na hiwa. Mataas sa potassium at vitamin C.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kiwi ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Balatan ang mabalahibong balat; pakainin ng maliliit na hiwa. Mataas sa potassium at vitamin C."
+        },
+        {
+          "question": "Ligtas ba ang kiwi para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "papaya": {
+      "name": "Papaya",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. May papain, isang natural na digestive enzyme. Tanggalan ng buto at balatan bago pakainin.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng papaya ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. May papain, isang natural na digestive enzyme. Tanggalan ng buto at balatan bago pakainin."
+        },
+        {
+          "question": "Ligtas ba ang papaya para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "coconut": {
+      "name": "Niyog",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang lauric acid ay nakakatulong sa kintab ng balahibo at pamamaga ng balat; pakainin nang kaunti dahil mataas sa saturated fats.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng niyog ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ang lauric acid ay nakakatulong sa kintab ng balahibo at pamamaga ng balat; pakainin nang kaunti dahil mataas sa saturated fats."
+        },
+        {
+          "question": "Ligtas ba ang niyog para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "lemon-lime": {
+      "name": "Lemon at Lime",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang citric acid, limonene, at linalool ay nagdudulot ng panghihina ng central nervous system, panginginig, at pagsusuka.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang citric acid, limonene, at linalool ay nagdudulot ng panghihina ng central nervous system, panginginig, at pagsusuka.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lemon at lime ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang citric acid, limonene, at linalool ay nagdudulot ng panghihina ng central nervous system, panginginig, at pagsusuka."
+        },
+        {
+          "question": "Ligtas ba ang lemon at lime para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "carrot": {
+      "name": "Karot",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Napakagandang crunchy treat na nakakatulong maglinis ng ngipin ng aso at nagbibigay ng vitamin A / beta-carotene.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng karot ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Napakagandang crunchy treat na nakakatulong maglinis ng ngipin ng aso at nagbibigay ng vitamin A / beta-carotene."
+        },
+        {
+          "question": "Ligtas ba ang karot para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "broccoli": {
+      "name": "Broccoli",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mayaman sa lutein at vitamin C. Ang mga florets ay may isothiocyanates; panatilihing mas mababa sa 10% ng kabuuang diet.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng broccoli ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mayaman sa lutein at vitamin C. Ang mga florets ay may isothiocyanates; panatilihing mas mababa sa 10% ng kabuuang diet."
+        },
+        {
+          "question": "Ligtas ba ang broccoli para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "spinach": {
+      "name": "Espinaka",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. May soluble oxalates. Ang mga alagang may history ng calcium oxalate bladder stones ay dapat umiwas.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng espinaka ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. May soluble oxalates. Ang mga alagang may history ng calcium oxalate bladder stones ay dapat umiwas."
+        },
+        {
+          "question": "Ligtas ba ang espinaka para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cucumber": {
+      "name": "Pipino",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. 96% tubig at halos zero calories. Pinakamagandang treat para sa matataba o diabetic na alaga.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng pipino ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. 96% tubig at halos zero calories. Pinakamagandang treat para sa matataba o diabetic na alaga."
+        },
+        {
+          "question": "Ligtas ba ang pipino para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "green-beans": {
+      "name": "Baguio Beans",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Paborito ng mga beterinaryo para sa \"green bean weight loss diet\"; ipakain nang hilaw, steamed, o simpleng de-lata.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng baguio beans ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Paborito ng mga beterinaryo para sa \"green bean weight loss diet\"; ipakain nang hilaw, steamed, o simpleng de-lata."
+        },
+        {
+          "question": "Ligtas ba ang baguio beans para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "sweet-potato": {
+      "name": "Kamote",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Palaging lutuing mabuti; huwag pakainin ng hilaw na kamote. Mayaman sa dietary fiber at vitamin B6.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kamote ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Palaging lutuing mabuti; huwag pakainin ng hilaw na kamote. Mayaman sa dietary fiber at vitamin B6."
+        },
+        {
+          "question": "Ligtas ba ang kamote para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "pumpkin": {
+      "name": "Kalabasa",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Gold standard na lunas sa problema sa bituka ng alaga. Ang purong canned puree ay lumulunas sa pagtatae at constipation.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kalabasa ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Gold standard na lunas sa problema sa bituka ng alaga. Ang purong canned puree ay lumulunas sa pagtatae at constipation."
+        },
+        {
+          "question": "Ligtas ba ang kalabasa para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "zucchini": {
+      "name": "Zucchini",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mild at hydrating na gulay na puno ng folate, potassium, at vitamin A. Ipakain nang hilaw o steamed.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng zucchini ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mild at hydrating na gulay na puno ng folate, potassium, at vitamin A. Ipakain nang hilaw o steamed."
+        },
+        {
+          "question": "Ligtas ba ang zucchini para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "celery": {
+      "name": "Kintsay",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Crunchy snack na naglilinis ng tartar at nagpapabango ng hininga; hiwain nang maliliit para hindi mabilaukan sa hibla.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kintsay ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Crunchy snack na naglilinis ng tartar at nagpapabango ng hininga; hiwain nang maliliit para hindi mabilaukan sa hibla."
+        },
+        {
+          "question": "Ligtas ba ang kintsay para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "bell-pepper": {
+      "name": "Bell Pepper",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang pula at dilaw na bell pepper ay may 3x na vitamin C kaysa sa orange; gustong-gusto ito ng mga guinea pig at kailangan nila ito.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng bell pepper ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ang pula at dilaw na bell pepper ay may 3x na vitamin C kaysa sa orange; gustong-gusto ito ng mga guinea pig at kailangan nila ito."
+        },
+        {
+          "question": "Ligtas ba ang bell pepper para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "asparagus": {
+      "name": "Asparagus",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. I-steam nang bahagya para lumambot ang matitigas na tangkay. Nagiging mabaho ang ihi pero ganap na hindi nakakapinsala.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng asparagus ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. I-steam nang bahagya para lumambot ang matitigas na tangkay. Nagiging mabaho ang ihi pero ganap na hindi nakakapinsala."
+        },
+        {
+          "question": "Ligtas ba ang asparagus para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cauliflower": {
+      "name": "Cauliflower",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mababa sa calorie at mayaman sa choline; puwedeng magdulot ng hindi nakakapinsalang kabag kung marami ang ibibigay.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng cauliflower ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mababa sa calorie at mayaman sa choline; puwedeng magdulot ng hindi nakakapinsalang kabag kung marami ang ibibigay."
+        },
+        {
+          "question": "Ligtas ba ang cauliflower para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cabbage": {
+      "name": "Repolyo",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mayaman sa phytonutrients at roughage; ipakain nang kaunti para maiwasan ang kabag at bloating.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng repolyo ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mayaman sa phytonutrients at roughage; ipakain nang kaunti para maiwasan ang kabag at bloating."
+        },
+        {
+          "question": "Ligtas ba ang repolyo para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "lettuce-romaine": {
+      "name": "Letsugas (Romaine)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Iwasan ang maputlang iceberg lettuce (tubig lang, walang nutrisyon); napakaganda ng dark romaine at green leaf.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng letsugas (romaine) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Iwasan ang maputlang iceberg lettuce (tubig lang, walang nutrisyon); napakaganda ng dark romaine at green leaf."
+        },
+        {
+          "question": "Ligtas ba ang letsugas (romaine) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "peas": {
+      "name": "Gisantes",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ligtas ang garden peas, snow peas, at sugar snap peas; ipakain nang sariwa o tinunaw na frozen; iwasan ang de-latong may sodium.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng gisantes ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ligtas ang garden peas, snow peas, at sugar snap peas; ipakain nang sariwa o tinunaw na frozen; iwasan ang de-latong may sodium."
+        },
+        {
+          "question": "Ligtas ba ang gisantes para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "onion": {
+      "name": "Sibuyas",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. LASON NG ALLIUM: Ang N-propyl disulfide ay sumisira sa red blood cells, nagdudulot ng hemolytic Heinz body anemia, at pagbagsak.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "LASON NG ALLIUM: Ang N-propyl disulfide ay sumisira sa red blood cells, nagdudulot ng hemolytic Heinz body anemia, at pagbagsak.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng sibuyas ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. LASON NG ALLIUM: Ang N-propyl disulfide ay sumisira sa red blood cells, nagdudulot ng hemolytic Heinz body anemia, at pagbagsak."
+        },
+        {
+          "question": "Ligtas ba ang sibuyas para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "garlic": {
+      "name": "Bawang",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. LIMANG BESES NA MAS NAKAKALASON kaysa sibuyas. Sumisira ng red blood cells sa mga aso, pusa, at lahat ng alagang hayop.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "LIMANG BESES NA MAS NAKAKALASON kaysa sibuyas. Sumisira ng red blood cells sa mga aso, pusa, at lahat ng alagang hayop.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng bawang ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. LIMANG BESES NA MAS NAKAKALASON kaysa sibuyas. Sumisira ng red blood cells sa mga aso, pusa, at lahat ng alagang hayop."
+        },
+        {
+          "question": "Ligtas ba ang bawang para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "leek-shallot": {
+      "name": "Leek at Shallot",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Kabilang sa nakakalasong Allium genus; nagdudulot ng malalang ulcer sa tiyan at nakamamatay na pagkasira ng red blood cells.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Kabilang sa nakakalasong Allium genus; nagdudulot ng malalang ulcer sa tiyan at nakamamatay na pagkasira ng red blood cells.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng leek at shallot ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Kabilang sa nakakalasong Allium genus; nagdudulot ng malalang ulcer sa tiyan at nakamamatay na pagkasira ng red blood cells."
+        },
+        {
+          "question": "Ligtas ba ang leek at shallot para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "mushroom-wild": {
+      "name": "Kabute (Ligaw)",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang mga ligaw na kabute (Amanita, Inocybe) ay nagdudulot ng mabilisang liver at kidney failure, seizure, at kamatayan.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang mga ligaw na kabute (Amanita, Inocybe) ay nagdudulot ng mabilisang liver at kidney failure, seizure, at kamatayan.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kabute (ligaw) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga ligaw na kabute (Amanita, Inocybe) ay nagdudulot ng mabilisang liver at kidney failure, seizure, at kamatayan."
+        },
+        {
+          "question": "Ligtas ba ang kabute (ligaw) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "corn-cob": {
+      "name": "Mais (Busal)",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Natutunaw ang butil ng mais, pero ang busal ay hindi natutunaw at nagdudulot ng nakamamatay na bara sa bituka na kailangan ng emergency surgery.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Natutunaw ang butil ng mais, pero ang busal ay hindi natutunaw at nagdudulot ng nakamamatay na bara sa bituka na kailangan ng emergency surgery.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng mais (busal) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Natutunaw ang butil ng mais, pero ang busal ay hindi natutunaw at nagdudulot ng nakamamatay na bara sa bituka na kailangan ng emergency surgery."
+        },
+        {
+          "question": "Ligtas ba ang mais (busal) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "potato-raw-green": {
+      "name": "Patatas (Hilaw/Berde)",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang berdeng balat at hilaw na patatas ay may solanine glycoalkaloids. Ligtas ang ganap na lutong simpleng puting patatas.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang berdeng balat at hilaw na patatas ay may solanine glycoalkaloids. Ligtas ang ganap na lutong simpleng puting patatas.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng patatas (hilaw/berde) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang berdeng balat at hilaw na patatas ay may solanine glycoalkaloids. Ligtas ang ganap na lutong simpleng puting patatas."
+        },
+        {
+          "question": "Ligtas ba ang patatas (hilaw/berde) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "tomato-green-plant": {
+      "name": "Kamatis (Berde/Halaman)",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang berde at hilaw pang kamatis at mga baging ay may nakakalasong solanine at tomatine. Hindi nakakalason ang hinog na pulang kamatis.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang berde at hilaw pang kamatis at mga baging ay may nakakalasong solanine at tomatine. Hindi nakakalason ang hinog na pulang kamatis.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kamatis (berde/halaman) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang berde at hilaw pang kamatis at mga baging ay may nakakalasong solanine at tomatine. Hindi nakakalason ang hinog na pulang kamatis."
+        },
+        {
+          "question": "Ligtas ba ang kamatis (berde/halaman) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "rhubarb": {
+      "name": "Rhubarb",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang mga dahon at tangkay ay may soluble calcium oxalate crystals na nagpapababa ng calcium sa katawan at nagdudulot ng kidney failure.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang mga dahon at tangkay ay may soluble calcium oxalate crystals na nagpapababa ng calcium sa katawan at nagdudulot ng kidney failure.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng rhubarb ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga dahon at tangkay ay may soluble calcium oxalate crystals na nagpapababa ng calcium sa katawan at nagdudulot ng kidney failure."
+        },
+        {
+          "question": "Ligtas ba ang rhubarb para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cooked-chicken": {
+      "name": "Lutong Manok",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Payat at madaling tunawin na pangunahing protina. Huwag pakainin ng lutong buto dahil nababasag ito at bumubutas sa tiyan.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lutong manok ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Payat at madaling tunawin na pangunahing protina. Huwag pakainin ng lutong buto dahil nababasag ito at bumubutas sa tiyan."
+        },
+        {
+          "question": "Ligtas ba ang lutong manok para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cooked-turkey": {
+      "name": "Lutong Pabo",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang simpleng lutong dibdib ng pabo na walang balat ay napakagandang low-fat na protina. Iwasan ang may timplang thanksgiving turkey.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lutong pabo ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ang simpleng lutong dibdib ng pabo na walang balat ay napakagandang low-fat na protina. Iwasan ang may timplang thanksgiving turkey."
+        },
+        {
+          "question": "Ligtas ba ang lutong pabo para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cooked-beef": {
+      "name": "Lutong Baka",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang payat na giniling na baka ay sumusuporta sa muscle mass, zinc, at iron. Alisin ang mantika bago ipakain.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lutong baka ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ang payat na giniling na baka ay sumusuporta sa muscle mass, zinc, at iron. Alisin ang mantika bago ipakain."
+        },
+        {
+          "question": "Ligtas ba ang lutong baka para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cooked-salmon": {
+      "name": "Lutong Salmon",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Puno ng mahahalagang Omega-3 fatty acids (EPA/DHA) para sa utak, balahibo, at joints. Dapat lutuin para mapatay ang parasites.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lutong salmon ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Puno ng mahahalagang Omega-3 fatty acids (EPA/DHA) para sa utak, balahibo, at joints. Dapat lutuin para mapatay ang parasites."
+        },
+        {
+          "question": "Ligtas ba ang lutong salmon para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "tuna-in-water": {
+      "name": "Tuna (sa Tubig)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Pakainin lang ng canned tuna sa tubig; limitahan ang pagpapakain dahil sa naiipong heavy metal mercury.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng tuna (sa tubig) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. Pakainin lang ng canned tuna sa tubig; limitahan ang pagpapakain dahil sa naiipong heavy metal mercury."
+        },
+        {
+          "question": "Ligtas ba ang tuna (sa tubig) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "eggs-cooked": {
+      "name": "Itlog (Luto)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Gold standard na kumpletong amino acid profile; scrambled o hard-boiled na simple, walang mantikilya o asin.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng itlog (luto) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Gold standard na kumpletong amino acid profile; scrambled o hard-boiled na simple, walang mantikilya o asin."
+        },
+        {
+          "question": "Ligtas ba ang itlog (luto) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "pork-lean-cooked": {
+      "name": "Baboy (Payat, Luto)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Mataas sa thiamine. Dapat lutuing mabuti para maalis ang trichinosis parasite; iwasan ang maalat na ham o bacon.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng baboy (payat, luto) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Mataas sa thiamine. Dapat lutuing mabuti para maalis ang trichinosis parasite; iwasan ang maalat na ham o bacon."
+        },
+        {
+          "question": "Ligtas ba ang baboy (payat, luto) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "lamb-cooked": {
+      "name": "Lutong Tupa",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Hypoallergenic na novel protein option para sa mga asong may dietary intolerance sa manok o baka.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lutong tupa ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Hypoallergenic na novel protein option para sa mga asong may dietary intolerance sa manok o baka."
+        },
+        {
+          "question": "Ligtas ba ang lutong tupa para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "sardines-in-water": {
+      "name": "Sardinas (sa Tubig)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Maliit na isda na may maliliit na nakakaing buto na mayaman sa bioavailable calcium, CoQ10, at Omega-3.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng sardinas (sa tubig) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Maliit na isda na may maliliit na nakakaing buto na mayaman sa bioavailable calcium, CoQ10, at Omega-3."
+        },
+        {
+          "question": "Ligtas ba ang sardinas (sa tubig) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "bacon-sausage": {
+      "name": "Bacon at Sausage",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Napakataas sa sodium, nitrates, at saturated fat — nagdudulot ng matinding pancreatitis, isang veterinary medical emergency.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Napakataas sa sodium, nitrates, at saturated fat — nagdudulot ng matinding pancreatitis, isang veterinary medical emergency.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng bacon at sausage ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Napakataas sa sodium, nitrates, at saturated fat — nagdudulot ng matinding pancreatitis, isang veterinary medical emergency."
+        },
+        {
+          "question": "Ligtas ba ang bacon at sausage para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cooked-bones": {
+      "name": "Lutong Buto",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang pagluluto ay nagpapalutong at nagpapatalas ng mga buto ng hayop, na puwedeng makabutas sa esophagus, tiyan, o bituka.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang pagluluto ay nagpapalutong at nagpapatalas ng mga buto ng hayop, na puwedeng makabutas sa esophagus, tiyan, o bituka.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lutong buto ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang pagluluto ay nagpapalutong at nagpapatalas ng mga buto ng hayop, na puwedeng makabutas sa esophagus, tiyan, o bituka."
+        },
+        {
+          "question": "Ligtas ba ang lutong buto para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "raw-fish": {
+      "name": "Hilaw na Isda",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. May thiaminase enzymes na sumisira sa vitamin B1 (thiamine), na nagdudulot ng panginginig ng ulo, ataxia, at seizure.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "May thiaminase enzymes na sumisira sa vitamin B1 (thiamine), na nagdudulot ng panginginig ng ulo, ataxia, at seizure.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng hilaw na isda ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. May thiaminase enzymes na sumisira sa vitamin B1 (thiamine), na nagdudulot ng panginginig ng ulo, ataxia, at seizure."
+        },
+        {
+          "question": "Ligtas ba ang hilaw na isda para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "shrimp-cooked": {
+      "name": "Lutong Hipon",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Lutuing mabuti, balatan, at tanggalin ang ugat; mataas sa phosphorus, protina, at B12.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng lutong hipon ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Lutuing mabuti, balatan, at tanggalin ang ugat; mataas sa phosphorus, protina, at B12."
+        },
+        {
+          "question": "Ligtas ba ang lutong hipon para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "liver-beef-chicken": {
+      "name": "Atay (Baka/Manok)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Siksik sa vitamin A at iron; ipakain nang katamtaman dahil ang sobrang atay ay puwedeng magdulot ng vitamin A toxicity (hypervitaminosis A).",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng atay (baka/manok) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Siksik sa vitamin A at iron; ipakain nang katamtaman dahil ang sobrang atay ay puwedeng magdulot ng vitamin A toxicity (hypervitaminosis A)."
+        },
+        {
+          "question": "Ligtas ba ang atay (baka/manok) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cheese-cheddar": {
+      "name": "Keso (Cheddar)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang matitigas na keso ay napakababa sa lactose; napakaganda sa pagtatago ng gamot at pills.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng keso (cheddar) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. Ang matitigas na keso ay napakababa sa lactose; napakaganda sa pagtatago ng gamot at pills."
+        },
+        {
+          "question": "Ligtas ba ang keso (cheddar) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "greek-yogurt-plain": {
+      "name": "Greek Yogurt (Plain)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. May live active probiotic cultures na nagpapadami ng mabubuting gut flora; siguraduhing 0% xylitol.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng greek yogurt (plain) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. May live active probiotic cultures na nagpapadami ng mabubuting gut flora; siguraduhing 0% xylitol."
+        },
+        {
+          "question": "Ligtas ba ang greek yogurt (plain) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cottage-cheese": {
+      "name": "Cottage Cheese",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Bland at high-protein na malambot na curd na madaling tunawin para sa mga alagang nagpapagaling mula sa sakit ng tiyan.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng cottage cheese ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Bland at high-protein na malambot na curd na madaling tunawin para sa mga alagang nagpapagaling mula sa sakit ng tiyan."
+        },
+        {
+          "question": "Ligtas ba ang cottage cheese para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "cow-milk": {
+      "name": "Gatas ng Baka",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Karamihan sa adult na aso at pusa ay nawawalan ng lactase enzymes, na nagdudulot ng pagtatae, kabag, at pananakit ng tiyan.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng gatas ng baka ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. Karamihan sa adult na aso at pusa ay nawawalan ng lactase enzymes, na nagdudulot ng pagtatae, kabag, at pananakit ng tiyan."
+        },
+        {
+          "question": "Ligtas ba ang gatas ng baka para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "ice-cream": {
+      "name": "Ice Cream",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Mataas sa refined dairy sugars, posibleng may xylitol artificial sweetener, at mataas ang panganib na may halong tsokolate.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Mataas sa refined dairy sugars, posibleng may xylitol artificial sweetener, at mataas ang panganib na may halong tsokolate.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng ice cream ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Mataas sa refined dairy sugars, posibleng may xylitol artificial sweetener, at mataas ang panganib na may halong tsokolate."
+        },
+        {
+          "question": "Ligtas ba ang ice cream para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "white-rice-cooked": {
+      "name": "Kanin (Lutong Puti)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang number-one na dietary choice ng mga beterinaryo para pakalmahin ang masamang tiyan.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kanin (lutong puti) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ang number-one na dietary choice ng mga beterinaryo para pakalmahin ang masamang tiyan."
+        },
+        {
+          "question": "Ligtas ba ang kanin (lutong puti) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "oatmeal-plain-cooked": {
+      "name": "Oatmeal (Simple, Luto)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang soluble dietary fiber ay nagpapaginhawa sa naiiritang bituka at nagbibigay ng linoleic acid para sa moisture ng balahibo.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng oatmeal (simple, luto) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ang soluble dietary fiber ay nagpapaginhawa sa naiiritang bituka at nagbibigay ng linoleic acid para sa moisture ng balahibo."
+        },
+        {
+          "question": "Ligtas ba ang oatmeal (simple, luto) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "peanut-butter-xylitol-free": {
+      "name": "Peanut Butter (Walang Xylitol)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Pinakamagandang training reward at pampalaman sa Kong toys. Tingnan ang label: DAPAT WALANG xylitol.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng peanut butter (walang xylitol) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Pinakamagandang training reward at pampalaman sa Kong toys. Tingnan ang label: DAPAT WALANG xylitol."
+        },
+        {
+          "question": "Ligtas ba ang peanut butter (walang xylitol) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "bread-plain-white": {
+      "name": "Tinapay (Simpleng Puti)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ligtas ang simpleng lutong tinapay sa maliliit na piraso bilang paminsan-minsang treat; walang benepisyong nutrisyon.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng tinapay (simpleng puti) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ligtas ang simpleng lutong tinapay sa maliliit na piraso bilang paminsan-minsang treat; walang benepisyong nutrisyon."
+        },
+        {
+          "question": "Ligtas ba ang tinapay (simpleng puti) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "raw-yeast-dough": {
+      "name": "Hilaw na Masa (Yeast)",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. LUMALAKI SA TIYAN at pinuputol ang sirkulasyon; ang nagfe-ferment na yeast ay gumagawa ng nakakalasong ethanol.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "LUMALAKI SA TIYAN at pinuputol ang sirkulasyon; ang nagfe-ferment na yeast ay gumagawa ng nakakalasong ethanol.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng hilaw na masa (yeast) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. LUMALAKI SA TIYAN at pinuputol ang sirkulasyon; ang nagfe-ferment na yeast ay gumagawa ng nakakalasong ethanol."
+        },
+        {
+          "question": "Ligtas ba ang hilaw na masa (yeast) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "popcorn-air-popped": {
+      "name": "Popcorn (Air-Popped)",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Ang air-popped na simpleng popcorn na walang asin, mantikilya, o matitigas na hindi pumutok na butil ay masayang crunchy snack.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng popcorn (air-popped) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: LIGTAS. Ang air-popped na simpleng popcorn na walang asin, mantikilya, o matitigas na hindi pumutok na butil ay masayang crunchy snack."
+        },
+        {
+          "question": "Ligtas ba ang popcorn (air-popped) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "macadamia-nuts": {
+      "name": "Macadamia Nuts",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Lubhang nakakalason sa mga aso; nagdudulot ng panghihina ng hulihang binti, paralisis, pagsusuka, hyperthermia, at panginginig.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Lubhang nakakalason sa mga aso; nagdudulot ng panghihina ng hulihang binti, paralisis, pagsusuka, hyperthermia, at panginginig.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng macadamia nuts ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Lubhang nakakalason sa mga aso; nagdudulot ng panghihina ng hulihang binti, paralisis, pagsusuka, hyperthermia, at panginginig."
+        },
+        {
+          "question": "Ligtas ba ang macadamia nuts para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "walnuts-black": {
+      "name": "Black Walnuts",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang black walnuts ay may juglone toxin at tremorgenic mycotoxins na nagdudulot ng neurotoxicity at seizure.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang black walnuts ay may juglone toxin at tremorgenic mycotoxins na nagdudulot ng neurotoxicity at seizure.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng black walnuts ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang black walnuts ay may juglone toxin at tremorgenic mycotoxins na nagdudulot ng neurotoxicity at seizure."
+        },
+        {
+          "question": "Ligtas ba ang black walnuts para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "almonds": {
+      "name": "Almonds",
+      "short_answer": "Karaniwang ligtas kung ihahandang simple at ibibigay nang katamtaman. Hindi likas na nakakalason pero mahirap tunawin; puwedeng makabara sa maliliit na lalamunan; ang mataas na taba ay nagdudulot ng pancreatitis.",
+      "benefits": "Nagbibigay ng mahahalagang bitamina, mineral, at tumutulong sa sapat na tubig sa katawan.",
+      "risks": "Puwedeng sumakit ang tiyan kung sobra ang dami ng ibibigay o kung may halong pampalasa.",
+      "symptoms": "Wala, kung ibibigay sa tamang dami bilang treat.",
+      "vet_advice": "Hugasan nang mabuti, balatan o tanggalan ng buto kung kailangan, at ibigay paminsan-minsan bilang treat.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng almonds ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: KATAMTAMAN. Hindi likas na nakakalason pero mahirap tunawin; puwedeng makabara sa maliliit na lalamunan; ang mataas na taba ay nagdudulot ng pancreatitis."
+        },
+        {
+          "question": "Ligtas ba ang almonds para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: KATAMTAMAN. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "chocolate-dark-milk": {
+      "name": "Tsokolate (Dark/Milk)",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. PAGKALASON SA THEOBROMINE: Nagdudulot ng tachycardia, cardiac arrhythmias, muscle spasms, seizure, at kamatayan.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "PAGKALASON SA THEOBROMINE: Nagdudulot ng tachycardia, cardiac arrhythmias, muscle spasms, seizure, at kamatayan.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng tsokolate (dark/milk) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. PAGKALASON SA THEOBROMINE: Nagdudulot ng tachycardia, cardiac arrhythmias, muscle spasms, seizure, at kamatayan."
+        },
+        {
+          "question": "Ligtas ba ang tsokolate (dark/milk) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "xylitol-birch-sugar": {
+      "name": "Xylitol (Birch Sugar)",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. NAKAMAMATAY SA MGA ASO: Nagdudulot ng matinding paglabas ng insulin, malalang hypoglycemia sa loob ng 30 minuto, at acute liver failure.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "NAKAMAMATAY SA MGA ASO: Nagdudulot ng matinding paglabas ng insulin, malalang hypoglycemia sa loob ng 30 minuto, at acute liver failure.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng xylitol (birch sugar) ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. NAKAMAMATAY SA MGA ASO: Nagdudulot ng matinding paglabas ng insulin, malalang hypoglycemia sa loob ng 30 minuto, at acute liver failure."
+        },
+        {
+          "question": "Ligtas ba ang xylitol (birch sugar) para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "coffee-caffeine": {
+      "name": "Kape at Caffeine",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang methylxanthines ay nagpapasigla sa nervous at cardiovascular systems, na nagdudulot ng hypertension at hyperthermia.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang methylxanthines ay nagpapasigla sa nervous at cardiovascular systems, na nagdudulot ng hypertension at hyperthermia.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng kape at caffeine ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang methylxanthines ay nagpapasigla sa nervous at cardiovascular systems, na nagdudulot ng hypertension at hyperthermia."
+        },
+        {
+          "question": "Ligtas ba ang kape at caffeine para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    },
+    "alcohol-beer": {
+      "name": "Alak at Beer",
+      "short_answer": "Mapanganib o nakakalason para sa ilang alaga. Ang ethanol ay nagdudulot ng malalang metabolic acidosis, panghihina ng central nervous system, paghinto ng paghinga, at coma.",
+      "benefits": "Walang benepisyong nutrisyon; posibleng panganib sa kalusugan.",
+      "risks": "Ang ethanol ay nagdudulot ng malalang metabolic acidosis, panghihina ng central nervous system, paghinto ng paghinga, at coma.",
+      "symptoms": "Pagsusuka, pagtatae, panghihina, kawalan ng ganang kumain, pananakit ng tiyan.",
+      "vet_advice": "Tawagan agad ang iyong beterinaryo o ang emergency animal poison hotline.",
+      "alternatives": [
+        "Simpleng inihaw na kalabasa",
+        "Hiniwang karot",
+        "Hiwa ng mansanas (walang buto)"
+      ],
+      "faqs": [
+        {
+          "question": "Puwede bang kumain ng alak at beer ang aso ko?",
+          "answer": "Para sa mga aso, ang rating ng pagkaing ito: HINDI LIGTAS. Ang ethanol ay nagdudulot ng malalang metabolic acidosis, panghihina ng central nervous system, paghinto ng paghinga, at coma."
+        },
+        {
+          "question": "Ligtas ba ang alak at beer para sa mga pusa?",
+          "answer": "Para sa mga pusa, ang rating ng pagkaing ito: HINDI LIGTAS. Ang mga pusa ay obligate carnivores at may ibang pangangailangan sa nutrisyon."
+        }
+      ]
+    }
+  }
+}

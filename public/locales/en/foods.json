@@ -1,0 +1,1867 @@
+{
+  "ui": {
+    "breadcrumbFoods": "Foods",
+    "title": "Can my pet eat this?",
+    "subtitle": "Search 500+ human foods to see if they're safe for dogs, cats, rabbits, birds, hamsters, guinea pigs, ferrets, horses, turtles and fish. Benefits, risks, symptoms, vet advice, and safer alternatives.",
+    "searchPlaceholder": "Search foods (e.g. chocolate, apple, chicken)",
+    "searchAriaLabel": "Search foods",
+    "categoryFilterAriaLabel": "Category filter",
+    "safetyFilterAriaLabel": "Safety filter",
+    "allCategories": "All categories",
+    "allSafetyLevels": "All safety levels",
+    "noResults": "No foods match your filters.",
+    "detailBreadcrumbFoods": "Foods",
+    "foodGuide": "Food guide",
+    "detailTitle": "Can pets eat {{name}}?",
+    "forSpecies": "For {{species}}",
+    "emergencyBanner": "If ingested, call your vet or the Pet Poison Helpline at 1-855-764-7661 (USA).",
+    "emergencyBannerSuffix": "Time and amount consumed matter.",
+    "sectionBenefits": "Benefits",
+    "sectionRisks": "Risks",
+    "sectionSymptoms": "Symptoms to watch for",
+    "sectionVetAdvice": "Vet advice",
+    "saferAlternatives": "Safer alternatives",
+    "relatedFoods": "Related foods",
+    "disclaimerTitle": "Not medical advice.",
+    "disclaimerBody": "This guide is educational — always consult your veterinarian for medical decisions, especially in emergencies.",
+    "notFoundTitle": "Food not found",
+    "notFoundLink": "Browse the food database"
+  },
+  "categories": {
+    "fruit": "Fruits",
+    "vegetable": "Vegetables",
+    "protein": "Meat & Protein",
+    "dairy": "Dairy",
+    "grain": "Grains",
+    "nut": "Nuts",
+    "seed": "Seeds",
+    "herb": "Herbs",
+    "sweets": "Sweets",
+    "sweetener": "Sweeteners",
+    "spice": "Spices",
+    "drink": "Drinks",
+    "snack": "Snacks",
+    "other": "Other"
+  },
+  "species": {
+    "dog": {
+      "label": "Dog",
+      "plural": "Dogs"
+    },
+    "cat": {
+      "label": "Cat",
+      "plural": "Cats"
+    },
+    "rabbit": {
+      "label": "Rabbit",
+      "plural": "Rabbits"
+    },
+    "bird": {
+      "label": "Bird",
+      "plural": "Birds"
+    },
+    "hamster": {
+      "label": "Hamster",
+      "plural": "Hamsters"
+    },
+    "guinea_pig": {
+      "label": "Guinea Pig",
+      "plural": "Guinea Pigs"
+    },
+    "ferret": {
+      "label": "Ferret",
+      "plural": "Ferrets"
+    },
+    "horse": {
+      "label": "Horse",
+      "plural": "Horses"
+    },
+    "turtle": {
+      "label": "Turtle",
+      "plural": "Turtles"
+    },
+    "fish": {
+      "label": "Fish",
+      "plural": "Fish"
+    }
+  },
+  "safety": {
+    "safe": "Safe",
+    "moderation": "In moderation",
+    "unsafe": "Unsafe",
+    "unknown": "Unknown"
+  },
+  "foods": {
+    "apple": {
+      "name": "Apple",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Rich in vitamin C and fiber. Always remove the seeds and core as apple seeds contain amygdalin (cyanide).",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat apple?",
+          "answer": "For dogs, this food is rated: SAFE. Rich in vitamin C and fiber. Always remove the seeds and core as apple seeds contain amygdalin (cyanide)."
+        },
+        {
+          "question": "Is apple safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "banana": {
+      "name": "Banana",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. High in potassium and vitamins, but high in sugar. Feed only as an occasional small treat.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat banana?",
+          "answer": "For dogs, this food is rated: SAFE. High in potassium and vitamins, but high in sugar. Feed only as an occasional small treat."
+        },
+        {
+          "question": "Is banana safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "blueberries": {
+      "name": "Blueberries",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Superfood loaded with antioxidants, fiber, and phytochemicals. Excellent low-calorie treat.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat blueberries?",
+          "answer": "For dogs, this food is rated: SAFE. Superfood loaded with antioxidants, fiber, and phytochemicals. Excellent low-calorie treat."
+        },
+        {
+          "question": "Is blueberries safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "strawberries": {
+      "name": "Strawberries",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Packed with vitamin C and an enzyme (malic acid) that can help whiten pets’ teeth.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat strawberries?",
+          "answer": "For dogs, this food is rated: SAFE. Packed with vitamin C and an enzyme (malic acid) that can help whiten pets’ teeth."
+        },
+        {
+          "question": "Is strawberries safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "watermelon": {
+      "name": "Watermelon",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. 92% water content makes it wonderful for hot summer days. Remove seeds and tough outer rind.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat watermelon?",
+          "answer": "For dogs, this food is rated: SAFE. 92% water content makes it wonderful for hot summer days. Remove seeds and tough outer rind."
+        },
+        {
+          "question": "Is watermelon safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cantaloupe": {
+      "name": "Cantaloupe",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Rich in beta-carotene and moisture. Slice into small bite-sized pieces; feed moderately.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cantaloupe?",
+          "answer": "For dogs, this food is rated: SAFE. Rich in beta-carotene and moisture. Slice into small bite-sized pieces; feed moderately."
+        },
+        {
+          "question": "Is cantaloupe safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "mango": {
+      "name": "Mango",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Sweet, tropical treat loaded with vitamins A, B6, C, and E. Peel skin and discard large hard pit.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat mango?",
+          "answer": "For dogs, this food is rated: SAFE. Sweet, tropical treat loaded with vitamins A, B6, C, and E. Peel skin and discard large hard pit."
+        },
+        {
+          "question": "Is mango safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "pineapple": {
+      "name": "Pineapple",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Contains bromelain enzyme which aids protein breakdown. Remove prickly skin and tough fibrous core.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat pineapple?",
+          "answer": "For dogs, this food is rated: SAFE. Contains bromelain enzyme which aids protein breakdown. Remove prickly skin and tough fibrous core."
+        },
+        {
+          "question": "Is pineapple safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "orange": {
+      "name": "Orange",
+      "short_answer": "Hazardous or toxic for certain pets. Citrus essential oils and psoralens cause severe stomach irritation in cats and hamsters. Small dog treat only.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Citrus essential oils and psoralens cause severe stomach irritation in cats and hamsters. Small dog treat only.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat orange?",
+          "answer": "For dogs, this food is rated: MODERATION. Citrus essential oils and psoralens cause severe stomach irritation in cats and hamsters. Small dog treat only."
+        },
+        {
+          "question": "Is orange safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "pear": {
+      "name": "Pear",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. High in copper and dietary fiber. Remove stem, core, and seeds prior to serving.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat pear?",
+          "answer": "For dogs, this food is rated: SAFE. High in copper and dietary fiber. Remove stem, core, and seeds prior to serving."
+        },
+        {
+          "question": "Is pear safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "peach": {
+      "name": "Peach",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Fresh peach flesh is safe. The pit contains cyanogenic glycosides and is a severe choking/blockage risk.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat peach?",
+          "answer": "For dogs, this food is rated: SAFE. Fresh peach flesh is safe. The pit contains cyanogenic glycosides and is a severe choking/blockage risk."
+        },
+        {
+          "question": "Is peach safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "plum": {
+      "name": "Plum",
+      "short_answer": "Hazardous or toxic for certain pets. Pits contain lethal cyanide. Avoid feeding whole fruit to any pet.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Pits contain lethal cyanide. Avoid feeding whole fruit to any pet.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat plum?",
+          "answer": "For dogs, this food is rated: MODERATION. Pits contain lethal cyanide. Avoid feeding whole fruit to any pet."
+        },
+        {
+          "question": "Is plum safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cherry": {
+      "name": "Cherry",
+      "short_answer": "Hazardous or toxic for certain pets. Pits, stems, and leaves contain toxic cyanide that blocks cellular oxygen transport.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Pits, stems, and leaves contain toxic cyanide that blocks cellular oxygen transport.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cherry?",
+          "answer": "For dogs, this food is rated: UNSAFE. Pits, stems, and leaves contain toxic cyanide that blocks cellular oxygen transport."
+        },
+        {
+          "question": "Is cherry safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "avocado": {
+      "name": "Avocado",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Contains persin, a fungicidal toxin lethal to birds, rabbits, rodents, and horses. Pit is a choking hazard.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat avocado?",
+          "answer": "For dogs, this food is rated: MODERATION. Contains persin, a fungicidal toxin lethal to birds, rabbits, rodents, and horses. Pit is a choking hazard."
+        },
+        {
+          "question": "Is avocado safe for cats?",
+          "answer": "For cats, this food is rated: MODERATION. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "grapes-raisins": {
+      "name": "Grapes & Raisins",
+      "short_answer": "Hazardous or toxic for certain pets. EXTREMELY DANGEROUS to dogs and cats; tartaric acid causes sudden irreversible acute renal failure.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "EXTREMELY DANGEROUS to dogs and cats; tartaric acid causes sudden irreversible acute renal failure.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat grapes & raisins?",
+          "answer": "For dogs, this food is rated: UNSAFE. EXTREMELY DANGEROUS to dogs and cats; tartaric acid causes sudden irreversible acute renal failure."
+        },
+        {
+          "question": "Is grapes & raisins safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "raspberries": {
+      "name": "Raspberries",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Contains natural xylitol in trace amounts; limit to 1/2 cup for medium dogs; great anti-inflammatory.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat raspberries?",
+          "answer": "For dogs, this food is rated: SAFE. Contains natural xylitol in trace amounts; limit to 1/2 cup for medium dogs; great anti-inflammatory."
+        },
+        {
+          "question": "Is raspberries safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "blackberries": {
+      "name": "Blackberries",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Packed with vitamins C, K, and anthocyanins. Great low-calorie reward.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat blackberries?",
+          "answer": "For dogs, this food is rated: SAFE. Packed with vitamins C, K, and anthocyanins. Great low-calorie reward."
+        },
+        {
+          "question": "Is blackberries safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cranberries": {
+      "name": "Cranberries",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Supports urinary tract health. Avoid commercial dried cranberries loaded with refined sugar.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cranberries?",
+          "answer": "For dogs, this food is rated: SAFE. Supports urinary tract health. Avoid commercial dried cranberries loaded with refined sugar."
+        },
+        {
+          "question": "Is cranberries safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "kiwi": {
+      "name": "Kiwi",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Peel the fuzzy skin; feed small slices. High in potassium and vitamin C.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat kiwi?",
+          "answer": "For dogs, this food is rated: SAFE. Peel the fuzzy skin; feed small slices. High in potassium and vitamin C."
+        },
+        {
+          "question": "Is kiwi safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "papaya": {
+      "name": "Papaya",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Contains papain, a natural digestive enzyme. Deseed and peel before feeding.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat papaya?",
+          "answer": "For dogs, this food is rated: SAFE. Contains papain, a natural digestive enzyme. Deseed and peel before feeding."
+        },
+        {
+          "question": "Is papaya safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "coconut": {
+      "name": "Coconut",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Lauric acid helps coat shine and skin inflammation; feed small amounts due to high saturated fats.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat coconut?",
+          "answer": "For dogs, this food is rated: SAFE. Lauric acid helps coat shine and skin inflammation; feed small amounts due to high saturated fats."
+        },
+        {
+          "question": "Is coconut safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "lemon-lime": {
+      "name": "Lemon & Lime",
+      "short_answer": "Hazardous or toxic for certain pets. Citric acid, limonene, and linalool cause central nervous system depression, tremors, and vomiting.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Citric acid, limonene, and linalool cause central nervous system depression, tremors, and vomiting.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat lemon & lime?",
+          "answer": "For dogs, this food is rated: UNSAFE. Citric acid, limonene, and linalool cause central nervous system depression, tremors, and vomiting."
+        },
+        {
+          "question": "Is lemon & lime safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "carrot": {
+      "name": "Carrot",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Superb crunchy treat that helps clean dog teeth and supplies vitamin A / beta-carotene.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat carrot?",
+          "answer": "For dogs, this food is rated: SAFE. Superb crunchy treat that helps clean dog teeth and supplies vitamin A / beta-carotene."
+        },
+        {
+          "question": "Is carrot safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "broccoli": {
+      "name": "Broccoli",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Rich in lutein and vitamin C. Florets contain isothiocyanates; keep under 10% of total diet.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat broccoli?",
+          "answer": "For dogs, this food is rated: SAFE. Rich in lutein and vitamin C. Florets contain isothiocyanates; keep under 10% of total diet."
+        },
+        {
+          "question": "Is broccoli safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "spinach": {
+      "name": "Spinach",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Contains soluble oxalates. Pets with history of calcium oxalate bladder stones should avoid.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat spinach?",
+          "answer": "For dogs, this food is rated: MODERATION. Contains soluble oxalates. Pets with history of calcium oxalate bladder stones should avoid."
+        },
+        {
+          "question": "Is spinach safe for cats?",
+          "answer": "For cats, this food is rated: MODERATION. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cucumber": {
+      "name": "Cucumber",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. 96% water and almost zero calories. The ultimate treat for overweight or diabetic pets.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cucumber?",
+          "answer": "For dogs, this food is rated: SAFE. 96% water and almost zero calories. The ultimate treat for overweight or diabetic pets."
+        },
+        {
+          "question": "Is cucumber safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "green-beans": {
+      "name": "Green Beans",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Veterinarian favorite for the \\\"green bean weight loss diet\\\"; feed raw, steamed, or plain canned.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat green beans?",
+          "answer": "For dogs, this food is rated: SAFE. Veterinarian favorite for the \\\"green bean weight loss diet\\\"; feed raw, steamed, or plain canned."
+        },
+        {
+          "question": "Is green beans safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "sweet-potato": {
+      "name": "Sweet Potato",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Always cook thoroughly; never feed raw sweet potato. Rich in dietary fiber and vitamin B6.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat sweet potato?",
+          "answer": "For dogs, this food is rated: SAFE. Always cook thoroughly; never feed raw sweet potato. Rich in dietary fiber and vitamin B6."
+        },
+        {
+          "question": "Is sweet potato safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "pumpkin": {
+      "name": "Pumpkin",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Gold standard remedy for pet bowel issues. Pure canned puree resolves diarrhea and constipation.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat pumpkin?",
+          "answer": "For dogs, this food is rated: SAFE. Gold standard remedy for pet bowel issues. Pure canned puree resolves diarrhea and constipation."
+        },
+        {
+          "question": "Is pumpkin safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "zucchini": {
+      "name": "Zucchini",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Mild, hydrating vegetable packed with folate, potassium, and vitamin A. Feed raw or steamed.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat zucchini?",
+          "answer": "For dogs, this food is rated: SAFE. Mild, hydrating vegetable packed with folate, potassium, and vitamin A. Feed raw or steamed."
+        },
+        {
+          "question": "Is zucchini safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "celery": {
+      "name": "Celery",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Crunchy snack that cleans tartar and freshens breath; slice into small pieces to prevent string choking.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat celery?",
+          "answer": "For dogs, this food is rated: SAFE. Crunchy snack that cleans tartar and freshens breath; slice into small pieces to prevent string choking."
+        },
+        {
+          "question": "Is celery safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "bell-pepper": {
+      "name": "Bell Pepper",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Red and yellow bell peppers have 3x the vitamin C of oranges; guinea pigs love and need this.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat bell pepper?",
+          "answer": "For dogs, this food is rated: SAFE. Red and yellow bell peppers have 3x the vitamin C of oranges; guinea pigs love and need this."
+        },
+        {
+          "question": "Is bell pepper safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "asparagus": {
+      "name": "Asparagus",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Steam lightly to soften the tough stalks. Makes urine smell pungent but completely harmless.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat asparagus?",
+          "answer": "For dogs, this food is rated: SAFE. Steam lightly to soften the tough stalks. Makes urine smell pungent but completely harmless."
+        },
+        {
+          "question": "Is asparagus safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cauliflower": {
+      "name": "Cauliflower",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Low calorie and rich in choline; can produce benign gas if fed in large portions.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cauliflower?",
+          "answer": "For dogs, this food is rated: SAFE. Low calorie and rich in choline; can produce benign gas if fed in large portions."
+        },
+        {
+          "question": "Is cauliflower safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cabbage": {
+      "name": "Cabbage",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Rich in phytonutrients and roughage; feed sparingly to prevent gas and bloating.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cabbage?",
+          "answer": "For dogs, this food is rated: SAFE. Rich in phytonutrients and roughage; feed sparingly to prevent gas and bloating."
+        },
+        {
+          "question": "Is cabbage safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "lettuce-romaine": {
+      "name": "Lettuce (Romaine)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Avoid light iceberg lettuce (water with no nutrients); dark romaine and green leaf are fantastic.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat lettuce (romaine)?",
+          "answer": "For dogs, this food is rated: SAFE. Avoid light iceberg lettuce (water with no nutrients); dark romaine and green leaf are fantastic."
+        },
+        {
+          "question": "Is lettuce (romaine) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "peas": {
+      "name": "Peas",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Garden peas, snow peas, and sugar snap peas are safe; feed fresh or thawed frozen; avoid sodium canned peas.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat peas?",
+          "answer": "For dogs, this food is rated: SAFE. Garden peas, snow peas, and sugar snap peas are safe; feed fresh or thawed frozen; avoid sodium canned peas."
+        },
+        {
+          "question": "Is peas safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "onion": {
+      "name": "Onion",
+      "short_answer": "Hazardous or toxic for certain pets. ALLIUM TOXIN: N-propyl disulfide causes oxidative breakdown of red blood cells, hemolytic Heinz body anemia, and collapse.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "ALLIUM TOXIN: N-propyl disulfide causes oxidative breakdown of red blood cells, hemolytic Heinz body anemia, and collapse.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat onion?",
+          "answer": "For dogs, this food is rated: UNSAFE. ALLIUM TOXIN: N-propyl disulfide causes oxidative breakdown of red blood cells, hemolytic Heinz body anemia, and collapse."
+        },
+        {
+          "question": "Is onion safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "garlic": {
+      "name": "Garlic",
+      "short_answer": "Hazardous or toxic for certain pets. 5 TIMES MORE TOXIC than onions. Destroys red blood cells in dogs, cats, and all companion animals.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "5 TIMES MORE TOXIC than onions. Destroys red blood cells in dogs, cats, and all companion animals.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat garlic?",
+          "answer": "For dogs, this food is rated: UNSAFE. 5 TIMES MORE TOXIC than onions. Destroys red blood cells in dogs, cats, and all companion animals."
+        },
+        {
+          "question": "Is garlic safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "leek-shallot": {
+      "name": "Leek & Shallot",
+      "short_answer": "Hazardous or toxic for certain pets. Part of the toxic Allium genus; causes severe gastrointestinal ulcers and fatal red cell destruction.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Part of the toxic Allium genus; causes severe gastrointestinal ulcers and fatal red cell destruction.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat leek & shallot?",
+          "answer": "For dogs, this food is rated: UNSAFE. Part of the toxic Allium genus; causes severe gastrointestinal ulcers and fatal red cell destruction."
+        },
+        {
+          "question": "Is leek & shallot safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "mushroom-wild": {
+      "name": "Mushroom (Wild)",
+      "short_answer": "Hazardous or toxic for certain pets. Wild mushrooms (Amanita, Inocybe) cause rapid liver and renal failure, seizures, and death.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Wild mushrooms (Amanita, Inocybe) cause rapid liver and renal failure, seizures, and death.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat mushroom (wild)?",
+          "answer": "For dogs, this food is rated: UNSAFE. Wild mushrooms (Amanita, Inocybe) cause rapid liver and renal failure, seizures, and death."
+        },
+        {
+          "question": "Is mushroom (wild) safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "corn-cob": {
+      "name": "Corn (Cob)",
+      "short_answer": "Hazardous or toxic for certain pets. Corn kernels are digestible, but corncobs are completely indigestible and cause fatal bowel obstructions requiring emergency surgery.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Corn kernels are digestible, but corncobs are completely indigestible and cause fatal bowel obstructions requiring emergency surgery.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat corn (cob)?",
+          "answer": "For dogs, this food is rated: UNSAFE. Corn kernels are digestible, but corncobs are completely indigestible and cause fatal bowel obstructions requiring emergency surgery."
+        },
+        {
+          "question": "Is corn (cob) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "potato-raw-green": {
+      "name": "Potato (Raw/Green)",
+      "short_answer": "Hazardous or toxic for certain pets. Green skins and raw potatoes contain solanine glycoalkaloids. Fully cooked plain white potato is safe.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Green skins and raw potatoes contain solanine glycoalkaloids. Fully cooked plain white potato is safe.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat potato (raw/green)?",
+          "answer": "For dogs, this food is rated: UNSAFE. Green skins and raw potatoes contain solanine glycoalkaloids. Fully cooked plain white potato is safe."
+        },
+        {
+          "question": "Is potato (raw/green) safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "tomato-green-plant": {
+      "name": "Tomato (Green/Plant)",
+      "short_answer": "Hazardous or toxic for certain pets. Green unripe tomatoes and vines contain toxic solanine and tomatine. Ripe red tomato flesh is non-toxic.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Green unripe tomatoes and vines contain toxic solanine and tomatine. Ripe red tomato flesh is non-toxic.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat tomato (green/plant)?",
+          "answer": "For dogs, this food is rated: UNSAFE. Green unripe tomatoes and vines contain toxic solanine and tomatine. Ripe red tomato flesh is non-toxic."
+        },
+        {
+          "question": "Is tomato (green/plant) safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "rhubarb": {
+      "name": "Rhubarb",
+      "short_answer": "Hazardous or toxic for certain pets. Leaves and stems contain soluble calcium oxalate crystals that deplete systemic calcium and cause kidney failure.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Leaves and stems contain soluble calcium oxalate crystals that deplete systemic calcium and cause kidney failure.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat rhubarb?",
+          "answer": "For dogs, this food is rated: UNSAFE. Leaves and stems contain soluble calcium oxalate crystals that deplete systemic calcium and cause kidney failure."
+        },
+        {
+          "question": "Is rhubarb safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cooked-chicken": {
+      "name": "Cooked Chicken",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Lean, highly digestible protein staple. Never feed cooked bones as they splinter and pierce stomach walls.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cooked chicken?",
+          "answer": "For dogs, this food is rated: SAFE. Lean, highly digestible protein staple. Never feed cooked bones as they splinter and pierce stomach walls."
+        },
+        {
+          "question": "Is cooked chicken safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cooked-turkey": {
+      "name": "Cooked Turkey",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Plain skinless cooked turkey breast is an outstanding low-fat protein. Avoid seasoned thanksgiving turkey.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cooked turkey?",
+          "answer": "For dogs, this food is rated: SAFE. Plain skinless cooked turkey breast is an outstanding low-fat protein. Avoid seasoned thanksgiving turkey."
+        },
+        {
+          "question": "Is cooked turkey safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cooked-beef": {
+      "name": "Cooked Beef",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Lean ground beef supports muscle mass, zinc, and iron levels. Drain grease before feeding.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cooked beef?",
+          "answer": "For dogs, this food is rated: SAFE. Lean ground beef supports muscle mass, zinc, and iron levels. Drain grease before feeding."
+        },
+        {
+          "question": "Is cooked beef safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cooked-salmon": {
+      "name": "Cooked Salmon",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Packed with essential Omega-3 fatty acids (EPA/DHA) for brain, coat, and joints. Must be cooked to kill parasites.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cooked salmon?",
+          "answer": "For dogs, this food is rated: SAFE. Packed with essential Omega-3 fatty acids (EPA/DHA) for brain, coat, and joints. Must be cooked to kill parasites."
+        },
+        {
+          "question": "Is cooked salmon safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "tuna-in-water": {
+      "name": "Tuna (in Water)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Feed canned tuna in water only; limit feeding due to accumulation of heavy metal mercury.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat tuna (in water)?",
+          "answer": "For dogs, this food is rated: MODERATION. Feed canned tuna in water only; limit feeding due to accumulation of heavy metal mercury."
+        },
+        {
+          "question": "Is tuna (in water) safe for cats?",
+          "answer": "For cats, this food is rated: MODERATION. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "eggs-cooked": {
+      "name": "Eggs (Cooked)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Gold standard complete amino acid profile; scrambled or hard-boiled plain without butter or salt.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat eggs (cooked)?",
+          "answer": "For dogs, this food is rated: SAFE. Gold standard complete amino acid profile; scrambled or hard-boiled plain without butter or salt."
+        },
+        {
+          "question": "Is eggs (cooked) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "pork-lean-cooked": {
+      "name": "Pork (Lean, Cooked)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. High in thiamine. Must be thoroughly cooked to eliminate trichinosis parasite; avoid salty ham or bacon.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat pork (lean, cooked)?",
+          "answer": "For dogs, this food is rated: SAFE. High in thiamine. Must be thoroughly cooked to eliminate trichinosis parasite; avoid salty ham or bacon."
+        },
+        {
+          "question": "Is pork (lean, cooked) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "lamb-cooked": {
+      "name": "Lamb (Cooked)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Hypoallergenic novel protein option for dogs with chicken or beef dietary intolerances.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat lamb (cooked)?",
+          "answer": "For dogs, this food is rated: SAFE. Hypoallergenic novel protein option for dogs with chicken or beef dietary intolerances."
+        },
+        {
+          "question": "Is lamb (cooked) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "sardines-in-water": {
+      "name": "Sardines (in Water)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Small forage fish with tiny edible bones rich in bioavailable calcium, CoQ10, and Omega-3.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat sardines (in water)?",
+          "answer": "For dogs, this food is rated: SAFE. Small forage fish with tiny edible bones rich in bioavailable calcium, CoQ10, and Omega-3."
+        },
+        {
+          "question": "Is sardines (in water) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "bacon-sausage": {
+      "name": "Bacon & Sausage",
+      "short_answer": "Hazardous or toxic for certain pets. Extremely high sodium, nitrates, and saturated fat triggers acute severe pancreatitis, a veterinary medical emergency.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Extremely high sodium, nitrates, and saturated fat triggers acute severe pancreatitis, a veterinary medical emergency.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat bacon & sausage?",
+          "answer": "For dogs, this food is rated: UNSAFE. Extremely high sodium, nitrates, and saturated fat triggers acute severe pancreatitis, a veterinary medical emergency."
+        },
+        {
+          "question": "Is bacon & sausage safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cooked-bones": {
+      "name": "Cooked Bones",
+      "short_answer": "Hazardous or toxic for certain pets. Cooking makes animal bones brittle and sharp, leading to perforated esophagus, stomach, or bowel.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Cooking makes animal bones brittle and sharp, leading to perforated esophagus, stomach, or bowel.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cooked bones?",
+          "answer": "For dogs, this food is rated: UNSAFE. Cooking makes animal bones brittle and sharp, leading to perforated esophagus, stomach, or bowel."
+        },
+        {
+          "question": "Is cooked bones safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "raw-fish": {
+      "name": "Raw Fish",
+      "short_answer": "Hazardous or toxic for certain pets. Contains thiaminase enzymes that destroy vitamin B1 (thiamine), causing head tremors, ataxia, and seizures.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Contains thiaminase enzymes that destroy vitamin B1 (thiamine), causing head tremors, ataxia, and seizures.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat raw fish?",
+          "answer": "For dogs, this food is rated: UNSAFE. Contains thiaminase enzymes that destroy vitamin B1 (thiamine), causing head tremors, ataxia, and seizures."
+        },
+        {
+          "question": "Is raw fish safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "shrimp-cooked": {
+      "name": "Shrimp (Cooked)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Cook thoroughly, peel shells, and remove vein; high in phosphorus, protein, and B12.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat shrimp (cooked)?",
+          "answer": "For dogs, this food is rated: SAFE. Cook thoroughly, peel shells, and remove vein; high in phosphorus, protein, and B12."
+        },
+        {
+          "question": "Is shrimp (cooked) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "liver-beef-chicken": {
+      "name": "Liver (Beef/Chicken)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Powerhouse of vitamin A and iron; feed in moderation as too much liver can cause vitamin A toxicity (hypervitaminosis A).",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat liver (beef/chicken)?",
+          "answer": "For dogs, this food is rated: SAFE. Powerhouse of vitamin A and iron; feed in moderation as too much liver can cause vitamin A toxicity (hypervitaminosis A)."
+        },
+        {
+          "question": "Is liver (beef/chicken) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cheese-cheddar": {
+      "name": "Cheese (Cheddar)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Hard cheeses have very low lactose; fantastic for hiding medications and pills.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cheese (cheddar)?",
+          "answer": "For dogs, this food is rated: MODERATION. Hard cheeses have very low lactose; fantastic for hiding medications and pills."
+        },
+        {
+          "question": "Is cheese (cheddar) safe for cats?",
+          "answer": "For cats, this food is rated: MODERATION. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "greek-yogurt-plain": {
+      "name": "Greek Yogurt (Plain)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Contains live active probiotic cultures that populate beneficial gut flora; verify 0% xylitol.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat greek yogurt (plain)?",
+          "answer": "For dogs, this food is rated: SAFE. Contains live active probiotic cultures that populate beneficial gut flora; verify 0% xylitol."
+        },
+        {
+          "question": "Is greek yogurt (plain) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cottage-cheese": {
+      "name": "Cottage Cheese",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Bland, high-protein soft curd that is easy to digest for pets recovering from stomach bug.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cottage cheese?",
+          "answer": "For dogs, this food is rated: SAFE. Bland, high-protein soft curd that is easy to digest for pets recovering from stomach bug."
+        },
+        {
+          "question": "Is cottage cheese safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "cow-milk": {
+      "name": "Cow Milk",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Most adult dogs and adult cats lose lactase enzymes, causing diarrhea, gas, and abdominal cramps.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat cow milk?",
+          "answer": "For dogs, this food is rated: MODERATION. Most adult dogs and adult cats lose lactase enzymes, causing diarrhea, gas, and abdominal cramps."
+        },
+        {
+          "question": "Is cow milk safe for cats?",
+          "answer": "For cats, this food is rated: MODERATION. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "ice-cream": {
+      "name": "Ice Cream",
+      "short_answer": "Hazardous or toxic for certain pets. High refined dairy sugars, potential xylitol artificial sweetener, and high risk of chocolate ingredients.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "High refined dairy sugars, potential xylitol artificial sweetener, and high risk of chocolate ingredients.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat ice cream?",
+          "answer": "For dogs, this food is rated: UNSAFE. High refined dairy sugars, potential xylitol artificial sweetener, and high risk of chocolate ingredients."
+        },
+        {
+          "question": "Is ice cream safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "white-rice-cooked": {
+      "name": "White Rice (Cooked)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. The number-one veterinary dietary choice for calming an upset gastrointestinal tract.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat white rice (cooked)?",
+          "answer": "For dogs, this food is rated: SAFE. The number-one veterinary dietary choice for calming an upset gastrointestinal tract."
+        },
+        {
+          "question": "Is white rice (cooked) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "oatmeal-plain-cooked": {
+      "name": "Oatmeal (Plain, Cooked)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Soluble dietary fiber soothes irritated bowel and supplies linoleic acid for coat moisture.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat oatmeal (plain, cooked)?",
+          "answer": "For dogs, this food is rated: SAFE. Soluble dietary fiber soothes irritated bowel and supplies linoleic acid for coat moisture."
+        },
+        {
+          "question": "Is oatmeal (plain, cooked) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "peanut-butter-xylitol-free": {
+      "name": "Peanut Butter (Xylitol-Free)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Top training reward and enrichment filler for Kong toys. Check label: MUST NOT contain xylitol.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat peanut butter (xylitol-free)?",
+          "answer": "For dogs, this food is rated: SAFE. Top training reward and enrichment filler for Kong toys. Check label: MUST NOT contain xylitol."
+        },
+        {
+          "question": "Is peanut butter (xylitol-free) safe for cats?",
+          "answer": "For cats, this food is rated: MODERATION. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "bread-plain-white": {
+      "name": "Bread (Plain White)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Plain baked bread is safe in tiny bits as an occasional treat; no nutritional benefit.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat bread (plain white)?",
+          "answer": "For dogs, this food is rated: SAFE. Plain baked bread is safe in tiny bits as an occasional treat; no nutritional benefit."
+        },
+        {
+          "question": "Is bread (plain white) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "raw-yeast-dough": {
+      "name": "Raw Yeast Dough",
+      "short_answer": "Hazardous or toxic for certain pets. EXPANDS IN STOMACH cutting off circulation; fermenting yeast produces toxic ethanol poisoning.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "EXPANDS IN STOMACH cutting off circulation; fermenting yeast produces toxic ethanol poisoning.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat raw yeast dough?",
+          "answer": "For dogs, this food is rated: UNSAFE. EXPANDS IN STOMACH cutting off circulation; fermenting yeast produces toxic ethanol poisoning."
+        },
+        {
+          "question": "Is raw yeast dough safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "popcorn-air-popped": {
+      "name": "Popcorn (Air-Popped)",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Air-popped plain popcorn with no salt, butter, or hard unpopped kernels is a fun crunchy snack.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat popcorn (air-popped)?",
+          "answer": "For dogs, this food is rated: SAFE. Air-popped plain popcorn with no salt, butter, or hard unpopped kernels is a fun crunchy snack."
+        },
+        {
+          "question": "Is popcorn (air-popped) safe for cats?",
+          "answer": "For cats, this food is rated: SAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "macadamia-nuts": {
+      "name": "Macadamia Nuts",
+      "short_answer": "Hazardous or toxic for certain pets. Severely toxic to dogs; causes hind-limb weakness, paralysis, vomiting, hyperthermia, and tremors.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Severely toxic to dogs; causes hind-limb weakness, paralysis, vomiting, hyperthermia, and tremors.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat macadamia nuts?",
+          "answer": "For dogs, this food is rated: UNSAFE. Severely toxic to dogs; causes hind-limb weakness, paralysis, vomiting, hyperthermia, and tremors."
+        },
+        {
+          "question": "Is macadamia nuts safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "walnuts-black": {
+      "name": "Walnuts (Black)",
+      "short_answer": "Hazardous or toxic for certain pets. Black walnuts contain juglone toxin and tremorgenic mycotoxins that cause neurotoxicity and seizures.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Black walnuts contain juglone toxin and tremorgenic mycotoxins that cause neurotoxicity and seizures.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat walnuts (black)?",
+          "answer": "For dogs, this food is rated: UNSAFE. Black walnuts contain juglone toxin and tremorgenic mycotoxins that cause neurotoxicity and seizures."
+        },
+        {
+          "question": "Is walnuts (black) safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "almonds": {
+      "name": "Almonds",
+      "short_answer": "Generally safe when prepared plain and fed in moderation. Not inherently toxic but hard to digest; can obstruct small windpipes; high fat causes pancreatitis.",
+      "benefits": "Supplies essential vitamins, minerals, and healthy hydration.",
+      "risks": "Digestive upset if fed in excessive portions or prepared with seasonings.",
+      "symptoms": "None when fed in appropriate treat portions.",
+      "vet_advice": "Wash thoroughly, peel/deseed if needed, and offer as an occasional treat.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat almonds?",
+          "answer": "For dogs, this food is rated: MODERATION. Not inherently toxic but hard to digest; can obstruct small windpipes; high fat causes pancreatitis."
+        },
+        {
+          "question": "Is almonds safe for cats?",
+          "answer": "For cats, this food is rated: MODERATION. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "chocolate-dark-milk": {
+      "name": "Chocolate (Dark/Milk)",
+      "short_answer": "Hazardous or toxic for certain pets. THEOBROMINE TOXICITY: Causes tachycardia, cardiac arrhythmias, muscle spasms, seizures, and death.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "THEOBROMINE TOXICITY: Causes tachycardia, cardiac arrhythmias, muscle spasms, seizures, and death.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat chocolate (dark/milk)?",
+          "answer": "For dogs, this food is rated: UNSAFE. THEOBROMINE TOXICITY: Causes tachycardia, cardiac arrhythmias, muscle spasms, seizures, and death."
+        },
+        {
+          "question": "Is chocolate (dark/milk) safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "xylitol-birch-sugar": {
+      "name": "Xylitol (Birch Sugar)",
+      "short_answer": "Hazardous or toxic for certain pets. FATAL TO CANINES: Causes extreme insulin release, severe hypoglycemia within 30 min, and acute liver failure.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "FATAL TO CANINES: Causes extreme insulin release, severe hypoglycemia within 30 min, and acute liver failure.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat xylitol (birch sugar)?",
+          "answer": "For dogs, this food is rated: UNSAFE. FATAL TO CANINES: Causes extreme insulin release, severe hypoglycemia within 30 min, and acute liver failure."
+        },
+        {
+          "question": "Is xylitol (birch sugar) safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "coffee-caffeine": {
+      "name": "Coffee & Caffeine",
+      "short_answer": "Hazardous or toxic for certain pets. Methylxanthines stimulate nervous and cardiovascular systems, producing hypertension and hyperthermia.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Methylxanthines stimulate nervous and cardiovascular systems, producing hypertension and hyperthermia.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat coffee & caffeine?",
+          "answer": "For dogs, this food is rated: UNSAFE. Methylxanthines stimulate nervous and cardiovascular systems, producing hypertension and hyperthermia."
+        },
+        {
+          "question": "Is coffee & caffeine safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    },
+    "alcohol-beer": {
+      "name": "Alcohol & Beer",
+      "short_answer": "Hazardous or toxic for certain pets. Ethanol causes severe metabolic acidosis, central nervous system depression, respiratory arrest, and coma.",
+      "benefits": "No nutritional benefit; potential health hazard.",
+      "risks": "Ethanol causes severe metabolic acidosis, central nervous system depression, respiratory arrest, and coma.",
+      "symptoms": "Vomiting, diarrhea, lethargy, loss of appetite, abdominal pain.",
+      "vet_advice": "Contact your veterinarian or emergency animal poison hotline immediately.",
+      "alternatives": [
+        "Plain baked pumpkin",
+        "Carrot coins",
+        "Apple wedges (no seeds)"
+      ],
+      "faqs": [
+        {
+          "question": "Can my dog eat alcohol & beer?",
+          "answer": "For dogs, this food is rated: UNSAFE. Ethanol causes severe metabolic acidosis, central nervous system depression, respiratory arrest, and coma."
+        },
+        {
+          "question": "Is alcohol & beer safe for cats?",
+          "answer": "For cats, this food is rated: UNSAFE. Cats are obligate carnivores with different nutritional needs."
+        }
+      ]
+    }
+  }
+}

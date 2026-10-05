@@ -1,17 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Search, ShieldCheck, AlertTriangle, ShieldAlert } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Input } from "@/components/ui/input";
 import {
   foodsListQuery,
-  FOOD_CATEGORIES,
-  FOOD_SPECIES,
-  safetyMeta,
   type FoodRow,
   type SafetyLevel,
 } from "@/lib/foods";
+import { useTranslatedFoodLabels, useTranslatedFood } from "@/lib/use-translated-foods";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
 
@@ -34,15 +33,16 @@ export const Route = createFileRoute("/foods/")({
 });
 
 function FoodsIndex() {
+  const { t } = useTranslation("foods");
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-      <Breadcrumbs items={[{ label: "Foods" }]} />
+      <Breadcrumbs items={[{ label: t("ui.breadcrumbFoods") }]} />
       <header className="mt-6 max-w-3xl">
         <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-          Can my pet eat this?
+          {t("ui.title")}
         </h1>
         <p className="mt-3 text-lg text-muted-foreground">
-  Search 500+ human foods to see if they're safe for dogs, cats, rabbits, birds, hamsters, guinea pigs, ferrets, horses, turtles and fish. Benefits, risks, symptoms, vet advice, and safer alternatives.
+          {t("ui.subtitle")}
         </p>
       </header>
       <Suspense fallback={<GridSkeleton />}>
@@ -63,8 +63,10 @@ function GridSkeleton() {
 }
 
 function FoodsContent() {
+  const { t } = useTranslation("foods");
+  const { categories, species, safetyLabel } = useTranslatedFoodLabels();
   const { data } = useSuspenseQuery(foodsListQuery);
-  const [species, setSpecies] = useState<string>("dog");
+  const [speciesSlug, setSpeciesSlug] = useState<string>("dog");
   const [category, setCategory] = useState<string>("all");
   const [safety, setSafety] = useState<"all" | SafetyLevel>("all");
   const [query, setQuery] = useState("");
@@ -72,7 +74,7 @@ function FoodsContent() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return data.filter((f) => {
-      const s = (f.species_safety[species] ?? "unknown") as SafetyLevel;
+      const s = (f.species_safety[speciesSlug] ?? "unknown") as SafetyLevel;
       if (category !== "all" && f.category !== category) return false;
       if (safety !== "all" && s !== safety) return false;
       if (
@@ -83,30 +85,30 @@ function FoodsContent() {
         return false;
       return true;
     });
-  }, [data, species, category, safety, query]);
+  }, [data, speciesSlug, category, safety, query]);
 
   const counts = useMemo(() => {
     const c = { safe: 0, moderation: 0, unsafe: 0 };
     for (const f of data) {
-      const s = (f.species_safety[species] ?? "unknown") as SafetyLevel;
+      const s = (f.species_safety[speciesSlug] ?? "unknown") as SafetyLevel;
       if (s === "safe") c.safe++;
       else if (s === "moderation") c.moderation++;
       else if (s === "unsafe") c.unsafe++;
     }
     return c;
-  }, [data, species]);
+  }, [data, speciesSlug]);
 
   return (
     <div className="mt-8">
       {/* Species chips */}
       <div className="flex flex-wrap gap-2">
-        {FOOD_SPECIES.map((s) => {
-          const active = species === s.slug;
+        {species.map((s) => {
+          const active = speciesSlug === s.slug;
           return (
             <button
               key={s.slug}
               type="button"
-              onClick={() => setSpecies(s.slug)}
+              onClick={() => setSpeciesSlug(s.slug)}
               className={
                 "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition " +
                 (active
@@ -124,9 +126,9 @@ function FoodsContent() {
 
       {/* Counters */}
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        <CountCard color="emerald" icon={<ShieldCheck className="size-5" />} label="Safe" value={counts.safe} onClick={() => setSafety("safe")} />
-        <CountCard color="amber" icon={<AlertTriangle className="size-5" />} label="In moderation" value={counts.moderation} onClick={() => setSafety("moderation")} />
-        <CountCard color="red" icon={<ShieldAlert className="size-5" />} label="Unsafe" value={counts.unsafe} onClick={() => setSafety("unsafe")} />
+        <CountCard color="emerald" icon={<ShieldCheck className="size-5" />} label={safetyLabel("safe")} value={counts.safe} onClick={() => setSafety("safe")} />
+        <CountCard color="amber" icon={<AlertTriangle className="size-5" />} label={safetyLabel("moderation")} value={counts.moderation} onClick={() => setSafety("moderation")} />
+        <CountCard color="red" icon={<ShieldAlert className="size-5" />} label={safetyLabel("unsafe")} value={counts.unsafe} onClick={() => setSafety("unsafe")} />
       </div>
 
       {/* Filters */}
@@ -136,19 +138,19 @@ function FoodsContent() {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search foods (e.g. chocolate, apple, chicken)"
+            placeholder={t("ui.searchPlaceholder")}
             className="pl-9"
-            aria-label="Search foods"
+            aria-label={t("ui.searchAriaLabel")}
           />
         </div>
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           className="rounded-md border border-input bg-background px-3 py-2 text-sm"
-          aria-label="Category filter"
+          aria-label={t("ui.categoryFilterAriaLabel")}
         >
-          <option value="all">All categories</option>
-          {FOOD_CATEGORIES.map((c) => (
+          <option value="all">{t("ui.allCategories")}</option>
+          {categories.map((c) => (
             <option key={c.slug} value={c.slug}>{c.label}</option>
           ))}
         </select>
@@ -156,24 +158,24 @@ function FoodsContent() {
           value={safety}
           onChange={(e) => setSafety(e.target.value as "all" | SafetyLevel)}
           className="rounded-md border border-input bg-background px-3 py-2 text-sm"
-          aria-label="Safety filter"
+          aria-label={t("ui.safetyFilterAriaLabel")}
         >
-          <option value="all">All safety levels</option>
-          <option value="safe">Safe</option>
-          <option value="moderation">In moderation</option>
-          <option value="unsafe">Unsafe</option>
+          <option value="all">{t("ui.allSafetyLevels")}</option>
+          <option value="safe">{safetyLabel("safe")}</option>
+          <option value="moderation">{safetyLabel("moderation")}</option>
+          <option value="unsafe">{safetyLabel("unsafe")}</option>
         </select>
       </div>
 
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="mt-10 rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-          No foods match your filters.
+          {t("ui.noResults")}
         </div>
       ) : (
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((f) => (
-            <FoodCard key={f.id} food={f} species={species} />
+            <FoodCard key={f.id} food={f} species={speciesSlug} />
           ))}
         </div>
       )}
@@ -215,6 +217,8 @@ function CountCard({
 }
 
 function FoodCard({ food, species }: { food: FoodRow; species: string }) {
+  const tf = useTranslatedFood(food);
+  const { safetyLabel } = useTranslatedFoodLabels();
   const level = (food.species_safety[species] ?? "unknown") as SafetyLevel;
   const meta = safetyMeta(level);
   return (
@@ -224,12 +228,12 @@ function FoodCard({ food, species }: { food: FoodRow; species: string }) {
       className={"group flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 transition hover:shadow-sm ring-1 " + meta.ring}
     >
       <div className="flex items-start justify-between gap-3">
-        <h2 className="font-display text-lg font-semibold group-hover:text-primary">{food.name}</h2>
+        <h2 className="font-display text-lg font-semibold group-hover:text-primary">{tf.name}</h2>
         <span className={"rounded-full px-2.5 py-1 text-xs font-semibold " + meta.bg + " " + meta.color}>
-          {meta.label}
+          {safetyLabel(level)}
         </span>
       </div>
-      <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{food.short_answer}</p>
+      <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{tf.short_answer}</p>
     </Link>
   );
 }
