@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { FeaturedTools, PopularTools } from "@/components/tool-sections";
 import { Faq } from "@/components/faq";
-import { CATEGORIES } from "@/data/categories";
+import { useTranslatedCategories } from "@/lib/use-translated-categories";
 import { TOTAL_TOOLS_COUNT } from "@/data/tools-summary";
 import { AI_ASSISTANTS } from "@/data/ai-assistants";
 import { SPECIES } from "@/data/species";
@@ -96,6 +96,7 @@ const ICONS: Record<string, LucideIcon> = {
 
 function Home() {
   const { t } = useTranslation("home");
+  const categories = useTranslatedCategories();
   const toolCount = TOTAL_TOOLS_COUNT;
   const aiCount = AI_ASSISTANTS.length;
   const speciesCount = Object.keys(SPECIES_CONFIG).length;
@@ -209,7 +210,7 @@ function Home() {
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {CATEGORIES.map((c) => {
+          {categories.map((c) => {
             const Icon = ICONS[c.icon] ?? PawPrint;
             return (
               <Link

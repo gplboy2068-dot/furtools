@@ -2,10 +2,11 @@ import { Link } from "@tanstack/react-router";
 import { PawPrint } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { SITE } from "@/lib/site";
-import { CATEGORIES } from "@/data/categories";
+import { useTranslatedCategories } from "@/lib/use-translated-categories";
 
 export function SiteFooter() {
   const { t } = useTranslation("common");
+  const categories = useTranslatedCategories();
   const year = new Date().getFullYear();
 
   const exploreLinks = [
@@ -59,7 +60,7 @@ export function SiteFooter() {
             {t("footer.categories")}
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
-            {CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <li key={c.slug}>
                 <Link
                   to="/categories/$slug"

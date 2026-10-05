@@ -66,5 +66,47 @@
     "import": "I-import",
     "language": "Wika"
   },
-  "rights": "Ginawa nang may ♥ para sa mga pet kahit saan. Pang-impormasyon ang mga tool."
+  "rights": "Ginawa nang may ♥ para sa mga pet kahit saan. Pang-impormasyon ang mga tool.",
+  "categories": {
+    "dogs": {
+      "name": "Mga Aso",
+      "description": "Mga kalkulador, tagaplano, at tagalikha ng pangalan para sa mga aso — anumang lahi, laki, at edad."
+    },
+    "cats": {
+      "name": "Mga Pusa",
+      "description": "Kalkulador ng edad, kalkulador ng pagkain, tracker ng paglaki ng kuting, at iba pa para sa mga pusa."
+    },
+    "birds": {
+      "name": "Mga Ibon",
+      "description": "Mga tagaplano ng laki ng kulungan, diyeta, at pangangalaga para sa parrot, cockatiel, canary, at finch."
+    },
+    "fish": {
+      "name": "Isda at Aquarium",
+      "description": "Kalkulador ng dami ng tangke, stocking, cycling, pagpapalit ng tubig, at kagamitan."
+    },
+    "small-pets": {
+      "name": "Maliliit na Alaga",
+      "description": "Kuneho, hamster, guinea pig, at ferret — laki ng kulungan, diyeta, at mga laruan o aktibidad."
+    },
+    "reptiles": {
+      "name": "Mga Reptile",
+      "description": "Kalkulador ng laki ng enclosure, distansya ng UVB, sukat ng pakain, at iskedyul ng pangangalaga para sa mga reptile."
+    },
+    "horses": {
+      "name": "Mga Kabayo",
+      "description": "Rasyon sa pagpapakain, pangangailangan sa tubig, body condition, at mga tagaplano sa pangangalaga ng kabayo."
+    },
+    "horse-tools": {
+      "name": "Mga Tool at Kalkulador para sa Kabayo",
+      "description": "Kalkulador ng porisyon ng pakain, tantya ng tubig, iskedyul ng farrier, sukat ng blanket, at BCS para sa mga kabayo."
+    },
+    "farm": {
+      "name": "Mga Alagang Hayop sa Bukid",
+      "description": "Manok, pato, kambing, at iba pang alaga sa bahay — kulungan, pakain, at produksyon."
+    },
+    "general": {
+      "name": "Pangkalahatang Pet",
+      "description": "Mga tool na panglahat ng pet — tracker ng gastos, checklist, kalkulador ng gamot, at mga tagaplano."
+    }
+  }
 }

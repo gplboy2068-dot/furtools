@@ -8,7 +8,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { TOOLS_SUMMARY, searchToolsSummary } from "@/data/tools-summary";
-import { CATEGORIES } from "@/data/categories";
+import { useTranslatedCategories } from "@/lib/use-translated-categories";
 
 export function GlobalSearch({
   open,
@@ -20,6 +20,7 @@ export function GlobalSearch({
   onSelect: (slug: string) => void;
 }) {
   const [q, setQ] = useState("");
+  const categories = useTranslatedCategories();
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -61,7 +62,7 @@ export function GlobalSearch({
           ))}
         </CommandGroup>
         <CommandGroup heading="Categories">
-          {CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <CommandItem
               key={c.slug}
               value={`category ${c.name}`}

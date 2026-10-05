@@ -1,1 +1,112 @@
-{"actions":{"back":"Volver","cancel":"Cancelar","close":"Cerrar","delete":"Eliminar","edit":"Editar","export":"Exportar","filter":"Filtrar","import":"Importar","language":"Idioma","next":"Siguiente","retry":"Reintentar","save":"Guardar","search":"Buscar herramientas...","submit":"Enviar","viewAll":"Ver Todo"},"description":"FurTools es una biblioteca en crecimiento de calculadoras, generadores y guías gratuitas para dueños de perros, gatos y pequeñas mascotas.","footer":{"about":"Nosotros","aiAssistants":"Asistentes IA para Mascotas","allCategories":"Todas las Categorías","blogGuides":"Blog y Guías","breedDatabase":"Base de Datos de Razas","careReminders":"Cuidado y Recordatorios","categories":"Categorías","compareBreeds":"Comparar Razas","contact":"Contacto","costPlanner":"Planificador de Costos","disclaimer":"Aviso Legal","disclaimerText":"Las herramientas son informativas y no sustituyen el consejo veterinario.","explore":"Explorar","foodSafetyGuide":"Guía de Seguridad Alimentaria","home":"Inicio","legal":"Legal","madeWith":"Hecho con ♥ para las mascotas en todas partes.","nameFinder":"Buscador de Nombres","privacy":"Privacidad","searchTools":"Buscar Herramientas","terms":"Términos"},"header":{"account":"Cuenta","closeMenu":"Cerrar menú","login":"Iniciar sesión","logout":"Cerrar sesión","openMenu":"Abrir menú","searchTools":"Buscar herramientas"},"nav":{"about":"Nosotros","admin":"Admin","ai":"Asistente IA","blog":"Blog","breeds":"Razas","contact":"Contacto","dashboard":"Panel","disclaimer":"Aviso Legal","foods":"Alimentos","myPets":"Mis Mascotas","names":"Nombres","privacy":"Privacidad","terms":"Términos","tools":"Herramientas"},"rights":"Hecho con ♥ para las mascotas en todas partes. Las herramientas son informativas.","siteName":"FurTools","tagline":"Herramientas Digitales Esenciales para Dueños de Mascotas y Veterinarios"}
+{
+  "actions": {
+    "back": "Volver",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "export": "Exportar",
+    "filter": "Filtrar",
+    "import": "Importar",
+    "language": "Idioma",
+    "next": "Siguiente",
+    "retry": "Reintentar",
+    "save": "Guardar",
+    "search": "Buscar herramientas...",
+    "submit": "Enviar",
+    "viewAll": "Ver Todo"
+  },
+  "description": "FurTools es una biblioteca en crecimiento de calculadoras, generadores y guías gratuitas para dueños de perros, gatos y pequeñas mascotas.",
+  "footer": {
+    "about": "Nosotros",
+    "aiAssistants": "Asistentes IA para Mascotas",
+    "allCategories": "Todas las Categorías",
+    "blogGuides": "Blog y Guías",
+    "breedDatabase": "Base de Datos de Razas",
+    "careReminders": "Cuidado y Recordatorios",
+    "categories": "Categorías",
+    "compareBreeds": "Comparar Razas",
+    "contact": "Contacto",
+    "costPlanner": "Planificador de Costos",
+    "disclaimer": "Aviso Legal",
+    "disclaimerText": "Las herramientas son informativas y no sustituyen el consejo veterinario.",
+    "explore": "Explorar",
+    "foodSafetyGuide": "Guía de Seguridad Alimentaria",
+    "home": "Inicio",
+    "legal": "Legal",
+    "madeWith": "Hecho con ♥ para las mascotas en todas partes.",
+    "nameFinder": "Buscador de Nombres",
+    "privacy": "Privacidad",
+    "searchTools": "Buscar Herramientas",
+    "terms": "Términos"
+  },
+  "header": {
+    "account": "Cuenta",
+    "closeMenu": "Cerrar menú",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "openMenu": "Abrir menú",
+    "searchTools": "Buscar herramientas"
+  },
+  "nav": {
+    "about": "Nosotros",
+    "admin": "Admin",
+    "ai": "Asistente IA",
+    "blog": "Blog",
+    "breeds": "Razas",
+    "contact": "Contacto",
+    "dashboard": "Panel",
+    "disclaimer": "Aviso Legal",
+    "foods": "Alimentos",
+    "myPets": "Mis Mascotas",
+    "names": "Nombres",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "tools": "Herramientas"
+  },
+  "rights": "Hecho con ♥ para las mascotas en todas partes. Las herramientas son informativas.",
+  "siteName": "FurTools",
+  "tagline": "Herramientas Digitales Esenciales para Dueños de Mascotas y Veterinarios",
+  "categories": {
+    "dogs": {
+      "name": "Perros",
+      "description": "Calculadoras, planificadores y generadores de nombres para perros de todas las razas, tamaños y edades."
+    },
+    "cats": {
+      "name": "Gatos",
+      "description": "Conversores de edad, calculadoras de alimentación, seguimiento del crecimiento de gatitos y mucho más para felinos."
+    },
+    "birds": {
+      "name": "Aves",
+      "description": "Planificadores de tamaño de jaula, dieta y cuidados para loros, cacatúas, canarios y pinzones."
+    },
+    "fish": {
+      "name": "Peces y Acuarios",
+      "description": "Calculadoras de volumen del acuario, población, ciclado, cambios de agua y equipamiento."
+    },
+    "small-pets": {
+      "name": "Mascotas Pequeñas",
+      "description": "Conejos, hámsteres, cobayas y hurones: tamaños de jaula, dieta y enriquecimiento."
+    },
+    "reptiles": {
+      "name": "Reptiles",
+      "description": "Tamaño del terrario, distancia UVB, tamaño de las presas y rutinas de cuidado para reptiles."
+    },
+    "horses": {
+      "name": "Caballos",
+      "description": "Raciones de alimentación, necesidades de agua, condición corporal y planificadores de cuidado equino."
+    },
+    "horse-tools": {
+      "name": "Herramientas para Caballos",
+      "description": "Raciones de pienso, estimaciones de hidratación, calendario del herrador, tallas de mantas y calculadoras de condición corporal."
+    },
+    "farm": {
+      "name": "Animales de Granja",
+      "description": "Gallinas, patos, cabras y otros animales de corral: gallineros, alimentación y producción."
+    },
+    "general": {
+      "name": "Mascotas en General",
+      "description": "Herramientas para cualquier mascota: control de gastos, listas de verificación, calculadoras de medicación y planificadores."
+    }
+  }
+}

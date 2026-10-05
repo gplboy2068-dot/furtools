@@ -66,5 +66,47 @@
     "import": "Importer",
     "language": "Langue"
   },
-  "rights": "Fait avec ♥ pour les animaux du monde entier. Outils à but informatif."
+  "rights": "Fait avec ♥ pour les animaux du monde entier. Outils à but informatif.",
+  "categories": {
+    "dogs": {
+      "name": "Chiens",
+      "description": "Calculateurs, planificateurs et générateurs de noms pour les chiens de toutes races, tailles et âges."
+    },
+    "cats": {
+      "name": "Chats",
+      "description": "Convertisseurs d'âge, calculateurs d'alimentation, suivi de croissance des chatons et bien plus pour nos amis félins."
+    },
+    "birds": {
+      "name": "Oiseaux",
+      "description": "Planificateurs de taille de cage, d'alimentation et de soins pour perroquets, cockatiels, canaris et mandarins."
+    },
+    "fish": {
+      "name": "Poissons & Aquariums",
+      "description": "Calculateurs de volume de bac, de peuplement, de cyclage, de changements d'eau et d'équipement."
+    },
+    "small-pets": {
+      "name": "Petits animaux",
+      "description": "Lapins, hamsters, cochons d'Inde et furets — tailles de cages, alimentation et enrichissement."
+    },
+    "reptiles": {
+      "name": "Reptiles",
+      "description": "Dimensions des terrariums, distance UVB, taille des proies et plannings de soins pour les reptiles."
+    },
+    "horses": {
+      "name": "Chevaux",
+      "description": "Rations alimentaires, besoins en eau, état corporel et planificateurs de soins pour équidés."
+    },
+    "horse-tools": {
+      "name": "Outils & Calculateurs équins",
+      "description": "Portionnement des aliments, estimation de l'hydratation, planning de maréchalerie, tailles de couvertures et calculateurs d'état corporel."
+    },
+    "farm": {
+      "name": "Animaux de ferme",
+      "description": "Poules, canards, chèvres et autres animaux de la basse-cour — poulaillers, alimentation et production."
+    },
+    "general": {
+      "name": "Animaux en général",
+      "description": "Outils tous animaux confondus — suivi des dépenses, checklists, calculateurs de médicaments et planificateurs."
+    }
+  }
 }

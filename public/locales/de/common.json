@@ -1,1 +1,112 @@
-{"actions":{"back":"Zurück","cancel":"Abbrechen","close":"Schließen","delete":"Löschen","edit":"Bearbeiten","export":"Exportieren","filter":"Filtern","import":"Importieren","language":"Sprache","next":"Weiter","retry":"Erneut versuchen","save":"Speichern","search":"Tools suchen...","submit":"Absenden","viewAll":"Alle ansehen"},"description":"FurTools ist eine wachsende Bibliothek kostenloser Rechner, Generatoren und Ratgeber für Hunde-, Katzen- und Kleintierbesitzer.","footer":{"about":"Über uns","aiAssistants":"KI-Assistenten für Haustiere","allCategories":"Alle Kategorien","blogGuides":"Blog & Ratgeber","breedDatabase":"Rassendatenbank","careReminders":"Pflege & Erinnerungen","categories":"Kategorien","compareBreeds":"Rassen vergleichen","contact":"Kontakt","costPlanner":"Kostenplaner","disclaimer":"Haftungsausschluss","disclaimerText":"Die Tools dienen nur zur Information und ersetzen keine tierärztliche Beratung.","explore":"Entdecken","foodSafetyGuide":"Futtersicherheits-Ratgeber","home":"Start","legal":"Rechtliches","madeWith":"Mit ♥ für Haustiere überall gemacht.","nameFinder":"Namensfinder","privacy":"Datenschutz","searchTools":"Tools suchen","terms":"AGB"},"header":{"account":"Konto","closeMenu":"Menü schließen","login":"Anmelden","logout":"Abmelden","openMenu":"Menü öffnen","searchTools":"Tools suchen"},"nav":{"about":"Über uns","admin":"Admin","ai":"KI-Assistent","blog":"Blog","breeds":"Rassen","contact":"Kontakt","dashboard":"Übersicht","disclaimer":"Haftungsausschluss","foods":"Futter","myPets":"Meine Tiere","names":"Namen","privacy":"Datenschutz","terms":"AGB","tools":"Tools"},"rights":"Mit ♥ für Haustiere überall gemacht. Die Tools dienen nur zur Information.","siteName":"FurTools","tagline":"Kostenlose Tools für glückliche Haustiere"}
+{
+  "actions": {
+    "back": "Zurück",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "export": "Exportieren",
+    "filter": "Filtern",
+    "import": "Importieren",
+    "language": "Sprache",
+    "next": "Weiter",
+    "retry": "Erneut versuchen",
+    "save": "Speichern",
+    "search": "Tools suchen...",
+    "submit": "Absenden",
+    "viewAll": "Alle ansehen"
+  },
+  "description": "FurTools ist eine wachsende Bibliothek kostenloser Rechner, Generatoren und Ratgeber für Hunde-, Katzen- und Kleintierbesitzer.",
+  "footer": {
+    "about": "Über uns",
+    "aiAssistants": "KI-Assistenten für Haustiere",
+    "allCategories": "Alle Kategorien",
+    "blogGuides": "Blog & Ratgeber",
+    "breedDatabase": "Rassendatenbank",
+    "careReminders": "Pflege & Erinnerungen",
+    "categories": "Kategorien",
+    "compareBreeds": "Rassen vergleichen",
+    "contact": "Kontakt",
+    "costPlanner": "Kostenplaner",
+    "disclaimer": "Haftungsausschluss",
+    "disclaimerText": "Die Tools dienen nur zur Information und ersetzen keine tierärztliche Beratung.",
+    "explore": "Entdecken",
+    "foodSafetyGuide": "Futtersicherheits-Ratgeber",
+    "home": "Start",
+    "legal": "Rechtliches",
+    "madeWith": "Mit ♥ für Haustiere überall gemacht.",
+    "nameFinder": "Namensfinder",
+    "privacy": "Datenschutz",
+    "searchTools": "Tools suchen",
+    "terms": "AGB"
+  },
+  "header": {
+    "account": "Konto",
+    "closeMenu": "Menü schließen",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "openMenu": "Menü öffnen",
+    "searchTools": "Tools suchen"
+  },
+  "nav": {
+    "about": "Über uns",
+    "admin": "Admin",
+    "ai": "KI-Assistent",
+    "blog": "Blog",
+    "breeds": "Rassen",
+    "contact": "Kontakt",
+    "dashboard": "Übersicht",
+    "disclaimer": "Haftungsausschluss",
+    "foods": "Futter",
+    "myPets": "Meine Tiere",
+    "names": "Namen",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "tools": "Tools"
+  },
+  "rights": "Mit ♥ für Haustiere überall gemacht. Die Tools dienen nur zur Information.",
+  "siteName": "FurTools",
+  "tagline": "Kostenlose Tools für glückliche Haustiere",
+  "categories": {
+    "dogs": {
+      "name": "Hunde",
+      "description": "Rechner, Planer und Namensgeneratoren für Hunde jeder Rasse, Größe und jeden Alters."
+    },
+    "cats": {
+      "name": "Katzen",
+      "description": "Altersumrechner, Futterrechner, Wachstumstracker für Kitten und mehr für Samtpfoten."
+    },
+    "birds": {
+      "name": "Vögel",
+      "description": "Käfiggrößen-, Fütterungs- und Pflegeplaner für Papageien, Nymphensittiche, Kanarienvögel und Finken."
+    },
+    "fish": {
+      "name": "Fische & Aquarium",
+      "description": "Rechner für Aquarienvolumen, Besatz, Einfahrphase, Wasserwechsel und Technik."
+    },
+    "small-pets": {
+      "name": "Kleintiere",
+      "description": "Kaninchen, Hamster, Meerschweinchen und Frettchen — Käfiggrößen, Ernährung und Beschäftigung."
+    },
+    "reptiles": {
+      "name": "Reptilien",
+      "description": "Terrariengröße, UVB-Abstand, Futtertiergröße und Pflegepläne für Reptilien."
+    },
+    "horses": {
+      "name": "Pferde",
+      "description": "Futterrationen, Wasserbedarf, Körperkondition und Pflegeplaner für Pferde."
+    },
+    "horse-tools": {
+      "name": "Pferde-Tools & Rechner",
+      "description": "Futterportionierung, Trinkwasser-Abschätzung, Hufschmiedetermine, Deckenmaße und BCS-Rechner für Pferde."
+    },
+    "farm": {
+      "name": "Hoftiere",
+      "description": "Hühner, Enten, Ziegen und weitere Hoftiere — Stallbau, Fütterung und Ertrag."
+    },
+    "general": {
+      "name": "Allgemein",
+      "description": "Tools für alle Haustiere — Kostenübersicht, Checklisten, Medikamentenrechner und Planer."
+    }
+  }
+}

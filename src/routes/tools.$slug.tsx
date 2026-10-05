@@ -142,6 +142,7 @@ function ToolPage() {
   // Translated name/description with English fallback (SEO head stays English canonical)
   const tName = t(`${tool.slug}.name`, { defaultValue: tool.name });
   const tDesc = t(`${tool.slug}.description`, { defaultValue: tool.description });
+  const tCatName = category ? tc(`categories.${category.slug}.name`, { defaultValue: category.name }) : "";
   const ToolComponent = TOOL_COMPONENTS[tool.slug];
   const directAnswer = getDirectAnswer(tool.slug, tool);
 
@@ -151,11 +152,11 @@ function ToolPage() {
       title={tName}
       description={tDesc}
       directAnswer={directAnswer}
-      category={category ? { slug: category.slug, name: category.name } : { slug: "", name: "" }}
+      category={category ? { slug: category.slug, name: tCatName } : { slug: "", name: "" }}
       crumbs={[
         { label: tc("footer.allCategories"), to: "/categories" },
         ...(category
-          ? [{ label: category.name, to: "/categories/$slug", params: { slug: category.slug } }]
+          ? [{ label: tCatName, to: "/categories/$slug", params: { slug: category.slug } }]
           : []),
         { label: tName },
       ]}

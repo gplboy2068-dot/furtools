@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Input } from "@/components/ui/input";
 import { ToolCard } from "@/components/tool-card";
-import { CATEGORIES } from "@/data/categories";
+import { useTranslatedCategories } from "@/lib/use-translated-categories";
 import { toolsByCategorySummary, searchToolsSummary } from "@/data/tools-summary";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
@@ -28,6 +28,7 @@ export const Route = createFileRoute("/categories/")({
 
 function CategoriesIndex() {
   const [q, setQ] = useState("");
+  const categories = useTranslatedCategories();
   const results = useMemo(() => (q.trim() ? searchToolsSummary(q.trim()) : []), [q]);
 
   return (
@@ -69,7 +70,7 @@ function CategoriesIndex() {
         </div>
       ) : (
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {CATEGORIES.map((c) => {
+          {categories.map((c) => {
             const count = toolsByCategorySummary(c.slug).length;
             return (
               <Link

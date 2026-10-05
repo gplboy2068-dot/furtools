@@ -66,5 +66,47 @@
     "import": "Import",
     "language": "Language"
   },
-  "rights": "Made with ♥ for pets everywhere. Tools are informational."
+  "rights": "Made with ♥ for pets everywhere. Tools are informational.",
+  "categories": {
+    "dogs": {
+      "name": "Dogs",
+      "description": "Calculators, planners, and name generators for dogs of every breed, size, and age."
+    },
+    "cats": {
+      "name": "Cats",
+      "description": "Age converters, food calculators, kitten growth trackers, and more for felines."
+    },
+    "birds": {
+      "name": "Birds",
+      "description": "Cage-size, diet, and care planners for parrots, cockatiels, canaries, and finches."
+    },
+    "fish": {
+      "name": "Fish & Aquarium",
+      "description": "Tank volume, stocking, cycling, water changes, and equipment calculators."
+    },
+    "small-pets": {
+      "name": "Small Pets",
+      "description": "Rabbits, hamsters, guinea pigs, and ferrets — cage sizes, diet, and enrichment."
+    },
+    "reptiles": {
+      "name": "Reptiles",
+      "description": "Enclosure sizing, UVB distance, feeder sizing, and care schedules for reptiles."
+    },
+    "horses": {
+      "name": "Horses",
+      "description": "Feeding rations, water needs, body condition, and equine care planners."
+    },
+    "horse-tools": {
+      "name": "Horse Tools & Calculators",
+      "description": "Equine feed portioning, hydration estimates, farrier schedules, blanket sizing, and BCS calculators."
+    },
+    "farm": {
+      "name": "Farm Animals",
+      "description": "Chickens, ducks, goats, and other homestead animals — coops, feed, and production."
+    },
+    "general": {
+      "name": "General Pets",
+      "description": "Pet-agnostic tools — expense trackers, checklists, medication calculators, and planners."
+    }
+  }
 }

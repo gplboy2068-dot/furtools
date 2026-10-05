@@ -3,7 +3,9 @@ import { useMemo, useState } from "react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Input } from "@/components/ui/input";
 import { ToolCard } from "@/components/tool-card";
-import { getCategory, CATEGORIES } from "@/data/categories";
+import { getCategory } from "@/data/categories";
+import { useTranslatedCategories } from "@/lib/use-translated-categories";
+import { useTranslation } from "react-i18next";
 import { toolsByCategorySummary, type ToolSummary } from "@/data/tools-summary";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
@@ -44,6 +46,10 @@ export const Route = createFileRoute("/categories/$slug")({
 
 function CategoryPage() {
   const { category, tools } = Route.useLoaderData();
+  const { t } = useTranslation("common");
+  const otherCategories = useTranslatedCategories().filter((c) => c.slug !== category.slug);
+  const tName = t(`categories.${category.slug}.name`, { defaultValue: category.name });
+  const tDesc = t(`categories.${category.slug}.description`, { defaultValue: category.description });
   const [q, setQ] = useState("");
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
@@ -61,12 +67,12 @@ function CategoryPage() {
       <Breadcrumbs
         items={[
           { label: "Categories", to: "/categories" },
-          { label: category.name },
+          { label: tName },
         ]}
       />
       <header className="mt-6 max-w-2xl">
-        <h1 className="font-display text-4xl font-semibold">{category.name}</h1>
-        <p className="mt-3 text-lg text-muted-foreground">{category.description}</p>
+        <h1 className="font-display text-4xl font-semibold">{tName}</h1>
+        <p className="mt-3 text-lg text-muted-foreground">{tDesc}</p>
       </header>
 
       <div className="relative mt-6 max-w-xl">
@@ -74,9 +80,9 @@ function CategoryPage() {
         <Input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder={`Search in ${category.name.toLowerCase()}…`}
+          placeholder={`Search in ${tName.toLowerCase()}…`}
           className="h-11 pl-9"
-          aria-label={`Search ${category.name} tools`}
+          aria-label={`Search ${tName} tools`}
         />
       </div>
       {q.trim() && (
@@ -102,7 +108,7 @@ function CategoryPage() {
           Other categories
         </h2>
         <div className="mt-3 flex flex-wrap gap-2">
-          {CATEGORIES.filter((c) => c.slug !== category.slug).map((c) => (
+          {otherCategories.map((c) => (
             <a
               key={c.slug}
               href={`/categories/${c.slug}`}

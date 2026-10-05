@@ -66,5 +66,47 @@
     "import": "Importar",
     "language": "Idioma"
   },
-  "rights": "Feito com ♥ para pets em todos os lugares. As ferramentas são informativas."
+  "rights": "Feito com ♥ para pets em todos os lugares. As ferramentas são informativas.",
+  "categories": {
+    "dogs": {
+      "name": "Cachorros",
+      "description": "Calculadoras, planejadores e geradores de nomes para cachorros de todas as raças, portes e idades."
+    },
+    "cats": {
+      "name": "Gatos",
+      "description": "Conversores de idade, calculadoras de ração, acompanhamento de crescimento de filhotes e muito mais para felinos."
+    },
+    "birds": {
+      "name": "Aves",
+      "description": "Planejadores de tamanho de gaiola, dieta e cuidados para papagaios, calopsitas, canários e mandarins."
+    },
+    "fish": {
+      "name": "Peixes & Aquário",
+      "description": "Calculadoras de volume do aquário, lotação, ciclagem, trocas de água e equipamentos."
+    },
+    "small-pets": {
+      "name": "Pequenos Pets",
+      "description": "Coelhos, hamsters, porquinhos-da-índia e furões — tamanhos de gaiola, dieta e enriquecimento."
+    },
+    "reptiles": {
+      "name": "Répteis",
+      "description": "Dimensionamento de terrários, distância da lâmpada UVB, tamanho de presas e rotinas de cuidados para répteis."
+    },
+    "horses": {
+      "name": "Cavalos",
+      "description": "Rações, necessidades de água, condição corporal e planejadores de cuidados para equinos."
+    },
+    "horse-tools": {
+      "name": "Ferramentas & Calculadoras para Cavalos",
+      "description": "Porcionamento de ração, estimativas de hidratação, agenda de ferrageamento, tamanho de cobertores e calculadoras de ECC."
+    },
+    "farm": {
+      "name": "Animais de Fazenda",
+      "description": "Galinhas, patos, cabras e outros animais de criação — galinheiros, alimentação e produção."
+    },
+    "general": {
+      "name": "Pets em Geral",
+      "description": "Ferramentas para todos os pets — controle de gastos, checklists, calculadoras de medicamentos e planejadores."
+    }
+  }
 }
