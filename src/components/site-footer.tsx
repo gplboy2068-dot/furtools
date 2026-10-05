@@ -3,7 +3,6 @@ import { PawPrint } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { SITE } from "@/lib/site";
 import { CATEGORIES } from "@/data/categories";
-import { LanguageSwitcher } from "@/components/language-switcher";
 
 export function SiteFooter() {
   const { t } = useTranslation("common");
@@ -42,9 +41,6 @@ export function SiteFooter() {
             <span>{SITE.name}</span>
           </Link>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">{t("description")}</p>
-          <div className="mt-4">
-            <LanguageSwitcher variant="select" className="w-full max-w-[200px]" />
-          </div>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
@@ -92,10 +88,7 @@ export function SiteFooter() {
       <div className="border-t border-border/60">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6">
           <p>© {year} {SITE.name}. {t("footer.madeWith")}</p>
-          <div className="flex items-center gap-4">
-            <LanguageSwitcher variant="compact" />
-            <p>{t("footer.disclaimerText")}</p>
-          </div>
+          <p>{t("footer.disclaimerText")}</p>
         </div>
       </div>
     </footer>
