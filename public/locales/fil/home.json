@@ -1,0 +1,122 @@
+{
+  "heroBadge": "{{toolCount}}+ libreng tool · {{aiCount}} AI assistant · {{speciesCount}} species",
+  "heroTitlePrefix": "Bawat libreng tool na",
+  "heroTitleHighlight": "kailangan ng pet parent",
+  "heroTitleSuffix": "— nasa iisang lugar.",
+  "heroDescription": "Mga kalkulador, AI assistant, database ng mga lahi at pagkain, hanapan ng pangalan, tagaplano ng gastos, at kumpletong health dashboard para sa aso, pusa, ibon, isda, reptile, kabayo, at marami pang iba. Libre magpakailanman. Walang signup.",
+  "browseAllTools": "Tingnan ang lahat ng {{count}}+ tool",
+  "askAi": "Magtanong sa AI",
+  "searchTools": "Maghanap ng tool",
+  "quickLinks": {
+    "breedDatabase": "Database ng mga Lahi",
+    "foodSafety": "Ligtas na Pagkain",
+    "nameFinder": "Hanapan ng Pangalan",
+    "breedCompare": "Ihambing ang Lahi",
+    "costPlanner": "Tagaplano ng Gastos",
+    "carePlanner": "Tagaplano ng Pangangalaga",
+    "myPets": "Aking mga Pet",
+    "blog": "Blog"
+  },
+  "stats": {
+    "freeTools": "Libreng tool",
+    "aiAssistants": "AI assistant",
+    "speciesCovered": "Species na sakop",
+    "breedProfiles": "Profile ng lahi"
+  },
+  "categoriesEyebrow": "Mga Kategorya",
+  "categoriesHeading": "Hanapin ang tamang tool para sa iyong pet",
+  "seeAll": "Tingnan lahat →",
+  "explore": "Tuklasin",
+  "popularTools": "Mga Sikat na Tool",
+  "hubsEyebrow": "Lahat sa FurTools",
+  "hubsHeading": "Tuklasin ang bawat hub",
+  "hubDescription": "Isang platform para sa mga kalkulador, payo ng AI, pananaliksik sa lahi, kaligtasan sa pagkain, inspirasyon sa pangalan, pagpaplano ng gastos, at kumpletong rekord ng kalusugan ng pet.",
+  "hubs": {
+    "tools": {
+      "title": "Lahat ng Tool",
+      "desc": "{{count}}+ libreng kalkulador, henereytor at tagaplano sa bawat kategorya."
+    },
+    "ai": {
+      "title": "Mga AI Assistant",
+      "desc": "{{count}} AI helper para sa bawat species at paksa — pangangalaga, training, pagkain at paglalakbay."
+    },
+    "breeds": {
+      "title": "Database ng mga Lahi",
+      "desc": "500+ profile ng lahi para sa aso, pusa, ibon, kuneho, isda at kabayo."
+    },
+    "foods": {
+      "title": "Kaligtasan sa Pagkain",
+      "desc": "Ligtas ba ito? Hanapin ang anumang pagkain at tingnan kung ligtas, hinay-hinay, hindi ligtas, o nakalalason."
+    },
+    "names": {
+      "title": "Hanapan ng Pangalan",
+      "desc": "AI + piniling database — 10,000+ pangalan ng pet na masala ayon sa species, estilo at dating."
+    },
+    "compare": {
+      "title": "Paghahambing ng Lahi",
+      "desc": "Tabi-tabing paghahambing ng lahi — laki, ugali, pangangalaga at gastos."
+    },
+    "costPlanner": {
+      "title": "Tagaplano ng Gastos",
+      "desc": "Tantyahin ang gastos sa unang taon at panghabambuhay sa pag-aalaga ng pet, isa-isa."
+    },
+    "care": {
+      "title": "Tagaplano ng Pangangalaga",
+      "desc": "Mga paalala, tala ng timbang at pangyayaring pangkalusugan para sa bawat pet sa bahay."
+    },
+    "dashboard": {
+      "title": "Dashboard ng Aking mga Pet",
+      "desc": "Profile ng maraming pet, bakuna, gamot, pagbisita sa vet, gastos at AI insights."
+    },
+    "blog": {
+      "title": "Blog at mga Gabay",
+      "desc": "Mahahabang gabay na isinulat para sa mga pet parent — batay sa payo ng vet."
+    },
+    "search": {
+      "title": "Pangkalahatang Hanapan",
+      "desc": "Agad hanapin ang bawat tool, lahi, pagkain at artikulo sa platform."
+    },
+    "contact": {
+      "title": "Makipag-ugnayan",
+      "desc": "Magmungkahi ng tool, humiling ng lahi, o magpadala ng feedback — binabasa namin lahat."
+    }
+  },
+  "open": "Buksan",
+  "aiEyebrow": "Mga AI Assistant",
+  "aiHeading": "{{count}} AI helper — hindi kailanman pang-diagnose, laging mabait",
+  "aiDescription": "Magtanong tungkol sa pangangalaga, training, grooming, kaligtasan sa pagkain, paglalakbay, o pag-aalaga ayon sa species. Bawat assistant ay magtuturo sa iyo sa vet para sa anumang medikal.",
+  "breedEyebrow": "Database ng mga Lahi",
+  "breedHeading": "500+ profile ng lahi sa bawat species",
+  "breedDescription": "Malalalim at madaling-intindihing mga pahina ng lahi — laki, ugali, grooming, karaniwang problema sa kalusugan, at gastos.",
+  "browseAllBreeds": "Tingnan ang lahat ng lahi →",
+  "speciesEyebrow": "Ekosistema para sa maraming pet",
+  "speciesHeading": "16 species, isang dashboard",
+  "speciesDescription": "Mula ball python hanggang manok sa bakuran, bawat species ay may sariling care field, AI assistant, at hanay ng tool.",
+  "ctaTitle": "Subaybayan ang bawat pet sa bahay — mga bakuna, gamot, pagbisita sa vet at gastos.",
+  "ctaDescription": "Ang My Pets ay libreng health dashboard na may AI insights (hindi pang-diagnose). Magdagdag ng walang limitasyong pet sa 16 species.",
+  "openMyPets": "Buksan ang My Pets",
+  "carePlanner": "Tagaplano ng Pangangalaga",
+  "faqTitle": "Mga madalas itanong",
+  "faqs": [
+    {
+      "q": "Ilang libreng tool ang inaalok ng FurTools?",
+      "a": "Sa ngayon, nag-aalok ang FurTools ng {{count}}+ libreng kalkulador, henereytor, at tagaplano para sa aso, pusa, ibon, isda, maliliit na pet, reptile, kabayo, at hayop sa bukid — at may mga bagong tool bawat linggo."
+    },
+    {
+      "q": "Kailangan ko ba ng account para gamitin ang mga tool?",
+      "a": "Hindi. Bawat kalkulador, henereytor, at gabay ay libre at gumagana agad nang walang signup. Kailangan mo lang ng account kung gusto mong i-save ang mga profile ng pet, rekord ng kalusugan, o mga paalala sa My Pets dashboard."
+    },
+    {
+      "q": "Ligtas bang gamitin ang mga AI assistant para sa mga tanong na medikal?",
+      "a": "Ang aming {{count}} AI assistant ay pang-edukasyon lamang — hindi sila nag-diagnose ng sakit o kapalit ng lisensyadong beterinaryo. Para sa anumang nakakabahala, makipag-ugnayan agad sa iyong vet."
+    },
+    {
+      "q": "Anong mga pet ang suportado?",
+      "a": "16 species: aso, pusa, ibon, kuneho, isda, hamster, guinea pig, ferret, pagong, ahas, butiki, kabayo, kambing, tupa, manok, at pato."
+    },
+    {
+      "q": "Maaari ko bang tingnan kung ligtas ang isang pagkain para sa aking pet?",
+      "a": "Oo — gamitin ang libreng Food Safety Database o ang \"Can My Pet Eat This?\" AI assistant para tingnan kung ang isang pagkain ay ligtas, kailangang hinay-hinay, o nakalalason para sa iyong species."
+    }
+  ]
+}

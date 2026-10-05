@@ -14,7 +14,7 @@ export const SUPPORTED_LANGUAGES: LanguageConfig[] = [
   { code: 'fr', name: 'French', nativeName: 'Français', dir: 'ltr', flag: '🇫🇷', isRTL: false, isEnabled: true },
   { code: 'de', name: 'German', nativeName: 'Deutsch', dir: 'ltr', flag: '🇩🇪', isRTL: false, isEnabled: true },
   { code: 'it', name: 'Italian', nativeName: 'Italiano', dir: 'ltr', flag: '🇮🇹', isRTL: false, isEnabled: true },
-  { code: 'pt', name: 'Portuguese', nativeName: 'Português', dir: 'ltr', flag: '🇵🇹', isRTL: false, isEnabled: true },
+  { code: 'pt', name: 'Portuguese (Brazil)', nativeName: 'Português', dir: 'ltr', flag: '🇧🇷', isRTL: false, isEnabled: true },
   { code: 'nl', name: 'Dutch', nativeName: 'Nederlands', dir: 'ltr', flag: '🇳🇱', isRTL: false, isEnabled: true },
   { code: 'pl', name: 'Polish', nativeName: 'Polski', dir: 'ltr', flag: '🇵🇱', isRTL: false, isEnabled: true },
   { code: 'tr', name: 'Turkish', nativeName: 'Türkçe', dir: 'ltr', flag: '🇹🇷', isRTL: false, isEnabled: true },
@@ -29,6 +29,7 @@ export const SUPPORTED_LANGUAGES: LanguageConfig[] = [
   { code: 'vi', name: 'Vietnamese', nativeName: 'Tiếng Việt', dir: 'ltr', flag: '🇻🇳', isRTL: false, isEnabled: true },
   { code: 'id', name: 'Indonesian', nativeName: 'Bahasa Indonesia', dir: 'ltr', flag: '🇮🇩', isRTL: false, isEnabled: true },
   { code: 'ms', name: 'Malay', nativeName: 'Bahasa Melayu', dir: 'ltr', flag: '🇲🇾', isRTL: false, isEnabled: true },
+  { code: 'fil', name: 'Filipino', nativeName: 'Filipino', dir: 'ltr', flag: '🇵🇭', isRTL: false, isEnabled: true },
 ];
 
 export const DEFAULT_LANGUAGE = 'en';

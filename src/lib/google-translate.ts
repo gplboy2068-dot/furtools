@@ -6,7 +6,7 @@ import i18n from "./i18n";
 import { SUPPORTED_LANGUAGES } from "./i18n-config";
 
 /** Languages with complete native translations. */
-export const NATIVE_LANGUAGES = ["en", "es", "de", "fr", "ru"] as const;
+export const NATIVE_LANGUAGES = ["en", "es", "de", "fr", "ru", "pt", "fil"] as const;
 
 const STORAGE_KEY = "furtools_lang";
 

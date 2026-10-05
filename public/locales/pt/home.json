@@ -1,8 +1,122 @@
 {
-  "heroTitle": "Smart Care Tools for Happier, Healthier Pets",
-  "heroDescription": "From dog age conversion to personalized nutrition plans, access expert-designed calculators and AI care assistants.",
-  "exploreTools": "Explore Tools",
-  "popularTools": "Popular Tools",
-  "featuredBreeds": "Featured Breed Guides",
-  "latestArticles": "Latest Care Articles"
+  "heroBadge": "{{toolCount}}+ ferramentas grátis · {{aiCount}} assistentes de IA · {{speciesCount}} espécies",
+  "heroTitlePrefix": "Toda ferramenta gratuita que um",
+  "heroTitleHighlight": "dono de pet",
+  "heroTitleSuffix": "pode precisar — em um só lugar.",
+  "heroDescription": "Calculadoras, assistentes de IA, bancos de dados de raças e alimentos, localizadores de nomes, planejadores de custos e um painel de saúde completo para cães, gatos, aves, peixes, répteis, cavalos e muito mais. Grátis para sempre. Sem cadastro.",
+  "browseAllTools": "Ver todas as {{count}}+ ferramentas",
+  "askAi": "Perguntar à IA",
+  "searchTools": "Buscar ferramentas",
+  "quickLinks": {
+    "breedDatabase": "Banco de Raças",
+    "foodSafety": "Segurança Alimentar",
+    "nameFinder": "Localizador de Nomes",
+    "breedCompare": "Comparar Raças",
+    "costPlanner": "Planejador de Custos",
+    "carePlanner": "Planejador de Cuidados",
+    "myPets": "Meus Pets",
+    "blog": "Blog"
+  },
+  "stats": {
+    "freeTools": "Ferramentas gratuitas",
+    "aiAssistants": "Assistentes de IA",
+    "speciesCovered": "Espécies cobertas",
+    "breedProfiles": "Perfis de raças"
+  },
+  "categoriesEyebrow": "Categorias",
+  "categoriesHeading": "Encontre a ferramenta certa para o seu pet",
+  "seeAll": "Ver tudo →",
+  "explore": "Explorar",
+  "popularTools": "Ferramentas Populares",
+  "hubsEyebrow": "Tudo no FurTools",
+  "hubsHeading": "Explore cada central",
+  "hubDescription": "Uma plataforma para calculadoras, conselhos de IA, pesquisa de raças, segurança alimentar, inspiração de nomes, planejamento de custos e registros completos de saúde do pet.",
+  "hubs": {
+    "tools": {
+      "title": "Todas as Ferramentas",
+      "desc": "{{count}}+ calculadoras, geradores e planejadores gratuitos em todas as categorias."
+    },
+    "ai": {
+      "title": "Assistentes de IA",
+      "desc": "{{count}} ajudantes de IA por espécie e tema para cuidados, adestramento, alimentação e viagens."
+    },
+    "breeds": {
+      "title": "Banco de Dados de Raças",
+      "desc": "Mais de 500 perfis de raças de cães, gatos, aves, coelhos, peixes e cavalos."
+    },
+    "foods": {
+      "title": "Segurança Alimentar",
+      "desc": "É seguro? Consulte qualquer alimento e veja o veredito: seguro / moderação / inseguro / tóxico."
+    },
+    "names": {
+      "title": "Localizador de Nomes",
+      "desc": "IA + banco de dados curado — mais de 10.000 nomes de pets por espécie, estilo e vibe."
+    },
+    "compare": {
+      "title": "Comparador de Raças",
+      "desc": "Comparação de raças lado a lado: porte, temperamento, cuidados e custos."
+    },
+    "costPlanner": {
+      "title": "Planejador de Custos",
+      "desc": "Estime os custos do primeiro ano e da vida toda de ter um pet, item por item."
+    },
+    "care": {
+      "title": "Planejador de Cuidados",
+      "desc": "Lembretes, registros de peso e eventos de saúde para cada pet da sua casa."
+    },
+    "dashboard": {
+      "title": "Painel Meus Pets",
+      "desc": "Perfis de vários pets, vacinas, remédios, consultas, gastos e insights de IA."
+    },
+    "blog": {
+      "title": "Blog e Guias",
+      "desc": "Guias detalhados escritos para donos de pets — com foco em SEO e base veterinária."
+    },
+    "search": {
+      "title": "Busca Global",
+      "desc": "Busque instantaneamente cada ferramenta, raça, alimento e artigo da plataforma."
+    },
+    "contact": {
+      "title": "Contato",
+      "desc": "Sugira uma ferramenta, peça uma raça ou envie feedback — lemos cada mensagem."
+    }
+  },
+  "open": "Abrir",
+  "aiEyebrow": "Assistentes de IA",
+  "aiHeading": "{{count}} ajudantes de IA — nunca diagnosticam, sempre gentis",
+  "aiDescription": "Pergunte sobre cuidados, adestramento, tosa, segurança alimentar, viagens ou manejo específico de cada espécie. Cada assistente orienta a procurar um veterinário para qualquer questão médica.",
+  "breedEyebrow": "Banco de Dados de Raças",
+  "breedHeading": "Mais de 500 perfis de raças de todas as espécies",
+  "breedDescription": "Páginas de raças profundas, em linguagem simples, com porte, temperamento, tosa, problemas de saúde comuns e custos.",
+  "browseAllBreeds": "Ver todas as raças →",
+  "speciesEyebrow": "Ecossistema multi-pet",
+  "speciesHeading": "16 espécies, um painel",
+  "speciesDescription": "De pítons-reais a galinhas de quintal, cada espécie tem seus próprios campos de cuidado, assistente de IA e conjunto de ferramentas.",
+  "ctaTitle": "Acompanhe cada pet da sua casa — vacinas, remédios, consultas e gastos.",
+  "ctaDescription": "Meus Pets é um painel de saúde gratuito com insights de IA (nunca diagnósticos). Adicione quantos pets quiser, de 16 espécies.",
+  "openMyPets": "Abrir Meus Pets",
+  "carePlanner": "Planejador de Cuidados",
+  "faqTitle": "Perguntas frequentes",
+  "faqs": [
+    {
+      "q": "Quantas ferramentas gratuitas o FurTools oferece?",
+      "a": "O FurTools oferece atualmente {{count}}+ calculadoras, geradores e planejadores gratuitos para cães, gatos, aves, peixes, pequenos animais, répteis, cavalos e animais de fazenda — com novas ferramentas toda semana."
+    },
+    {
+      "q": "Preciso criar uma conta para usar as ferramentas?",
+      "a": "Não. Cada calculadora, gerador e guia é gratuito e funciona na hora, sem cadastro. Você só precisa de uma conta se quiser salvar perfis de pets, registros de saúde ou lembretes no painel Meus Pets."
+    },
+    {
+      "q": "Os assistentes de IA são seguros para perguntas médicas?",
+      "a": "Nossos {{count}} assistentes de IA são apenas educativos — eles nunca diagnosticam doenças nem substituem um veterinário. Se algo te preocupar, fale com seu veterinário imediatamente."
+    },
+    {
+      "q": "Quais animais são suportados?",
+      "a": "16 espécies: cães, gatos, aves, coelhos, peixes, hamsters, porquinhos-da-índia, furões, tartarugas, cobras, lagartos, cavalos, cabras, ovelhas, galinhas e patos."
+    },
+    {
+      "q": "Posso verificar se um alimento é seguro para o meu pet?",
+      "a": "Sim — use o Banco de Dados de Segurança Alimentar gratuito ou o assistente de IA \"Meu Pet Pode Comer Isso?\" para verificar se um alimento é seguro, exige moderação ou é tóxico para a sua espécie."
+    }
+  ]
 }
