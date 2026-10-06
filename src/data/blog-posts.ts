@@ -21,7 +21,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The True Lifetime Cost of Owning a Pet: A Complete Veterinary & Financial Blueprint",
     "excerpt": "An exhaustive, actuarial breakdown of the true lifetime financial cost of owning dogs, cats, and small pets—covering Year 1 capital setups, recurring nutritional & preventative baselines, emergency sinking funds, and senior veterinary inflation.",
     "category": "Finance & Planning",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-01T00:00:00Z",
     "tags": [
       "pet budget",
       "pet cost",
@@ -437,7 +437,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "How to Help a Shy or Fearful Cat Settle In: The 3-3-3 Rule & Veterinary Behavior Guide (2026)",
     "excerpt": "An authoritative, evidence-based guide to rehabilitating shy, fearful, or rescue cats in a new home. Explains the 3-3-3 feline decompression timeline, safe base-camp sanctuary setup, pheromone therapy, low-stress body language, slow-blink bonding, positive reinforcement counter-conditioning, and avoiding common acclimation mistakes.",
     "category": "Feline Behavior & Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-03T00:00:00Z",
     "tags": [
       "shy cat",
       "cat behavior",
@@ -499,7 +499,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Backyard Duck Pond Sizing & Care: Gallons, Filtration & Water Chemistry (2026)",
     "excerpt": "A master engineering and avian care guide to sizing, building, and maintaining backyard duck ponds. Covers biological gallons-per-duck formulas, heavy-duty mechanical solids filtration, bog biological filters, mud apron prevention, winter de-icing, and avian botulism prevention.",
     "category": "Waterfowl & Poultry",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-06T00:00:00Z",
     "tags": [
       "duck pond",
       "duck care",
@@ -539,7 +539,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Complete Snake Enclosure & Tank Size Guide: Pythons, Corn Snakes & Boas (2026)",
     "excerpt": "An evidence-based reptile husbandry guide for sizing and setting up snake enclosures. Explains the Length + Width >= Snake Length rule, PVC vs. glass thermal dynamics, temperature gradient zones, UVB lighting science, and species-specific dimensional blueprints.",
     "category": "Reptiles & Amphibians",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-06T00:00:00Z",
     "tags": [
       "snake tank size",
       "snake enclosure",
@@ -708,7 +708,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "How to Rehouse a Tarantula: The Complete Stress-Free Guide for Terrestrial, Arboreal & Fossorial Species",
     "excerpt": "An authoritative arachnological guide to safely rehousing pet tarantulas. Master catch-cup techniques, bathtub secondary containment, New World urticating hair safety, Old World speed management, and post-transfer care.",
     "category": "Reptiles & Exotics",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-10T00:00:00Z",
     "tags": [
       "tarantula",
       "tarantula care",
@@ -768,7 +768,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Complete Barefoot Hoof Transition Guide: Equine Podiatry, Biomechanics & Rehabilitation",
     "excerpt": "An evidence-based veterinary blueprint for pulling horseshoes and transitioning to barefoot. Understand the hemodynamic mechanism, digital cushion regeneration, transition soreness management, hoof boot fitting, and dietary mineral balancing.",
     "category": "Equine Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-13T00:00:00Z",
     "tags": [
       "barefoot transition",
       "horse hoof care",
@@ -828,7 +828,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Complete Equine Hoof Balance Guide: Radiographic Alignment, Dorsopalmar & Mediolateral Symmetry",
     "excerpt": "A veterinary podiatry blueprint for equine hoof balance. Master phalangeal alignment, palmar angles, Duckett's Dot center of articulation, breakover leverage mechanics, and static vs dynamic landing evaluations.",
     "category": "Equine Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-13T00:00:00Z",
     "tags": [
       "hoof balance",
       "equine podiatry",
@@ -888,7 +888,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Complete Guide to Pet Allergies: Flea, Environmental (Atopy), and Food Dermatitis in Dogs & Cats",
     "excerpt": "An evidence-based veterinary dermatology guide to diagnosing and managing the three primary pet allergy classifications: Flea Allergy Dermatitis (FAD), Canine/Feline Atopic Dermatitis, and Cutaneous Adverse Food Reactions.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-17T00:00:00Z",
     "tags": [
       "pet allergies",
       "dog allergies",
@@ -949,7 +949,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "12 Subtle Signs Your Pet Is Aging: Early Detection Guide for Senior Dogs & Cats",
     "excerpt": "A veterinary gerontology guide to identifying the early, subtle indicators of aging in companion animals—covering osteoarthritis mobility changes, feline cognitive decline, silent kidney disease, and environmental adaptations.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-20T00:00:00Z",
     "tags": [
       "senior pets",
       "senior dog care",
@@ -1010,7 +1010,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Science of Cat Coat Genetics: Pigments, Patterns, and the DNA Behind Feline Colors",
     "excerpt": "An authoritative genetic guide to domestic feline coat colors and patterns. Explore eumelanin vs phaeomelanin, X-linked orange calico mechanics, the agouti tabby locus, dilution mutations, and temperature-sensitive Siamese points.",
     "category": "Feline Behavior & Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-20T00:00:00Z",
     "tags": [
       "cat genetics",
       "cat coat colors",
@@ -1070,7 +1070,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Ultimate Guide to Summer Dog Boots: Pavement Heat Burns, Sizing & Hot Weather Paw Protection",
     "excerpt": "A veterinary guide to protecting canine paws from third-degree asphalt heat burns. Learn the 7-second pavement rule, breathable summer boot engineering, accurate paw measurement, and desensitization training.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-24T00:00:00Z",
     "tags": [
       "summer dog boots",
       "dog paw protection",
@@ -1130,7 +1130,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "How to Build a 100% Predator-Proof Chicken Coop: Hardware Cloth, Aprons & Biosecurity Engineering",
     "excerpt": "An expert poultry engineering guide to securing backyard flocks against raccoons, foxes, raptors, rats, and snakes. Learn hardware cloth fastening, subterranean anti-dig aprons, and automated pop-door security.",
     "category": "Poultry & Farm",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-27T00:00:00Z",
     "tags": [
       "chicken coop",
       "predator proof coop",
@@ -1190,7 +1190,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Definitive Aquarium Water Testing Guide: Parameters, Chemical Cycles & Test Kit Mastery",
     "excerpt": "A comprehensive aquarist and aquatic veterinary guide to aquarium water chemistry. Master the nitrogen cycle, ammonia toxicity, pH-KH buffering stability, liquid reagent testing techniques, and reef mineral balancing.",
     "category": "Aquatics & Fishkeeping",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-04-27T00:00:00Z",
     "tags": [
       "aquarium water testing",
       "nitrogen cycle",
@@ -1250,7 +1250,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Pancreatitis in Dogs & Cats: Acute vs. Chronic Triggers, Diagnosis & Nutritional Management",
     "excerpt": "An authoritative veterinary internal medicine guide to feline and canine pancreatitis. Understand zymogen autodigestion, high-fat dietary triggers, feline triaditis, Spec cPL/fPL diagnostic testing, and life-saving ultra-low-fat nutritional protocols.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-01T00:00:00Z",
     "tags": [
       "pancreatitis dogs",
       "pancreatitis cats",
@@ -1310,7 +1310,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Canine Diarrhea Demystified: Small Bowel vs. Large Bowel Causes, Triage & Recovery Protocols",
     "excerpt": "A veterinary clinical guide to canine diarrhea. Master the differential diagnosis between small and large bowel enteritis, parasitic and viral pathogens, hemorrhagic diarrhea syndrome, and evidence-based bland diet recovery.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-04T00:00:00Z",
     "tags": [
       "dog diarrhea",
       "canine enteritis",
@@ -1371,7 +1371,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Cat Litter Box Red Flags: Decoding Urinary Blockages, FLUTD & Kidney Disease Warning Signs",
     "excerpt": "A veterinary guide to litter box warning signs in domestic cats. Learn to identify life-threatening male urethral blockages, Feline Idiopathic Cystitis (FIC), clump volume shifts, and medical vs behavioral elimination.",
     "category": "Feline Behavior & Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-04T00:00:00Z",
     "tags": [
       "cat litter box",
       "cat urinary blockage",
@@ -1434,7 +1434,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Explore the science of feline attachment. Learn to decode the slow-blink eye contact, exposed belly paradox, head-bunting pheromones, healing purr frequencies, and tail language that signify deep trust in domestic cats.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-01-10",
     "read_time": "12 min read",
     "category": "Cat Care",
     "tags": [
@@ -1499,7 +1499,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Master the subtle appeasement signals domestic dogs use to prevent conflict, de-escalate anxiety, and communicate stress. Discover how to identify lip licks, gaze aversion, yawn triggers, and micro-shakes.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-01-19",
     "read_time": "13 min read",
     "category": "Dog Care",
     "tags": [
@@ -1564,7 +1564,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Discover the fascinating world of basal and landrace primitive dogs—from Basenjis and Shibas to Canaan Dogs and Carolina Dogs. Learn about their ancestral wolf genetics, prey drives, cat-like hygiene, and distinct training protocols.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-01-28",
     "read_time": "14 min read",
     "category": "Dog Breeds",
     "tags": [
@@ -1630,7 +1630,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A complete veterinary guide to preventing and treating ulcerative shell disease (SCUD) in chelonians. Master water quality parameters, dry-docking protocols, UVB irradiance gradients, and antimicrobial debridement.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-07T00:00:00Z",
     "read_time": "13 min read",
     "category": "Exotic Pet Care",
     "tags": [
@@ -1695,7 +1695,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A veterinary aviculturist guide to harness training parrots without trauma. Learn the stepwise desensitization protocol, harness anatomy, positive reinforcement, and outdoor safety protocols.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-11T00:00:00Z",
     "read_time": "13 min read",
     "category": "Bird Care",
     "tags": [
@@ -1759,7 +1759,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Understand the biological mechanisms of psittacine molting. Learn how to manage uncomfortable blood feathers, provide critical keratin-synthesizing amino acids, and navigate hormonal mood swings safely.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-11T00:00:00Z",
     "read_time": "12 min read",
     "category": "Bird Care",
     "tags": [
@@ -1823,7 +1823,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Protect your dog during the holidays. An emergency veterinary toxicology breakdown of chocolate, xylitol, macadamia nuts, alliums, pancreatitis-inducing fatty meats, and cooked poultry bones.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-02-06",
     "read_time": "13 min read",
     "category": "Dog Care",
     "tags": [
@@ -1887,7 +1887,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Perform a comprehensive clinical health check on your tortoise. Master the 10-point physical exam: carapace firmness, nares clarity, oral mucous membrane color, urate consistency, beak alignment, and weight tracking.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-02-16",
     "read_time": "13 min read",
     "category": "Exotic Pet Care",
     "tags": [
@@ -1951,7 +1951,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A critical veterinary guide to identifying, preventing, and treating Upper and Lower Respiratory Tract Infections in snakes, lizards, and tortoises. Learn to spot bubbling nares, open-mouth wheezing, and thermal gradient failures.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-02-25",
     "read_time": "14 min read",
     "category": "Exotic Pet Care",
     "tags": [
@@ -2015,7 +2015,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Step beyond tropical tanks. Master the setup of an unheated temperate freshwater aquarium—from chillers and high-oxygen turnover to biotope aquascaping and cold-tolerant species like White Clouds, Dojo Loaches, and Fancy Goldfish.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-03-06",
     "read_time": "13 min read",
     "category": "Fish Care",
     "tags": [
@@ -2079,7 +2079,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Decode your pet's fecal health using the clinical Bristol-style 7-point scale. Learn what chocolate-brown, bloody red, tarry melena, pale yellow, and mucous-coated stools reveal about GI pathology.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-14T00:00:00Z",
     "read_time": "13 min read",
     "category": "Pet Health",
     "tags": [
@@ -2143,7 +2143,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Clear pet dander, microscopic allergens, and stubborn odors safely. Understand CADR ratings, True HEPA H13 filtration, granular activated carbon adsorption, and the lethal dangers of ozone/ionizers.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-18T00:00:00Z",
     "read_time": "12 min read",
     "category": "Pet Care",
     "tags": [
@@ -2207,7 +2207,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A veterinary behavioral guide to festive pet dress-up. Avoid heatstroke, choking hazards, acoustic overstimulation, and restricted locomotion while respecting canine and feline body language.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-03-15",
     "read_time": "12 min read",
     "category": "Pet Care",
     "tags": [
@@ -2271,7 +2271,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Build a safe outdoor habitat for terrestrial tortoises. Master predator-proof sunken perimeters, microclimates, edible grazing forage, thermal retreat hides, and solar UV exposure.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-18T00:00:00Z",
     "read_time": "13 min read",
     "category": "Exotic Pet Care",
     "tags": [
@@ -2335,7 +2335,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A comprehensive veterinary protocol for eliminating silent household bird killers—from Teflon PTFE fumes and ceiling fans to heavy metals, lead paint, open water sources, and toxic houseplants.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-03-29",
+    "published_at": "2026-03-25",
     "read_time": "14 min read",
     "category": "Bird Care",
     "tags": [
@@ -2399,7 +2399,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Master the science of raising Japanese Coturnix quail (Coturnix japonica). From brooder heat gradients and 28% starter protein to colony sex ratios, flush prevention, and year-round egg cycles.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-21T00:00:00Z",
     "read_time": "14 min read",
     "category": "Bird Care",
     "tags": [
@@ -2463,7 +2463,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "A critical veterinary toxicology guide to birch sugar and xylitol toxicity in dogs. Learn the pharmacokinetics of massive insulin dumping, acute hypoglycemic collapse, hepatic necrosis, and emergency ICU triage.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-25T00:00:00Z",
     "read_time": "14 min read",
     "category": "Dog Care",
     "tags": [
@@ -2527,7 +2527,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "excerpt": "Shield canine paw pads from ice melt chemicals, frostbite, and hyperkeratotic fissures. Discover the organic lipid barrier chemistry (beeswax, carnauba, shea butter) and post-walk decontamination routines.",
     "author": "Firoz Khan",
     "author_id": "firoz-khan",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-25T00:00:00Z",
     "read_time": "13 min read",
     "category": "Dog Care",
     "tags": [
@@ -2589,7 +2589,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Goat Hoof Care: Trimming Protocols, Pathology Diagnostics & Footrot Prevention",
     "excerpt": "An exhaustive caprine podiatry manual covering functional claw anatomy, step-by-step 6-week trimming protocols, differential diagnostics between benign scald and contagious footrot, and nutritional laminitis prevention.",
     "category": "Livestock & Farm",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-05-28T00:00:00Z",
     "tags": [
       "goat hoof care",
       "caprine podiatry",
@@ -2649,7 +2649,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Enrichment for Nocturnal Pets: Circadian Habitat Design, Scotopic Vision & Sensory Play",
     "excerpt": "An evidence-based ethological guide to nocturnal pet welfare. Master circadian scotopic vision, photoperiod lighting protocols, acoustic architecture, silent running wheel ergonomics, and species-specific tactile foraging for hamsters, hedgehogs, and sugar gliders.",
     "category": "Small Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-01T00:00:00Z",
     "tags": [
       "nocturnal pet enrichment",
       "hamster care",
@@ -2710,7 +2710,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Canine Ladder of Aggression: De-escalating Stress & Preventing Bites",
     "excerpt": "An authoritative ethological guide to Kendal Shepherd's Canine Ladder of Aggression. Learn how subtle displacement behaviors, appeasement gestures, and neuroendocrine cortisol cascades escalate to defensive aggression, and how to de-escalate canine stress before bites occur.",
     "category": "Behavior & Training",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-01T00:00:00Z",
     "tags": [
       "dog stress ladder",
       "ladder of aggression",
@@ -2770,7 +2770,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Wildfire Smoke & Pets: Air Quality Index (AQI), PM2.5 Toxicity & Emergency Protocol",
     "excerpt": "An exhaustive veterinary environmental health manual detailing particulate matter (PM2.5) pulmonary pathophysiology, high-risk companion animal vulnerabilities, residential positive-pressure HEPA filtration, and emergency clinical protocols during wildfire events.",
     "category": "Emergency & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-04T00:00:00Z",
     "tags": [
       "wildfire smoke pets",
       "pet air quality",
@@ -2830,7 +2830,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Canine Summer Safety: Heatstroke Pathophysiology, Asphalt Thermodynamics & Hydration Science",
     "excerpt": "A definitive veterinary emergency guide to canine heatstroke pathophysiology, critical core temperature thresholds, solar asphalt contact burns, vehicular greenhouse physics, and exercise hydration science.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-07T00:00:00Z",
     "tags": [
       "summer safety dogs",
       "canine heatstroke",
@@ -2890,7 +2890,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Feline Asthma: Chronic Bronchial Disease Diagnostics, Inhaler Therapy & Environmental Triggers",
     "excerpt": "A comprehensive feline respiratory medicine guide covering the immunopathology of feline asthma (FLAD), radiographic bronchial pattern differentiation, AeroKat inhaler administration protocols, and strict environmental trigger mitigation.",
     "category": "Feline Health",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-08T00:00:00Z",
     "tags": [
       "cat asthma",
       "feline lower airway disease",
@@ -2950,7 +2950,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Urban Coyotes & Pet Safety: Territorial Hazing, Fencing Specs & Deterrence Protocols",
     "excerpt": "An evidence-based wildlife coexistence and companion animal defense guide. Master urban coyote behavioral ecology, physical perimeter fortifications, active hazing techniques, and safe nocturnal walking protocols.",
     "category": "Wildlife & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-11T00:00:00Z",
     "tags": [
       "urban coyotes pets",
       "coyote deterrence",
@@ -3010,7 +3010,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Aquatic Turtle Habitat Setup: Tank Volume Math, 50W Gallon Heaters & 4-Stage Filtration",
     "excerpt": "A definitive herpetological blueprint for housing aquatic turtles. Master water volume sizing equations, heavy biological canister filtration, thermal dual-zone gradients, and essential T5 HO UVB photobiology.",
     "category": "Reptiles & Amphibians",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-14T00:00:00Z",
     "tags": [
       "aquatic turtle setup",
       "red-eared slider habitat",
@@ -3070,7 +3070,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Pet Elimination Diet Trials: Novel Proteins, Hydrolyzed Diets & Allergy Diagnostics",
     "excerpt": "A rigorous veterinary dermatology guide to diagnosing Cutaneous Adverse Food Reactions (CAFR) in dogs and cats. Master the 8-to-12-week elimination trial protocol, hydrolyzed peptide chemistry versus novel single-source intact proteins, zero-cheat compliance, and provocation challenge methodology.",
     "category": "Nutrition & Diet",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-15T00:00:00Z",
     "tags": [
       "elimination diet pets",
       "hydrolyzed dog food",
@@ -3130,7 +3130,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Gut-Loading Feeder Insects: Nutritional Biochemistry, Calcium Ratios & Feeder Schedules",
     "excerpt": "A definitive herpetological and entomological nutrition guide. Master the biochemistry of the Calcium-to-Phosphorus (Ca:P) inverse ratio, species-specific gut-loading diets, distinction from surface dusting, and toxic feeder pitfalls for captive reptiles and amphibians.",
     "category": "Exotics & Reptiles",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-18T00:00:00Z",
     "tags": [
       "gut loading feeder insects",
       "reptile nutrition calcium",
@@ -3190,7 +3190,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "African Pygmy Hedgehog Enclosure Setup: Thermal Baselines, Space Dimensions & Wheel Ergonomics",
     "excerpt": "An exhaustive exotic small mammal husbandry guide. Master the strict 72-to-78°F thermal baseline, ceramic heat emitter (CHE) wiring, minimum square footage dimensions, non-toxic fleece substrates, and silent solid wheel biomechanics for African pygmy hedgehogs.",
     "category": "Small Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-21T00:00:00Z",
     "tags": [
       "hedgehog enclosure setup",
       "hedgehog heating setup",
@@ -3250,7 +3250,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "How to Accurately Measure Pet Food: Gram Scales, Caloric Density & Portion Control",
     "excerpt": "An evidence-based veterinary clinical nutrition guide to pet portion control. Learn why volume-based measuring cups induce 20% to 40% caloric errors, how to calculate Resting Energy Requirements (RER), and why digital gram scale precision is essential for preventing companion animal obesity.",
     "category": "Nutrition & Diet",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-22T00:00:00Z",
     "tags": [
       "measure pet food",
       "dog food portion calculator",
@@ -3310,7 +3310,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Hoof Rot Prevention & Management in Livestock: Biosecurity, Footbaths & Drainage",
     "excerpt": "An authoritative agricultural and veterinary podiatry manual for sheep, goats, and cattle. Master the bacteriological synergy of Fusobacterium necrophorum and Dichelobacter nodosus, pasture drainage engineering, and 10% zinc sulfate footbath protocols.",
     "category": "Livestock & Farm",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-25T00:00:00Z",
     "tags": [
       "hoof rot prevention",
       "footrot sheep goats",
@@ -3370,7 +3370,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Canine Hot Spots (Acute Moist Dermatitis): Pathophysiology, Rapid Triage & Treatment",
     "excerpt": "A definitive veterinary dermatology guide to canine hot spots (acute moist dermatitis). Master the itch-scratch-damage cycle, primary initiators, emergency 4-step clinical triage, topical astringents, and preventative grooming protocols.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-28T00:00:00Z",
     "tags": [
       "canine hot spots",
       "acute moist dermatitis dogs",
@@ -3430,7 +3430,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Congenital Sensorineural Deafness in White Cats: The W Gene, Melanosomes & Care",
     "excerpt": "A definitive feline genetics and auditory neurobiology guide. Understand the autosomal dominant White masking gene (W), melanocyte migration failure in the stria vascularis, BAER diagnostic electrophysiology, and enriched non-auditory domestic husbandry.",
     "category": "Feline Health",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-06-29T00:00:00Z",
     "tags": [
       "white cat deafness",
       "congenital sensorineural deafness cats",
@@ -3490,7 +3490,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Tarantula Moult Cycle: Premoult Indicators, Ecdysis Stages & Post-Molt Care",
     "excerpt": "A definitive arachnological guide to the tarantula moult cycle. Master the 4 stages of ecdysis, premoult behavioral and abdominal indicators, the critical back-moulting rule, dysecdysis emergency triage, and post-molt fang sclerotization timelines.",
     "category": "Exotics & Reptiles",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-02T00:00:00Z",
     "tags": [
       "tarantula moult cycle",
       "tarantula shedding",
@@ -3550,7 +3550,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Canine Atopic Dermatitis: Skin Barrier Dysfunction, Cytokine Cascades & Multimodal Therapy",
     "excerpt": "An exhaustive veterinary dermatology guide to Canine Atopic Dermatitis (CAD). Master the immunopathology of epidermal barrier lipid deficiency, IL-31 itch cytokines, Favrot's diagnostic criteria, and multimodal therapy using Apoquel, Cytopoint, and immunotherapy.",
     "category": "Health & Safety",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-05T00:00:00Z",
     "tags": [
       "atopic dermatitis dogs",
       "canine CAD allergies",
@@ -3611,7 +3611,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Safe Cage Materials for Birds & Small Animals: Non-Toxic Wire, Wood & Coating Blueprint",
     "excerpt": "An exhaustive veterinary toxicology and engineering analysis of enclosure materials—covering zinc galvanization hazards, stainless steel 304/316 grades, powder coat integrity, safe hardwood varieties, and chew barrier protocols.",
     "category": "Small Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-05T00:00:00Z",
     "tags": [
         "safe cage materials",
         "galvanized wire toxicity",
@@ -3670,7 +3670,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Ultimate Preventive Veterinary Care Guide: Lifelong Wellness Schedules & Diagnostic Screenings",
     "excerpt": "A clinical roadmap to lifelong companion animal health—detailing pediatric to geriatric physical exam standards, early-detection blood panels (SDMA, ProBNP), diagnostic parasite centrifugation, and preventative oral health.",
     "category": "Pet Health & Veterinary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-09T00:00:00Z",
     "tags": [
         "preventive vet care",
         "annual pet wellness exam",
@@ -3729,7 +3729,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Aquarium Substrate Science: Complete Guide to Sand, Gravel, Active Aquasoils & Biotope Chemistry",
     "excerpt": "A masterclass in aquarium bed dynamics—analyzing cation exchange capacity (CEC), pH/KH buffering systems, anaerobic pocket formation (H2S), and benthic species safety.",
     "category": "Aquatic Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-12T00:00:00Z",
     "tags": [
         "aquarium substrate guide",
         "aquasoil planted tank",
@@ -3788,7 +3788,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Chinchilla Care Essentials: High-Altitude Physiology, Thermal Management, Dust Baths & Nutrition",
     "excerpt": "A specialist veterinary guide to Chinchilla lanigera husbandry—featuring hyperthermia risk thresholds (>70°F), volcanic pumice dust bathing chemistry, elodont dental wear, and hindgut monoculture nutrition.",
     "category": "Small Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-12T00:00:00Z",
     "tags": [
         "chinchilla care essentials",
         "chinchilla dust bath",
@@ -3848,7 +3848,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Antifreeze Poisoning in Pets: Ethylene Glycol Toxicosis, Clinical Stages & Emergency Antidotes",
     "excerpt": "A rapid-action emergency veterinary clinical guide on ethylene glycol poisoning in dogs and cats—covering lethal dose volumes, 3-stage systemic destruction, calcium oxalate crystal deposition, and 4-MP (Fomepizole) therapy.",
     "category": "Pet Health & Veterinary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-16T00:00:00Z",
     "tags": [
         "antifreeze poisoning pets",
         "ethylene glycol toxicity dogs",
@@ -3907,7 +3907,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Backyard Birding & Avian Conservation: Feeders, Native Habitats & Disease Prevention",
     "excerpt": "A scientifically grounded ornithological guide to welcoming wild birds—covering nutritional seed profiles, window strike prevention, seasonal water stations, and salmonellosis/trichomonosis biosecurity.",
     "category": "Wild Birds & Aviary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-19T00:00:00Z",
     "tags": [
         "backyard birding",
         "wild bird feeders",
@@ -3966,7 +3966,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Top 10 Reptile Husbandry Mistakes: Temperature Gradients, UVB Decay & Humidity Errors",
     "excerpt": "An exhaustive herpetological clinical analysis of the most common, preventable mistakes in reptile care—covering coil bulb UV drop-off, metabolic bone disease (MBD), heat rock burns, and respiratory dehydration.",
     "category": "Reptile Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-19T00:00:00Z",
     "tags": [
         "reptile husbandry mistakes",
         "metabolic bone disease MBD",
@@ -4025,7 +4025,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Ferret Diet Basics: Obligate Carnivore Nutrition, High-Fat Requirements & Insulinoma Prevention",
     "excerpt": "A definitive veterinary nutrition guide for domestic ferrets—analyzing rapid gut transit time (3-4 hours), strict zero-carbohydrate requirements, raw vs kibble formulations, and pancreatic beta-cell insulinoma etiology.",
     "category": "Small Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-23T00:00:00Z",
     "tags": [
         "ferret diet basics",
         "ferret nutrition obligate carnivore",
@@ -4085,7 +4085,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Safe Pet Weight Loss: Veterinary RER Calculations, Safe Caloric Deficits & Satiety Strategies",
     "excerpt": "A clinical guide to reversing companion animal obesity—covering Rested Energy Requirement (RER) calculations, weekly safe weight loss percentages (1-2% in dogs, 0.5-1% in cats), preventing feline hepatic lipidosis, and therapeutic fiber satiety.",
     "category": "Nutrition & Portions",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-26T00:00:00Z",
     "tags": [
         "pet weight loss",
         "dog weight loss diet",
@@ -4144,7 +4144,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Poultry Biosecurity Guide: Preventing Avian Influenza, Marek's Disease & Flock Pathogens",
     "excerpt": "An authoritative agricultural & veterinary biosecurity protocol for backyard flocks and poultry keepers—covering Highly Pathogenic Avian Influenza (HPAI), boot dip sanitization, quarantine protocols, and wild waterfowl exclusion.",
     "category": "Farm & Livestock",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-26T00:00:00Z",
     "tags": [
         "poultry biosecurity",
         "avian influenza backyard chickens",
@@ -4203,7 +4203,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Complete Reptile Lighting Guide: Ferguson Zones, UVB Gradient Mapping & Halogen Basking",
     "excerpt": "A scientific masterclass in herpetological photobiology—featuring the UV-Index (UVI) scale, Ferguson Zones 1 through 4, T5-HO linear tubes vs Mercury Vapor, and infrared deep-tissue heating (IR-A vs IR-C).",
     "category": "Reptile Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-07-30T00:00:00Z",
     "tags": [
         "reptile lighting guide",
         "Ferguson zones reptile",
@@ -4262,7 +4262,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Cat Grooming by Coat Type: Shorthair, Longhair, Rex & Hairless Dermatological Care",
     "excerpt": "A breed-specific feline dermatological grooming guide—exploring undercoat de-shedding, preventing painful pelted mats in Persians and Ragdolls, sebum absorption in Sphynx cats, and specialized Rex wavy coat maintenance.",
     "category": "Pet Health & Grooming",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-02T00:00:00Z",
     "tags": [
         "cat grooming by coat type",
         "longhair cat matting prevention",
@@ -4322,7 +4322,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Canine Noise Aversion & Phobias: Neurobiology, Thunderstorm Protocols & Psychopharmacology",
     "excerpt": "An advanced veterinary neuro-behavioral guide on canine noise reactivity—covering amygdala fear pathways, acute psychopharmacology (Sileo, Trazodone), why Acepromazine is strictly contraindicated, and environmental sheltering.",
     "category": "Dog Behavior & Training",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-02T00:00:00Z",
     "tags": [
         "noise phobia dogs",
         "thunderstorm anxiety dogs",
@@ -4381,7 +4381,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Exotic Pet Humidity Management: Psychrometrics, Substrates & Microclimate Engineering",
     "excerpt": "A masterclass in enclosure thermodynamics and moisture dynamics—covering Relative Humidity (RH), psychrometric vapor pressure deficits, sensor calibration, and microclimate creation.",
     "category": "Exotic Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-05T00:00:00Z",
     "tags": [
         "exotic pet humidity",
         "terrarium humidity control",
@@ -4440,7 +4440,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Reptile Metabolic Bone Disease (MBD): Pathophysiology, Calcium Homeostasis & Clinical Reversal",
     "excerpt": "An exhaustive clinical treatise on Nutritional Secondary Hyperparathyroidism (NSHP) in reptiles—covering calcium:phosphorus kinetics, the calcitriol hormone cascade, rubber jaw pathology, and emergency rescue protocols.",
     "category": "Reptile Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-09T00:00:00Z",
     "tags": [
         "reptile mbd prevention",
         "nutritional secondary hyperparathyroidism",
@@ -4499,7 +4499,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Winter Care for Senior Dogs: Osteoarthritis Management, Thermal Physiology & Hypothermia Defense",
     "excerpt": "A clinical geriatric veterinary guide on protecting aging canines during sub-freezing weather—covering synovial fluid viscosity, multi-modal osteoarthritis therapy, hypothermia prevention, and traction engineering.",
     "category": "Dog Care & Aging",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-09T00:00:00Z",
     "tags": [
         "winter care senior dogs",
         "canine osteoarthritis winter",
@@ -4558,7 +4558,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Freshwater Fish Disease Pathology: Ich, Columnaris, Dropsy & Antimicrobial Protocols",
     "excerpt": "A masterclass in aquatic veterinary diagnostics—analyzing the Ichthyophthirius multifiliis life cycle, Columnaris vs fungal differentiation, the Dropsy ascites cascade, and precision hospital tank treatments.",
     "category": "Aquatic Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-12T00:00:00Z",
     "tags": [
         "freshwater fish diseases",
         "ichthyophthirius multifiliis ich",
@@ -4617,7 +4617,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Small Dairy Herd Management: Mastitis Prevention, Rotational Grazing & Milking Hygiene",
     "excerpt": "An authoritative agricultural and veterinary guide for homesteaders and small dairy producers—covering ruminal VFA biochemistry, pre/post milking teat sanitation, California Mastitis Testing (CMT), and paddock management.",
     "category": "Farm & Livestock",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-16T00:00:00Z",
     "tags": [
         "small dairy herd management",
         "mastitis prevention dairy cows",
@@ -4677,7 +4677,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Dog DNA Tests Explained: Genotyping Accuracy, Breed Identification & Genetic Health Screening",
     "excerpt": "A veterinary genomics masterclass—analyzing SNP microarray chip technology, reference biobank breed algorithms, Mendelian health mutation detection (MDR1, PRA, DM), and inbreeding coefficients (COI).",
     "category": "Dog Health & Veterinary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-16T00:00:00Z",
     "tags": [
         "dog dna tests explained",
         "canine genetic health testing",
@@ -4736,7 +4736,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Top Beginner Tarantula Species: Terrestrial Care, Docile Temperaments & Enclosure Setups",
     "excerpt": "A specialist arachnological guide for beginner tarantula keepers—covering New World vs Old World venomics, urticating setae defenses, the top 5 docile terrestrial species, and critical fall-height physics.",
     "category": "Exotic Invertebrates",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-19T00:00:00Z",
     "tags": [
         "beginner tarantula species",
         "grammostola pulchra care",
@@ -4795,7 +4795,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Shelter Breed Labels & Visual Identification: Canine Genetics, Phenotypes & Adoption Bias",
     "excerpt": "A landmark scientific analysis of shelter breed labeling—exploring genetic vs visual discrepancies, length-of-stay (LOS) adoption economics, breed-specific legislation (BSL), and behavior-based matchmaking.",
     "category": "Dog Adoption & Welfare",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-23T00:00:00Z",
     "tags": [
         "shelter breed labels",
         "visual breed identification dogs",
@@ -4854,7 +4854,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Aquarium Quarantine Tank: Protocol, Prophylactic Medications & Biosecurity",
     "excerpt": "A masterclass in aquatic biosecurity—analyzing bare-bottom glass quarantine tank engineering, biological filtration seeding, the clinical 'Medication Trio' protocol, and pathogen exclusion.",
     "category": "Aquatic Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-23T00:00:00Z",
     "tags": [
         "aquarium quarantine tank",
         "quarantine tank setup fish",
@@ -4913,7 +4913,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Canine Calming Den: Acoustic Engineering, Tactile Comfort & Anxiety De-Escalation",
     "excerpt": "A behavioral veterinary engineering blueprint for designing an acoustic, tactile canine safe haven—covering structural sound isolation, low-frequency pink noise, DAP pheromones, and the free-access rule.",
     "category": "Dog Behavior & Training",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-26T00:00:00Z",
     "tags": [
         "calming den setup",
         "dog safe haven anxiety",
@@ -4973,7 +4973,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Bioactive Terrariums: The Science of Clean-Up Crews, Soil Microbes & Nitrogen Cycles",
     "excerpt": "An evidence-based ecological engineering guide to self-sustaining terrariums—covering detritivore Clean-Up Crew (CUC) biology, Atlanta Botanical Garden (ABG) substrate formulation, saprophytic fungal succession, and nitrogen cycling.",
     "category": "Exotic Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-30T00:00:00Z",
     "tags": [
         "bioactive terrarium",
         "clean up crew reptiles",
@@ -5032,7 +5032,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Chameleon Humidity & Hydration: The Science of Dew, Foggers & Renal Gout Prevention",
     "excerpt": "A specialist herpetological veterinary guide to chameleon hydration physiology—covering nocturnal fogging cycles, drinking triggers, visceral gout prevention, and sinus flushing mechanics.",
     "category": "Reptile Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-08-30T00:00:00Z",
     "tags": [
         "chameleon humidity hydration",
         "chameleon renal gout",
@@ -5091,7 +5091,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Small Pet Obesity: Rabbits, Guinea Pigs & Rodents — Pathophysiology & Weight Management",
     "excerpt": "A veterinary clinical guide to obesity in small herbivores and pocket pets—covering cecal stasis, flystrike risks from cecotrope neglect, hepatic lipidosis, and pododermatitis mechanics.",
     "category": "Small Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-02T00:00:00Z",
     "tags": [
         "small pet obesity",
         "rabbit obesity weight loss",
@@ -5150,7 +5150,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Metabolic Bone Disease Across Exotic Pets: Reptiles, Birds & Small Mammals",
     "excerpt": "A comparative veterinary treatise on calcium-phosphorus dysregulation across non-traditional species—analyzing hypocalcemic seizures in African Greys, sugar glider nutritional hyperparathyroidism, and reptile skeletal collapse.",
     "category": "Exotic Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-05T00:00:00Z",
     "tags": [
         "exotic pet mbd",
         "avian hypocalcemia african grey",
@@ -5209,7 +5209,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Canine Heatstroke: Core Temperature Thresholds, Clinical Staging & Emergency First Aid",
     "excerpt": "A critical emergency veterinary guide to canine heatstroke—covering evaporative panting failure, core temperatures exceeding 106°F (41.1°C), systemic inflammatory cascades (SIRS), and life-saving cooling protocols.",
     "category": "Dog Health & Veterinary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-06T00:00:00Z",
     "tags": [
         "heatstroke signs dogs",
         "canine heat exhaustion temperature",
@@ -5268,7 +5268,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Domestic Shorthairs & Mixed-Breed Cats: Genetics, Hybrid Vigor & Health Baselines",
     "excerpt": "An evidence-based feline genomics analysis—exploring Domestic Shorthair (DSH) landrace origins, coat color polygenics, true 'hybrid vigor' disease resistance, and lifelong veterinary baselines.",
     "category": "Cat Care & Breeds",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-09T00:00:00Z",
     "tags": [
         "mixed breed cats",
         "domestic shorthair genetics",
@@ -5328,7 +5328,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The First Month with a Ferret: Quarantine, Ferret-Proofing, Diet & Veterinary Baselines",
     "excerpt": "A definitive onboarding guide for new ferret owners—covering domestic ferret-proofing mechanics, recombinant distemper vaccination schedules, bite inhibition protocols, and obligate carnivore diet transitions.",
     "category": "Small Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-12T00:00:00Z",
     "tags": [
         "first month ferret",
         "ferret proofing home",
@@ -5387,7 +5387,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Flat-Faced Breeds in Summer: Brachycephalic Airway Syndrome & Heat Exhaustion Prevention",
     "excerpt": "An advanced veterinary surgical and physiological guide to Brachycephalic Obstructive Airway Syndrome (BOAS) in summer—covering Poiseuille's law of airway resistance, laryngeal edema, and emergency cooling.",
     "category": "Dog Health & Veterinary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-13T00:00:00Z",
     "tags": [
         "flat faced breeds heat",
         "brachycephalic airway syndrome heat",
@@ -5446,7 +5446,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Bioactive Vivarium Guide: Hardscaping, Epiphytes, Drainage Layers & Biotope Design",
     "excerpt": "A structural vivarium engineering masterclass—covering expanding foam hardscaping, non-toxic silicone sealing, subterranean drainage bulkheads, epiphyte integration, and tropical microclimate design.",
     "category": "Exotic Pet Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-16T00:00:00Z",
     "tags": [
         "bioactive vivarium guide",
         "vivarium false bottom LECA",
@@ -5505,7 +5505,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Reptile UVB Explained: Photobiology, The UV-Index Spectrum & Ferguson Zones",
     "excerpt": "A masterclass in herpetological photobiology—analyzing 290-315nm action spectrums, endogenous previtamin D3 synthesis, T5-HO vs coil degradation curves, and Solarmeter 6.5 calibration.",
     "category": "Reptile Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-19T00:00:00Z",
     "tags": [
         "reptile uvb explained",
         "photobiology reptile uv index",
@@ -5564,7 +5564,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Clinical Pet Itch Guide: Pruritus Mapping, Cytology & Targeted Therapeutics",
     "excerpt": "A definitive veterinary dermatology manual—covering neuro-immunologic itch pathways (IL-31), diagnostic in-house cytology algorithms, Favrot's criteria, and targeted molecular therapeutics (Apoquel, Cytopoint).",
     "category": "Pet Health & Veterinary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-20T00:00:00Z",
     "tags": [
         "pet itch guide",
         "dog pruritus causes",
@@ -5623,7 +5623,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "The Invertebrate Substrate Guide: Moisture Gradients, Burrow Integrity & Mite Defense",
     "excerpt": "An arachnological and entomological substrate manual—covering fossorial burrow cohesion, book lung respiration, grain mite eradication, and species-specific moisture matrices for tarantulas and isopods.",
     "category": "Exotic Invertebrates",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-23T00:00:00Z",
     "tags": [
         "invertebrate substrate guide",
         "tarantula substrate depth",
@@ -5683,7 +5683,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Equine Hoof Nutrition: Keratin Biochemistry, Biotin Dosing & Trace Mineral Synergy",
     "excerpt": "A veterinary clinical guide to equine hoof wall integrity—covering keratin protein biochemistry, daily biotin dosing protocols, zinc-to-copper ratios, and non-structural carbohydrate (NSC) thresholds.",
     "category": "Equine & Ruminant Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-26T00:00:00Z",
     "tags": [
         "hoof nutrition horses",
         "biotin dosage hoof quality",
@@ -5742,7 +5742,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Feline Affective Ethology: Micro-Expressions, Body Language & Signs of a Happy Cat",
     "excerpt": "A veterinary behavioral neuroscience guide to feline contentment—covering oxytocin slow-blinking, the upright question-mark tail, purring frequency acoustics (20-140 Hz), and facial pheromone bunting.",
     "category": "Cat Behavior & Psychology",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-27T00:00:00Z",
     "tags": [
         "happy cat signs",
         "feline body language contentment",
@@ -5801,7 +5801,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Tortoise Housing Blueprint: Indoor Tortoise Tables, Outdoor Enclosures & Substrate Microclimates",
     "excerpt": "A masterclass in chelonian habitat engineering—covering indoor open-topped tortoise tables, outdoor predator-proof grazing pens, scute pyramiding humidity physics, and subterranean barriers.",
     "category": "Reptile Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-09-30T00:00:00Z",
     "tags": [
         "tortoise housing guide",
         "indoor tortoise table build",
@@ -5860,7 +5860,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Lily Toxicity in Cats: Toxicokinetics, Renal Tubular Necrosis & Emergency ICU Protocols",
     "excerpt": "An urgent emergency veterinary clinical guide on feline lily poisoning—covering true lily toxicokinetics (Lilium & Hemerocallis), proximal tubular epithelial necrosis, and the 48-hour IV diuresis window.",
     "category": "Cat Health & Veterinary",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-10-03T00:00:00Z",
     "tags": [
         "lilies toxic cats",
         "lily poisoning cats emergency",
@@ -5919,7 +5919,7 @@ export const STATIC_BLOG_POSTS: Record<string, BlogPostData> = {
     "title": "Stuck Shed in Reptiles (Dysecdysis): Lymphatic Cleavage, Retained Spectacles & Tail Necrosis",
     "excerpt": "A herpetological veterinary dermatology manual—covering the cellular ecdysis cycle, microclimate hydration deficits, retained eye-cap (spectacle) removal, and ischemic tail necrosis prevention.",
     "category": "Reptile Care",
-    "published_at": "2026-09-15T00:00:00Z",
+    "published_at": "2026-10-04T00:00:00Z",
     "tags": [
         "stuck shed prevention reptiles",
         "reptile dysecdysis treatment",
