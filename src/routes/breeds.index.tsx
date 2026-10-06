@@ -61,7 +61,7 @@ function GridSkeleton() {
 
 function BreedsContent() {
   const { data: breeds } = useSuspenseQuery(breedsListQuery);
-  const [activeSpecies, setActiveSpecies] = useState<Species["slug"]>("dog");
+  const [activeSpecies, setActiveSpecies] = useState<Species["slug"] | "all">("all");
   const [query, setQuery] = useState("");
 
   const counts = useMemo(() => {
@@ -73,16 +73,38 @@ function BreedsContent() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return breeds
-      .filter((b) => b.species === activeSpecies)
+      .filter((b) => activeSpecies === "all" || b.species === activeSpecies)
       .filter((b) => (q ? b.name.toLowerCase().includes(q) || b.overview.toLowerCase().includes(q) : true));
   }, [breeds, activeSpecies, query]);
 
-  const activeMeta = SPECIES.find((s) => s.slug === activeSpecies)!;
+  const activeMeta = activeSpecies === "all"
+    ? { plural: "All breeds", description: `Browse all ${breeds.length} breed profiles across every species.` }
+    : SPECIES.find((s) => s.slug === activeSpecies)!;
 
   return (
     <div className="mt-10">
       {/* Species tabs */}
       <div className="flex flex-wrap gap-2">
+        <button
+          key="all"
+          type="button"
+          onClick={() => setActiveSpecies("all")}
+          className={[
+            "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition",
+            activeSpecies === "all"
+              ? "border-primary bg-primary text-primary-foreground"
+              : "border-border bg-card text-foreground hover:border-primary/40",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+          aria-pressed={activeSpecies === "all"}
+        >
+          <LucideIcons.PawPrint className="size-4" aria-hidden />
+          <span>All</span>
+          <span className={activeSpecies === "all" ? "text-primary-foreground/80" : "text-muted-foreground"}>
+            · {breeds.length}
+          </span>
+        </button>
         {SPECIES.map((s) => {
           const Icon = (LucideIcons as unknown as Record<string, LucideIcons.LucideIcon>)[s.icon] ??
             LucideIcons.PawPrint;

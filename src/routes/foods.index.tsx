@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Input } from "@/components/ui/input";
 import {
   foodsListQuery,
+  safetyMeta,
   type FoodRow,
   type SafetyLevel,
 } from "@/lib/foods";
