@@ -5189,7 +5189,7 @@
   },
   "pet-pill-identifier": {
     "name": "Identificador de Pastillas para Mascotas",
-    "description": "Busca más de 21 medicamentos veterinarios comunes por marca, genérico, forma o uso. Incluye para qué especies sirven, su aspecto típico y notas críticas de manejo, para confirmar una pastilla antes de administrarla.",
+    "description": "Busca 32 medicamentos veterinarios comunes por marca, genérico, forma o uso. Incluye para qué especies sirven, su aspecto típico y notas críticas de manejo, para confirmar una pastilla antes de administrarla.",
     "ui": {
       "searchLabel": "Busca por nombre, genérico, uso o forma",
       "searchPlaceholder": "p. ej., carprofeno, tableta blanca ranurada",

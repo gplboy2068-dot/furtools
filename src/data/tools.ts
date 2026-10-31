@@ -2109,15 +2109,15 @@ const RAW_TOOLS: Tool[] = [
     slug: "pet-pill-identifier",
     name: "Pill Identifier for Pets",
     tagline: "Look up common veterinary medications",
-    description: "Search 21+ common veterinary medications by brand name, generic, shape or use case. Includes species suitability, typical appearance, and critical handling notes so you can confirm a pill before you administer it.",
+    description: "Search 32 common veterinary medications by brand name, generic, shape or use case. Includes species suitability, typical appearance, and critical handling notes so you can confirm a pill before you administer it.",
     category: "general",
     keywords: ["pill identifier", "pet medication", "vet meds", "drug lookup", "medication safety"],
     layout: "calculator",
     featured: true, medicalDisclaimer: true,
-    howItWorks: "Type any part of the medication — brand, generic name, physical description, or what it treats — and filter by species. Results show what the drug is used for, how it looks, and species-specific warnings.",
+    howItWorks: "Type any part of the medication — brand, generic name, physical description, or what it treats — and filter by species or by form / shape. Results show what the drug is used for, how it looks, and species-specific warnings. This tool does not guess imprint codes: imprints vary by manufacturer and strength, so check an unknown pill with your vet or pharmacist instead.",
     examples: [
       { label: "Search: carprofen", result: "Rimadyl · NSAID for dog pain · chewable tablet" },
-      { label: "Search: white scored tablet", result: "Multiple matches — narrow by species" },
+      { label: "Search: white scored tablet", result: "Prednisone · steroid · white scored tablet" },
       { label: "Filter: cats only", result: "Cat-safe subset only (excludes dog-only NSAIDs)" },
     ],
     faqs: [

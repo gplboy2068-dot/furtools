@@ -5189,7 +5189,7 @@
   },
   "pet-pill-identifier": {
     "name": "Tiermedikament-Identifikator",
-    "description": "Finde 21+ gängige Tiermedikamente nach Markenname, Wirkstoff, Form oder Anwendungsfall. Mit Eignung je Tierart, typischem Aussehen und wichtigen Anwendungshinweisen — damit du eine Tablette vor der Gabe prüfen kannst.",
+    "description": "Finde 32 gängige Tiermedikamente nach Markenname, Wirkstoff, Form oder Anwendungsfall. Mit Eignung je Tierart, typischem Aussehen und wichtigen Anwendungshinweisen — damit du eine Tablette vor der Gabe prüfen kannst.",
     "ui": {
       "searchLabel": "Nach Name, Wirkstoff, Anwendung oder Form suchen",
       "searchPlaceholder": "z. B. Carprofen, weiße Tablette mit Bruchrille",

@@ -5189,14 +5189,14 @@
   },
   "pet-pill-identifier": {
     "name": "Pill Identifier for Pets",
-    "description": "Search 21+ common veterinary medications by brand name, generic, shape or use case. Includes species suitability, typical appearance, and critical handling notes so you can confirm a pill before you administer it.",
+    "description": "Search 32 common veterinary medications by brand name, generic, shape or use case. Includes species suitability, typical appearance, and critical handling notes so you can confirm a pill before you administer it.",
     "ui": {
       "searchLabel": "Search by name, generic, use, or shape",
       "searchPlaceholder": "e.g. carprofen, white scored tablet",
       "speciesLabel": "Species",
-      "speciesAll": "All",
-      "speciesDog": "Dog",
-      "speciesCat": "Cat",
+      "speciesAll": "All pets",
+      "speciesDog": "Dogs",
+      "speciesCat": "Cats",
       "databaseNote": "Database: {{count}} common veterinary medications. Always confirm identity with your vet before administering.",
       "noMatches": "No matches. Try a different keyword.",
       "genericLabel": "Generic: ",
@@ -5208,44 +5208,44 @@
       "appearanceLabel": "Appearance:",
       "med": {
         "apoquel": {
-          "use": "Itching & allergies (dogs)",
+          "use": "Itching and allergies",
           "form": "Tablet, scored, film-coated",
-          "notes": "Not for dogs <12 months."
+          "notes": "Not for dogs under 12 months."
         },
         "rimadyl": {
-          "use": "Pain & inflammation (dogs)",
+          "use": "Pain and inflammation",
           "form": "Chewable tablet or caplet",
           "notes": "NSAID — never combine with steroids."
         },
         "metacam": {
-          "use": "Pain & inflammation",
+          "use": "Pain and inflammation",
           "form": "Oral liquid",
           "notes": "Cats: single-use only in most regions."
         },
         "cerenia": {
           "use": "Anti-vomiting / motion sickness",
           "form": "Small round tablet",
-          "notes": "Give 2 h before travel."
+          "notes": "Give 2 hours before travel."
         },
         "heartgard-plus": {
           "use": "Heartworm prevention",
           "form": "Beef-flavored soft chew",
-          "notes": "Requires negative heartworm test first."
+          "notes": "Requires a negative heartworm test first."
         },
         "nexgard": {
-          "use": "Flea & tick prevention",
+          "use": "Flea and tick prevention",
           "form": "Soft chew",
-          "notes": "Isoxazoline class — history of seizures? discuss with vet."
+          "notes": "Isoxazoline class — history of seizures? Discuss with your vet."
         },
         "bravecto": {
-          "use": "Flea & tick (12 weeks)",
+          "use": "Flea and tick (12 weeks)",
           "form": "Chew or spot-on",
           "notes": "Isoxazoline class."
         },
         "frontline-plus": {
-          "use": "Flea & tick topical",
+          "use": "Flea and tick topical",
           "form": "Spot-on pipette",
-          "notes": "Do NOT use dog Frontline formulations on cats when concentration differs."
+          "notes": "Do NOT use dog formulations on cats when concentration differs."
         },
         "clavamox": {
           "use": "Broad-spectrum antibiotic",
@@ -5260,59 +5260,137 @@
         "denamarin": {
           "use": "Liver support",
           "form": "Blister-packed tablet",
-          "notes": "Give on empty stomach."
+          "notes": "Give on an empty stomach."
         },
         "gabapentin": {
           "use": "Pain, anxiety, seizures",
           "form": "Capsule or oral liquid",
           "notes": "Xylitol-free liquid formulation only for dogs."
         },
-        "trazodone": {
-          "use": "Situational anxiety",
-          "form": "White scored tablet",
-          "notes": "Common for vet visits or fireworks."
-        },
-        "vetmedin": {
-          "use": "Heart failure (dogs)",
+        "simparica": {
+          "use": "Flea and tick prevention",
           "form": "Chewable tablet",
-          "notes": "Give 1 h before food for best absorption."
+          "notes": "Isoxazoline class — use with caution in dogs with seizure history."
         },
-        "methimazole": {
-          "use": "Hyperthyroidism (cats)",
-          "form": "Small tablet or transdermal gel",
-          "notes": "Wear gloves when handling — human hormone risk."
+        "credelio": {
+          "use": "Flea and tick prevention",
+          "form": "Chewable tablet",
+          "notes": "Isoxazoline class; give with food."
         },
-        "insulin-vetsulin": {
-          "use": "Diabetes",
-          "form": "Injectable, cloudy suspension",
-          "notes": "Roll — never shake. Refrigerate."
+        "galliprant": {
+          "use": "Osteoarthritis pain",
+          "form": "Flavored tablet",
+          "notes": "Dog only; give on an empty stomach."
         },
-        "atopica": {
-          "use": "Atopic dermatitis",
-          "form": "Soft gelatin capsule",
-          "notes": "Give on empty stomach."
+        "onsior": {
+          "use": "Pain and inflammation (NSAID)",
+          "form": "Tablet",
+          "notes": "NSAID — do not combine with steroids or other NSAIDs."
         },
-        "milbemax": {
+        "reconcile": {
+          "use": "Anxiety and behavior problems",
+          "form": "Chewable tablet",
+          "notes": "Takes weeks for full effect; never stop abruptly."
+        },
+        "trazodone": {
+          "use": "Anxiety, sedation",
+          "form": "Tablet",
+          "notes": "May cause drowsiness — follow the timing your vet advises."
+        },
+        "baytril": {
+          "use": "Broad-spectrum antibiotic",
+          "form": "Tablet",
+          "notes": "Avoid in young growing animals unless your vet directs."
+        },
+        "cephalexin": {
+          "use": "Skin and soft-tissue antibiotic",
+          "form": "Capsule or tablet",
+          "notes": "Give with food if it upsets the stomach."
+        },
+        "metronidazole": {
+          "use": "Antibiotic / antiprotozoal (diarrhea, Giardia)",
+          "form": "Tablet or liquid",
+          "notes": "Bitter taste; high doses can cause neurologic signs — use only as prescribed."
+        },
+        "felimazole": {
+          "use": "Hyperthyroidism",
+          "form": "Coated tablet",
+          "notes": "Cat only; needs regular blood monitoring."
+        },
+        "vetoryl": {
+          "use": "Cushing disease",
+          "form": "Capsule",
+          "notes": "Give with food; needs regular monitoring."
+        },
+        "thyro-tabs": {
+          "use": "Hypothyroidism",
+          "form": "Tablet",
+          "notes": "Give on an empty stomach; lifelong therapy with blood monitoring."
+        },
+        "revolution": {
+          "use": "Flea, heartworm, ear mites, some worms",
+          "form": "Spot-on pipette",
+          "notes": "Topical only — never give by mouth."
+        },
+        "advantage-ii": {
+          "use": "Flea topical",
+          "form": "Spot-on pipette",
+          "notes": "Dog and cat formulas differ — never swap them."
+        },
+        "trifexis": {
+          "use": "Flea, heartworm, intestinal worms",
+          "form": "Chewable tablet",
+          "notes": "Dog only; give with food."
+        },
+        "sentinel": {
+          "use": "Heartworm, flea egg control, intestinal worms",
+          "form": "Flavored tablet",
+          "notes": "Controls flea eggs, not adult fleas."
+        },
+        "interceptor-plus": {
+          "use": "Heartworm + intestinal worms incl. tapeworm",
+          "form": "Chewable tablet",
+          "notes": "Dog only; give monthly as directed."
+        },
+        "drontal-plus": {
+          "use": "Broad dewormer (tapeworm, roundworm, hookworm, whipworm)",
+          "form": "Tablet",
+          "notes": "Dog only; may be given with food."
+        },
+        "panacur": {
           "use": "Dewormer",
-          "form": "Small film-coated tablet",
-          "notes": "Rule out heartworm first."
+          "form": "Granules, liquid, or tablet",
+          "notes": "Multi-day course — finish all doses."
         },
-        "otomax-mometamax": {
-          "use": "Ear infection",
-          "form": "Ear drops",
-          "notes": "Confirm eardrum is intact."
-        },
-        "enalapril": {
-          "use": "Heart failure & hypertension",
-          "form": "White scored tablet",
-          "notes": "ACE inhibitor — monitor kidney values."
-        },
-        "furosemide": {
-          "use": "Diuretic for heart failure",
-          "form": "White scored tablet",
-          "notes": "Ensure constant water access."
+        "benadryl": {
+          "use": "Allergies, itching, mild sedation",
+          "form": "Tablet, capsule, or liquid",
+          "notes": "OTC human product — use ONLY plain diphenhydramine; avoid combination formulas (decongestants like pseudoephedrine are toxic to pets)."
         }
-      }
+      },
+      "formLabel": "Form / shape",
+      "formAll": "All forms",
+      "formTablet": "Tablet",
+      "formCapsule": "Capsule",
+      "formChewable": "Chewable",
+      "formLiquid": "Liquid",
+      "formSpotOn": "Spot-on",
+      "formGranules": "Granules",
+      "imprintLabel": "Imprint code (letters/numbers printed on the pill)",
+      "imprintPlaceholder": "e.g. the code debossed on the tablet",
+      "imprintNote": "Why we do not guess imprint codes: the same medication is made by several manufacturers, and imprint codes change with strength and maker. Each entry below therefore lists only whether its imprint varies by manufacturer and strength, or whether it has no tablet imprint (chews, liquids and topicals). Always verify a code against the packaging or with your vet or pharmacist.",
+      "imprintCardLabel": "Imprint: ",
+      "imprintValue": {
+        "varies": "Varies by manufacturer and strength — verify against packaging",
+        "none": "No tablet imprint"
+      },
+      "resetFilters": "Reset filters",
+      "showingCount": "Showing {{count}} of {{total}} medications",
+      "unknownTitle": "Found an unknown pill?",
+      "unknownStep1": "Do not give it to your pet; keep the pill and its packaging.",
+      "unknownStep2": "Note colour, shape, size, and the exact imprint code.",
+      "unknownStep3": "Call your vet or pharmacist and read them the code.",
+      "unknownStep4": "In an emergency (pet already swallowed it), call your vet or a 24/7 animal poison control line immediately."
     }
   },
   "pet-poison-lookup": {

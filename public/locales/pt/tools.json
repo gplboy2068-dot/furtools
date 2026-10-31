@@ -5189,7 +5189,7 @@
   },
   "pet-pill-identifier": {
     "name": "Identificador de Comprimidos para Pets",
-    "description": "Pesquise mais de 21 medicamentos veterinários comuns por nome comercial, genérico, formato ou indicação. Inclui adequação por espécie, aparência típica e notas críticas de manuseio para confirmar um comprimido antes de administrar.",
+    "description": "Pesquise 32 medicamentos veterinários comuns por nome comercial, genérico, formato ou indicação. Inclui adequação por espécie, aparência típica e notas críticas de manuseio para confirmar um comprimido antes de administrar.",
     "ui": {
       "searchLabel": "Busque por nome, genérico, uso ou formato",
       "searchPlaceholder": "ex.: carprofeno, comprimido branco sulcado",

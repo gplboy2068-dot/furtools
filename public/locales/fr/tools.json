@@ -5189,7 +5189,7 @@
   },
   "pet-pill-identifier": {
     "name": "Identificateur de comprimés vétérinaires",
-    "description": "Recherchez plus de 21 médicaments vétérinaires courants par nom commercial, générique, forme ou usage. Inclut l'adéquation par espèce, l'aspect typique et les précautions de manipulation essentielles pour vérifier un comprimé avant de l'administrer.",
+    "description": "Recherchez 32 médicaments vétérinaires courants par nom commercial, générique, forme ou usage. Inclut l'adéquation par espèce, l'aspect typique et les précautions de manipulation essentielles pour vérifier un comprimé avant de l'administrer.",
     "ui": {
       "searchLabel": "Rechercher par nom, générique, usage ou forme",
       "searchPlaceholder": "ex. carpofène, comprimé blanc sécable",

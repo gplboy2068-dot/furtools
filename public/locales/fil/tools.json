@@ -5189,7 +5189,7 @@
   },
   "pet-pill-identifier": {
     "name": "Tagakilala ng Tableta para sa Pet",
-    "description": "Maghanap sa 21+ karaniwang beterinaryong gamot ayon sa brand name, generic, hugis o gamit. Kabilang ang pagiging angkop sa species, karaniwang hitsura, at mahahalagang paalala sa paghawak para makumpirma ang tableta bago ibigay.",
+    "description": "Maghanap sa 32 karaniwang beterinaryong gamot ayon sa brand name, generic, hugis o gamit. Kabilang ang pagiging angkop sa species, karaniwang hitsura, at mahahalagang paalala sa paghawak para makumpirma ang tableta bago ibigay.",
     "ui": {
       "searchLabel": "Maghanap sa pangalan, generic, gamit, o hugis",
       "searchPlaceholder": "hal. carprofen, white scored tablet",

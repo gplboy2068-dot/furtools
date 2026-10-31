@@ -164,45 +164,62 @@ export function SymptomCheckerWizard() {
    2. PILL IDENTIFIER FOR PETS
 ═══════════════════════════════════════════════════════════ */
 const PET_MEDS = [
-  { name: "Apoquel", generic: "oclacitinib", use: "Itching & allergies (dogs)", form: "Tablet, scored, film-coated", species: ["dog"], notes: "Not for dogs <12 months." },
-  { name: "Rimadyl", generic: "carprofen", use: "Pain & inflammation (dogs)", form: "Chewable tablet or caplet", species: ["dog"], notes: "NSAID — never combine with steroids." },
-  { name: "Metacam", generic: "meloxicam", use: "Pain & inflammation", form: "Oral liquid", species: ["dog", "cat"], notes: "Cats: single-use only in most regions." },
-  { name: "Cerenia", generic: "maropitant", use: "Anti-vomiting / motion sickness", form: "Small round tablet", species: ["dog", "cat"], notes: "Give 2 h before travel." },
-  { name: "Heartgard Plus", generic: "ivermectin + pyrantel", use: "Heartworm prevention", form: "Beef-flavored soft chew", species: ["dog"], notes: "Requires negative heartworm test first." },
-  { name: "NexGard", generic: "afoxolaner", use: "Flea & tick prevention", form: "Soft chew", species: ["dog"], notes: "Isoxazoline class — history of seizures? discuss with vet." },
-  { name: "Bravecto", generic: "fluralaner", use: "Flea & tick (12 weeks)", form: "Chew or spot-on", species: ["dog", "cat"], notes: "Isoxazoline class." },
-  { name: "Frontline Plus", generic: "fipronil + methoprene", use: "Flea & tick topical", form: "Spot-on pipette", species: ["dog", "cat"], notes: "Do NOT use dog Frontline formulations on cats when concentration differs." },
-  { name: "Clavamox", generic: "amoxicillin + clavulanate", use: "Broad-spectrum antibiotic", form: "Pink/off-white tablet or liquid", species: ["dog", "cat"], notes: "Refrigerate liquid; discard after 10 days." },
-  { name: "Prednisone", generic: "prednisone / prednisolone", use: "Steroid — inflammation, immune disease", form: "White scored tablet", species: ["dog", "cat"], notes: "Never stop abruptly — always taper." },
-  { name: "Denamarin", generic: "SAMe + silybin", use: "Liver support", form: "Blister-packed tablet", species: ["dog", "cat"], notes: "Give on empty stomach." },
-  { name: "Gabapentin", generic: "gabapentin", use: "Pain, anxiety, seizures", form: "Capsule or oral liquid", species: ["dog", "cat"], notes: "Xylitol-free liquid formulation only for dogs." },
-  { name: "Trazodone", generic: "trazodone", use: "Situational anxiety", form: "White scored tablet", species: ["dog", "cat"], notes: "Common for vet visits or fireworks." },
-  { name: "Vetmedin", generic: "pimobendan", use: "Heart failure (dogs)", form: "Chewable tablet", species: ["dog"], notes: "Give 1 h before food for best absorption." },
-  { name: "Methimazole", generic: "methimazole", use: "Hyperthyroidism (cats)", form: "Small tablet or transdermal gel", species: ["cat"], notes: "Wear gloves when handling — human hormone risk." },
-  { name: "Insulin (Vetsulin)", generic: "porcine insulin zinc", use: "Diabetes", form: "Injectable, cloudy suspension", species: ["dog", "cat"], notes: "Roll — never shake. Refrigerate." },
-  { name: "Atopica", generic: "cyclosporine", use: "Atopic dermatitis", form: "Soft gelatin capsule", species: ["dog", "cat"], notes: "Give on empty stomach." },
-  { name: "Milbemax", generic: "milbemycin + praziquantel", use: "Dewormer", form: "Small film-coated tablet", species: ["dog", "cat"], notes: "Rule out heartworm first." },
-  { name: "Otomax / Mometamax", generic: "gentamicin + betamethasone + clotrimazole", use: "Ear infection", form: "Ear drops", species: ["dog"], notes: "Confirm eardrum is intact." },
-  { name: "Enalapril", generic: "enalapril", use: "Heart failure & hypertension", form: "White scored tablet", species: ["dog", "cat"], notes: "ACE inhibitor — monitor kidney values." },
-  { name: "Furosemide", generic: "furosemide", use: "Diuretic for heart failure", form: "White scored tablet", species: ["dog", "cat"], notes: "Ensure constant water access." },
+  { name: "Apoquel", generic: "oclacitinib", use: "Itching and allergies", appearance: "Tablet, scored, film-coated", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "Not for dogs under 12 months." },
+  { name: "Rimadyl", generic: "carprofen", use: "Pain and inflammation", appearance: "Chewable tablet or caplet", forms: ["chewable"], species: ["dog"], imprint: "none", notes: "NSAID — never combine with steroids." },
+  { name: "Metacam", generic: "meloxicam", use: "Pain and inflammation", appearance: "Oral liquid", forms: ["liquid"], species: ["dog", "cat"], imprint: "none", notes: "Cats: single-use only in most regions." },
+  { name: "Cerenia", generic: "maropitant", use: "Anti-vomiting / motion sickness", appearance: "Small round tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "Give 2 hours before travel." },
+  { name: "Heartgard Plus", generic: "ivermectin + pyrantel", use: "Heartworm prevention", appearance: "Beef-flavored soft chew", forms: ["chewable"], species: ["dog"], imprint: "none", notes: "Requires a negative heartworm test first." },
+  { name: "NexGard", generic: "afoxolaner", use: "Flea and tick prevention", appearance: "Soft chew", forms: ["chewable"], species: ["dog"], imprint: "none", notes: "Isoxazoline class — history of seizures? Discuss with your vet." },
+  { name: "Bravecto", generic: "fluralaner", use: "Flea and tick (12 weeks)", appearance: "Chew or spot-on", forms: ["chewable", "spot-on"], species: ["dog", "cat"], imprint: "none", notes: "Isoxazoline class." },
+  { name: "Frontline Plus", generic: "fipronil + (S)-methoprene", use: "Flea and tick topical", appearance: "Spot-on pipette", forms: ["spot-on"], species: ["dog", "cat"], imprint: "none", notes: "Do NOT use dog formulations on cats when concentration differs." },
+  { name: "Clavamox", generic: "amoxicillin + clavulanate", use: "Broad-spectrum antibiotic", appearance: "Pink/off-white tablet or liquid", forms: ["tablet", "liquid"], species: ["dog", "cat"], imprint: "varies", notes: "Refrigerate liquid; discard after 10 days." },
+  { name: "Prednisone", generic: "prednisone / prednisolone", use: "Steroid — inflammation, immune disease", appearance: "White scored tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "Never stop abruptly — always taper." },
+  { name: "Denamarin", generic: "SAMe + silybin", use: "Liver support", appearance: "Blister-packed tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "Give on an empty stomach." },
+  { name: "Gabapentin", generic: "gabapentin", use: "Pain, anxiety, seizures", appearance: "Capsule or oral liquid", forms: ["capsule", "liquid"], species: ["dog", "cat"], imprint: "varies", notes: "Xylitol-free liquid formulation only for dogs." },
+  { name: "Simparica", generic: "sarolaner", use: "Flea and tick prevention", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog"], imprint: "none", notes: "Isoxazoline class — use with caution in dogs with seizure history." },
+  { name: "Credelio", generic: "lotilaner", use: "Flea and tick prevention", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog", "cat"], imprint: "none", notes: "Isoxazoline class; give with food." },
+  { name: "Galliprant", generic: "grapiprant", use: "Osteoarthritis pain", appearance: "Flavored tablet", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "Dog only; give on an empty stomach." },
+  { name: "Onsior", generic: "robenacoxib", use: "Pain and inflammation (NSAID)", appearance: "Tablet", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "NSAID — do not combine with steroids or other NSAIDs." },
+  { name: "Reconcile", generic: "fluoxetine", use: "Anxiety and behavior problems", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog", "cat"], imprint: "none", notes: "Takes weeks for full effect; never stop abruptly." },
+  { name: "Trazodone", generic: "trazodone", use: "Anxiety, sedation", appearance: "Tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "May cause drowsiness — follow the timing your vet advises." },
+  { name: "Baytril", generic: "enrofloxacin", use: "Broad-spectrum antibiotic", appearance: "Tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "Avoid in young growing animals unless your vet directs." },
+  { name: "Cephalexin", generic: "cephalexin", use: "Skin and soft-tissue antibiotic", appearance: "Capsule or tablet", forms: ["capsule", "tablet"], species: ["dog", "cat"], imprint: "varies", notes: "Give with food if it upsets the stomach." },
+  { name: "Metronidazole", generic: "metronidazole", use: "Antibiotic / antiprotozoal (diarrhea, Giardia)", appearance: "Tablet or liquid", forms: ["tablet", "liquid"], species: ["dog", "cat"], imprint: "varies", notes: "Bitter taste; high doses can cause neurologic signs — use only as prescribed." },
+  { name: "Felimazole", generic: "methimazole", use: "Hyperthyroidism", appearance: "Coated tablet", forms: ["tablet"], species: ["cat"], imprint: "varies", notes: "Cat only; needs regular blood monitoring." },
+  { name: "Vetoryl", generic: "trilostane", use: "Cushing disease", appearance: "Capsule", forms: ["capsule"], species: ["dog"], imprint: "varies", notes: "Give with food; needs regular monitoring." },
+  { name: "Thyro-Tabs", generic: "levothyroxine", use: "Hypothyroidism", appearance: "Tablet", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "Give on an empty stomach; lifelong therapy with blood monitoring." },
+  { name: "Revolution", generic: "selamectin", use: "Flea, heartworm, ear mites, some worms", appearance: "Spot-on pipette", forms: ["spot-on"], species: ["dog", "cat"], imprint: "none", notes: "Topical only — never give by mouth." },
+  { name: "Advantage II", generic: "imidacloprid + pyriproxyfen", use: "Flea topical", appearance: "Spot-on pipette", forms: ["spot-on"], species: ["dog", "cat"], imprint: "none", notes: "Dog and cat formulas differ — never swap them." },
+  { name: "Trifexis", generic: "spinosad + milbemycin oxime", use: "Flea, heartworm, intestinal worms", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog"], imprint: "none", notes: "Dog only; give with food." },
+  { name: "Sentinel", generic: "milbemycin oxime + lufenuron", use: "Heartworm, flea egg control, intestinal worms", appearance: "Flavored tablet", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "Controls flea eggs, not adult fleas." },
+  { name: "Interceptor Plus", generic: "milbemycin oxime + praziquantel", use: "Heartworm + intestinal worms incl. tapeworm", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog"], imprint: "none", notes: "Dog only; give monthly as directed." },
+  { name: "Drontal Plus", generic: "praziquantel + pyrantel + febantel", use: "Broad dewormer (tapeworm, roundworm, hookworm, whipworm)", appearance: "Tablet", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "Dog only; may be given with food." },
+  { name: "Panacur", generic: "fenbendazole", use: "Dewormer", appearance: "Granules, liquid, or tablet", forms: ["granules", "liquid", "tablet"], species: ["dog", "cat"], imprint: "varies", notes: "Multi-day course — finish all doses." },
+  { name: "Benadryl", generic: "diphenhydramine", use: "Allergies, itching, mild sedation", appearance: "Tablet, capsule, or liquid", forms: ["tablet", "capsule", "liquid"], species: ["dog", "cat"], imprint: "varies", notes: "OTC human product — use ONLY plain diphenhydramine; avoid combination formulas (decongestants like pseudoephedrine are toxic to pets)." },
 ];
 
 export function PillIdentifierForPets() {
   const { t } = useTranslation("tools");
   const [q, setQ] = useState("");
   const [species, setSpecies] = useState<string>("all");
+  const [form, setForm] = useState<string>("all");
+  const [imprint, setImprint] = useState("");
+  const imprintEntered = imprint.trim().length > 0;
   const results = useMemo(() => {
-    const query = q.trim().toLowerCase();
+    // Safety rule: this database contains no real imprint codes (they vary by
+    // manufacturer and strength), so any entered imprint code is unknown.
+    // Never guess a match — return zero results and show the safety box.
+    if (imprintEntered) return [];
+    const words = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return PET_MEDS.filter((m) => {
       const speciesOk = species === "all" || m.species.includes(species);
-      const textOk = !query ||
-        m.name.toLowerCase().includes(query) ||
-        m.generic.toLowerCase().includes(query) ||
-        m.use.toLowerCase().includes(query) ||
-        m.form.toLowerCase().includes(query);
-      return speciesOk && textOk;
+      const formOk = form === "all" || m.forms.includes(form);
+      const haystack = `${m.name} ${m.generic} ${m.use} ${m.appearance}`.toLowerCase();
+      const textOk = words.every((w) => haystack.includes(w));
+      return speciesOk && formOk && textOk;
     });
-  }, [q, species]);
+  }, [q, species, form, imprintEntered]);
+  const resetFilters = () => { setQ(""); setSpecies("all"); setForm("all"); setImprint(""); };
 
   return (
     <CalculatorLayout
@@ -226,13 +243,48 @@ export function PillIdentifierForPets() {
               </SelectContent>
             </Select>
           </div>
+          <div>
+            <Label>{t("pet-pill-identifier.ui.formLabel")}</Label>
+            <Select value={form} onValueChange={setForm}>
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t("pet-pill-identifier.ui.formAll")}</SelectItem>
+                <SelectItem value="tablet">{t("pet-pill-identifier.ui.formTablet")}</SelectItem>
+                <SelectItem value="capsule">{t("pet-pill-identifier.ui.formCapsule")}</SelectItem>
+                <SelectItem value="chewable">{t("pet-pill-identifier.ui.formChewable")}</SelectItem>
+                <SelectItem value="liquid">{t("pet-pill-identifier.ui.formLiquid")}</SelectItem>
+                <SelectItem value="spot-on">{t("pet-pill-identifier.ui.formSpotOn")}</SelectItem>
+                <SelectItem value="granules">{t("pet-pill-identifier.ui.formGranules")}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label>{t("pet-pill-identifier.ui.imprintLabel")}</Label>
+            <Input value={imprint} onChange={(e) => setImprint(e.target.value)} placeholder={t("pet-pill-identifier.ui.imprintPlaceholder")} className="mt-1.5" />
+            <p className="mt-1.5 text-xs text-muted-foreground">{t("pet-pill-identifier.ui.imprintNote")}</p>
+          </div>
+          <Button type="button" variant="outline" onClick={resetFilters} className="w-full">{t("pet-pill-identifier.ui.resetFilters")}</Button>
           <p className="text-xs text-muted-foreground">{t("pet-pill-identifier.ui.databaseNote", { count: PET_MEDS.length })}</p>
         </div>
       }
       result={
         <div className="space-y-3">
-          {results.length === 0 && <p className="text-sm text-muted-foreground text-center">{t("pet-pill-identifier.ui.noMatches")}</p>}
-          {results.slice(0, 12).map((m) => (
+          <p className="text-sm font-medium text-foreground">{t("pet-pill-identifier.ui.showingCount", { count: results.length, total: PET_MEDS.length })}</p>
+          {imprintEntered && (
+            <div className="rounded-lg border border-destructive/40 bg-destructive/5 p-4">
+              <div className="flex items-center gap-2 text-sm font-semibold text-destructive">
+                <ShieldAlert className="h-4 w-4" /> {t("pet-pill-identifier.ui.unknownTitle")}
+              </div>
+              <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-foreground">
+                <li>{t("pet-pill-identifier.ui.unknownStep1")}</li>
+                <li>{t("pet-pill-identifier.ui.unknownStep2")}</li>
+                <li>{t("pet-pill-identifier.ui.unknownStep3")}</li>
+                <li>{t("pet-pill-identifier.ui.unknownStep4")}</li>
+              </ol>
+            </div>
+          )}
+          {!imprintEntered && results.length === 0 && <p className="text-sm text-muted-foreground text-center">{t("pet-pill-identifier.ui.noMatches")}</p>}
+          {results.map((m) => (
             <div key={m.name} className="rounded-lg border border-border bg-card p-3">
               <div className="flex items-start justify-between gap-2">
                 <div>
@@ -246,6 +298,7 @@ export function PillIdentifierForPets() {
               <div className="mt-2 space-y-1 text-sm">
                 <p><span className="text-muted-foreground">{t("pet-pill-identifier.ui.useLabel")}</span> {t(`pet-pill-identifier.ui.med.${slugify(m.name)}.use`)}</p>
                 <p><span className="text-muted-foreground">{t("pet-pill-identifier.ui.appearanceLabel")}</span> {t(`pet-pill-identifier.ui.med.${slugify(m.name)}.form`)}</p>
+                <p><span className="text-muted-foreground">{t("pet-pill-identifier.ui.imprintCardLabel")}</span> {t(`pet-pill-identifier.ui.imprintValue.${m.imprint}`)}</p>
                 <p className="text-xs text-muted-foreground italic">⚠ {t(`pet-pill-identifier.ui.med.${slugify(m.name)}.notes`)}</p>
               </div>
             </div>
