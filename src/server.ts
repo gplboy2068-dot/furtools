@@ -114,6 +114,78 @@ export default {
       }
     }
 
+    // TEMPORARY one-time Supabase backup export (token-gated). Remove after use.
+    if (url.pathname === "/api/export-backup-7f3a" && request.method === "GET") {
+      const EXPORT_TOKEN_SHA256 = "e69a0fdf0693c569426e005058bd85753c3781816a9ca28a71a94b7462c7393b";
+      const presented = request.headers.get("x-export-token") || "";
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(presented));
+      const presentedHash = Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+      if (!presented || presentedHash !== EXPORT_TOKEN_SHA256) {
+        return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers: { "content-type": "application/json" } });
+      }
+      const envAny = (cfEnv as any) || {};
+      const supaUrl = envAny.SUPABASE_URL || process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "";
+      const serviceKey = envAny.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+      if (!supaUrl || !serviceKey) {
+        return new Response(JSON.stringify({ error: "Supabase env not configured on worker", hasUrl: Boolean(supaUrl), hasServiceKey: Boolean(serviceKey) }), { status: 500, headers: { "content-type": "application/json" } });
+      }
+      const headers: Record<string, string> = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
+      const TABLES = ["ads_placements","affiliate_links","analytics_events","blog_posts","breeds","category_overrides","email_templates","faqs","foods","generated_names","internal_links","media","newsletter_subscribers","pet_health_logs","pet_reminders","pets","profiles","site_settings","species_catalog","tool_overrides","user_roles"];
+      const countOf = async (table: string): Promise<number | null> => {
+        const r = await fetch(`${supaUrl}/rest/v1/${table}?select=*&limit=0`, { headers: { ...headers, Prefer: "count=exact" } });
+        if (!r.ok) return null;
+        const cr = r.headers.get("content-range") || "";
+        const total = parseInt(cr.split("/")[1] || "", 10);
+        return Number.isFinite(total) ? total : null;
+      };
+      try {
+        const table = url.searchParams.get("table");
+        if (!table) {
+          const counts: Record<string, number | null> = {};
+          for (const t of TABLES) counts[t] = await countOf(t);
+          let authTotal: number | null = null;
+          try {
+            const ar = await fetch(`${supaUrl}/auth/v1/admin/users?page=1&per_page=1`, { headers });
+            if (ar.ok) { const aj: any = await ar.json(); authTotal = typeof aj.total === "number" ? aj.total : (aj.users?.length ?? null); }
+          } catch { /* ignore */ }
+          return new Response(JSON.stringify({ exported_at: new Date().toISOString(), tables: counts, auth_users: authTotal }), { headers: { "content-type": "application/json" } });
+        }
+        if (table === "__auth_users") {
+          const users: any[] = [];
+          let page = 1;
+          for (;;) {
+            const r = await fetch(`${supaUrl}/auth/v1/admin/users?page=${page}&per_page=100`, { headers });
+            if (!r.ok) return new Response(JSON.stringify({ table, error: `auth admin ${r.status}` }), { status: 502, headers: { "content-type": "application/json" } });
+            const j: any = await r.json();
+            const batch = j.users || [];
+            users.push(...batch);
+            if (batch.length < 100) break;
+            page++;
+          }
+          return new Response(JSON.stringify({ table: "auth_users", total: users.length, rows: users }), { headers: { "content-type": "application/json" } });
+        }
+        if (!TABLES.includes(table)) {
+          return new Response(JSON.stringify({ error: "Unknown table" }), { status: 400, headers: { "content-type": "application/json" } });
+        }
+        const total = await countOf(table);
+        if (total === null) {
+          return new Response(JSON.stringify({ table, total: null, rows: [], note: "table missing or not readable" }), { headers: { "content-type": "application/json" } });
+        }
+        const rows: any[] = [];
+        const PAGE = 200;
+        for (let offset = 0; offset < total; offset += PAGE) {
+          const r = await fetch(`${supaUrl}/rest/v1/${table}?select=*&limit=${PAGE}&offset=${offset}`, { headers });
+          if (!r.ok) return new Response(JSON.stringify({ table, error: `rest ${r.status} at offset ${offset}` }), { status: 502, headers: { "content-type": "application/json" } });
+          const batch: any = await r.json();
+          if (!Array.isArray(batch) || batch.length === 0) break;
+          rows.push(...batch);
+        }
+        return new Response(JSON.stringify({ table, total, rows }), { headers: { "content-type": "application/json" } });
+      } catch (err: any) {
+        return new Response(JSON.stringify({ error: err?.message || "Export failed" }), { status: 500, headers: { "content-type": "application/json" } });
+      }
+    }
+
     // Fast-path API: Pets (Cloudflare D1)
     if (url.pathname === "/api/pets") {
       try {
