@@ -300,20 +300,6 @@ export default {
           await logAttempt("d1-google", true, `email=${profile.email}`);
           return jsonRes({ success: true, token, user: { ...pub, picture: pub.avatarUrl, googleId: profile.sub } });
         }
-        if (action === "role-fix" && request.method === "POST") {
-          // TEMPORARY token-gated role repair (remove after admin setup is complete).
-          const ROLEFIX_TOKEN_SHA256 = "e69a0fdf0693c569426e005058bd85753c3781816a9ca28a71a94b7462c7393b";
-          const presented = request.headers.get("x-bootstrap-token") || "";
-          if (!presented || (await sha256Hex(presented)) !== ROLEFIX_TOKEN_SHA256) return jsonRes({ error: "Forbidden" }, 403);
-          const body = await readBody();
-          const email = String(body.email || "").trim().toLowerCase();
-          const u = (await db.prepare("SELECT id FROM users WHERE email = ? LIMIT 1").bind(email).first()) as any;
-          if (!u) return jsonRes({ error: "No D1 account with that email" }, 404);
-          await db.prepare("DELETE FROM user_roles WHERE user_id = ?").bind(u.id).run();
-          const role = body.admin === true ? "admin" : "user";
-          await db.prepare("INSERT INTO user_roles (id, user_id, role) VALUES (?, ?, ?)").bind(crypto.randomUUID(), u.id, role).run();
-          return jsonRes({ success: true, email, role });
-        }
         if (action === "attempts" && request.method === "GET") {
           const ATTEMPTS_TOKEN_SHA256 = "e69a0fdf0693c569426e005058bd85753c3781816a9ca28a71a94b7462c7393b";
           const presented = request.headers.get("x-bootstrap-token") || "";
