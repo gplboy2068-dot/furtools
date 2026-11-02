@@ -277,6 +277,11 @@ export async function getActiveUser(): Promise<ActiveUser | null> {
       provider: "email",
     };
   }
+  // Self-heal: if the Google -> D1 exchange never landed (e.g. it was
+  // interrupted by navigation), retry it so the account registers in D1.
+  if (!session.d1Token && session.token) {
+    exchangeD1GoogleSession(session.token);
+  }
   const userUuid = session.userId || googleIdToUuid(session.user.googleId || session.user.email);
   return {
     id: userUuid,
