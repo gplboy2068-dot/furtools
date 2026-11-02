@@ -85,7 +85,18 @@ export default {
         const verifyRes = await fetch(
           `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`
         );
+        const logVerify = async (ok: boolean, detail: string) => {
+          try {
+            const { getD1 } = await import("./lib/cloudflare-context");
+            const vdb = getD1();
+            if (vdb) {
+              await vdb.prepare("CREATE TABLE IF NOT EXISTS auth_attempts (id INTEGER PRIMARY KEY AUTOINCREMENT, at TEXT DEFAULT (datetime('now')), source TEXT, ok INTEGER, detail TEXT)").run();
+              await vdb.prepare("INSERT INTO auth_attempts (source, ok, detail) VALUES ('google-verify', ?, ?)").bind(ok ? 1 : 0, detail.slice(0, 300)).run();
+            }
+          } catch { /* logging must never break login */ }
+        };
         if (!verifyRes.ok) {
+          await logVerify(false, `tokeninfo status ${verifyRes.status}`);
           return new Response(JSON.stringify({ success: false, error: "Invalid Google token" }), {
             status: 401,
             headers: { "content-type": "application/json" },
@@ -93,6 +104,7 @@ export default {
         }
 
         const info = (await verifyRes.json()) as any;
+        await logVerify(true, `email=${info.email || "?"} aud=${info.aud || "?"}`);
         const user = {
           googleId: info.sub,
           email: info.email,
@@ -128,6 +140,10 @@ export default {
           await db.prepare("CREATE TABLE IF NOT EXISTS auth_sessions (token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL, expires_at TEXT NOT NULL, created_at TEXT DEFAULT (datetime('now')))").run();
           await db.prepare("CREATE TABLE IF NOT EXISTS profiles (id TEXT PRIMARY KEY, display_name TEXT, avatar_url TEXT, created_at TEXT DEFAULT (datetime('now')), updated_at TEXT DEFAULT (datetime('now')))").run();
           await db.prepare("CREATE TABLE IF NOT EXISTS user_roles (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'user', created_at TEXT DEFAULT (datetime('now')))").run();
+          await db.prepare("CREATE TABLE IF NOT EXISTS auth_attempts (id INTEGER PRIMARY KEY AUTOINCREMENT, at TEXT DEFAULT (datetime('now')), source TEXT, ok INTEGER, detail TEXT)").run();
+        };
+        const logAttempt = async (source: string, ok: boolean, detail: string) => {
+          try { await db.prepare("INSERT INTO auth_attempts (source, ok, detail) VALUES (?, ?, ?)").bind(source, ok ? 1 : 0, String(detail).slice(0, 300)).run(); } catch { /* never break login */ }
         };
         await ensureTables();
 
@@ -255,19 +271,19 @@ export default {
           let profile: { sub: string; email: string; name: string; picture: string } | null = null;
           if (body.credential) {
             const verifyRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=<redacted>}`);
-            if (!verifyRes.ok) return jsonRes({ error: "Invalid Google token" }, 401);
+            if (!verifyRes.ok) { await logAttempt("d1-google", false, `credential tokeninfo status ${verifyRes.status}`); return jsonRes({ error: "Invalid Google token" }, 401); }
             const info: any = await verifyRes.json();
             const allowedAud = ["426028123282-fo5a37hr1r05pia9oh99tu38iuefiqlk.apps.googleusercontent.com", (cfEnv as any)?.VITE_GOOGLE_CLIENT_ID || process.env.VITE_GOOGLE_CLIENT_ID || ""];
-            if (!allowedAud.includes(info.aud)) return jsonRes({ error: "Google token audience mismatch" }, 401);
-            if (!(info.email_verified === "true" || info.email_verified === true)) return jsonRes({ error: "Google email is not verified" }, 401);
+            if (!allowedAud.includes(info.aud)) { await logAttempt("d1-google", false, `aud mismatch aud=${info.aud} email=${info.email || "?"}`); return jsonRes({ error: "Google token audience mismatch" }, 401); }
+            if (!(info.email_verified === "true" || info.email_verified === true)) { await logAttempt("d1-google", false, `email not verified email=${info.email || "?"}`); return jsonRes({ error: "Google email is not verified" }, 401); }
             profile = { sub: info.sub, email: String(info.email).toLowerCase(), name: info.name || info.email, picture: info.picture || "" };
           } else if (body.accessToken) {
             const infoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { Authorization: `Bearer ${body.accessToken}` } });
-            if (!infoRes.ok) return jsonRes({ error: "Invalid Google access token" }, 401);
+            if (!infoRes.ok) { await logAttempt("d1-google", false, `accessToken userinfo status ${infoRes.status}`); return jsonRes({ error: "Invalid Google access token" }, 401); }
             const info: any = await infoRes.json();
             profile = { sub: info.sub, email: String(info.email).toLowerCase(), name: info.name || info.email, picture: info.picture || "" };
           }
-          if (!profile) return jsonRes({ error: "Missing Google credential" }, 400);
+          if (!profile) { await logAttempt("d1-google", false, "no credential or accessToken in body"); return jsonRes({ error: "Missing Google credential" }, 400); }
           let u = (await db.prepare("SELECT * FROM users WHERE google_id = ? LIMIT 1").bind(profile.sub).first()) as any;
           if (!u) u = (await db.prepare("SELECT * FROM users WHERE email = ? LIMIT 1").bind(profile.email).first()) as any;
           if (!u) {
@@ -281,6 +297,7 @@ export default {
           await upsertProfileRole(u.id, profile.name, profile.picture);
           const token = await createSession(u.id);
           const pub = await publicUser(u);
+          await logAttempt("d1-google", true, `email=${profile.email}`);
           return jsonRes({ success: true, token, user: { ...pub, picture: pub.avatarUrl, googleId: profile.sub } });
         }
         if (action === "role-fix" && request.method === "POST") {
@@ -296,6 +313,13 @@ export default {
           const role = body.admin === true ? "admin" : "user";
           await db.prepare("INSERT INTO user_roles (id, user_id, role) VALUES (?, ?, ?)").bind(crypto.randomUUID(), u.id, role).run();
           return jsonRes({ success: true, email, role });
+        }
+        if (action === "attempts" && request.method === "GET") {
+          const ATTEMPTS_TOKEN_SHA256 = "e69a0fdf0693c569426e005058bd85753c3781816a9ca28a71a94b7462c7393b";
+          const presented = request.headers.get("x-bootstrap-token") || "";
+          if (!presented || (await sha256Hex(presented)) !== ATTEMPTS_TOKEN_SHA256) return jsonRes({ error: "Forbidden" }, 403);
+          const { results } = await db.prepare("SELECT at, source, ok, detail FROM auth_attempts ORDER BY id DESC LIMIT 25").all();
+          return jsonRes({ attempts: results || [] });
         }
         if (action === "bootstrap-admin" && request.method === "POST") {
           // One-time admin bootstrap: token-gated and self-disabling once any admin exists.
