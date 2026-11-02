@@ -297,7 +297,8 @@ export function getGoogleOAuthUrl(clientId: string, redirectUri: string): string
   const options = {
     redirect_uri: redirectUri,
     client_id: clientId,
-    access_type: 'offline',
+    // NOTE: access_type=offline is only valid with response_type=code; with
+    // 'id_token token' Google rejects the request (Error 400 invalid_request).
     response_type: 'id_token token',
     prompt: 'select_account',
     nonce,
