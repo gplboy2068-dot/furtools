@@ -140,6 +140,12 @@ export default {
       };
       try {
         const table = url.searchParams.get("table");
+        if (url.searchParams.get("debug") === "1") {
+          const probe = await fetch(`${supaUrl}/rest/v1/blog_posts?select=*&limit=1`, { headers: { ...headers, Prefer: "count=exact" } });
+          const probeText = (await probe.text()).slice(0, 300);
+          const authProbe = await fetch(`${supaUrl}/auth/v1/health`, { headers });
+          return new Response(JSON.stringify({ restStatus: probe.status, restBody: probeText, authHealthStatus: authProbe.status }), { headers: { "content-type": "application/json" } });
+        }
         if (!table) {
           const counts: Record<string, number | null> = {};
           for (const t of TABLES) counts[t] = await countOf(t);
