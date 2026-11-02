@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { listTable, findRow, insertRow, updateRow, deleteRow } from "@/lib/admin-data";
 import { getActiveUser } from "@/lib/custom-google-auth";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/admin-shell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -47,18 +47,10 @@ function BlogAdmin() {
     }[] = [];
 
     try {
-      const { data, error } = await supabase
-        .from("blog_posts")
-        .select("id,slug,title,excerpt,cover_image,category,published,updated_at")
-        .order("updated_at", { ascending: false });
-
-      if (error) {
-        console.warn("Error fetching DB blog posts:", error.message);
-      } else if (data) {
-        dbPosts = data;
-      }
+      const { rows } = await listTable("blog_posts", { order: "updated_at", dir: "desc", limit: 2000 });
+      dbPosts = rows.map((r: any) => ({ ...r, published: r.published === 1 || r.published === true }));
     } catch (err) {
-      console.warn("Failed to load blog posts from Supabase:", err);
+      console.warn("Failed to load blog posts from D1:", err);
     }
 
     const items: PostItem[] = dbPosts.map((p) => ({
@@ -102,11 +94,7 @@ function BlogAdmin() {
       let updatedCount = 0;
 
       for (const sp of Object.values(STATIC_BLOG_POSTS)) {
-        const { data: existing } = await supabase
-          .from("blog_posts")
-          .select("id")
-          .eq("slug", sp.slug)
-          .maybeSingle();
+        const existing = await findRow("blog_posts", "slug", sp.slug);
 
         const payload = {
           title: sp.title,
@@ -121,15 +109,16 @@ function BlogAdmin() {
           ...(authorId ? { author_id: authorId } : {}),
         };
 
-        if (existing?.id) {
-          const { error: updErr } = await supabase
-            .from("blog_posts")
-            .update(payload)
-            .eq("id", existing.id);
-          if (!updErr) updatedCount++;
-        } else {
-          const { error: insErr } = await supabase.from("blog_posts").insert(payload);
-          if (!insErr) insertedCount++;
+        try {
+          if (existing?.id) {
+            await updateRow("blog_posts", existing.id, payload);
+            updatedCount++;
+          } else {
+            await insertRow("blog_posts", payload);
+            insertedCount++;
+          }
+        } catch {
+          /* skip individual failures */
         }
       }
 
@@ -162,15 +151,9 @@ function BlogAdmin() {
         ...(authorId ? { author_id: authorId } : {}),
       };
 
-      const { data, error } = await supabase
-        .from("blog_posts")
-        .insert(payload)
-        .select("id")
-        .single();
-
-      if (error) throw error;
+      const data = await insertRow("blog_posts", payload);
       toast.success(`Post "${sp.title}" is now saved in the database!`);
-      navigate({ to: "/admin/posts/$id", params: { id: data.id } });
+      navigate({ to: "/admin/posts/$id", params: { id: String((data as any).id) } });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Save to DB failed");
     }
@@ -182,8 +165,11 @@ function BlogAdmin() {
       return;
     }
     if (!confirm("Delete this post from the database?")) return;
-    const { error } = await supabase.from("blog_posts").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    try {
+      await deleteRow("blog_posts", id);
+    } catch (err) {
+      return toast.error(err instanceof Error ? err.message : "Delete failed");
+    }
     toast.success("Post deleted from database");
     await load();
   }

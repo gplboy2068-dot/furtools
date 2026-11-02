@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { listTable, upsertRow } from "@/lib/admin-data";
 import { getActiveUser } from "@/lib/custom-google-auth";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -289,16 +289,24 @@ function SettingsPage() {
   useEffect(() => {
     let mounted = true;
     (async () => {
-      const { data, error } = await supabase.from("site_settings").select("key, value");
-      if (!mounted) return;
-      if (error) {
-        toast.error(`Failed to load settings: ${error.message}`);
+      let data: Array<{ key: string; value: unknown }> = [];
+      try {
+        const { rows } = await listTable("site_settings", { limit: 2000 });
+        data = rows.map((r: any) => {
+          let v: unknown = r.value;
+          if (typeof v === "string") { try { v = JSON.parse(v); } catch { /* keep string */ } }
+          return { key: r.key as string, value: v };
+        });
+      } catch (err) {
+        if (!mounted) return;
+        toast.error(`Failed to load settings: ${err instanceof Error ? err.message : "unknown error"}`);
         setLoading(false);
         return;
       }
+      if (!mounted) return;
       const base = getDefaults();
-      for (const row of data ?? []) {
-        base[row.key] = (row as { value: unknown }).value;
+      for (const row of data) {
+        base[row.key] = row.value;
       }
       setValues(base);
       setInitialValues(JSON.parse(JSON.stringify(base)));
@@ -347,20 +355,8 @@ function SettingsPage() {
         setSaving(false);
         return;
       }
-      const { error } = await supabase
-        .from("site_settings")
-        .upsert(rows as never, { onConflict: "key" });
-      if (error) {
-        // If FK constraint failed on updated_by, retry without updated_by field
-        if (error.message?.includes("foreign key") || error.message?.includes("updated_by")) {
-          const fallbackRows = rows.map(({ key, value, category }) => ({ key, value, category }));
-          const { error: fallbackErr } = await supabase
-            .from("site_settings")
-            .upsert(fallbackRows as never, { onConflict: "key" });
-          if (fallbackErr) throw fallbackErr;
-        } else {
-          throw error;
-        }
+      for (const r of rows) {
+        await upsertRow("site_settings", { key: r.key, value: r.value, category: r.category, ...(r.updated_by ? { updated_by: r.updated_by } : {}) });
       }
       const next = { ...initialValues };
       for (const r of rows) next[r.key] = r.value;

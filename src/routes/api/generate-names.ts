@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createClient } from "@supabase/supabase-js";
+import { getD1 } from "@/lib/cloudflare-context";
 import { executeAICompletion } from "@/lib/ai-provider";
 
 interface RequestBody {
@@ -35,37 +35,19 @@ export const Route = createFileRoute("/api/generate-names")({
           return json({ error: "Invalid species or vibe." }, 400);
         }
 
-        const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-        const serviceKey =
-          process.env.SUPABASE_SERVICE_ROLE_KEY ||
-          process.env.SUPABASE_PUBLISHABLE_KEY ||
-          process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
-        let supabase = null;
-        if (url && serviceKey) {
-          supabase = createClient(url, serviceKey, {
-            auth: { persistSession: false, autoRefreshToken: false },
-          });
-        }
-
-        // 1. Existing stored names for this species+vibe
+        // Shared name pool now lives in D1 (generated_names)
+        const db = getD1();
         let storedNames: Array<{ name: string; meaning: string | null }> = [];
-        if (supabase) {
+        if (db) {
           try {
-            const { data: stored } = await supabase
-              .from("generated_names")
-              .select("name, meaning")
-              .eq("species", species)
-              .eq("vibe", vibe)
-              .order("created_at", { ascending: false })
-              .limit(120);
-
-            if (stored) {
-              storedNames = stored.map((r) => ({
-                name: r.name as string,
-                meaning: r.meaning as string | null,
-              }));
-            }
+            const { results } = await db
+              .prepare("SELECT name, meaning FROM generated_names WHERE species = ? AND vibe = ? ORDER BY created_at DESC LIMIT 120")
+              .bind(species, vibe)
+              .all();
+            storedNames = (results || []).map((r: any) => ({
+              name: r.name as string,
+              meaning: (r.meaning as string | null) ?? null,
+            }));
           } catch {
             /* ignore db fetch error */
           }
@@ -117,17 +99,17 @@ export const Route = createFileRoute("/api/generate-names")({
 
         if (fresh.length === 0) return json({ names: storedNames, added: 0 });
 
-        // 3. Insert into shared pool if supabase is available
+        // 3. Insert into the shared D1 pool (duplicates ignored via name_key)
         let added = 0;
-        if (supabase) {
+        if (db) {
           try {
-            const rows = fresh.map((n) => ({ species, vibe, name: n.name, meaning: n.meaning, source: "ai" }));
-            const { data: inserted } = await supabase
-              .from("generated_names")
-              .upsert(rows, { onConflict: "species,vibe,name_key", ignoreDuplicates: true })
-              .select("name, meaning");
-
-            added = inserted?.length ?? 0;
+            for (const n of fresh) {
+              const res: any = await db
+                .prepare("INSERT OR IGNORE INTO generated_names (id, species, vibe, name, name_key, meaning, source) VALUES (?, ?, ?, ?, ?, ?, 'ai')")
+                .bind(crypto.randomUUID(), species, vibe, n.name, n.name.toLowerCase(), n.meaning)
+                .run();
+              added += Number(res?.meta?.changes ?? 0);
+            }
           } catch {
             /* ignore db insert errors */
           }

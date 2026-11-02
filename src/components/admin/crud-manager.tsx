@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,9 +15,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-import type { Database } from "@/integrations/supabase/types";
+import { listTable, insertRow, updateRow, deleteRow } from "@/lib/admin-data";
 
-type TableName = keyof Database["public"]["Tables"];
+type TableName = string;
 
 export interface FieldDef {
   name: string;
@@ -71,17 +70,16 @@ export function CrudManager<T>({
 
   async function load() {
     setLoading(true);
-    const client = supabase as unknown as {
-      from: (t: string) => {
-        select: (c: string) => { order: (col: string, opts: { ascending: boolean }) => Promise<{ data: unknown; error: { message: string } | null }> } & Promise<{ data: unknown; error: { message: string } | null }>;
-      };
-    };
-    const query = client.from(table).select("*");
-    const result = orderBy
-      ? await query.order(orderBy.column, { ascending: orderBy.ascending ?? true })
-      : await query;
-    if (result.error) toast.error(result.error.message);
-    setRows(((result.data as T[]) ?? []) as T[]);
+    try {
+      const { rows } = await listTable<T>(table, {
+        order: orderBy?.column,
+        dir: orderBy ? (orderBy.ascending === false ? "desc" : "asc") : undefined,
+        limit: 2000,
+      });
+      setRows(rows);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to load");
+    }
     setLoading(false);
   }
 
@@ -111,16 +109,16 @@ export function CrudManager<T>({
         return;
       }
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const loose = supabase.from(table) as any;
-    if (editing) {
-      const { error } = await loose.update(payload).eq(pk, (editing as Record<string, unknown>)[pk]);
-      if (error) return toast.error(error.message);
-      toast.success(`${entityLabel} updated`);
-    } else {
-      const { error } = await loose.insert(payload);
-      if (error) return toast.error(error.message);
-      toast.success(`${entityLabel} created`);
+    try {
+      if (editing) {
+        await updateRow(table, (editing as Record<string, unknown>)[pk] as string | number, payload, pk);
+        toast.success(`${entityLabel} updated`);
+      } else {
+        await insertRow(table, payload);
+        toast.success(`${entityLabel} created`);
+      }
+    } catch (err) {
+      return toast.error(err instanceof Error ? err.message : "Save failed");
     }
     setDialogOpen(false);
     await load();
@@ -128,10 +126,11 @@ export function CrudManager<T>({
 
   async function remove(id: string) {
     if (!confirm(`Delete this ${entityLabel.toLowerCase()}?`)) return;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const loose = supabase.from(table) as any;
-    const { error } = await loose.delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    try {
+      await deleteRow(table, id);
+    } catch (err) {
+      return toast.error(err instanceof Error ? err.message : "Delete failed");
+    }
     toast.success(`${entityLabel} deleted`);
     await load();
   }

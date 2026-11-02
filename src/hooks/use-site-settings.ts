@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { SITE } from "@/lib/site";
 
 export interface SiteSettingsData {
@@ -29,16 +28,15 @@ export function useSiteSettings(): SiteSettingsData {
     let mounted = true;
     async function loadSettings() {
       try {
-        const { data, error } = await supabase
-          .from("site_settings")
-          .select("key, value");
-
-        if (error || !data) return;
+        const res = await fetch("/api/settings");
+        if (!res.ok) return;
+        const json = await res.json();
+        const data: Record<string, unknown> = json?.settings ?? {};
 
         const map: Record<string, string> = {};
-        for (const row of data) {
-          if (row.key && row.value) {
-            map[row.key] = typeof row.value === "string" ? row.value : JSON.stringify(row.value);
+        for (const [key, value] of Object.entries(data)) {
+          if (key && value !== null && value !== undefined && value !== "") {
+            map[key] = typeof value === "string" ? value : JSON.stringify(value);
           }
         }
 

@@ -1,7 +1,8 @@
 import { createFileRoute, useNavigate, useParams, Link } from "@tanstack/react-router";
+import { findRow, insertRow, updateRow, listTable } from "@/lib/admin-data";
+import { uploadPetFile } from "@/lib/pet-uploads";
 import { getActiveUser } from "@/lib/custom-google-auth";
 import { useEffect, useState, useRef } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -141,31 +142,25 @@ function EditPostPage() {
     (async () => {
       setLoading(true);
 
-      // 1. Try to find by UUID id
+      // 1. Try to find by UUID id, then by slug (D1 via admin API)
       let found: any = null;
       try {
-        const { data } = await supabase
-          .from("blog_posts")
-          .select("*")
-          .eq("id", id)
-          .maybeSingle();
-        if (data) found = data;
+        found = await findRow("blog_posts", "id", id);
       } catch {
         // ignore
       }
-
-      // 2. If not found by ID, try finding by slug
       if (!found) {
         try {
-          const { data } = await supabase
-            .from("blog_posts")
-            .select("*")
-            .eq("slug", id)
-            .maybeSingle();
-          if (data) found = data;
+          found = await findRow("blog_posts", "slug", id);
         } catch {
           // ignore
         }
+      }
+      if (found) {
+        if (typeof found.tags === "string") {
+          try { found.tags = JSON.parse(found.tags); } catch { found.tags = []; }
+        }
+        found.published = found.published === 1 || found.published === true;
       }
 
       if (found) {
@@ -203,12 +198,8 @@ function EditPostPage() {
   // Load media items when dialog opens
   async function loadMediaLibrary() {
     try {
-      const { data } = await supabase
-        .from("media")
-        .select("id,filename,url")
-        .order("created_at", { ascending: false })
-        .limit(30);
-      setMediaList(data ?? []);
+      const { rows } = await listTable("media", { order: "created_at", dir: "desc", limit: 30 });
+      setMediaList(rows as any);
     } catch (err) {
       console.warn("Failed to load media list:", err);
     }
@@ -226,20 +217,10 @@ function EditPostPage() {
 
     setUploadingImage(true);
     try {
-      // Try to upload to Supabase Storage if bucket exists, or convert to data URL
-      const fileExt = file.name.split(".").pop() || "jpg";
-      const fileName = `blog-${Date.now()}.${fileExt}`;
-      const filePath = `blog-covers/${fileName}`;
-
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("media")
-        .upload(filePath, file, { upsert: true });
-
-      if (!uploadError && uploadData) {
-        const { data: publicUrlData } = supabase.storage
-          .from("media")
-          .getPublicUrl(filePath);
-        setCoverImage(publicUrlData.publicUrl);
+      // Upload to R2 via the shared /api/upload endpoint
+      const uploadedUrl = await uploadPetFile("", "", "blog-cover", file).catch(() => "");
+      if (uploadedUrl) {
+        setCoverImage(uploadedUrl);
         toast.success("Feature image uploaded to storage!");
       } else {
         // Fallback to base64 reader if storage bucket isn't configured
@@ -310,41 +291,24 @@ function EditPostPage() {
 
       if (dbRecordId) {
         // Update existing DB row
-        const { error } = await supabase
-          .from("blog_posts")
-          .update(payload)
-          .eq("id", dbRecordId);
-        if (error) throw error;
+        await updateRow("blog_posts", dbRecordId, payload);
         toast.success("Post updated successfully in database!");
       } else {
         // Check if a row with this slug already exists in DB
-        const { data: existingSlugRow } = await supabase
-          .from("blog_posts")
-          .select("id")
-          .eq("slug", finalSlug)
-          .maybeSingle();
+        const existingSlugRow = await findRow("blog_posts", "slug", finalSlug);
 
         if (existingSlugRow?.id) {
-          const { error } = await supabase
-            .from("blog_posts")
-            .update(payload)
-            .eq("id", existingSlugRow.id);
-          if (error) throw error;
-          setDbRecordId(existingSlugRow.id);
+          await updateRow("blog_posts", existingSlugRow.id as string, payload);
+          setDbRecordId(existingSlugRow.id as string);
           setIsStaticSource(false);
           toast.success("Post saved to database!");
         } else {
           // Insert new post into DB
-          const { data, error } = await supabase
-            .from("blog_posts")
-            .insert(payload)
-            .select("id")
-            .single();
-          if (error) throw error;
-          setDbRecordId(data.id);
+          const data = await insertRow("blog_posts", payload);
+          setDbRecordId(String((data as any).id));
           setIsStaticSource(false);
           toast.success("Post successfully created and saved in database!");
-          navigate({ to: "/admin/posts/$id", params: { id: data.id } });
+          navigate({ to: "/admin/posts/$id", params: { id: String((data as any).id) } });
         }
       }
     } catch (err) {

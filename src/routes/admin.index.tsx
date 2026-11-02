@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/admin-shell";
 import { Card } from "@/components/ui/card";
 import { TOOLS } from "@/data/tools";
 import { CATEGORIES } from "@/data/categories";
 import { fetchAnalyticsData } from "@/lib/analytics";
+import { getAdminStats } from "@/lib/admin-data";
 import {
   FileText,
   Dog,
@@ -39,30 +39,26 @@ function Dashboard() {
 
   useEffect(() => {
     async function load() {
-      const [posts, published, breeds, foods, subs, affs, analyticsRes, users, recent, recSub] = await Promise.all([
-        supabase.from("blog_posts").select("id", { count: "exact", head: true }),
-        supabase.from("blog_posts").select("id", { count: "exact", head: true }).eq("published", true),
-        supabase.from("breeds").select("id", { count: "exact", head: true }),
-        supabase.from("foods").select("id", { count: "exact", head: true }),
-        supabase.from("newsletter_subscribers").select("id", { count: "exact", head: true }).eq("status", "subscribed"),
-        supabase.from("affiliate_links").select("clicks"),
-        fetchAnalyticsData(7),
-        supabase.from("profiles").select("id", { count: "exact", head: true }),
-        supabase.from("blog_posts").select("id,title,updated_at,published").order("updated_at", { ascending: false }).limit(5),
-        supabase.from("newsletter_subscribers").select("email,subscribed_at").order("subscribed_at", { ascending: false }).limit(5),
-      ]);
-      setStats({
-        posts: posts.count ?? 0,
-        publishedPosts: published.count ?? 0,
-        breeds: breeds.count ?? 0,
-        foods: foods.count ?? 0,
-        subscribers: subs.count ?? 0,
-        affiliateClicks: (affs.data ?? []).reduce((s, r) => s + (r.clicks ?? 0), 0),
-        pageviews7d: analyticsRes.totalViews || 0,
-        users: users.count ?? 0,
-      });
-      setRecentPosts(recent.data ?? []);
-      setRecentSubs(recSub.data ?? []);
+      try {
+        const [{ stats: s, recentPosts: rp, recentSubs: rs }, analyticsRes] = await Promise.all([
+          getAdminStats(),
+          fetchAnalyticsData(7),
+        ]);
+        setStats({
+          posts: s.posts ?? 0,
+          publishedPosts: s.publishedPosts ?? 0,
+          breeds: s.breeds ?? 0,
+          foods: s.foods ?? 0,
+          subscribers: s.subscribers ?? 0,
+          affiliateClicks: s.affiliateClicks ?? 0,
+          pageviews7d: analyticsRes.totalViews || 0,
+          users: s.users ?? 0,
+        });
+        setRecentPosts(rp ?? []);
+        setRecentSubs(rs ?? []);
+      } catch {
+        /* dashboard stays in loading/empty state if the API is unavailable */
+      }
     }
     load();
   }, []);

@@ -4,7 +4,7 @@
  * and feeds both Supabase analytics_events table and Admin Dashboard.
  */
 
-import { supabase } from "@/integrations/supabase/client";
+import { getAdminAnalyticsEvents } from "@/lib/admin-data";
 
 export interface AnalyticsEvent {
   id?: number | string;
@@ -121,15 +121,20 @@ export async function trackPageView(path: string, customTitle?: string) {
   // 1. Save locally for guaranteed instant rendering in admin
   saveLocalAnalyticsEvent(event);
 
-  // 2. Persist to Supabase asynchronously (non-blocking)
+  // 2. Persist to D1 via /api/events (non-blocking)
   try {
-    await (supabase.from("analytics_events") as any).insert({
-      event_type: event.event_type,
-      path: event.path,
-      referrer: event.referrer,
-      session_id: event.session_id,
-      user_agent: event.user_agent,
-      metadata: event.metadata,
+    await fetch("/api/events", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        event_type: event.event_type,
+        path: event.path,
+        referrer: event.referrer,
+        session_id: event.session_id,
+        user_agent: event.user_agent,
+        metadata: event.metadata,
+      }),
+      keepalive: true,
     });
   } catch (err) {
     // Graceful silent fallback
@@ -155,15 +160,9 @@ export async function fetchAnalyticsData(days: number = 30): Promise<{
 
   let remoteEvents: AnalyticsEvent[] = [];
   try {
-    const { data } = await supabase
-      .from("analytics_events")
-      .select("path,referrer,session_id,user_agent,created_at,metadata")
-      .gte("created_at", since)
-      .order("created_at", { ascending: false })
-      .limit(5000);
-
+    const data = await getAdminAnalyticsEvents(days);
     if (data && data.length > 0) {
-      remoteEvents = data as AnalyticsEvent[];
+      remoteEvents = data.filter((e: any) => (e.created_at || "") >= since) as AnalyticsEvent[];
     }
   } catch (e) {
     console.warn("Could not fetch remote analytics, falling back to local store:", e);

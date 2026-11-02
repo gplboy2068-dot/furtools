@@ -3,7 +3,6 @@
  * Handles saving, fetching, updating, and syncing user queries submitted via the Contact form.
  */
 
-import { supabase } from "@/integrations/supabase/client";
 
 export interface ContactInquiry {
   id: string;
@@ -103,23 +102,26 @@ export async function submitContactInquiry(data: {
   // 1. Always save in local persistent storage first for 100% fail-safe reliability
   saveLocalInquiry(inquiry);
 
-  // 2. Attempt to save in Supabase if contact_inquiries / feedback table exists
+  // 2. Log as a D1 analytics event for tracking (non-blocking)
   try {
-    // Log as analytics event for tracking
-    await (supabase.from("analytics_events") as any).insert({
-      event_type: "contact_inquiry_submitted",
-      path: "/contact",
-      metadata: {
-        inquiry_id: id,
-        name: inquiry.name,
-        email: inquiry.email,
-        category: inquiry.category,
-        message: inquiry.message,
-      },
+    await fetch("/api/events", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        event_type: "contact_inquiry_submitted",
+        path: "/contact",
+        metadata: {
+          inquiry_id: id,
+          name: inquiry.name,
+          email: inquiry.email,
+          category: inquiry.category,
+          message: inquiry.message,
+        },
+      }),
     });
-  } catch (supabaseErr) {
+  } catch (eventErr) {
     // Non-blocking: local storage has already safely captured the query
-    console.warn("Supabase event logging notice:", supabaseErr);
+    console.warn("Event logging notice:", eventErr);
   }
 
   return { success: true, id };

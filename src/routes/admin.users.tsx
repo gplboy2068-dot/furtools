@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/admin-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { setUserAdmin } from "@/lib/admin-data";
 
 interface UserRow {
   id: string;
@@ -29,48 +29,24 @@ function UsersAdmin() {
       const res = await fetch("/api/admin-users");
       if (res.ok) {
         const json = await res.json();
-        if (Array.isArray(json.users) && json.users.length > 0) {
-          setRows(json.users);
-          setLoading(false);
-          return;
-        }
+        setRows(Array.isArray(json.users) ? json.users : []);
+      } else {
+        toast.error("Failed to load users");
       }
     } catch {
-      /* fallback to client-side supabase query */
+      toast.error("Failed to load users");
     }
-
-    const [{ data: profiles }, { data: roles }] = await Promise.all([
-      supabase.from("profiles").select("id,display_name,avatar_url,created_at").order("created_at", { ascending: false }),
-      supabase.from("user_roles").select("user_id,role"),
-    ]);
-    const rolesByUser: Record<string, string[]> = {};
-    (roles ?? []).forEach((r) => {
-      rolesByUser[r.user_id] = rolesByUser[r.user_id] ?? [];
-      rolesByUser[r.user_id].push(r.role);
-    });
-    setRows(
-      (profiles ?? []).map((p) => ({
-        id: p.id,
-        display_name: p.display_name,
-        avatar_url: p.avatar_url,
-        created_at: p.created_at,
-        roles: rolesByUser[p.id] ?? [],
-      })),
-    );
     setLoading(false);
   }
 
   useEffect(() => { load(); }, []);
 
   async function toggleAdmin(userId: string, isAdmin: boolean) {
-    if (isAdmin) {
-      const { error } = await supabase.from("user_roles").delete().eq("user_id", userId).eq("role", "admin");
-      if (error) return toast.error(error.message);
-      toast.success("Admin removed");
-    } else {
-      const { error } = await supabase.from("user_roles").insert({ user_id: userId, role: "admin" });
-      if (error) return toast.error(error.message);
-      toast.success("Admin granted");
+    try {
+      await setUserAdmin(userId, !isAdmin);
+      toast.success(isAdmin ? "Admin removed" : "Admin granted");
+    } catch (err) {
+      return toast.error(err instanceof Error ? err.message : "Role update failed");
     }
     await load();
   }

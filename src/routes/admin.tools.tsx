@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { listTable, upsertRow, deleteRow } from "@/lib/admin-data";
 import { useEffect, useMemo, useState } from "react";
 import { AdminPageHeader } from "@/components/admin/admin-shell";
-import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -46,10 +46,15 @@ function ToolsAdmin() {
 
   const load = async () => {
     setLoading(true);
-    const { data, error } = await supabase.from("tool_overrides").select("*");
-    if (error) toast.error(error.message);
+    let data: ToolOverride[] = [];
+    try {
+      const { rows } = await listTable<ToolOverride>("tool_overrides", { limit: 2000 });
+      data = rows;
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to load");
+    }
     const map: Record<string, ToolOverride> = {};
-    (data ?? []).forEach((r) => (map[r.slug] = r));
+    data.forEach((r) => (map[r.slug] = { ...r, featured: (r.featured as unknown) === 1 || r.featured === true, disabled: (r.disabled as unknown) === 1 || r.disabled === true }));
     setOverrides(map);
     setLoading(false);
   };
@@ -97,11 +102,10 @@ function ToolsAdmin() {
       disabled: !!form.disabled,
       sort_order: Number(form.sort_order ?? 0),
     };
-    const { error } = await supabase
-      .from("tool_overrides")
-      .upsert(payload, { onConflict: "slug" });
-    if (error) {
-      toast.error(error.message);
+    try {
+      await upsertRow("tool_overrides", payload);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Save failed");
       return;
     }
     toast.success("Tool updated");
@@ -122,11 +126,10 @@ function ToolsAdmin() {
       disabled,
       sort_order: existing?.sort_order ?? 0,
     };
-    const { error } = await supabase
-      .from("tool_overrides")
-      .upsert(payload, { onConflict: "slug" });
-    if (error) {
-      toast.error(error.message);
+    try {
+      await upsertRow("tool_overrides", payload);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Save failed");
       return;
     }
     toast.success(disabled ? `Removed "${tool?.name}" from site` : `Restored "${tool?.name}"`);
@@ -134,9 +137,10 @@ function ToolsAdmin() {
   };
 
   const resetOverride = async (slug: string) => {
-    const { error } = await supabase.from("tool_overrides").delete().eq("slug", slug);
-    if (error) {
-      toast.error(error.message);
+    try {
+      await deleteRow("tool_overrides", slug, "slug");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Delete failed");
       return;
     }
     toast.success("Override reset to defaults");

@@ -328,6 +328,224 @@ export default {
       }
     }
 
+    // Fast-path API: Phase 1 — public settings read + analytics events write
+    if (url.pathname === "/api/settings" && request.method === "GET") {
+      try {
+        const { getD1 } = await import("./lib/cloudflare-context");
+        const db = getD1();
+        if (!db) return new Response(JSON.stringify({ settings: {} }), { headers: { "content-type": "application/json" } });
+        const { results } = await db.prepare("SELECT key, value FROM site_settings").all();
+        const settings: Record<string, unknown> = {};
+        for (const r of results || []) {
+          let v: unknown = (r as any).value;
+          if (typeof v === "string") { try { v = JSON.parse(v); } catch { /* keep string */ } }
+          settings[(r as any).key as string] = v;
+        }
+        return new Response(JSON.stringify({ settings }), { headers: { "content-type": "application/json" } });
+      } catch {
+        return new Response(JSON.stringify({ settings: {} }), { headers: { "content-type": "application/json" } });
+      }
+    }
+    if (url.pathname === "/api/events" && request.method === "POST") {
+      try {
+        const { getD1 } = await import("./lib/cloudflare-context");
+        const db = getD1();
+        if (db) {
+          const body = (await request.json().catch(() => ({}))) as any;
+          await db.prepare("CREATE TABLE IF NOT EXISTS analytics_events (id INTEGER PRIMARY KEY AUTOINCREMENT, event_type TEXT NOT NULL, path TEXT NOT NULL, session_id TEXT, user_agent TEXT, referrer TEXT, metadata TEXT, created_at TEXT DEFAULT (datetime('now')))").run();
+          await db.prepare("INSERT INTO analytics_events (event_type, path, session_id, user_agent, referrer, metadata) VALUES (?, ?, ?, ?, ?, ?)")
+            .bind(String(body.event_type || "pageview"), String(body.path || "/"), body.session_id || null, String(body.user_agent || request.headers.get("user-agent") || ""), body.referrer || null, body.metadata ? JSON.stringify(body.metadata) : null)
+            .run();
+        }
+      } catch { /* analytics must never break the page */ }
+      return new Response(JSON.stringify({ ok: true }), { headers: { "content-type": "application/json" } });
+    }
+
+    // Fast-path API: Phase 1 — admin data (D1 session + admin role required)
+    if (url.pathname.startsWith("/api/admin/")) {
+      const jsonRes = (body: unknown, status = 200) =>
+        new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
+      try {
+        const { getD1 } = await import("./lib/cloudflare-context");
+        const db = getD1();
+        if (!db) return jsonRes({ error: "Database not available" }, 500);
+        const sha256Hex = async (text: string) => {
+          const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+          return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+        };
+        const authHeader = request.headers.get("authorization") || "";
+        let authToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+        if (!authToken) {
+          const m = (request.headers.get("cookie") || "").match(/furtools_d1_auth=([^;]+)/);
+          if (m) authToken = decodeURIComponent(m[1]);
+        }
+        if (!authToken) return jsonRes({ error: "Sign in required" }, 401);
+        const adminUser = (await db.prepare("SELECT u.id, u.email FROM auth_sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = ? AND s.expires_at > datetime('now') LIMIT 1").bind(await sha256Hex(authToken)).first()) as any;
+        if (!adminUser) return jsonRes({ error: "Invalid or expired session" }, 401);
+        const { results: roleRows } = await db.prepare("SELECT role FROM user_roles WHERE user_id = ?").bind(adminUser.id).all();
+        const roles = (roleRows || []).map((r: any) => r.role as string);
+        if (!roles.includes("admin")) return jsonRes({ error: "Admin access required" }, 403);
+
+        if (url.pathname === "/api/admin/stats" && request.method === "GET") {
+          const count = async (sql: string): Promise<number> => {
+            try { const r = (await db.prepare(sql).first()) as any; return Number(r?.n ?? 0); } catch { return 0; }
+          };
+          const stats = {
+            posts: await count("SELECT COUNT(*) AS n FROM blog_posts"),
+            publishedPosts: await count("SELECT COUNT(*) AS n FROM blog_posts WHERE published = 1"),
+            breeds: await count("SELECT COUNT(*) AS n FROM breeds"),
+            foods: await count("SELECT COUNT(*) AS n FROM foods"),
+            subscribers: await count("SELECT COUNT(*) AS n FROM newsletter_subscribers WHERE status = 'subscribed'"),
+            affiliateClicks: await count("SELECT COALESCE(SUM(clicks), 0) AS n FROM affiliate_links"),
+            users: await count("SELECT COUNT(*) AS n FROM users"),
+          };
+          let recentPosts: any[] = [];
+          try {
+            const { results } = await db.prepare("SELECT id, title, updated_at, published FROM blog_posts ORDER BY updated_at DESC LIMIT 5").all();
+            recentPosts = (results || []).map((r: any) => ({ ...r, published: r.published === 1 || r.published === true }));
+          } catch { /* table may be empty */ }
+          let recentSubs: any[] = [];
+          try {
+            const { results } = await db.prepare("SELECT email, subscribed_at FROM newsletter_subscribers ORDER BY subscribed_at DESC LIMIT 5").all();
+            recentSubs = results || [];
+          } catch { /* ignore */ }
+          return jsonRes({ stats, recentPosts, recentSubs });
+        }
+
+        if (url.pathname === "/api/admin/analytics" && request.method === "GET") {
+          const days = Math.min(90, Math.max(1, parseInt(url.searchParams.get("days") || "30", 10) || 30));
+          const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+          try {
+            const { results } = await db.prepare("SELECT path, referrer, session_id, user_agent, created_at, metadata FROM analytics_events WHERE created_at >= ? ORDER BY created_at DESC LIMIT 5000").bind(since).all();
+            const events = (results || []).map((r: any) => {
+              let metadata = r.metadata;
+              if (typeof metadata === "string") { try { metadata = JSON.parse(metadata); } catch { metadata = {}; } }
+              return { ...r, metadata: metadata ?? {} };
+            });
+            return jsonRes({ events });
+          } catch {
+            return jsonRes({ events: [] });
+          }
+        }
+
+        if (url.pathname === "/api/admin/users/role" && request.method === "POST") {
+          const body = (await request.json().catch(() => ({}))) as any;
+          const userId = String(body.userId || "");
+          if (!userId) return jsonRes({ error: "userId required" }, 400);
+          if (body.makeAdmin === true) {
+            const existing = await db.prepare("SELECT id FROM user_roles WHERE user_id = ? AND role = 'admin' LIMIT 1").bind(userId).first();
+            if (!existing) await db.prepare("INSERT INTO user_roles (id, user_id, role) VALUES (?, ?, 'admin')").bind(crypto.randomUUID(), userId).run();
+          } else {
+            await db.prepare("DELETE FROM user_roles WHERE user_id = ? AND role = 'admin'").bind(userId).run();
+          }
+          return jsonRes({ success: true });
+        }
+
+        if (url.pathname.startsWith("/api/admin/data/")) {
+          const table = url.pathname.replace("/api/admin/data/", "");
+          const ALLOWED = new Set(["ads_placements","affiliate_links","analytics_events","blog_posts","breeds","category_overrides","email_templates","faqs","foods","generated_names","internal_links","media","newsletter_subscribers","site_settings","species_catalog","tool_overrides","profiles"]);
+          if (!ALLOWED.has(table)) return jsonRes({ error: "Table not allowed" }, 400);
+          const { results: pragma } = await db.prepare(`PRAGMA table_info(${table})`).all();
+          if (!pragma || pragma.length === 0) return jsonRes({ error: "Table not found" }, 404);
+          const colTypes = new Map<string, string>();
+          let pkCol = "id";
+          for (const c of pragma as any[]) {
+            colTypes.set(c.name as string, String(c.type || ""));
+            if (c.pk) pkCol = c.name as string;
+          }
+          const coerce = (col: string, v: unknown): unknown => {
+            if (v === null || v === undefined) return null;
+            const type = (colTypes.get(col) || "").toUpperCase();
+            if (type.includes("INT")) { if (typeof v === "boolean") return v ? 1 : 0; const n = Number(v); return Number.isFinite(n) ? n : null; }
+            if (type.includes("REAL") || type.includes("FLOA") || type.includes("DOUB")) { const n = Number(v); return Number.isFinite(n) ? n : null; }
+            if (typeof v === "string") return v;
+            if (typeof v === "number" || typeof v === "boolean") return String(v);
+            return JSON.stringify(v);
+          };
+          const filterRow = (row: Record<string, unknown>) => {
+            const out: [string, unknown][] = [];
+            for (const [k, v] of Object.entries(row || {})) {
+              if (colTypes.has(k) && v !== undefined) out.push([k, coerce(k, v)]);
+            }
+            return out;
+          };
+
+          if (request.method === "GET") {
+            const eqs: [string, string][] = [];
+            for (const raw of url.searchParams.getAll("eq")) {
+              const idx = raw.indexOf(":");
+              if (idx > 0) {
+                const col = raw.slice(0, idx);
+                if (colTypes.has(col)) eqs.push([col, raw.slice(idx + 1)]);
+              }
+            }
+            const where = eqs.length ? `WHERE ${eqs.map(([c]) => `"${c}" = ?`).join(" AND ")}` : "";
+            const binds = eqs.map(([, v]) => v);
+            const totalRow = (await db.prepare(`SELECT COUNT(*) AS n FROM "${table}" ${where}`).bind(...binds).first()) as any;
+            const orderCol = url.searchParams.get("order");
+            const orderSql = orderCol && colTypes.has(orderCol) ? `ORDER BY "${orderCol}" ${url.searchParams.get("dir") === "asc" ? "ASC" : "DESC"}` : "";
+            const limit = Math.min(2000, Math.max(1, parseInt(url.searchParams.get("limit") || "500", 10) || 500));
+            const offset = Math.max(0, parseInt(url.searchParams.get("offset") || "0", 10) || 0);
+            const { results } = await db.prepare(`SELECT * FROM "${table}" ${where} ${orderSql} LIMIT ? OFFSET ?`).bind(...binds, limit, offset).all();
+            return jsonRes({ rows: results || [], total: Number(totalRow?.n ?? 0) });
+          }
+
+          const body = (await request.json().catch(() => ({}))) as any;
+          if (request.method === "POST") {
+            const entries = filterRow(body.row || {});
+            if (entries.length === 0) return jsonRes({ error: "No valid fields" }, 400);
+            const hasPk = entries.some(([k]) => k === pkCol);
+            const pkType = (colTypes.get(pkCol) || "").toUpperCase();
+            if (!hasPk && pkCol === "id" && !pkType.includes("INT")) entries.unshift(["id", crypto.randomUUID()]);
+            if (body.upsert === true) {
+              const pkEntry = entries.find(([k]) => k === pkCol);
+              if (pkEntry) {
+                const existing = await db.prepare(`SELECT "${pkCol}" FROM "${table}" WHERE "${pkCol}" = ? LIMIT 1`).bind(pkEntry[1]).first();
+                if (existing) {
+                  const updates = entries.filter(([k]) => k !== pkCol);
+                  if (updates.length) {
+                    await db.prepare(`UPDATE "${table}" SET ${updates.map(([c]) => `"${c}" = ?`).join(", ")} WHERE "${pkCol}" = ?`).bind(...updates.map(([, v]) => v), pkEntry[1]).run();
+                  }
+                  const { results } = await db.prepare(`SELECT * FROM "${table}" WHERE "${pkCol}" = ? LIMIT 1`).bind(pkEntry[1]).all();
+                  return jsonRes({ row: (results || [])[0] ?? null });
+                }
+              }
+            }
+            const cols = entries.map(([c]) => `"${c}"`);
+            await db.prepare(`INSERT INTO "${table}" (${cols.join(", ")}) VALUES (${entries.map(() => "?").join(", ")})`).bind(...entries.map(([, v]) => v)).run();
+            const pkEntry = entries.find(([k]) => k === pkCol);
+            let row: any = Object.fromEntries(entries);
+            if (pkEntry) {
+              const { results } = await db.prepare(`SELECT * FROM "${table}" WHERE "${pkCol}" = ? LIMIT 1`).bind(pkEntry[1]).all();
+              if ((results || []).length) row = results[0];
+            }
+            return jsonRes({ row });
+          }
+          if (request.method === "PATCH") {
+            const pk = colTypes.has(String(body.pk || "")) ? String(body.pk) : pkCol;
+            const entries = filterRow(body.data || {}).filter(([k]) => k !== pk);
+            if (body.pkValue === undefined) return jsonRes({ error: "pkValue required" }, 400);
+            if (entries.length === 0) return jsonRes({ error: "No valid fields" }, 400);
+            await db.prepare(`UPDATE "${table}" SET ${entries.map(([c]) => `"${c}" = ?`).join(", ")} WHERE "${pk}" = ?`).bind(...entries.map(([, v]) => v), coerce(pk, body.pkValue)).run();
+            return jsonRes({ success: true });
+          }
+          if (request.method === "DELETE") {
+            const pk = colTypes.has(String(body.pk || url.searchParams.get("pk") || "")) ? String(body.pk || url.searchParams.get("pk")) : pkCol;
+            const pkValue = body.pkValue ?? url.searchParams.get("pkValue");
+            if (pkValue === undefined || pkValue === null) return jsonRes({ error: "pkValue required" }, 400);
+            await db.prepare(`DELETE FROM "${table}" WHERE "${pk}" = ?`).bind(coerce(pk, pkValue)).run();
+            return jsonRes({ success: true });
+          }
+          return jsonRes({ error: "Method not allowed" }, 405);
+        }
+
+        return jsonRes({ error: "Unknown admin endpoint" }, 404);
+      } catch (err: any) {
+        console.error("Admin API error:", err);
+        return jsonRes({ error: err?.message || "Admin API failed" }, 500);
+      }
+    }
+
     // Fast-path API: Pets (Cloudflare D1)
     if (url.pathname === "/api/pets") {
       try {
