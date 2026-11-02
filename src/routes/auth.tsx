@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { getActiveUser, handleGoogleRedirectResult } from "@/lib/custom-google-auth";
+import { getActiveUser, handleGoogleRedirectResult, signInWithEmail, signUpWithEmail } from "@/lib/custom-google-auth";
 import { CustomGoogleLogin } from "@/components/custom-google-login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,11 +38,6 @@ function AuthPage() {
       });
     });
 
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) navigate({ to: "/dashboard" });
-    });
-
-    return () => sub.subscription.unsubscribe();
   }, [navigate]);
 
 
@@ -53,17 +47,12 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: window.location.origin + "/dashboard" },
-        });
-        if (error) throw error;
-        toast.success("Check your email to confirm.");
+        await signUpWithEmail(email, password);
+        toast.success("Account created — you are signed in.");
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        await signInWithEmail(email, password);
       }
+      navigate({ to: "/dashboard" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     } finally {

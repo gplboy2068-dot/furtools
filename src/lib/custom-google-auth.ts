@@ -1,5 +1,3 @@
-import { supabase } from "@/integrations/supabase/client";
-
 export interface GoogleUserProfile {
   googleId: string;
   email: string;
@@ -14,6 +12,11 @@ export interface CustomAuthSession {
   user: GoogleUserProfile;
   token: string;
   expiresAt: number;
+  /** D1 session token (server-issued) once exchanged/created */
+  d1Token?: string;
+  /** D1 user id */
+  userId?: string;
+  provider?: "google" | "email";
 }
 
 export interface ActiveUser {
@@ -22,7 +25,17 @@ export interface ActiveUser {
   name: string;
   avatarUrl?: string;
   isCustomGoogle?: boolean;
+  roles?: string[];
+  provider?: "google" | "email";
 }
+
+export function notifyAuthChanged(): void {
+  if (typeof window !== "undefined") {
+    try { window.dispatchEvent(new Event("furtools-auth-changed")); } catch { /* ignore */ }
+  }
+}
+
+const D1_COOKIE = "furtools_d1_auth";
 
 const SESSION_KEY = 'furtools_custom_google_session';
 export const DEFAULT_GOOGLE_CLIENT_ID =
@@ -74,27 +87,37 @@ export function googleIdToUuid(input: string): string {
 }
 
 export async function syncGoogleUserToDatabase(user: GoogleUserProfile): Promise<void> {
-  const userUuid = googleIdToUuid(user.googleId || user.email);
+  // Profiles/roles now live in D1. The actual sync happens when the Google
+  // credential is exchanged for a D1 session in exchangeD1GoogleSession().
+}
 
+/**
+ * Exchange a Google credential/access token for a server-issued D1 session.
+ * Stores the D1 token in the saved session so admin/roles can be verified
+ * server-side. Fire-and-forget from saveCustomSession.
+ */
+export async function exchangeD1GoogleSession(googleCredentialOrAccessToken: string): Promise<void> {
+  if (typeof window === "undefined" || !googleCredentialOrAccessToken) return;
   try {
-    await (supabase.from("profiles") as any).upsert({
-      id: userUuid,
-      display_name: user.name || user.email.split("@")[0],
-      avatar_url: user.picture,
-      email: user.email,
-    }, { onConflict: "id" });
-  } catch (err) {
-    console.error("Failed to sync profile:", err);
-  }
-
-  try {
-    await supabase.from("user_roles").upsert({
-      user_id: userUuid,
-      role: "user",
-    }, { onConflict: "user_id,role" });
-  } catch (err) {
-    console.error("Failed to sync user role (RLS policy check required):", err);
-  }
+    const isJwt = googleCredentialOrAccessToken.split(".").length === 3;
+    const res = await fetch("/api/auth/d1/google", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(isJwt ? { credential: googleCredentialOrAccessToken } : { accessToken: googleCredentialOrAccessToken }),
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data?.token) return;
+    const stored = localStorage.getItem(SESSION_KEY);
+    if (stored) {
+      const session: CustomAuthSession = JSON.parse(stored);
+      session.d1Token = data.token;
+      session.userId = data.user?.id;
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    }
+    document.cookie = `${D1_COOKIE}=${data.token}; path=/; max-age=${30 * 24 * 60 * 60}; SameSite=Lax`;
+    notifyAuthChanged();
+  } catch { /* ignore — local Google session still works for identity */ }
 }
 
 /**
@@ -104,6 +127,7 @@ export function saveCustomSession(user: GoogleUserProfile, token: string): Custo
   const session: CustomAuthSession = {
     user,
     token,
+    provider: "google",
     expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
   };
 
@@ -116,8 +140,9 @@ export function saveCustomSession(user: GoogleUserProfile, token: string): Custo
     }
   }
 
-  // Trigger async background sync to Supabase profiles database
-  syncGoogleUserToDatabase(user);
+  // Exchange the Google token for a D1 session (profiles/roles live in D1 now)
+  exchangeD1GoogleSession(token);
+  notifyAuthChanged();
 
   return session;
 }
@@ -142,45 +167,125 @@ export function clearCustomSession(): void {
   if (typeof window !== 'undefined') {
     localStorage.removeItem(SESSION_KEY);
     document.cookie = 'furtools_custom_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = `${D1_COOKIE}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+    notifyAuthChanged();
+  }
+}
+
+/* ───────── D1 email/password auth ───────── */
+
+interface D1AuthResponseUser { id: string; email: string; name: string; avatarUrl?: string; roles?: string[] }
+
+function saveEmailSession(user: D1AuthResponseUser, token: string): CustomAuthSession {
+  const profile: GoogleUserProfile = {
+    googleId: "",
+    email: user.email,
+    name: user.name || user.email,
+    picture: user.avatarUrl || "",
+  };
+  const session: CustomAuthSession = {
+    user: profile,
+    token,
+    d1Token: token,
+    userId: user.id,
+    provider: "email",
+    expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days
+  };
+  if (typeof window !== "undefined") {
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    document.cookie = `furtools_custom_auth=${token}; path=/; max-age=${30 * 24 * 60 * 60}; SameSite=Lax`;
+    document.cookie = `${D1_COOKIE}=${token}; path=/; max-age=${30 * 24 * 60 * 60}; SameSite=Lax`;
+  }
+  notifyAuthChanged();
+  return session;
+}
+
+async function d1AuthPost(path: string, body: unknown): Promise<{ token: string; user: D1AuthResponseUser }> {
+  const res = await fetch(path, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.error || "Something went wrong. Please try again.");
+  return data;
+}
+
+export async function signUpWithEmail(email: string, password: string): Promise<ActiveUser> {
+  const data = await d1AuthPost("/api/auth/d1/signup", { email, password });
+  saveEmailSession(data.user, data.token);
+  return { id: data.user.id, email: data.user.email, name: data.user.name, avatarUrl: data.user.avatarUrl, roles: data.user.roles, provider: "email", isCustomGoogle: false };
+}
+
+export async function signInWithEmail(email: string, password: string): Promise<ActiveUser> {
+  const data = await d1AuthPost("/api/auth/d1/signin", { email, password });
+  saveEmailSession(data.user, data.token);
+  return { id: data.user.id, email: data.user.email, name: data.user.name, avatarUrl: data.user.avatarUrl, roles: data.user.roles, provider: "email", isCustomGoogle: false };
+}
+
+export async function signOutFromD1(): Promise<void> {
+  if (typeof window !== "undefined") {
+    try {
+      const session = getCustomSession();
+      const token = session?.d1Token || (session?.provider === "email" ? session?.token : "");
+      if (token) {
+        await fetch("/api/auth/d1/signout", { method: "POST", headers: { Authorization: `Bearer ${token}` } });
+      }
+    } catch { /* ignore */ }
+  }
+  clearCustomSession();
+}
+
+/** Server-verified session user (with D1 roles) — used for admin gating. */
+export async function fetchD1SessionUser(): Promise<ActiveUser | null> {
+  if (typeof window === "undefined") return null;
+  try {
+    const session = getCustomSession();
+    const token = session?.d1Token || (session?.provider === "email" ? session?.token : "");
+    if (!token) return null;
+    const res = await fetch("/api/auth/d1/session", { headers: { Authorization: `Bearer ${token}` } });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data?.user) return null;
+    return {
+      id: data.user.id,
+      email: data.user.email,
+      name: data.user.name,
+      avatarUrl: data.user.avatarUrl,
+      roles: data.user.roles || [],
+      provider: session?.provider,
+      isCustomGoogle: session?.provider === "google",
+    };
+  } catch {
+    return null;
   }
 }
 
 /**
- * Unified Active User Resolver (checks both Custom Google Auth and Supabase Auth)
+ * Unified Active User Resolver (local session: D1 email auth or custom Google auth)
  */
 export async function getActiveUser(): Promise<ActiveUser | null> {
-  // 1. Check custom Google session
-  const customSession = getCustomSession();
-  if (customSession) {
-    // Ensure profile is synced to database
-    syncGoogleUserToDatabase(customSession.user);
-    const userUuid = googleIdToUuid(customSession.user.googleId || customSession.user.email);
+  const session = getCustomSession();
+  if (!session) return null;
+  if (session.provider === "email") {
     return {
-      id: userUuid,
-      email: customSession.user.email,
-      name: customSession.user.name,
-      avatarUrl: customSession.user.picture,
-      isCustomGoogle: true,
+      id: session.userId || "",
+      email: session.user.email,
+      name: session.user.name,
+      avatarUrl: session.user.picture,
+      isCustomGoogle: false,
+      provider: "email",
     };
   }
-
-  // 2. Check Supabase auth session
-  try {
-    const { data } = await supabase.auth.getUser();
-    if (data?.user) {
-      return {
-        id: data.user.id,
-        email: data.user.email || '',
-        name: data.user.user_metadata?.display_name || data.user.email || 'User',
-        avatarUrl: data.user.user_metadata?.avatar_url,
-        isCustomGoogle: false,
-      };
-    }
-  } catch {
-    /* ignore error */
-  }
-
-  return null;
+  const userUuid = session.userId || googleIdToUuid(session.user.googleId || session.user.email);
+  return {
+    id: userUuid,
+    email: session.user.email,
+    name: session.user.name,
+    avatarUrl: session.user.picture,
+    isCustomGoogle: true,
+    provider: "google",
+  };
 }
 
 /**

@@ -1,9 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import type { User } from "@supabase/supabase-js";
 import { Loader2, PawPrint, Plus, Syringe, Pill, Stethoscope, Scale, Calendar } from "lucide-react";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -39,11 +37,10 @@ import { getActiveUser, type ActiveUser } from "@/lib/custom-google-auth";
 function DashboardIndex() {
   const [activeUser, setActiveUser] = useState<ActiveUser | null | undefined>(undefined);
   useEffect(() => {
-    getActiveUser().then(setActiveUser);
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
-      getActiveUser().then(setActiveUser);
-    });
-    return () => sub.subscription.unsubscribe();
+    const refresh = () => getActiveUser().then(setActiveUser);
+    refresh();
+    window.addEventListener("furtools-auth-changed", refresh);
+    return () => window.removeEventListener("furtools-auth-changed", refresh);
   }, []);
 
   if (activeUser === undefined) {

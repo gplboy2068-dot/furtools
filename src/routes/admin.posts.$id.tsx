@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate, useParams, Link } from "@tanstack/react-router";
+import { getActiveUser } from "@/lib/custom-google-auth";
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
@@ -287,8 +288,8 @@ function EditPostPage() {
     e.preventDefault();
     setSaving(true);
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const authorId = userData?.user?.id ?? null;
+      const activeUser = await getActiveUser();
+      const authorId = activeUser?.id ?? null;
 
       const finalSlug = slug || slugify(title);
       const payload = {

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { getActiveUser } from "@/lib/custom-google-auth";
 import {
   Calendar,
   Dog,
@@ -10,11 +11,10 @@ import {
   Syringe,
   Trash2,
 } from "lucide-react";
-import type { User } from "@supabase/supabase-js";
+type User = { id: string; email?: string | null };
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { breadcrumbSchema } from "@/lib/schema";
 import { buildHead } from "@/lib/seo";
-import { supabase } from "@/integrations/supabase/client";
 import { fetchUserPets, deletePet, fetchPetRecords, insertPetRecord, updatePetRecord, deletePetRecord } from "@/lib/pet-db-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -86,11 +86,10 @@ function CarePage() {
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      setUser(session?.user ?? null);
-    });
-    supabase.auth.getUser().then(({ data }) => setUser(data.user ?? null));
-    return () => sub.subscription.unsubscribe();
+    const refresh = () => getActiveUser().then((u) => setUser(u ? ({ id: u.id, email: u.email } as User) : null));
+    refresh();
+    window.addEventListener("furtools-auth-changed", refresh);
+    return () => window.removeEventListener("furtools-auth-changed", refresh);
   }, []);
 
   if (user === undefined) {

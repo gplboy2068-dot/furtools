@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import type { User } from "@supabase/supabase-js";
 import {
   ArrowLeft, Calendar, Cake, ChevronRight, Download, Loader2, PawPrint, Pencil,
   Pill, Plus, Scale, Stethoscope, Syringe, Trash2, TriangleAlert, Upload,
@@ -10,7 +9,6 @@ import {
   Line, LineChart, ResponsiveContainer, Tooltip as ReTooltip, XAxis, YAxis, CartesianGrid,
 } from "recharts";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -61,11 +59,10 @@ function PetDetailPage() {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    getActiveUser().then(setActiveUser);
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
-      getActiveUser().then(setActiveUser);
-    });
-    return () => sub.subscription.unsubscribe();
+    const refresh = () => getActiveUser().then(setActiveUser);
+    refresh();
+    window.addEventListener("furtools-auth-changed", refresh);
+    return () => window.removeEventListener("furtools-auth-changed", refresh);
   }, []);
 
   async function loadPet() {

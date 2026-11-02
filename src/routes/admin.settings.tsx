@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getActiveUser } from "@/lib/custom-google-auth";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -315,7 +316,7 @@ function SettingsPage() {
   async function saveSection(section: SettingSection) {
     setSaving(true);
     try {
-      const { data: auth } = await supabase.auth.getUser();
+      const authUser = await getActiveUser();
       const rows: Array<{ key: string; value: unknown; category: string; updated_by?: string | null }> = [];
       for (const f of section.fields) {
         const current = values[f.key];
@@ -336,8 +337,8 @@ function SettingsPage() {
           value,
           category: section.id,
         };
-        if (auth.user?.id) {
-          row.updated_by = auth.user.id;
+        if (authUser?.id) {
+          row.updated_by = authUser.id;
         }
         rows.push(row);
       }

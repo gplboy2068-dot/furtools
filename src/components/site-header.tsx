@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./theme-switcher";
 import { LanguageSwitcher } from "./language-switcher";
 import { SITE } from "@/lib/site";
-import { supabase } from "@/integrations/supabase/client";
-import { clearCustomSession, getActiveUser, type ActiveUser } from "@/lib/custom-google-auth";
+import { getActiveUser, signOutFromD1, type ActiveUser } from "@/lib/custom-google-auth";
 
 const GlobalSearch = lazy(() =>
   import("./global-search").then((m) => ({ default: m.GlobalSearch }))
@@ -31,13 +30,14 @@ export function SiteHeader() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getActiveUser().then(setActiveUser);
-
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
-      getActiveUser().then(setActiveUser);
-    });
-
-    return () => sub.subscription.unsubscribe();
+    const refresh = () => getActiveUser().then(setActiveUser);
+    refresh();
+    window.addEventListener("furtools-auth-changed", refresh);
+    window.addEventListener("storage", refresh);
+    return () => {
+      window.removeEventListener("furtools-auth-changed", refresh);
+      window.removeEventListener("storage", refresh);
+    };
   }, []);
 
   useEffect(() => {
@@ -52,8 +52,7 @@ export function SiteHeader() {
   }, []);
 
   const handleLogout = async () => {
-    clearCustomSession();
-    await supabase.auth.signOut();
+    await signOutFromD1();
     setActiveUser(null);
     navigate({ to: "/" });
   };

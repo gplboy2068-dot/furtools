@@ -1,7 +1,6 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import type { User } from "@supabase/supabase-js";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchD1SessionUser, signOutFromD1, type ActiveUser } from "@/lib/custom-google-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -293,7 +292,7 @@ function SidebarFooter({ collapsed, onToggle }: { collapsed: boolean; onToggle: 
 export function AdminShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<ActiveUser | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useCollapsed();
@@ -303,18 +302,14 @@ export function AdminShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
     async function run() {
-      const { data } = await supabase.auth.getUser();
+      const sessionUser = await fetchD1SessionUser();
       if (!mounted) return;
-      if (!data.user) {
+      if (!sessionUser) {
         navigate({ to: "/auth" });
         return;
       }
-      setUser(data.user);
-      const { data: roles } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", data.user.id);
-      setIsAdmin((roles ?? []).some((r) => r.role === "admin"));
+      setUser(sessionUser);
+      setIsAdmin((sessionUser.roles ?? []).includes("admin"));
     }
     run();
     return () => {
@@ -323,7 +318,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
   }, [navigate]);
 
   async function signOut() {
-    await supabase.auth.signOut();
+    await signOutFromD1();
     navigate({ to: "/auth" });
   }
 

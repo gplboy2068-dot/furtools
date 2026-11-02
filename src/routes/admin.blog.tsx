@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { getActiveUser } from "@/lib/custom-google-auth";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/admin-shell";
@@ -94,8 +95,8 @@ function BlogAdmin() {
   async function syncAllStaticToDb() {
     setSyncing(true);
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const authorId = userData?.user?.id ?? null;
+      const activeUser = await getActiveUser();
+      const authorId = activeUser?.id ?? null;
 
       let insertedCount = 0;
       let updatedCount = 0;
@@ -145,8 +146,8 @@ function BlogAdmin() {
 
   async function syncSinglePost(sp: BlogPostData) {
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const authorId = userData?.user?.id ?? null;
+      const activeUser = await getActiveUser();
+      const authorId = activeUser?.id ?? null;
 
       const payload = {
         title: sp.title,
