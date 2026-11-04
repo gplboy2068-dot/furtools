@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouterState } from "@tanstack/react-router";
 import { Bell, X } from "lucide-react";
 
 const STATUS_KEY = "furtools-push-status"; // "subscribed"
 const DISMISS_KEY = "furtools-push-dismissed-at";
 const PV_KEY = "furtools-push-pv";
 const DISMISS_DAYS = 30;
+const SHOW_DELAY_MS = 20000;
 
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -40,20 +42,27 @@ async function syncSubscription(): Promise<boolean> {
   }
 }
 
+function isChromelessPath(path: string): boolean {
+  return path.startsWith("/admin") || path.startsWith("/auth");
+}
+
 /**
- * Soft push-notification prompt. Never asks on first page load: it appears
- * only from the second pageview onwards (and after a short delay), respects
- * a 30-day dismissal, and stays off /admin and /auth pages.
+ * Soft push-notification prompt. Never asks on the first pageview: pageviews
+ * are counted across SPA navigations as well as full loads, and the card
+ * appears (after a short delay) from the second pageview onwards. A dismissal
+ * is respected for 30 days; /admin and /auth pages never show it.
  */
 export function PushPrompt() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [visible, setVisible] = useState(false);
   const [state, setState] = useState<"ask" | "working" | "done">("ask");
+  const [eligible, setEligible] = useState(false);
+  const countedPath = useRef<string | null>(null);
 
+  // One-time eligibility check on mount.
   useEffect(() => {
-    let timer: number | undefined;
     try {
-      const path = window.location.pathname;
-      if (path.startsWith("/admin") || path.startsWith("/auth")) return;
+      if (isChromelessPath(window.location.pathname)) return;
       if (!("Notification" in window) || !("serviceWorker" in navigator) || !("PushManager" in window)) return;
       if (localStorage.getItem(STATUS_KEY) === "subscribed") {
         // Already subscribed once — silently keep the server copy fresh.
@@ -63,17 +72,30 @@ export function PushPrompt() {
       if (Notification.permission !== "default") return;
       const dismissedAt = Number(localStorage.getItem(DISMISS_KEY) || 0);
       if (dismissedAt && Date.now() - dismissedAt < DISMISS_DAYS * 24 * 60 * 60 * 1000) return;
-      const pv = Number(localStorage.getItem(PV_KEY) || 0) + 1;
-      localStorage.setItem(PV_KEY, String(pv));
-      if (pv < 2) return;
-      timer = window.setTimeout(() => setVisible(true), 20000);
+      setEligible(true);
     } catch {
       /* storage unsupported — stay hidden */
     }
-    return () => {
-      if (timer) window.clearTimeout(timer);
-    };
   }, []);
+
+  // Count each distinct pageview (full load or SPA navigation); show the
+  // card shortly after the second one.
+  useEffect(() => {
+    if (!eligible || visible) return;
+    if (isChromelessPath(pathname)) return;
+    if (countedPath.current === pathname) return;
+    countedPath.current = pathname;
+    let pv = 2; // if storage fails, do not block the prompt forever
+    try {
+      pv = Number(localStorage.getItem(PV_KEY) || 0) + 1;
+      localStorage.setItem(PV_KEY, String(pv));
+    } catch {
+      /* keep default */
+    }
+    if (pv < 2) return;
+    const timer = window.setTimeout(() => setVisible(true), SHOW_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, [pathname, eligible, visible]);
 
   const dismiss = () => {
     try {
