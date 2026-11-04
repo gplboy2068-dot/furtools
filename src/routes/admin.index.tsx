@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { TOOLS } from "@/data/tools";
 import { CATEGORIES } from "@/data/categories";
 import { fetchAnalyticsData } from "@/lib/analytics";
-import { getAdminStats } from "@/lib/admin-data";
+import { getAdminStats, getPushStats, sendPushNotification } from "@/lib/admin-data";
 import {
   FileText,
   Dog,
@@ -15,6 +15,8 @@ import {
   DollarSign,
   BarChart3,
   Wrench,
+  Bell,
+  Send,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/")({
@@ -140,6 +142,110 @@ function Dashboard() {
           )}
         </Card>
       </div>
+
+      <PushNotificationsCard />
     </div>
+  );
+}
+
+function PushNotificationsCard() {
+  const [count, setCount] = useState<number | null>(null);
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [link, setLink] = useState("");
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+
+  useEffect(() => {
+    getPushStats()
+      .then((s) => setCount(s.subscribers))
+      .catch(() => setCount(null));
+  }, []);
+
+  async function send(e: React.FormEvent) {
+    e.preventDefault();
+    if (!title.trim() || sending) return;
+    setSending(true);
+    setResult(null);
+    try {
+      const r = await sendPushNotification({
+        title: title.trim(),
+        body: body.trim(),
+        url: link.trim() || "/",
+      });
+      setResult(
+        `Sent to ${r.sent} of ${r.total} subscriber(s)` +
+          (r.removed ? ` · ${r.removed} dead subscription(s) removed` : "") +
+          (r.failed ? ` · ${r.failed} failed` : ""),
+      );
+      setTitle("");
+      setBody("");
+      setLink("");
+      const s = await getPushStats().catch(() => null);
+      if (s) setCount(s.subscribers);
+    } catch (err: any) {
+      setResult(err?.message || "Sending failed");
+    } finally {
+      setSending(false);
+    }
+  }
+
+  const inputCls =
+    "w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary";
+
+  return (
+    <Card className="mt-6 p-5">
+      <div className="mb-3 flex items-center justify-between">
+        <h2 className="flex items-center gap-2 font-display text-lg font-semibold">
+          <Bell className="size-5 text-primary" /> Push notifications
+        </h2>
+        <span className="text-xs text-muted-foreground">
+          {count === null ? "Subscriber count unavailable" : `${count} subscriber(s)`}
+        </span>
+      </div>
+      <p className="mb-4 text-sm text-muted-foreground">
+        Send a browser push notification to everyone who subscribed on the site
+        (self-hosted Web Push — subscriptions are stored in D1). Keep it to a
+        few sends a week.
+      </p>
+      <form onSubmit={send} className="grid gap-3">
+        <input
+          className={inputCls}
+          placeholder="Title — e.g. New guide: How to stop puppy biting"
+          value={title}
+          maxLength={120}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <input
+          className={inputCls}
+          placeholder="Message (optional) — one short line"
+          value={body}
+          maxLength={300}
+          onChange={(e) => setBody(e.target.value)}
+        />
+        <input
+          className={inputCls}
+          placeholder="Link (optional) — /blog/your-post or full furtools.com URL"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+        />
+        <div className="flex items-center gap-3">
+          <button
+            type="submit"
+            disabled={sending || !title.trim() || count === 0}
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-50"
+          >
+            <Send className="size-4" /> {sending ? "Sending…" : "Send notification"}
+          </button>
+          {count === 0 ? (
+            <span className="text-xs text-muted-foreground">
+              No subscribers yet — the button activates once someone subscribes.
+            </span>
+          ) : null}
+        </div>
+        {result ? <p className="text-sm text-muted-foreground">{result}</p> : null}
+      </form>
+    </Card>
   );
 }

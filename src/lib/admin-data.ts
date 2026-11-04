@@ -108,3 +108,19 @@ export async function getAdminAnalyticsEvents(days: number): Promise<any[]> {
   const data = await adminFetch(`/api/admin/analytics?days=${days}`);
   return data.events ?? [];
 }
+
+export async function getPushStats(): Promise<{ subscribers: number }> {
+  const data = await adminFetch("/api/admin/push/stats");
+  return { subscribers: data.subscribers ?? 0 };
+}
+
+export async function sendPushNotification(input: {
+  title: string;
+  body?: string;
+  url?: string;
+}): Promise<{ total: number; sent: number; removed: number; failed: number }> {
+  return adminFetch("/api/admin/push/send", {
+    method: "POST",
+    body: JSON.stringify(input),
+  });
+}

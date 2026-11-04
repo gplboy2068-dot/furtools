@@ -17,6 +17,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CookieConsent } from "@/components/cookie-consent";
+import { PushPrompt } from "@/components/push-prompt";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { SITE } from "@/lib/site";
@@ -200,6 +201,7 @@ function RootComponent() {
           )}
           <Toaster />
           <CookieConsent />
+          <PushPrompt />
         </ThemeProvider>
       </QueryClientProvider>
     </I18nextProvider>
