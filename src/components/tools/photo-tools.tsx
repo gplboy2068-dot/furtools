@@ -67,15 +67,21 @@ export function PetEmotionDetector() {
       uploadLabel={t("pet-emotion-detector.ui.uploadLabel")}
       hint={t("pet-emotion-detector.ui.hint")}
       cta={t("pet-emotion-detector.ui.cta")}
-      prompt={`Read this pet's likely emotional state from body language.
+      prompt={`Read this pet's likely emotional state from body language in this photo.
+
+Ground rules:
+- Describe ONLY signals that are actually visible in this photo. If a body part is not visible (for example the tail is out of frame), write "not visible" for it — never guess its position or movement.
+- A single still photo freezes one moment; say so when the read is uncertain.
 
 Return Markdown structured as:
 
 **Species:**
 **Primary Emotion:** (relaxed / alert / playful / anxious / fearful / frustrated / content / uncertain)
 **Confidence:** low / medium / high
-**Body-Language Signals:** bullet list — eyes, ears, mouth, tail, posture, weight distribution
+**Body-Language Signals:** bullet list — eyes, ears, mouth, tail, posture, weight distribution (only what is visible; mark the rest "not visible")
+**Signal Agreement:** do the visible signals point to one consistent emotion, or are they mixed/conflicting? One short line.
 **What They Might Be "Saying":** 2–3 friendly sentences in plain language
+**Safety First:** ONLY if fear, anxiety or aggression signals dominate — advise giving the pet space, not reaching for or cornering them, keeping children back, and consulting a certified behaviourist or vet if the behaviour recurs. Omit this section entirely for calm or happy reads.
 **What to Do Next:** short, kind, owner-facing advice (approach, give space, engage in play, etc.)
 **Common Misreads:** 2 bullets on what this posture is NOT
 
@@ -94,15 +100,17 @@ export function SkinConditionAnalyzer() {
       uploadLabel={t("skin-condition-analyzer.ui.uploadLabel")}
       hint={t("skin-condition-analyzer.ui.hint")}
       cta={t("skin-condition-analyzer.ui.cta")}
-      prompt={`Describe what is visible on this pet's skin.
+      prompt={`Describe what is visible on this pet's skin. Describe only what the photo actually shows — never invent lesions, discharge or parasites that are not visible.
 
 Return Markdown structured as:
 
-**Visible Description:** location, colour, texture, size, borders, hair loss, crusting, discharge
-**Educational Possibilities (NOT a diagnosis):** 3–5 conditions a vet might consider (e.g. hot spot, allergy dermatitis, ringworm, flea allergy, folliculitis, sunburn, wound) — for each, one sentence on how it usually presents
-**Red Flags (see a vet promptly):** bullet list — spreading rapidly, bleeding, foul smell, pet in pain, systemic signs
-**Home Comfort (only if non-urgent):** e-collar, keep clean & dry, prevent licking
-**What to Bring to the Vet:** photo history, timeline, diet & environment changes
+**Photo Quality & Limits:** one line — is the area close and clear enough to assess? Note if a wider shot plus a close-up would help.
+**Visible Description:** location and distribution (one spot vs widespread, one side vs both sides), colour, texture, size, borders, hair loss, crusting, scaling, discharge, and any signs of self-trauma (lick staining, scratch marks)
+**Educational Possibilities (NOT a diagnosis):** 4–6 conditions a vet might consider, each with one sentence on how it usually presents and where on the body it typically appears. Always weigh parasitic and infectious causes alongside allergic ones when the picture fits — e.g. sarcoptic mange (mite; intensely itchy, ear edges, elbows, hocks, belly), demodicosis (mange mite; patchy hair loss, often face and paws), flea allergy dermatitis (tail base, lower back, hind legs), ringworm / dermatophytosis (circular patches, broken hairs), allergy dermatitis (environmental/food), bacterial folliculitis / pyoderma, Malassezia (yeast) dermatitis, hot spot (acute moist dermatitis), acral lick granuloma.
+**Contagion & Household Note:** ONLY when a parasitic or fungal possibility is listed (mange, ringworm, fleas): note that these can spread to other pets, that sarcoptic mange and ringworm can cause temporary itching in people, and advise keeping the pet's bedding separate, washing hands after handling, and booking the vet promptly. Omit this section if no contagious possibility fits.
+**Red Flags (see a vet promptly):** bullet list — spreading rapidly, bleeding or open sores, foul smell, pet in pain, intense itching that disturbs sleep, systemic signs (lethargy, off food, fever), or a puppy/kitten or elderly pet affected
+**Home Comfort (only if non-urgent):** e-collar, keep clean & dry, prevent licking; do NOT suggest medicated shampoos, creams or any medication or doses
+**What to Bring to the Vet:** photo history, timeline, itch level, diet & environment changes, flea-prevention history
 
 End with a strong reminder that skin conditions require a veterinary diagnosis and this is educational only.`}
     />
@@ -211,14 +219,21 @@ export function FishDiseaseSpotChecker() {
       cta={t("fish-disease-spot-checker.ui.cta")}
       prompt={`Describe visible signs on this fish that might indicate a health problem.
 
+Calibration rules — follow them strictly:
+- Report a sign ONLY if it is clearly visible in this photo. Do not report borderline or imagined signs.
+- Normal anatomy is NOT a sign: a goldfish's naturally prominent eyes, fancy-variety body shapes (round bodies, head growths / wen, long flowing fins), natural colour patterns, and reflections or glare through tank glass must not be reported as problems.
+- If nothing abnormal is clearly visible, say so plainly — a healthy result is a valid and useful answer.
+
 Return Markdown:
 
 **Species (if guessable):**
-**Visible Signs:** spots, patches, torn fins, red streaks, bloating, clamped fins, colour loss, ulcers, cotton-like growth, protruding scales
-**Educational Possibilities (NOT a diagnosis):** 3–5 conditions a fishkeeper should research — e.g. ich (white spot), fin rot, columnaris, velvet, dropsy, pop-eye, swim bladder — one sentence each on presentation
+**Photo Limits:** one line — glass glare, water distortion, only part of the fish visible, etc.
+**Visible Signs:** only signs clearly visible (spots, patches, torn fins, red streaks, bloating, clamped fins, colour loss, ulcers, cotton-like growth, protruding scales). Label each sign "clearly visible" or "possible but uncertain". If there are none, state "No clear signs of disease visible in this photo."
+**Overall Impression:** one of — no clear signs of disease / mild signs worth monitoring / clear signs needing prompt action
+**Educational Possibilities (NOT a diagnosis):** ONLY conditions consistent with the signs actually reported — e.g. ich (white spot), fin rot, columnaris, velvet, dropsy, pop-eye, swim bladder — one sentence each on presentation. If no clear signs were found, replace this list with 2–3 early warning signs to watch for in the coming days instead of a disease list.
 **Immediate Water-Quality Checks:** ammonia, nitrite, nitrate, pH, temperature, oxygenation
-**First-Line Husbandry Fixes:** water change, temperature adjustment, salt bath (species-dependent), quarantine tank, stop feeding for 24h if bloated
-**When to Call an Aquatic Vet or Store Expert:** rapid spread, multiple fish affected, death within hours
+**First-Line Husbandry Fixes:** water change, temperature adjustment, salt bath (species-dependent), quarantine tank, stop feeding for 24h if bloated — list only fixes relevant to the signs reported; if the fish looks healthy, say no fixes are needed beyond routine maintenance
+**When to Call an Aquatic Vet or Store Expert:** rapid spread, multiple fish affected, death within hours, or any clear sign worsening despite corrected water quality
 
 End with the required disclaimer and a note that many "diseases" are actually water-quality problems in disguise.`}
     />
