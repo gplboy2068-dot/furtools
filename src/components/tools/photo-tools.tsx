@@ -114,34 +114,6 @@ export function BodyConditionScorePhoto() {
   return <PetBodyConditionPhotoAnalyzer />;
 }
 
-/* ═════════ 6. Poop Health Analyzer ═════════ */
-export function PoopHealthAnalyzer() {
-  const { t } = useTranslation("tools");
-  return (
-    <PhotoAnalyzer
-      slug="poop-health-analyzer"
-      system="You are a small-animal veterinarian using the Bristol Stool / Purina Fecal Scoring Chart to interpret stool photos educationally."
-      uploadLabel={t("poop-health-analyzer.ui.uploadLabel")}
-      hint={t("poop-health-analyzer.ui.hint")}
-      cta={t("poop-health-analyzer.ui.cta")}
-      prompt={`Interpret this stool photo using the Purina Fecal Score (1 = very hard, 7 = watery).
-
-Return Markdown:
-
-**Species (if guessable):**
-**Fecal Score:** (1–7) with a short justification
-**Colour:** and what colour ranges typically indicate (brown = normal, black = possible upper GI bleed, red streaks = lower GI, yellow/grey = liver/pancreas concern, green = bile/food)
-**Consistency & Shape:**
-**Visible Concerns:** mucus, blood, undigested food, worms, foreign material
-**Likely Meaning (educational):** 2–3 short bullets
-**When to Call the Vet:** bullet list — score ≤2 or ≥6, blood, worms, lethargy, off food, dehydration, puppies/kittens with diarrhoea
-**Home Support (only if no red flags):** bland diet, hydration, probiotic
-
-End with the required disclaimer.`}
-    />
-  );
-}
-
 /* ═════════ 7. Dog vs Wolf / Coyote Identifier ═════════ */
 export function DogWolfCoyoteIdentifier() {
   const { t } = useTranslation("tools");

@@ -92,9 +92,10 @@ import {
 } from "@/components/tools/species-tools-10";
 import {
   PetBreedIdentifier, PetAgeEstimatorPhoto, PetEmotionDetector, SkinConditionAnalyzer,
-  BodyConditionScorePhoto, PoopHealthAnalyzer, DogWolfCoyoteIdentifier, CatCoatPatternIdentifier,
+  BodyConditionScorePhoto, DogWolfCoyoteIdentifier, CatCoatPatternIdentifier,
   BirdSpeciesIdentifier, FishDiseaseSpotChecker,
 } from "@/components/tools/photo-tools";
+import { PoopHealthAnalyzer } from "@/components/tools/poop-health-analyzer";
 import {
   TarantulaEnclosureCalculator, TarantulaFeedingSchedule,
   HedgehogWheelSize, HedgehogDietCalculator,
