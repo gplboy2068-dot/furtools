@@ -28,6 +28,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as FoodsIndexRouteImport } from './routes/foods.index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
@@ -166,6 +167,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsIndexRoute = ToolsIndexRouteImport.update({
+  id: '/tools/',
+  path: '/tools/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoodsIndexRoute = FoodsIndexRouteImport.update({
@@ -443,6 +449,7 @@ export interface FileRoutesByFullPath {
   '/categories/': typeof CategoriesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/foods/': typeof FoodsIndexRoute
+  '/tools/': typeof ToolsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
   '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
@@ -506,6 +513,7 @@ export interface FileRoutesByTo {
   '/categories': typeof CategoriesIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/foods': typeof FoodsIndexRoute
+  '/tools': typeof ToolsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
   '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
@@ -571,6 +579,7 @@ export interface FileRoutesById {
   '/categories/': typeof CategoriesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/foods/': typeof FoodsIndexRoute
+  '/tools/': typeof ToolsIndexRoute
   '/admin/posts/$id': typeof AdminPostsIdRoute
   '/api/auth/google-verify': typeof ApiAuthGoogleVerifyRoute
   '/dashboard/pets/$id': typeof DashboardPetsIdRoute
@@ -637,6 +646,7 @@ export interface FileRouteTypes {
     | '/categories/'
     | '/dashboard/'
     | '/foods/'
+    | '/tools/'
     | '/admin/posts/$id'
     | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
@@ -700,6 +710,7 @@ export interface FileRouteTypes {
     | '/categories'
     | '/dashboard'
     | '/foods'
+    | '/tools'
     | '/admin/posts/$id'
     | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
@@ -764,6 +775,7 @@ export interface FileRouteTypes {
     | '/categories/'
     | '/dashboard/'
     | '/foods/'
+    | '/tools/'
     | '/admin/posts/$id'
     | '/api/auth/google-verify'
     | '/dashboard/pets/$id'
@@ -810,6 +822,7 @@ export interface RootRouteChildren {
   CategoriesIndexRoute: typeof CategoriesIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   FoodsIndexRoute: typeof FoodsIndexRoute
+  ToolsIndexRoute: typeof ToolsIndexRoute
   ApiAuthGoogleVerifyRoute: typeof ApiAuthGoogleVerifyRoute
   DashboardPetsIdRoute: typeof DashboardPetsIdRoute
   EmbedToolsSlugRoute: typeof EmbedToolsSlugRoute
@@ -948,6 +961,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/': {
+      id: '/tools/'
+      path: '/tools'
+      fullPath: '/tools/'
+      preLoaderRoute: typeof ToolsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/foods/': {
@@ -1343,6 +1363,7 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesIndexRoute: CategoriesIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   FoodsIndexRoute: FoodsIndexRoute,
+  ToolsIndexRoute: ToolsIndexRoute,
   ApiAuthGoogleVerifyRoute: ApiAuthGoogleVerifyRoute,
   DashboardPetsIdRoute: DashboardPetsIdRoute,
   EmbedToolsSlugRoute: EmbedToolsSlugRoute,
