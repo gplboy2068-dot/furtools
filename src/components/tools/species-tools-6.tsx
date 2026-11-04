@@ -38,7 +38,11 @@ export function AdoptionVsBuyingComparator() {
     <div className="space-y-4">
       <div>
         <Label>{t("adoption-vs-buying-cost-comparator.ui.speciesLabel")}</Label>
-        <Select value={species} onValueChange={(v) => setSpecies(v as "dog" | "cat")}>
+        <Select value={species} onValueChange={(v) => {
+          const s = v as "dog" | "cat";
+          setSpecies(s);
+          setAdoptionFee(s === "dog" ? 300 : 150);
+        }}>
           <SelectTrigger><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="dog">{t("adoption-vs-buying-cost-comparator.ui.speciesDog")}</SelectItem>
@@ -77,7 +81,7 @@ export function AdoptionVsBuyingComparator() {
           <li>{t("adoption-vs-buying-cost-comparator.ui.spayNeuterRow", { fee: data.buying.spayNeuter })}</li>
           <li>{t("adoption-vs-buying-cost-comparator.ui.vaccineSeriesRow", { fee: data.buying.vaccines })}</li>
           <li>{t("adoption-vs-buying-cost-comparator.ui.microchipRow", { fee: data.buying.microchip })}</li>
-          <li>First vet visit: ${data.buying.initialVet}</li>
+          <li>{t("adoption-vs-buying-cost-comparator.ui.firstVetVisitRow", { fee: data.buying.initialVet })}</li>
         </ul>
       </div>
       <div className="rounded-lg bg-primary/10 p-4 text-center">

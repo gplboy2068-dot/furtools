@@ -49,7 +49,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "dog-water-calculator",
     "name": "Dog Water Intake Calculator",
-    "tagline": "Daily water needs by weight and activity",
+    "tagline": "Daily water needs by weight and climate",
     "category": "dogs",
     "keywords": [
       "dog water",

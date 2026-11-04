@@ -101,7 +101,7 @@ const RAW_TOOLS: Tool[] = [
     featured: true, popular: true, medicalDisclaimer: true,
     howItWorks: "We calculate Resting Energy Requirement (RER = 70 × kg^0.75), then multiply by activity and life-stage factors to get Maintenance Energy Requirement (MER). Divide by kcal per cup to get portions.",
     examples: [
-      { label: "30 lb adult, moderate activity", result: "≈ 900 kcal/day, ~2.6 cups" },
+      { label: "30 lb adult, moderate activity", result: "≈ 790 kcal/day, ~2.3 cups" },
       { label: "60 lb active adult", result: "≈ 1,700 kcal/day, ~4.9 cups" },
     ],
     faqs: [
@@ -115,8 +115,8 @@ const RAW_TOOLS: Tool[] = [
   {
     slug: "dog-water-calculator",
     name: "Dog Water Intake Calculator",
-    tagline: "Daily water needs by weight and activity",
-    description: "Estimate your dog's daily water requirements based on weight, activity level, and climate.",
+    tagline: "Daily water needs by weight and climate",
+    description: "Estimate your dog's daily water requirements based on weight and climate.",
     category: "dogs",
     keywords: ["dog water", "hydration", "drinking"],
     layout: "calculator",
@@ -124,7 +124,7 @@ const RAW_TOOLS: Tool[] = [
     howItWorks: "Dogs typically need about 1 fluid ounce of water per pound of body weight per day, with more in hot climates or after heavy exercise.",
     examples: [
       { label: "40 lb dog, temperate climate", result: "≈ 40 oz (1.2 L) per day" },
-      { label: "20 lb dog, hot day + walk", result: "≈ 28 oz (830 ml) per day" },
+      { label: "20 lb dog, hot day", result: "≈ 26 oz (770 ml) per day" },
     ],
     faqs: [
       { q: "How do I know if my dog is dehydrated?", a: "Check gum moisture and skin elasticity — dry gums and slow skin snap-back are early warning signs. See a vet for anything more serious." },
@@ -144,8 +144,8 @@ const RAW_TOOLS: Tool[] = [
     layout: "calculator",
     howItWorks: "We calculate the Maintenance Energy Requirement (MER) using standard veterinary formulas: RER = 70 × kg^0.75, then MER = RER × life-stage/activity factor.",
     examples: [
-      { label: "25 lb senior, low activity", result: "≈ 590 kcal/day" },
-      { label: "80 lb working dog", result: "≈ 2,900 kcal/day" },
+      { label: "25 lb senior, low activity", result: "≈ 470 kcal/day" },
+      { label: "80 lb working dog", result: "≈ 2,600 kcal/day" },
     ],
     faqs: [
       { q: "Why does the number differ from bag guidelines?", a: "Bag guidelines are population averages — individual needs vary by ±25%. Adjust based on your dog's body condition." },
@@ -562,8 +562,8 @@ const RAW_TOOLS: Tool[] = [
     featured: true, medicalDisclaimer: true,
     howItWorks: "We calculate RER (70 × kg^0.75) and multiply by feline factors (1.0 for adults, 1.2 for active, 2.5 for kittens).",
     examples: [
-      { label: "10 lb indoor adult cat", result: "≈ 200 kcal/day" },
-      { label: "6-month-old kitten, 5 lb", result: "≈ 280 kcal/day" },
+      { label: "10 lb indoor adult cat", result: "≈ 220 kcal/day" },
+      { label: "6-month-old kitten, 5 lb", result: "≈ 320 kcal/day" },
     ],
     faqs: [
       { q: "Wet or dry food?", a: "Wet food supports hydration and lean mass; many cats do best on a mix." },
