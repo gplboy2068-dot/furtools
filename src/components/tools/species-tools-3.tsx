@@ -128,7 +128,8 @@ export function DogCrateTrainingSchedule() {
 export function CatWindowPerchGuide() {
   const { t } = useTranslation("tools");
   const [cats, setCats] = useState(1);
-  const perches = cats + 1;
+  const safeCats = Math.max(1, Number.isFinite(cats) ? Math.floor(cats) : 1);
+  const perches = safeCats + 1;
   return (
     <CalculatorLayout
       form={<NumberField label={t("cat-window-perch-guide.ui.catsLabel")} value={cats} onChange={setCats} min={1} />}
@@ -144,7 +145,12 @@ export function CatWeightLossPlanner() {
   const { t } = useTranslation("tools");
   const [current, setCurrent] = useState(6);
   const [target, setTarget] = useState(5);
-  const weeks = Math.max(1, Math.round((current - target) / 0.05));
+  const cur = Number.isFinite(current) ? Math.max(0, current) : 0;
+  const tgt = Number.isFinite(target) ? Math.max(0, target) : 0;
+  const toLose = cur - tgt;
+  // Safe feline loss is 0.5–1% of body weight per week; plan at the 0.75% midpoint.
+  // (A flat 0.05 kg/week overshoots the 1% cap for any cat under ~5 kg.)
+  const weeks = toLose > 0 ? Math.max(1, Math.round(toLose / (cur * 0.0075))) : 0;
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
@@ -152,7 +158,7 @@ export function CatWeightLossPlanner() {
         <NumberField label={t("cat-weight-loss-planner.ui.targetWeightLabel")} value={target} onChange={setTarget} step={0.1} />
       </div>}
       result={<div className="space-y-4">
-        <Big value={t("cat-weight-loss-planner.ui.weeksValue", { weeks })} label={t("cat-weight-loss-planner.ui.timelineLabel")} />
+        <Big value={weeks > 0 ? t("cat-weight-loss-planner.ui.weeksValue", { weeks }) : t("cat-weight-loss-planner.ui.noLossNeeded")} label={t("cat-weight-loss-planner.ui.timelineLabel")} />
         <Note>{t("cat-weight-loss-planner.ui.lossNote")}</Note>
       </div>}
     />

@@ -846,20 +846,16 @@
         ],
         "cat": [
           {
-            "week": 6,
-            "name": "FVRCP #1 (core)"
-          },
-          {
-            "week": 9,
-            "name": "FVRCP #2"
+            "week": 8,
+            "name": "FVRCP #1 (core) + FeLV #1"
           },
           {
             "week": 12,
-            "name": "FVRCP #3 + optional FeLV"
+            "name": "FVRCP #2 + FeLV #2"
           },
           {
             "week": 16,
-            "name": "FVRCP #4 + Rabies"
+            "name": "FVRCP #3 + Rabies"
           },
           {
             "week": 52,
@@ -1034,7 +1030,7 @@
   },
   "cat-play-time-calculator": {
     "name": "Cat Play Time Calculator",
-    "description": "Cats need structured play to stay lean and content. Get a daily play-time recommendation by age and energy.",
+    "description": "Cats need structured play to stay lean and content. Get a daily play-time recommendation by age.",
     "ui": {
       "lifeStageLabel": "Life stage",
       "stageKitten": "Kitten",
@@ -4343,7 +4339,7 @@
     "ui": {
       "catsLabel": "Number of cats",
       "perchesLabel": "Recommended perches",
-      "perchNote": "One perch per cat plus a spare avoids resource guarding. Choose sunny east or south windows."
+      "perchNote": "One perch per cat plus a spare avoids resource guarding. Choose sunny east or south windows. Fix it securely — brackets or suction cups rated well above your cat's weight, re-checked regularly — and keep a shaded perch option so cats can move out of strong sun."
     }
   },
   "cat-weight-loss-planner": {
@@ -4353,8 +4349,9 @@
       "currentWeightLabel": "Current weight (kg)",
       "targetWeightLabel": "Target weight (kg)",
       "weeksValue": "{{weeks}} weeks",
+      "noLossNeeded": "No loss needed",
       "timelineLabel": "Safe timeline",
-      "lossNote": "Cats should lose no more than 0.5–1% body weight per week — rapid loss risks fatty liver."
+      "lossNote": "Cats should lose no more than 0.5–1% body weight per week — rapid loss risks fatty liver. Agree the target weight and diet with your vet before starting."
     }
   },
   "cat-age-adjusted-feeding": {

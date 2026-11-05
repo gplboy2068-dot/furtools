@@ -229,7 +229,8 @@ export function CatCarrierSize() {
 export function CatCatioSize() {
   const { t } = useTranslation("tools");
   const [cats, setCats] = useState(1);
-  const sqft = cats * 15;
+  const safeCats = Math.max(1, Number.isFinite(cats) ? Math.floor(cats) : 1);
+  const sqft = safeCats * 18;
   return (
     <CalculatorLayout
       form={<NumberField label={t("cat-catio-size-calculator.ui.numberOfCats")} value={cats} onChange={setCats} min={1} />}

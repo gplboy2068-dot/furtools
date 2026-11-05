@@ -183,9 +183,13 @@ export function TreatCalorieCalculator({ species, slug }: { species: Species; sl
 export function PregnancyCalculator({ species, gestation, slug }: { species: Species; gestation: number; slug?: string }) {
   const { t } = useTranslation("tools");
   const p = slug ?? "shared.pregnancy";
-  const today = new Date().toISOString().slice(0, 10);
+  // Build "today" and parse the picked date as LOCAL dates: new Date("2026-02-01")
+  // is UTC midnight, which renders as the previous day west of UTC (off-by-one).
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const [date, setDate] = useState(today);
-  const start = new Date(date);
+  const [sy, sm, sd] = (date || "").split("-").map(Number);
+  const start = sy && sm && sd ? new Date(sy, sm - 1, sd) : new Date();
   const due = addDays(start, gestation);
   const milestones = [
     { day: 21, key: "ultrasound" },
