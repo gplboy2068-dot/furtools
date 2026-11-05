@@ -4131,22 +4131,22 @@
       "bagsPerMonth50Lb22": "≈ {{bagsPerMonth50lb}} bags per month (50 lb / 22.7 kg)",
       "specs": {
         "chick": {
-          "protein": "20%â22% Chick Starter (Crumbled)",
+          "protein": "20%–22% Chick Starter (Crumbled)",
           "calcium": "1.0% (Low to prevent kidney calcification)",
           "grit": "Fine Chick Grit"
         },
         "grower": {
-          "protein": "16%â18% Grower/Developer",
+          "protein": "16%–18% Grower/Developer",
           "calcium": "1.2% (Controlled bone growth)",
           "grit": "Medium Grower Grit"
         },
         "layer": {
           "protein": "16% Layer Crumbles / Pellets",
-          "calcium": "3.8%â4.2% (Mandatory for eggshell calcification)",
+          "calcium": "3.8%–4.2% (Mandatory for eggshell calcification)",
           "grit": "Insoluble Granite Grit + Free-Choice Oyster Shell"
         },
         "broiler": {
-          "protein": "18%â20% Meatbird Finisher",
+          "protein": "18%–20% Meatbird Finisher",
           "calcium": "1.0%",
           "grit": "Coarse Granite Grit"
         }
@@ -7175,7 +7175,7 @@
       "hPoinsettia": "Poinsettia",
       "dPoinsettia": "Mildly toxic — mouth irritation and drooling. Rarely serious but keep out of reach.",
       "hHolly": "Holly & mistletoe",
-      "dHolly": "Berries cause vomiting, diarrhea, and cardiovascular effects with mistletoe.",
+      "dHolly": "Holly berries cause vomiting and diarrhea. Mistletoe can also slow the heart and lower blood pressure — keep both out of reach.",
       "hLilies": "Lilies (all types)",
       "dLilies": "Deadly to cats — any part causes acute kidney failure. Even pollen or vase water.",
       "hTreeWater": "Christmas tree water",
@@ -7187,7 +7187,7 @@
       "hLights": "String lights",
       "dLights": "Chewing causes electrical burns and shock. Unplug when unsupervised.",
       "hChocolate": "Chocolate & baked goods",
-      "dChocolate": "Rich holiday foods = pancreatitis. Chocolate and macadamia especially dangerous.",
+      "dChocolate": "Theobromine poisoning — the darker the chocolate, the more toxic. Dark and baking chocolate are emergencies even in small amounts. (Rich fatty holiday foods are a separate pancreatitis risk.)",
       "hOnions": "Onions, garlic, leeks",
       "dOnions": "In stuffing and gravy — cause hemolytic anemia in dogs and cats.",
       "hAlcohol": "Alcohol",
@@ -7200,6 +7200,9 @@
       "dCandles": "Burns and fire risk from tails, jumping cats. Use flameless.",
       "hWrapping": "Wrapping paper & bows",
       "dWrapping": "GI obstruction if swallowed. Clean up promptly.",
+      "hXylitol": "Xylitol (birch sugar)",
+      "dXylitol": "Hidden in sugar-free gum, candy and some peanut butters — triggers a rapid insulin surge and can cause liver failure in dogs. Treat as an emergency: call your vet or poison control immediately.",
+      "noResults": "No matches found. Try 'lily', 'chocolate', 'tinsel' or 'xylitol' — and if your pet has eaten something you are unsure about, call your vet or poison control now.",
       "riskToxic": "toxic",
       "riskHazard": "hazard",
       "riskCaution": "caution",
@@ -8269,7 +8272,8 @@
       "noteLeaving": "Leaving dust in the cage 24/7 causes eye irritation and over-drying.",
       "noteDehumidifier": "Run a dehumidifier — chinchillas need under 50% humidity and below 24 °C to avoid heat stroke and fungus.",
       "noteTemp": "Keep the room under 24 °C; chinchillas overheat easily.",
-      "noteReuse": "Reuse dust 2-3 times, sifting droppings out, then replace it."
+      "noteReuse": "Reuse dust 2-3 times, sifting droppings out, then replace it.",
+      "noteWater": "Never bathe a chinchilla in water — it strips the coat's oils, chills them and invites fungal infection. Dust only."
     }
   },
   "chinchilla-cage-size-calculator": {

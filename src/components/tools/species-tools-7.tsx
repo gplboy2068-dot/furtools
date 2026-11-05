@@ -39,7 +39,7 @@ export function ClickerTrainingPlanner() {
     <div className="space-y-4">
       <div>
         <Label>{t("clicker-training-planner.ui.sessionsLabel")}</Label>
-        <Input type="number" min={1} max={6} value={sessionsPerDay} onChange={(e) => setSessionsPerDay(+e.target.value || 1)} />
+        <Input type="number" min={1} max={6} value={sessionsPerDay} onChange={(e) => setSessionsPerDay(Math.min(6, Math.max(1, +e.target.value || 1)))} />
         <p className="mt-1 text-xs text-muted-foreground">{t("clicker-training-planner.ui.sessionsHint")}</p>
       </div>
     </div>

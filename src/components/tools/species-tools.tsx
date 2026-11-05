@@ -2658,7 +2658,7 @@ export function ChickenEggProduction() {
           <Big value={t("chicken-egg-production-tracker.ui.eggsWk", { weeklyAvg })} label={t("chicken-egg-production-tracker.ui.estimatedWeeklyEggHarvest")} unit={t("chicken-egg-production-tracker.ui.dozenMonth", { dozensMonthly })} />
           <Rows items={[
             { label: t("chicken-egg-production-tracker.ui.annualProjectedHarvest"), value: t("chicken-egg-production-tracker.ui.totalEggsDozen", { v0: totalAnnualEggs.toLocaleString(), v1: Math.round(totalAnnualEggs / 12) }) },
-            { label: t("chicken-egg-production-tracker.ui.dailyPeakRate"), value: t("chicken-egg-production-tracker.ui.toEggsPerDay", { v0: Math.round(weeklyAvg / 7), v1: Math.ceil(weeklyAvg / 7) }) },
+            { label: t("chicken-egg-production-tracker.ui.dailyPeakRate"), value: t("chicken-egg-production-tracker.ui.toEggsPerDay", { v0: Math.floor(totalAnnualEggs / 365), v1: Math.ceil(totalAnnualEggs / 365) }) },
             { label: t("chicken-egg-production-tracker.ui.calciumProteinSupport"), value: t("chicken-egg-production-tracker.ui.offerFreeChoiceCrushedOysterShell") },
           ]} />
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">

@@ -532,7 +532,7 @@ export function ChinchillaDustBathSchedule() {
   const [last, setLast] = useLocal<string>("furtools:chin-dust:last", "");
 
   const baseTimes = humidity > 60 ? 4 : humidity > 45 ? 3 : 2;
-  const times = coat === "greasy" ? baseTimes + 1 : coat === "dry" ? Math.max(1, baseTimes - 1) : baseTimes;
+  const times = Math.min(4, coat === "greasy" ? baseTimes + 1 : coat === "dry" ? Math.max(1, baseTimes - 1) : baseTimes);
   const intervalDays = Math.max(1, Math.round(7 / times));
   const minutes = coat === "greasy" ? 15 : 10;
 
@@ -543,11 +543,17 @@ export function ChinchillaDustBathSchedule() {
     return d.toISOString().slice(0, 10);
   }, [last, intervalDays]);
 
+  // Local calendar date (YYYY-MM-DD) — toISOString() is UTC and can be a day off locally.
+  const todayLocal = () => {
+    const n = new Date();
+    return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, "0")}-${String(n.getDate()).padStart(2, "0")}`;
+  };
+
   const form = (
     <div className="space-y-4">
       <div>
         <Label>{t("chinchilla-dust-bath-schedule.ui.humidityLabel")}</Label>
-        <Input type="number" min={0} max={100} value={humidity} onChange={(e) => setHumidity(Number(e.target.value) || 0)} />
+        <Input type="number" min={0} max={100} value={humidity} onChange={(e) => setHumidity(Math.min(100, Math.max(0, Number(e.target.value) || 0)))} />
       </div>
       <div>
         <Label>{t("chinchilla-dust-bath-schedule.ui.coatLabel")}</Label>
@@ -564,7 +570,7 @@ export function ChinchillaDustBathSchedule() {
         <Label>{t("chinchilla-dust-bath-schedule.ui.lastLabel")}</Label>
         <Input type="date" value={last} onChange={(e) => setLast(e.target.value)} />
       </div>
-      {last ? <Button variant="outline" onClick={() => setLast(new Date().toISOString().slice(0, 10))}>{t("chinchilla-dust-bath-schedule.ui.logButton")}</Button> : null}
+      {last ? <Button variant="outline" onClick={() => setLast(todayLocal())}>{t("chinchilla-dust-bath-schedule.ui.logButton")}</Button> : null}
     </div>
   );
 
@@ -581,6 +587,7 @@ export function ChinchillaDustBathSchedule() {
         t("chinchilla-dust-bath-schedule.ui.noteLeaving"),
         humidity > 60 ? t("chinchilla-dust-bath-schedule.ui.noteDehumidifier") : t("chinchilla-dust-bath-schedule.ui.noteTemp"),
         t("chinchilla-dust-bath-schedule.ui.noteReuse"),
+        t("chinchilla-dust-bath-schedule.ui.noteWater"),
       ]} />
     </div>
   );
@@ -607,15 +614,15 @@ export function ChinchillaCageSize() {
     <div className="space-y-4">
       <div>
         <Label>{t("chinchilla-cage-size-calculator.ui.countLabel")}</Label>
-        <Input type="number" min={1} max={6} value={count} onChange={(e) => setCount(Number(e.target.value) || 1)} />
+        <Input type="number" min={1} max={6} value={count} onChange={(e) => setCount(Math.min(6, Math.max(1, Math.round(Number(e.target.value) || 1))))} />
       </div>
       <div>
         <Label>{t("chinchilla-cage-size-calculator.ui.barSpacingLabel")}</Label>
-        <Input type="number" min={0.1} step={0.05} value={barSpacing} onChange={(e) => setBarSpacing(Number(e.target.value) || 0)} />
+        <Input type="number" min={0.1} step={0.05} value={barSpacing} onChange={(e) => setBarSpacing(Math.max(0, Number(e.target.value) || 0))} />
       </div>
       <div>
         <Label>{t("chinchilla-cage-size-calculator.ui.levelsLabel")}</Label>
-        <Input type="number" min={1} max={8} value={levels} onChange={(e) => setLevels(Number(e.target.value) || 1)} />
+        <Input type="number" min={1} max={8} value={levels} onChange={(e) => setLevels(Math.min(8, Math.max(1, Math.round(Number(e.target.value) || 1))))} />
       </div>
     </div>
   );

@@ -128,7 +128,7 @@ export function ColdWeatherSafetyScore() {
     let felt = wc;
     if (wet) felt -= 10;
     if (coat === "short") felt -= 5; else if (coat === "double") felt += 8;
-    if (size === "toy") felt -= 6; else if (size === "large") felt += 3;
+    if (size === "toy") felt -= 6; else if (size === "small") felt -= 3; else if (size === "large") felt += 3;
     if (puppy) felt -= 4;
     let tone: "safe" | "caution" | "danger" | "extreme" = "safe";
     let label = t("cold-weather-safety-score.ui.labelSafe");
@@ -334,6 +334,7 @@ export function ChristmasHazardLookup() {
     { key: "ornaments", risk: "hazard", name: t("christmas-hazard-lookup.ui.hOrnaments"), detail: t("christmas-hazard-lookup.ui.dOrnaments") },
     { key: "lights", risk: "hazard", name: t("christmas-hazard-lookup.ui.hLights"), detail: t("christmas-hazard-lookup.ui.dLights") },
     { key: "chocolate", risk: "toxic", name: t("christmas-hazard-lookup.ui.hChocolate"), detail: t("christmas-hazard-lookup.ui.dChocolate") },
+    { key: "xylitol", risk: "toxic", name: t("christmas-hazard-lookup.ui.hXylitol"), detail: t("christmas-hazard-lookup.ui.dXylitol") },
     { key: "onions", risk: "toxic", name: t("christmas-hazard-lookup.ui.hOnions"), detail: t("christmas-hazard-lookup.ui.dOnions") },
     { key: "alcohol", risk: "toxic", name: t("christmas-hazard-lookup.ui.hAlcohol"), detail: t("christmas-hazard-lookup.ui.dAlcohol") },
     { key: "bones", risk: "hazard", name: t("christmas-hazard-lookup.ui.hBones"), detail: t("christmas-hazard-lookup.ui.dBones") },
@@ -346,8 +347,26 @@ export function ChristmasHazardLookup() {
     hazard: t("christmas-hazard-lookup.ui.riskHazard"),
     caution: t("christmas-hazard-lookup.ui.riskCaution"),
   };
+  const aliases: Record<string, string> = {
+    poinsettia: "poinsettia",
+    holly: "holly mistletoe berries",
+    lilies: "lily lilies easter lily tiger lily daylily day lily asiatic lily oriental lily",
+    treewater: "tree water christmas tree stand water",
+    tinsel: "tinsel ribbon garland string",
+    ornaments: "ornaments baubles glass decorations",
+    lights: "string lights lights cords electrical wires",
+    chocolate: "chocolate cocoa theobromine dark chocolate baking chocolate",
+    xylitol: "xylitol birch sugar sugar-free gum sugar free candy peanut butter",
+    onions: "onions garlic leeks chives allium stuffing gravy",
+    alcohol: "alcohol eggnog rum beer wine spirits",
+    bones: "bones turkey bones cooked bones poultry bones",
+    snowglobes: "snow globes snowglobes antifreeze ethylene glycol",
+    candles: "candles flames fire",
+    wrapping: "wrapping paper bows gift wrap ribbon",
+  };
   const [q, setQ] = useState("");
-  const results = hazards.filter((h) => h.name.toLowerCase().includes(q.toLowerCase()));
+  const query = q.trim().toLowerCase();
+  const results = hazards.filter((h) => !query || (h.name + " " + (aliases[h.key] ?? "")).toLowerCase().includes(query));
   return (
     <div className="space-y-4">
       <Input placeholder={t("christmas-hazard-lookup.ui.searchPlaceholder")} value={q} onChange={(e) => setQ(e.target.value)} />
@@ -365,6 +384,9 @@ export function ChristmasHazardLookup() {
           );
         })}
       </div>
+      {results.length === 0 ? (
+        <p className="text-sm text-muted-foreground">{t("christmas-hazard-lookup.ui.noResults")}</p>
+      ) : null}
       <div className="rounded-lg bg-cream-deep p-3 text-xs">
         {t("christmas-hazard-lookup.ui.poisonNote")}
       </div>
