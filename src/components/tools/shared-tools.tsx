@@ -610,17 +610,44 @@ export function InsuranceCalculator({ slug }: { slug?: string } = {}) {
 export function BirthdayAgeCalculator({ slug }: { slug?: string } = {}) {
   const { t } = useTranslation("tools");
   const p = slug ?? "shared.birthdayAge";
-  const [dob, setDob] = useState(new Date(Date.now() - 3.15e10).toISOString().slice(0, 10));
+  const pad2 = (v: number) => String(v).padStart(2, "0");
+  const toKey = (dt: Date) => `${dt.getFullYear()}-${pad2(dt.getMonth() + 1)}-${pad2(dt.getDate())}`;
+  const [dob, setDob] = useState(() => { const n = new Date(); n.setFullYear(n.getFullYear() - 1); return toKey(n); });
   const now = new Date();
-  const birth = new Date(dob);
-  let y = now.getFullYear() - birth.getFullYear();
-  let m = now.getMonth() - birth.getMonth();
-  let d = now.getDate() - birth.getDate();
-  if (d < 0) { m--; d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
-  if (m < 0) { y--; m += 12; }
-  const nextBday = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
-  if (nextBday < now) nextBday.setFullYear(nextBday.getFullYear() + 1);
-  const daysUntil = Math.ceil((nextBday.getTime() - now.getTime()) / 86400000);
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  // Parse the picked date as LOCAL components — new Date("YYYY-MM-DD") is UTC
+  // midnight and shifts the birthday a day early west of UTC. A cleared or
+  // invalid field falls back to today instead of rendering NaN.
+  const parts = dob.split("-").map(Number);
+  const parsed = parts.length === 3 && parts.every((v) => Number.isFinite(v))
+    ? new Date(parts[0], parts[1] - 1, parts[2]) : null;
+  const birth = parsed && !isNaN(parsed.getTime()) ? parsed : today;
+  // Add years/months with the day clamped to the target month's length
+  // (Jan 31 + 1 month = Feb 28, not Mar 3) so the borrow never goes negative.
+  const addClamped = (base: Date, years: number, months: number) => {
+    const totalMonths = (base.getFullYear() + years) * 12 + base.getMonth() + months;
+    const ty = Math.floor(totalMonths / 12);
+    const tm = totalMonths % 12;
+    const day = Math.min(base.getDate(), new Date(ty, tm + 1, 0).getDate());
+    return new Date(ty, tm, day);
+  };
+  let y = 0, m = 0, d = 0, daysUntil: number;
+  if (birth > today) {
+    // Future "birthday" (e.g. an expected litter): age is 0 and the
+    // countdown runs to the date itself rather than rendering negatives.
+    daysUntil = Math.round((birth.getTime() - today.getTime()) / 86400000);
+  } else {
+    y = today.getFullYear() - birth.getFullYear();
+    if (addClamped(birth, y, 0) > today) y--;
+    const yearAnchor = addClamped(birth, y, 0);
+    m = (today.getFullYear() - yearAnchor.getFullYear()) * 12 + (today.getMonth() - yearAnchor.getMonth());
+    if (addClamped(yearAnchor, 0, m) > today) m--;
+    const monthAnchor = addClamped(yearAnchor, 0, m);
+    d = Math.round((today.getTime() - monthAnchor.getTime()) / 86400000);
+    let nextBday = addClamped(birth, y, 0);
+    if (nextBday < today) nextBday = addClamped(birth, y + 1, 0);
+    daysUntil = Math.round((nextBday.getTime() - today.getTime()) / 86400000);
+  }
   return (
     <CalculatorLayout
       form={<div><Label>{t(`${p}.ui.birthdayLabel`)}</Label>
@@ -673,7 +700,7 @@ export function BoardingCostEstimator({ slug }: { slug?: string } = {}) {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>{t(`${p}.ui.nightsLabel`)}</Label><Input type="number" min={1} value={nights} onChange={(e) => setNights(+e.target.value || 1)} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.nightsLabel`)}</Label><Input type="number" min={1} value={nights} onChange={(e) => setNights(Math.max(1, +e.target.value || 1))} className="mt-1.5" /></div>
         <div><Label>{t(`${p}.ui.tierLabel`)}</Label>
           <Select value={tier} onValueChange={(v: "basic" | "standard" | "premium") => setTier(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
@@ -682,7 +709,7 @@ export function BoardingCostEstimator({ slug }: { slug?: string } = {}) {
               <SelectItem value="standard">{t(`${p}.ui.tierOptions.standard`)}</SelectItem>
               <SelectItem value="premium">{t(`${p}.ui.tierOptions.premium`)}</SelectItem>
             </SelectContent></Select></div>
-        <div><Label>{t(`${p}.ui.petsLabel`)}</Label><Input type="number" min={1} value={pets} onChange={(e) => setPets(+e.target.value || 1)} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.petsLabel`)}</Label><Input type="number" min={1} value={pets} onChange={(e) => setPets(Math.max(1, +e.target.value || 1))} className="mt-1.5" /></div>
       </>}
       result={<div className="space-y-3">
         <BigResult value={`$${total}`} label={t(`${p}.ui.resultLabel`)} />
@@ -703,9 +730,9 @@ export function MultiPetCostCalculator({ slug }: { slug?: string } = {}) {
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>{t(`${p}.ui.dogsLabel`)}</Label><Input type="number" min={0} value={dogs} onChange={(e) => setDogs(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>{t(`${p}.ui.catsLabel`)}</Label><Input type="number" min={0} value={cats} onChange={(e) => setCats(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>{t(`${p}.ui.smallLabel`)}</Label><Input type="number" min={0} value={small} onChange={(e) => setSmall(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.dogsLabel`)}</Label><Input type="number" min={0} value={dogs} onChange={(e) => setDogs(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.catsLabel`)}</Label><Input type="number" min={0} value={cats} onChange={(e) => setCats(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.smallLabel`)}</Label><Input type="number" min={0} value={small} onChange={(e) => setSmall(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
       </>}
       result={<div className="space-y-3">
         <BigResult value={`$${perYear.toLocaleString()}`} label={t(`${p}.ui.resultLabel`)} />

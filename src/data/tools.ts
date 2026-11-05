@@ -994,10 +994,10 @@ const RAW_TOOLS: Tool[] = [
     category: "general",
     keywords: ["pet adoption", "adoption checklist"],
     layout: "guide",
-    howItWorks: "Interactive checklist grouped by supplies, home prep, first week, and vet visit. Mark items as done — your progress saves locally.",
+    howItWorks: "Interactive checklist grouped by supplies, home prep, and the first week. Mark items as done — your progress saves locally.",
     examples: [
-      { label: "Setup items", result: "16 essential" },
-      { label: "First-week tasks", result: "8 core tasks" },
+      { label: "Full checklist", result: "17 items across 3 groups" },
+      { label: "First-week tasks", result: "5 core tasks" },
     ],
     faqs: [
       { q: "What's the single most important item?", a: "A vet appointment scheduled within the first 7 days — even for a seemingly healthy pet." },
@@ -1104,8 +1104,8 @@ const RAW_TOOLS: Tool[] = [
     layout: "calculator",
     howItWorks: "We compute the difference between today and your pet's birthday, then count down to the next one.",
     examples: [
-      { label: "Born Jan 15, 2023", result: "3 years, 6 months, 0 days" },
-      { label: "Born Nov 2, 2024", result: "1 year, 8 months, 13 days" },
+      { label: "Born Jan 15, 2023", result: "3 years, 9 months, 21 days (on Nov 5, 2026)" },
+      { label: "Born Nov 2, 2024", result: "2 years, 0 months, 3 days (on Nov 5, 2026)" },
     ],
     faqs: [
       { q: "What if I don't know the exact date?", a: "Estimate using rescue paperwork or your vet's age estimate — even a month-precise birthday works." },
@@ -1164,8 +1164,8 @@ const RAW_TOOLS: Tool[] = [
     layout: "calculator",
     howItWorks: "Pick a boarding tier (basic, standard, premium), number of pets, and trip length. We compute the estimated total.",
     examples: [
-      { label: "5 nights, 1 dog, standard", result: "≈ $250" },
-      { label: "10 nights, 2 cats", result: "≈ $350" },
+      { label: "5 nights, 1 dog, standard", result: "≈ $275" },
+      { label: "10 nights, 2 cats, standard", result: "≈ $1,100" },
     ],
     faqs: [
       { q: "Does insurance cover boarding?", a: "Usually only if you're hospitalized. Everyday boarding is out-of-pocket." },
@@ -1182,10 +1182,10 @@ const RAW_TOOLS: Tool[] = [
     category: "general",
     keywords: ["multi pet", "household cost", "pet family"],
     layout: "calculator",
-    howItWorks: "Enter how many of each pet type live with you. We estimate combined annual and lifetime spending.",
+    howItWorks: "Enter how many of each pet type live with you. We estimate combined annual spending from rough per-pet averages (dog ~$1,800/yr, cat ~$1,100/yr, small pet ~$400/yr).",
     examples: [
-      { label: "1 dog + 2 cats", result: "~$3,800/year" },
-      { label: "2 dogs + 1 cat + rabbit", result: "~$5,600/year" },
+      { label: "1 dog + 2 cats", result: "~$4,000/year" },
+      { label: "2 dogs + 1 cat + rabbit", result: "~$5,100/year" },
     ],
     faqs: [
       { q: "Do multi-pet homes save on any costs?", a: "Sometimes on toys, treats, and grooming supplies — but rarely on food or vet care." },
@@ -2230,8 +2230,8 @@ const RAW_TOOLS: Tool[] = [
   {
     slug: "local-vet-finder",
     name: "Local Vet & Pet Hospital Finder",
-    tagline: "Search local accredited vet clinics, affordable care & 24/7 ERs",
-    description: "Search city and ZIP-code based veterinary clinics, low-cost wellness providers, exotic animal specialists, and 24/7 animal trauma hospitals with ratings, real-time distance sorting, and 1-tap call/directions.",
+    tagline: "Find local vet clinics, affordable care & 24/7 ERs",
+    description: "Search a curated directory of veterinary clinics, low-cost wellness providers, exotic animal specialists, and 24/7 animal trauma hospitals in major cities — with phone numbers and addresses — plus distance sorting when you share your location and a live Google Maps search for everywhere else.",
     category: "general",
     keywords: ["vet finder", "local vet clinic", "pet hospital near me", "cheap vet", "affordable vet", "24/7 animal hospital"],
     layout: "calculator",
@@ -2240,12 +2240,12 @@ const RAW_TOOLS: Tool[] = [
     examples: [
       { label: "City: Austin", result: "Shows 24/7 Emergency hospitals & community low-cost clinics" },
       { label: "ZIP: 10065", result: "Locates Manhattan animal trauma centers & general practices" },
-      { label: "Filter: Low-Cost", result: "Highlights $25 vaccination & subsidized wellness clinics" },
+      { label: "Filter: Low-Cost", result: "Highlights non-profit community clinics with subsidized spay/neuter, vaccines & microchipping" },
     ],
     faqs: [
-      { q: "How are clinics verified?", a: "Directory listings are verified against state licensing boards and accreditation standards (AAHA, RCVS)." },
-      { q: "Can I register my clinic?", a: "Yes! Practice managers can click 'Register a Clinic' to submit their practice details for review." },
-      { q: "Does the search work on mobile?", a: "Yes, you can tap to call directly and get turn-by-turn navigation on Google Maps or Apple Maps." },
+      { q: "How are clinics chosen for the directory?", a: "Listings are a hand-picked starting point covering major cities. We don't independently verify licenses, ratings, or reviews, so always confirm a clinic's credentials, hours, and services directly before you visit." },
+      { q: "Can I register my clinic?", a: "Yes — click 'Register a Clinic' to save a suggestion in your browser, or email the details to support@furtools.com. Our team adds new listings manually, so suggestions don't appear in the directory automatically." },
+      { q: "Does the search work on mobile?", a: "Yes, you can tap to call directly and get turn-by-turn navigation on Google Maps." },
       ...COMMON_FAQS,
     ],
     relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-08-21",
@@ -2253,7 +2253,7 @@ const RAW_TOOLS: Tool[] = [
   {
     slug: "pet-blood-test-explainer",
     name: "Pet Blood Test Result Explainer",
-    tagline: "Upload lab values → plain-language explanations",
+    tagline: "Enter lab values → plain-language explanations",
     description: "Enter your dog or cat's CBC and chemistry results and get plain-language explanations of any abnormal values. Covers 12 key parameters with dog/cat reference ranges and common causes of high or low results.",
     category: "general",
     keywords: ["blood test", "CBC", "chemistry panel", "lab results", "kidney values", "liver values"],
@@ -2848,7 +2848,7 @@ const RAW_TOOLS: Tool[] = [
     keywords: ["behavior journal", "pet log", "ABC behavior tracking", "training log", "behavior modification"],
     layout: "generator",
     howItWorks:
-      "The tool uses the ABC framework from applied behavior analysis, the same model used in veterinary behavior consultations. Every entry captures four fields: date, trigger, behavior, and your response. Your notes stay on this device only. After 10-20 entries, review for repeated triggers — you'll usually see 2-3 patterns you weren't aware of. Adjust environment or training to address the pattern, then continue journaling to measure progress.",
+      "The tool uses the ABC framework from applied behavior analysis, the same model used in veterinary behavior consultations. Every entry captures five fields: date, trigger, behavior, your response, and an optional note. Your notes stay on this device only. After 10-20 entries, review for repeated triggers — you'll usually see 2-3 patterns you weren't aware of. Adjust environment or training to address the pattern, then continue journaling to measure progress.",
     examples: [
       { label: "Trigger: Doorbell", result: "Behavior: barked and jumped at door" },
       { label: "Trigger: Vacuum on", result: "Behavior: hid under bed shaking" },
@@ -2934,9 +2934,9 @@ const RAW_TOOLS: Tool[] = [
   {
     slug: "litter-training-planner",
     name: "Litter Training Planner (Cats & Rabbits)",
-    tagline: "Species-specific 3-week litter-box training plan",
+    tagline: "Species-specific 3–4-week litter-box training plan",
     description:
-      "Cats and rabbits are two of the easiest species to litter train — they instinctively prefer a consistent bathroom spot — but the setup is completely different for each. Cats need unscented clumping litter in a low-traffic box with the '1 per cat + 1' rule. Rabbits need paper-based litter, hay on top, and never clumping clay (which is toxic if ingested). This planner walks through the 3-week timeline for each species, from first setup to reliable free-roam privileges. Regression after training is usually medical (UTI, stones) — not behavioral.",
+      "Cats and rabbits are two of the easiest species to litter train — they instinctively prefer a consistent bathroom spot — but the setup is completely different for each. Cats need unscented clumping litter in a low-traffic box with the '1 per cat + 1' rule. Rabbits need paper-based litter, hay on top, and never clumping clay (which is toxic if ingested). This planner walks through the 3–4-week timeline for each species, from first setup to reliable free-roam privileges. Regression after training is usually medical (UTI, stones) — not behavioral.",
     category: "general",
     keywords: ["litter training cat", "litter training rabbit", "kitten litter box", "rabbit litter box", "house training"],
     layout: "guide", popular: true,
@@ -2945,7 +2945,7 @@ const RAW_TOOLS: Tool[] = [
     examples: [
       { label: "Cat: Day 1-7", result: "Box in quiet spot, praise after meals" },
       { label: "Rabbit: Day 1-7", result: "Paper litter + hay on top" },
-      { label: "Week 3", result: "Free-roam privileges once 80% reliable" },
+      { label: "Rabbit: Week 2", result: "Supervised free-roam once 80% of droppings land in the box" },
     ],
     faqs: [
       { q: "Why does my cat pee outside the box?", a: "First rule out medical (UTI, crystals, kidney disease, arthritis) with a vet. Then check: dirty box, wrong litter type, wrong box location, not enough boxes, or a bully cat blocking access. Rarely truly behavioral." },
@@ -3195,7 +3195,7 @@ const RAW_TOOLS: Tool[] = [
     examples: [
       { label: "Litter born today", result: "Colostrum window closes in 2 hours · first vet check in 4 weeks" },
       { label: "Litter at 3 weeks", result: "Introduce gruel · begin handling 3-4x daily" },
-      { label: "Litter at 8 weeks", result: "First vaccines · document weight/vaccine/deworming for new owners" },
+      { label: "Litter at 8 weeks", result: "Second vaccines · hand over weight/vaccine/deworming records" },
     ],
     faqs: [
       { q: "What's the most critical window?", a: "Colostrum (0-2 hours) and the socialization window (3-14 weeks in puppies, 2-9 weeks in kittens). Missing either has lifelong consequences." },

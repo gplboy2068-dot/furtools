@@ -1956,7 +1956,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "local-vet-finder",
     "name": "Local Vet & Pet Hospital Finder",
-    "tagline": "Search local accredited vet clinics, affordable care & 24/7 ERs",
+    "tagline": "Find local vet clinics, affordable care & 24/7 ERs",
     "category": "general",
     "keywords": [
       "vet finder",
@@ -1973,7 +1973,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "pet-blood-test-explainer",
     "name": "Pet Blood Test Result Explainer",
-    "tagline": "Upload lab values → plain-language explanations",
+    "tagline": "Enter lab values → plain-language explanations",
     "category": "general",
     "keywords": [
       "blood test",
@@ -2293,7 +2293,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "litter-training-planner",
     "name": "Litter Training Planner (Cats & Rabbits)",
-    "tagline": "Species-specific 3-week litter-box training plan",
+    "tagline": "Species-specific 3–4-week litter-box training plan",
     "category": "general",
     "keywords": [
       "litter training cat",

@@ -175,6 +175,24 @@ export function VetFinderTool({ slug }: { slug?: string }) {
       toast.error(t(`${p}.ui.toastFormError`));
       return;
     }
+    // No backend receives submissions yet — keep the suggestion on this
+    // device and say so honestly instead of implying a review queue.
+    try {
+      const key = "furtools:clinic-submissions";
+      const prev = JSON.parse(localStorage.getItem(key) ?? "[]") as unknown;
+      const list = Array.isArray(prev) ? prev : [];
+      list.push({
+        name: newClinicName.trim(),
+        city: newClinicCity.trim(),
+        phone: newClinicPhone.trim(),
+        address: newClinicAddress.trim(),
+        website: newClinicWebsite.trim(),
+        is24Hour: newClinicIs247,
+        notes: newClinicNotes.trim(),
+        savedAt: new Date().toISOString(),
+      });
+      localStorage.setItem(key, JSON.stringify(list.slice(-20)));
+    } catch { /* storage unavailable — the toast wording still holds */ }
     toast.success(t(`${p}.ui.toastSubmitOk`));
     setIsSubmitOpen(false);
     setNewClinicName("");
@@ -182,6 +200,7 @@ export function VetFinderTool({ slug }: { slug?: string }) {
     setNewClinicPhone("");
     setNewClinicAddress("");
     setNewClinicWebsite("");
+    setNewClinicIs247(false);
     setNewClinicNotes("");
   }
 

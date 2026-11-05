@@ -597,11 +597,15 @@ type JournalEntry = { date: string; trigger: string; behavior: string; response:
 export function BehaviorJournal() {
   const { t } = useTranslation("tools");
   const [entries, setEntries] = useLocalState<JournalEntry[]>("furtools:behavior-journal", []);
-  const [e, setE] = useState<JournalEntry>({ date: new Date().toISOString().slice(0, 10), trigger: "", behavior: "", response: "", notes: "" });
+  // Local calendar date — toISOString() is UTC and pre-fills tomorrow's date
+  // for users west of UTC in the evening (same fix as BarkingLog below).
+  const pad2 = (v: number) => String(v).padStart(2, "0");
+  const localToday = () => { const n = new Date(); return `${n.getFullYear()}-${pad2(n.getMonth() + 1)}-${pad2(n.getDate())}`; };
+  const [e, setE] = useState<JournalEntry>({ date: localToday(), trigger: "", behavior: "", response: "", notes: "" });
   const add = () => {
     if (!e.behavior.trim()) return;
-    setEntries((p) => [{ ...e }, ...p].slice(0, 60));
-    setE({ date: new Date().toISOString().slice(0, 10), trigger: "", behavior: "", response: "", notes: "" });
+    setEntries((p) => [{ ...e, date: e.date || localToday() }, ...p].slice(0, 60));
+    setE({ date: localToday(), trigger: "", behavior: "", response: "", notes: "" });
   };
   const remove = (i: number) => setEntries((p) => p.filter((_, idx) => idx !== i));
   return (

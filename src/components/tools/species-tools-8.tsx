@@ -593,17 +593,35 @@ export function NewbornCareTimeline() {
       t("newborn-care-timeline.ui.rehome3"), t("newborn-care-timeline.ui.rehome4"),
     ] },
   ];
-  const [birthDate, setBirthDate] = useState(new Date().toISOString().slice(0, 10));
-  const start = new Date(birthDate);
+  const pad2 = (v: number) => String(v).padStart(2, "0");
+  const localToday = () => { const n = new Date(); return `${n.getFullYear()}-${pad2(n.getMonth() + 1)}-${pad2(n.getDate())}`; };
+  const [birthDate, setBirthDate] = useState(localToday());
+  // Parse as LOCAL components (new Date("YYYY-MM-DD") is UTC midnight and
+  // shifts every stage date a day early west of UTC); invalid → no dates.
+  const bParts = birthDate.split("-").map(Number);
+  const start = bParts.length === 3 && bParts.every((v) => Number.isFinite(v))
+    ? new Date(bParts[0], bParts[1] - 1, bParts[2]) : null;
+  const startValid = !!start && !isNaN(start.getTime());
+  // Day offsets [from, to] for each stage, matching the ranges above.
+  const stageDays: [number, number][] = [[0, 2], [3, 7], [7, 13], [14, 20], [21, 34], [35, 55], [56, 83]];
+  const fmtDay = (base: Date, add: number) => {
+    const dt = new Date(base.getFullYear(), base.getMonth(), base.getDate() + add);
+    return dt.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  };
   const form = (
     <div><Label>{t("newborn-care-timeline.ui.birthLabel")}</Label><Input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} /></div>
   );
   const result = (
     <div className="space-y-2">
-      {stages.map((s) => (
+      {stages.map((s, i) => (
         <div key={s.range} className="rounded-lg bg-background/60 p-3">
           <div className="flex justify-between text-sm font-medium">
             <span>{s.range} — {s.title}</span>
+            {startValid && start && (
+              <span className="text-xs font-normal text-muted-foreground">
+                {fmtDay(start, stageDays[i][0])} – {fmtDay(start, stageDays[i][1])}
+              </span>
+            )}
           </div>
           <ul className="mt-1 list-disc pl-5 text-xs text-muted-foreground space-y-0.5">
             {s.tasks.map((task) => <li key={task}>{task}</li>)}
