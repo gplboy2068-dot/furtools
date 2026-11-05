@@ -1813,7 +1813,7 @@
   },
   "aquarium-volume-calculator": {
     "name": "Aquarium Volume Calculator",
-    "description": "Calculate the true water volume of any rectangular, bowfront, or cylinder aquarium.",
+    "description": "Calculate the true water volume of any rectangular aquarium.",
     "ui": {
       "lengthIn": "Length (in)",
       "widthIn": "Width (in)",
@@ -1960,7 +1960,12 @@
       "cycledReadyForFish": "Cycled — ready for fish",
       "ammoniaStageEarly": "Ammonia stage — early",
       "nitriteSpikeKeepGoing": "Nitrite spike — keep going",
-      "stillCyclingTestDaily": "Still cycling — test daily"
+      "stillCyclingTestDaily": "Still cycling — test daily",
+      "saveReading": "Save reading",
+      "readingsLog": "Readings log",
+      "clearLog": "Clear log",
+      "noReadings": "No readings saved yet — enter a test result and save it to start your log.",
+      "logEntry": "NH3 {{nh3}} · NO2 {{no2}} · NO3 {{no3}} ppm"
     }
   },
   "water-change-scheduler": {
@@ -2009,7 +2014,7 @@
   },
   "aquarium-lighting-calculator": {
     "name": "Aquarium Lighting Calculator",
-    "description": "Estimate needed lighting intensity based on tank depth and plant demand (low, medium, high-light).",
+    "description": "Estimate needed lighting intensity based on plant demand (low, medium, high-light).",
     "ui": {
       "plantDemand": "Plant demand",
       "lowLightEasyPlants": "Low-light (easy plants)",
@@ -3574,7 +3579,17 @@
       "tankWidthIn": "Tank width (in)",
       "substrateDepthIn": "Substrate depth (in)",
       "substrateNeeded": "Substrate needed",
-      "aimFor12InFor": "Aim for 1–2 in for fish-only, 2–3 in for planted tanks. Rinse gravel until water runs clear."
+      "aimFor12InFor": "Aim for 1–2 in for fish-only, 2–3 in for planted tanks. Rinse gravel until water runs clear.",
+      "substrateType": "Substrate type",
+      "type": {
+        "gravel": "Gravel",
+        "sand": "Sand",
+        "aquasoil": "Aquasoil"
+      },
+      "weightKg": "Weight (kg)",
+      "volumeLitres": "Bed volume",
+      "bagsNeeded": "20 lb bags needed",
+      "densityUsed": "Density used"
     }
   },
   "aquarium-co2-calculator": {

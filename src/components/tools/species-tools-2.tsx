@@ -417,8 +417,8 @@ export function FishQuarantineTimer() {
 export function AquariumPlantCount() {
   const { t } = useTranslation("tools");
   const [gallons, setGallons] = useState(20);
-  const stems = Math.round(gallons * 1.2);
-  const carpet = Math.round(gallons * 0.5);
+  const stems = Math.round(Math.max(0, gallons) * 1.2);
+  const carpet = Math.round(Math.max(0, gallons) * 0.5);
   return (
     <CalculatorLayout
       form={<NumberField label={t("aquarium-plant-count-calculator.ui.tankVolumeGallons")} value={gallons} onChange={setGallons} min={1} />}
@@ -426,7 +426,7 @@ export function AquariumPlantCount() {
         <Rows items={[
           { label: t("aquarium-plant-count-calculator.ui.stemPlants"), value: t("aquarium-plant-count-calculator.ui.stems", { stems }) },
           { label: t("aquarium-plant-count-calculator.ui.carpetPlantsPots"), value: t("aquarium-plant-count-calculator.ui.pots", { carpet }) },
-          { label: t("aquarium-plant-count-calculator.ui.backgroundBunches"), value: `${Math.max(1, Math.round(gallons / 10))}` },
+          { label: t("aquarium-plant-count-calculator.ui.backgroundBunches"), value: `${Math.max(1, Math.round(Math.max(0, gallons) / 10))}` },
           { label: t("aquarium-plant-count-calculator.ui.focalPlantRosette"), value: t("aquarium-plant-count-calculator.ui.n12Pieces") },
         ]} />
         <Note>{t("aquarium-plant-count-calculator.ui.aHeavilyPlantedTankReducesAlgae")}</Note>
@@ -440,16 +440,30 @@ export function AquariumSubstrate() {
   const [len, setLen] = useState(24);
   const [w, setW] = useState(12);
   const [depth, setDepth] = useState(2);
-  const lbs = ((len * w * depth) / 10).toFixed(1); // rough approx
+  const [type, setType] = useState<"gravel" | "sand" | "aquasoil">("gravel");
+  // Bulk density of the dry bed in kg per litre. Gravel and sand sit in the
+  // commonly published 1.4–1.7 kg/L range; aquasoil is much lighter.
+  const density = { gravel: 1.55, sand: 1.7, aquasoil: 1.05 }[type];
+  const volumeL = (Math.max(0, len) * Math.max(0, w) * Math.max(0, depth) * 16.387064) / 1000;
+  const kg = volumeL * density;
+  const lbs = kg * 2.20462;
+  const bags = Math.ceil(lbs / 20); // standard 20 lb bag — always round up
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
         <NumberField label={t("aquarium-substrate-calculator.ui.tankLengthIn")} value={len} onChange={setLen} />
         <NumberField label={t("aquarium-substrate-calculator.ui.tankWidthIn")} value={w} onChange={setW} />
         <NumberField label={t("aquarium-substrate-calculator.ui.substrateDepthIn")} value={depth} onChange={setDepth} />
+        <SelectField label={t("aquarium-substrate-calculator.ui.substrateType")} value={type} onChange={(v) => setType(v as "gravel" | "sand" | "aquasoil")} options={["gravel", "sand", "aquasoil"]} optionLabel={(o) => t(`aquarium-substrate-calculator.ui.type.${o}`)} />
       </div>}
       result={<div className="space-y-4">
-        <Big value={`${lbs} lbs`} label={t("aquarium-substrate-calculator.ui.substrateNeeded")} />
+        <Big value={`${lbs.toFixed(1)} lbs`} label={t("aquarium-substrate-calculator.ui.substrateNeeded")} />
+        <Rows items={[
+          { label: t("aquarium-substrate-calculator.ui.weightKg"), value: `${kg.toFixed(1)} kg` },
+          { label: t("aquarium-substrate-calculator.ui.volumeLitres"), value: `${volumeL.toFixed(1)} L` },
+          { label: t("aquarium-substrate-calculator.ui.bagsNeeded"), value: `${bags}` },
+          { label: t("aquarium-substrate-calculator.ui.densityUsed"), value: `${density.toFixed(2)} kg/L` },
+        ]} />
         <Note>{t("aquarium-substrate-calculator.ui.aimFor12InFor")}</Note>
       </div>}
     />
@@ -459,7 +473,7 @@ export function AquariumSubstrate() {
 export function AquariumCO2() {
   const { t } = useTranslation("tools");
   const [gallons, setGallons] = useState(20);
-  const bps = (gallons / 20).toFixed(1);
+  const bps = (Math.max(0, gallons) / 20).toFixed(1);
   return (
     <CalculatorLayout
       form={<NumberField label={t("aquarium-co2-calculator.ui.tankVolumeGallons")} value={gallons} onChange={setGallons} min={5} />}

@@ -324,8 +324,11 @@ export function AquariumNitrateCalculator() {
   const [gallons, setGallons] = useState(30);
   const [ppm, setPpm] = useState(40);
   const targetPpm = 20;
-  const changePct = Math.min(50, Math.round(((ppm - targetPpm) / ppm) * 100));
-  const gallonsOut = Math.round((gallons * changePct) / 100);
+  // Fraction to replace with clean water = (C − T) / C, capped at 50% per change.
+  // At or below target (and at 0 ppm) no change is needed — clamp at 0 so the
+  // tool never renders a negative percentage or divides by zero.
+  const changePct = ppm > targetPpm ? Math.min(50, Math.round(((ppm - targetPpm) / ppm) * 100)) : 0;
+  const gallonsOut = Math.round((Math.max(0, gallons) * changePct) / 100);
   return (
     <CalculatorLayout
       form={<div className="space-y-4">

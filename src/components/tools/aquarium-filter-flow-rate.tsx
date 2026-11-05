@@ -520,7 +520,7 @@ export function AquariumFilterFlowRate() {
               <CardTitle className="text-2xl font-display mt-2">{t(`${NS}.ui.outputTitle`)}</CardTitle>
               <CardDescription>
                 {t(`${NS}.ui.outputDesc`, {
-                  vol: tankVolumeInput,
+                  vol: safeVolume,
                   unit: unit === "gal" ? t(`${NS}.ui.unitLongGallons`) : t(`${NS}.ui.unitLongLiters`),
                   bioload: bioload.name,
                 })}

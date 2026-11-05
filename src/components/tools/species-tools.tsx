@@ -360,7 +360,7 @@ export function BirdWingClipGuide({ slug }: { slug?: string }) {
 export function AquariumVolume() {
   const { t } = useTranslation("tools");
   const [L, setL] = useState(36); const [W, setW] = useState(18); const [H, setH] = useState(20);
-  const gal = (L * W * H) / 231;
+  const gal = (Math.max(0, L) * Math.max(0, W) * Math.max(0, H)) / 231;
   const actual = gal * 0.9;
   return (
     <CalculatorLayout
@@ -404,24 +404,71 @@ export function FishStocking() {
   );
 }
 
+interface CyclingReading { date: string; nh3: number; no2: number; no3: number; statusKey: string }
+const CYCLING_LOG_KEY = "furtools:cycling-log";
+function cyclingStatusKey(nh3: number, no2: number, no3: number): string {
+  return nh3 === 0 && no2 === 0 && no3 > 5 ? "cycledReadyForFish" :
+    nh3 > 0 && no2 === 0 ? "ammoniaStageEarly" :
+    no2 > 0 ? "nitriteSpikeKeepGoing" :
+    "stillCyclingTestDaily";
+}
 export function TankCyclingTracker() {
   const { t } = useTranslation("tools");
   const [nh3, setNh3] = useState(0);
   const [no2, setNo2] = useState(0);
   const [no3, setNo3] = useState(20);
-  const status =
-    nh3 === 0 && no2 === 0 && no3 > 5 ? t("tank-cycling-tracker.ui.cycledReadyForFish") :
-    nh3 > 0 && no2 === 0 ? t("tank-cycling-tracker.ui.ammoniaStageEarly") :
-    no2 > 0 ? t("tank-cycling-tracker.ui.nitriteSpikeKeepGoing") :
-    t("tank-cycling-tracker.ui.stillCyclingTestDaily");
+  const [log, setLog] = useState<CyclingReading[]>(() => {
+    try {
+      const raw = localStorage.getItem(CYCLING_LOG_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch { return []; }
+  });
+  const status = t(`tank-cycling-tracker.ui.${cyclingStatusKey(nh3, no2, no3)}`);
+  const saveReading = () => {
+    const entry: CyclingReading = {
+      date: new Date().toISOString().slice(0, 10),
+      nh3: Math.max(0, nh3), no2: Math.max(0, no2), no3: Math.max(0, no3),
+      statusKey: cyclingStatusKey(Math.max(0, nh3), Math.max(0, no2), Math.max(0, no3)),
+    };
+    const next = [entry, ...log].slice(0, 30);
+    setLog(next);
+    try { localStorage.setItem(CYCLING_LOG_KEY, JSON.stringify(next)); } catch { /* storage unavailable */ }
+  };
+  const clearLog = () => {
+    setLog([]);
+    try { localStorage.removeItem(CYCLING_LOG_KEY); } catch { /* storage unavailable */ }
+  };
   return (
     <CalculatorLayout
       form={<>
         <div><Label>{t("tank-cycling-tracker.ui.ammoniaPpm")}</Label><Input type="number" step={0.25} value={nh3} onChange={(e) => setNh3(+e.target.value || 0)} className="mt-1.5" /></div>
         <div><Label>{t("tank-cycling-tracker.ui.nitritePpm")}</Label><Input type="number" step={0.25} value={no2} onChange={(e) => setNo2(+e.target.value || 0)} className="mt-1.5" /></div>
         <div><Label>{t("tank-cycling-tracker.ui.nitratePpm")}</Label><Input type="number" value={no3} onChange={(e) => setNo3(+e.target.value || 0)} className="mt-1.5" /></div>
+        <Button type="button" onClick={saveReading} className="w-full">{t("tank-cycling-tracker.ui.saveReading")}</Button>
       </>}
-      result={<Big value={status} label={t("tank-cycling-tracker.ui.cycleStatus")} />}
+      result={<div className="space-y-4">
+        <Big value={status} label={t("tank-cycling-tracker.ui.cycleStatus")} />
+        <div>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t("tank-cycling-tracker.ui.readingsLog")}</span>
+            {log.length > 0 && <button type="button" onClick={clearLog} className="text-xs text-muted-foreground underline hover:text-foreground">{t("tank-cycling-tracker.ui.clearLog")}</button>}
+          </div>
+          {log.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">{t("tank-cycling-tracker.ui.noReadings")}</p>
+          ) : (
+            <ul className="mt-2 space-y-1.5 text-sm">
+              {log.map((r, i) => (
+                <li key={`${r.date}-${i}`} className="rounded-md bg-muted/40 px-2.5 py-1.5">
+                  <span className="font-medium">{r.date}</span>{" — "}
+                  {t("tank-cycling-tracker.ui.logEntry", { nh3: r.nh3, no2: r.no2, no3: r.no3 })}
+                  <span className="block text-muted-foreground">{t(`tank-cycling-tracker.ui.${r.statusKey}`)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>}
     />
   );
 }
@@ -486,8 +533,8 @@ export function HeaterWattage() {
   const { t } = useTranslation("tools");
   const [gal, setGal] = useState(20);
   const [rise, setRise] = useState(10);
-  const min = gal * 3 * (rise / 10);
-  const comfy = gal * 5 * (rise / 10);
+  const min = Math.max(0, gal) * 3 * (Math.max(0, rise) / 10);
+  const comfy = Math.max(0, gal) * 5 * (Math.max(0, rise) / 10);
   return (
     <CalculatorLayout
       form={<>
@@ -535,7 +582,7 @@ export function FishTankCost() {
   const [gal, setGal] = useState(20);
   const [tier, setTier] = useState<"basic" | "planted" | "reef">("basic");
   const perGal = { basic: 11, planted: 22, reef: 55 }[tier];
-  const total = gal * perGal + 60; // base kit
+  const total = Math.max(0, gal) * perGal + 60; // base kit
   return (
     <CalculatorLayout
       form={<>
