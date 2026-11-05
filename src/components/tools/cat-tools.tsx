@@ -62,7 +62,14 @@ export function KittenGrowthCalculator() {
   const [months, setMonths] = useState(4);
   const [breed, setBreed] = useState<"domestic" | "large">("domestic");
   const factor = breed === "large" ? 1.3 : 1;
-  const adult = months > 0 ? Math.round((weight / months) * 12 * factor * 0.7 + 5) : 0;
+  // Share of adult weight already reached at each month of age, from standard
+  // feline growth benchmarks (AAFP / UC Davis Koret): ~10% at 4 weeks, ~20% at
+  // 8 weeks, ~30% at 12 weeks, ~42% at 4 months, ~64% at 6 months, full adult
+  // weight at ~12 months. (The old linear formula overstated adult weight by
+  // roughly a third — a 4 lb 4-month-old charted to a 13 lb adult, not ~10.)
+  const ADULT_FRACTION: Record<number, number> = { 1: 0.10, 2: 0.20, 3: 0.31, 4: 0.42, 5: 0.53, 6: 0.64, 7: 0.72, 8: 0.79, 9: 0.85, 10: 0.90, 11: 0.95, 12: 1 };
+  const m = Math.min(12, Math.max(1, Math.round(months) || 1));
+  const adult = weight > 0 ? Math.round((weight / ADULT_FRACTION[m]) * factor) : 0;
   return (
     <CalculatorLayout
       form={<>

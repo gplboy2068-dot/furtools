@@ -2226,12 +2226,15 @@ export function HorseFeed() {
   const [forageType, setForageType] = useState<"timothy" | "alfalfa" | "pasture">("timothy");
 
   // NRC Equine Dry Matter Intake (DMI) guidelines
-  const weightInLb = unit === "kg" ? weight * 2.20462 : weight;
+  const weightInLb = Math.max(0, unit === "kg" ? weight * 2.20462 : weight);
   const dmiPercent = work === "maintenance" ? 0.018 : work === "light" ? 0.020 : work === "moderate" ? 0.0225 : work === "heavy" ? 0.025 : 0.0275;
   const totalDmiLb = weightInLb * dmiPercent;
 
-  // Minimum forage requirement: 1.5% of body weight minimum
-  const minForageLb = Math.max(weightInLb * 0.015, totalDmiLb * (work === "heavy" ? 0.65 : work === "moderate" ? 0.75 : 0.90));
+  // Forage share of DMI by workload (NRC-style rations): maintenance 100%,
+  // light 85%, moderate 75%, heavy 65%, peak lactation 70% — and never below
+  // the 1.5% of body weight long-stem forage floor.
+  const forageShare = work === "maintenance" ? 1 : work === "light" ? 0.85 : work === "moderate" ? 0.75 : work === "heavy" ? 0.65 : 0.70;
+  const minForageLb = Math.max(weightInLb * 0.015, totalDmiLb * forageShare);
   const concentrateLb = Math.max(0, totalDmiLb - minForageLb);
 
   const displayForage = unit === "kg" ? (minForageLb / 2.20462).toFixed(1) : minForageLb.toFixed(1);
@@ -2280,13 +2283,14 @@ export function HorseFeed() {
       }
       result={
         <div className="space-y-4">
-          <Big value={t("horse-feed-calculator.ui.text", { displayForage, unit })} label={t("horse-feed-calculator.ui.dailyForageHayMinimum")} unit={t("horse-feed-calculator.ui.standardFlakesDay", { flakesApprox })} />
+          <Big value={t("horse-feed-calculator.ui.text", { displayForage, unit })} label={t("horse-feed-calculator.ui.dailyForageHayMinimum")} unit={forageType === "pasture" ? t("horse-feed-calculator.ui.pastureNoFlakes") : t("horse-feed-calculator.ui.standardFlakesDay", { flakesApprox })} />
           <Rows items={[
             { label: t("horse-feed-calculator.ui.recommendedConcentrateGrain"), value: t("horse-feed-calculator.ui.daySplitInto23Small", { displayConcentrate, unit }) },
             { label: t("horse-feed-calculator.ui.totalDryMatterIntakeTarget"), value: `${unit === "kg" ? (totalDmiLb / 2.20462).toFixed(1) : totalDmiLb.toFixed(1)} ${unit}/day (${(dmiPercent * 100).toFixed(1)}% BW)` },
             { label: t("horse-feed-calculator.ui.equineDigestiveSafetyLimit"), value: t("horse-feed-calculator.ui.neverFeed05BWIn") },
           ]} />
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
+            <p>{t(forageType === "alfalfa" ? "horse-feed-calculator.ui.forageNoteAlfalfa" : forageType === "pasture" ? "horse-feed-calculator.ui.forageNotePasture" : "horse-feed-calculator.ui.forageNoteGrassHay")}</p>
             <p>{t("horse-feed-calculator.ui.clinicalFeedingRule")}</p>
           </div>
         </div>
@@ -2303,8 +2307,8 @@ export function HorseWater() {
   const [work, setWork] = useState<"idle" | "light" | "heavy">("light");
   const [feedType, setFeedType] = useState<"dry" | "pasture">("dry");
 
-  // Base requirement: approx 5 to 6 liters per 100kg BW (approx 0.05–0.06 gal per lb)
-  const baseGal = weightLb * 0.009;
+  // Base requirement: ≈ 0.009 gal per lb body weight (≈ 7.5 L per 100 kg)
+  const baseGal = Math.max(0, weightLb) * 0.009;
   const tempMultiplier = temp === "hot" ? 1.6 : temp === "cool" ? 0.85 : 1.0;
   const workMultiplier = work === "heavy" ? 1.7 : work === "light" ? 1.2 : 1.0;
   const feedFactor = feedType === "pasture" ? 0.75 : 1.0; // pasture is 80% water

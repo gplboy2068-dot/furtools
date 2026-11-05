@@ -298,15 +298,18 @@ export function HumanToPetAge() {
 
   // Reverse standard AVMA-ish tables: given human age, what pet age would match?
   const result = useMemo(() => {
-    const h = Math.max(1, humanAge);
-    // simple monotonic inverse mapping
+    const h = Math.max(1, humanAge || 1); // a cleared field must not render NaN
+    // Inverse of the standard table (pet year 1 = 15 human years, year 2 = 24,
+    // then +rate per year), linearly interpolated inside each band so mid-band
+    // ages do not jump a whole pet year at a band edge.
+    const inv = (rate: number) => (h <= 15 ? h / 15 : h <= 24 ? 1 + (h - 15) / 9 : 2 + (h - 24) / rate);
     const map = {
-      "dog-small": (age: number) => (age <= 15 ? 1 : age <= 24 ? 2 : 2 + (age - 24) / 4),
-      "dog-med":   (age: number) => (age <= 15 ? 1 : age <= 24 ? 2 : 2 + (age - 24) / 5),
-      "dog-large": (age: number) => (age <= 15 ? 1 : age <= 24 ? 2 : 2 + (age - 24) / 6),
-      "cat":       (age: number) => (age <= 15 ? 1 : age <= 24 ? 2 : 2 + (age - 24) / 4),
+      "dog-small": () => inv(4),
+      "dog-med":   () => inv(5),
+      "dog-large": () => inv(6),
+      "cat":       () => inv(4),
     };
-    const petAge = map[species](h);
+    const petAge = map[species]();
     return Math.round(petAge * 10) / 10;
   }, [humanAge, species]);
 

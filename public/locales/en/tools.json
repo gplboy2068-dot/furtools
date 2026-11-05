@@ -2795,6 +2795,10 @@
       "dailyForageHayMinimum": "Daily Forage / Hay Minimum",
       "text": "{{displayForage}} {{unit}}",
       "standardFlakesDay": "≈ {{flakesApprox}} standard flakes/day",
+      "pastureNoFlakes": "Fresh grazing — no flakes to weigh",
+      "forageNoteGrassHay": "Grass hay is the default base for most horses — moderate protein and calcium, and the safest choice for easy keepers.",
+      "forageNoteAlfalfa": "Alfalfa (legume) hay is richer in protein, calcium and calories — useful for lactating mares, growing youngsters and hard keepers; blend it down for easy keepers.",
+      "forageNotePasture": "Pasture intake varies with grass quality and grazing hours. Transition gradually onto lush spring grass, and use a grazing muzzle for laminitis-prone or obese horses.",
       "poundsLb": "Pounds (lb)",
       "kilogramsKg": "Kilograms (kg)",
       "clinicalFeedingRule": "Clinical Feeding Rule: Horses are trickle hindgut fermenters requiring constant fiber flow. Never let a horse go without forage for more than 4 to 6 hours to prevent gastric squamous ulcers (EGUS) and hindgut acidosis.",
@@ -2829,7 +2833,7 @@
       "winterTemperatureWarning": "Winter Temperature Warning",
       "electrolyteMandate": "Electrolyte Mandate",
       "standard5GallonWaterBuckets": "≈ {{v0}} standard 5-gallon water buckets",
-      "waterMustBe4565F": "Water must be 45Â°â65Â°F (frozen water triggers impaction colic)",
+      "waterMustBe4565F": "Water must be 45–65°F (frozen water triggers impaction colic)",
       "electrolyteHeavy": "Add 2 oz balanced sodium/potassium electrolytes",
       "saltBlock": "Provide free-choice plain white salt block"
     }
@@ -4092,6 +4096,7 @@
       "minimumCeilingClearance": "Minimum Ceiling Clearance",
       "slidingDoorMinimumWidth": "Sliding Door Minimum Width",
       "freshShavingsBeddingDepth": "Fresh Shavings / Bedding Depth",
+      "beddingDepthValue": "4–6 inches (≈ {{bags}} fresh pine bags)",
       "mandatoryDailyTurnout": "Mandatory Daily Turnout",
       "ftPreventsPollStrikeInjury": "{{minHeightFt}} ft (Prevents poll strike injury)",
       "ftAvoidsHipKnocks": "{{doorWidthFt}} ft (Avoids hip knocks)",
@@ -4099,14 +4104,14 @@
       "specs": {
         "pony": {
           "name": "Pony / Miniature (< 14.2 hh)",
-          "notes": "Lower feed manger heights (24â30 inches) to prevent cervical strain."
+          "notes": "Lower feed manger heights (24–30 inches) to prevent cervical strain."
         },
         "standard": {
-          "name": "Light Horse / Thoroughbred (15.0â16.2 hh)",
+          "name": "Light Horse / Thoroughbred (15.0–16.2 hh)",
           "notes": "The universal veterinary standard; permits comfortable casting-free rolling and sternal recumbency."
         },
         "warmblood": {
-          "name": "Warmblood / Large Sport Horse (16.3â17.2 hh)",
+          "name": "Warmblood / Large Sport Horse (16.3–17.2 hh)",
           "notes": "Extra width prevents withers banging stall walls during deep sleep cycles."
         },
         "draft": {
@@ -6490,7 +6495,7 @@
   },
   "leash-training-progress": {
     "name": "Leash Training Progress",
-    "description": "A dog that pulls on leash isn't 'stubborn' — they're simply on a schedule of continuous reinforcement, because every step of pulling gets them where they want to go. Loose-leash walking is a trained skill built one criterion at a time: first indoors, then in the yard, then around distractions. This tracker lists the ten measurable milestones that certified trainers use, from 'wears the leash calmly indoors' to 'passes another dog under threshold.' Tick each one as you go and progress persists on your device.",
+    "description": "A dog that pulls on leash isn't 'stubborn' — they're simply on a schedule of continuous reinforcement, because every step of pulling gets them where they want to go. Loose-leash walking is a trained skill built one criterion at a time: first indoors, then in the yard, then around distractions. This tracker lists the ten measurable milestones that certified trainers use, from 'wears collar & leash indoors' through 'passes another dog under threshold' to a full neighborhood walk with no corrections. Tick each one as you go and progress persists on your device.",
     "ui": {
       "m1": "Wears collar & leash indoors without fuss",
       "m2": "Follows me across the living room",

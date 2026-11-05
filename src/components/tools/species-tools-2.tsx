@@ -1352,7 +1352,7 @@ export function HorseStallSize() {
   const [stallType, setStallType] = useState<"standard" | "foaling">("standard");
 
   const specs: Record<string, { standardDim: string; standardSqFt: number; minHeightFt: number; doorWidthFt: number; turnoutHrs: number; beddingBags: number; notes: string }> = {
-    pony: { standardDim: "10 ft × 10 ft (3.0 × 3.0 m)", standardSqFt: 100, minHeightFt: 9, doorWidthFt: 3.5, turnoutHrs: 4, beddingBags: 3 },
+    pony: { standardDim: "10 ft × 10 ft (3.0 × 3.0 m)", standardSqFt: 100, minHeightFt: 10, doorWidthFt: 3.5, turnoutHrs: 4, beddingBags: 3 },
     standard: { standardDim: "12 ft × 12 ft (3.6 × 3.6 m)", standardSqFt: 144, minHeightFt: 10, doorWidthFt: 4.0, turnoutHrs: 4, beddingBags: 4 },
     warmblood: { standardDim: "12 ft × 14 ft (3.6 × 4.2 m)", standardSqFt: 168, minHeightFt: 11, doorWidthFt: 4.0, turnoutHrs: 5, beddingBags: 5 },
     draft: { standardDim: "14 ft × 16 ft (4.2 × 4.8 m)", standardSqFt: 224, minHeightFt: 12, doorWidthFt: 4.5, turnoutHrs: 5, beddingBags: 6 },
@@ -1396,7 +1396,7 @@ export function HorseStallSize() {
           <Rows items={[
             { label: t("horse-stall-size-calculator.ui.minimumCeilingClearance"), value: t("horse-stall-size-calculator.ui.ftPreventsPollStrikeInjury", { minHeightFt: d.minHeightFt }) },
             { label: t("horse-stall-size-calculator.ui.slidingDoorMinimumWidth"), value: t("horse-stall-size-calculator.ui.ftAvoidsHipKnocks", { doorWidthFt: d.doorWidthFt }) },
-            { label: t("horse-stall-size-calculator.ui.freshShavingsBeddingDepth"), value: `4–6 inches (≈ ${d.beddingBags + (isFoaling ? 2 : 0)} fresh pine bags)` },
+            { label: t("horse-stall-size-calculator.ui.freshShavingsBeddingDepth"), value: t("horse-stall-size-calculator.ui.beddingDepthValue", { bags: d.beddingBags + (isFoaling ? 2 : 0) }) },
             { label: t("horse-stall-size-calculator.ui.mandatoryDailyTurnout"), value: t("horse-stall-size-calculator.ui.hoursInPasture", { turnoutHrs: d.turnoutHrs }) },
           ]} />
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">

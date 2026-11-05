@@ -1847,10 +1847,11 @@ export function HorseSupplementCost() {
     setDailyCost(defaultCosts[t]);
   };
 
-  const adjustedDailyCost = purchaseFormat === "bulk" ? dailyCost * 0.72 : dailyCost; // 28% bulk savings
+  const baseCost = Math.max(0, dailyCost); // a typed negative cost must not render negative totals
+  const adjustedDailyCost = purchaseFormat === "bulk" ? baseCost * 0.72 : baseCost; // 28% bulk savings
   const monthlyTotal = Math.round(adjustedDailyCost * 30 * horseCount);
   const yearlyTotal = Math.round(adjustedDailyCost * 365 * horseCount);
-  const annualSavings = Math.round((dailyCost * 365 * horseCount) - yearlyTotal);
+  const annualSavings = Math.round((baseCost * 365 * horseCount) - yearlyTotal);
 
   return (
     <CalculatorLayout
