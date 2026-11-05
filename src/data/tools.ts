@@ -1048,7 +1048,7 @@ const RAW_TOOLS: Tool[] = [
     faqs: [
       { q: "How does the smart collar QR code work?", a: "When anyone finds your lost pet and scans the QR code with their phone camera, it opens an urgent emergency profile with your phone number, WhatsApp link, critical medical warnings, and a 1-tap button to send you their GPS map location." },
       { q: "Do I need to pay a subscription or buy special hardware?", a: "No! FurTools Smart QR Tags are 100% free forever. You can print the tag at home, laminate it, or slide it into standard clear collar tag sleeves." },
-      { q: "Can I update the emergency contact or medical info later?", a: "Yes. You can edit the tag anytime from the tool or directly within your Pet Dashboard." },
+      { q: "Can I update the emergency contact or medical info later?", a: "The tag data lives inside the QR code itself — nothing is stored on a server. If your details change, update them here, generate a fresh code and reprint the tag; tags you already printed keep the old information." },
       ...COMMON_FAQS,
     ],
     relatedArticles: GENERAL_ARTICLES,
@@ -1401,7 +1401,7 @@ const RAW_TOOLS: Tool[] = [
   { slug: "small-pet-name-generator", name: "Small Pet Name Generator", tagline: "Names for hamsters, ferrets, gerbils",
     description: "Fun, quirky names perfect for hamsters, ferrets, gerbils, and other small pets.",
     category: "small-pets", keywords: ["hamster names", "ferret names"], layout: "generator",
-    howItWorks: "Choose a vibe and get 12 name ideas.",
+    howItWorks: "Choose a vibe to browse name ideas — shuffle for a new order, or generate fresh names with AI.",
     examples: [ { label: "Vibe: Cute", result: "Peanut, Biscuit, Poppy" }, { label: "Vibe: Mythology", result: "Loki, Freya, Thor" } ],
     faqs: [ ...COMMON_FAQS ], relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
   { slug: "hamster-lifespan-estimator", name: "Hamster Lifespan Estimator", tagline: "Lifespan by species",
@@ -1474,7 +1474,7 @@ const RAW_TOOLS: Tool[] = [
     description: "Personalized feeding schedule for common pet snakes — ball python, corn snake, king snake, boa.",
     category: "reptiles", keywords: ["snake feeding", "snake schedule", "ball python feeding", "corn snake diet", "prey weight"], layout: "calculator",
     howItWorks: "Metabolic rates and gastrointestinal transit times vary by species and age. We calculate optimal meal weights (5-15% of body mass), feeding intervals (every 5-7 days for hatchlings up to 14-28 days for large adult boas), and handle in-shed or seasonal fast protocols.",
-    examples: [ { label: "Ball python juvenile", result: "Feed weekly, small mouse" }, { label: "Adult ball python", result: "Every 10–14 days, small rat" } ],
+    examples: [ { label: "Ball python juvenile", result: "Every 7 days, weanling rat or adult mouse" }, { label: "Adult ball python", result: "Every 10–14 days, small rat" } ],
     faqs: [
       { q: "How often should I feed my snake based on age?", a: "Hatchlings and babies eat every 5–7 days; growing juveniles (100–500g) eat every 7–10 days; sub-adults eat every 10–14 days; and mature adults eat every 14–21 days (or 3–4 weeks for large boas and pythons)." },
       { q: "Why did my ball python suddenly refuse food?", a: "Common causes of food refusal include: opaque 'blue' shedding phase, enclosure temperature too low (basking spot must be 88–92°F), prey not warmed to body temperature (~100°F), winter seasonal fasting/brumation, or handling too close to feeding time." },
@@ -1876,10 +1876,10 @@ const RAW_TOOLS: Tool[] = [
     faqs: [ { q: "Do they refuse dirty water?", a: "Absolutely — refill twice daily in summer or they'll cut intake." }, ...COMMON_FAQS ],
     relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
   { slug: "sheep-feed-calculator", name: "Sheep Feed Calculator", tagline: "Daily hay and pasture DM",
-    description: "Daily dry-matter requirements for your sheep flock by stage — maintenance, growing, or lactating.",
+    description: "Daily dry-matter requirements for your sheep flock by stage — maintenance, gestation, or lactation.",
     category: "farm", keywords: ["sheep feed", "hay calculator"], layout: "calculator",
-    howItWorks: "Averages of 3, 4, and 6 lbs dry matter/day per sheep for maintenance, growing, and lactating.",
-    examples: [ { label: "5 ewes, maintenance", result: "15 lbs/day" }, { label: "10 lactating", result: "60 lbs/day" } ],
+    howItWorks: "Per-head daily rations by stage: maintenance 3.5 lbs forage; early gestation 4 lbs forage + 0.25 lbs grain; late gestation 4.5 lbs forage + 1 lb grain; lactating 5.5 lbs forage + 1.75 lbs grain.",
+    examples: [ { label: "5 ewes, maintenance", result: "18 lbs forage/day" }, { label: "10 lactating", result: "55 lbs forage + 17.5 lbs grain/day" } ],
     faqs: [ { q: "Sheep mineral?", a: "Yes — sheep-specific loose mineral only. Never copper-fortified goat/cattle mineral." }, ...COMMON_FAQS ],
     relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
   { slug: "duck-feed-calculator", name: "Duck Feed Calculator", tagline: "Feed the flock right",
@@ -2032,7 +2032,7 @@ const RAW_TOOLS: Tool[] = [
     description: "Minimum floor space based on your snake's total body length.",
     category: "reptiles", keywords: ["snake enclosure", "snake tank", "ball python vivarium", "snake cage size", "pvc snake enclosure"], layout: "calculator",
     howItWorks: "Modern herpetological welfare standards require that the enclosure length must equal or exceed the total body length of the snake (1.0× length rule), allowing the animal to stretch out completely straight along one wall to prevent spinal deformities, muscle atrophy, and obesity.",
-    examples: [ { label: "4 ft snake", result: "≥ 4 ft² floor" } ],
+    examples: [ { label: "4 ft snake", result: "48 × 24 in floor — 8 sq ft (120 gal)" } ],
     faqs: [
       { q: "What is the 1.0x snake length enclosure welfare standard?", a: "Modern veterinary and herpetological welfare standards (such as ARAV and UK RSPCA guidelines) require that the length of the vivarium must be at least 1.0× the total body length of the snake, allowing the snake to fully stretch out along the front glass without bending." },
       { q: "Why is the old 'Length + Width = Snake Length' rule outdated?", a: "The old 'L + W' rule forced snakes to stay permanently coiled, leading to spinal kinks, lack of cardiovascular exercise, muscle atrophy, and severe obesity. Modern welfare guidelines mandate full rectilinear stretching room." },
@@ -3071,7 +3071,7 @@ const RAW_TOOLS: Tool[] = [
       "The calculator applies a quality multiplier to your average puppy price. Pet-quality × 0.4, titled × 1.0, champion × 1.5, top-producer × 2.2. Pick-of-litter valuations default to one full puppy price. It also projects your total litter revenue and expresses the stud fee as a percentage of that revenue — a useful sanity check. Whichever structure you use, always sign a written stud contract covering repeat rights, health-test requirements, payment timing, and pick order.",
     examples: [
       { label: "Titled Labrador, $1,500 pups, 8 puppies", result: "$1,500 cash · 12.5% of revenue" },
-      { label: "Champion Frenchie, $4,000 pups, 4 puppies", result: "$6,000 cash · 37% of revenue" },
+      { label: "Champion Frenchie, $4,000 pups, 4 puppies", result: "$6,000 cash · 38% of revenue" },
       { label: "Working Malinois top producer, $2,500 pups", result: "$5,500 cash — imported bloodline premium" },
     ],
     faqs: [
@@ -4306,7 +4306,7 @@ const RAW_TOOLS: Tool[] = [
     howItWorks: "Sugar gliders eat roughly 15% of their body weight in wet diet each night. We total that for your colony and split it approximately 50% staple mix, 40% chopped fruit and vegetables, and 10% insects or other protein — the structure shared by the established HPW, BML and TPG plans.",
     examples: [
       { label: "2 gliders at 120 g each", result: "≈ 36 g nightly: 18 g staple, 14 g produce, 4 g insects" },
-      { label: "4 gliders at 110 g", result: "≈ 66 g nightly total" },
+      { label: "4 gliders at 110 g", result: "≈ 68 g nightly total" },
     ],
     faqs: [
       { q: "Why does the calcium-to-phosphorus ratio matter?", a: "A ratio near 2:1 prevents metabolic bone disease, which in gliders shows up as hind-leg paralysis (HLP) and is often irreversible." },

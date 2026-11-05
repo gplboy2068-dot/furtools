@@ -297,8 +297,8 @@ export function StudFeeCalculator() {
 
   const form = (
     <div className="space-y-3">
-      <div><Label>{t("stud-fee-calculator.ui.priceLabel")}</Label><Input type="number" value={avgPuppyPrice} onChange={(e) => setAvgPuppyPrice(+e.target.value || 0)} /></div>
-      <div><Label>{t("stud-fee-calculator.ui.litterLabel")}</Label><Input type="number" value={avgLitterSize} onChange={(e) => setAvgLitterSize(+e.target.value || 1)} /></div>
+      <div><Label>{t("stud-fee-calculator.ui.priceLabel")}</Label><Input type="number" value={avgPuppyPrice} onChange={(e) => setAvgPuppyPrice(Math.max(0, +e.target.value || 0))} /></div>
+      <div><Label>{t("stud-fee-calculator.ui.litterLabel")}</Label><Input type="number" value={avgLitterSize} onChange={(e) => setAvgLitterSize(Math.max(1, +e.target.value || 1))} /></div>
       <div>
         <Label>{t("stud-fee-calculator.ui.qualityLabel")}</Label>
         <Select value={studQuality} onValueChange={setStudQuality}>
@@ -340,7 +340,7 @@ export function StudFeeCalculator() {
       )}
       <div className="rounded-lg bg-background/60 p-3 text-sm">
         <div><strong>{t("stud-fee-calculator.ui.revenueLabel")}</strong> {t("stud-fee-calculator.ui.revenueValue", { amount: (avgPuppyPrice * avgLitterSize).toLocaleString() })}</div>
-        <div><strong>{t("stud-fee-calculator.ui.feePctLabel")}</strong> {t("stud-fee-calculator.ui.feePctValue", { pct: Math.round((suggestedCash / (avgPuppyPrice * avgLitterSize)) * 100) })}</div>
+        <div><strong>{t("stud-fee-calculator.ui.feePctLabel")}</strong> {t("stud-fee-calculator.ui.feePctValue", { pct: avgPuppyPrice * avgLitterSize > 0 ? Math.round(((feeType === "cash" ? suggestedCash : pickPupValue) / (avgPuppyPrice * avgLitterSize)) * 100) : 0 })}</div>
       </div>
       <div className="rounded-lg border bg-yellow-50 p-3 text-xs text-yellow-900 dark:bg-yellow-950 dark:text-yellow-100">
         {t("stud-fee-calculator.ui.contractNote")}

@@ -1038,7 +1038,7 @@ export function SmartCollarQRTool() {
                       <div className="flex flex-col items-center justify-center space-y-2">
                         <div className="size-36 p-1 bg-white rounded-xl shadow-xs flex items-center justify-center">
                           {qrDataUrl ? (
-                            <img src={qrDataUrl} alt="${t(`${NS}.ui.qrAlt`)}" className="size-full object-contain" />
+                            <img src={qrDataUrl} alt={t(`${NS}.ui.qrAlt`)} className="size-full object-contain" />
                           ) : (
                             <div className="text-xs text-muted-foreground">{t(`${NS}.ui.loadingText`)}</div>
                           )}
@@ -1205,7 +1205,7 @@ export function SmartCollarQRTool() {
                 </div>
                 <div className="size-20 mx-auto flex items-center justify-center">
                   {qrDataUrl ? (
-                    <img src={qrDataUrl} alt="${t(`${NS}.ui.qrAlt`)}" className="size-full object-contain" />
+                    <img src={qrDataUrl} alt={t(`${NS}.ui.qrAlt`)} className="size-full object-contain" />
                   ) : (
                     <div className="text-[10px] text-slate-400">{t(`${NS}.ui.loadingText`)}</div>
                   )}

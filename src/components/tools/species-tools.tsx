@@ -1944,30 +1944,45 @@ export function SnakeFeedingSchedule() {
 
   const plan = useMemo(() => {
     const wt = snakeWeightGrams;
-    let stage = t("snake-feeding-schedule.ui.stageJuvenile");
-    let targetPreyWeight = t("snake-feeding-schedule.ui.targetPreyWeightDefault");
-    let interval = t("snake-feeding-schedule.ui.interval7Days");
-    let preyName = t("snake-feeding-schedule.ui.preyNameDefault");
+    // Stage index: 0 = hatchling (<100 g), 1 = juvenile (100–500 g), 2 = adult (500 g+)
+    const stageIdx = wt < 100 ? 0 : wt < 500 ? 1 : 2;
 
-    if (wt < 100) {
+    // Feeding interval depends on species AND stage — a boa's slow metabolism
+    // and a garter's fast one must not get the same schedule.
+    const intervalKeys: Record<string, [string, string, string]> = {
+      ball: ["interval57Days", "interval7Days", "interval1014Days"],
+      corn: ["interval57Days", "interval57Days", "interval710Days"],
+      king: ["interval57Days", "interval57Days", "interval1012Days"],
+      boa: ["interval710Days", "interval1014Days", "interval24Weeks"],
+      hognose: ["interval46Days", "interval46Days", "interval710Days"],
+      garter: ["interval35Days", "interval35Days", "interval57Days"],
+    };
+    const interval = t(`snake-feeding-schedule.ui.${(intervalKeys[snakeType] || intervalKeys.ball)[stageIdx]}`);
+
+    let stage = t("snake-feeding-schedule.ui.stageJuvenileSubAdult");
+    let targetPreyWeight = t("snake-feeding-schedule.ui.targetPreyWeight1013", { lo: Math.round(wt * 0.10), hi: Math.round(wt * 0.13) });
+    let preyName = t("snake-feeding-schedule.ui.preyNameWeanling");
+
+    if (stageIdx === 0) {
       stage = t("snake-feeding-schedule.ui.stageHatchlingBaby");
       targetPreyWeight = t("snake-feeding-schedule.ui.targetPreyWeight1215", { lo: Math.round(wt * 0.12), hi: Math.round(wt * 0.15) });
-      interval = t("snake-feeding-schedule.ui.interval57Days");
       preyName = t("snake-feeding-schedule.ui.preyNamePinkyFuzzy");
-    } else if (wt < 500) {
-      stage = t("snake-feeding-schedule.ui.stageJuvenileSubAdult");
-      targetPreyWeight = t("snake-feeding-schedule.ui.targetPreyWeight1013", { lo: Math.round(wt * 0.10), hi: Math.round(wt * 0.13) });
-      interval = t("snake-feeding-schedule.ui.interval710Days");
-      preyName = t("snake-feeding-schedule.ui.preyNameWeanling");
-    } else {
+    } else if (stageIdx === 2) {
       stage = t("snake-feeding-schedule.ui.stageAdult");
       targetPreyWeight = t("snake-feeding-schedule.ui.targetPreyWeight58", { lo: Math.round(wt * 0.05), hi: Math.round(wt * 0.08) });
-      interval = t("snake-feeding-schedule.ui.interval1218Days");
       preyName = wt > 1500 ? t("snake-feeding-schedule.ui.preyNameLargeRat") : t("snake-feeding-schedule.ui.preyNameSmallMediumRat");
     }
 
+    // Prey type follows the species: mouse-based for corn/king/hognose,
+    // worms & fish for garters, rats for ball pythons and boas.
+    if (snakeType === "corn" || snakeType === "king" || snakeType === "hognose") {
+      preyName = t(`snake-feeding-schedule.ui.${["preyNamePinkyFuzzy", "preyNameHopperMouse", "preyNameAdultMouse"][stageIdx]}`);
+    } else if (snakeType === "garter") {
+      preyName = t(`snake-feeding-schedule.ui.${stageIdx === 2 ? "preyNameGarterAdult" : "preyNameGarterYoung"}`);
+    }
+
     return { stage, targetPreyWeight, interval, preyName };
-  }, [snakeWeightGrams]);
+  }, [snakeWeightGrams, snakeType]);
 
   return (
     <div className="space-y-6">
@@ -2022,7 +2037,7 @@ export function SnakeFeedingSchedule() {
               {plan.interval} — {plan.preyName}
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              t("snake-feeding-schedule.ui.targetMealSize") <strong className="text-foreground">{plan.targetPreyWeight}</strong> • t("snake-feeding-schedule.ui.lifeStage") <Badge variant="outline" className="ml-1 text-[11px]">{plan.stage}</Badge>
+              {t("snake-feeding-schedule.ui.targetMealSize")} <strong className="text-foreground">{plan.targetPreyWeight}</strong> • {t("snake-feeding-schedule.ui.lifeStage")} <Badge variant="outline" className="ml-1 text-[11px]">{plan.stage}</Badge>
             </p>
           </div>
         </div>
@@ -2054,6 +2069,13 @@ export function SnakeFeedingSchedule() {
           <div className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-2">
             <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
             <p>{t("snake-feeding-schedule.ui.inShed")}</p>
+          </div>
+        )}
+
+        {feedingStatus === "winter" && (
+          <div className="mt-4 rounded-xl border border-sky-500/30 bg-sky-500/10 p-3 text-xs text-sky-900 dark:text-sky-200 flex items-start gap-2">
+            <AlertTriangle className="h-4 w-4 text-sky-500 shrink-0 mt-0.5" />
+            <p>{t("snake-feeding-schedule.ui.winterNote")}</p>
           </div>
         )}
 

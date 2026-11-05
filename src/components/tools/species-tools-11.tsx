@@ -447,11 +447,11 @@ export function SugarGliderDietCalculator() {
     <div className="space-y-4">
       <div>
         <Label>{t("sugar-glider-diet-calculator.ui.countLabel")}</Label>
-        <Input type="number" min={1} max={8} value={count} onChange={(e) => setCount(Number(e.target.value) || 1)} />
+        <Input type="number" min={1} max={8} value={count} onChange={(e) => setCount(Math.max(1, Math.min(8, Number(e.target.value) || 1)))} />
       </div>
       <div>
         <Label>{t("sugar-glider-diet-calculator.ui.weightLabel")}</Label>
-        <Input type="number" min={50} value={weight} onChange={(e) => setWeight(Number(e.target.value) || 0)} />
+        <Input type="number" min={50} value={weight} onChange={(e) => setWeight(Math.max(0, Number(e.target.value) || 0))} />
       </div>
       <div>
         <Label>{t("sugar-glider-diet-calculator.ui.planLabel")}</Label>
@@ -499,13 +499,13 @@ export function SugarGliderCageSize() {
   const height = 36 + Math.max(0, count - 2) * 6;
   const cuFt = Math.round(((width * depth * height) / 1728) * 10) / 10;
   const barOk = barSpacing <= 0.5;
-  const pouches = Math.max(2, count);
+  const pouches = count + 1; // one per glider plus a spare, so nobody is displaced
 
   const form = (
     <div className="space-y-4">
       <div>
         <Label>{t("sugar-glider-cage-size-calculator.ui.countLabel")}</Label>
-        <Input type="number" min={1} max={8} value={count} onChange={(e) => setCount(Number(e.target.value) || 1)} />
+        <Input type="number" min={1} max={8} value={count} onChange={(e) => setCount(Math.max(1, Math.min(8, Number(e.target.value) || 1)))} />
       </div>
       <div>
         <Label>{t("sugar-glider-cage-size-calculator.ui.barSpacingLabel")}</Label>

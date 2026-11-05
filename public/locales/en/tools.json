@@ -2649,7 +2649,7 @@
       "inShedBlueEyesOftenRefuses": "In Shed (Blue Eyes - Often refuses)",
       "winterSeasonFasting": "Winter Season / Fasting",
       "snakeFeedingSchedulePreyPortionPlanner": "Snake Feeding Schedule & Prey Portion Planner",
-      "calculatesOptimalMealWeightAndFeeding": "Calculates optimal meal weight and feeding frequency based on species metabolic rate and body weight.",
+      "calculatesOptimalMealWeightAndFeeding": "Calculates meal weight and feeding frequency from your snake’s species and body weight.",
       "inShed": "In Shed: Most snakes refuse food during the opaque 'blue' eye phase due to impaired vision. Wait until your snake finishes shedding completely before offering prey.",
       "expertFeedingTip": "Expert Feeding Tip:",
       "recommendedMealSchedule": "Recommended Meal Schedule",
@@ -2664,12 +2664,12 @@
         "ball": {
           "name": "Ball Python (Royal Python)",
           "preyType": "Frozen-Thawed Rats",
-          "tips": "Ball pythons are scent & heat oriented. Warm prey to 100Â°F (38Â°C) using warm water in a ziplock bag and offer via 12-inch tongs at dusk."
+          "tips": "Ball pythons are scent & heat oriented. Warm prey to 100°F (38°C) using warm water in a ziplock bag and offer via 12-inch tongs at dusk."
         },
         "corn": {
           "name": "Corn Snake",
           "preyType": "Frozen-Thawed Mice",
-          "tips": "Voracious feeders. Feed in enclosure â moving to a separate tub causes unnecessary stress and regurgitation."
+          "tips": "Voracious feeders. Feed in enclosure — moving to a separate tub causes unnecessary stress and regurgitation."
         },
         "king": {
           "name": "California / Mexican Kingsnake",
@@ -2704,6 +2704,16 @@
       "interval57Days": "Every 5–7 days",
       "interval710Days": "Every 7–10 days",
       "interval1218Days": "Every 12–18 days",
+    "interval1014Days": "Every 10–14 days",
+    "interval1012Days": "Every 10–12 days",
+    "interval24Weeks": "Every 2–4 weeks",
+    "interval46Days": "Every 4–6 days",
+    "interval35Days": "Every 3–5 days",
+    "preyNameHopperMouse": "Hopper to Adult Mouse (12–30g)",
+    "preyNameAdultMouse": "Adult Mouse (20–30g)",
+    "preyNameGarterYoung": "Chopped Nightcrawler / Silversides",
+    "preyNameGarterAdult": "Nightcrawlers, Silversides or Pinky Mouse",
+    "winterNote": "Winter Fasting: Many snakes naturally refuse food in winter or brumation. Do not force-feed — keep fresh water available, maintain the cool-side temperature, and offer food again in spring or once your snake becomes active. See a vet if a healthy adult loses more than 10% of its body weight.",
       "preyNameDefault": "Rat Pup or Hopper Mouse",
       "preyNamePinkyFuzzy": "Pinky or Fuzzy Mouse / Rat Pinky",
       "preyNameWeanling": "Weanling Rat (30–45g) or Adult Mouse",
@@ -4232,7 +4242,7 @@
   },
   "sheep-feed-calculator": {
     "name": "Sheep Feed Calculator",
-    "description": "Daily dry-matter requirements for your sheep flock by stage — maintenance, growing, or lactating.",
+    "description": "Daily dry-matter requirements for your sheep flock by stage — maintenance, gestation, or lactation.",
     "ui": {
       "flockEweRamCount": "Flock Ewe / Ram Count",
       "productionBreedingStage": "Production & Breeding Stage",
@@ -4252,16 +4262,16 @@
       "provideSpecializedLooseSHEEPMineralZero": "Provide specialized loose SHEEP mineral (Zero Copper)",
       "desc": {
         "maintenance": {
-          "desc": "Dry ewe / Ram maintenance (2.0% BW in grass hay)"
+          "desc": "Dry ewe / Ram maintenance (3.5 lb grass hay per head/day)"
         },
         "early_gest": {
-          "desc": "First 15 weeks gestation (2.2% BW)"
+          "desc": "First 15 weeks gestation (4 lb forage + 0.25 lb grain per head/day)"
         },
         "late_gest": {
-          "desc": "Last 4 weeks gestation with twins (2.8% BW - Prevents Ketosis/Pregnancy Toxemia)"
+          "desc": "Last 4 weeks gestation with twins (4.5 lb forage + 1 lb grain per head/day — prevents ketosis/pregnancy toxemia)"
         },
         "lactating": {
-          "desc": "Ewe nursing twins/triplets (3.8% BW in quality alfalfa/grass mix)"
+          "desc": "Ewe nursing twins/triplets (5.5 lb quality alfalfa/grass forage + 1.75 lb grain per head/day)"
         }
       },
       "toxemiaMandatory": "MANDATORY: Feed grain energy to prevent twin lamb ketosis",
@@ -6939,7 +6949,7 @@
       "feeCash": "Cash fee",
       "feePick": "Pick of the litter",
       "cashTitle": "Suggested cash stud fee",
-      "cashNote": "Industry norm: 1 puppy price for titled studs, up to 2x for champions.",
+      "cashNote": "Industry norm: 1 puppy price for titled studs, ~1.5x for champions, 2x+ for top producers.",
       "pickTitle": "Pick-of-litter value (approx.)",
       "pickNote": "Stud owner selects 1st pick after the breeder's own retention.",
       "revenueLabel": "Projected litter revenue:",

@@ -1750,7 +1750,7 @@ export function SnakeTankSizeCalculator() {
                   value={unitSystem === "imperial" ? checkLengthInches : Math.round(checkLengthInches * 2.54)}
                   onChange={(e) => {
                     const v = Number(e.target.value) || 10;
-                    setCheckLengthInches(unitSystem === "imperial" ? v : Math.round(v / 2.54));
+                    setCheckLengthInches(Math.max(1, unitSystem === "imperial" ? v : Math.round(v / 2.54)));
                   }}
                   className="h-10"
                 />
@@ -1765,7 +1765,7 @@ export function SnakeTankSizeCalculator() {
                   value={unitSystem === "imperial" ? checkWidthInches : Math.round(checkWidthInches * 2.54)}
                   onChange={(e) => {
                     const v = Number(e.target.value) || 10;
-                    setCheckWidthInches(unitSystem === "imperial" ? v : Math.round(v / 2.54));
+                    setCheckWidthInches(Math.max(1, unitSystem === "imperial" ? v : Math.round(v / 2.54)));
                   }}
                   className="h-10"
                 />
@@ -1780,7 +1780,7 @@ export function SnakeTankSizeCalculator() {
                   value={unitSystem === "imperial" ? checkHeightInches : Math.round(checkHeightInches * 2.54)}
                   onChange={(e) => {
                     const v = Number(e.target.value) || 8;
-                    setCheckHeightInches(unitSystem === "imperial" ? v : Math.round(v / 2.54));
+                    setCheckHeightInches(Math.max(1, unitSystem === "imperial" ? v : Math.round(v / 2.54)));
                   }}
                   className="h-10"
                 />

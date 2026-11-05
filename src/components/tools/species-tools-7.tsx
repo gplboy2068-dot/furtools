@@ -449,7 +449,7 @@ export function SeparationAnxietyScore() {
   ];
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const total = Object.values(answers).reduce((a, b) => a + b, 0);
-  const max = SEP_QUESTIONS.length * 3;
+  const max = questions.length * 3;
   const pct = Math.round((total / max) * 100);
   const band = pct < 20 ? t("separation-anxiety-score.ui.bandMinimal") : pct < 40 ? t("separation-anxiety-score.ui.bandMild") : pct < 65 ? t("separation-anxiety-score.ui.bandModerate") : t("separation-anxiety-score.ui.bandSevere");
   const color = pct < 20 ? "text-emerald-600" : pct < 40 ? "text-yellow-600" : pct < 65 ? "text-orange-600" : "text-red-600";
