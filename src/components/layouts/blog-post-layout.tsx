@@ -128,7 +128,7 @@ export function BlogPostLayout({
         <img
           src={meta.coverImage}
           alt={meta.title}
-          className="mt-8 aspect-video w-full rounded-2xl object-cover shadow-sm"
+          className="mt-8 aspect-[1200/630] w-full rounded-2xl object-cover shadow-sm"
           loading="lazy"
         />
       )}

@@ -131,11 +131,11 @@ function PostsList() {
             <img
               src={p.cover_image}
               alt=""
-              className="aspect-video w-full object-cover transition group-hover:scale-[1.02]"
+              className="aspect-[1200/630] w-full object-cover transition group-hover:scale-[1.02]"
               loading="lazy"
             />
           ) : (
-            <div className="aspect-video w-full bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/20" />
+            <div className="aspect-[1200/630] w-full bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/20" />
           )}
           <div className="flex flex-1 flex-col gap-2 p-5">
             {p.category && (
