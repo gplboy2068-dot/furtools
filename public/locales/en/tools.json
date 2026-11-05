@@ -1080,7 +1080,7 @@
   },
   "pet-feeding-planner": {
     "name": "Pet Feeding Planner",
-    "description": "Generate a printable daily feeding schedule with meal times and portions for your pet.",
+    "description": "Generate a daily feeding schedule with meal times and portions for your pet.",
     "ui": {
       "dailyLabel": "Daily calories (kcal)",
       "mealsLabel": "Meals per day",
