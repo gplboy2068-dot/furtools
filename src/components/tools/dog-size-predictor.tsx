@@ -176,14 +176,22 @@ export function DogSizePredictor() {
     // Base predicted adult weight in lbs
     const baseAdultLbs = (weightLbs / safeFraction) * boneModifier * (sexModifier / 1.0);
 
+    // Clamp the projection into the category's plausible band first, so an
+    // absurd typed weight (e.g. 500 lb) cannot invert the range or predict
+    // an impossible adult size.
+    const clampedBaseLbs = Math.min(
+      effectiveCategory.adultWeightLbs[1] * 1.35,
+      Math.max(effectiveCategory.adultWeightLbs[0] * 0.75, baseAdultLbs),
+    );
+
     // Apply healthy confidence boundaries
     const minAdultLbs = Math.max(
       effectiveCategory.adultWeightLbs[0] * 0.75,
-      baseAdultLbs * 0.92,
+      clampedBaseLbs * 0.92,
     );
     const maxAdultLbs = Math.min(
       effectiveCategory.adultWeightLbs[1] * 1.35,
-      baseAdultLbs * 1.08,
+      clampedBaseLbs * 1.08,
     );
     const estimatedAdultLbs = (minAdultLbs + maxAdultLbs) / 2;
 

@@ -157,46 +157,20 @@
       "vaccines": {
         "dog": [
           {
-            "week": 6,
+            "week": 8,
             "name": "DAPP #1 (core)"
           },
           {
-            "week": 9,
-            "name": "DAPP #2"
-          },
-          {
             "week": 12,
-            "name": "DAPP #3 + optional Lepto/Lyme"
+            "name": "DAPP #2 (core) + Lepto #1 (if at risk)"
           },
           {
             "week": 16,
-            "name": "DAPP #4 + Rabies"
+            "name": "DAPP #3 (core) + Rabies #1 + Lepto #2 (if started)"
           },
           {
             "week": 52,
-            "name": "1-year boosters"
-          }
-        ],
-        "cat": [
-          {
-            "week": 6,
-            "name": "FVRCP #1 (core)"
-          },
-          {
-            "week": 9,
-            "name": "FVRCP #2"
-          },
-          {
-            "week": 12,
-            "name": "FVRCP #3 + optional FeLV"
-          },
-          {
-            "week": 16,
-            "name": "FVRCP #4 + Rabies"
-          },
-          {
-            "week": 52,
-            "name": "1-year boosters"
+            "name": "1-year boosters (DAPP + Rabies; Bordetella/Lyme/flu if at risk)"
           }
         ]
       }
@@ -204,7 +178,7 @@
   },
   "dog-walking-calculator": {
     "name": "Dog Walking Calculator",
-    "description": "Estimate the ideal daily walking time for your dog based on breed size, age, and energy level.",
+    "description": "Estimate the ideal daily walking time for your dog based on breed size and life stage.",
     "ui": {
       "breedSizeLabel": "Breed size",
       "sizeToy": "Toy",
@@ -236,7 +210,7 @@
   },
   "dog-name-generator": {
     "name": "Dog Name Generator",
-    "description": "Generate cute, classic, food-inspired, or creative names for your new dog. Filter by vibe, letter, and length.",
+    "description": "Generate cute, classic, punny, tough, or elegant names for your new dog — shuffle the curated lists or create brand-new names with AI.",
     "ui": {
       "vibeLabel": "Vibe",
       "shuffleButton": "Shuffle",
@@ -4245,7 +4219,7 @@
   },
   "duck-feed-calculator": {
     "name": "Duck Feed Calculator",
-    "description": "Daily feed weight for ducklings, growers, layers, and meat ducks — with niacin reminder.",
+    "description": "Daily feed weight for ducklings, growers, layers, and winter flocks — with niacin targets.",
     "ui": {
       "flockWaterfowlCount": "Flock Waterfowl Count",
       "lifeProductionStage": "Life & Production Stage",
@@ -4255,6 +4229,7 @@
       "nonLayingWinterFlockMaintenance": "Non-Laying Winter Flock / Maintenance",
       "dailyWaterfowlFeedIntake": "Daily Waterfowl Feed Intake",
       "monthlyLbs": "Monthly: ≈ {{monthlyLb}} lbs",
+      "monthlyKg": "Monthly: ≈ {{monthlyKg}} kg",
       "poundsLb": "Pounds (lb)",
       "kilogramsKg": "Kilograms (kg)",
       "niacinWaterRule": "Niacin & Water Rule: Ducks grow 3× faster than chicks and have higher niacin demands. Standard chick feed lacks adequate niacin, causing crippling bowed legs and slipped tendons (add 1 tbsp Brewer's Yeast per cup of feed). Always place deep water bowls next to feed dishes so ducks can submerge their bills while eating to clear feed from their nares.",
@@ -4264,15 +4239,15 @@
       "alwaysFeedPELLETFormDryMashes": "Always feed PELLET form (dry mashes cause bill choking)",
       "specs": {
         "duckling": {
-          "protein": "20%â22% Non-Medicated Waterfowl Starter",
-          "niacin": "65â70 mg/kg (Crucial to prevent bowed leg rickets)"
+          "protein": "20%–22% Non-Medicated Waterfowl Starter",
+          "niacin": "65–70 mg/kg (Crucial to prevent bowed leg rickets)"
         },
         "grower": {
-          "protein": "15%â16% Waterfowl Grower Pellets",
+          "protein": "15%–16% Waterfowl Grower Pellets",
           "niacin": "55 mg/kg"
         },
         "layer": {
-          "protein": "16%â18% Layer Pellets + 3.8% Calcium",
+          "protein": "16%–18% Layer Pellets + 3.8% Calcium",
           "niacin": "55 mg/kg + Oyster shell"
         },
         "winter": {
@@ -4324,7 +4299,8 @@
       "fitnessAthletic": "athletic",
       "minutesValue": "{{minutes}} min",
       "safeSessionLabel": "Safe first swim session",
-      "rinseNote": "Build up gradually. Rinse coat after chlorine or salt water."
+      "rinseNote": "Build up gradually. Rinse coat after chlorine or salt water.",
+      "safetyNote": "Always supervise — even strong swimmers tire quickly. Stop at the first signs of heavy panting or struggling, never force a reluctant dog into the water, and watch for water intoxication (vomiting, wobbliness, drooling) after sessions where your dog swallows a lot of water."
     }
   },
   "dog-car-travel-planner": {
@@ -8504,46 +8480,20 @@
         "vaccines": {
           "dog": [
             {
-              "week": 6,
+              "week": 8,
               "name": "DAPP #1 (core)"
             },
             {
-              "week": 9,
-              "name": "DAPP #2"
-            },
-            {
               "week": 12,
-              "name": "DAPP #3 + optional Lepto/Lyme"
+              "name": "DAPP #2 (core) + Lepto #1 (if at risk)"
             },
             {
               "week": 16,
-              "name": "DAPP #4 + Rabies"
+              "name": "DAPP #3 (core) + Rabies #1 + Lepto #2 (if started)"
             },
             {
               "week": 52,
-              "name": "1-year boosters"
-            }
-          ],
-          "cat": [
-            {
-              "week": 6,
-              "name": "FVRCP #1 (core)"
-            },
-            {
-              "week": 9,
-              "name": "FVRCP #2"
-            },
-            {
-              "week": 12,
-              "name": "FVRCP #3 + optional FeLV"
-            },
-            {
-              "week": 16,
-              "name": "FVRCP #4 + Rabies"
-            },
-            {
-              "week": 52,
-              "name": "1-year boosters"
+              "name": "1-year boosters (DAPP + Rabies; Bordetella/Lyme/flu if at risk)"
             }
           ]
         }

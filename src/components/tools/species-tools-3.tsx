@@ -72,6 +72,7 @@ export function DogSwimTimeCalculator() {
       result={<div className="space-y-4">
         <Big value={t("dog-swim-time-calculator.ui.minutesValue", { minutes })} label={t("dog-swim-time-calculator.ui.safeSessionLabel")} />
         <Note>{t("dog-swim-time-calculator.ui.rinseNote")}</Note>
+        <Note>{t("dog-swim-time-calculator.ui.safetyNote")}</Note>
       </div>}
     />
   );
@@ -98,7 +99,10 @@ export function DogParkVisitTracker() {
   const { t } = useTranslation("tools");
   const [minutes, setMinutes] = useState(45);
   const [visits, setVisits] = useState(3);
-  const weekly = minutes * visits;
+  // Guard the totals: typed negative/blank values must not render negative time.
+  const safeMinutes = Number.isFinite(minutes) ? Math.max(0, minutes) : 0;
+  const safeVisits = Number.isFinite(visits) ? Math.max(0, visits) : 0;
+  const weekly = safeMinutes * safeVisits;
   return (
     <CalculatorLayout
       form={<div className="space-y-4">

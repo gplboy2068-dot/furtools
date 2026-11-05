@@ -71,7 +71,10 @@ export function DogPoopBagCalculator() {
   const { t } = useTranslation("tools");
   const [dogs, setDogs] = useState(1);
   const [perDay, setPerDay] = useState(2);
-  const monthly = dogs * perDay * 30;
+  // Guard the counts: typed negative/blank values must not render negative bags.
+  const safeDogs = Number.isFinite(dogs) ? Math.max(0, Math.floor(dogs)) : 0;
+  const safePerDay = Number.isFinite(perDay) ? Math.max(0, perDay) : 0;
+  const monthly = safeDogs * safePerDay * 30;
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
@@ -1676,6 +1679,7 @@ export function DuckFeed() {
   const dailyLb = (dailyGrams / 453.592).toFixed(2);
   const dailyKg = (dailyGrams / 1000).toFixed(2);
   const monthlyLb = (Number(dailyLb) * 30).toFixed(1);
+  const monthlyKg = ((dailyGrams * 30) / 1000).toFixed(1);
 
   return (
     <CalculatorLayout
@@ -1707,7 +1711,7 @@ export function DuckFeed() {
       }
       result={
         <div className="space-y-4">
-          <Big value={unit === "lb" ? t("duck-feed-calculator.ui.dailyLbs", { v: dailyLb }) : t("duck-feed-calculator.ui.dailyKg", { v: dailyKg })} label={t("duck-feed-calculator.ui.dailyWaterfowlFeedIntake")} unit={t("duck-feed-calculator.ui.monthlyLbs", { monthlyLb })} />
+          <Big value={unit === "lb" ? t("duck-feed-calculator.ui.dailyLbs", { v: dailyLb }) : t("duck-feed-calculator.ui.dailyKg", { v: dailyKg })} label={t("duck-feed-calculator.ui.dailyWaterfowlFeedIntake")} unit={unit === "lb" ? t("duck-feed-calculator.ui.monthlyLbs", { monthlyLb }) : t("duck-feed-calculator.ui.monthlyKg", { monthlyKg })} />
           <Rows items={[
             { label: t("duck-feed-calculator.ui.nutritionalProteinProfile"), value: t(`duck-feed-calculator.ui.specs.${stage}.protein`) },
             { label: t("duck-feed-calculator.ui.niacinVitaminB3Target"), value: t(`duck-feed-calculator.ui.specs.${stage}.niacin`) },
