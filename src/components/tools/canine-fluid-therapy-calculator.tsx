@@ -134,8 +134,11 @@ export function CanineFluidTherapyCalculator({ slug }: { slug?: string }) {
     };
   }, [weightKg, dehydrationPercent, replacementHours, ongoingLossTier, dripFactor, formulaType]);
 
+  // The slider steps through every whole percent (1, 2, 3, 4, 6, 8, 9, 11)
+  // but tiers exist only at 0/5/7/10/12 — show the highest tier at or below
+  // the selected percent instead of falling back to the 7% tier's signs.
   const currentTier =
-    DEHYDRATION_TIERS.find((t) => t.percent === dehydrationPercent) || DEHYDRATION_TIERS[2];
+    [...DEHYDRATION_TIERS].reverse().find((t) => dehydrationPercent >= t.percent) || DEHYDRATION_TIERS[0];
 
   return (
     <div className="space-y-6">

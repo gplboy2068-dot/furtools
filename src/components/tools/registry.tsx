@@ -349,6 +349,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "reptile-uvb-schedule": ReptileUvbSchedule,
   "tank-temperature-gradient-calculator": TankTemperatureGradient,
   "bird-wing-clipping-guide": BirdWingClippingGuide,
+  "bird-wing-clip-guide": () => <BirdWingClipGuide slug="bird-wing-clip-guide" />,
   "ferret-litter-trainer": FerretLitterTrainer,
   "turtle-basking-time-calculator": TurtleBaskingTime,
   "goat-hoof-trim-reminder": GoatHoofTrimReminder,

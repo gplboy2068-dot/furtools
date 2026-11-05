@@ -164,7 +164,8 @@ export function CatAgeAdjustedFeeding() {
   const [age, setAge] = useState(3);
   const [kg, setKg] = useState(4);
   const factor = age < 1 ? 2.5 : age > 10 ? 0.9 : 1.0;
-  const kcal = Math.round(70 * Math.pow(kg, 0.75) * factor);
+  // Guard the weight: a negative kg makes Math.pow return NaN.
+  const kcal = Math.round(70 * Math.pow(Math.max(0, kg), 0.75) * factor);
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
@@ -198,9 +199,17 @@ const BIRD_MOLT_PROFILES: Record<string, BirdMoltData> = {
 export function BirdMoltingTracker() {
   const { t } = useTranslation("tools");
   const [sp, setSp] = useState("cockatiel");
-  const [start, setStart] = useState("2026-08-01");
+  const [start, setStart] = useState(() => {
+    const now = new Date();
+    const mm = `${now.getMonth() + 1}`.padStart(2, "0");
+    const dd = `${now.getDate()}`.padStart(2, "0");
+    return `${now.getFullYear()}-${mm}-${dd}`;
+  });
   const d = BIRD_MOLT_PROFILES[sp] || BIRD_MOLT_PROFILES.cockatiel;
-  const startDate = new Date(start || Date.now());
+  // Parse the date-only value as a LOCAL date: new Date("2026-08-01") is UTC
+  // midnight, which renders as the previous day west of UTC (off-by-one).
+  const [sy, sm, sd] = (start || "").split("-").map(Number);
+  const startDate = sy && sm && sd ? new Date(sy, sm - 1, sd) : new Date();
   const endDate = new Date(startDate);
   endDate.setDate(endDate.getDate() + d.durationWeeks * 7);
 
@@ -271,7 +280,10 @@ export function BirdSleepSchedule({ slug }: { slug?: string }) {
   const d = BIRD_SLEEP_PROFILES[sp] || BIRD_SLEEP_PROFILES.cockatiel;
 
   const [wakeH, wakeM] = wakeTime.split(":").map(Number);
-  const bedtimeTotalMinutes = (wakeH * 60 + wakeM - d.sleepHours * 60 + 1440) % 1440;
+  // A cleared time input yields NaN parts — fall back to a 7:00 AM wake time
+  // instead of rendering a "NaN:NaN" bedtime.
+  const wakeMinutes = Number.isFinite(wakeH) && Number.isFinite(wakeM) ? wakeH * 60 + wakeM : 7 * 60;
+  const bedtimeTotalMinutes = (wakeMinutes - d.sleepHours * 60 + 1440) % 1440;
   const bedH = Math.floor(bedtimeTotalMinutes / 60);
   const bedM = bedtimeTotalMinutes % 60;
   const bedH12 = bedH % 12 || 12;

@@ -348,7 +348,7 @@ export function BirdWingClipGuide({ slug }: { slug?: string }) {
           <Big value={cur.title} label={t(`${p}.ui.flightManagementAssessment`)} />
           <Bullets lines={cur.lines} />
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
-            <p>{t(`${p}.ui.firstTimeProtocol`)} Never attempt wing clipping without prior in-person instruction from an avian veterinarian. Always have styptic powder or cornstarch ready in case a growing blood feather is accidentally nicked.</p>
+            <p>{t(`${p}.ui.firstTimeProtocol`)}</p>
           </div>
         </div>
       }

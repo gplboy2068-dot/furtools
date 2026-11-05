@@ -1782,7 +1782,7 @@
       "conservativeSymmetricalMicroClip": "Conservative Symmetrical Micro-Clip",
       "severeHeavyAsymmetricalClipHazardAlert": "Severe Heavy / Asymmetrical Clip (Hazard Alert)",
       "flightManagementAssessment": "Flight Management Assessment",
-      "firstTimeProtocol": "First-Time Protocol:",
+      "firstTimeProtocol": "First-Time Protocol: Never attempt wing clipping without prior in-person instruction from an avian veterinarian. Always have styptic powder or cornstarch ready in case a growing blood feather is accidentally nicked.",
       "advice": {
         "none": {
           "title": "Full Flighted (Veterinary Recommended)",
