@@ -88,8 +88,9 @@ export function CatLitterCalculator() {
   const [type, setType] = useState<"clay" | "silica" | "plant">("clay");
   const perCatLb = { clay: 15, silica: 8, plant: 12 }[type];
   const perCatCost = { clay: 18, silica: 25, plant: 22 }[type];
-  const lb = cats * perCatLb;
-  const cost = cats * perCatCost;
+  const safeCats = Math.max(1, cats);
+  const lb = safeCats * perCatLb;
+  const cost = safeCats * perCatCost;
   return (
     <CalculatorLayout
       form={<>
@@ -104,7 +105,7 @@ export function CatLitterCalculator() {
             </SelectContent></Select></div>
       </>}
       result={<div className="space-y-3">
-        <BigResult value={t("cat-litter-calculator.ui.litterValue", { lb })} label={t("cat-litter-calculator.ui.litterPerMonthLabel")} unit={t("cat-litter-calculator.ui.monthlyUnit", { cost, boxes: cats + 1 })} />
+        <BigResult value={t("cat-litter-calculator.ui.litterValue", { lb })} label={t("cat-litter-calculator.ui.litterPerMonthLabel")} unit={t("cat-litter-calculator.ui.monthlyUnit", { cost, boxes: safeCats + 1 })} />
       </div>}
     />
   );

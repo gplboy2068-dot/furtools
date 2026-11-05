@@ -170,8 +170,9 @@ export function CatHairballRisk() {
   const [coat, setCoat] = useState("medium");
   const [grooming, setGrooming] = useState(2);
   const base: Record<string, number> = { short: 1, medium: 3, long: 5 };
-  const score = Math.max(0, base[coat] - grooming * 0.4);
-  const risk = score >= 3 ? t("cat-hairball-risk-calculator.ui.riskHigh") : score >= 1.5 ? t("cat-hairball-risk-calculator.ui.riskModerate") : t("cat-hairball-risk-calculator.ui.riskLow");
+  const score = Math.max(0, base[coat] - Math.max(0, grooming) * 0.4);
+  const isHigh = score >= 3;
+  const risk = isHigh ? t("cat-hairball-risk-calculator.ui.riskHigh") : score >= 1.5 ? t("cat-hairball-risk-calculator.ui.riskModerate") : t("cat-hairball-risk-calculator.ui.riskLow");
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
@@ -181,6 +182,7 @@ export function CatHairballRisk() {
       result={<div className="space-y-4">
         <Big value={risk} label={t("cat-hairball-risk-calculator.ui.hairballRisk")} />
         <Note>{t("cat-hairball-risk-calculator.ui.brushMoreAddFiberPumpkinOr")}</Note>
+        {isHigh && <Note>{t("cat-hairball-risk-calculator.ui.vetWarningHigh")}</Note>}
       </div>}
     />
   );
@@ -205,9 +207,11 @@ export function CatCarrierSize() {
   const { t } = useTranslation("tools");
   const [len, setLen] = useState(18);
   const [w, setW] = useState(8);
-  const carrierL = (len + 4).toFixed(0);
-  const carrierW = (w + 4).toFixed(0);
-  const carrierH = (Math.max(w + 6, 12)).toFixed(0);
+  const safeLen = Math.max(0, len);
+  const safeW = Math.max(0, w);
+  const carrierL = (safeLen + 4).toFixed(0);
+  const carrierW = (safeW + 4).toFixed(0);
+  const carrierH = (Math.max(safeW + 6, 12)).toFixed(0);
   return (
     <CalculatorLayout
       form={<div className="space-y-4">

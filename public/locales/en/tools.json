@@ -755,7 +755,7 @@
   },
   "cat-bmi-calculator": {
     "name": "Cat BMI & Body Condition Calculator",
-    "description": "Assess your cat's body condition using the standard 9-point score — combines weight and physical checks.",
+    "description": "Assess your cat's body condition on the standard 9-point scale — estimated from two hands-on checks, rib feel and waist visibility.",
     "ui": {
       "ribsLabel": "Ribs",
       "ribsOptions": {
@@ -782,9 +782,9 @@
   },
   "cat-weight-calculator": {
     "name": "Cat Ideal Weight Calculator",
-    "description": "Find a healthy weight range for your cat based on breed and frame size.",
+    "description": "Find a healthy weight range for your cat based on frame size.",
     "ui": {
-      "sizeLabel": "Frame / breed size",
+      "sizeLabel": "Frame size",
       "sizes": {
         "small": "Small",
         "medium": "Medium",
@@ -901,7 +901,7 @@
   },
   "cat-cost-calculator": {
     "name": "Cat Cost Calculator",
-    "description": "Estimate your cat's true annual and lifetime cost — food, litter, vet, insurance, and one-time setup costs.",
+    "description": "Estimate your cat's true annual and lifetime cost — food, insurance and other monthly costs, plus annual vet care, projected over a lifespan you set.",
     "ui": {
       "foodLabel": "Food /mo ($)",
       "insuranceLabel": "Insurance /mo ($)",
@@ -915,7 +915,7 @@
   },
   "cat-life-expectancy-calculator": {
     "name": "Cat Life Expectancy Calculator",
-    "description": "Get a lifespan estimate for your cat based on indoor/outdoor status, breed, and general health.",
+    "description": "Get a lifespan estimate for your cat based on whether it lives indoors or outdoors.",
     "ui": {
       "breedSizeLabel": "Breed size",
       "sizes": {
@@ -3336,6 +3336,7 @@
       "brushingSessionsWeek": "Brushing sessions / week",
       "hairballRisk": "Hairball risk",
       "brushMoreAddFiberPumpkinOr": "Brush more, add fiber (pumpkin or hairball formula), and keep fresh water available.",
+      "vetWarningHigh": "Frequent hairballs — more than 1–2 a month — or retching that brings nothing up can be a sign of skin or digestive trouble. If that sounds like your cat, check with your vet.",
       "coat": {
         "short": "short",
         "medium": "medium",

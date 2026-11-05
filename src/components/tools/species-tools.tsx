@@ -2852,7 +2852,7 @@ export function CatLitterBoxCount() {
       form={<div><Label>{t("cat-litter-box-count-calculator.ui.numberOfCats")}</Label>
         <Input type="number" min={1} value={n} onChange={(e) => setN(+e.target.value || 1)} className="mt-1.5" /></div>}
       result={<div className="space-y-3">
-        <Big value={n + 1} label={t("cat-litter-box-count-calculator.ui.litterBoxesNeeded")} unit={t("cat-litter-box-count-calculator.ui.n1Rule")} />
+        <Big value={Math.max(1, n) + 1} label={t("cat-litter-box-count-calculator.ui.litterBoxesNeeded")} unit={t("cat-litter-box-count-calculator.ui.n1Rule")} />
         <p className="text-center text-sm text-muted-foreground">{t("cat-litter-box-count-calculator.ui.spreadAcrossFloorsAwayFromFood")}</p>
       </div>}
     />

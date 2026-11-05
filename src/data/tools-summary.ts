@@ -369,7 +369,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "cat-weight-calculator",
     "name": "Cat Ideal Weight Calculator",
-    "tagline": "Healthy weight ranges by breed",
+    "tagline": "Healthy weight ranges by frame size",
     "category": "cats",
     "keywords": [
       "cat ideal weight",

@@ -603,8 +603,8 @@ const RAW_TOOLS: Tool[] = [
     layout: "calculator",
     howItWorks: "MER (Maintenance Energy Requirement) = RER × life stage factor. Indoor cats need ~1.0×, active cats ~1.2×, kittens up to 2.5×.",
     examples: [
-      { label: "12 lb indoor adult", result: "≈ 230 kcal/day" },
-      { label: "8 lb active cat", result: "≈ 200 kcal/day" },
+      { label: "12 lb indoor adult", result: "≈ 249 kcal/day" },
+      { label: "8 lb active cat", result: "≈ 221 kcal/day" },
     ],
     faqs: [
       { q: "Should I free-feed?", a: "Free-feeding often leads to obesity in indoor cats. Measured meals are healthier." },
@@ -617,15 +617,15 @@ const RAW_TOOLS: Tool[] = [
     slug: "cat-bmi-calculator",
     name: "Cat BMI & Body Condition Calculator",
     tagline: "Is your cat at a healthy weight?",
-    description: "Assess your cat's body condition using the standard 9-point score — combines weight and physical checks.",
+    description: "Assess your cat's body condition on the standard 9-point scale — estimated from two hands-on checks, rib feel and waist visibility.",
     category: "cats",
     keywords: ["cat bmi", "cat weight", "body condition"],
     layout: "calculator",
     medicalDisclaimer: true,
-    howItWorks: "Vets use the Body Condition Score (BCS 1–9) for cats: rib feel, waist visibility, and abdominal tuck. We combine your inputs to estimate.",
+    howItWorks: "Vets score body condition (BCS) from 1–9 using rib feel, waist visibility and abdominal tuck. This quick estimator uses the two checks you can do at home — rib feel and waist visibility — to estimate your cat's score.",
     examples: [
-      { label: "Easy ribs, visible waist, tuck", result: "BCS 5/9 — Ideal" },
-      { label: "Hard-to-feel ribs, no waist", result: "BCS 7–8/9 — Overweight" },
+      { label: "Easy ribs, visible waist", result: "BCS 4/9 — Ideal" },
+      { label: "Hard-to-feel ribs, no waist", result: "BCS 8/9 — Obese" },
     ],
     faqs: [
       { q: "My cat 'has always been chubby' — is that OK?", a: "Even 1–2 extra pounds significantly increases diabetes and joint risk in cats. Slow weight loss is safer than crash diets." },
@@ -637,13 +637,13 @@ const RAW_TOOLS: Tool[] = [
   {
     slug: "cat-weight-calculator",
     name: "Cat Ideal Weight Calculator",
-    tagline: "Healthy weight ranges by breed",
-    description: "Find a healthy weight range for your cat based on breed and frame size.",
+    tagline: "Healthy weight ranges by frame size",
+    description: "Find a healthy weight range for your cat based on frame size.",
     category: "cats",
     keywords: ["cat ideal weight", "healthy cat weight"],
     layout: "calculator",
     medicalDisclaimer: true,
-    howItWorks: "Most domestic cats are healthiest between 8–12 lb; Maine Coons and other large breeds can reach 15–20 lb without being overweight.",
+    howItWorks: "Most domestic cats are healthiest between 8–12 lb; Maine Coons and other large breeds often weigh 13–18 lb without being overweight.",
     examples: [
       { label: "Small-framed domestic shorthair", result: "7–10 lb" },
       { label: "Large-framed Maine Coon", result: "13–18 lb" },
@@ -742,12 +742,12 @@ const RAW_TOOLS: Tool[] = [
     slug: "cat-cost-calculator",
     name: "Cat Cost Calculator",
     tagline: "Annual & lifetime cost of cat ownership",
-    description: "Estimate your cat's true annual and lifetime cost — food, litter, vet, insurance, and one-time setup costs.",
+    description: "Estimate your cat's true annual and lifetime cost — food, insurance and other monthly costs, plus annual vet care, projected over a lifespan you set.",
     category: "cats",
     keywords: ["cat cost", "cat budget"],
     layout: "calculator",
     popular: true,
-    howItWorks: "Combine recurring costs (food, litter, insurance) with annual vet costs and project over a 15-year expected lifespan.",
+    howItWorks: "Add up the monthly costs (food, insurance, other), add annual vet costs, and project the total over the expected lifespan you set — 15 years by default.",
     examples: [
       { label: "Indoor cat, mid-range spend", result: "~$1,100/yr, ~$17,000 lifetime" },
       { label: "Premium food + insurance", result: "~$1,800/yr, ~$27,000 lifetime" },
@@ -763,14 +763,14 @@ const RAW_TOOLS: Tool[] = [
     slug: "cat-life-expectancy-calculator",
     name: "Cat Life Expectancy Calculator",
     tagline: "How long will your cat live?",
-    description: "Get a lifespan estimate for your cat based on indoor/outdoor status, breed, and general health.",
+    description: "Get a lifespan estimate for your cat based on whether it lives indoors or outdoors.",
     category: "cats",
     keywords: ["cat lifespan", "how long cats live"],
     layout: "calculator",
     medicalDisclaimer: true,
-    howItWorks: "Indoor cats average 13–17 years, outdoor cats 5–7 years. Health, weight, and dental care shift the range.",
+    howItWorks: "Indoor cats average 13–17 years, outdoor cats 5–8 years. Health, weight, and dental care shift the range.",
     examples: [
-      { label: "Healthy indoor cat", result: "15–18 years" },
+      { label: "Healthy indoor cat", result: "13–17 years" },
       { label: "Outdoor cat", result: "5–8 years" },
     ],
     faqs: [
@@ -791,7 +791,7 @@ const RAW_TOOLS: Tool[] = [
     howItWorks: "A single cat uses ~15 lb of clumping clay per month. Multi-cat households need more litter and more boxes (N+1 rule).",
     examples: [
       { label: "1 cat, clumping clay", result: "~15 lb/mo, ~$18" },
-      { label: "3 cats, clumping clay", result: "~45 lb/mo, ~$55" },
+      { label: "3 cats, clumping clay", result: "~45 lb/mo, ~$54" },
     ],
     faqs: [
       { q: "How many litter boxes do I need?", a: "One per cat plus one extra (the N+1 rule) reduces stress and accidents." },
@@ -828,9 +828,9 @@ const RAW_TOOLS: Tool[] = [
     category: "cats",
     keywords: ["cat grooming", "cat brushing"],
     layout: "generator",
-    howItWorks: "Short-haired cats need weekly brushing, long-haired 3–4x per week. Nail trims every 2–3 weeks; teeth brushed daily ideally.",
+    howItWorks: "Short-haired cats need weekly brushing, medium-haired 2–3x per week, and long-haired cats daily brushing. Nail trims every 2–3 weeks; teeth brushed daily ideally.",
     examples: [
-      { label: "Domestic Shorthair", result: "Brush weekly, nails every 3 weeks" },
+      { label: "Domestic Shorthair", result: "Brush weekly, nails every 2–3 weeks" },
       { label: "Persian", result: "Brush daily, sanitary trim monthly" },
     ],
     faqs: [
