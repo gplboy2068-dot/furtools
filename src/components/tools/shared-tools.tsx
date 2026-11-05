@@ -120,12 +120,16 @@ export function BCSCalculator({ species, slug }: { species: Species; slug?: stri
   const p = slug ?? "shared.bcs";
   const [ribs, setRibs] = useState<"easy" | "some" | "hard">("easy");
   const [waist, setWaist] = useState<"visible" | "faint" | "none">("visible");
+  const [bones, setBones] = useState<"prominent" | "slight" | "covered">("slight");
   const score = useMemo(() => {
     const rMap = { easy: 4, some: 6, hard: 8 } as const;
     const wMap = { visible: 4, faint: 6, none: 8 } as const;
-    return Math.round((rMap[ribs] + wMap[waist]) / 2);
-  }, [ribs, waist]);
-  const verdictKey = score <= 3 ? "underweight" : score <= 5 ? "ideal" : score <= 6 ? "overweight" : "obese";
+    // Third hands-on signal (spine/hip bones) so very thin pets can reach the
+    // WSAVA underweight range (1–3); ribs+waist alone floored the score at 4.
+    const bMap = { prominent: 2, slight: 5, covered: 8 } as const;
+    return Math.round((rMap[ribs] + wMap[waist] + bMap[bones]) / 3);
+  }, [ribs, waist, bones]);
+  const verdictKey = score <= 3 ? "underweight" : score <= 5 ? "ideal" : score <= 7 ? "overweight" : "obese";
   const label = t(`${p}.ui.verdict.${verdictKey}`);
   return (
     <CalculatorLayout
@@ -145,6 +149,14 @@ export function BCSCalculator({ species, slug }: { species: Species; slug?: stri
               <SelectItem value="visible">{t(`${p}.ui.waistOptions.visible`)}</SelectItem>
               <SelectItem value="faint">{t(`${p}.ui.waistOptions.faint`)}</SelectItem>
               <SelectItem value="none">{t(`${p}.ui.waistOptions.none`)}</SelectItem>
+            </SelectContent></Select></div>
+        <div><Label>{t(`${p}.ui.bonesLabel`)}</Label>
+          <Select value={bones} onValueChange={(v: "prominent" | "slight" | "covered") => setBones(v)}>
+            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="prominent">{t(`${p}.ui.bonesOptions.prominent`)}</SelectItem>
+              <SelectItem value="slight">{t(`${p}.ui.bonesOptions.slight`)}</SelectItem>
+              <SelectItem value="covered">{t(`${p}.ui.bonesOptions.covered`)}</SelectItem>
             </SelectContent></Select></div>
         <p className="text-xs text-muted-foreground">{t(`${p}.ui.hint`, { species: t(`${p}.ui.speciesPlural`) })}</p>
       </>}

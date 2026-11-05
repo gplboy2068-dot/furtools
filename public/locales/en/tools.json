@@ -80,7 +80,7 @@
   },
   "dog-bmi-calculator": {
     "name": "Dog BMI & Body Condition Calculator",
-    "description": "Estimate your dog's body condition score using weight, breed size, and physical checks like rib feel and waist visibility.",
+    "description": "Estimate your dog's body condition score from three hands-on checks: rib feel, waist visibility, and back and hip bones.",
     "ui": {
       "ribsLabel": "Ribs",
       "ribsOptions": {
@@ -93,6 +93,12 @@
         "visible": "Clearly visible",
         "faint": "Faintly visible",
         "none": "No visible waist"
+      },
+      "bonesLabel": "Back & hip bones",
+      "bonesOptions": {
+        "prominent": "Stick out — clearly visible",
+        "slight": "Felt easily under a thin fat cover",
+        "covered": "Hard to feel under fat"
       },
       "hint": "Applies to {{species}} using the 9-point body condition score.",
       "speciesPlural": "dogs",
@@ -216,7 +222,7 @@
   },
   "dog-cost-calculator": {
     "name": "Dog Cost Calculator",
-    "description": "Get a realistic annual and lifetime cost estimate for your dog — food, vet, insurance, grooming, and one-time costs.",
+    "description": "Get a realistic annual and lifetime cost estimate for your dog — food, vet, insurance, and other monthly costs.",
     "ui": {
       "foodLabel": "Food /mo ($)",
       "insuranceLabel": "Insurance /mo ($)",
@@ -669,7 +675,8 @@
             "Introduce a routine",
             "Start crate training",
             "Meet family calmly",
-            "Begin name recognition"
+            "Begin name recognition",
+            "Follow the 3-3-3 rule — 3 days to decompress, 3 weeks to learn the routine, 3 months to fully settle"
           ]
         },
         {
@@ -755,7 +762,7 @@
   },
   "cat-bmi-calculator": {
     "name": "Cat BMI & Body Condition Calculator",
-    "description": "Assess your cat's body condition on the standard 9-point scale — estimated from two hands-on checks, rib feel and waist visibility.",
+    "description": "Assess your cat's body condition on the standard 9-point scale — estimated from three hands-on checks: rib feel, waist visibility, and back and hip bones.",
     "ui": {
       "ribsLabel": "Ribs",
       "ribsOptions": {
@@ -768,6 +775,12 @@
         "visible": "Clearly visible",
         "faint": "Faintly visible",
         "none": "No visible waist"
+      },
+      "bonesLabel": "Back & hip bones",
+      "bonesOptions": {
+        "prominent": "Stick out — clearly visible",
+        "slight": "Felt easily under a thin fat cover",
+        "covered": "Hard to feel under fat"
       },
       "hint": "Applies to {{species}} using the 9-point body condition score.",
       "speciesPlural": "cats",
@@ -1424,6 +1437,12 @@
         "visible": "Clearly visible",
         "faint": "Faintly visible",
         "none": "No visible waist"
+      },
+      "bonesLabel": "Back & hip bones",
+      "bonesOptions": {
+        "prominent": "Stick out — clearly visible",
+        "slight": "Felt easily under a thin fat cover",
+        "covered": "Hard to feel under fat"
       },
       "hint": "Applies to {{species}} using the 9-point body condition score.",
       "speciesPlural": "dogs",
@@ -3080,7 +3099,8 @@
       "riskModerate": "Moderate — call vet",
       "riskSerious": "Serious — vet now",
       "riskCritical": "Critical — emergency vet",
-      "theobromineDose": "Theobromine dose:"
+      "theobromineDose": "Theobromine dose:",
+      "cocoaPowder": "Cocoa powder (dry)"
     }
   },
   "dog-benadryl-dose-calculator": {
@@ -3092,7 +3112,10 @@
       "upTo3DailyConfirmWith": "up to 3× daily — confirm with your vet",
       "mg": "{{mg}} mg",
       "standard25MgTablets": "Standard 25 mg tablets:",
-      "tab": "tab"
+      "tab": "tab",
+      "underHalfTablet": "Less than half a 25 mg tablet — measure an exact xylitol-free liquid dose instead, or ask your vet for the right amount.",
+      "caution": "Do not give if your dog is pregnant, has glaucoma, heart disease, or trouble urinating (urinary retention) — ask your vet first.",
+      "xylitolWarning": "Warning: some liquid, children's and fast-melt products contain xylitol, which is highly toxic to dogs. Use only plain diphenhydramine — never 'D' decongestant versions."
     }
   },
   "canine-fluid-therapy-calculator": {
@@ -8427,6 +8450,12 @@
           "visible": "Clearly visible",
           "faint": "Faintly visible",
           "none": "No visible waist"
+        },
+        "bonesLabel": "Back & hip bones",
+        "bonesOptions": {
+          "prominent": "Stick out — clearly visible",
+          "slight": "Felt easily under a thin fat cover",
+          "covered": "Hard to feel under fat"
         },
         "hint": "Applies to {{species}} using the 9-point body condition score.",
         "speciesPlural": "dogs and cats",

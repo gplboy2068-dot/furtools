@@ -2798,30 +2798,33 @@ export function DuckPondSize() {
 export function DogChocolateToxicity() {
   const { t } = useTranslation("tools");
   const [lb, setLb] = useState(20);
-  const [type, setType] = useState<"white" | "milk" | "dark" | "baking">("milk");
+  const [type, setType] = useState<"white" | "milk" | "dark" | "baking" | "cocoa">("milk");
   const [oz, setOz] = useState(1);
-  const mgPerOz = { white: 1, milk: 60, dark: 150, baking: 400 }[type];
-  const kg = lb / 2.2046;
-  const dose = (oz * mgPerOz) / kg;
+  const mgPerOz = { white: 1, milk: 60, dark: 150, baking: 400, cocoa: 800 }[type];
+  const safeLb = Math.max(0, lb);
+  const safeOz = Math.max(0, oz);
+  const kg = safeLb / 2.2046;
+  const dose = kg > 0 ? (safeOz * mgPerOz) / kg : 0;
   const risk = dose < 20 ? t("dog-chocolate-toxicity-calculator.ui.riskLow") : dose < 40 ? t("dog-chocolate-toxicity-calculator.ui.riskModerate") : dose < 60 ? t("dog-chocolate-toxicity-calculator.ui.riskSerious") : t("dog-chocolate-toxicity-calculator.ui.riskCritical");
   return (
     <CalculatorLayout
       form={<>
         <div><Label>{t("dog-chocolate-toxicity-calculator.ui.dogWeightLb")}</Label><Input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className="mt-1.5" /></div>
         <div><Label>{t("dog-chocolate-toxicity-calculator.ui.chocolateType")}</Label>
-          <Select value={type} onValueChange={(v: "white" | "milk" | "dark" | "baking") => setType(v)}>
+          <Select value={type} onValueChange={(v: "white" | "milk" | "dark" | "baking" | "cocoa") => setType(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
             <SelectContent>
               <SelectItem value="white">{t("dog-chocolate-toxicity-calculator.ui.white")}</SelectItem>
               <SelectItem value="milk">{t("dog-chocolate-toxicity-calculator.ui.milk")}</SelectItem>
               <SelectItem value="dark">{t("dog-chocolate-toxicity-calculator.ui.darkSemiSweet")}</SelectItem>
               <SelectItem value="baking">{t("dog-chocolate-toxicity-calculator.ui.bakingChocolate")}</SelectItem>
+              <SelectItem value="cocoa">{t("dog-chocolate-toxicity-calculator.ui.cocoaPowder")}</SelectItem>
             </SelectContent></Select></div>
         <div><Label>{t("dog-chocolate-toxicity-calculator.ui.amountEatenOz")}</Label><Input type="number" step={0.25} value={oz} onChange={(e) => setOz(+e.target.value || 0)} className="mt-1.5" /></div>
       </>}
       result={<div className="space-y-3">
         <Big value={risk} label={t("dog-chocolate-toxicity-calculator.ui.riskLevel")} />
-        <p className="text-center text-sm text-muted-foreground">t("dog-chocolate-toxicity-calculator.ui.theobromineDose") <span className="font-medium text-foreground">{dose.toFixed(1)} mg/kg</span></p>
+        <p className="text-center text-sm text-muted-foreground">{t("dog-chocolate-toxicity-calculator.ui.theobromineDose")} <span className="font-medium text-foreground">{dose.toFixed(1)} mg/kg</span></p>
         <p className="text-center text-xs text-muted-foreground">{t("dog-chocolate-toxicity-calculator.ui.aSPCAPoisonControl8884264435")}</p>
       </div>}
     />
@@ -2831,14 +2834,24 @@ export function DogChocolateToxicity() {
 export function DogBenadrylDose() {
   const { t } = useTranslation("tools");
   const [lb, setLb] = useState(30);
-  const mg = lb; // 1 mg/lb
+  const safeLb = Math.max(0, lb);
+  const mg = safeLb; // 1 mg/lb
+  // Round to the nearest half 25 mg tablet — never force a half tablet on a
+  // tiny dog whose full dose is only a few mg (that would multiply the dose).
+  const tablets = Math.round((mg / 25) * 2) / 2;
   return (
     <CalculatorLayout
       form={<div><Label>{t("dog-benadryl-dose-calculator.ui.dogWeightLb")}</Label>
         <Input type="number" value={lb} onChange={(e) => setLb(+e.target.value || 0)} className="mt-1.5" /></div>}
       result={<div className="space-y-3">
         <Big value={t("dog-benadryl-dose-calculator.ui.mg", { mg })} label={t("dog-benadryl-dose-calculator.ui.perDose")} unit={t("dog-benadryl-dose-calculator.ui.upTo3DailyConfirmWith")} />
-        <p className="text-center text-sm text-muted-foreground">t("dog-benadryl-dose-calculator.ui.standard25MgTablets") <span className="font-medium text-foreground">{Math.max(0.5, Math.round((mg / 25) * 2) / 2)} t("dog-benadryl-dose-calculator.ui.tab")</span></p>
+        {tablets > 0 ? (
+          <p className="text-center text-sm text-muted-foreground">{t("dog-benadryl-dose-calculator.ui.standard25MgTablets")} <span className="font-medium text-foreground">{tablets} {t("dog-benadryl-dose-calculator.ui.tab")}</span></p>
+        ) : (
+          <p className="text-center text-sm text-muted-foreground">{t("dog-benadryl-dose-calculator.ui.underHalfTablet")}</p>
+        )}
+        <p className="text-center text-xs text-muted-foreground">{t("dog-benadryl-dose-calculator.ui.caution")}</p>
+        <p className="text-center text-xs font-medium text-red-600 dark:text-red-400">{t("dog-benadryl-dose-calculator.ui.xylitolWarning")}</p>
       </div>}
     />
   );

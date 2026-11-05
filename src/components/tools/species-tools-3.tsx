@@ -80,8 +80,9 @@ export function DogSwimTimeCalculator() {
 export function DogCarTravelPlanner() {
   const { t } = useTranslation("tools");
   const [hours, setHours] = useState(6);
-  const breaks = Math.max(1, Math.floor(hours / 2));
-  const water = Math.round(hours * 100);
+  const safeHours = Math.max(0, hours);
+  const breaks = safeHours > 0 ? Math.max(1, Math.floor(safeHours / 2)) : 0;
+  const water = Math.round(safeHours * 100);
   return (
     <CalculatorLayout
       form={<NumberField label={t("dog-car-travel-planner.ui.tripLengthLabel")} value={hours} onChange={setHours} min={1} />}

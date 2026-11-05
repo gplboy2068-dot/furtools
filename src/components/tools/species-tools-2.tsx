@@ -111,8 +111,9 @@ export function DogCrateSize() {
 export function DogCollarSize() {
   const { t } = useTranslation("tools");
   const [neck, setNeck] = useState(14);
-  const min = Math.max(neck + 1, neck * 1.05).toFixed(1);
-  const max = (neck + 3).toFixed(1);
+  const safeNeck = Math.max(0, neck);
+  const min = Math.max(safeNeck + 1, safeNeck * 1.05).toFixed(1);
+  const max = (safeNeck + 3).toFixed(1);
   return (
     <CalculatorLayout
       form={<NumberField label={t("dog-collar-size-calculator.ui.neckCircumferenceInches")} value={neck} onChange={setNeck} step={0.5} />}
