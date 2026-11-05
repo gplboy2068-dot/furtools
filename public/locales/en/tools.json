@@ -1445,7 +1445,7 @@
   },
   "pet-travel-checklist": {
     "name": "Pet Travel Checklist",
-    "description": "A tailored checklist for road trips, flights, and boarding — including documents, supplies, and comfort items.",
+    "description": "A complete checklist for trips with your pet — documents, car essentials, and overnight supplies, with progress that saves on your device.",
     "ui": {
       "progress": "Progress",
       "groups": [
@@ -1482,7 +1482,7 @@
   },
   "pet-sitter-rate-calculator": {
     "name": "Pet Sitter Rate Calculator",
-    "description": "Calculate a fair rate to pay your pet sitter based on visit type, number of pets, and local going rate.",
+    "description": "Calculate a fair rate to pay your pet sitter based on visit type and number of pets.",
     "ui": {
       "visitLabel": "Visit type",
       "visitOptions": {
@@ -1527,7 +1527,7 @@
   },
   "pet-vaccine-reminder": {
     "name": "Pet Vaccine Reminder",
-    "description": "Enter your pet's last vaccine dates and see exactly when the next boosters are due.",
+    "description": "Enter the date your pet last received a vaccine and see when its next booster is due.",
     "ui": {
       "vaccineLabel": "Vaccine",
       "vaccineOptions": {
@@ -5124,7 +5124,7 @@
   },
   "pet-symptom-checker": {
     "name": "Pet Symptom Checker Wizard",
-    "description": "A guided symptom checker that maps your pet's symptoms to possible causes and urgency level. Educational triage tool — never a diagnosis. Covers dogs, cats, rabbits, birds and reptiles across 15 common symptoms.",
+    "description": "A guided symptom checker that maps your pet's symptoms to possible causes and urgency level. Educational triage tool — never a diagnosis. Covers dogs, cats, rabbits, birds and reptiles across 20 common symptoms.",
     "ui": {
       "speciesLabel": "Species",
       "species": {
@@ -6002,7 +6002,7 @@
   },
   "pet-personality-quiz": {
     "name": "Pet Personality Quiz",
-    "description": "Answer 10 quick questions about how your dog or cat behaves at home, at play, and around new people. We match the pattern of answers to one of five personality archetypes — Adventurer, Companion, Free Spirit, Entertainer, or Zen Master — with practical training and enrichment tips for each type.",
+    "description": "Answer 10 quick questions about how your dog or cat behaves at home, at play, and around new people. We match the pattern of answers to one of five personality archetypes — Adventurer, Companion, Free Spirit, Entertainer, or Zen Master — with a short profile of what each type thrives on.",
     "ui": {
       "resultTitle": "Your pet's personality type",
       "answerAllHint": "Answer all {{count}} questions to see the result.",
@@ -6225,7 +6225,7 @@
   },
   "pet-name-meaning-lookup": {
     "name": "Pet Name Meaning Lookup",
-    "description": "Search 25+ of the most popular dog and cat names to see their linguistic origin, literal meaning, and personality vibe. Helpful when you're deciding between shortlisted names or want a story to tell friends about the name you picked.",
+    "description": "Search 25 of the most popular dog and cat names to see their linguistic origin, literal meaning, and personality vibe. Helpful when you're deciding between shortlisted names or want a story to tell friends about the name you picked.",
     "ui": {
       "lookupLabel": "Look up a pet name",
       "lookupPlaceholder": "e.g. Luna, Max, Simba",
