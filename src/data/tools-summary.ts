@@ -173,7 +173,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "dog-size-predictor",
     "name": "Dog Size Predictor",
-    "tagline": "Predict adult size, weight & growth milestones",
+    "tagline": "Predict adult weight & size",
     "category": "dogs",
     "keywords": [
       "dog size predictor",

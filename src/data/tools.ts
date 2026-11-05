@@ -325,14 +325,14 @@ const RAW_TOOLS: Tool[] = [
   {
     slug: "dog-size-predictor",
     name: "Dog Size Predictor",
-    tagline: "Predict adult size, weight & growth milestones",
-    description: "Accurately predict your puppy's full-grown adult weight, wither height, growth chart curve, and skeletal maturity milestones using veterinary pediatric allometric models.",
+    tagline: "Predict adult weight & size",
+    description: "Predict your puppy's full-grown adult weight from its current weight, age, size class, sex and paw size — with a realistic adult weight range.",
     category: "dogs",
     keywords: ["dog size predictor", "puppy adult weight calculator", "how big will my dog get", "puppy growth curve", "dog weight estimator", "canine growth milestones"],
     layout: "calculator",
     featured: true,
     popular: true,
-    howItWorks: "Canines follow a non-linear sigmoidal Gompertz growth curve. We project adult weight and height by cross-referencing current age in weeks, body mass, breed somatotype (toy to giant), sexual dimorphism, and bone density.",
+    howItWorks: "Puppy growth follows a non-linear logistic curve. We project adult weight from current age in weeks, current weight, size class (toy to giant), sex, and paw size.",
     examples: [
       { label: "18 lb, 16-week large puppy (male)", result: "≈ 52 lbs adult (range 48–56 lbs)" },
       { label: "6 lb, 12-week small puppy (female)", result: "≈ 14 lbs adult (range 13–15 lbs)" },

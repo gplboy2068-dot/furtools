@@ -241,7 +241,7 @@
   },
   "dog-size-predictor": {
     "name": "Dog Size Predictor",
-    "description": "Accurately predict your puppy's full-grown adult weight, wither height, growth chart curve, and skeletal maturity milestones using veterinary pediatric allometric models.",
+    "description": "Predict your puppy's full-grown adult weight from its current weight, age, size class, sex and paw size — with a realistic adult weight range.",
     "ui": {
       "bannerTitle": "Veterinary Canine Pediatric Allometry & Adult Size Prediction",
       "bannerP1": "Unlike human growth, a puppy’s adult weight cannot be calculated with linear formulas.",
@@ -373,7 +373,7 @@
   },
   "dog-treat-calorie-calculator": {
     "name": "Dog Treat Calorie Calculator",
-    "description": "Vets recommend keeping treats under 10% of daily calories. Enter your dog's meal size and treat kcal to see your safe daily budget.",
+    "description": "Vets recommend keeping treats under 10% of daily calories. Enter your dog's daily calories and the calories per treat to see the safe daily limit.",
     "ui": {
       "dailyLabel": "Daily calories (kcal)",
       "perTreatLabel": "Calories per treat",
