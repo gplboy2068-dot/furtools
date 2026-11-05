@@ -4046,7 +4046,7 @@
   },
   "horse-blanket-size-calculator": {
     "name": "Horse Blanket Size Calculator",
-    "description": "Get the correct horse blanket size using two body measurements and a rounding rule.",
+    "description": "Get the correct horse blanket size from a single chest-to-tail measurement, rounded up to the next standard size.",
     "ui": {
       "chestToTailMeasurementUnit": "Chest-to-Tail Measurement ({{unit}})",
       "coatClippingStatus": "Coat Clipping Status",
