@@ -113,7 +113,10 @@ export function DogParkVisitTracker() {
 export function DogCrateTrainingSchedule() {
   const { t } = useTranslation("tools");
   const [weeks, setWeeks] = useState(8);
-  const maxHours = Math.min(6, Math.max(1, Math.floor(weeks / 4) + 1));
+  // ~1 hour of crate time per month of age (the tool's published example:
+  // an 8-week / 2-month puppy maxes at ~2 hours), capped at 6 hours.
+  const safeWeeks = Number.isFinite(weeks) ? weeks : 8;
+  const maxHours = Math.min(6, Math.max(1, Math.floor(safeWeeks / 4)));
   return (
     <CalculatorLayout
       form={<NumberField label={t("dog-crate-training-schedule.ui.puppyAgeLabel")} value={weeks} onChange={setWeeks} min={8} />}

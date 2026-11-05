@@ -99,9 +99,16 @@ export function PuppyGrowthCalculator() {
 /* Heat cycle */
 export function DogHeatCycleTracker() {
   const { t } = useTranslation("tools");
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  // Build "today" and parse the picked date as LOCAL dates: new Date("2026-02-01")
+  // is UTC midnight, which renders as the previous day west of UTC (off-by-one),
+  // and toISOString() can pre-fill a different calendar day than the local one.
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  const [date, setDate] = useState(today);
   const [interval, setInterval] = useState(6); // months
-  const next = addDays(new Date(date), interval * 30);
+  const [sy, sm, sd] = (date || "").split("-").map(Number);
+  const last = sy && sm && sd ? new Date(sy, sm - 1, sd) : new Date();
+  const next = addDays(last, interval * 30);
   const fertileStart = addDays(next, 9);
   const fertileEnd = addDays(next, 15);
   return (
@@ -111,7 +118,7 @@ export function DogHeatCycleTracker() {
         <div><Label>{t("dog-heat-cycle-tracker.ui.cycleIntervalLabel")}</Label>
           <Select value={String(interval)} onValueChange={(v) => setInterval(+v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
-            <SelectContent>{[5, 6, 7, 8].map((n) => <SelectItem key={n} value={String(n)}>{t("dog-heat-cycle-tracker.ui.intervalMonths", { n })}</SelectItem>)}</SelectContent>
+            <SelectContent>{[4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => <SelectItem key={n} value={String(n)}>{t("dog-heat-cycle-tracker.ui.intervalMonths", { n })}</SelectItem>)}</SelectContent>
           </Select></div>
       </>}
       result={<div className="space-y-3">

@@ -379,7 +379,7 @@
   },
   "dog-life-expectancy-calculator": {
     "name": "Dog Life Expectancy Calculator",
-    "description": "Get a lifespan estimate for your dog based on breed size and health factors — a gentle way to plan and prioritize good years.",
+    "description": "Get a lifespan estimate for your dog based on breed size — a gentle way to plan and prioritize good years.",
     "ui": {
       "breedSizeLabel": "Breed size",
       "sizes": {
@@ -411,7 +411,7 @@
   },
   "dog-grooming-schedule": {
     "name": "Dog Grooming Schedule Generator",
-    "description": "Get a bathing, brushing, nail-trim, and ear-cleaning schedule tailored to your dog's coat type and lifestyle.",
+    "description": "Get a bathing, brushing, nail-trim, and ear-cleaning schedule tailored to your dog's coat type.",
     "ui": {
       "coatLabel": "Coat type",
       "coatLabels": {
@@ -511,7 +511,7 @@
   },
   "dog-exercise-needs-calculator": {
     "name": "Dog Exercise Needs Calculator",
-    "description": "Calculate exact daily exercise minutes, walk durations, and cognitive enrichment requirements based on your dog's breed group, age, and energy tier.",
+    "description": "Calculate the total daily exercise minutes — walks, play, and training — your dog needs based on its energy level and life stage.",
     "ui": {
       "energyLabel": "Energy level",
       "energyLow": "Low",
@@ -527,7 +527,7 @@
   },
   "dog-lifespan-calculator": {
     "name": "Dog Lifespan Calculator",
-    "description": "Forecast your dog's life expectancy based on adult weight somatotype, sterilization, body condition score, and preventative healthcare compliance.",
+    "description": "Forecast your dog's life expectancy from its breed-size category — lifespan scales with size, from 13–16 years for small breeds down to 7–10 for giants.",
     "ui": {
       "breedSizeLabel": "Breed size",
       "sizes": {
@@ -4353,7 +4353,7 @@
       "puppyAgeLabel": "Puppy age (weeks)",
       "maxHoursValue": "{{hours}} hr",
       "maxTimeLabel": "Max time in crate",
-      "ruleNote": "Rule of thumb: age-in-months + 1 = max hours. Never exceed 6 hours for adults."
+      "ruleNote": "Rule of thumb: about 1 hour of crate time per month of age. Never exceed 6 hours for adults."
     }
   },
   "cat-window-perch-guide": {

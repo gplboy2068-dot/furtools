@@ -1319,7 +1319,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "dog-dental-care-schedule",
     "name": "Dog Dental Care Schedule",
-    "tagline": "Prevent 80% of dental disease",
+    "tagline": "Stop dental disease before it starts",
     "category": "dogs",
     "keywords": [
       "dog dental care",
