@@ -1111,7 +1111,8 @@
       "verdictLabel": "Verdict",
       "verdict": {
         "worthIt": "Likely worth it",
-        "breakEven": "Break-even"
+        "breakEven": "Break-even",
+        "notWorthIt": "Likely not worth it"
       },
       "annualPremiumLabel": "Annual premium",
       "coveredLabel": "Est. covered",
@@ -3267,7 +3268,7 @@
   },
   "pet-carbon-pawprint-calculator": {
     "name": "Pet Carbon Pawprint Calculator",
-    "description": "Estimate your pet's yearly CO2e footprint from food, litter, and packaging — with tips to reduce it.",
+    "description": "Estimate your pet's yearly CO2e footprint from its size and diet — food makes up most of a pet's footprint, and diet changes cut it most.",
     "ui": {
       "pet": "Pet",
       "diet": "Diet",
@@ -3280,7 +3281,7 @@
       "insectNovelProtein": "Insect / novel protein",
       "cO2ePerYear": "CO2e per year",
       "mostlyFromDiet": "mostly from diet",
-      "kg": "{{co2}} kg"
+      "kg": "≈ {{co2}} kg"
     }
   },
   "dog-poop-bag-calculator": {
@@ -5764,7 +5765,7 @@
       "toastLocationFail": "Could not fetch location. Please enter a city or ZIP code.",
       "toastFormError": "Please fill in Clinic Name, City, and Phone Number.",
       "toastSubmitOk": "Saved on this device — thank you! Listings are added by our team manually, so it won't appear in the directory automatically.",
-      "headerBadge": "Verified Veterinary & Emergency Directory",
+      "headerBadge": "Veterinary & Emergency Directory",
       "headerTitle": "Find Local Vet Clinics & 24/7 Pet Emergency Hospitals",
       "headerDesc": "Search a curated directory of 24-hour emergency hospitals, low-cost community clinics, and general practices in major cities — with phone numbers and addresses — plus a live Google Maps search for everywhere else.",
       "registerButton": "Register a Clinic",
@@ -5780,7 +5781,7 @@
       "addressPh": "123 Main St",
       "websiteLabel": "Official Website URL",
       "websitePh": "https://...",
-      "er247Label": "This is an accredited 24/7 Emergency Animal Hospital",
+      "er247Label": "This is a 24/7 Emergency Animal Hospital",
       "notesLabel": "Specialties / Notes",
       "notesPh": "Exotic pets, low-cost spay/neuter, dental, etc.",
       "submitButton": "Save Clinic Suggestion",
@@ -5811,7 +5812,7 @@
       "badgeExotics": "🦜 Exotics",
       "badgeTelehealth": "📱 Telehealth",
       "distanceMi": "{{d}} mi",
-      "verifiedTitle": "Verified Practice",
+      "verifiedTitle": "Listed in our curated directory",
       "reviews": "({{count}} reviews)",
       "servicesLabel": "Key Services:",
       "callNow": "Call Now",
@@ -6092,7 +6093,7 @@
   },
   "pet-compatibility-test": {
     "name": "Pet Compatibility Test",
-    "description": "Enter the species, age, temperament, sex, and neuter status of both pets and get a 0–100 compatibility score with a clear recommendation. Helpful when you're thinking about adding a second pet or introducing rescues to a resident animal.",
+    "description": "Enter the species, age, and temperament of both pets, whether they are the same sex, and each pet's neuter status, and get a 0–100 compatibility score with a clear recommendation. Helpful when you're thinking about adding a second pet or introducing rescues to a resident animal.",
     "ui": {
       "petASpeciesLabel": "Pet A species",
       "petBSpeciesLabel": "Pet B species",
@@ -8743,7 +8744,8 @@
         "verdictLabel": "Verdict",
         "verdict": {
           "worthIt": "Likely worth it",
-          "breakEven": "Break-even"
+          "breakEven": "Break-even",
+          "notWorthIt": "Likely not worth it"
         },
         "annualPremiumLabel": "Annual premium",
         "coveredLabel": "Est. covered",

@@ -236,6 +236,9 @@ export function PetCompatibilityTest() {
     const pair = [aSpecies, bSpecies].sort().join("-");
     if (pair === "cat-dog") score -= 10;
     if (pair === "cat-rabbit" || pair === "dog-rabbit") score -= 20;
+    // Predator–prey pairs beyond rabbits: birds and hamsters are prey for
+    // cats and dogs too, so they carry the same caution as rabbit pairs.
+    if (pair === "bird-cat" || pair === "bird-dog" || pair === "cat-hamster" || pair === "dog-hamster") score -= 20;
     if (pair === "cat-cat") score += 5;
     if (pair === "dog-dog") score += 10;
     if (aTemper === "aggressive" || bTemper === "aggressive") score -= 30;

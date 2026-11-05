@@ -275,11 +275,11 @@ export function CostCalculator({ species = "dog", slug }: { species?: Species | 
     <CalculatorLayout
       form={<>
         <div className="grid grid-cols-2 gap-3">
-          <div><Label>{t(`${p}.ui.foodLabel`)}</Label><Input type="number" value={food} onChange={(e) => setFood(+e.target.value || 0)} className="mt-1.5" /></div>
-          <div><Label>{t(`${p}.ui.insuranceLabel`)}</Label><Input type="number" value={insurance} onChange={(e) => setInsurance(+e.target.value || 0)} className="mt-1.5" /></div>
-          <div><Label>{t(`${p}.ui.otherLabel`)}</Label><Input type="number" value={other} onChange={(e) => setOther(+e.target.value || 0)} className="mt-1.5" /></div>
-          <div><Label>{t(`${p}.ui.vetLabel`)}</Label><Input type="number" value={vet} onChange={(e) => setVet(+e.target.value || 0)} className="mt-1.5" /></div>
-          <div><Label>{t(`${p}.ui.yearsLabel`)}</Label><Input type="number" value={years} onChange={(e) => setYears(+e.target.value || 0)} className="mt-1.5" /></div>
+          <div><Label>{t(`${p}.ui.foodLabel`)}</Label><Input type="number" value={food} onChange={(e) => setFood(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+          <div><Label>{t(`${p}.ui.insuranceLabel`)}</Label><Input type="number" value={insurance} onChange={(e) => setInsurance(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+          <div><Label>{t(`${p}.ui.otherLabel`)}</Label><Input type="number" value={other} onChange={(e) => setOther(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+          <div><Label>{t(`${p}.ui.vetLabel`)}</Label><Input type="number" value={vet} onChange={(e) => setVet(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+          <div><Label>{t(`${p}.ui.yearsLabel`)}</Label><Input type="number" value={years} onChange={(e) => setYears(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
         </div>
       </>}
       result={<div className="space-y-4">
@@ -471,8 +471,14 @@ export function ExpenseTracker({ slug }: { slug?: string } = {}) {
   }, []);
   useEffect(() => { try { localStorage.setItem("furtools:expenses", JSON.stringify(entries)); } catch { /* ignore */ } }, [entries]);
   const total = entries.reduce((s, e) => s + e.amount, 0);
+  // "This month" must use the LOCAL month — toISOString() is UTC and shifts
+  // the month boundary a day early/late outside UTC. Entry dates are stored
+  // as local YYYY-MM-DD, so build the local YYYY-MM prefix the same way.
+  const nowLocal = new Date();
+  const localMonth = `${nowLocal.getFullYear()}-${String(nowLocal.getMonth() + 1).padStart(2, "0")}`;
+  const localToday = `${localMonth}-${String(nowLocal.getDate()).padStart(2, "0")}`;
   const monthly = entries
-    .filter((e) => e.date.slice(0, 7) === new Date().toISOString().slice(0, 7))
+    .filter((e) => e.date.slice(0, 7) === localMonth)
     .reduce((s, e) => s + e.amount, 0);
   return (
     <div className="space-y-6">
@@ -486,8 +492,8 @@ export function ExpenseTracker({ slug }: { slug?: string } = {}) {
         <Input type="number" placeholder={t(`${p}.ui.amountPlaceholder`)} value={amount || ""} onChange={(e) => setAmount(+e.target.value || 0)} />
         <Input placeholder={t(`${p}.ui.notePlaceholder`)} value={note} onChange={(e) => setNote(e.target.value)} />
         <Button onClick={() => {
-          if (!amount) return;
-          setEntries((es) => [{ id: crypto.randomUUID(), date: new Date().toISOString().slice(0, 10), category, amount, note }, ...es]);
+          if (!(amount > 0)) return;
+          setEntries((es) => [{ id: crypto.randomUUID(), date: localToday, category, amount, note }, ...es].slice(0, 500));
           setAmount(0); setNote("");
         }}>{t(`${p}.ui.addButton`)}</Button>
       </div>
@@ -525,7 +531,7 @@ export function FeedingPlanner({ slug }: { slug?: string } = {}) {
     <CalculatorLayout
       form={<>
         <div><Label>{t(`${p}.ui.dailyLabel`)}</Label>
-          <Input type="number" value={kcal} onChange={(e) => setKcal(+e.target.value || 0)} className="mt-1.5" /></div>
+          <Input type="number" value={kcal} onChange={(e) => setKcal(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
         <div><Label>{t(`${p}.ui.mealsLabel`)}</Label>
           <Select value={String(meals)} onValueChange={(v) => setMeals(+v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
@@ -560,11 +566,11 @@ export function MedicationCalculator({ slug }: { slug?: string } = {}) {
     <CalculatorLayout
       form={<>
         <div><Label>{t(`${p}.ui.weightLabel`)}</Label>
-          <Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
+          <Input type="number" value={weight} onChange={(e) => setWeight(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
         <div><Label>{t(`${p}.ui.doseLabel`)}</Label>
-          <Input type="number" value={dose} onChange={(e) => setDose(+e.target.value || 0)} className="mt-1.5" /></div>
+          <Input type="number" value={dose} onChange={(e) => setDose(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
         <div><Label>{t(`${p}.ui.concLabel`)}</Label>
-          <Input type="number" value={conc} onChange={(e) => setConc(+e.target.value || 0)} className="mt-1.5" /></div>
+          <Input type="number" value={conc} onChange={(e) => setConc(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
       </>}
       result={<div className="space-y-3">
         <BigResult value={`${totalMg.toFixed(1)} mg`} label={t(`${p}.ui.resultLabel`)} />
@@ -585,17 +591,20 @@ export function InsuranceCalculator({ slug }: { slug?: string } = {}) {
   const annualPremium = premium * 12;
   const covered = Math.max(0, expected - deductible) * (reimb / 100);
   const netCost = annualPremium - covered;
-  const worthIt = covered > annualPremium;
+  // Verdict follows the net cost: covered > premium → worth it; ~equal →
+  // break-even; covered < premium → costs more than it returns (labelling
+  // every losing case "Break-even" was wrong).
+  const verdictKey = covered > annualPremium ? "worthIt" : Math.round(netCost) === 0 ? "breakEven" : "notWorthIt";
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>{t(`${p}.ui.premiumLabel`)}</Label><Input type="number" value={premium} onChange={(e) => setPremium(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>{t(`${p}.ui.deductibleLabel`)}</Label><Input type="number" value={deductible} onChange={(e) => setDeductible(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>{t(`${p}.ui.reimbursementLabel`)}</Label><Input type="number" value={reimb} onChange={(e) => setReimb(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>{t(`${p}.ui.expectedLabel`)}</Label><Input type="number" value={expected} onChange={(e) => setExpected(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.premiumLabel`)}</Label><Input type="number" value={premium} onChange={(e) => setPremium(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.deductibleLabel`)}</Label><Input type="number" value={deductible} onChange={(e) => setDeductible(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.reimbursementLabel`)}</Label><Input type="number" value={reimb} onChange={(e) => setReimb(Math.min(100, Math.max(0, +e.target.value || 0)))} className="mt-1.5" /></div>
+        <div><Label>{t(`${p}.ui.expectedLabel`)}</Label><Input type="number" value={expected} onChange={(e) => setExpected(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
       </>}
       result={<div className="space-y-4">
-        <BigResult value={worthIt ? t(`${p}.ui.verdict.worthIt`) : t(`${p}.ui.verdict.breakEven`)} label={t(`${p}.ui.verdictLabel`)} />
+        <BigResult value={t(`${p}.ui.verdict.${verdictKey}`)} label={t(`${p}.ui.verdictLabel`)} />
         <ResultList items={[
           { label: t(`${p}.ui.annualPremiumLabel`), value: `$${annualPremium}` },
           { label: t(`${p}.ui.coveredLabel`), value: `$${covered.toFixed(0)}` },

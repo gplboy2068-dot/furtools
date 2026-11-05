@@ -1994,7 +1994,7 @@ export function PetGroomingCostEstimator() {
     <CalculatorLayout
       form={<div className="space-y-4">
         <SelectField label={t("pet-grooming-cost-estimator.ui.serviceLabel")} value={type} onChange={setType} options={Object.keys(cost)} optionLabels={[t("pet-grooming-cost-estimator.ui.serviceBath"), t("pet-grooming-cost-estimator.ui.serviceFullGroom"), t("pet-grooming-cost-estimator.ui.serviceDeShed"), t("pet-grooming-cost-estimator.ui.serviceNailTrim")]} />
-        <NumberField label={t("pet-grooming-cost-estimator.ui.visitsLabel")} value={monthly} onChange={setMonthly} min={1} />
+        <NumberField label={t("pet-grooming-cost-estimator.ui.visitsLabel")} value={monthly} onChange={(v) => setMonthly(Math.max(0, v || 0))} min={1} />
       </div>}
       result={<div className="space-y-4">
         <Big value={`$${yearly}`} label={t("pet-grooming-cost-estimator.ui.annualCostLabel")} />
