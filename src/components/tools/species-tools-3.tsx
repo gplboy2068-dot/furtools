@@ -459,8 +459,10 @@ export function RabbitWeightTracker() {
   const [current, setCurrent] = useState(2.15);
   const [days, setDays] = useState(7);
 
-  const diff = current - last;
-  const pct = Number(((diff / last) * 100).toFixed(1));
+  // Guard the division: a blank/zero previous weight must not render NaN%/Infinity%
+  const lastSafe = Math.max(0, last);
+  const diff = Math.max(0, current) - lastSafe;
+  const pct = lastSafe > 0 ? Number(((diff / lastSafe) * 100).toFixed(1)) : 0;
   const absPct = Math.abs(pct);
 
   const status =

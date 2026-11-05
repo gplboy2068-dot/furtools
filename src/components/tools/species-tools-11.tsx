@@ -773,12 +773,16 @@ export function QuailCoopSize() {
 
   const perBird = breed === "bobwhite" ? 1.5 : breed === "button" ? 0.5 : 1; // sq ft
   const multiplier = housing === "aviary" ? 2 : housing === "hutch" ? 1.25 : 1;
-  const sqft = Math.round(count * perBird * multiplier * 10) / 10;
-  const height = breed === "button" ? 10 : 12;
-  const feeders = Math.max(1, Math.ceil(count / 10));
-  const waterers = Math.max(1, Math.ceil(count / 8));
-  const dustBaths = Math.max(1, Math.ceil(count / 8));
-  const males = Math.max(1, Math.floor(count / 5));
+  // A typed negative/blank count must not render negative floor space
+  const n = Math.max(1, count);
+  const sqft = Math.round(n * perBird * multiplier * 10) / 10;
+  // Low ceilings (~12 in) stop caged quail injuring themselves when they flush
+  // upward; a walk-in aviary is the tall exception (birds flush and land).
+  const height = housing === "aviary" ? 72 : breed === "button" ? 10 : 12;
+  const feeders = Math.max(1, Math.ceil(n / 10));
+  const waterers = Math.max(1, Math.ceil(n / 8));
+  const dustBaths = Math.max(1, Math.ceil(n / 8));
+  const males = Math.max(1, Math.floor(n / 5));
 
   const form = (
     <div className="space-y-4">
@@ -816,7 +820,7 @@ export function QuailCoopSize() {
       <Pill tone="safe">{t("quail-coop-size-calculator.ui.pillHousing")}</Pill>
       <div className="grid gap-3 sm:grid-cols-2">
         <Stat label={t("quail-coop-size-calculator.ui.statFloor")} value={`${sqft} sq ft`} hint={t("quail-coop-size-calculator.ui.perBirdHint", { perBird })} />
-        <Stat label={t("quail-coop-size-calculator.ui.statCeiling")} value={`${height} in`} hint={t("quail-coop-size-calculator.ui.ceilingHint")} />
+        <Stat label={t("quail-coop-size-calculator.ui.statCeiling")} value={`${height} in`} hint={housing === "aviary" ? t("quail-coop-size-calculator.ui.ceilingHintAviary") : t("quail-coop-size-calculator.ui.ceilingHint")} />
         <Stat label={t("quail-coop-size-calculator.ui.statFeeders")} value={`${feeders} / ${waterers}`} />
         <Stat label={t("quail-coop-size-calculator.ui.statDustBaths")} value={`${dustBaths}`} hint={t("quail-coop-size-calculator.ui.dustBathHint")} />
       </div>

@@ -2158,11 +2158,13 @@
       "inchesPreventsEscapes": "{{heightInches}} inches (prevents escapes)",
       "sqFtM": "{{runArea}} sq ft ({{v0}} m²)",
       "boxesN1Rule": "{{litterBoxes}} boxes (N+1 rule)",
-      "n4HoursMinimum": "4+ hours minimum"
+      "n4HoursMinimum": "4+ hours minimum",
+   "freeRoamExercise": "24/7 access to a bunny-proofed room",
+   "freeRoamDaily": "Full-time room access"
     }
   },
   "rabbit-food-calculator": {
-    "name": "Rabbit Pellet Calculator",
+    "name": "Rabbit Food Calculator",
     "description": "Calculate a rabbit's daily pellet portion — usually 1/4 cup per 5 lb, alongside unlimited hay.",
     "ui": {
       "unit": "Unit",
@@ -2227,7 +2229,7 @@
   },
   "rabbit-name-generator": {
     "name": "Rabbit Name Generator",
-    "description": "Curated rabbit name ideas — cute, cozy, mythology, and food-inspired.",
+    "description": "Curated rabbit name ideas — cute, classic, nature, cozy, mythology, and minimalist.",
     "ui": {
       "vibeLabel": "Vibe",
       "shuffleButton": "Shuffle",
@@ -4616,7 +4618,7 @@
   },
   "rabbit-pellet-calculator": {
     "name": "Rabbit Pellet Calculator",
-    "description": "Daily pellet portion for adult rabbits based on body weight.",
+    "description": "Daily pellet portion by body weight, life stage and body condition.",
     "ui": {
       "rabbitWeightLabel": "Rabbit weight (kg)",
       "lifeStageLabel": "Life stage",
@@ -8423,6 +8425,7 @@
       "perBirdHint": "{{perBird}} sq ft per bird base",
       "statCeiling": "Ceiling height",
       "ceilingHint": "Low, padded — quail 'boink' straight up when startled",
+   "ceilingHintAviary": "Tall walk-in height — line the top with soft netting so flushed birds can't hurt themselves",
       "statFeeders": "Feeders / waterers",
       "statDustBaths": "Dust baths",
       "dustBathHint": "Sand or dry soil trays",

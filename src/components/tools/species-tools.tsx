@@ -617,7 +617,7 @@ export function RabbitHay({ slug }: { slug?: string }) {
   const weightKg = unit === "lb" ? weight * 0.453592 : weight;
   const weightLb = unit === "kg" ? weight * 2.20462 : weight;
   // Rabbits consume their own body volume in loose hay daily (approx 30–35g per lb of body weight)
-  const dailyGrams = Math.round(weightLb * 32);
+  const dailyGrams = Math.round(Math.max(0, weightLb) * 32);
   const weeklyKg = ((dailyGrams * 7) / 1000).toFixed(2);
   const monthlyLbs = ((dailyGrams * 30) / 453.592).toFixed(1);
   const estimatedCost = (Number(monthlyLbs) * 2.2).toFixed(2); // ~$2.20/lb typical store/bulk mix
@@ -691,10 +691,13 @@ export function RabbitCageSize() {
   const [housing, setHousing] = useState<"pen" | "free-roam" | "hutch-run">("pen");
 
   const minBaseSqFt = { dwarf: 12, standard: 16, large: 20, giant: 30 }[breedSize];
-  const penArea = minBaseSqFt + (count - 1) * (minBaseSqFt * 0.75);
+  // Clamp to the UI's own 1–6 range: a typed negative/blank count otherwise
+  // renders negative enclosure areas and litter-box counts.
+  const n = Math.min(6, Math.max(1, Math.floor(count) || 1));
+  const penArea = minBaseSqFt + (n - 1) * (minBaseSqFt * 0.75);
   const runArea = penArea * 3;
   const heightInches = breedSize === "giant" ? 42 : 36;
-  const litterBoxes = count + 1;
+  const litterBoxes = n + 1;
 
   return (
     <CalculatorLayout
@@ -744,9 +747,9 @@ export function RabbitCageSize() {
           <Rows
             items={[
               { label: t("rabbit-cage-size-calculator.ui.minimumVerticalClearance"), value: t("rabbit-cage-size-calculator.ui.inchesPreventsEscapes", { heightInches }) },
-              { label: t("rabbit-cage-size-calculator.ui.attachedExerciseRun"), value: t("rabbit-cage-size-calculator.ui.sqFtM", { runArea: Math.round(runArea), v0: (runArea * 0.0929).toFixed(1) }) },
+              { label: t("rabbit-cage-size-calculator.ui.attachedExerciseRun"), value: housing === "free-roam" ? t("rabbit-cage-size-calculator.ui.freeRoamExercise") : t("rabbit-cage-size-calculator.ui.sqFtM", { runArea: Math.round(runArea), v0: (runArea * 0.0929).toFixed(1) }) },
               { label: t("rabbit-cage-size-calculator.ui.litterBoxesNeeded"), value: t("rabbit-cage-size-calculator.ui.boxesN1Rule", { litterBoxes }) },
-              { label: t("rabbit-cage-size-calculator.ui.dailyOutOfPenExercise"), value: t("rabbit-cage-size-calculator.ui.n4HoursMinimum") },
+              { label: t("rabbit-cage-size-calculator.ui.dailyOutOfPenExercise"), value: housing === "free-roam" ? t("rabbit-cage-size-calculator.ui.freeRoamDaily") : t("rabbit-cage-size-calculator.ui.n4HoursMinimum") },
             ]}
           />
           <p className="text-xs text-muted-foreground bg-muted/60 p-3 rounded-xl border border-border/60">{t("rabbit-cage-size-calculator.ui.commercialWireCagesSoldInPet")}</p>
@@ -764,13 +767,16 @@ export function RabbitFood() {
   const [goal, setGoal] = useState<"maintain" | "lose" | "gain">("maintain");
 
   const weightLb = unit === "kg" ? weight * 2.20462 : weight;
-  // Plain grass-based pellets: 1/8 to 1/4 cup per 5 lbs body weight for adults
+  // House Rabbit Society standard: 1/8 to 1/4 cup plain pellets per 5 lbs body
+  // weight for adults — we use the 1/4-cup top of the range (0.8 tbsp/lb).
+  // Young rabbits get roughly double while growing; seniors slightly less.
+  // At ~10 g per tbsp this matches the Pellet Calculator's g/kg rates.
   const basePelletsTbsp =
     stage === "young"
-      ? Math.round(weightLb * 3.5) // young rabbits get more
+      ? Math.round(weightLb * 1.8) // young rabbits get more
       : stage === "senior"
-      ? Math.round(weightLb * 1.8)
-      : Math.round(weightLb * 1.5);
+      ? Math.round(weightLb * 0.6)
+      : Math.round(weightLb * 0.8);
 
   const goalMultiplier = goal === "lose" ? 0.75 : goal === "gain" ? 1.25 : 1.0;
   const finalTbsp = Math.max(1, Math.round(basePelletsTbsp * goalMultiplier));
@@ -855,7 +861,7 @@ export function RabbitAge() {
   const [months, setMonths] = useState(0);
   const [breedSize, setBreedSize] = useState<"dwarf" | "standard" | "giant">("standard");
 
-  const totalYears = years + months / 12;
+  const totalYears = Math.max(0, years + months / 12);
   // Modern veterinary epigenetic age conversion for lagomorphs:
   // Year 1 ≈ 21 human yrs, Year 2 ≈ 27, then +6/yr for standard, +5/yr for dwarf, +8/yr for giants
   const ratePerYear = breedSize === "dwarf" ? 5 : breedSize === "giant" ? 8 : 6;

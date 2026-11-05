@@ -922,8 +922,8 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   },
   {
     "slug": "rabbit-food-calculator",
-    "name": "Rabbit Pellet Calculator",
-    "tagline": "Daily pellets by weight",
+    "name": "Rabbit Food Calculator",
+    "tagline": "Daily pellets, greens & hay by weight",
     "category": "small-pets",
     "keywords": [
       "rabbit pellets",
