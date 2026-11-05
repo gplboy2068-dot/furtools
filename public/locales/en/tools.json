@@ -1924,7 +1924,7 @@
   },
   "fish-stocking-calculator": {
     "name": "Fish Stocking Calculator",
-    "description": "Estimate a safe stocking level using the modern bioload approach — not just inches-per-gallon.",
+    "description": "Estimate a safe stocking level from combined adult fish length and filter turnover.",
     "ui": {
       "waterVolumeGal": "Water volume (gal)",
       "combinedAdultFishLengthIn": "Combined adult fish length (in)",
@@ -1932,6 +1932,7 @@
       "bioload": "Bioload",
       "text": "{{bio}}%",
       "under80IsASafeLong": "Under 80% is a safe long-term target.",
+  "highWasteNote": "Length alone understates waste: heavy-bodied, high-waste fish (goldfish, common plecos, large cichlids) produce far more waste than their inches suggest, and every species still needs its own minimum tank size, whatever this score says.",
       "comfortable": "Comfortable",
       "fullButOk": "Full but ok",
       "crowded": "Crowded",
@@ -1977,7 +1978,7 @@
   },
   "fish-food-calculator": {
     "name": "Fish Feeding Calculator",
-    "description": "Portion calculator for community, cichlid, and goldfish tanks — avoid overfeeding.",
+    "description": "Daily food portions by fish size class — avoid overfeeding.",
     "ui": {
       "numberOfFish": "Number of fish",
       "adultSize": "Adult size",
@@ -3032,7 +3033,7 @@
   },
   "duck-pond-size-calculator": {
     "name": "Duck Pond Size Calculator",
-    "description": "Recommended water and land space for backyard ducks — pond, kiddie pool, or nipple waterers.",
+    "description": "Recommended water and land space for backyard ducks — filtered pond or drainable stock tank.",
     "ui": {
       "numberOfWaterfowlDucksGeese": "Number of Waterfowl (Ducks / Geese)",
       "duckBreedSize": "Duck Breed Size",
@@ -3053,6 +3054,8 @@
       "sqFtDryBedding": "{{v0}} sq ft dry bedding",
       "sqFtSecureRun": "{{v0}} sq ft secure run",
       "gPHBogWetlandMechanicalPreFilter": "{{flowRateGph}} GPH (Bog wetland + mechanical pre-filter)",
+  "dumpRefillLabel": "Water Change Routine",
+  "dumpRefillValue": "No filter on a stock tank — dump, scrub, and refill every 1–2 days; ducks foul small volumes fast.",
       "n18To24InchesAllowsFull": "18 to 24 inches (allows full submergence and preening)"
     }
   },
@@ -5711,7 +5714,7 @@
   },
   "emergency-vet-finder": {
     "name": "Emergency Vet Finder",
-    "description": "Instantly find 24-hour emergency veterinary clinics near your current location or ZIP code, with one-tap access to poison-control hotlines. Works globally via Google Maps and Apple Maps.",
+    "description": "Find 24-hour emergency veterinary clinics in a curated directory of major cities, search any other location live on Google Maps, and get one-tap access to poison-control hotlines.",
     "ui": {
       "defaultSearch": "Austin",
       "toastGeoUnsupported": "Geolocation is not supported by your browser",
@@ -5722,7 +5725,7 @@
       "toastSubmitOk": "Thank you! Your clinic submission has been received and queued for directory verification.",
       "headerBadge": "Verified Veterinary & Emergency Directory",
       "headerTitle": "Find Local Vet Clinics & 24/7 Pet Emergency Hospitals",
-      "headerDesc": "Search real accredited veterinarians, low-cost community clinics, and 24-hour trauma hospitals with verified phone numbers, addresses, and ratings.",
+      "headerDesc": "Search a curated directory of 24-hour emergency hospitals, low-cost community clinics, and general practices in major cities — with phone numbers and addresses — plus a live Google Maps search for everywhere else.",
       "registerButton": "Register a Clinic",
       "dialogTitle": "Register a Veterinary Clinic",
       "dialogDesc": "Are you a veterinary practice manager or recommending a trusted clinic? Submit verified details below.",
@@ -5756,7 +5759,7 @@
       "filterTelehealth": "📱 Telehealth Available",
       "resetFilters": "Reset Filters",
       "resultsBefore": "Showing",
-      "resultsAfter": "verified veterinary hospitals & clinics",
+      "resultsAfter": "veterinary hospitals & clinics in the directory",
       "resultsMatching": "matching \"{{query}}\"",
       "mapsLink": "Search Live Clinics on Google Maps",
       "emptyTitle": "No direct directory matches for “{{query}}”",

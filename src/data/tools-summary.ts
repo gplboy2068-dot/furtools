@@ -2473,7 +2473,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "fireworks-anxiety-prep",
     "name": "Fireworks Anxiety Prep",
-    "tagline": "A vet-approved plan to keep your pet calm on July 4 & New Year's",
+    "tagline": "A step-by-step plan to keep your pet calm on July 4 & New Year's",
     "category": "general",
     "keywords": [
       "fireworks",

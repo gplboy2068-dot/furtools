@@ -387,7 +387,9 @@ export function FishStocking() {
   const [gal, setGal] = useState(20);
   const [inches, setInches] = useState(6);
   const [turnover, setTurnover] = useState(5);
-  const bio = Math.min(100, Math.round((inches / gal) * 100 * (5 / Math.max(turnover, 1))));
+  // Guard the edges: 0 gal with 0 in used to render "NaN%", and typed negative
+  // values rendered a negative percentage.
+  const bio = Math.min(100, Math.max(0, Math.round((Math.max(0, inches) / Math.max(1, gal)) * 100 * (5 / Math.max(turnover, 1)))));
   const label = bio < 60 ? t("fish-stocking-calculator.ui.comfortable") : bio < 80 ? t("fish-stocking-calculator.ui.fullButOk") : bio < 100 ? t("fish-stocking-calculator.ui.crowded") : t("fish-stocking-calculator.ui.overstocked");
   return (
     <CalculatorLayout
@@ -399,6 +401,7 @@ export function FishStocking() {
       result={<div className="space-y-4">
         <Big value={t("fish-stocking-calculator.ui.text", { bio })} label={t("fish-stocking-calculator.ui.bioload")} unit={label} />
         <p className="text-sm text-muted-foreground text-center">{t("fish-stocking-calculator.ui.under80IsASafeLong")}</p>
+        <p className="text-sm text-muted-foreground text-center">{t("fish-stocking-calculator.ui.highWasteNote")}</p>
       </div>}
     />
   );
@@ -509,7 +512,9 @@ export function FishFood() {
   const [count, setCount] = useState(6);
   const [size, setSize] = useState<"nano" | "small" | "medium" | "large">("small");
   const gPer = { nano: 0.05, small: 0.15, medium: 0.5, large: 2 }[size];
-  const total = (count * gPer).toFixed(2);
+  // A typed negative count used to render a negative food total.
+  const safeCount = Number.isFinite(count) ? Math.max(1, count) : 1;
+  const total = (safeCount * gPer).toFixed(2);
   return (
     <CalculatorLayout
       form={<>
@@ -2783,7 +2788,11 @@ export function DuckPondSize() {
             { label: t("duck-pond-size-calculator.ui.minimumPondDepth"), value: t("duck-pond-size-calculator.ui.n18To24InchesAllowsFull") },
             { label: t("duck-pond-size-calculator.ui.nightCoopFloorSpace"), value: t("duck-pond-size-calculator.ui.sqFtDryBedding", { v0: count * 4 }) },
             { label: t("duck-pond-size-calculator.ui.enclosedDaytimeRunSpace"), value: t("duck-pond-size-calculator.ui.sqFtSecureRun", { v0: count * 15 }) },
-            { label: t("duck-pond-size-calculator.ui.requiredFiltrationTurnover"), value: t("duck-pond-size-calculator.ui.gPHBogWetlandMechanicalPreFilter", { flowRateGph }) },
+            // The pond-type input used to be dead: a drainable stock tank has no
+            // filter, so it gets a dump-and-refill routine instead of a GPH row.
+            pondType === "filtered_pond"
+              ? { label: t("duck-pond-size-calculator.ui.requiredFiltrationTurnover"), value: t("duck-pond-size-calculator.ui.gPHBogWetlandMechanicalPreFilter", { flowRateGph }) }
+              : { label: t("duck-pond-size-calculator.ui.dumpRefillLabel"), value: t("duck-pond-size-calculator.ui.dumpRefillValue") },
           ]} />
           <div className="rounded-lg bg-muted/50 p-3 text-xs text-muted-foreground space-y-1">
             <p>{t("duck-pond-size-calculator.ui.duckHydrodynamicsNote")}</p>

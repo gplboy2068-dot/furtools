@@ -582,7 +582,7 @@ export function FerretCageSize() {
                 min={1}
                 max={6}
                 value={ferrets}
-                onChange={(e) => setFerrets(+e.target.value || 1)}
+                onChange={(e) => setFerrets(Math.max(1, +e.target.value || 1))}
                 className="mt-1.5"
               />
             </div>

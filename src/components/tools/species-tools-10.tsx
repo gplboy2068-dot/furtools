@@ -284,7 +284,7 @@ export function FerretLitterTrainer() {
       <div className="rounded-lg border p-3 space-y-2">
         <Label>{t("ferret-litter-trainer.ui.logLabel")}</Label>
         <Input placeholder={t("ferret-litter-trainer.ui.logPlaceholder")} value={note} onChange={(e) => setNote(e.target.value)} />
-        <Button size="sm" onClick={() => { if (note.trim()) { setAccidents((a) => [...a, { date: new Date().toISOString().slice(0,10), note: note.trim() }]); setNote(""); } }}>{t("ferret-litter-trainer.ui.logButton")}</Button>
+        <Button size="sm" onClick={() => { if (note.trim()) { const now = new Date(); const localDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`; setAccidents((a) => [...a, { date: localDate, note: note.trim() }]); setNote(""); } }}>{t("ferret-litter-trainer.ui.logButton")}</Button>
       </div>
     </div>
   );

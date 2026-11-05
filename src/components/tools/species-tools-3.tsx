@@ -373,7 +373,8 @@ export function FishMedicationDose() {
   const { t } = useTranslation("tools");
   const [gallons, setGallons] = useState(20);
   const [mgPerGal, setMgPerGal] = useState(10);
-  const totalMg = gallons * mgPerGal;
+  // NumberField does not clamp: typed negatives used to render a negative dose.
+  const totalMg = Math.max(0, gallons) * Math.max(0, mgPerGal);
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
