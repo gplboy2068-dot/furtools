@@ -355,7 +355,7 @@ export function GeneticDiversityCOI() {
 
   const form = (
     <div className="space-y-3">
-      <div><Label>{t("genetic-diversity-calculator.ui.ancestorsLabel")}</Label><Input type="number" min={0} value={commonAncestors} onChange={(e) => setCommonAncestors(+e.target.value || 0)} /></div>
+      <div><Label>{t("genetic-diversity-calculator.ui.ancestorsLabel")}</Label><Input type="number" min={0} value={commonAncestors} onChange={(e) => setCommonAncestors(Math.max(0, +e.target.value || 0))} /></div>
       <div>
         <Label>{t("genetic-diversity-calculator.ui.generationsLabel")}</Label>
         <Select value={String(generations)} onValueChange={(v) => setGenerations(+v)}>

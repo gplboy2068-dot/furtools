@@ -965,21 +965,21 @@ export function HamsterCageSize() {
     dwarf: {
       minSqIn: 500,
       recSqIn: 700,
-      minBedding: 6,
+      minBedding: 8,
       recBedding: 8,
       note: t("hamster-cage-size-calculator.ui.note.dwarf"),
     },
     robo: {
       minSqIn: 500,
       recSqIn: 750,
-      minBedding: 6,
+      minBedding: 8,
       recBedding: 8,
       note: t("hamster-cage-size-calculator.ui.note.robo"),
     },
     chinese: {
       minSqIn: 500,
       recSqIn: 700,
-      minBedding: 6,
+      minBedding: 8,
       recBedding: 8,
       note: t("hamster-cage-size-calculator.ui.note.chinese"),
     },
@@ -1079,7 +1079,7 @@ export function HamsterFood() {
       }
       result={
         <div className="space-y-4">
-          <Big value={t("hamster-food-calculator.ui.gDay", { gramsDaily })} label={t("hamster-food-calculator.ui.dailySeedPelletMix")} unit={t("hamster-food-calculator.ui.n12Tablespoons")} />
+          <Big value={t("hamster-food-calculator.ui.gDay", { gramsDaily })} label={t("hamster-food-calculator.ui.dailySeedPelletMix")} unit={species === "syrian" ? t("hamster-food-calculator.ui.n12Tablespoons") : t("hamster-food-calculator.ui.n12Teaspoons")} />
           <Rows
             items={[
               { label: t("hamster-food-calculator.ui.targetCrudeProtein"), value: proteinTarget },
@@ -2689,6 +2689,12 @@ export function GoatFeed() {
   const grainLb = goatClass === "lactating" ? Math.min(3.0, weightLb * 0.015) : goatClass === "growing" ? 0.75 : goatClass === "pregnant" ? 1.0 : 0;
   const hayLb = Math.max(1.0, totalDmiLb - grainLb);
 
+  const forageNote = {
+    grass: t("goat-feed-calculator.ui.forageNote.grass"),
+    alfalfa: t("goat-feed-calculator.ui.forageNote.alfalfa"),
+    browse: t("goat-feed-calculator.ui.forageNote.browse"),
+  }[forageType];
+
   return (
     <CalculatorLayout
       form={
@@ -2729,6 +2735,7 @@ export function GoatFeed() {
             { label: t("goat-feed-calculator.ui.dryMatterIntakeDMI"), value: t("goat-feed-calculator.ui.lbsTotalDryMatterDayBW", { v0: totalDmiLb.toFixed(1), v1: (dmiPercent * 100).toFixed(1) }) },
             { label: t("goat-feed-calculator.ui.dailyGrainConcentrate"), value: grainLb > 0 ? t("goat-feed-calculator.ui.grainLbsDaySplit", { v: grainLb.toFixed(1) }) : t("goat-feed-calculator.ui.forageOnlyDiet") },
             { label: t("goat-feed-calculator.ui.urinaryCalculiProtection"), value: goatClass === "wether" ? t("goat-feed-calculator.ui.wetherMineralMandatory") : t("goat-feed-calculator.ui.goatMineralsCopper") },
+            { label: t("goat-feed-calculator.ui.forageGuidance"), value: forageNote },
           ]} />
           <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-xs text-destructive">
             {t("goat-feed-calculator.ui.wetherUrinaryCalculiHazard")}

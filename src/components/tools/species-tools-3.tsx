@@ -519,7 +519,7 @@ export function GuineaPigFoodCalculator() {
       form={
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <NumberField label={t("guinea-pig-food-calculator.ui.countLabel")} value={count} onChange={setCount} min={1} max={10} />
+            <NumberField label={t("guinea-pig-food-calculator.ui.countLabel")} value={count} onChange={(v) => setCount(Math.min(10, Math.max(1, Number.isFinite(v) ? v : 1)))} min={1} max={10} />
             <SelectField
               label={t("guinea-pig-food-calculator.ui.lifeStageLabel")}
               value={stage}
@@ -535,7 +535,7 @@ export function GuineaPigFoodCalculator() {
           <Big value={t("guinea-pig-food-calculator.ui.hayValue", { grams: hayG })} label={t("guinea-pig-food-calculator.ui.hayLabel")} unit={t("guinea-pig-food-calculator.ui.hayUnit", { kg: Math.round(hayG * 7 / 1000 * 10) / 10, count })} />
           <Rows
             items={[
-              { label: t("guinea-pig-food-calculator.ui.pelletsLabel"), value: t("guinea-pig-food-calculator.ui.pelletsRow", { grams: pelletsG, count }) },
+              { label: t("guinea-pig-food-calculator.ui.pelletsLabel"), value: stage === "pup" ? t("guinea-pig-food-calculator.ui.pelletsRowPup", { grams: pelletsG, count }) : t("guinea-pig-food-calculator.ui.pelletsRow", { grams: pelletsG, count }) },
               { label: t("guinea-pig-food-calculator.ui.greensLabel"), value: t("guinea-pig-food-calculator.ui.greensRow", { grams: veggiesG, count }) },
               { label: t("guinea-pig-food-calculator.ui.waterLabel"), value: t("guinea-pig-food-calculator.ui.waterRow", { ml: waterMl }) },
               { label: t("guinea-pig-food-calculator.ui.vitaminCLabel"), value: t("guinea-pig-food-calculator.ui.vitaminCValue") },

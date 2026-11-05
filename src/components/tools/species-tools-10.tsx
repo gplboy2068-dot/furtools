@@ -371,10 +371,16 @@ export function GoatHoofTrimReminder() {
   const remove = (id: string) => setGoats((g) => g.filter(x => x.id !== id));
 
   const rows = goats.map(g => {
-    const next = new Date(g.lastTrim);
+    // Parse the stored YYYY-MM-DD as a LOCAL date — new Date("YYYY-MM-DD") parses as
+    // UTC midnight and renders a day early west of UTC; toISOString() re-shifts it.
+    const [y, m, d] = g.lastTrim.split("-").map(Number);
+    const next = new Date(y, (m || 1) - 1, d || 1);
     next.setDate(next.getDate() + g.interval * 7);
-    const days = Math.round((next.getTime() - Date.now()) / 86400000);
-    return { ...g, nextDate: next.toISOString().slice(0, 10), days };
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const days = Math.round((next.getTime() - today.getTime()) / 86400000);
+    const nextDate = `${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, "0")}-${String(next.getDate()).padStart(2, "0")}`;
+    return { ...g, nextDate, days };
   });
 
   const form = (

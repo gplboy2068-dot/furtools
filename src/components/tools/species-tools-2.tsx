@@ -641,7 +641,7 @@ export function GuineaPigCageSize() {
   const finalSqFt = Math.round(baseSqFt * boarMultiplier);
   const finalSqM = (finalSqFt * 0.092903).toFixed(2);
   const ccGrids =
-    finalSqFt >= 20 ? t("guinea-pig-cage-size-calculator.ui.grids.xl") : finalSqFt >= 15 ? t("guinea-pig-cage-size-calculator.ui.grids.lg") : finalSqFt >= 10 ? t("guinea-pig-cage-size-calculator.ui.grids.md") : t("guinea-pig-cage-size-calculator.ui.grids.sm");
+    finalSqFt >= 25 ? t("guinea-pig-cage-size-calculator.ui.grids.xxl") : finalSqFt >= 17 ? t("guinea-pig-cage-size-calculator.ui.grids.xl") : finalSqFt >= 13 ? t("guinea-pig-cage-size-calculator.ui.grids.lg") : finalSqFt >= 9 ? t("guinea-pig-cage-size-calculator.ui.grids.md") : t("guinea-pig-cage-size-calculator.ui.grids.sm");
 
   return (
     <CalculatorLayout
@@ -655,7 +655,7 @@ export function GuineaPigCageSize() {
                 min={1}
                 max={6}
                 value={pigs}
-                onChange={(e) => setPigs(+e.target.value || 1)}
+                onChange={(e) => setPigs(Math.min(6, Math.max(1, +e.target.value || 1)))}
                 className="mt-1.5"
               />
             </div>

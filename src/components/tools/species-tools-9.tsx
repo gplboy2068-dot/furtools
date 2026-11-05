@@ -296,8 +296,20 @@ export function HalloweenSafetyChecker() {
     hazard: t("halloween-safety-checker.ui.riskHazard"),
     caution: t("halloween-safety-checker.ui.riskCaution"),
   };
+  const aliases: Record<string, string> = {
+    chocolate: "chocolate cocoa theobromine dark chocolate baking chocolate candy sweets",
+    xylitol: "xylitol birch sugar sugar-free gum sugar free candy peanut butter sweetener",
+    raisins: "raisins grapes grape currants fruit cake trail mix",
+    wrappers: "wrappers foil plastic lollipop sticks candy packaging",
+    glow: "glow sticks glow jewelry necklace bracelet dibutyl phthalate",
+    costumes: "costumes outfit dress up mask outfits",
+    door: "open door escapes doorbell visitors trick or treat lost pet running away",
+    candles: "candles jack-o-lantern pumpkin flames fire lantern",
+    blackcats: "black cats black cat cats cruelty",
+  };
   const [q, setQ] = useState("");
-  const results = hazards.filter((h) => h.name.toLowerCase().includes(q.toLowerCase()));
+  const query = q.trim().toLowerCase();
+  const results = hazards.filter((h) => !query || (h.name + " " + (aliases[h.key] ?? "")).toLowerCase().includes(query));
   return (
     <div className="space-y-4">
       <Input placeholder={t("halloween-safety-checker.ui.searchPlaceholder")} value={q} onChange={(e) => setQ(e.target.value)} />
@@ -315,6 +327,9 @@ export function HalloweenSafetyChecker() {
           );
         })}
       </div>
+      {results.length === 0 ? (
+        <p className="text-sm text-muted-foreground">{t("halloween-safety-checker.ui.noResults")}</p>
+      ) : null}
       <div className="rounded-lg bg-cream-deep p-3 text-xs">
         {t("halloween-safety-checker.ui.emergencyNote")}
       </div>

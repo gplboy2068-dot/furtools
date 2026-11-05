@@ -2240,7 +2240,7 @@
   },
   "hamster-cage-size-calculator": {
     "name": "Hamster Cage Size Calculator",
-    "description": "Minimum recommended cage floor area for Syrian, dwarf, and Roborovski hamsters (450 sq in modern standard).",
+    "description": "Minimum recommended cage floor area for Syrian, dwarf, and Roborovski hamsters, sized to current welfare guidance.",
     "ui": {
       "hamsterSpeciesGender": "Hamster species & gender",
       "femaleSyrianHamsterHighestSpaceNeed": "Female Syrian Hamster (Highest Space Need)",
@@ -2258,12 +2258,12 @@
       "sqInCm": "{{minSqIn}} sq in ({{minSqCm}} cm²)",
       "inchesCmForBurrows": "{{recBedding}} inches ({{v0}} cm) for burrows",
       "inchesCm": "{{minBedding}} inches ({{v0}} cm)",
-      "glassTank4075GalBreeder": "Glass Tank (40â75 gal breeder) / DIY Wood Terrarium",
+      "glassTank4075GalBreeder": "Glass Tank (40–75 gal breeder) / DIY Wood Terrarium",
       "cageNote": "{note} Connecting multiple tiny cages with plastic modular tubes does NOT count toward unbroken floor space.",
       "note": {
         "syrian_female": "Female Syrian hamsters are exceptionally active during estrus (every 4 days) and require at least 1,000 sq in of unbroken floor space to prevent bar-chewing and escape stress.",
         "syrian_male": "Male Syrian hamsters thrive with at least 800 sq in of continuous floor space and deep burrowing zones.",
-        "dwarf": "Campbell and Winter White dwarf hamsters require wide floor plans with multi-chamber hides and a large sand bath.",
+        "dwarf": "Campbell and Winter White dwarf hamsters require wide floor plans with multi-chamber hides and a large sand bath. If you use a barred cage, bar spacing must be ½ inch (1.3 cm) or less — dwarf hamsters squeeze through wider gaps.",
         "robo": "Roborovski hamsters are hyper-energetic runners requiring large sand-bath areas (taking up to 1/3 of the enclosure).",
         "chinese": "Chinese hamsters possess prehensile tails and enjoy deep bedding paired with low climbing branches."
       }
@@ -2284,14 +2284,15 @@
       "dailySeedPelletMix": "Daily seed & pellet mix",
       "gDay": "{{gramsDaily}} g/day",
       "n12Tablespoons": "≈ 1–2 tablespoons",
+      "n12Teaspoons": "≈ 1–2 teaspoons",
       "targetCrudeProtein": "Target crude protein",
       "targetCrudeFat": "Target crude fat",
       "animalProteinSupplement": "Animal protein supplement",
       "freshSafeVegetables": "Fresh safe vegetables",
-      "n57AvoidExcessiveSunflowerPeanuts": "5%â7% (avoid excessive sunflower/peanuts)",
-      "n1Tsp23WeeklyBroccoli": "1 tsp 2â3Ã weekly (Broccoli, Cucumber, Zucchini)",
+      "n57AvoidExcessiveSunflowerPeanuts": "5%–7% (avoid excessive sunflower/peanuts)",
+      "n1Tsp23WeeklyBroccoli": "1 tsp 2–3× weekly (Broccoli, Cucumber, Zucchini)",
       "proteinTarget": {
-        "dwarf": "19%–22% (high protein, low sugar)",
+        "dwarf": "19%–20% (high protein, low sugar)",
         "other": "17%–19% crude protein"
       },
       "mealwormsWeekly": {
@@ -3028,7 +3029,13 @@
       "grainLbsDaySplit": "{{v}} lbs / day (Split into 2 feedings)",
       "forageOnlyDiet": "0 lbs (Forage-only diet prevents obesity)",
       "wetherMineralMandatory": "MANDATORY: 2:1 Calcium-to-Phosphorus ratio + Ammonium Chloride",
-      "goatMineralsCopper": "Provide free-choice loose goat minerals (with copper)"
+      "goatMineralsCopper": "Provide free-choice loose goat minerals (with copper)",
+      "forageGuidance": "Forage guidance",
+      "forageNote": {
+        "grass": "Grass hay is the safest base for wethers and dry does — moderate protein and calcium.",
+        "alfalfa": "Alfalfa is rich in protein and calcium — ideal for does in milk, but for wethers feed it only as part of a balanced ration (keep the total diet near a 2:1 calcium-to-phosphorus ratio).",
+        "browse": "Browse quality varies with season — weigh goats regularly and top up with hay when pasture is sparse or dormant."
+      }
     }
   },
   "duck-pond-size-calculator": {
@@ -3674,8 +3681,9 @@
       "separateFeedingStations": "{{v0}} separate feeding stations",
       "upperLoftsAreBonusSpaceThey": "Upper lofts are bonus space; they do NOT count toward the single-level base",
       "grids": {
-        "xl": "2 × 6 Grids (or 3 × 4)",
-        "lg": "2 × 5 Grids",
+        "xl": "3 × 6 Grids",
+        "xxl": "3 × 7 Grids",
+        "lg": "2 × 6 Grids",
         "md": "2 × 4 Grids",
         "sm": "2 × 3 Grids"
       }
@@ -4179,7 +4187,7 @@
       "sanitationOdorRule": "Sanitation & Odor Rule",
       "galLPerGoat": "≈ {{v0}} gal ({{v1}} L) per goat",
       "standard5GallonBuckets": "≈ {{v0}} standard 5-gallon buckets",
-      "scrubTroughsDailyGoatsRefuseSaliva": "Scrub troughs daily â goats refuse saliva-scented water"
+      "scrubTroughsDailyGoatsRefuseSaliva": "Scrub troughs daily — goats refuse saliva-scented water"
     }
   },
   "sheep-feed-calculator": {
@@ -4634,12 +4642,13 @@
       "hayUnit": "≈ {{kg}} kg weekly for {{count}} pig(s)",
       "pelletsLabel": "Stabilized Vitamin C pellets",
       "pelletsRow": "{{grams}} g daily ({{count}} × 1/8 cup)",
+      "pelletsRowPup": "{{grams}} g daily ({{count}} × heaped 1/8 cup — extra for growth)",
       "greensLabel": "Fresh dark leafy greens & veg",
       "greensRow": "{{grams}} g daily ({{count}} packed cups)",
       "waterLabel": "Daily fresh water consumption",
       "waterRow": "≈ {{ml}} ml / day",
       "vitaminCLabel": "High-value Vitamin C produce",
-      "vitaminCValue": "Yellow bell pepper, cilantro, romaine (rotate daily)",
+      "vitaminCValue": "Yellow bell pepper, cilantro, kale (rotate daily)",
       "vitaminCNote": "Guinea pigs lack the L-gulonolactone oxidase enzyme and cannot synthesize Vitamin C internally. Always feed fresh bell peppers and stabilized pellets to prevent painful scurvy and joint hemorrhages."
     }
   },
@@ -7167,7 +7176,8 @@
       "riskHazard": "hazard",
       "riskCaution": "caution",
       "searchPlaceholder": "Search a Halloween item (chocolate, costume, glow stick…)",
-      "emergencyNote": "Emergency: ASPCA Animal Poison Control 1-888-426-4435 (fee applies). Call your ER vet immediately if ingestion is suspected."
+      "emergencyNote": "Emergency: ASPCA Animal Poison Control 1-888-426-4435 (fee applies). Call your ER vet immediately if ingestion is suspected.",
+      "noResults": "No matches found. Try 'chocolate', 'candy', 'gum' or 'costume' — and if your pet has eaten something you are unsure about, call ASPCA Animal Poison Control (888) 426-4435 or your vet now."
     }
   },
   "christmas-hazard-lookup": {
