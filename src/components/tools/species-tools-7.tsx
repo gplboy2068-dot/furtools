@@ -702,7 +702,9 @@ export function BarkingLog() {
   const [duration, setDuration] = useState(2);
   const add = () => {
     const now = new Date();
-    setLogs((p) => [{ date: now.toISOString().slice(0, 10), time: now.toTimeString().slice(0, 5), trigger, duration }, ...p].slice(0, 100));
+    const pad = (v: number) => String(v).padStart(2, "0");
+    const localDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    setLogs((p) => [{ date: localDate, time: now.toTimeString().slice(0, 5), trigger, duration }, ...p].slice(0, 100));
   };
   const remove = (i: number) => setLogs((p) => p.filter((_, idx) => idx !== i));
   const summary = useMemo(() => {
@@ -726,7 +728,7 @@ export function BarkingLog() {
               </SelectContent>
             </Select>
           </div>
-          <div><Label>{t("barking-log.ui.durationLabel")}</Label><Input type="number" min={0} value={duration} onChange={(e) => setDuration(+e.target.value || 0)} /></div>
+          <div><Label>{t("barking-log.ui.durationLabel")}</Label><Input type="number" min={0} value={duration} onChange={(e) => setDuration(Math.max(0, +e.target.value || 0))} /></div>
           <Button onClick={add} className="w-full">{t("barking-log.ui.logButton")}</Button>
         </div>
       }

@@ -303,7 +303,7 @@ const BIRD_FLIGHT_DATA: Record<string, BirdFlightProfile> = {
   budgie: {  minFlightDimensions: "8 ft L × 6 ft W × 7 ft H", minWingBeats: 5, wingspanInches: 12, dailyHours: 2,  },
   cockatiel: {  minFlightDimensions: "10 ft L × 8 ft W × 7 ft H", minWingBeats: 6, wingspanInches: 16, dailyHours: 3,  },
   conure: {  minFlightDimensions: "12 ft L × 8 ft W × 8 ft H", minWingBeats: 6, wingspanInches: 18, dailyHours: 4,  },
-  "african-grey": {  minFlightDimensions: "16 ft L × 10 ft W × 8 ft H", minWingBeats: 7, wingspanInches: 28, dailyHours: 4,  },
+  "african-grey": {  minFlightDimensions: "16 ft L × 10 ft W × 8 ft H", minWingBeats: 7, wingspanInches: 20, dailyHours: 4,  },
   cockatoo: {  minFlightDimensions: "20 ft L × 12 ft W × 9 ft H", minWingBeats: 8, wingspanInches: 36, dailyHours: 5,  },
   macaw: {  minFlightDimensions: "24 ft L × 15 ft W × 10 ft H", minWingBeats: 8, wingspanInches: 42, dailyHours: 5,  },
 };
@@ -1148,8 +1148,8 @@ export function BeardedDragonFood() {
   const dietStages: Record<string, { bugPct: number; saladPct: number; notes: string }> = {
     hatchling: { bugPct: 80,
       saladPct: 20 },
-    juvenile: { bugPct: 60,
-      saladPct: 40 },
+    juvenile: { bugPct: 70,
+      saladPct: 30 },
     subadult: { bugPct: 40,
       saladPct: 60 },
     adult: { bugPct: 20,
@@ -1186,7 +1186,7 @@ export function BeardedDragonFood() {
               {t("bearded-dragon-food-calculator.ui.insectsGreensRatio", { bugPct: currentStage.bugPct, saladPct: currentStage.saladPct })}
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              t("bearded-dragon-food-calculator.ui.lifeStage") <strong className="text-foreground">{t(`bearded-dragon-food-calculator.ui.stage.${lifeStage}.name`)} ({t(`bearded-dragon-food-calculator.ui.stage.${lifeStage}.ageRange`)})</strong>
+              {t("bearded-dragon-food-calculator.ui.lifeStage")} <strong className="text-foreground">{t(`bearded-dragon-food-calculator.ui.stage.${lifeStage}.name`)} ({t(`bearded-dragon-food-calculator.ui.stage.${lifeStage}.ageRange`)})</strong>
             </p>
           </div>
 
@@ -1209,7 +1209,7 @@ export function BeardedDragonFood() {
 
         <div className="mt-6 rounded-xl border bg-card/90 p-4 space-y-3 text-xs">
           <div className="flex items-center gap-1.5 font-semibold text-foreground border-b pb-2">
-            <Utensils className="h-4 w-4 text-emerald-500" /> Feeding Routine:
+            <Utensils className="h-4 w-4 text-emerald-500" /> {t("bearded-dragon-food-calculator.ui.feedingRoutine")}
           </div>
           <p className="text-muted-foreground leading-relaxed">{t(`bearded-dragon-food-calculator.ui.stage.${lifeStage}.frequency`)}</p>
         </div>
@@ -1218,14 +1218,14 @@ export function BeardedDragonFood() {
         <div className="mt-4 grid gap-3 sm:grid-cols-2 text-xs">
           <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-3">
             <span className="font-semibold text-emerald-700 dark:text-emerald-300 flex items-center gap-1">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" /> Daily Staple Greens:
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" /> {t("bearded-dragon-food-calculator.ui.dailyStapleGreens")}
             </span>
             <p className="text-muted-foreground mt-1 leading-relaxed">{t("bearded-dragon-food-calculator.ui.collardGreensMustardGreensDandelionGreens")}</p>
           </div>
 
           <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-3">
             <span className="font-semibold text-destructive flex items-center gap-1">
-              <AlertTriangle className="h-3.5 w-3.5 text-destructive" /> Toxic / Avoid Foods:
+              <AlertTriangle className="h-3.5 w-3.5 text-destructive" /> {t("bearded-dragon-food-calculator.ui.toxicAvoidFoods")}
             </span>
             <p className="text-muted-foreground mt-1 leading-relaxed">{t("bearded-dragon-food-calculator.ui.avocadoRhubarbFirefliesLightningBugsLethal")}</p>
           </div>

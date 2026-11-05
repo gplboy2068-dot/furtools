@@ -308,11 +308,12 @@ export function AxolotlTankTemperature() {
 
   const c = unit === "C" ? temp : (temp - 32) * (5 / 9);
   const roomC = unit === "C" ? roomTemp : (roomTemp - 32) * (5 / 9);
-  const tone: "safe" | "caution" | "danger" = c >= 16 && c <= 20 ? "safe" : c > 20 && c <= 22 ? "caution" : "danger";
+  const tone: "safe" | "caution" | "danger" = c >= 16 && c <= 18 ? "safe" : (c >= 12 && c < 16) || (c > 18 && c <= 22) ? "caution" : "danger";
   const verdict =
     c < 12 ? t("axolotl-tank-temperature-calculator.ui.verdictTooCold")
     : c < 16 ? t("axolotl-tank-temperature-calculator.ui.verdictCool")
-    : c <= 20 ? t("axolotl-tank-temperature-calculator.ui.verdictIdeal")
+    : c <= 18 ? t("axolotl-tank-temperature-calculator.ui.verdictIdeal")
+    : c <= 20 ? t("axolotl-tank-temperature-calculator.ui.verdictAcceptable")
     : c <= 22 ? t("axolotl-tank-temperature-calculator.ui.verdictWarm")
     : t("axolotl-tank-temperature-calculator.ui.verdictDangerous");
   const cooling = roomC - c;
@@ -367,9 +368,10 @@ export function AxolotlTankSize() {
   const [length, setLength] = useState(9); // inches
   const [filtration, setFiltration] = useState<"sponge" | "canister" | "hob">("sponge");
 
-  const first = length >= 8 ? 20 : 15;
-  const gallons = first + Math.max(0, count - 1) * 10;
-  const footprint = gallons >= 40 ? '36" × 18"' : gallons >= 29 ? '30" × 12"' : '24" × 12"';
+  const n = Math.min(6, Math.max(1, count));
+  const first = 20;
+  const gallons = first + (n - 1) * 10;
+  const footprint = gallons >= 60 ? '48" × 18"' : gallons >= 40 ? '36" × 18"' : '30" × 12"';
   const flowNote = filtration === "sponge" ? t("axolotl-tank-size-calculator.ui.flowSponge") : filtration === "canister" ? t("axolotl-tank-size-calculator.ui.flowCanister") : t("axolotl-tank-size-calculator.ui.flowHob");
 
   const form = (
@@ -402,13 +404,14 @@ export function AxolotlTankSize() {
       <div className="grid gap-3 sm:grid-cols-2">
         <Stat label={t("axolotl-tank-size-calculator.ui.statVolume")} value={`${gallons} gallons`} hint={t("axolotl-tank-size-calculator.ui.volumeHint", { litres: Math.round(gallons * 3.79) })} />
         <Stat label={t("axolotl-tank-size-calculator.ui.statFootprint")} value={footprint} hint={t("axolotl-tank-size-calculator.ui.footprintHint")} />
-        <Stat label={t("axolotl-tank-size-calculator.ui.statHides")} value={`${count + 1}`} />
+        <Stat label={t("axolotl-tank-size-calculator.ui.statHides")} value={`${n + 1}`} />
         <Stat label={t("axolotl-tank-size-calculator.ui.statFlow")} value={flowNote} />
       </div>
       <Notes items={[
         t("axolotl-tank-size-calculator.ui.noteFloor"),
         t("axolotl-tank-size-calculator.ui.noteSand"),
-        count > 1 ? t("axolotl-tank-size-calculator.ui.noteMulti") : t("axolotl-tank-size-calculator.ui.noteSolitary"),
+        ...(length > 0 && length < 8 ? [t("axolotl-tank-size-calculator.ui.noteYoung")] : []),
+        n > 1 ? t("axolotl-tank-size-calculator.ui.noteMulti") : t("axolotl-tank-size-calculator.ui.noteSolitary"),
       ]} />
     </div>
   );

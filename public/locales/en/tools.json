@@ -3974,6 +3974,9 @@
       "avocadoRhubarbFirefliesLightningBugsLethal": "Avocado, Rhubarb, Fireflies/Lightning bugs (lethal poison), Spinach/Beet greens (blocks calcium), Iceberg lettuce (zero nutrition, causes diarrhea).",
       "dietaryRatioBreakdown": "Dietary Ratio Breakdown",
       "weeklySupplementDustingSchedule": "Weekly Supplement Dusting Schedule:",
+      "feedingRoutine": "Feeding Routine:",
+      "dailyStapleGreens": "Daily Staple Greens:",
+      "toxicAvoidFoods": "Toxic / Avoid Foods:",
       "plainCalciumWithoutD345": "Plain Calcium without D3 (4–5 days/week) • Calcium with D3 (1–2 days/week) • Reptile Multivitamin (1 day/week).",
       "stage": {
         "hatchling": {
@@ -8149,6 +8152,7 @@
       "verdictTooCold": "Too cold — metabolism and digestion stall",
       "verdictCool": "Cool but survivable — feeding response drops",
       "verdictIdeal": "Ideal range",
+      "verdictAcceptable": "Acceptable — top of the safe range, cooler is better",
       "verdictWarm": "Warm — stress risk, watch for curled gills",
       "verdictDangerous": "Dangerous — heat stress, fungal infection and death risk",
       "unitLabel": "Unit",
@@ -8194,7 +8198,8 @@
       "noteFloor": "Floor area beats water column — axolotls are benthic and rarely use vertical space.",
       "noteSand": "Use fine sand or bare bottom. Gravel causes fatal impaction.",
       "noteMulti": "House only same-size axolotls; larger ones will bite gills and limbs off smaller tank mates.",
-      "noteSolitary": "Axolotls are solitary and thrive alone."
+      "noteSolitary": "Axolotls are solitary and thrive alone.",
+      "noteYoung": "Young axolotls grow into this fast — sizing for the adult minimum now means no tank upgrade later."
     }
   },
   "sugar-glider-diet-calculator": {

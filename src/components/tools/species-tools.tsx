@@ -481,7 +481,7 @@ export function WaterChangeScheduler() {
   const base = load === "light" ? 0.2 : load === "medium" ? 0.3 : 0.4;
   const adj = planted === "dense" ? -0.1 : planted === "none" ? 0.05 : 0;
   const pct = Math.round((base + adj) * 100);
-  const vol = Math.round(gal * (pct / 100));
+  const vol = Math.round(Math.max(0, gal) * (pct / 100));
   return (
     <CalculatorLayout
       form={<>
