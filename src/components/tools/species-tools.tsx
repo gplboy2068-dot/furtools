@@ -1299,7 +1299,7 @@ const REPTILE_PROFILES: Record<string, ReptileSpeciesProfile> = {
     adultLength: "8–10 in (20–25 cm)",
     adultMinLIn: 18, adultMinWIn: 18, adultMinHIn: 36, adultMinGal: 50,
     
-    uvbZone: "Ferguson Zone 1 (UVI 0.5–1.0, 2.4% / ShadeDweller)",
+    uvbZone: "Ferguson Zone 2 (UVI 1.0–2.0, 2.4% ShadeDweller / 6% T5)",
     baskingTemp: "75–80°F (24–27°C) - Temp >85°F is lethal!",
     
     
@@ -1570,34 +1570,41 @@ export function ReptileUVB() {
   const [reflector, setReflector] = useState<string>("curved");
   const [screenMesh, setScreenMesh] = useState<string>("standard");
 
-  const speciesData: Record<string, { zone: string; targetUvi: string; notes: string }> = {
-    "bearded-dragon": { zone: "Ferguson Zone 3", targetUvi: "3.0 – 4.5 UVI" },
-    "leopard-gecko": { zone: "Ferguson Zone 1", targetUvi: "0.5 – 1.2 UVI" },
-    "crested-gecko": { zone: "Ferguson Zone 1", targetUvi: "0.5 – 1.0 UVI" },
-    "ball-python": { zone: "Ferguson Zone 1-2", targetUvi: "0.7 – 1.5 UVI" },
-    "corn-snake": { zone: "Ferguson Zone 1-2", targetUvi: "1.0 – 2.0 UVI" },
-    "veiled-chameleon": { zone: "Ferguson Zone 3", targetUvi: "2.8 – 3.8 UVI" },
-    "russian-tortoise": { zone: "Ferguson Zone 3", targetUvi: "3.0 – 4.5 UVI" },
-    "blue-tongue-skink": { zone: "Ferguson Zone 2-3", targetUvi: "2.5 – 3.5 UVI" },
+  const speciesData: Record<string, { zone: string; targetUvi: string; uviMid: number; notes: string }> = {
+    "bearded-dragon": { zone: "Ferguson Zone 3", targetUvi: "3.0 – 4.5 UVI", uviMid: 3.75 },
+    "leopard-gecko": { zone: "Ferguson Zone 1", targetUvi: "0.5 – 1.2 UVI", uviMid: 0.85 },
+    "crested-gecko": { zone: "Ferguson Zone 2", targetUvi: "1.0 – 2.0 UVI", uviMid: 1.5 },
+    "ball-python": { zone: "Ferguson Zone 1-2", targetUvi: "0.7 – 1.5 UVI", uviMid: 1.1 },
+    "corn-snake": { zone: "Ferguson Zone 1-2", targetUvi: "1.0 – 2.0 UVI", uviMid: 1.5 },
+    "veiled-chameleon": { zone: "Ferguson Zone 3", targetUvi: "2.8 – 3.8 UVI", uviMid: 3.3 },
+    "russian-tortoise": { zone: "Ferguson Zone 3", targetUvi: "3.0 – 4.5 UVI", uviMid: 3.75 },
+    "blue-tongue-skink": { zone: "Ferguson Zone 2-3", targetUvi: "2.5 – 3.5 UVI", uviMid: 3.0 },
   };
 
   const currentSp = speciesData[species] || speciesData["bearded-dragon"];
 
   const calculations = useMemo(() => {
-    // Base distance in inches for T5/T8/Coil bulbs to hit optimal zone
-    const baseTable: Record<string, { baseDist: number; name: string; lifespanMonths: number }> = {
-      "t5-6": { baseDist: 10, name: "Arcadia 6% / Zoomed 5.0 T5-HO", lifespanMonths: 12 },
-      "t5-10": { baseDist: 14, name: "Zoomed 10.0 / Arcadia 12% T5-HO", lifespanMonths: 12 },
-      "t5-14": { baseDist: 18, name: "Arcadia 14% Dragon T5-HO", lifespanMonths: 12 },
-      "t5-shadedweller": { baseDist: 10, name: "Arcadia ShadeDweller 2.4% / 7% Mini", lifespanMonths: 12 },
-      "t8-5": { baseDist: 7, name: "T8 5.0 Linear Tube (Older Tech)", lifespanMonths: 6 },
-      "t8-10": { baseDist: 9, name: "T8 10.0 Linear Tube", lifespanMonths: 6 },
-      "compact-10": { baseDist: 6, name: "Compact / Coil 10.0 / 26W (Spot only)", lifespanMonths: 4 },
-      "mvb-100": { baseDist: 12, name: "Mercury Vapor Bulb (Heat+UVB 100W)", lifespanMonths: 12 },
+    // Base distance in inches for each lamp class, calibrated at the UVI it
+    // delivers there (uviAtBase, manufacturer-chart class values). The
+    // distance is then scaled to the SELECTED species' target UVI —
+    // previously the same distance was shown for every species, so a
+    // Zone 1 gecko got a desert species' basking distance.
+    const baseTable: Record<string, { baseDist: number; uviAtBase: number; name: string; lifespanMonths: number }> = {
+      "t5-6": { baseDist: 10, uviAtBase: 2.75, name: "Arcadia 6% / Zoomed 5.0 T5-HO", lifespanMonths: 12 },
+      "t5-10": { baseDist: 14, uviAtBase: 3.75, name: "Zoomed 10.0 / Arcadia 12% T5-HO", lifespanMonths: 12 },
+      "t5-14": { baseDist: 18, uviAtBase: 4.5, name: "Arcadia 14% Dragon T5-HO", lifespanMonths: 12 },
+      "t5-shadedweller": { baseDist: 10, uviAtBase: 1.0, name: "Arcadia ShadeDweller 2.4% / 7% Mini", lifespanMonths: 12 },
+      "t8-5": { baseDist: 7, uviAtBase: 0.85, name: "T8 5.0 Linear Tube (Older Tech)", lifespanMonths: 6 },
+      "t8-10": { baseDist: 9, uviAtBase: 1.75, name: "T8 10.0 Linear Tube", lifespanMonths: 6 },
+      "compact-10": { baseDist: 6, uviAtBase: 2.0, name: "Compact / Coil 10.0 / 26W (Spot only)", lifespanMonths: 6 },
+      "mvb-100": { baseDist: 12, uviAtBase: 3.5, name: "Mercury Vapor Bulb (Heat+UVB 100W)", lifespanMonths: 12 },
     };
 
     const bulb = baseTable[bulbType] || baseTable["t5-10"];
-    let distanceInches = bulb.baseDist;
+    const scaledDist = bulb.baseDist * Math.sqrt(bulb.uviAtBase / currentSp.uviMid);
+    const tooWeak = scaledDist < 7;
+    const tooStrong = scaledDist > 28;
+    let distanceInches = scaledDist;
 
     // Reflector modifier
     if (reflector === "none") distanceInches = Math.max(5, distanceInches - 3);
@@ -1617,8 +1624,12 @@ export function ReptileUVB() {
       distanceInches = 0;
     }
 
-    const minIn = Math.max(4, Math.round(distanceInches - 1.5));
-    const maxIn = Math.round(distanceInches + 2.0);
+    // Never recommend a lamp closer than 6" (10" for a mercury vapour bulb,
+    // per manufacturer minimum safe distance) even when a weak lamp's
+    // scaled distance falls below that — the warning flags it instead.
+    const floorIn = bulbType === "mvb-100" ? 10 : 6;
+    const minIn = Math.max(floorIn, Math.round(distanceInches - 1.5));
+    const maxIn = Math.min(48, Math.round(distanceInches + 2.0));
     const minCm = Math.round(minIn * 2.54);
     const maxCm = Math.round(maxIn * 2.54);
 
@@ -1630,8 +1641,10 @@ export function ReptileUVB() {
       minCm,
       maxCm,
       meshLossPct,
+      tooWeak,
+      tooStrong,
     };
-  }, [bulbType, reflector, screenMesh]);
+  }, [bulbType, reflector, screenMesh, species]);
 
   return (
     <div className="space-y-6">
@@ -1745,6 +1758,15 @@ export function ReptileUVB() {
               <div className="text-[10px] text-muted-foreground">{t("reptile-uvb-distance-guide.ui.d3SynthesisActive")}</div>
             </div>
           </div>
+
+          {(calculations.tooWeak || calculations.tooStrong) && (
+            <div className="mt-5 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3.5 text-xs text-muted-foreground flex items-start gap-2">
+              <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+              <p className="leading-relaxed">{calculations.tooWeak ? t("reptile-uvb-distance-guide.ui.warningWeak", { zone: currentSp.zone }) : t("reptile-uvb-distance-guide.ui.warningStrong")}</p>
+            </div>
+          )}
+
+          <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground">{t("reptile-uvb-distance-guide.ui.verifyNote")}</p>
 
           <div className="mt-5 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3.5 text-xs text-muted-foreground">
             <div className="font-semibold text-foreground flex items-center gap-1.5">
@@ -1866,7 +1888,7 @@ export function ReptileFeeder() {
           {calculation.preyName}
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          t("reptile-feeder-size-calculator.ui.maximumSafeLimit") <strong className="text-foreground">{calculation.maxSafeSize}</strong>
+          {t("reptile-feeder-size-calculator.ui.maximumSafeLimit")} <strong className="text-foreground">{calculation.maxSafeSize}</strong>
         </p>
 
         {/* Selected Feeder Nutrition Breakdown */}

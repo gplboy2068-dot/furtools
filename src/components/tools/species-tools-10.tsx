@@ -29,16 +29,16 @@ function Pill({ tone, children }: { tone: "safe" | "caution" | "danger"; childre
 export function ReptileUvbSchedule() {
   const { t } = useTranslation("tools");
   const uvbSpecies: Record<string, { hours: number; uvi: string; note: string }> = {
-    "bearded-dragon": { hours: 12, uvi: "4.0-6.0", note: t("reptile-uvb-schedule.ui.noteBeardedDragon") },
+    "bearded-dragon": { hours: 12, uvi: "3.0-5.0", note: t("reptile-uvb-schedule.ui.noteBeardedDragon") },
     "leopard-gecko": { hours: 10, uvi: "0.5-1.5", note: t("reptile-uvb-schedule.ui.noteLeopardGecko") },
-    "crested-gecko": { hours: 10, uvi: "0.5-1.5", note: t("reptile-uvb-schedule.ui.noteCrestedGecko") },
-    "ball-python": { hours: 10, uvi: "0.5-1.0", note: t("reptile-uvb-schedule.ui.noteBallPython") },
+    "crested-gecko": { hours: 10, uvi: "1.0-2.0", note: t("reptile-uvb-schedule.ui.noteCrestedGecko") },
+    "ball-python": { hours: 10, uvi: "0.7-1.5", note: t("reptile-uvb-schedule.ui.noteBallPython") },
     "corn-snake": { hours: 12, uvi: "1.0-2.0", note: t("reptile-uvb-schedule.ui.noteCornSnake") },
-    "russian-tortoise": { hours: 12, uvi: "4.0-7.0", note: t("reptile-uvb-schedule.ui.noteRussianTortoise") },
+    "russian-tortoise": { hours: 12, uvi: "3.0-5.0", note: t("reptile-uvb-schedule.ui.noteRussianTortoise") },
     "sulcata": { hours: 12, uvi: "5.0-8.0", note: t("reptile-uvb-schedule.ui.noteSulcata") },
     "red-eared-slider": { hours: 12, uvi: "3.0-6.0", note: t("reptile-uvb-schedule.ui.noteRedEaredSlider") },
-    "chameleon": { hours: 12, uvi: "3.0-6.0", note: t("reptile-uvb-schedule.ui.noteChameleon") },
-    "blue-tongue-skink": { hours: 12, uvi: "3.0-5.0", note: t("reptile-uvb-schedule.ui.noteBlueTongueSkink") },
+    "chameleon": { hours: 12, uvi: "3.0-4.0", note: t("reptile-uvb-schedule.ui.noteChameleon") },
+    "blue-tongue-skink": { hours: 12, uvi: "2.0-4.0", note: t("reptile-uvb-schedule.ui.noteBlueTongueSkink") },
   };
   const speciesLabels: Record<string, string> = {
     "bearded-dragon": t("reptile-uvb-schedule.ui.speciesBeardedDragon"),
@@ -60,14 +60,24 @@ export function ReptileUvbSchedule() {
   const life = bulbType === "t5-ho" ? 12 : bulbType === "mercury" ? 12 : bulbType === "t8" ? 6 : 6;
   const replaceAt = useMemo(() => {
     if (!installDate) return null;
-    const d = new Date(installDate);
+    // Parse as LOCAL calendar components — new Date("YYYY-MM-DD") is UTC
+    // midnight, so getMonth()/toISOString() shifted the replacement date
+    // by days for users west of UTC (and threw on malformed stored values).
+    const parts = installDate.split("-").map(Number);
+    if (parts.length !== 3 || parts.some((n) => !Number.isFinite(n))) return null;
+    const d = new Date(parts[0], parts[1] - 1, parts[2]);
     d.setMonth(d.getMonth() + life);
-    return d.toISOString().slice(0, 10);
+    const pad = (v: number) => String(v).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   }, [installDate, life]);
 
   const daysLeft = useMemo(() => {
     if (!replaceAt) return null;
-    return Math.round((new Date(replaceAt).getTime() - Date.now()) / 86400000);
+    const parts = replaceAt.split("-").map(Number);
+    const target = new Date(parts[0], parts[1] - 1, parts[2]).getTime();
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    return Math.round((target - today) / 86400000);
   }, [replaceAt]);
 
   const form = (

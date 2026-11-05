@@ -1417,7 +1417,7 @@ const RAW_TOOLS: Tool[] = [
     description: "Minimum enclosure dimensions for popular pet reptiles — bearded dragon, leopard gecko, ball python, and more.",
     category: "reptiles", keywords: ["reptile tank", "enclosure size", "vivarium dimensions", "reptile habitat minimum"], layout: "calculator",
     howItWorks: "Modern veterinary and welfare guidelines (ARAV, RSPCA, ReptiFiles) exceed outdated '20-gallon minimum' rules. We calculate exact length × width × height, floor area (sq ft / m²), and internal volume based on adult body size, natural locomotion, and arboreal vs terrestrial climbing needs.",
-    examples: [ { label: "Bearded dragon adult", result: "Min 48 × 24 × 24 in (120 gal)" }, { label: "Leopard gecko", result: "Min 36 × 18 × 18 in (40 gal)" } ],
+    examples: [ { label: "Bearded dragon adult", result: "Min 48 × 24 × 24 in (120 gal)" }, { label: "Leopard gecko", result: "Min 36 × 18 × 18 in (50 gal)" } ],
     faqs: [
       { q: "What is the modern minimum tank size for an adult bearded dragon?", a: "The gold standard minimum for an adult bearded dragon is 48 × 24 × 24 inches (120 gallons / 4×2×2 ft) with 8 sq ft of floor area. This allows a proper thermal gradient from 105°F basking down to 75°F cool retreat." },
       { q: "Can a baby reptile start in an adult-sized enclosure?", a: "Yes, provided the enclosure is filled with dense clutter, fake plants, multiple hides, and easily accessible food and water dishes. In the wild, baby reptiles have unlimited space — they only get stressed in large, empty, barren enclosures." },
@@ -1436,7 +1436,7 @@ const RAW_TOOLS: Tool[] = [
     description: "How far the UVB bulb should sit from your reptile's basking spot — critical for calcium metabolism.",
     category: "reptiles", keywords: ["reptile uvb", "basking distance", "ferguson zone", "t5 ho uvb", "metabolic bone disease"], layout: "calculator", medicalDisclaimer: true,
     howItWorks: "UVB output falls exponentially with distance according to the inverse-square law. We match species to their biological Ferguson Zone UV Index (UVI 0.5 to 5.0+), bulb output strength (T5-HO 6%, 12%, 14%, T8, Compact), fixture reflector efficiency, and mesh screen obstruction to calculate safe basking distance.",
-    examples: [ { label: "Bearded dragon, T5 10.0", result: "12–15 in through mesh" }, { label: "Leopard gecko, T5 5.0", result: "10–12 in through mesh" } ],
+    examples: [ { label: "Bearded dragon, T5 10.0", result: "11–15 in through mesh" }, { label: "Leopard gecko, ShadeDweller", result: "8–11 in through mesh" } ],
     faqs: [
       { q: "Why is UVB light essential for captive reptiles?", a: "UVB radiation (290–320 nm) converts provitamin D3 in the reptile's skin into active Vitamin D3, which is required for gut calcium absorption. Without UVB, reptiles develop Metabolic Bone Disease (MBD), causing soft bones, tremors, fractures, and death." },
       { q: "Does glass or acrylic block UVB radiation?", a: "Yes. Standard glass, acrylic, and clear plastics block virtually 100% of UVB rays. Never place a UVB bulb outside a glass window or glass tank top, as your pet will receive zero ultraviolet benefit." },
@@ -1786,8 +1786,8 @@ const RAW_TOOLS: Tool[] = [
   { slug: "reptile-humidity-guide", name: "Reptile Humidity Guide", tagline: "Species-specific humidity",
     description: "Target humidity ranges for popular reptiles with practical tips to raise or lower moisture.",
     category: "reptiles", keywords: ["reptile humidity", "vivarium", "crested gecko humidity", "ball python humidity", "misting schedule"], layout: "guide",
-    howItWorks: "Reptiles rely on ambient moisture for respiratory health, cellular hydration, and clean ecdysis shedding. We provide daytime baselines, nighttime humidity spikes, substrate moisture protocols, and hygrometer probe placement rules for 14+ reptile species.",
-    examples: [ { label: "Bearded dragon", result: "30–40%" }, { label: "Crested gecko", result: "60–80%" } ],
+    howItWorks: "Reptiles rely on ambient moisture for respiratory health, cellular hydration, and clean ecdysis shedding. We provide daytime baselines, nighttime humidity spikes, substrate moisture protocols, and hygrometer probe placement rules for 10 reptile species.",
+    examples: [ { label: "Bearded dragon", result: "30–40%" }, { label: "Crested gecko", result: "50–60% day / 80–90% night spike" } ],
     faqs: [
       { q: "Where should the hygrometer probe be placed in the enclosure?", a: "Place the digital hygrometer sensor on the cool side of the enclosure, approximately 2 to 3 inches above the substrate level. Do not mount it directly under the heat lamp (which causes falsely low readings) or directly against a wet misting nozzle." },
       { q: "Why do tropical reptiles need a nighttime humidity spike?", a: "In wild tropical habitats, ambient humidity naturally rises to 80–100% after sunset as temperatures drop. Mimicking this with an evening misting cycle prevents respiratory dehydration while allowing the terrarium to dry down during the day to inhibit mold and bacterial growth." },
@@ -2012,8 +2012,8 @@ const RAW_TOOLS: Tool[] = [
   { slug: "reptile-shedding-tracker", name: "Reptile Shedding Tracker", tagline: "Typical shed cycle by species",
     description: "Predict your reptile's next shed based on species-specific cycles.",
     category: "reptiles", keywords: ["reptile shedding", "ecdysis", "stuck shed", "blue eyes snake", "retained eyecap", "leopard gecko shedding"], layout: "calculator",
-    howItWorks: "Ecdysis frequency is biologically tied to metabolic rate and somatic growth. We calculate next shed date countdowns, track the 5 biological ecdysis phases (Dull Skin, Opaque Blue Eyes, Clear Phase, Active Slough), and provide warm-soak dysecdysis recovery steps.",
-    examples: [ { label: "Ball python", result: "~45 days" } ],
+    howItWorks: "Ecdysis frequency is biologically tied to metabolic rate and somatic growth. We calculate the next-shed countdown from species cycle lengths, walk through the key ecdysis phases (Dull Skin, Opaque Blue Eyes, Cleared & Slough), and provide warm-soak dysecdysis recovery steps.",
+    examples: [ { label: "Ball python", result: "28–55 days by life stage" } ],
     faqs: [
       { q: "How often do reptiles shed their skin (ecdysis)?", a: "Shedding frequency depends on age and growth rate. Hatchlings and babies shed every 2 to 4 weeks; rapidly growing juveniles shed every 4 to 6 weeks; and mature adults shed every 6 to 12 weeks for skin maintenance." },
       { q: "What are the 5 biological stages of a reptile shed cycle?", a: "Stage 1: Normal vibrant skin. Stage 2: Dull skin (colors fade, belly scales turn pink). Stage 3: Blue/Opaque phase (eyes become milky/cloudy as lymph fluid separates old skin). Stage 4: Cleared phase (eyes turn clear again 24–48h before shedding). Stage 5: Active slough (the reptile rubs its snout and removes the old skin)." },
@@ -3504,9 +3504,9 @@ const RAW_TOOLS: Tool[] = [
     medicalDisclaimer: true,
     howItWorks: "UVB drives cutaneous vitamin D3 synthesis, which enables calcium absorption. Every species has an evolved 'Ferguson Zone' UV Index. We match species → daily photoperiod + target UVI + bulb type, then apply the manufacturer-rated lifespan (T5-HO ~12 months, T8 ~6 months, compacts ~6 months) to give a firm replacement date. Bulbs continue to emit visible light long after their UVB output collapses — a scheduled swap is the only reliable defense against silent MBD.",
     examples: [
-      { label: "Bearded dragon on T5-HO", result: "12h/day, UVI 4-6, replace every 12 months" },
+      { label: "Bearded dragon on T5-HO", result: "12h/day, UVI 3-5, replace every 12 months" },
       { label: "Leopard gecko on ShadeDweller", result: "10h/day, UVI 0.5-1.5" },
-      { label: "Ball python on 5% T5", result: "10h/day, UVI 0.5-1.0" },
+      { label: "Ball python on 5% T5", result: "10h/day, UVI 0.7-1.5" },
     ],
     faqs: [
       { q: "Do all reptiles need UVB?", a: "Even nocturnal and crepuscular species benefit from low-level UVB (Ferguson Zone 1). Peer-reviewed studies show improved bone density, immune function and behaviour across ball pythons, leopard geckos and corn snakes." },

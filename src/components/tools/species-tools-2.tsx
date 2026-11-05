@@ -922,12 +922,12 @@ export function ReptileHumidityGuide() {
               {t(`reptile-humidity-guide.ui.dayTarget.${spKey}`)}
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              t("reptile-humidity-guide.ui.naturalBiome") <strong className="text-foreground">{t(`reptile-humidity-guide.ui.biome.${spKey}`)}</strong>
+              {t("reptile-humidity-guide.ui.naturalBiome")} <strong className="text-foreground">{t(`reptile-humidity-guide.ui.biome.${spKey}`)}</strong>
             </p>
           </div>
 
           <Badge variant="outline" className="text-xs px-3 py-1.5 font-medium">
-            t("reptile-humidity-guide.ui.nightSpikeLabel") {t(`reptile-humidity-guide.ui.nightSpike.${spKey}`)}
+            {t("reptile-humidity-guide.ui.nightSpikeLabel")} {t(`reptile-humidity-guide.ui.nightSpike.${spKey}`)}
           </Badge>
         </div>
 
@@ -1094,12 +1094,12 @@ export function ReptileBaskingGuide() {
               {unit === "F" ? t(`reptile-basking-temp-guide.ui.baskSurfaceF.${spKey}`) : t(`reptile-basking-temp-guide.ui.baskSurfaceC.${spKey}`)}
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              t("reptile-basking-temp-guide.ui.targetSpecies") <strong className="text-foreground">{t(`reptile-basking-temp-guide.ui.species.${spKey}`)}</strong>
+              {t("reptile-basking-temp-guide.ui.targetSpecies")} <strong className="text-foreground">{t(`reptile-basking-temp-guide.ui.species.${spKey}`)}</strong>
             </p>
           </div>
 
           <Badge variant="outline" className="text-xs px-3 py-1.5 font-medium">
-            t("reptile-basking-temp-guide.ui.overheadHeat") {t(`reptile-basking-temp-guide.ui.primaryHeat.${spKey}`).split("(")[0]}
+            {t("reptile-basking-temp-guide.ui.overheadHeat")} {t(`reptile-basking-temp-guide.ui.primaryHeat.${spKey}`).split("(")[0]}
           </Badge>
         </div>
 

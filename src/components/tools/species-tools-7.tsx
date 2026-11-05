@@ -226,13 +226,22 @@ export function RecallTrainingTracker() {
   const [env, setEnv] = useState("Yard");
   const [success, setSuccess] = useState(8);
   const [total, setTotal] = useState(10);
-  const add = () => setLogs((p) => [{ date: new Date().toISOString().slice(0, 10), env, success, total }, ...p].slice(0, 30));
+  const add = () => {
+    // Local calendar date — toISOString() is UTC and stamps west-of-UTC
+    // users with tomorrow's date (same fix as BarkingLog in this file).
+    const now = new Date();
+    const pad = (v: number) => String(v).padStart(2, "0");
+    const localDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    const t = Math.max(1, Math.round(Number(total) || 0));
+    const s = Math.min(t, Math.max(0, Math.round(Number(success) || 0)));
+    setLogs((p) => [{ date: localDate, env, success: s, total: t }, ...p].slice(0, 30));
+  };
   const remove = (i: number) => setLogs((p) => p.filter((_, idx) => idx !== i));
   const overall = useMemo(() => {
     if (!logs.length) return 0;
     const s = logs.reduce((a, l) => a + l.success, 0);
     const tot = logs.reduce((a, l) => a + l.total, 0);
-    return tot ? Math.round((s / tot) * 100) : 0;
+    return tot ? Math.min(100, Math.round((s / tot) * 100)) : 0;
   }, [logs]);
 
   const form = (
@@ -264,7 +273,7 @@ export function RecallTrainingTracker() {
         {logs.length === 0 && <li className="text-xs text-muted-foreground">{t("recall-training-tracker.ui.emptyState")}</li>}
         {logs.map((l, i) => (
           <li key={i} className="flex items-center justify-between rounded-lg bg-background/60 p-2 text-xs">
-            <span>{l.date} · {l.env}: <b>{l.success}/{l.total}</b> {t("recall-training-tracker.ui.sessionPct", { pct: Math.round((l.success / l.total) * 100) })}</span>
+            <span>{l.date} · {l.env}: <b>{l.success}/{l.total}</b> {t("recall-training-tracker.ui.sessionPct", { pct: l.total ? Math.min(100, Math.round((l.success / l.total) * 100)) : 0 })}</span>
             <Button size="sm" variant="ghost" onClick={() => remove(i)}>{t("recall-training-tracker.ui.removeButton")}</Button>
           </li>
         ))}
