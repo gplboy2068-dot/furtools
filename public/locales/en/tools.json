@@ -5653,25 +5653,20 @@
       "badgeOptional": "Optional",
       "vaccine": {
         "dog": {
-          "dhpp-distemper-hepatitis-parvo-parainfluenza": {
-            "name": "DHPP (Distemper, Hepatitis, Parvo, Parainfluenza)",
-            "age": "6–8 weeks",
+          "dapp-distemper-adenovirus-parvo-parainfluenza": {
+            "name": "DAPP (Distemper, Adenovirus, Parvo, Parainfluenza)",
+            "age": "8 weeks",
             "notes": "First in puppy series"
           },
-          "dhpp-booster": {
-            "name": "DHPP booster",
-            "age": "10–12 weeks",
-            "notes": "Second in series"
+          "dapp-booster-leptospirosis-1": {
+            "name": "DAPP booster + Leptospirosis #1",
+            "age": "12 weeks",
+            "notes": "Second in series; lepto if at risk (2-dose series)"
           },
-          "dhpp-leptospirosis": {
-            "name": "DHPP + Leptospirosis",
-            "age": "14–16 weeks",
-            "notes": "Third; lepto often added regionally"
-          },
-          "rabies": {
-            "name": "Rabies",
-            "age": "12–16 weeks",
-            "notes": "Legally required in most regions"
+          "dapp-booster-rabies-leptospirosis-2": {
+            "name": "DAPP booster + Rabies + Leptospirosis #2",
+            "age": "16 weeks",
+            "notes": "Final puppy boosters; rabies required by law in most regions"
           },
           "bordetella-kennel-cough": {
             "name": "Bordetella (kennel cough)",
@@ -5688,59 +5683,64 @@
             "age": "12+ weeks",
             "notes": "Tick-endemic regions only"
           },
-          "dhpp-rabies": {
-            "name": "DHPP + Rabies",
-            "age": "1 year (booster)",
-            "notes": "First annual boosters"
+          "dapp-rabies-1-year-booster": {
+            "name": "DAPP + Rabies (1-year booster)",
+            "age": "1 year",
+            "notes": "First adult boosters"
           },
-          "dhpp-rabies-3-yr": {
-            "name": "DHPP + Rabies (3-yr)",
+          "dapp-rabies-3-yr": {
+            "name": "DAPP + Rabies (3-yr)",
             "age": "Every 3 years",
-            "notes": "Adult maintenance — titers optional"
+            "notes": "Adult maintenance \u2014 titers optional; lepto/bordetella boosted annually if used"
           }
         },
         "cat": {
           "fvrcp-herpes-calici-panleuk": {
             "name": "FVRCP (Herpes, Calici, Panleuk)",
-            "age": "6–8 weeks",
+            "age": "8 weeks",
             "notes": "First in kitten series"
           },
-          "fvrcp-booster": {
-            "name": "FVRCP booster",
-            "age": "10–12 weeks",
+          "fvrcp-booster-2nd": {
+            "name": "FVRCP booster (2nd)",
+            "age": "12 weeks",
             "notes": "Second in series"
           },
-          "fvrcp-felv": {
-            "name": "FVRCP + FeLV",
-            "age": "14–16 weeks",
-            "notes": "FeLV core for all kittens"
+          "fvrcp-booster-3rd": {
+            "name": "FVRCP booster (3rd)",
+            "age": "16 weeks",
+            "notes": "Final kitten booster"
+          },
+          "felv-leukemia": {
+            "name": "FeLV (leukemia)",
+            "age": "8+ weeks",
+            "notes": "2 doses, 3\u20134 weeks apart \u2014 for kittens/cats with outdoor or multi-cat risk"
           },
           "rabies": {
             "name": "Rabies",
-            "age": "12–16 weeks",
-            "notes": "Legally required in most regions"
+            "age": "12\u201316 weeks",
+            "notes": "Single dose; legally required in many regions \u2014 follow local law"
           },
-          "fvrcp-rabies": {
-            "name": "FVRCP + Rabies",
+          "fvrcp-rabies-1-year-booster": {
+            "name": "FVRCP + Rabies (1-year booster)",
             "age": "1 year",
-            "notes": "First annual boosters"
+            "notes": "First adult boosters"
           },
-          "felv-if-outdoor-multi-cat": {
-            "name": "FeLV (if outdoor/multi-cat)",
-            "age": "Annually",
-            "notes": "Indoor-only cats can skip after age 1"
+          "felv-booster-at-risk-adults": {
+            "name": "FeLV booster (at-risk adults)",
+            "age": "Every 1\u20132 years",
+            "notes": "Only for cats with ongoing outdoor/multi-cat exposure"
           },
-          "fvrcp-rabies-3-yr": {
-            "name": "FVRCP + Rabies (3-yr)",
+          "fvrcp-3-yr": {
+            "name": "FVRCP (3-yr)",
             "age": "Every 3 years",
-            "notes": "Adult maintenance"
+            "notes": "Adult maintenance; rabies boosters per local law (1- or 3-year products)"
           }
         },
         "rabbit": {
           "rhdv2-rabbit-hemorrhagic-disease": {
             "name": "RHDV2 (Rabbit Hemorrhagic Disease)",
-            "age": "10+ weeks",
-            "notes": "Now essential in most of US/EU"
+            "age": "7+ weeks",
+            "notes": "Two-dose start, 3 weeks apart, then annual \u2014 now essential in most of US/EU"
           },
           "myxomatosis": {
             "name": "Myxomatosis",
@@ -5750,7 +5750,7 @@
           "annual-boosters": {
             "name": "Annual boosters",
             "age": "Yearly",
-            "notes": "Both RHDV & myxo — combined available"
+            "notes": "Both RHDV & myxo \u2014 combined available"
           }
         },
         "ferret": {
@@ -6553,7 +6553,7 @@
   },
   "socialization-checklist": {
     "name": "Puppy Socialization Checklist",
-    "description": "The socialization window closes between 12-16 weeks of age — after that, novelty exposure creates suspicion instead of confidence. A puppy who meets 100 friendly people, calmly experiences 50 environments, and hears 30 unusual sounds before 16 weeks grows into a stable adult dog. A puppy that only meets family and other dogs grows into a reactive, fearful adult that costs thousands in behavior consultants. This checklist covers the five categories AVSAB recommends: people, animals, environments, surfaces & sounds, and handling.",
+    "description": "The socialization window closes between 12-16 weeks of age — after that, novelty exposure creates suspicion instead of confidence. A puppy who meets 100 friendly people, calmly experiences 50 environments, and hears 30 unusual sounds before 16 weeks grows into a stable adult dog. A puppy that only meets family and other dogs grows into a reactive, fearful adult that costs thousands in behavior consultants. This checklist covers the five categories AVSAB recommends: people, animals, environments, surfaces & sounds, and handling. Until the vaccine series is complete, carry your puppy in busy public places and keep them off ground used by unknown dogs.",
     "ui": {
       "groupPeople": "People",
       "groupAnimals": "Animals",
@@ -6572,7 +6572,7 @@
       "animals3": "Cat (calm)",
       "animals4": "Livestock or horses at distance",
       "animals5": "Birds",
-      "env1": "Pet-friendly store",
+      "env1": "Pet-friendly store (puppy carried)",
       "env2": "Vet lobby (happy visit)",
       "env3": "Café patio",
       "env4": "Elevator",
@@ -6592,18 +6592,18 @@
       "handling4": "Toothbrushing",
       "handling5": "Wearing a harness",
       "handling6": "Being held for exam",
-      "intro": "Aim to expose your puppy positively to 100 new things before 16 weeks.",
+      "intro": "Aim to expose your puppy positively to 100 new things before 16 weeks. Until the vaccine series is complete, carry your puppy in public places and avoid ground where unknown dogs toilet (parvo risk).",
       "percent": "{{pct}}%",
       "progress": "{{completed}} of {{total}} experiences"
     }
   },
   "puppy-milestone-tracker": {
     "name": "Puppy Milestone Tracker",
-    "description": "Puppy development follows a predictable timeline — eyes open at week 3, adult teeth erupt around week 16, and hormonal maturity arrives between 6-12 months depending on breed size. Missing a milestone by more than 1-2 weeks warrants a veterinary check-in. This tracker lists the ten most important developmental checkpoints, each with the typical week it occurs and what to watch for. Tick them off as they happen and keep this list handy for vet visits.",
+    "description": "Puppy development follows a predictable timeline — eyes open around week 2 and ears by week 3, adult teeth erupt around week 16, and hormonal maturity arrives between 6-12 months depending on breed size. Missing a milestone by more than 1-2 weeks warrants a veterinary check-in. This tracker lists the ten most important developmental checkpoints, each with the typical week it occurs and what to watch for. Tick them off as they happen and keep this list handy for vet visits.",
     "ui": {
-      "w3": "Eyes and ears open",
+      "w3": "Walking, ears open, first play",
       "w4": "Starts eating soft food",
-      "w6": "First deworming complete",
+      "w6": "Deworming series under way (doses at 2, 4, 6, 8 weeks)",
       "w8": "Ready to go home; first vaccine",
       "w10": "Basic name recognition",
       "w12": "Second vaccine, socialization critical",

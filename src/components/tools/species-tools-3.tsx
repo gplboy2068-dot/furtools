@@ -1972,12 +1972,15 @@ export function ChickenNestingBoxCount() {
 export function PetVetVisitCostEstimator() {
   const { t } = useTranslation("tools");
   const [type, setType] = useState("wellness");
-  const cost: Record<string, number> = { wellness: 75, vaccinations: 120, sick: 200, dental: 500, emergency: 1500 };
+  // Typical US ranges (the page copy promises ranges): wellness exam $55–95,
+  // core vaccines $25–50 per injection, dental scaling under anesthesia
+  // $450–1,400 — a single point figure misstates all of them.
+  const cost: Record<string, [number, number]> = { wellness: [55, 95], vaccinations: [75, 175], sick: [150, 300], dental: [450, 1000], emergency: [1000, 2500] };
   return (
     <CalculatorLayout
       form={<SelectField label={t("pet-vet-visit-cost-estimator.ui.visitTypeLabel")} value={type} onChange={setType} options={Object.keys(cost)} optionLabels={[t("pet-vet-visit-cost-estimator.ui.visitWellness"), t("pet-vet-visit-cost-estimator.ui.visitVaccinations"), t("pet-vet-visit-cost-estimator.ui.visitSick"), t("pet-vet-visit-cost-estimator.ui.visitDental"), t("pet-vet-visit-cost-estimator.ui.visitEmergency")]} />}
       result={<div className="space-y-4">
-        <Big value={`$${cost[type]}`} label={t("pet-vet-visit-cost-estimator.ui.costLabel")} />
+        <Big value={`$${cost[type][0].toLocaleString()}–$${cost[type][1].toLocaleString()}`} label={t("pet-vet-visit-cost-estimator.ui.costLabel")} />
         <Note>{t("pet-vet-visit-cost-estimator.ui.pricingNote")}</Note>
       </div>}
     />

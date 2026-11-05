@@ -151,9 +151,12 @@ export function PregnancyCalendarSpecies() {
     sheep: { days: 147, label: t("pregnancy-calendar.ui.speciesSheep") },
   };
   const [species, setSpecies] = useState("dog");
-  const [mated, setMated] = useState(new Date().toISOString().slice(0, 10));
+  const [mated, setMated] = useState(localToday());
   const g = gestation[species];
-  const start = new Date(mated);
+  // Parse the picked date as LOCAL components (new Date("YYYY-MM-DD") is UTC
+  // midnight and renders a day early west of UTC); a cleared field falls back
+  // to today instead of producing "Invalid Date" results.
+  const start = parseLocalDate(mated) ?? parseLocalDate(localToday())!;
   const due = addDays(start, g.days);
   const week1 = addDays(start, Math.round(g.days * 0.33));
   const week2 = addDays(start, Math.round(g.days * 0.66));
@@ -442,7 +445,7 @@ export function PuppyKittenWeightChart() {
         <div><Label>{t("puppy-kitten-weight-chart.ui.dayLabel")}</Label><Input type="number" min={1} value={day} onChange={(e) => setDay(+e.target.value || 1)} /></div>
         <div><Label>{t("puppy-kitten-weight-chart.ui.weightLabel")}</Label><Input type="number" value={grams} onChange={(e) => setGrams(+e.target.value || 0)} /></div>
       </div>
-      <Button onClick={() => setEntries((p) => [...p, { id: crypto.randomUUID(), day, grams }])}>{t("puppy-kitten-weight-chart.ui.addButton")}</Button>
+      <Button onClick={() => setEntries((p) => [...p, { id: crypto.randomUUID(), day: Math.max(1, Math.round(day) || 1), grams: Math.max(0, Math.round(grams) || 0) }])}>{t("puppy-kitten-weight-chart.ui.addButton")}</Button>
     </div>
   );
 

@@ -310,10 +310,10 @@ const RAW_TOOLS: Tool[] = [
     category: "dogs",
     keywords: ["puppy growth", "adult weight", "puppy weight prediction"],
     layout: "calculator",
-    howItWorks: "Growth follows predictable curves by breed size. We use the standard formula: (current weight / age in weeks) × 52 for medium breeds, with adjustments for small and large sizes.",
+    howItWorks: "Growth follows predictable curves by breed size — fast early, then levelling off. We estimate the fraction of adult weight your puppy has typically reached at their age for their size class (small ≈ 50% at 12 weeks, medium ≈ 50% at 16 weeks, large ≈ 50% at about 5 months) and divide the current weight by that fraction.",
     examples: [
-      { label: "10 lb, 16-week medium puppy", result: "≈ 32 lb adult" },
-      { label: "20 lb, 20-week large puppy", result: "≈ 60 lb adult" },
+      { label: "10 lb, 16-week medium puppy", result: "≈ 20 lb adult" },
+      { label: "30 lb, 16-week large puppy", result: "≈ 71 lb adult" },
     ],
     faqs: [
       { q: "When do puppies stop growing?", a: "Small breeds by 9–12 months, medium by 12–15, large by 18–24 months." },
@@ -2064,8 +2064,8 @@ const RAW_TOOLS: Tool[] = [
   { slug: "pet-vet-visit-cost-estimator", name: "Pet Vet Visit Cost Estimator", tagline: "Typical US pricing",
     description: "Typical price ranges for wellness, sick, dental, and emergency vet visits in the US.",
     category: "general", keywords: ["vet cost", "pet care cost"], layout: "calculator",
-    howItWorks: "Averaged pricing across US regions for common visit types.",
-    examples: [ { label: "Wellness", result: "$75" }, { label: "Emergency", result: "$1,500" } ],
+    howItWorks: "Typical US price ranges for common visit types, benchmarked to published fee surveys. Actual quotes vary by clinic, region, and what the visit uncovers.",
+    examples: [ { label: "Wellness", result: "$55–$95" }, { label: "Emergency", result: "$1,000–$2,500" } ],
     faqs: [ { q: "How to reduce costs?", a: "Preventive care and pet insurance nearly always cost less than emergencies." }, ...COMMON_FAQS ],
     relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
   { slug: "pet-grooming-cost-estimator", name: "Pet Grooming Cost Estimator", tagline: "Annual grooming spend",
@@ -2179,7 +2179,7 @@ const RAW_TOOLS: Tool[] = [
     featured: true, medicalDisclaimer: true,
     howItWorks: "Select species and current age in months. We show the complete life-stage schedule (puppy/kitten series → juvenile boosters → adult maintenance) plus what's due next based on your pet's age.",
     examples: [
-      { label: "8-week puppy", result: "First DHPP due now · rabies at 12–16 wk" },
+      { label: "8-week puppy", result: "First DAPP due now · rabies at 16 wk" },
       { label: "1-year adult cat", result: "Annual FVRCP + Rabies boosters" },
       { label: "3-month rabbit", result: "RHDV2 vaccine due" },
     ],
@@ -2539,9 +2539,9 @@ const RAW_TOOLS: Tool[] = [
     howItWorks:
       "We calculate bladder-hold capacity as min(age in months, 6 hours), then space potty breaks evenly across your active day. Because certain triggers reset the clock — eating, drinking, waking, and playing — we always list them as mandatory extra outings on top of the timed schedule. Accidents that happen despite this schedule are almost always a sign that outings are too far apart, not a training failure.",
     examples: [
-      { label: "3-month puppy, 7am-10pm", result: "~5 timed outings + 4 trigger outings" },
+      { label: "3-month puppy, 7am-10pm", result: "~6 timed outings + trigger outings" },
       { label: "8-week puppy", result: "Every 1-2 hours, plus every trigger" },
-      { label: "6-month puppy", result: "Every 4-5 hours works for most breeds" },
+      { label: "6-month puppy", result: "Timed breaks every 6 hours, plus trigger outings" },
     ],
     faqs: [
       { q: "How long does potty training usually take?", a: "Most puppies are 90% reliable by 4-5 months and fully reliable by 6-8 months. Small breeds and toy breeds often take longer — up to 12 months — because their tiny bladders can't hold as long." },
@@ -2656,7 +2656,7 @@ const RAW_TOOLS: Tool[] = [
     name: "Puppy Socialization Checklist",
     tagline: "Track exposure to 30+ people, places, and things",
     description:
-      "The socialization window closes between 12-16 weeks of age — after that, novelty exposure creates suspicion instead of confidence. A puppy who meets 100 friendly people, calmly experiences 50 environments, and hears 30 unusual sounds before 16 weeks grows into a stable adult dog. A puppy that only meets family and other dogs grows into a reactive, fearful adult that costs thousands in behavior consultants. This checklist covers the five categories AVSAB recommends: people, animals, environments, surfaces & sounds, and handling.",
+      "The socialization window closes between 12-16 weeks of age — after that, novelty exposure creates suspicion instead of confidence. A puppy who meets 100 friendly people, calmly experiences 50 environments, and hears 30 unusual sounds before 16 weeks grows into a stable adult dog. A puppy that only meets family and other dogs grows into a reactive, fearful adult that costs thousands in behavior consultants. This checklist covers the five categories AVSAB recommends: people, animals, environments, surfaces & sounds, and handling. Until the vaccine series is complete, carry your puppy in busy public places and keep them off ground used by unknown dogs.",
     category: "general",
     keywords: ["puppy socialization", "puppy checklist", "socialization guide", "16 weeks", "puppy critical period"],
     layout: "guide", popular: true,
@@ -2687,7 +2687,7 @@ const RAW_TOOLS: Tool[] = [
     name: "Puppy Milestone Tracker",
     tagline: "Developmental checkpoints from week 3 to 1 year",
     description:
-      "Puppy development follows a predictable timeline — eyes open at week 3, adult teeth erupt around week 16, and hormonal maturity arrives between 6-12 months depending on breed size. Missing a milestone by more than 1-2 weeks warrants a veterinary check-in. This tracker lists the ten most important developmental checkpoints, each with the typical week it occurs and what to watch for. Tick them off as they happen and keep this list handy for vet visits.",
+      "Puppy development follows a predictable timeline — eyes open around week 2 and ears by week 3, adult teeth erupt around week 16, and hormonal maturity arrives between 6-12 months depending on breed size. Missing a milestone by more than 1-2 weeks warrants a veterinary check-in. This tracker lists the ten most important developmental checkpoints, each with the typical week it occurs and what to watch for. Tick them off as they happen and keep this list handy for vet visits.",
     category: "dogs",
     keywords: ["puppy milestones", "puppy development", "puppy timeline", "puppy growth stages"],
     layout: "guide",
@@ -3008,7 +3008,7 @@ const RAW_TOOLS: Tool[] = [
     howItWorks:
       "Species-specific gestation averages are applied to your mating date. For dogs and cats, the tool surfaces the classic milestone map: nipple pinking around week 3, vet ultrasound at 28 days, X-ray puppy count at day 45+, temperature-drop watch starting day 60, and expected whelping day. For other species, milestones are simplified to trimester markers plus nesting prep. The output is a planning tool — actual delivery windows vary by ±5 days for most species (±20 days for horses).",
     examples: [
-      { label: "Dog bred June 1", result: "Due ~August 3 · X-ray July 16 · nest by July 27" },
+      { label: "Dog bred June 1", result: "Due ~August 3 · X-ray July 16 · nest by July 24" },
       { label: "Cat bred March 15", result: "Due ~May 19 · kittening box by May 12" },
       { label: "Mare bred April 1", result: "Due ~March 7 next year" },
     ],

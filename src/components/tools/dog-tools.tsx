@@ -78,13 +78,35 @@ export function PuppyGrowthCalculator() {
   const [weight, setWeight] = useState(10);
   const [weeks, setWeeks] = useState(16);
   const [size, setSize] = useState<"small" | "medium" | "large">("medium");
-  const factor = size === "small" ? 0.75 : size === "large" ? 1.2 : 1;
-  const adult = weeks > 0 ? Math.round((weight / weeks) * 52 * factor) : 0;
+  // Growth is NOT linear: puppies gain fast early, then level off. Predict from
+  // the fraction of adult weight typically reached at each age for the size
+  // class (anchor points, linearly interpolated). Matches the standard rules
+  // of thumb — small ≈ weight at 12 weeks × 2, medium ≈ weight at 16 weeks × 2
+  // — and the growth curves in this tool's own guide. The old formula
+  // (weight / weeks) × 52 assumed a constant weekly gain for a full year and
+  // overshot wildly (a 20 lb 12-week large puppy "predicted" 104 lb).
+  const CURVES: Record<typeof size, [number, number][]> = {
+    small: [[4, 0.14], [8, 0.30], [12, 0.50], [16, 0.62], [26, 0.80], [39, 0.95], [44, 1]],
+    medium: [[4, 0.12], [8, 0.22], [12, 0.35], [16, 0.50], [20, 0.58], [26, 0.70], [39, 0.88], [52, 1]],
+    large: [[4, 0.10], [8, 0.20], [12, 0.30], [16, 0.42], [20, 0.52], [26, 0.65], [39, 0.82], [52, 0.92], [65, 1]],
+  };
+  const adultFraction = (pts: [number, number][], w: number) => {
+    if (w <= pts[0][0]) return pts[0][1];
+    for (let i = 1; i < pts.length; i++) {
+      if (w <= pts[i][0]) {
+        const [w0, f0] = pts[i - 1];
+        const [w1, f1] = pts[i];
+        return f0 + ((f1 - f0) * (w - w0)) / (w1 - w0);
+      }
+    }
+    return 1;
+  };
+  const adult = weight > 0 && weeks > 0 ? Math.round(weight / adultFraction(CURVES[size], weeks)) : 0;
   return (
     <CalculatorLayout
       form={<>
-        <div><Label>{t("puppy-growth-calculator.ui.weightLabel")}</Label><Input type="number" value={weight} onChange={(e) => setWeight(+e.target.value || 0)} className="mt-1.5" /></div>
-        <div><Label>{t("puppy-growth-calculator.ui.ageWeeksLabel")}</Label><Input type="number" value={weeks} onChange={(e) => setWeeks(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t("puppy-growth-calculator.ui.weightLabel")}</Label><Input type="number" value={weight} onChange={(e) => setWeight(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
+        <div><Label>{t("puppy-growth-calculator.ui.ageWeeksLabel")}</Label><Input type="number" value={weeks} onChange={(e) => setWeeks(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
         <div><Label>{t("puppy-growth-calculator.ui.adultSizeLabel")}</Label>
           <Select value={size} onValueChange={(v: "small" | "medium" | "large") => setSize(v)}>
             <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>

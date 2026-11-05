@@ -190,7 +190,7 @@ const PET_MEDS = [
   { name: "Simparica", generic: "sarolaner", use: "Flea and tick prevention", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog"], imprint: "none", notes: "Isoxazoline class — use with caution in dogs with seizure history." },
   { name: "Credelio", generic: "lotilaner", use: "Flea and tick prevention", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog", "cat"], imprint: "none", notes: "Isoxazoline class; give with food." },
   { name: "Galliprant", generic: "grapiprant", use: "Osteoarthritis pain", appearance: "Flavored tablet", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "Dog only; give on an empty stomach." },
-  { name: "Onsior", generic: "robenacoxib", use: "Pain and inflammation (NSAID)", appearance: "Tablet", forms: ["tablet"], species: ["dog"], imprint: "varies", notes: "NSAID — do not combine with steroids or other NSAIDs." },
+  { name: "Onsior", generic: "robenacoxib", use: "Pain and inflammation (NSAID)", appearance: "Tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "NSAID — do not combine with steroids or other NSAIDs." },
   { name: "Reconcile", generic: "fluoxetine", use: "Anxiety and behavior problems", appearance: "Chewable tablet", forms: ["chewable"], species: ["dog", "cat"], imprint: "none", notes: "Takes weeks for full effect; never stop abruptly." },
   { name: "Trazodone", generic: "trazodone", use: "Anxiety, sedation", appearance: "Tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "May cause drowsiness — follow the timing your vet advises." },
   { name: "Baytril", generic: "enrofloxacin", use: "Broad-spectrum antibiotic", appearance: "Tablet", forms: ["tablet"], species: ["dog", "cat"], imprint: "varies", notes: "Avoid in young growing animals unless your vet directs." },
@@ -434,27 +434,27 @@ export function PoisonLookupDatabase() {
 ═══════════════════════════════════════════════════════════ */
 type Vaccine = { name: string; age: string; core: boolean; notes: string };
 const DOG_VACCINES: Vaccine[] = [
-  { name: "DHPP (Distemper, Hepatitis, Parvo, Parainfluenza)", age: "6–8 weeks", core: true, notes: "First in puppy series" },
-  { name: "DHPP booster", age: "10–12 weeks", core: true, notes: "Second in series" },
-  { name: "DHPP + Leptospirosis", age: "14–16 weeks", core: true, notes: "Third; lepto often added regionally" },
-  { name: "Rabies", age: "12–16 weeks", core: true, notes: "Legally required in most regions" },
+  { name: "DAPP (Distemper, Adenovirus, Parvo, Parainfluenza)", age: "8 weeks", core: true, notes: "First in puppy series" },
+  { name: "DAPP booster + Leptospirosis #1", age: "12 weeks", core: true, notes: "Second in series; lepto if at risk (2-dose series)" },
+  { name: "DAPP booster + Rabies + Leptospirosis #2", age: "16 weeks", core: true, notes: "Final puppy boosters; rabies required by law in most regions" },
   { name: "Bordetella (kennel cough)", age: "8+ weeks", core: false, notes: "Required for boarding/daycare" },
   { name: "Canine Influenza (H3N2/H3N8)", age: "8+ weeks", core: false, notes: "Recommended if boarding or in outbreak areas" },
   { name: "Lyme", age: "12+ weeks", core: false, notes: "Tick-endemic regions only" },
-  { name: "DHPP + Rabies", age: "1 year (booster)", core: true, notes: "First annual boosters" },
-  { name: "DHPP + Rabies (3-yr)", age: "Every 3 years", core: true, notes: "Adult maintenance — titers optional" },
+  { name: "DAPP + Rabies (1-year booster)", age: "1 year", core: true, notes: "First adult boosters" },
+  { name: "DAPP + Rabies (3-yr)", age: "Every 3 years", core: true, notes: "Adult maintenance — titers optional; lepto/bordetella boosted annually if used" },
 ];
 const CAT_VACCINES: Vaccine[] = [
-  { name: "FVRCP (Herpes, Calici, Panleuk)", age: "6–8 weeks", core: true, notes: "First in kitten series" },
-  { name: "FVRCP booster", age: "10–12 weeks", core: true, notes: "Second in series" },
-  { name: "FVRCP + FeLV", age: "14–16 weeks", core: true, notes: "FeLV core for all kittens" },
-  { name: "Rabies", age: "12–16 weeks", core: true, notes: "Legally required in most regions" },
-  { name: "FVRCP + Rabies", age: "1 year", core: true, notes: "First annual boosters" },
-  { name: "FeLV (if outdoor/multi-cat)", age: "Annually", core: false, notes: "Indoor-only cats can skip after age 1" },
-  { name: "FVRCP + Rabies (3-yr)", age: "Every 3 years", core: true, notes: "Adult maintenance" },
+  { name: "FVRCP (Herpes, Calici, Panleuk)", age: "8 weeks", core: true, notes: "First in kitten series" },
+  { name: "FVRCP booster (2nd)", age: "12 weeks", core: true, notes: "Second in series" },
+  { name: "FVRCP booster (3rd)", age: "16 weeks", core: true, notes: "Final kitten booster" },
+  { name: "FeLV (leukemia)", age: "8+ weeks", core: false, notes: "2 doses, 3–4 weeks apart — for kittens/cats with outdoor or multi-cat risk" },
+  { name: "Rabies", age: "12–16 weeks", core: true, notes: "Single dose; legally required in many regions — follow local law" },
+  { name: "FVRCP + Rabies (1-year booster)", age: "1 year", core: true, notes: "First adult boosters" },
+  { name: "FeLV booster (at-risk adults)", age: "Every 1–2 years", core: false, notes: "Only for cats with ongoing outdoor/multi-cat exposure" },
+  { name: "FVRCP (3-yr)", age: "Every 3 years", core: true, notes: "Adult maintenance; rabies boosters per local law (1- or 3-year products)" },
 ];
 const RABBIT_VACCINES: Vaccine[] = [
-  { name: "RHDV2 (Rabbit Hemorrhagic Disease)", age: "10+ weeks", core: true, notes: "Now essential in most of US/EU" },
+  { name: "RHDV2 (Rabbit Hemorrhagic Disease)", age: "7+ weeks", core: true, notes: "Two-dose start, 3 weeks apart, then annual — now essential in most of US/EU" },
   { name: "Myxomatosis", age: "5 weeks", core: true, notes: "Where available (EU/UK)" },
   { name: "Annual boosters", age: "Yearly", core: true, notes: "Both RHDV & myxo — combined available" },
 ];
@@ -495,7 +495,7 @@ export function VaccineScheduleGenerator() {
           </div>
           <div>
             <Label>{t("pet-vaccine-schedule-generator.ui.ageLabel")}</Label>
-            <Input type="number" min={0} step={0.5} value={months} onChange={(e) => setMonths(Number(e.target.value))} className="mt-1.5" />
+            <Input type="number" min={0} step={0.5} value={months} onChange={(e) => setMonths(Math.max(0, Number(e.target.value) || 0))} className="mt-1.5" />
           </div>
         </div>
       }

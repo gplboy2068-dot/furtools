@@ -75,7 +75,9 @@ export function PottyTrainingSchedule() {
     // Rule of thumb: puppies can hold roughly (age in months) hours, max 6-8.
     const holdHours = Math.max(1, Math.min(6, ageMonths));
     const outings: string[] = [];
-    for (let h = wakeHour; h <= bedHour; h += holdHours) {
+    // Never render an empty schedule if bed is accidentally set before wake.
+    const lastHour = Math.max(bedHour, wakeHour);
+    for (let h = wakeHour; h <= lastHour; h += holdHours) {
       outings.push(t("potty-training-schedule.ui.outing", { time: `${String(h).padStart(2, "0")}:00` }));
     }
     // Always add key trigger outings.
@@ -95,16 +97,16 @@ export function PottyTrainingSchedule() {
     <div className="space-y-4">
       <div>
         <Label>{t("potty-training-schedule.ui.ageLabel")}</Label>
-        <Input type="number" min={2} max={12} value={ageMonths} onChange={(e) => setAgeMonths(+e.target.value || 2)} />
+        <Input type="number" min={2} max={12} value={ageMonths} onChange={(e) => setAgeMonths(Math.max(1, Math.min(12, +e.target.value || 2)))} />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
           <Label>{t("potty-training-schedule.ui.wakeLabel")}</Label>
-          <Input type="number" min={4} max={11} value={wakeHour} onChange={(e) => setWakeHour(+e.target.value || 7)} />
+          <Input type="number" min={4} max={11} value={wakeHour} onChange={(e) => setWakeHour(Math.max(0, Math.min(23, +e.target.value || 7)))} />
         </div>
         <div>
           <Label>{t("potty-training-schedule.ui.bedLabel")}</Label>
-          <Input type="number" min={18} max={24} value={bedHour} onChange={(e) => setBedHour(+e.target.value || 22)} />
+          <Input type="number" min={18} max={24} value={bedHour} onChange={(e) => setBedHour(Math.max(0, Math.min(23, +e.target.value || 22)))} />
         </div>
       </div>
     </div>
