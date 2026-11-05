@@ -36,7 +36,8 @@ function Disclaimer() {
 type SymptomKey =
   | "vomiting" | "diarrhea" | "lethargy" | "appetite-loss" | "coughing" | "sneezing"
   | "limping" | "itching" | "seizure" | "difficulty-breathing" | "blood-in-stool"
-  | "excessive-thirst" | "weight-loss" | "eye-discharge" | "ear-scratching";
+  | "excessive-thirst" | "weight-loss" | "eye-discharge" | "ear-scratching"
+  | "bloated-abdomen" | "straining-to-urinate" | "collapse" | "pale-gums" | "ate-poison";
 
 const SYMPTOM_MAP: Record<SymptomKey, { label: string; causes: string[]; urgency: "low" | "medium" | "high" | "emergency" }> = {
   "vomiting":            { label: "Vomiting", urgency: "medium",    causes: ["Dietary indiscretion", "Gastritis", "Pancreatitis", "Foreign body", "Toxin ingestion", "Kidney disease"] },
@@ -49,6 +50,11 @@ const SYMPTOM_MAP: Record<SymptomKey, { label: string; causes: string[]; urgency
   "itching":             { label: "Itching / scratching", urgency: "low", causes: ["Fleas", "Environmental allergies", "Food allergy", "Mites", "Skin infection"] },
   "seizure":             { label: "Seizure", urgency: "emergency",  causes: ["Idiopathic epilepsy", "Toxin exposure", "Head trauma", "Low blood sugar", "Liver shunt", "Brain tumor"] },
   "difficulty-breathing":{ label: "Difficulty breathing", urgency: "emergency", causes: ["Heart failure", "Pneumonia", "Airway obstruction", "Asthma", "Heatstroke", "Anaphylaxis"] },
+  "bloated-abdomen":     { label: "Swollen abdomen / retching without vomiting", urgency: "emergency", causes: ["Bloat (GDV)", "Foreign body", "Internal bleeding", "Toxin ingestion"] },
+  "straining-to-urinate":{ label: "Straining to urinate / no urine", urgency: "emergency", causes: ["Urinary blockage", "Bladder stones", "Urinary infection"] },
+  "collapse":            { label: "Collapse / can't stand", urgency: "emergency", causes: ["Internal bleeding", "Heart failure", "Heatstroke", "Shock"] },
+  "pale-gums":           { label: "Pale, white or blue gums", urgency: "emergency", causes: ["Anemia", "Shock", "Heart failure", "Internal bleeding"] },
+  "ate-poison":          { label: "Ate something poisonous", urgency: "emergency", causes: ["Toxin ingestion", "Chocolate toxicity", "Xylitol toxicity"] },
   "blood-in-stool":      { label: "Blood in stool", urgency: "high",causes: ["Parasites", "Hemorrhagic gastroenteritis", "Parvovirus (unvaccinated dogs)", "Colitis", "Foreign body"] },
   "excessive-thirst":    { label: "Excessive thirst / urination", urgency: "high", causes: ["Diabetes", "Kidney disease", "Cushing's disease", "Urinary infection", "Liver disease"] },
   "weight-loss":         { label: "Unexplained weight loss", urgency: "high",causes: ["Hyperthyroidism (cats)", "Diabetes", "Kidney disease", "Cancer", "Chronic parasites", "Malabsorption"] },
@@ -84,9 +90,14 @@ export function SymptomCheckerWizard() {
     }, "low" as "low" | "medium" | "high" | "emergency");
     const escalated: typeof worst = duration === "days" && worst === "low" ? "medium" :
                      duration === "week+" && (worst === "low" || worst === "medium") ? "high" : worst;
+    // Cats that stop eating risk hepatic lipidosis, so feline appetite loss
+    // is never "watch and wait" — it escalates to at least same-day (high).
+    const finalUrgency: typeof worst =
+      species === "cat" && selected.has("appetite-loss") && (escalated === "low" || escalated === "medium")
+        ? "high" : escalated;
     const causes = Array.from(new Set(items.flatMap((s) => s.causes)));
-    return { urgency: escalated, causes, items };
-  }, [selected, duration]);
+    return { urgency: finalUrgency, causes, items };
+  }, [selected, duration, species]);
 
   return (
     <CalculatorLayout
@@ -314,32 +325,32 @@ export function PillIdentifierForPets() {
    3. POISON LOOKUP DATABASE
 ═══════════════════════════════════════════════════════════ */
 type Severity = "safe" | "caution" | "toxic" | "deadly";
-const POISONS: { name: string; category: string; severity: Severity; dog: boolean; cat: boolean; symptoms: string; action: string }[] = [
-  { name: "Chocolate", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Vomiting, hyperactivity, tremors, arrhythmia", action: "Call vet or ASPCA Poison Control (888-426-4435). Dark & baker's chocolate most dangerous." },
-  { name: "Grapes / raisins", category: "Food", severity: "deadly", dog: true, cat: false, symptoms: "Vomiting, lethargy, acute kidney failure within 24–72 h", action: "Emergency vet immediately — no safe dose exists." },
-  { name: "Xylitol", category: "Food additive", severity: "deadly", dog: true, cat: false, symptoms: "Hypoglycemia within 30 min, liver failure within 24 h", action: "Emergency vet NOW. Found in sugar-free gum, peanut butter, toothpaste." },
-  { name: "Onion / garlic / chives", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Weakness, pale gums, dark urine (hemolytic anemia)", action: "Call vet — cats far more sensitive than dogs." },
-  { name: "Macadamia nuts", category: "Food", severity: "toxic", dog: true, cat: false, symptoms: "Weakness in hind legs, tremors, hyperthermia", action: "Usually self-limits in 24–48 h but call vet." },
-  { name: "Ibuprofen (Advil)", category: "Human medication", severity: "deadly", dog: true, cat: true, symptoms: "Vomiting, GI ulcers, kidney failure", action: "Emergency vet — even one pill can be fatal to a cat." },
-  { name: "Acetaminophen (Tylenol)", category: "Human medication", severity: "deadly", dog: true, cat: true, symptoms: "Brown gums, difficulty breathing, liver failure", action: "Emergency vet. Cats lack the enzyme to metabolize it." },
-  { name: "Antifreeze (ethylene glycol)", category: "Household chemical", severity: "deadly", dog: true, cat: true, symptoms: "Drunken gait, then kidney failure within 24–72 h", action: "Emergency vet within 3 hours — antidote is time-critical." },
-  { name: "Lily (Easter, Tiger, Asiatic)", category: "Plant", severity: "deadly", dog: false, cat: true, symptoms: "Vomiting, lethargy, kidney failure within 24–72 h", action: "Emergency vet — even pollen or vase water can kill a cat." },
-  { name: "Sago palm", category: "Plant", severity: "deadly", dog: true, cat: true, symptoms: "Vomiting, dark stool, liver failure", action: "Emergency vet — 50%+ mortality even with treatment." },
-  { name: "Rodenticide", category: "Poison bait", severity: "deadly", dog: true, cat: true, symptoms: "Bleeding, weakness, seizures (varies by type)", action: "Emergency vet — bring packaging so vet identifies active ingredient." },
-  { name: "Marijuana / THC", category: "Recreational", severity: "toxic", dog: true, cat: true, symptoms: "Wobbly gait, dilated pupils, urine dribbling", action: "Vet — recovery usually 12–24 h; edibles with chocolate/xylitol more dangerous." },
-  { name: "Caffeine", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Restlessness, arrhythmia, seizures", action: "Vet if a coffee grounds / tea / caffeine pill ingestion." },
-  { name: "Bleach (concentrated)", category: "Household chemical", severity: "toxic", dog: true, cat: true, symptoms: "Drooling, oral ulcers, vomiting", action: "Rinse mouth with water/milk — do NOT induce vomiting. Call poison control." },
-  { name: "Ibuprofen gel / patch", category: "Human medication", severity: "toxic", dog: true, cat: true, symptoms: "Kidney damage from skin contact or chewing", action: "Wash affected fur, call vet." },
-  { name: "Alcohol", category: "Beverage", severity: "toxic", dog: true, cat: true, symptoms: "Depression, hypothermia, low blood sugar", action: "Emergency vet — even mouthwash or raw bread dough (fermenting) is dangerous." },
-  { name: "Raw yeast dough", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Bloated abdomen, alcohol toxicity, GI rupture", action: "Emergency vet immediately." },
-  { name: "Essential oils (tea tree, peppermint, pine)", category: "Household", severity: "toxic", dog: true, cat: true, symptoms: "Drooling, tremors, liver damage (cats)", action: "Wash off skin, vet visit. Cats extremely sensitive." },
-  { name: "Cocoa mulch", category: "Garden", severity: "toxic", dog: true, cat: false, symptoms: "Same as chocolate toxicity", action: "Vet — contains theobromine." },
-  { name: "Fertilizer (with iron/insecticide)", category: "Garden", severity: "toxic", dog: true, cat: true, symptoms: "Vomiting, tremors, iron toxicity", action: "Call poison control with product name." },
-  { name: "Sugarless gum (any Xylitol)", category: "Food", severity: "deadly", dog: true, cat: false, symptoms: "See Xylitol above", action: "Emergency vet immediately." },
-  { name: "Bread dough (uncooked)", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Bloat, ethanol toxicity", action: "Emergency vet." },
-  { name: "Avocado (large amounts / pit)", category: "Food", severity: "caution", dog: true, cat: true, symptoms: "Mild GI upset in dogs/cats; pit is choking + obstruction risk", action: "Small flesh amounts usually fine for dogs; avoid for birds & rabbits (deadly)." },
-  { name: "Milk / dairy", category: "Food", severity: "caution", dog: true, cat: true, symptoms: "Diarrhea, gas (lactose intolerance)", action: "Not toxic — just uncomfortable. Avoid." },
-  { name: "Cooked bones", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Splinters causing choking, GI perforation", action: "Never feed cooked bones. Emergency vet if swallowed." },
+const POISONS: { name: string; category: string; severity: Severity; dog: boolean; cat: boolean; symptoms: string; action: string; aliases?: string }[] = [
+  { name: "Chocolate", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Vomiting, hyperactivity, tremors, arrhythmia", action: "Call vet or ASPCA Poison Control (888-426-4435). Dark & baker's chocolate most dangerous.", aliases: "candy cocoa cacao theobromine" },
+  { name: "Grapes / raisins", category: "Food", severity: "deadly", dog: true, cat: false, symptoms: "Vomiting, lethargy, acute kidney failure within 24–72 h", action: "Emergency vet immediately — no safe dose exists.", aliases: "sultanas currants" },
+  { name: "Xylitol", category: "Food additive", severity: "deadly", dog: true, cat: false, symptoms: "Hypoglycemia within 30 min, liver failure within 24 h", action: "Emergency vet NOW. Found in sugar-free gum, peanut butter, toothpaste.", aliases: "birch sugar peanut butter gum e967" },
+  { name: "Onion / garlic / chives", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Weakness, pale gums, dark urine (hemolytic anemia)", action: "Call vet — cats far more sensitive than dogs.", aliases: "allium leeks shallots scallions spring onion" },
+  { name: "Macadamia nuts", category: "Food", severity: "toxic", dog: true, cat: false, symptoms: "Weakness in hind legs, tremors, hyperthermia", action: "Usually self-limits in 24–48 h but call vet.", aliases: "macadamias macadamia nut" },
+  { name: "Ibuprofen (Advil)", category: "Human medication", severity: "deadly", dog: true, cat: true, symptoms: "Vomiting, GI ulcers, kidney failure", action: "Emergency vet — even one pill can be fatal to a cat.", aliases: "motrin nurofen nsaid" },
+  { name: "Acetaminophen (Tylenol)", category: "Human medication", severity: "deadly", dog: true, cat: true, symptoms: "Brown gums, difficulty breathing, liver failure", action: "Emergency vet. Cats lack the enzyme to metabolize it.", aliases: "paracetamol panadol" },
+  { name: "Antifreeze (ethylene glycol)", category: "Household chemical", severity: "deadly", dog: true, cat: true, symptoms: "Drunken gait, then kidney failure within 24–72 h", action: "Emergency vet within 3 hours — antidote is time-critical.", aliases: "coolant" },
+  { name: "Lily (Easter, Tiger, Asiatic)", category: "Plant", severity: "deadly", dog: false, cat: true, symptoms: "Vomiting, lethargy, kidney failure within 24–72 h", action: "Emergency vet — even pollen or vase water can kill a cat.", aliases: "daylily day lily true lily lilies lillies" },
+  { name: "Sago palm", category: "Plant", severity: "deadly", dog: true, cat: true, symptoms: "Vomiting, dark stool, liver failure", action: "Emergency vet — 50%+ mortality even with treatment.", aliases: "cycad coontie palm" },
+  { name: "Rodenticide", category: "Poison bait", severity: "deadly", dog: true, cat: true, symptoms: "Bleeding, weakness, seizures (varies by type)", action: "Emergency vet — bring packaging so vet identifies active ingredient.", aliases: "rat poison rat bait mouse poison warfarin" },
+  { name: "Marijuana / THC", category: "Recreational", severity: "toxic", dog: true, cat: true, symptoms: "Wobbly gait, dilated pupils, urine dribbling", action: "Vet — recovery usually 12–24 h; edibles with chocolate/xylitol more dangerous.", aliases: "cannabis weed edibles pot hash" },
+  { name: "Caffeine", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Restlessness, arrhythmia, seizures", action: "Vet if a coffee grounds / tea / caffeine pill ingestion.", aliases: "coffee energy drink espresso tea cola" },
+  { name: "Bleach (concentrated)", category: "Household chemical", severity: "toxic", dog: true, cat: true, symptoms: "Drooling, oral ulcers, vomiting", action: "Rinse mouth with water/milk — do NOT induce vomiting. Call poison control.", aliases: "chlorine disinfectant" },
+  { name: "Ibuprofen gel / patch", category: "Human medication", severity: "toxic", dog: true, cat: true, symptoms: "Kidney damage from skin contact or chewing", action: "Wash affected fur, call vet.", aliases: "ibuprofen gel patch diclofenac voltaren topical nsaid" },
+  { name: "Alcohol", category: "Beverage", severity: "toxic", dog: true, cat: true, symptoms: "Depression, hypothermia, low blood sugar", action: "Emergency vet — even mouthwash or raw bread dough (fermenting) is dangerous.", aliases: "ethanol beer wine spirits liquor" },
+  { name: "Raw yeast dough", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Bloated abdomen, alcohol toxicity, GI rupture", action: "Emergency vet immediately.", aliases: "yeast pizza dough" },
+  { name: "Essential oils (tea tree, peppermint, pine)", category: "Household", severity: "toxic", dog: true, cat: true, symptoms: "Drooling, tremors, liver damage (cats)", action: "Wash off skin, vet visit. Cats extremely sensitive.", aliases: "melaleuca tea tree oil diffuser oils" },
+  { name: "Cocoa mulch", category: "Garden", severity: "toxic", dog: true, cat: false, symptoms: "Same as chocolate toxicity", action: "Vet — contains theobromine.", aliases: "cocoa husks mulch" },
+  { name: "Fertilizer (with iron/insecticide)", category: "Garden", severity: "toxic", dog: true, cat: true, symptoms: "Vomiting, tremors, iron toxicity", action: "Call poison control with product name.", aliases: "plant food bone meal blood meal" },
+  { name: "Sugarless gum (any Xylitol)", category: "Food", severity: "deadly", dog: true, cat: false, symptoms: "See Xylitol above", action: "Emergency vet immediately.", aliases: "sugar-free gum chewing gum sugarfree candy" },
+  { name: "Bread dough (uncooked)", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Bloat, ethanol toxicity", action: "Emergency vet.", aliases: "yeast dough pizza dough" },
+  { name: "Avocado (large amounts / pit)", category: "Food", severity: "caution", dog: true, cat: true, symptoms: "Mild GI upset in dogs/cats; pit is choking + obstruction risk", action: "Small flesh amounts usually fine for dogs; avoid for birds & rabbits (deadly).", aliases: "persin guacamole" },
+  { name: "Milk / dairy", category: "Food", severity: "caution", dog: true, cat: true, symptoms: "Diarrhea, gas (lactose intolerance)", action: "Not toxic — just uncomfortable. Avoid.", aliases: "lactose cheese cream" },
+  { name: "Cooked bones", category: "Food", severity: "toxic", dog: true, cat: true, symptoms: "Splinters causing choking, GI perforation", action: "Never feed cooked bones. Emergency vet if swallowed.", aliases: "chicken bones bone splinters" },
 ];
 
 export function PoisonLookupDatabase() {
@@ -350,7 +361,7 @@ export function PoisonLookupDatabase() {
     const query = q.trim().toLowerCase();
     return POISONS
       .filter((p) => (species === "all") || (species === "dog" ? p.dog : p.cat))
-      .filter((p) => !query || p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query) || p.symptoms.toLowerCase().includes(query))
+      .filter((p) => !query || `${p.name} ${p.category} ${p.symptoms} ${p.aliases ?? ""}`.toLowerCase().includes(query))
       .sort((a, b) => {
         const rank = { deadly: 0, toxic: 1, caution: 2, safe: 3 };
         return rank[a.severity] - rank[b.severity];
@@ -400,7 +411,7 @@ export function PoisonLookupDatabase() {
       result={
         <div className="space-y-3">
           {results.length === 0 && <p className="text-sm text-muted-foreground text-center">{t("pet-poison-lookup.ui.noMatches")}</p>}
-          {results.slice(0, 15).map((p) => (
+          {results.map((p) => (
             <div key={p.name} className="rounded-lg border border-border bg-card p-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="font-semibold text-foreground">{t(`pet-poison-lookup.ui.poison.${slugify(p.name)}.name`)}</div>

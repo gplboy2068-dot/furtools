@@ -1876,7 +1876,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "pet-symptom-checker",
     "name": "Pet Symptom Checker Wizard",
-    "tagline": "Multi-step questionnaire → possible causes",
+    "tagline": "Possible causes & urgency from your pet's symptoms",
     "category": "general",
     "keywords": [
       "symptom checker",
@@ -1989,7 +1989,7 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
   {
     "slug": "pet-personality-quiz",
     "name": "Pet Personality Quiz",
-    "tagline": "20-style quiz → your pet's personality type",
+    "tagline": "10-question quiz → your pet's personality type",
     "category": "general",
     "keywords": [
       "pet personality quiz",

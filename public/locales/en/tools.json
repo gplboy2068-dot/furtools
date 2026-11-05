@@ -1492,7 +1492,8 @@
       },
       "petsLabel": "Number of pets",
       "resultLabel": "Fair rate range",
-      "resultUnit": "per visit"
+      "resultUnit": "per visit",
+      "resultUnitNight": "per night"
     }
   },
   "pet-boarding-cost-estimator": {
@@ -1531,7 +1532,7 @@
       "vaccineLabel": "Vaccine",
       "vaccineOptions": {
         "rabies": "Rabies (3-year)",
-        "core": "Core DAPP / FVRCP (annual)",
+        "core": "Core DAPP / FVRCP (3-year)",
         "bordetella": "Bordetella (6-month)"
       },
       "lastGivenLabel": "Last given",
@@ -1935,7 +1936,7 @@
       "bioload": "Bioload",
       "text": "{{bio}}%",
       "under80IsASafeLong": "Under 80% is a safe long-term target.",
-  "highWasteNote": "Length alone understates waste: heavy-bodied, high-waste fish (goldfish, common plecos, large cichlids) produce far more waste than their inches suggest, and every species still needs its own minimum tank size, whatever this score says.",
+      "highWasteNote": "Length alone understates waste: heavy-bodied, high-waste fish (goldfish, common plecos, large cichlids) produce far more waste than their inches suggest, and every species still needs its own minimum tank size, whatever this score says.",
       "comfortable": "Comfortable",
       "fullButOk": "Full but ok",
       "crowded": "Crowded",
@@ -3093,8 +3094,8 @@
       "sqFtDryBedding": "{{v0}} sq ft dry bedding",
       "sqFtSecureRun": "{{v0}} sq ft secure run",
       "gPHBogWetlandMechanicalPreFilter": "{{flowRateGph}} GPH (Bog wetland + mechanical pre-filter)",
-  "dumpRefillLabel": "Water Change Routine",
-  "dumpRefillValue": "No filter on a stock tank — dump, scrub, and refill every 1–2 days; ducks foul small volumes fast.",
+      "dumpRefillLabel": "Water Change Routine",
+      "dumpRefillValue": "No filter on a stock tank — dump, scrub, and refill every 1–2 days; ducks foul small volumes fast.",
       "n18To24InchesAllowsFull": "18 to 24 inches (allows full submergence and preening)"
     }
   },
@@ -3225,14 +3226,15 @@
           "items": [
             "Scan chip at vet to confirm number",
             "Note manufacturer (HomeAgain, AKC Reunite, 24PetWatch, etc.)",
-            "Save chip number in phone and email"
+            "Save chip number in phone and email",
+            "Remember: a chip is not a GPS tracker — it helps only when scanned"
           ]
         },
         {
           "title": "Register",
           "items": [
             "Register in manufacturer's database",
-            "Register in universal registry (Michelson Found Animals — free)",
+            "Verify the chip is findable via the AAHA Universal Pet Microchip Lookup",
             "List two backup contacts"
           ]
         },
@@ -3261,7 +3263,7 @@
       "spiritual": "Spiritual",
       "gentlePlayfulLoyal": "gentle, playful, loyal",
       "copy": "Copy",
-      "textCelebratory": "For {{years}} joyful years, {{name}} filled our home with laughter and love. Endlessly {{traitList}}, {{name}} taught us to celebrate the small moments — the wagging welcomes, the sleepy afternoons, the shared quiet. We are so grateful for every one of those years, and {{name}} will always be part of our story.",
+      "textCelebratory": "For {{years}} joyful years, {{name}} filled our home with laughter and love. Endlessly {{traitList}}, {{name}} taught us to celebrate the small moments — the joyful welcomes, the sleepy afternoons, the shared quiet. We are so grateful for every one of those years, and {{name}} will always be part of our story.",
       "textSpiritual": "{{name}} was with us for {{years}} beautiful years — {{traitList}} in every heartbeat. Though {{name}} has crossed over the rainbow bridge, the love we shared is not lost. It lives on, gentle and warm, in every quiet moment we spent together. Rest well, sweet {{name}}. We will meet again.",
       "textGentle": "Our beloved {{name}} spent {{years}} treasured years by our side. {{name}} was {{traitList}}, and every moment was a gift. We will miss the little rituals, the familiar footsteps, and the warm presence that made our home a happier place. Goodbye for now, dear {{name}} — thank you for choosing us."
     }
@@ -5169,7 +5171,12 @@
         "excessive-thirst": "Excessive thirst / urination",
         "weight-loss": "Unexplained weight loss",
         "eye-discharge": "Eye discharge / redness",
-        "ear-scratching": "Ear scratching / head shaking"
+        "ear-scratching": "Ear scratching / head shaking",
+        "bloated-abdomen": "Swollen abdomen / retching without vomiting",
+        "straining-to-urinate": "Straining to urinate / no urine",
+        "collapse": "Collapse / can't stand",
+        "pale-gums": "Pale, white or blue gums",
+        "ate-poison": "Ate something poisonous"
       },
       "cause": {
         "dietary-indiscretion": "Dietary indiscretion",
@@ -5243,7 +5250,14 @@
         "glaucoma": "Glaucoma",
         "ear-infection-yeast-bacterial": "Ear infection (yeast/bacterial)",
         "ear-mites": "Ear mites",
-        "foreign-body-grass-awn": "Foreign body (grass awn)"
+        "foreign-body-grass-awn": "Foreign body (grass awn)",
+        "bloat-gdv": "Bloat (GDV) — twisted stomach",
+        "internal-bleeding": "Internal bleeding",
+        "urinary-blockage": "Urinary blockage",
+        "bladder-stones": "Bladder stones",
+        "shock": "Shock",
+        "chocolate-toxicity": "Chocolate toxicity",
+        "xylitol-toxicity": "Xylitol toxicity"
       }
     }
   },
@@ -6215,7 +6229,7 @@
     "ui": {
       "lookupLabel": "Look up a pet name",
       "lookupPlaceholder": "e.g. Luna, Max, Simba",
-      "databaseCount": "{{count}}+ names in the database.",
+      "databaseCount": "{{count}} names in the database.",
       "originLabel": "Origin",
       "meaningLabel": "Meaning",
       "vibeLabel": "Vibe",
@@ -8771,7 +8785,8 @@
         },
         "petsLabel": "Number of pets",
         "resultLabel": "Fair rate range",
-        "resultUnit": "per visit"
+        "resultUnit": "per visit",
+        "resultUnitNight": "per night"
       }
     },
     "boardingCost": {
@@ -8804,7 +8819,7 @@
         "vaccineLabel": "Vaccine",
         "vaccineOptions": {
           "rabies": "Rabies (3-year)",
-          "core": "Core DAPP / FVRCP (annual)",
+          "core": "Core DAPP / FVRCP (3-year)",
           "bordetella": "Bordetella (6-month)"
         },
         "lastGivenLabel": "Last given",

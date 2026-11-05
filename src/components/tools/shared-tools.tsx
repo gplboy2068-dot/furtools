@@ -690,9 +690,9 @@ export function SitterRateCalculator({ slug }: { slug?: string } = {}) {
               <SelectItem value="overnight">{t(`${p}.ui.visitOptions.overnight`)}</SelectItem>
             </SelectContent></Select></div>
         <div><Label>{t(`${p}.ui.petsLabel`)}</Label>
-          <Input type="number" min={1} value={pets} onChange={(e) => setPets(+e.target.value || 1)} className="mt-1.5" /></div>
+          <Input type="number" min={1} value={pets} onChange={(e) => setPets(Math.max(1, Math.round(+e.target.value) || 1))} className="mt-1.5" /></div>
       </>}
-      result={<BigResult value={`$${low + extra}–$${high + extra}`} label={t(`${p}.ui.resultLabel`)} unit={t(`${p}.ui.resultUnit`)} />}
+      result={<BigResult value={`$${low + extra}–$${high + extra}`} label={t(`${p}.ui.resultLabel`)} unit={visit === "overnight" ? t(`${p}.ui.resultUnitNight`) : t(`${p}.ui.resultUnit`)} />}
     />
   );
 }
@@ -756,9 +756,23 @@ export function VaccineReminder({ slug }: { slug?: string } = {}) {
   const { t } = useTranslation("tools");
   const p = slug ?? "shared.vaccineReminder";
   const [vaccine, setVaccine] = useState<"rabies" | "core" | "bordetella">("core");
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const monthsMap = { rabies: 36, core: 12, bordetella: 6 };
-  const next = addDays(new Date(date), monthsMap[vaccine] * 30);
+  const pad2 = (v: number) => String(v).padStart(2, "0");
+  const todayKey = () => { const n = new Date(); return `${n.getFullYear()}-${pad2(n.getMonth() + 1)}-${pad2(n.getDate())}`; };
+  const [date, setDate] = useState(todayKey);
+  // AAHA/AAFP adult intervals: rabies and core boosters run 3-yearly after
+  // the first annual booster; bordetella is 6-monthly for at-risk dogs.
+  const monthsMap = { rabies: 36, core: 36, bordetella: 6 };
+  // Parse the picked date as LOCAL components — new Date("YYYY-MM-DD") is
+  // UTC midnight and renders a day early west of UTC, and toISOString()
+  // defaults to the UTC day. A cleared/invalid field falls back to today
+  // instead of rendering "Invalid Date". Whole calendar months are added
+  // (not months × 30 days) so a 3-year booster lands on its anniversary.
+  const parts = date.split("-").map(Number);
+  const parsedDate = parts.length === 3 && parts.every((v) => Number.isFinite(v))
+    ? new Date(parts[0], parts[1] - 1, parts[2]) : null;
+  const base = parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : new Date();
+  const next = new Date(base);
+  next.setMonth(next.getMonth() + monthsMap[vaccine]);
   return (
     <CalculatorLayout
       form={<>

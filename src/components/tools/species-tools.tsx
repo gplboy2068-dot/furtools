@@ -2974,7 +2974,9 @@ export function PetMemorialGenerator() {
   const [traits, setTraits] = useState("gentle, playful, loyal");
   const [tone, setTone] = useState<"gentle" | "celebratory" | "spiritual">("gentle");
   const text = useMemo(() => {
-    const traitList = traits.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 4).join(", ");
+    // An emptied traits field must not leave a broken sentence ("was , and…")
+    // in a memorial text — fall back to a gentle default trait.
+    const traitList = traits.split(",").map((s) => s.trim()).filter(Boolean).slice(0, 4).join(", ") || "loving";
     if (tone === "celebratory") {
       return t("pet-loss-memorial-generator.ui.textCelebratory", { years, name, traitList });
     }
@@ -2987,7 +2989,7 @@ export function PetMemorialGenerator() {
     <GeneratorLayout
       controls={<div className="grid gap-3 sm:grid-cols-2">
         <div><Label>{t("pet-loss-memorial-generator.ui.petSName")}</Label><Input value={name} onChange={(e) => setName(e.target.value)} className="mt-1.5" /></div>
-        <div><Label>{t("pet-loss-memorial-generator.ui.yearsTogether")}</Label><Input type="number" value={years} onChange={(e) => setYears(+e.target.value || 0)} className="mt-1.5" /></div>
+        <div><Label>{t("pet-loss-memorial-generator.ui.yearsTogether")}</Label><Input type="number" value={years} onChange={(e) => setYears(Math.max(0, +e.target.value || 0))} className="mt-1.5" /></div>
         <div className="sm:col-span-2"><Label>{t("pet-loss-memorial-generator.ui.traitsCommaSeparated")}</Label>
           <Input value={traits} onChange={(e) => setTraits(e.target.value)} className="mt-1.5" placeholder={t("pet-loss-memorial-generator.ui.gentlePlayfulLoyal")} /></div>
         <div className="sm:col-span-2"><Label>{t("pet-loss-memorial-generator.ui.tone")}</Label>
