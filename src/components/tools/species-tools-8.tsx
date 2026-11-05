@@ -490,9 +490,9 @@ export function PuppyKittenWeightChart() {
 ═══════════════════════════════════════════════════════════ */
 export function WeaningSchedule() {
   const { t } = useTranslation("tools");
-  const weaningPlan: Record<string, { start: number; end: number; steps: { week: string; desc: string }[] }> = {
+  const weaningPlan: Record<string, { start: number; end: number; weeks: number[]; steps: { week: string; desc: string }[] }> = {
     puppy: {
-      start: 3, end: 8,
+      start: 3, end: 8, weeks: [3, 4, 5, 6, 7, 8],
       steps: [
         { week: t("weaning-schedule.ui.puppyW3"), desc: t("weaning-schedule.ui.puppyD3") },
         { week: t("weaning-schedule.ui.puppyW4"), desc: t("weaning-schedule.ui.puppyD4") },
@@ -503,7 +503,7 @@ export function WeaningSchedule() {
       ],
     },
     kitten: {
-      start: 4, end: 8,
+      start: 4, end: 8, weeks: [4, 5, 6, 7, 8],
       steps: [
         { week: t("weaning-schedule.ui.kittenW4"), desc: t("weaning-schedule.ui.kittenD4") },
         { week: t("weaning-schedule.ui.kittenW5"), desc: t("weaning-schedule.ui.kittenD5") },
@@ -513,7 +513,7 @@ export function WeaningSchedule() {
       ],
     },
     rabbit: {
-      start: 4, end: 8,
+      start: 3, end: 8, weeks: [3, 5, 7],
       steps: [
         { week: t("weaning-schedule.ui.rabbitW34"), desc: t("weaning-schedule.ui.rabbitD34") },
         { week: t("weaning-schedule.ui.rabbitW56"), desc: t("weaning-schedule.ui.rabbitD56") },
@@ -522,9 +522,11 @@ export function WeaningSchedule() {
     },
   };
   const [species, setSpecies] = useState("puppy");
-  const [birthDate, setBirthDate] = useState(new Date().toISOString().slice(0, 10));
+  const [birthDate, setBirthDate] = useState(localToday());
   const plan = weaningPlan[species];
-  const start = new Date(birthDate);
+  // Parse as a LOCAL date: new Date("YYYY-MM-DD") is UTC midnight and renders
+  // a day early west of UTC; a cleared field falls back to today.
+  const start = parseLocalDate(birthDate) ?? new Date();
 
   const form = (
     <div className="space-y-3">
@@ -547,11 +549,14 @@ export function WeaningSchedule() {
       <div className="rounded-lg bg-primary/10 p-3 text-sm">
         {t("weaning-schedule.ui.summary", { start: plan.start, end: plan.end })}
       </div>
+      <div className="rounded-lg border bg-yellow-50 p-3 text-xs text-yellow-900 dark:bg-yellow-950 dark:text-yellow-100">
+        {t("weaning-schedule.ui.redFlagNote")}
+      </div>
       {plan.steps.map((s, i) => (
         <div key={s.week} className="rounded-lg bg-background/60 p-3 text-sm">
           <div className="flex justify-between">
             <strong>{s.week}</strong>
-            <span className="text-xs text-muted-foreground">{fmt(addDays(start, (plan.start + i) * 7))}</span>
+            <span className="text-xs text-muted-foreground">{fmt(addDays(start, plan.weeks[i] * 7))}</span>
           </div>
           <p className="text-xs text-muted-foreground">{s.desc}</p>
         </div>

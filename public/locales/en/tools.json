@@ -1421,7 +1421,7 @@
         "slight": "Felt easily under a thin fat cover",
         "covered": "Hard to feel under fat"
       },
-      "hint": "Applies to {{species}} using the 9-point body condition score.",
+      "hint": "For dogs and cats — hands-on answers mapped to the 9-point body condition score.",
       "speciesPlural": "dogs",
       "resultLabel": "Body condition score",
       "verdict": {
@@ -2746,7 +2746,7 @@
         },
         "painted": {
           "name": "Painted Turtle (Eastern/Western)",
-          "notes": "Hardy basker. Needs a completely dry basking dock with 90-95Â°F surface temp and strong UVB."
+          "notes": "Hardy basker. Needs a completely dry basking dock with 90-95°F surface temp and strong UVB."
         },
         "musk": {
           "name": "Common Musk / Mud Turtle",
@@ -7036,13 +7036,14 @@
       "rabbitW56": "Week 5-6",
       "rabbitD56": "Free-fed alfalfa hay and alfalfa-based pellets.",
       "rabbitW78": "Week 7-8",
-      "rabbitD78": "Fully weaned. Introduce small amounts of leafy greens one at a time.",
+      "rabbitD78": "Fully weaned on hay and pellets. Wait until 12 weeks before offering any leafy greens — greens too early can cause fatal diarrhea.",
       "speciesLabel": "Species",
       "speciesPuppy": "Puppy",
       "speciesKitten": "Kitten",
       "speciesRabbit": "Rabbit kit",
       "birthLabel": "Litter birth date",
-      "summary": "Weaning starts week {{start}}, complete by week {{end}}. Do not rehome before minimum age."
+      "summary": "Weaning starts week {{start}}, complete by week {{end}}. Do not rehome before minimum age.",
+  "redFlagNote": "Weigh the litter daily during weaning. Weight loss, milk bubbling from the nose (aspiration), weakness, or refusing all food for 24 hours means a vet visit the same day."
     }
   },
   "newborn-care-timeline": {
@@ -8138,7 +8139,7 @@
   },
   "tarantula-feeding-schedule": {
     "name": "Tarantula Feeding Schedule",
-    "description": "Get a feeding interval, prey size limit and monthly feeding count for your tarantula, with automatic pre-moult adjustments.",
+    "description": "Get a feeding interval, prey size limit and monthly prey count for your tarantula, with automatic pre-moult adjustments.",
     "ui": {
       "preySling": "Pre-killed cricket leg or flightless fruit fly",
       "preyJuvenile": "Small cricket / dubia nymph",
@@ -8159,7 +8160,7 @@
       "statPreyCount": "Prey per feeding",
       "statPreySize": "Prey size",
       "preySizeHint": "Half the tarantula's leg span",
-      "statPerMonth": "Feedings / month",
+      "statPerMonth": "Prey / month",
       "noteRemove": "Remove uneaten prey within 24 hours — crickets can injure a moulting spider.",
       "noteResume": "Resume feeding 7-10 days after the moult, once fangs darken.",
       "notePlump": "A plump, rounded abdomen means you can safely extend the interval.",
@@ -8376,7 +8377,7 @@
     "description": "Plan a safe tortoise hibernation with species-specific duration, a Jackson ratio body-condition check, target temperatures and a full date timeline.",
     "ui": {
       "speciesHermann": "hermann",
-      "noteHermann": "Classic Mediterranean hibernator — 4-8 °C fridge method works well.",
+      "noteHermann": "Classic Mediterranean hibernator — 3-7 °C fridge method works well.",
       "speciesRussian": "russian",
       "noteRussian": "Tolerates cooler brumation; ensure a full pre-hibernation health check.",
       "speciesGreek": "greek spur thighed",
@@ -8417,7 +8418,8 @@
       "warmUpLabel": "Fully warm, first bath & drink",
       "noteVet": "A pre-hibernation vet check (weight, eyes, mouth, worm count) is essential every year.",
       "noteWeigh": "Weigh weekly during hibernation. Losing more than 1% of body weight per month means wake the tortoise immediately.",
-      "noteNever": "Never hibernate a sick, underweight, or first-year hatchling tortoise without veterinary approval."
+      "noteNever": "Never hibernate a sick, underweight, or first-year hatchling tortoise without veterinary approval.",
+  "noteWeeksRange": "Your chosen {{weeks}} weeks is outside this species' usual {{lo}}-{{hi}} week range — longer is not safer. Confirm the length with a vet before you start."
     }
   },
   "quail-coop-size-calculator": {

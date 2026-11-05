@@ -49,15 +49,17 @@ export function TarantulaEnclosureCalculator() {
   const [dls, setDls] = useState(5); // diagonal leg span, inches
   const [stage, setStage] = useState<"sling" | "juvenile" | "adult">("adult");
 
-  const floorSide = Math.round(dls * (type === "arboreal" ? 2 : 3));
+  // A cleared/mistyped field must not render negative dimensions
+  const span = Math.max(0, dls || 0);
+  const floorSide = Math.round(span * (type === "arboreal" ? 2 : 3));
   const height =
-    type === "arboreal" ? Math.round(dls * 4)
-    : type === "fossorial" ? Math.round(dls * 3)
-    : Math.min(Math.round(dls * 1.5), Math.round(dls + 4));
+    type === "arboreal" ? Math.round(span * 4)
+    : type === "fossorial" ? Math.round(span * 3)
+    : Math.min(Math.round(span * 1.5), Math.round(span + 4));
   const substrate =
-    type === "fossorial" ? Math.round(dls * 2.5)
+    type === "fossorial" ? Math.round(span * 2.5)
     : type === "arboreal" ? 2
-    : Math.max(2, Math.round(dls * 0.8));
+    : Math.max(2, Math.round(span * 0.8));
   const ventilation = type === "arboreal" ? t("tarantula-enclosure-size-calculator.ui.ventArboreal") : t("tarantula-enclosure-size-calculator.ui.ventTerrestrial");
 
   const form = (
@@ -689,7 +691,7 @@ export function TortoiseHibernationPlanner() {
   const [weeks, setWeeks] = useState(10);
 
   const info = hibernators[species];
-  const jackson = Math.round((weight / Math.pow(lengthCm, 3)) * 1000 * 100) / 100; // ratio g/cm³ ×1000
+  const jackson = Math.round((weight / Math.pow(lengthCm, 3)) * 100) / 100; // Jackson ratio: g / cm³ (healthy ≈ 0.19–0.24)
   const jacksonOk = jackson >= 0.19 && jackson <= 0.24;
 
   const dates = useMemo(() => {
@@ -739,7 +741,7 @@ export function TortoiseHibernationPlanner() {
       <div className="grid gap-3 sm:grid-cols-2">
         <Stat label={t("tortoise-hibernation-planner.ui.statLength")} value={info.hibernates ? t("tortoise-hibernation-planner.ui.lengthValue", { lo: info.weeks[0], hi: info.weeks[1] }) : t("tortoise-hibernation-planner.ui.lengthNone")} />
         <Stat label={t("tortoise-hibernation-planner.ui.statJackson")} value={`${jackson}`} hint={t("tortoise-hibernation-planner.ui.jacksonHint")} />
-        <Stat label={t("tortoise-hibernation-planner.ui.statTemp")} value="4-8 °C" hint={t("tortoise-hibernation-planner.ui.tempHint")} />
+        <Stat label={t("tortoise-hibernation-planner.ui.statTemp")} value="3-7 °C" hint={t("tortoise-hibernation-planner.ui.tempHint")} />
         <Stat label={t("tortoise-hibernation-planner.ui.statWeightLoss")} value={`${Math.round(weight * 0.01)} g`} hint={t("tortoise-hibernation-planner.ui.weightLossHint")} />
       </div>
       {dates && info.hibernates ? (
@@ -753,6 +755,9 @@ export function TortoiseHibernationPlanner() {
         </div>
       ) : null}
       <Notes items={[
+        ...(info.hibernates && (weeks < info.weeks[0] || weeks > info.weeks[1])
+          ? [t("tortoise-hibernation-planner.ui.noteWeeksRange", { weeks, lo: info.weeks[0], hi: info.weeks[1] })]
+          : []),
         info.note,
         t("tortoise-hibernation-planner.ui.noteVet"),
         t("tortoise-hibernation-planner.ui.noteWeigh"),

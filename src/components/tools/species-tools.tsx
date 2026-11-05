@@ -2222,10 +2222,11 @@ export function TurtleTank() {
           )}
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          t("turtle-tank-calculator.ui.recommendedTankFootprint") <strong>{calc.tankLIn}&quot; L × {calc.tankWIn}&quot; W × {calc.tankHIn}&quot; H</strong> ({Math.round(calc.tankLIn * 2.54)} × {Math.round(calc.tankWIn * 2.54)} × {Math.round(calc.tankHIn * 2.54)} cm)
+          {t("turtle-tank-calculator.ui.recommendedTankFootprint")} <strong>{calc.tankLIn}&quot; L × {calc.tankWIn}&quot; W × {calc.tankHIn}&quot; H</strong> ({Math.round(calc.tankLIn * 2.54)} × {Math.round(calc.tankWIn * 2.54)} × {Math.round(calc.tankHIn * 2.54)} cm)
         </p>
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {species !== "box" && (
           <div className="rounded-xl border bg-card/80 p-3 text-center">
             <div className="text-[11px] font-medium text-muted-foreground uppercase flex items-center justify-center gap-1">
               <Waves className="h-3.5 w-3.5 text-cyan-500" /> {t("turtle-tank-calculator.ui.filterFlow")}
@@ -2233,6 +2234,7 @@ export function TurtleTank() {
             <div className="mt-1 text-lg font-bold text-foreground">{calc.minFilterGph} GPH</div>
             <div className="text-[10px] text-muted-foreground">{t("turtle-tank-calculator.ui.canisterFilter35Volume")}</div>
           </div>
+          )}
 
           <div className="rounded-xl border bg-card/80 p-3 text-center">
             <div className="text-[11px] font-medium text-muted-foreground uppercase flex items-center justify-center gap-1">
@@ -2242,6 +2244,7 @@ export function TurtleTank() {
             <div className="text-[10px] text-muted-foreground">{t("turtle-tank-calculator.ui.n100DryPlatform")}</div>
           </div>
 
+          {species !== "box" && (
           <div className="rounded-xl border bg-card/80 p-3 text-center">
             <div className="text-[11px] font-medium text-muted-foreground uppercase flex items-center justify-center gap-1">
               <Zap className="h-3.5 w-3.5 text-amber-500" /> {t("turtle-tank-calculator.ui.waterHeater")}
@@ -2249,6 +2252,7 @@ export function TurtleTank() {
             <div className="mt-1 text-lg font-bold text-foreground">{t("turtle-tank-calculator.ui.watts", { v: calc.heaterWattage })}</div>
             <div className="text-[10px] text-muted-foreground">{t("turtle-tank-calculator.ui.target7580F2427")}</div>
           </div>
+          )}
 
           <div className="rounded-xl border bg-card/80 p-3 text-center">
             <div className="text-[11px] font-medium text-muted-foreground uppercase flex items-center justify-center gap-1">

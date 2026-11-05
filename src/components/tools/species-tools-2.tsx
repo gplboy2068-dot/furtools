@@ -1740,7 +1740,7 @@ export function PetHydrationCalculator() {
   const [species, setSpecies] = useState("dog");
   const [kg, setKg] = useState(15);
   const mlPerKg: Record<string, number> = { dog: 60, cat: 55, rabbit: 100, "guinea-pig": 100, bird: 50, ferret: 75 };
-  const ml = Math.round(kg * mlPerKg[species]);
+  const ml = Math.round(Math.max(0, kg || 0) * mlPerKg[species]);
   return (
     <CalculatorLayout
       form={<div className="space-y-4">
@@ -1758,7 +1758,7 @@ export function PetHydrationCalculator() {
 export function TrainingTreatPlanner() {
   const { t } = useTranslation("tools");
   const [dailyKcal, setDailyKcal] = useState(400);
-  const treatCap = Math.round(dailyKcal * 0.1);
+  const treatCap = Math.round(Math.max(0, dailyKcal || 0) * 0.1);
   const perTreat = 3;
   const maxTreats = Math.floor(treatCap / perTreat);
   return (

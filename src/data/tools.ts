@@ -1083,10 +1083,10 @@ const RAW_TOOLS: Tool[] = [
     keywords: ["pet bmi", "body condition"],
     layout: "calculator",
     medicalDisclaimer: true,
-    howItWorks: "We combine species, weight, and physical assessment answers into a 9-point Body Condition Score with plain-language guidance.",
+    howItWorks: "Three hands-on checks — how easily the ribs are felt, whether a waist is visible from above, and how prominent the back and hip bones are — are averaged into a 9-point Body Condition Score with plain-language guidance. Works for dogs and cats; no scales or measurements needed.",
     examples: [
-      { label: "Cat, easy ribs + waist", result: "BCS 5 — Ideal" },
-      { label: "Dog, hard ribs + no waist", result: "BCS 7 — Overweight" },
+      { label: "Cat, easy ribs + visible waist + slight bone cover", result: "BCS 4 — Ideal" },
+      { label: "Dog, hard ribs + no waist + slight bone cover", result: "BCS 7 — Overweight" },
     ],
     faqs: [
       { q: "Which is better — dog or cat BCS?", a: "The 9-point scale works for both, but the thresholds are the same." },
@@ -1899,7 +1899,7 @@ const RAW_TOOLS: Tool[] = [
   { slug: "training-treat-planner", name: "Training Treat Planner", tagline: "Treats without weight gain",
     description: "Calculate the maximum calories your pet can safely eat as training treats each day.",
     category: "general", keywords: ["training treats", "pet weight"], layout: "calculator",
-    howItWorks: "Uses the 10%-rule: treats should never exceed 10% of daily calories. Adjusts meal size accordingly.",
+    howItWorks: "Uses the 10% rule: treats should never exceed 10% of daily calories. The result shows the treat-calorie cap and how many standard 3-kcal treats fit inside it — trim the day's meals by the same calories so total intake stays flat.",
     examples: [ { label: "400 kcal dog", result: "40 kcal · ~13 treats" }, { label: "220 kcal cat", result: "22 kcal · ~7 treats" } ],
     faqs: [ { q: "Best low-cal treats?", a: "Freeze-dried single ingredients, tiny cheese cubes, or plain green beans." }, ...COMMON_FAQS ],
     relatedArticles: GENERAL_ARTICLES, updatedAt: "2026-07-16" },
@@ -4134,7 +4134,7 @@ const RAW_TOOLS: Tool[] = [
     layout: "calculator",
     howItWorks: "Hobbyist husbandry standards scale enclosure dimensions to diagonal leg span (DLS). Terrestrial species need roughly 3× DLS of floor length with height capped near 1.5× DLS because falls rupture the abdomen. Arboreal species invert that ratio — around 4× DLS of height with vertical cork bark. Fossorial species need deep substrate, about 2.5× DLS, so they can construct a stable burrow.",
     examples: [
-      { label: '5" terrestrial Brachypelma', result: '≈ 15" × 10" floor, 7" tall, 4" substrate' },
+      { label: '5" terrestrial Brachypelma', result: '≈ 15" × 11" floor, 8" tall, 4" substrate' },
       { label: '4" arboreal Avicularia', result: '≈ 8" × 6" floor, 16" tall, 2" substrate' },
     ],
     faqs: [
@@ -4156,7 +4156,7 @@ const RAW_TOOLS: Tool[] = [
     slug: "tarantula-feeding-schedule",
     name: "Tarantula Feeding Schedule",
     tagline: "Prey size and feeding frequency by life stage",
-    description: "Get a feeding interval, prey size limit and monthly feeding count for your tarantula, with automatic pre-moult adjustments.",
+    description: "Get a feeding interval, prey size limit and monthly prey count for your tarantula, with automatic pre-moult adjustments.",
     category: "reptiles",
     keywords: ["tarantula feeding schedule", "how often to feed tarantula", "tarantula prey size", "tarantula premoult", "spiderling feeding"],
     layout: "calculator",
@@ -4416,7 +4416,7 @@ const RAW_TOOLS: Tool[] = [
     keywords: ["tortoise hibernation", "tortoise brumation", "jackson ratio", "hermann tortoise hibernation", "tortoise fridge hibernation"],
     layout: "calculator",
     medicalDisclaimer: true,
-    howItWorks: "We check whether your species hibernates at all, calculate the Jackson ratio from weight and straight carapace length as a body-condition screen, then build a timeline: gut-emptying fast, gradual cooling, the hibernation window at 4-8 °C, and a controlled warm-up with a first bath.",
+    howItWorks: "We check whether your species hibernates at all, calculate the Jackson ratio from weight and straight carapace length as a body-condition screen, then build a timeline: gut-emptying fast, gradual cooling, the hibernation window at 3-7 °C, and a controlled warm-up with a first bath.",
     examples: [
       { label: "Hermann's, 800 g, 15 cm", result: "Jackson ≈ 0.24, 8-16 weeks suitable" },
       { label: "Sulcata tortoise", result: "Do not hibernate — tropical species" },
