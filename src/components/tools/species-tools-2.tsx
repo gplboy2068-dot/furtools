@@ -1258,12 +1258,20 @@ export function HorseBlanketSize() {
   const [clipped, setClipped] = useState<"unclipped" | "trace" | "full">("unclipped");
   const [weatherTemp, setWeatherTemp] = useState<"mild" | "cold" | "freezing">("cold");
 
-  const inches = unit === "cm" ? Math.round(chestToTail / 2.54) : chestToTail;
-  // US sizing: measured center of chest to center of tail (round to nearest 2 inches)
-  const usSize = Math.round(inches / 2) * 2;
+  const rawInches = unit === "cm" ? Math.round(chestToTail / 2.54) : chestToTail;
+  // Clamp to the range blanket sizes are actually made in, so a cleared or
+  // mistyped field can't render negative EU / UK sizes.
+  const inches = Math.min(102, Math.max(36, rawInches || 0));
+  // US sizing: measured center of chest to center of tail, sold in 3-inch
+  // increments (…72, 75, 78, 81, 84…); between sizes you always round UP —
+  // the old nearest-even rounding produced non-stock sizes (76, 80, 82…)
+  // and could round a measurement DOWN to a too-small blanket.
+  const usSize = Math.ceil(inches / 3) * 3;
   // European sizing: measured withers to dock of tail (approx usSize - 22 to 24 inches)
   const euSizeCm = Math.round((usSize - 22) * 2.54);
-  const ukFeet = `${Math.floor((usSize - 12) / 12)}'${(usSize - 12) % 12}"`;
+  // UK sizing: the same overall length expressed in feet & inches (78" = 6'6").
+  // The old formula subtracted 12 inches and called a 78" blanket a 5'6" pony rug.
+  const ukFeet = `${Math.floor(usSize / 12)}'${usSize % 12}"`;
 
   // Gram fill recommendation matrix
   const getFillRecommendation = () => {

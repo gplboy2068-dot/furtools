@@ -1184,7 +1184,10 @@ export function HamsterLifespan() {
   const careBonus = careTier === "optimal" ? 0.3 : 0;
 
   const minYears = (minBase + originBonus * 0.5 + careBonus * 0.5).toFixed(1);
-  const maxYears = (maxBase + originBonus + careBonus).toFixed(1);
+  // Cap the stacked genetics + care bonus so the projection stays within
+  // ~6 months of the species' documented maximum (an uncapped Roborovski
+  // projected 4.7 years against a published 3-4 year lifespan).
+  const maxYears = Math.min(maxBase + originBonus + careBonus, maxBase + 0.5).toFixed(1);
 
   return (
     <CalculatorLayout
@@ -2380,16 +2383,25 @@ export function HorseAge() {
   const [years, setYears] = useState(8);
   const [breedType, setBreedType] = useState<"pony" | "light" | "warmblood" | "draft">("light");
 
-  // Non-linear physiological aging curve
+  // Non-linear physiological aging curve. Fractional ages interpolate
+  // linearly between the published anchors (1->6.5, 2->13, 3->18, 4->21);
+  // previously any non-integer age under 4 fell through to the adult rate,
+  // so a 6-month foal scored 12 human years.
   const calculateHumanEquiv = (y: number, b: string) => {
     if (y <= 0) return 0;
-    if (y === 1) return 6.5;
-    if (y === 2) return 13;
-    if (y === 3) return 18;
-    if (y === 4) return 21;
-    const baseAfter4 = 21;
+    const anchors: [number, number][] = [[0, 0], [1, 6.5], [2, 13], [3, 18], [4, 21]];
+    if (y <= 4) {
+      for (let i = 1; i < anchors.length; i++) {
+        if (y <= anchors[i][0]) {
+          const [x0, y0] = anchors[i - 1];
+          const [x1, y1] = anchors[i];
+          // Round to the nearest half year so the year-1 anchor stays 6.5.
+          return Math.round((y0 + ((y - x0) / (x1 - x0)) * (y1 - y0)) * 2) / 2;
+        }
+      }
+    }
     const annualFactor = b === "pony" ? 2.2 : b === "draft" ? 3.0 : 2.5;
-    return Math.round(baseAfter4 + (y - 4) * annualFactor);
+    return Math.round(21 + (y - 4) * annualFactor);
   };
 
   const humanAge = calculateHumanEquiv(years, breedType);
@@ -2413,7 +2425,7 @@ export function HorseAge() {
           </div>
           <div>
             <Label>{t("horse-age-calculator.ui.horseChronologicalAgeYears")}</Label>
-            <Input type="number" min={0} max={50} value={years} onChange={(e) => setYears(+e.target.value || 0)} className="mt-1.5" />
+            <Input type="number" min={0} max={50} value={years} onChange={(e) => setYears(Math.min(50, Math.max(0, +e.target.value || 0)))} className="mt-1.5" />
           </div>
         </div>
       }
@@ -2477,18 +2489,33 @@ export function HorseBCS() {
             </Select>
           </div>
           <div>
-            <Label className="text-xs">{t("horse-body-condition-score.ui.n2WithersShoulder")}</Label>
+            <Label className="text-xs">{t("horse-body-condition-score.ui.nWithers")}</Label>
             <Select value={String(withers)} onValueChange={(v) => setWithers(+v as typeof withers)}>
               <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="1">{t("horse-body-condition-score.ui.sharpHollowedBehindShoulderBCS1")}</SelectItem>
-                <SelectItem value="5">{t("horse-body-condition-score.ui.roundedWithersSmoothShoulderBlendBCS")}</SelectItem>
-                <SelectItem value="9">{t("horse-body-condition-score.ui.bulgingFatPadsBehindShoulderWithers")}</SelectItem>
+                <SelectItem value="1">{t("horse-body-condition-score.ui.withersBCS1")}</SelectItem>
+                <SelectItem value="3">{t("horse-body-condition-score.ui.withersBCS3")}</SelectItem>
+                <SelectItem value="5">{t("horse-body-condition-score.ui.withersBCS5")}</SelectItem>
+                <SelectItem value="7">{t("horse-body-condition-score.ui.withersBCS7")}</SelectItem>
+                <SelectItem value="9">{t("horse-body-condition-score.ui.withersBCS9")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label className="text-xs">{t("horse-body-condition-score.ui.n3RibPalpation")}</Label>
+            <Label className="text-xs">{t("horse-body-condition-score.ui.nShoulder")}</Label>
+            <Select value={String(shoulder)} onValueChange={(v) => setShoulder(+v as typeof shoulder)}>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">{t("horse-body-condition-score.ui.shoulderBCS1")}</SelectItem>
+                <SelectItem value="3">{t("horse-body-condition-score.ui.shoulderBCS3")}</SelectItem>
+                <SelectItem value="5">{t("horse-body-condition-score.ui.shoulderBCS5")}</SelectItem>
+                <SelectItem value="7">{t("horse-body-condition-score.ui.shoulderBCS7")}</SelectItem>
+                <SelectItem value="9">{t("horse-body-condition-score.ui.shoulderBCS9")}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="text-xs">{t("horse-body-condition-score.ui.nRibs")}</Label>
             <Select value={String(ribs)} onValueChange={(v) => setRibs(+v as typeof ribs)}>
               <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -2501,13 +2528,28 @@ export function HorseBCS() {
             </Select>
           </div>
           <div>
-            <Label className="text-xs">{t("horse-body-condition-score.ui.n4SpineLoinTailhead")}</Label>
+            <Label className="text-xs">{t("horse-body-condition-score.ui.nLoin")}</Label>
             <Select value={String(spine)} onValueChange={(v) => setSpine(+v as typeof spine)}>
               <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="1">{t("horse-body-condition-score.ui.sharpRidgeSpineProminentTailheadBone")}</SelectItem>
-                <SelectItem value="5">{t("horse-body-condition-score.ui.flatLevelBackWithSpongyTailhead")}</SelectItem>
-                <SelectItem value="9">{t("horse-body-condition-score.ui.deepGutterCreaseDownSpineBulging")}</SelectItem>
+                <SelectItem value="1">{t("horse-body-condition-score.ui.loinBCS1")}</SelectItem>
+                <SelectItem value="3">{t("horse-body-condition-score.ui.loinBCS3")}</SelectItem>
+                <SelectItem value="5">{t("horse-body-condition-score.ui.loinBCS5")}</SelectItem>
+                <SelectItem value="7">{t("horse-body-condition-score.ui.loinBCS7")}</SelectItem>
+                <SelectItem value="9">{t("horse-body-condition-score.ui.loinBCS9")}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="text-xs">{t("horse-body-condition-score.ui.nTailhead")}</Label>
+            <Select value={String(tailhead)} onValueChange={(v) => setTailhead(+v as typeof tailhead)}>
+              <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">{t("horse-body-condition-score.ui.tailheadBCS1")}</SelectItem>
+                <SelectItem value="3">{t("horse-body-condition-score.ui.tailheadBCS3")}</SelectItem>
+                <SelectItem value="5">{t("horse-body-condition-score.ui.tailheadBCS5")}</SelectItem>
+                <SelectItem value="7">{t("horse-body-condition-score.ui.tailheadBCS7")}</SelectItem>
+                <SelectItem value="9">{t("horse-body-condition-score.ui.tailheadBCS9")}</SelectItem>
               </SelectContent>
             </Select>
           </div>

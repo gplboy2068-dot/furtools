@@ -180,8 +180,14 @@ export function HedgehogWheelSize() {
   const [length, setLength] = useState(8); // inches nose-to-tail
   const [surface, setSurface] = useState<"solid" | "mesh" | "bucket">("solid");
 
-  const diameter = length >= 9 || weight >= 600 ? 14 : length >= 7 ? 12 : 11;
-  const safe = surface === "solid";
+  // 12 in is the accepted minimum for any adult hedgehog — a smaller wheel
+  // curves the spine (this tool previously recommended 11 in for small
+  // adults); large or long-bodied animals need 14 in.
+  const diameter = length >= 9 || weight >= 600 ? 14 : 12;
+  // A bucket wheel has a continuous solid running surface, so it is safe;
+  // only mesh / barred surfaces trap toes. (Bucket previously scored
+  // "unsafe" and displayed the mesh warning.)
+  const safe = surface !== "mesh";
 
   const form = (
     <div className="space-y-4">
@@ -235,11 +241,15 @@ export function HedgehogDietCalculator() {
   const [goal, setGoal] = useState<"maintain" | "lose" | "gain">("maintain");
   const [kcalPerCup, setKcal] = useState(350);
 
-  const base = weight * 0.16; // kcal/day approx (70 * (kg^0.75) style simplified for insectivore)
+  // Clamp to plausible hedgehog / kibble ranges so a cleared or mistyped
+  // field can't render absurd portions (1 kcal/cup previously gave 8.6 kg).
+  const w = Math.min(1500, Math.max(50, weight || 0));
+  const kPerCup = Math.min(800, Math.max(150, kcalPerCup || 0));
+  const base = w * 0.16; // kcal/day approx (70 * (kg^0.75) style simplified for insectivore)
   const actMul = activity === "low" ? 0.9 : activity === "high" ? 1.15 : 1;
   const goalMul = goal === "lose" ? 0.85 : goal === "gain" ? 1.15 : 1;
   const kcal = Math.round(base * actMul * goalMul);
-  const grams = Math.round((kcal / kcalPerCup) * 120); // 1 cup ≈ 120 g kibble
+  const grams = Math.round((kcal / kPerCup) * 120); // 1 cup ≈ 120 g kibble
   const tbsp = Math.round((grams / 8) * 10) / 10;
 
   const form = (

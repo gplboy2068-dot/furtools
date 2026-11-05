@@ -23,6 +23,17 @@ function useLocalState<T>(key: string, initial: T): [T, (v: T | ((p: T) => T)) =
 function fmt(d: Date) {
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
+// Parse a "YYYY-MM-DD" field value as a LOCAL date: new Date("2026-02-01") is
+// UTC midnight, which renders as the previous day west of UTC (off-by-one),
+// and toISOString() can pre-fill a different calendar day than the local one.
+function parseLocalDate(s: string): Date | null {
+  const [y, m, d] = (s || "").split("-").map(Number);
+  return y && m && d ? new Date(y, m - 1, d) : null;
+}
+function localToday(): string {
+  const n = new Date();
+  return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, "0")}-${String(n.getDate()).padStart(2, "0")}`;
+}
 function addDays(d: Date, n: number) {
   const r = new Date(d); r.setDate(r.getDate() + n); return r;
 }
@@ -47,12 +58,14 @@ export function HeatCycleTracker() {
   ];
   const [species, setSpecies] = useState("dog");
   const [events, setEvents] = useLocalState<HeatEvent[]>("furtools:heat-cycle", []);
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [date, setDate] = useState(localToday());
   const [stage, setStage] = useState("Proestrus (bleeding starts)");
   const [notes, setNotes] = useState("");
   const info = cycleInfo[species];
-  const lastCycle = events[0];
-  const nextExpected = lastCycle ? addDays(new Date(lastCycle.date), info.intervalDays) : null;
+  // The "last cycle" is the latest-DATED entry, not the most recently typed one.
+  const lastCycle = events.length ? events.reduce((a, b) => (b.date > a.date ? b : a)) : undefined;
+  const lastDate = lastCycle ? parseLocalDate(lastCycle.date) : null;
+  const nextExpected = lastDate ? addDays(lastDate, info.intervalDays) : null;
 
   const form = (
     <div className="space-y-3">
@@ -80,6 +93,7 @@ export function HeatCycleTracker() {
       <div><Label>{t("heat-cycle-tracker.ui.notesLabel")}</Label><Input value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={t("heat-cycle-tracker.ui.notesPlaceholder")} /></div>
       <Button
         onClick={() => {
+          if (!parseLocalDate(date)) return;
           setEvents((prev) => [{ id: crypto.randomUUID(), date, stage, notes }, ...prev]);
           setNotes("");
         }}
@@ -106,7 +120,7 @@ export function HeatCycleTracker() {
           {events.slice(0, 10).map((e) => (
             <li key={e.id} className="rounded-lg bg-background/60 p-3 text-xs">
               <div className="flex justify-between">
-                <span className="font-medium">{fmt(new Date(e.date))}</span>
+                <span className="font-medium">{fmt(parseLocalDate(e.date) ?? new Date())}</span>
                 <button className="text-destructive" onClick={() => setEvents((p) => p.filter((x) => x.id !== e.id))}>{t("heat-cycle-tracker.ui.deleteButton")}</button>
               </div>
               <div>{e.stage}</div>

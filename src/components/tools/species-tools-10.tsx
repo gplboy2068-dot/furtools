@@ -437,10 +437,17 @@ export function HorseFarrierSchedule() {
   const remove = (id: string) => setHorses((h) => h.filter(x => x.id !== id));
 
   const rows = horses.map(h => {
-    const next = new Date(h.last);
+    // Parse the stored "YYYY-MM-DD" as a LOCAL date (new Date() parses it as
+    // UTC midnight) and count whole days against local today — the old
+    // UTC round-trip could shift the due date / day count by one.
+    const [y, m, d] = h.last.split("-").map(Number);
+    const next = new Date(y, (m || 1) - 1, d || 1);
     next.setDate(next.getDate() + h.interval * 7);
-    const days = Math.round((next.getTime() - Date.now()) / 86400000);
-    return { ...h, nextDate: next.toISOString().slice(0, 10), days };
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const days = Math.round((next.getTime() - todayStart.getTime()) / 86400000);
+    const nextDate = `${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, "0")}-${String(next.getDate()).padStart(2, "0")}`;
+    return { ...h, nextDate, days };
   });
 
   const form = (
@@ -449,7 +456,7 @@ export function HorseFarrierSchedule() {
       <div><Label>{t("horse-farrier-schedule.ui.dateLabel")}</Label><Input type="date" value={date} onChange={(e) => setDate(e.target.value)} /></div>
       <div>
         <Label>{t("horse-farrier-schedule.ui.intervalLabel", { weeks: interval })}</Label>
-        <Slider value={[interval]} min={4} max={10} step={1} onValueChange={(v) => setInterval(v[0])} />
+        <Slider value={[interval]} min={4} max={8} step={1} onValueChange={(v) => setInterval(v[0])} />
         <p className="text-xs text-muted-foreground mt-1">{t("horse-farrier-schedule.ui.intervalHint")}</p>
       </div>
       <label className="flex items-center gap-2 text-sm"><Checkbox checked={shod} onCheckedChange={(v) => setShod(!!v)} /> {t("horse-farrier-schedule.ui.shodLabel")}</label>

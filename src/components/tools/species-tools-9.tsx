@@ -50,6 +50,12 @@ export function HeatstrokeRiskCalculator() {
     if (coat === "thick") s += 12; else if (coat === "double") s += 15; else if (coat === "short") s -= 3;
     if (activity === "vigorous") s += 20; else if (activity === "moderate") s += 8;
     s = Math.max(0, Math.round(s));
+    // Heat-index floors (NWS bands): a heat index of 90+ F is never "low risk"
+    // for a dog, and 103+ F sits in the danger band even for a resting,
+    // short-coated dog — the additive score alone under-called dry heat
+    // (95 F at 20% humidity scored "Low — normal outdoor time is fine").
+    if (hi >= 103) s = Math.max(s, 55);
+    else if (hi >= 90) s = Math.max(s, 30);
     let tone: "safe" | "caution" | "danger" | "extreme" = "safe";
     let label = t("heatstroke-risk-calculator.ui.riskLow");
     let advice = t("heatstroke-risk-calculator.ui.adviceLow");
