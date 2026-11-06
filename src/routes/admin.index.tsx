@@ -199,9 +199,12 @@ function PushNotificationsCard() {
         <h2 className="flex items-center gap-2 font-display text-lg font-semibold">
           <Bell className="size-5 text-primary" /> Push notifications
         </h2>
-        <span className="text-xs text-muted-foreground">
-          {count === null ? "Subscriber count unavailable" : `${count} subscriber(s)`}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-muted-foreground">
+            {count === null ? "Subscriber count unavailable" : `${count} subscriber(s)`}
+          </span>
+          <Link to="/admin/push" className="text-xs text-primary hover:underline">Full page →</Link>
+        </div>
       </div>
       <p className="mb-4 text-sm text-muted-foreground">
         Send a browser push notification to everyone who subscribed on the site
@@ -233,14 +236,14 @@ function PushNotificationsCard() {
         <div className="flex items-center gap-3">
           <button
             type="submit"
-            disabled={sending || !title.trim() || count === 0}
+            disabled={sending || !title.trim()}
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
             <Send className="size-4" /> {sending ? "Sending…" : "Send notification"}
           </button>
           {count === 0 ? (
             <span className="text-xs text-muted-foreground">
-              No subscribers yet — the button activates once someone subscribes.
+              No subscribers yet — a send now reaches nobody. Subscribe on your own device first to test it.
             </span>
           ) : null}
         </div>
