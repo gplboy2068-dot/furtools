@@ -140,7 +140,7 @@ export function PushPrompt() {
       role="dialog"
       aria-live="polite"
       aria-label="Push notifications"
-      className="fixed bottom-4 left-4 right-4 z-[100] max-w-sm rounded-2xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur sm:left-6 sm:right-auto sm:bottom-6 relative"
+      className="fixed inset-x-4 top-[4.5rem] z-[100] max-w-sm rounded-2xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur sm:left-6 sm:right-auto"
     >
       <button
         type="button"
