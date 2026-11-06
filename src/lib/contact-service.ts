@@ -1,8 +1,14 @@
 /**
- * Contact Inquiries Management Service for FurTools
- * Handles saving, fetching, updating, and syncing user queries submitted via the Contact form.
+ * Contact Inquiries service for FurTools.
+ *
+ * Submissions go to the D1-backed API (POST /api/contact in src/server.ts);
+ * the admin inbox reads and manages them through the admin-gated
+ * /api/admin/inquiries endpoints. Messages live on the server — nothing is
+ * kept in the visitor's browser. (The previous version saved inquiries only
+ * to the submitter's localStorage, so they never reached the admin, and the
+ * admin page showed seeded sample data instead.)
  */
-
+import { getAuthToken } from "@/lib/admin-data";
 
 export interface ContactInquiry {
   id: string;
@@ -18,67 +24,7 @@ export interface ContactInquiry {
   admin_notes?: string;
 }
 
-const LOCAL_STORAGE_KEY = "furtools_contact_inquiries";
-
-// Initial fallback sample data if storage is empty
-const INITIAL_SAMPLE_INQUIRIES: ContactInquiry[] = [
-  {
-    id: "inq-sample-1",
-    name: "Dr. Sarah Jenkins",
-    email: "s.jenkins@vetclinic.org",
-    category: "Tool Suggestion",
-    message: "Hello FurTools team, love the Dog Calorie and Nitrate calculators! Would it be possible to add a Canine Dehydration & Fluid Therapy calculator for post-operative recovery?",
-    status: "unread",
-    created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
-    page_url: "https://www.furtools.com/tools/calorie-calculator",
-  },
-  {
-    id: "inq-sample-2",
-    name: "Alex Rivera",
-    email: "alex.rivera92@gmail.com",
-    category: "Technical Issue",
-    message: "When using the Smart Collar QR code generator on mobile Safari, the downloadable image resolution was slightly truncated at 300dpi. Could you check the canvas rendering on iOS?",
-    status: "read",
-    created_at: new Date(Date.now() - 86400000 * 1).toISOString(),
-    page_url: "https://www.furtools.com/tools/smart-collar-qr",
-  },
-  {
-    id: "inq-sample-3",
-    name: "Liam O'Connor",
-    email: "liam@petlifeblog.co.uk",
-    category: "Partnership",
-    message: "We run a pet care community with 45k monthly readers. We would love to feature FurTools calculators as an embedded widget and collaborate on exotic pet care articles.",
-    status: "responded",
-    created_at: new Date(Date.now() - 86400000 * 3).toISOString(),
-    page_url: "https://www.furtools.com/contact",
-  },
-];
-
-export function getLocalInquiries(): ContactInquiry[] {
-  if (typeof window === "undefined") return INITIAL_SAMPLE_INQUIRIES;
-  try {
-    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (!raw) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(INITIAL_SAMPLE_INQUIRIES));
-      return INITIAL_SAMPLE_INQUIRIES;
-    }
-    return JSON.parse(raw);
-  } catch {
-    return INITIAL_SAMPLE_INQUIRIES;
-  }
-}
-
-export function saveLocalInquiry(inquiry: ContactInquiry) {
-  if (typeof window === "undefined") return;
-  try {
-    const current = getLocalInquiries();
-    const updated = [inquiry, ...current.filter((i) => i.id !== inquiry.id)];
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-    window.dispatchEvent(new Event("furtools_inquiries_updated"));
-  } catch (err) {
-    console.error("Failed to save inquiry locally:", err);
-  }
-}
+export const INQUIRIES_UPDATED_EVENT = "furtools_inquiries_updated";
 
 export async function submitContactInquiry(data: {
   name: string;
@@ -86,49 +32,51 @@ export async function submitContactInquiry(data: {
   category: string;
   message: string;
 }): Promise<{ success: boolean; id: string; error?: string }> {
-  const id = `inq-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
-  const inquiry: ContactInquiry = {
-    id,
-    name: data.name.trim(),
-    email: data.email.trim(),
-    category: data.category || "General Question",
-    message: data.message.trim(),
-    status: "unread",
-    created_at: new Date().toISOString(),
-    page_url: typeof window !== "undefined" ? window.location.href : "",
-    user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
-  };
-
-  // 1. Always save in local persistent storage first for 100% fail-safe reliability
-  saveLocalInquiry(inquiry);
-
-  // 2. Log as a D1 analytics event for tracking (non-blocking)
   try {
-    await fetch("/api/events", {
+    const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        event_type: "contact_inquiry_submitted",
-        path: "/contact",
-        metadata: {
-          inquiry_id: id,
-          name: inquiry.name,
-          email: inquiry.email,
-          category: inquiry.category,
-          message: inquiry.message,
-        },
+        name: data.name,
+        email: data.email,
+        category: data.category,
+        message: data.message,
+        page_url: typeof window !== "undefined" ? window.location.href : "",
       }),
     });
-  } catch (eventErr) {
-    // Non-blocking: local storage has already safely captured the query
-    console.warn("Event logging notice:", eventErr);
+    const body = (await res.json().catch(() => ({}))) as any;
+    if (res.ok && body.success) return { success: true, id: String(body.id || "") };
+    return { success: false, id: "", error: body.error || "Could not send message" };
+  } catch {
+    return { success: false, id: "", error: "Network error" };
   }
+}
 
-  return { success: true, id };
+async function adminInquiriesFetch(path: string, init: RequestInit = {}): Promise<any> {
+  const token = getAuthToken();
+  const res = await fetch(path, {
+    ...init,
+    headers: {
+      "content-type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(init.headers || {}),
+    },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data?.error || `Request failed (${res.status})`);
+  }
+  return data;
 }
 
 export async function fetchAllInquiries(): Promise<ContactInquiry[]> {
-  return getLocalInquiries();
+  try {
+    const data = await adminInquiriesFetch("/api/admin/inquiries");
+    return (data.inquiries ?? []) as ContactInquiry[];
+  } catch (err) {
+    console.error("Failed to load inquiries:", err);
+    return [];
+  }
 }
 
 export async function updateInquiryStatus(
@@ -136,41 +84,32 @@ export async function updateInquiryStatus(
   status: ContactInquiry["status"],
   adminNotes?: string
 ): Promise<boolean> {
-  if (typeof window === "undefined") return false;
   try {
-    const current = getLocalInquiries();
-    const updated = current.map((item) =>
-      item.id === id
-        ? {
-            ...item,
-            status,
-            admin_notes: adminNotes !== undefined ? adminNotes : item.admin_notes,
-            updated_at: new Date().toISOString(),
-          }
-        : item
-    );
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-    window.dispatchEvent(new Event("furtools_inquiries_updated"));
+    await adminInquiriesFetch("/api/admin/inquiries", {
+      method: "PATCH",
+      body: JSON.stringify({
+        id,
+        status,
+        ...(adminNotes !== undefined ? { admin_notes: adminNotes } : {}),
+      }),
+    });
+    window.dispatchEvent(new Event(INQUIRIES_UPDATED_EVENT));
     return true;
-  } catch {
+  } catch (err) {
+    console.error("Failed to update inquiry:", err);
     return false;
   }
 }
 
 export async function deleteInquiry(id: string): Promise<boolean> {
-  if (typeof window === "undefined") return false;
   try {
-    const current = getLocalInquiries();
-    const updated = current.filter((item) => item.id !== id);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-    window.dispatchEvent(new Event("furtools_inquiries_updated"));
+    await adminInquiriesFetch(`/api/admin/inquiries?id=${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    });
+    window.dispatchEvent(new Event(INQUIRIES_UPDATED_EVENT));
     return true;
-  } catch {
+  } catch (err) {
+    console.error("Failed to delete inquiry:", err);
     return false;
   }
-}
-
-export function getUnreadInquiryCount(): number {
-  const inquiries = getLocalInquiries();
-  return inquiries.filter((i) => i.status === "unread").length;
 }

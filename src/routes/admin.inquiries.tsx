@@ -47,7 +47,7 @@ import {
 import { toast } from "sonner";
 import {
   ContactInquiry,
-  getLocalInquiries,
+  fetchAllInquiries,
   updateInquiryStatus,
   deleteInquiry,
 } from "@/lib/contact-service";
@@ -113,14 +113,17 @@ export function AdminInquiriesPage() {
   const [adminNotes, setAdminNotes] = useState("");
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-  const loadInquiries = () => {
-    const list = getLocalInquiries();
+  const [loading, setLoading] = useState(true);
+
+  const loadInquiries = async () => {
+    const list = await fetchAllInquiries();
     setInquiries(list);
+    setLoading(false);
   };
 
   useEffect(() => {
-    loadInquiries();
-    const handler = () => loadInquiries();
+    void loadInquiries();
+    const handler = () => void loadInquiries();
     window.addEventListener("furtools_inquiries_updated", handler);
     return () => window.removeEventListener("furtools_inquiries_updated", handler);
   }, []);
@@ -342,11 +345,13 @@ export function AdminInquiriesPage() {
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-12 text-center">
             <Inbox className="size-12 text-muted-foreground/50 mb-3" />
-            <h3 className="font-display text-base font-semibold">No inquiries found</h3>
+            <h3 className="font-display text-base font-semibold">{loading ? "Loading inquiries…" : "No inquiries found"}</h3>
             <p className="mt-1 text-xs text-muted-foreground max-w-sm">
-              {search || statusFilter !== "all" || categoryFilter !== "all"
-                ? "Try adjusting your search query or filters."
-                : "When users submit the Contact form, their queries will instantly appear here."}
+              {loading
+                ? "Fetching the latest messages from the server."
+                : search || statusFilter !== "all" || categoryFilter !== "all"
+                  ? "Try adjusting your search query or filters."
+                  : "When users submit the Contact form, their queries will instantly appear here."}
             </p>
           </div>
         ) : (

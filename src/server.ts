@@ -402,6 +402,38 @@ export default {
       }
     }
 
+    // Fast-path API: Contact form — public submit into D1 (contact_inquiries).
+    // The admin inbox reads these via /api/admin/inquiries in the admin block
+    // below. (Previously the form only wrote to the visitor's own localStorage,
+    // so messages never reached the admin at all.)
+    if (url.pathname === "/api/contact" && request.method === "POST") {
+      const jsonRes = (body: unknown, status = 200) =>
+        new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
+      try {
+        const { getD1 } = await import("./lib/cloudflare-context");
+        const db = getD1();
+        if (!db) return jsonRes({ success: false, error: "Database not available" }, 500);
+        await db.prepare("CREATE TABLE IF NOT EXISTS contact_inquiries (id TEXT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, category TEXT NOT NULL DEFAULT 'General Question', message TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'unread', page_url TEXT, user_agent TEXT, admin_notes TEXT, created_at TEXT DEFAULT (datetime('now')), updated_at TEXT DEFAULT (datetime('now')))").run();
+        const body = (await request.json().catch(() => ({}))) as any;
+        const name = String(body.name || "").trim().slice(0, 120);
+        const email = String(body.email || "").trim().slice(0, 254);
+        const message = String(body.message || "").trim().slice(0, 5000);
+        const CATEGORIES = ["General Question", "Technical Issue", "Content Correction", "Tool Suggestion", "Partnership", "Advertising", "Privacy", "Copyright"];
+        const category = CATEGORIES.includes(String(body.category || "")) ? String(body.category) : "General Question";
+        if (!name || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          return jsonRes({ success: false, error: "Name, a valid email, and a message are required" }, 400);
+        }
+        const id = `inq-${crypto.randomUUID()}`;
+        await db.prepare("INSERT INTO contact_inquiries (id, name, email, category, message, status, page_url, user_agent) VALUES (?, ?, ?, ?, ?, 'unread', ?, ?)")
+          .bind(id, name, email, category, message, String(body.page_url || "").slice(0, 500) || null, String(request.headers.get("user-agent") || "").slice(0, 500))
+          .run();
+        return jsonRes({ success: true, id });
+      } catch (err: any) {
+        console.error("Contact API error:", err);
+        return jsonRes({ success: false, error: "Could not send message" }, 500);
+      }
+    }
+
     // Fast-path API: Phase 1 — admin data (D1 session + admin role required)
     if (url.pathname.startsWith("/api/admin/")) {
       const jsonRes = (body: unknown, status = 200) =>
@@ -504,6 +536,35 @@ export default {
             icon: "/favicon.png",
           });
           return jsonRes({ success: true, ...result });
+        }
+
+        if (url.pathname === "/api/admin/inquiries") {
+          await db.prepare("CREATE TABLE IF NOT EXISTS contact_inquiries (id TEXT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, category TEXT NOT NULL DEFAULT 'General Question', message TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'unread', page_url TEXT, user_agent TEXT, admin_notes TEXT, created_at TEXT DEFAULT (datetime('now')), updated_at TEXT DEFAULT (datetime('now')))").run();
+          if (request.method === "GET") {
+            const { results } = await db.prepare("SELECT id, name, email, category, message, status, page_url, user_agent, admin_notes, created_at, updated_at FROM contact_inquiries ORDER BY created_at DESC LIMIT 500").all();
+            return jsonRes({ inquiries: results || [] });
+          }
+          const body = (await request.json().catch(() => ({}))) as any;
+          if (request.method === "PATCH") {
+            const id = String(body.id || "");
+            if (!id) return jsonRes({ error: "id required" }, 400);
+            const STATUSES = ["unread", "read", "responded", "resolved", "archived"];
+            const sets: string[] = [];
+            const binds: unknown[] = [];
+            if (STATUSES.includes(String(body.status || ""))) { sets.push("status = ?"); binds.push(String(body.status)); }
+            if (typeof body.admin_notes === "string") { sets.push("admin_notes = ?"); binds.push(body.admin_notes.slice(0, 5000)); }
+            if (sets.length === 0) return jsonRes({ error: "Nothing to update" }, 400);
+            sets.push("updated_at = datetime('now')");
+            await db.prepare(`UPDATE contact_inquiries SET ${sets.join(", ")} WHERE id = ?`).bind(...binds, id).run();
+            return jsonRes({ success: true });
+          }
+          if (request.method === "DELETE") {
+            const id = String(url.searchParams.get("id") || body.id || "");
+            if (!id) return jsonRes({ error: "id required" }, 400);
+            await db.prepare("DELETE FROM contact_inquiries WHERE id = ?").bind(id).run();
+            return jsonRes({ success: true });
+          }
+          return jsonRes({ error: "Method not allowed" }, 405);
         }
 
         if (url.pathname.startsWith("/api/admin/data/")) {
