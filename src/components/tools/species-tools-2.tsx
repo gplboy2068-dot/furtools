@@ -111,6 +111,59 @@ export function DogCrateSize() {
   );
 }
 
+const STROLLER_CLASS: { maxKg: number; size: string; heightCm: number }[] = [
+  { maxKg: 5, size: "toy", heightCm: 35 },
+  { maxKg: 10, size: "small", heightCm: 40 },
+  { maxKg: 15, size: "medium", heightCm: 45 },
+  { maxKg: 25, size: "large", heightCm: 50 },
+  { maxKg: 40, size: "extra-large", heightCm: 55 },
+  { maxKg: 55, size: "xxl", heightCm: 60 },
+];
+const STROLLER_TYPE: Record<string, string> = {
+  everyday: "standard",
+  jogging: "jogger",
+  travel: "travel",
+};
+export function DogStrollerSize() {
+  const { t } = useTranslation("tools");
+  const [weightKg, setWeightKg] = useState(8);
+  const [lengthCm, setLengthCm] = useState(45);
+  const [use, setUse] = useState("everyday");
+  // Guard inputs: typed negative/blank values must not render negative sizes.
+  const safeWeight = Number.isFinite(weightKg) ? Math.min(120, Math.max(0.5, weightKg)) : 8;
+  const safeLength = Number.isFinite(lengthCm) ? Math.min(150, Math.max(15, lengthCm)) : 45;
+  const cls = STROLLER_CLASS.find((c) => safeWeight <= c.maxKg) ?? { maxKg: 55, size: "xxl", heightCm: 60 };
+  const overLimit = safeWeight > 55;
+  // Cabin must fit the dog lying stretched: body length + 10 cm, width ~60% of length (min 30 cm).
+  const cabinL = Math.ceil((safeLength + 10) / 5) * 5;
+  const cabinW = Math.max(30, Math.ceil((safeLength * 0.6) / 5) * 5);
+  const cabinH = cls.heightCm;
+  // Weight capacity needs a 25% margin for bedding, bag and treats.
+  const capacityKg = Math.ceil((safeWeight * 1.25) / 5) * 5;
+  const cmToIn = (cm: number) => (cm / 2.54).toFixed(1);
+  const kgToLb = (kg: number) => (kg * 2.20462).toFixed(0);
+  return (
+    <CalculatorLayout
+      form={<div className="space-y-4">
+        <NumberField label={t("dog-stroller-size-calculator.ui.weightKg")} value={weightKg} onChange={setWeightKg} min={0.5} step={0.5} />
+        <NumberField label={t("dog-stroller-size-calculator.ui.bodyLengthCm")} value={lengthCm} onChange={setLengthCm} min={15} step={1} />
+        <SelectField label={t("dog-stroller-size-calculator.ui.mainUse")} value={use} onChange={setUse} options={Object.keys(STROLLER_TYPE)} optionLabel={(o) => t(`dog-stroller-size-calculator.ui.use.${o}`)} />
+      </div>}
+      result={<div className="space-y-4">
+        <Big value={t(`dog-stroller-size-calculator.ui.size.${cls.size}`)} label={t("dog-stroller-size-calculator.ui.recommendedSize")} />
+        <Rows items={[
+          { label: t("dog-stroller-size-calculator.ui.cabinSize"), value: `${cabinL} × ${cabinW} × ${cabinH} cm (${cmToIn(cabinL)} × ${cmToIn(cabinW)} × ${cmToIn(cabinH)} in)` },
+          { label: t("dog-stroller-size-calculator.ui.weightCapacity"), value: `${capacityKg} kg (${kgToLb(capacityKg)} lb)` },
+          { label: t("dog-stroller-size-calculator.ui.strollerType"), value: t(`dog-stroller-size-calculator.ui.type.${STROLLER_TYPE[use]}`) },
+        ]} />
+        <Note>{t("dog-stroller-size-calculator.ui.measureNote")}</Note>
+        {safeWeight > 25 && !overLimit && <Note>{t("dog-stroller-size-calculator.ui.heavyDutyNote")}</Note>}
+        {overLimit && <Note>{t("dog-stroller-size-calculator.ui.overLimitNote")}</Note>}
+      </div>}
+    />
+  );
+}
+
 export function DogCollarSize() {
   const { t } = useTranslation("tools");
   const [neck, setNeck] = useState(14);

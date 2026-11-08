@@ -3328,6 +3328,40 @@
       }
     }
   },
+  "dog-stroller-size-calculator": {
+    "name": "Dog Stroller Size Calculator",
+    "description": "Enter your dog's weight and body length to get the right stroller size, cabin dimensions, and weight capacity — for everyday walks, jogging, or travel.",
+    "ui": {
+      "weightKg": "Dog's weight (kg)",
+      "bodyLengthCm": "Body length, nose to tail base (cm)",
+      "mainUse": "Main use",
+      "recommendedSize": "Recommended stroller size",
+      "cabinSize": "Minimum cabin size (L × W × H)",
+      "weightCapacity": "Minimum weight capacity",
+      "strollerType": "Best stroller type",
+      "measureNote": "Measure lying down: nose to base of tail, then add 10 cm. Always clip your dog to the stroller's internal tether.",
+      "heavyDutyNote": "Over 25 kg: choose a heavy-duty frame with a reinforced base and a rating well above your dog's weight.",
+      "overLimitNote": "Over 55 kg: most strollers top out near 50 kg — look at a heavy-duty pet wagon instead.",
+      "use": {
+        "everyday": "everyday walks",
+        "jogging": "jogging & trails",
+        "travel": "travel & public transport"
+      },
+      "size": {
+        "toy": "Toy",
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
+        "extra-large": "Extra Large",
+        "xxl": "XXL"
+      },
+      "type": {
+        "standard": "Standard 4-wheel stroller",
+        "jogger": "All-terrain jogger — big rubber wheels + suspension",
+        "travel": "Lightweight foldable 3-in-1 with detachable carrier"
+      }
+    }
+  },
   "dog-collar-size-calculator": {
     "name": "Dog Collar Size Calculator",
     "description": "Enter your dog's neck circumference and get an adjustable collar range that meets the two-finger rule.",

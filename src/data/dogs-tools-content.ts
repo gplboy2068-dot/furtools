@@ -1105,6 +1105,51 @@ export const ENRICHED_DOG_TOOLS: Record<string, EnrichedToolContent> = {
       }
     ]
   },
+  "dog-stroller-size-calculator": {
+    "howItWorks": "### Dog Stroller Sizing: Cabin Space, Weight Ratings, and Mobility Needs\n\nA dog stroller is not a luxury accessory for most of the dogs that use one — it is mobility equipment. Senior dogs with arthritis, puppies that tire after ten minutes, tiny breeds in crowded streets, and dogs recovering from surgery all stay part of family outings because a stroller carries them when their legs cannot. But a stroller that is too small leaves the dog cramped and stressed, and one rated below the dog's weight is unsafe.\n\nUnder sizing guidance used by stroller makers and veterinary rehabilitation specialists:\n\n```\nThe Dog Stroller Sizing Rules:\n- Cabin Length: Dog's Lying Length (nose tip to base of tail) + 10 cm (4 in) — room to stretch out fully\n- Cabin Width: At least 60% of lying length, minimum 30 cm (12 in) — room to turn and curl\n- Cabin Height: 35–60 cm by size class — enough to sit upright without hunching\n- Weight Capacity: Dog's Weight × 1.25, rounded up — the margin covers bedding, water bowl and bags\n- Size Classes: Toy (≤5 kg) | Small (≤10 kg) | Medium (≤15 kg) | Large (≤25 kg) | Extra Large (≤40 kg) | XXL (≤55 kg)\n```\n\n### Which Type Suits Your Outings\n\n- **Standard 4-wheel strollers** suit everyday walks, markets and vet visits — the best all-rounder for most dogs.\n- **All-terrain joggers** with large rubber wheels and suspension suit running, trails and uneven pavements; avoid them for very small or frail dogs, as the ride is firmer.\n- **Lightweight foldable 3-in-1 strollers** with a detachable carrier suit travel and public transport — the carrier doubles as a car seat or crate.\n- **Heavy-duty frames** matter above 25 kg: look for a reinforced base, steel frame and a weight rating comfortably above your dog, not exactly at it.\n\n### Safety Checks Before Every Ride\n\nAlways clip your dog to the stroller's internal tether — an unsecured dog can jump out into traffic. Never leave a dog unattended in a stroller on a slope, and never use a stroller as a substitute for walks: dogs still need to walk, sniff and exercise on their own legs as much as their health allows. If your dog has a medical condition, ask your vet whether stroller outings are appropriate and for how long.\n\nMeasure crate space with [Dog Crate Size Calculator](/tools/dog-crate-size-calculator), plan senior outings with [Dog Walking Calculator](/tools/dog-walking-calculator), and check travel packing with [Pet Travel Checklist](/tools/pet-travel-checklist).",
+    "faqs": [
+      {
+        "q": "How do I measure my dog for a stroller?",
+        "a": "Measure your dog lying down from nose tip to base of tail for length, and across the widest part of the body for width. The cabin should be at least 10 cm longer than the lying length so your dog can stretch out."
+      },
+      {
+        "q": "What size stroller does my dog need?",
+        "a": "Size by weight first, then check the cabin dimensions against your dog's lying length. Toy is up to 5 kg, Small up to 10 kg, Medium up to 15 kg, Large up to 25 kg, Extra Large up to 40 kg, and XXL up to 55 kg."
+      },
+      {
+        "q": "How much weight capacity should a dog stroller have?",
+        "a": "At least 25% more than your dog's weight — bedding, a water bowl and bags add up. A 20 kg dog needs a stroller rated for at least 25 kg."
+      },
+      {
+        "q": "Are dog strollers good for senior dogs?",
+        "a": "Yes — strollers let arthritic or easily tired senior dogs enjoy outings without overexertion. Let the dog walk as much as it comfortably can and ride when it tires."
+      },
+      {
+        "q": "Can big dogs use strollers?",
+        "a": "Yes, up to about 50–55 kg with heavy-duty XXL strollers. Above that, most strollers are not rated for the weight — a heavy-duty pet wagon is the safer option."
+      },
+      {
+        "q": "Jogger stroller or standard stroller — which is better?",
+        "a": "Joggers suit running and rough trails thanks to large rubber wheels and suspension. Standard 4-wheel strollers are lighter, fold smaller and are better for shops, travel and everyday walks."
+      },
+      {
+        "q": "Is it cruel to put a healthy dog in a stroller?",
+        "a": "A stroller is not a replacement for walks and exercise. Used well, it extends outings for dogs that tire quickly — but a healthy, energetic dog should still walk most of the way."
+      },
+      {
+        "q": "What should I check before buying a dog stroller?",
+        "a": "Weight rating (with 25% margin), cabin length vs your dog lying down, fold size for your car boot, wheel type for your terrain, and a working internal tether and brake."
+      },
+      {
+        "q": "Can two small dogs share one stroller?",
+        "a": "Yes, if their combined weight is under the stroller's rating and the cabin fits both lying down. Add both weights together and apply the 25% margin to the total."
+      },
+      {
+        "q": "Do dogs need a carrier that detaches from the stroller?",
+        "a": "Detachable carriers are handy for travel: the same carrier works as a car seat or a crate at the vet. For everyday local walks, a fixed cabin is usually lighter and cheaper."
+      }
+    ]
+  },
   "dog-collar-size-calculator": {
     "howItWorks": "### Canine Cervical Biomechanics, Tracheal Anatomy, and Collar Sizing\n\nProper collar sizing is essential for canine safety, airway protection, and effective leash handling. A collar that is too tight causes **cervical lymph node compression, hair breakage, and tracheal cartilage damage**; a collar that is too loose allows the dog to **slip backward out of the collar and bolt into traffic**.\n\nUnder veterinary clinical standards established by the [American Animal Hospital Association (AAHA)](https://www.aaha.org) and the [Fear Free Pets Initiative](https://fearfreepets.com):\n\n```\nThe Standard Collar Sizing & Neck Measurement Rule:\n- Measurement: Use a flexible cloth tape measure around the mid-neck (where the collar sits)\n- The Two-Finger Fit Standard: You must be able to slide TWO flat human fingers easily between the collar and the dog's neck\n- Sizing Range: Buy a collar where your dog's neck measurement falls in the MIDDLE of the adjustment range (e.g., A 15\" neck takes a 12\"–18\" collar)\n- Collar Width: Small dogs 5/8\" | Medium dogs 3/4\" to 1.0\" | Large/Giant dogs 1.5\" to 2.0\" (Wide collars distribute neck pressure safely)\n```\n\n### Specialized Collar Types & Indications\n\n1. **Flat Quick-Release Buckle Collar**: The standard for carrying ID tags and rabies tags for everyday wear.\n2. **Martingale (Limited-Slip) Collar**: Essential for dogs with narrow heads (Greyhounds, Whippets) or anxious rescue dogs; tightens gently when pulled, preventing escape without choking.\n3. **The Danger of Choke Chains & Prong Collars**: Punitive pinch collars concentrate high psi pressure on the delicate thyroid gland, hyoid bone, and laryngeal nerves, increasing intraocular eye pressure and causing cervical disc herniation.\n\nPlan leash handling with [Leash Training Progress](/tools/leash-training-progress), structure recall via [Recall Training Tracker](/tools/recall-training-tracker), calculate walking durations with [Dog Walking Calculator](/tools/dog-walking-calculator), and explore low-stress gear at [Fear Free Pets](https://fearfreepets.com).",
     "faqs": [

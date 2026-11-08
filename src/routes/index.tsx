@@ -44,7 +44,7 @@ function useHomeFaqs(t: (k: string, o?: any) => string, toolCount: number, aiCou
 }
 
 const HOME_FAQ_SCHEMA = [
-  { q: "How many free tools does FurTools offer?", a: "FurTools currently offers 233+ free calculators, generators, and planners for dogs, cats, birds, fish, small pets, reptiles, horses, and farm animals — with new tools shipping every week." },
+  { q: "How many free tools does FurTools offer?", a: "FurTools currently offers 234+ free calculators, generators, and planners for dogs, cats, birds, fish, small pets, reptiles, horses, and farm animals — with new tools shipping every week." },
   { q: "Do I need an account to use the tools?", a: "No. Every calculator, generator, and guide is free and works instantly with no signup." },
   { q: "Are the AI assistants safe to use for medical questions?", a: "Our AI assistants are educational only — they never diagnose disease or replace a licensed veterinarian." },
   { q: "Which pets are supported?", a: "16 species: dogs, cats, birds, rabbits, fish, hamsters, guinea pigs, ferrets, turtles, snakes, lizards, horses, goats, sheep, chickens, and ducks." },

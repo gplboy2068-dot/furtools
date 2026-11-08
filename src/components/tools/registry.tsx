@@ -37,7 +37,7 @@ import {
   PetCarbonPawprint, PetMemorialGenerator,
 } from "@/components/tools/species-tools";
 import {
-  DogPoopBagCalculator, DogCrateSize, DogCollarSize, DogEarCleaningSchedule, DogDentalSchedule,
+  DogPoopBagCalculator, DogCrateSize, DogStrollerSize, DogCollarSize, DogEarCleaningSchedule, DogDentalSchedule,
   CatHairballRisk, CatScratchingPostSelector, CatCarrierSize, CatCatioSize,
   BirdBathFrequency, BirdFlightSpace, BirdToyRotation,
   FishQuarantineTimer, AquariumPlantCount, AquariumSubstrate, AquariumCO2,
@@ -233,6 +233,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   // Batch 3 — +30 tools
   "dog-poop-bag-calculator": DogPoopBagCalculator,
   "dog-crate-size-calculator": DogCrateSize,
+  "dog-stroller-size-calculator": DogStrollerSize,
   "dog-collar-size-calculator": DogCollarSize,
   "dog-ear-cleaning-schedule": DogEarCleaningSchedule,
   "dog-dental-care-schedule": DogDentalSchedule,

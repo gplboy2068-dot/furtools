@@ -1295,6 +1295,18 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
     "layout": "calculator"
   },
   {
+    "slug": "dog-stroller-size-calculator",
+    "name": "Dog Stroller Size Calculator",
+    "tagline": "The right stroller for your dog's size",
+    "category": "dogs",
+    "keywords": [
+      "dog stroller size",
+      "pet stroller",
+      "dog stroller"
+    ],
+    "layout": "calculator"
+  },
+  {
     "slug": "dog-collar-size-calculator",
     "name": "Dog Collar Size Calculator",
     "tagline": "Snug but never tight",
