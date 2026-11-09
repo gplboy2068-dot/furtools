@@ -70,6 +70,20 @@ export default {
       return Response.redirect(target.toString(), 301);
     }
 
+    // Legacy URL 301 redirects (GSC "Not found (404)" cleanup, 2026-11-09):
+    // - /tools/pet-emergency-kit-guide: the guide is a blog post; old links and
+    //   Google still chase it under /tools/ where it 404s.
+    // - /tools/paw-licking-causes: a long-removed tool URL; the symptom checker
+    //   is the closest live equivalent (paw licking is a symptom it covers).
+    const LEGACY_REDIRECTS: Record<string, string> = {
+      "/tools/pet-emergency-kit-guide": "/blog/pet-emergency-kit-guide",
+      "/tools/paw-licking-causes": "/tools/pet-symptom-checker",
+    };
+    const legacyTarget = LEGACY_REDIRECTS[url.pathname];
+    if (legacyTarget) {
+      return Response.redirect(new URL(legacyTarget, url.origin).toString(), 301);
+    }
+
     // Direct Google Auth Verification Endpoint
     if (url.pathname === "/api/auth/google-verify" && request.method === "POST") {
       try {
