@@ -65,6 +65,10 @@ const BREED_COLUMNS =
   "id,slug,species,name,hero_image,overview,history,temperament_traits,temperament_description,exercise_level,exercise_description,exercise_minutes_per_day,weight_min,weight_max,weight_unit,height_min,height_max,height_unit,lifespan_min,lifespan_max,common_diseases,nutrition,grooming,grooming_frequency,images,faqs,related_tool_slugs,related_article_slugs,good_with,origin_country,breed_group,coat_type,coat_colors,size_category,energy_level,shedding_level,trainability,published,updated_at";
 
 import { FALLBACK_BREEDS } from "@/data/fallback-breeds";
+import {
+  applyBreedImageOverride,
+  applyBreedImageOverrides,
+} from "@/lib/breed-image-overrides";
 
 export const breedsListQuery = queryOptions({
   queryKey: ["breeds", "list"],
@@ -76,13 +80,13 @@ export const breedsListQuery = queryOptions({
         if (res.ok) {
           const list = await res.json();
           if (Array.isArray(list) && list.length > 0) {
-            return list as BreedRow[];
+            return applyBreedImageOverrides(list as BreedRow[]);
           }
         }
       } catch (err) {
         console.warn("Client fetch /api/breeds failed, using fallback:", err);
       }
-      return FALLBACK_BREEDS;
+      return applyBreedImageOverrides(FALLBACK_BREEDS);
     }
 
     // 2. Server-side D1 query
@@ -90,14 +94,14 @@ export const breedsListQuery = queryOptions({
       const { getDbBreeds } = await import("@/lib/d1");
       const d1Breeds = await getDbBreeds();
       if (d1Breeds && d1Breeds.length > 0) {
-        return d1Breeds as unknown as BreedRow[];
+        return applyBreedImageOverrides(d1Breeds as unknown as BreedRow[]);
       }
     } catch (d1Err) {
       console.warn("D1 breeds query error:", d1Err);
     }
 
     // 3. Fallback data
-    return FALLBACK_BREEDS;
+    return applyBreedImageOverrides(FALLBACK_BREEDS);
   },
 });
 
@@ -112,12 +116,13 @@ export const breedDetailQuery = (slug: string) =>
           if (res.ok) {
             const list = (await res.json()) as BreedRow[];
             const found = list.find((b) => b.slug === slug);
-            if (found) return found;
+            if (found) return applyBreedImageOverride(found);
           }
         } catch {
           // ignore
         }
-        return FALLBACK_BREEDS.find((b) => b.slug === slug) ?? null;
+        const fbClient = FALLBACK_BREEDS.find((b) => b.slug === slug);
+        return fbClient ? applyBreedImageOverride(fbClient) : null;
       }
 
       // 2. Server-side D1 query
@@ -125,13 +130,14 @@ export const breedDetailQuery = (slug: string) =>
         const { getDbBreedBySlug } = await import("@/lib/d1");
         const d1Breed = await getDbBreedBySlug(slug);
         if (d1Breed) {
-          return d1Breed as unknown as BreedRow;
+          return applyBreedImageOverride(d1Breed as unknown as BreedRow);
         }
       } catch (d1Err) {
         console.warn(`D1 breed detail query error (${slug}):`, d1Err);
       }
 
-      return FALLBACK_BREEDS.find((b) => b.slug === slug) ?? null;
+      const fbServer = FALLBACK_BREEDS.find((b) => b.slug === slug);
+      return fbServer ? applyBreedImageOverride(fbServer) : null;
     },
   });
 

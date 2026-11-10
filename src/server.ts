@@ -47,6 +47,10 @@ function isH3SwallowedErrorBody(body: string): boolean {
 import { setWorkerEnv } from "./lib/cloudflare-context";
 import { FALLBACK_FOODS } from "./data/fallback-foods";
 import { FALLBACK_BREEDS } from "./data/fallback-breeds";
+import {
+  applyBreedImageOverrides,
+  BREED_ASSET_KEY_OVERRIDES,
+} from "./lib/breed-image-overrides";
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
@@ -810,7 +814,8 @@ export default {
       try {
         const { getDbBreeds } = await import("./lib/d1");
         const breeds = await getDbBreeds();
-        const data = breeds && breeds.length > 0 ? breeds : FALLBACK_BREEDS;
+        const raw = breeds && breeds.length > 0 ? breeds : FALLBACK_BREEDS;
+        const data = applyBreedImageOverrides(raw as any[]);
         return new Response(JSON.stringify(data), {
           headers: {
             "content-type": "application/json; charset=utf-8",
@@ -820,7 +825,7 @@ export default {
         });
       } catch (err) {
         console.warn("API breeds error, serving fallback:", err);
-        return new Response(JSON.stringify(FALLBACK_BREEDS), {
+        return new Response(JSON.stringify(applyBreedImageOverrides(FALLBACK_BREEDS as any[])), {
           headers: {
             "content-type": "application/json; charset=utf-8",
             "cache-control": "public, max-age=1800, s-maxage=3600",
@@ -952,7 +957,12 @@ export default {
       try {
         const { getFromR2 } = await import("./lib/r2");
         const key = url.pathname.replace(/^\/api\/assets\//, "");
-        const obj = await getFromR2(key);
+        // Wrong-photo correction (2026-11-10): a few R2 objects hold the
+        // wrong photo (see lib/breed-image-overrides) — serve the corrected
+        // object at the old URL, with a short cache lifetime so stale
+        // one-year "immutable" caches of the wrong photo heal within a day.
+        const overrideKey = BREED_ASSET_KEY_OVERRIDES[key];
+        const obj = await getFromR2(overrideKey ?? key);
         if (!obj) {
           return new Response("Asset not found", { status: 404 });
         }
@@ -960,6 +970,7 @@ export default {
         obj.writeHttpMetadata(headers);
         headers.set("etag", obj.httpEtag);
         headers.set("cache-control", "public, max-age=31536000, immutable");
+        if (overrideKey) headers.set("cache-control", "public, max-age=86400");
         return new Response(obj.body, { headers });
       } catch (err) {
         return new Response("Error retrieving asset", { status: 500 });

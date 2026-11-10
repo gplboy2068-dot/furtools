@@ -23,6 +23,7 @@ import {
   type BreedRow,
 } from "@/lib/breeds";
 import { getSpecies } from "@/data/species";
+import { BREED_IMAGE_OVERRIDES } from "@/lib/breed-image-overrides";
 import { getToolSummary } from "@/data/tools-summary";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
@@ -139,6 +140,7 @@ function BreedBody() {
   const { data } = useSuspenseQuery(breedDetailQuery(slug));
   const breed = data as BreedRow;
   const species = getSpecies(breed.species);
+  const heroCredit = BREED_IMAGE_OVERRIDES[breed.slug]?.credit;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
@@ -189,6 +191,16 @@ function BreedBody() {
                 </div>
               </div>
             )}
+            {heroCredit ? (
+              <a
+                href={heroCredit.href}
+                target="_blank"
+                rel="noreferrer"
+                className="absolute bottom-2 right-2 rounded-full bg-black/55 px-2.5 py-1 text-[11px] text-white/90 backdrop-blur-sm hover:bg-black/70"
+              >
+                {heroCredit.text}
+              </a>
+            ) : null}
           </div>
         </div>
       </section>
