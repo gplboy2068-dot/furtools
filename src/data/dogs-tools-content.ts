@@ -1150,6 +1150,51 @@ export const ENRICHED_DOG_TOOLS: Record<string, EnrichedToolContent> = {
       }
     ]
   },
+  "dog-bed-stairs-calculator": {
+    "howItWorks": "### Dog Bed Stairs: Step Height, Tread Depth, and When a Ramp Wins\n\nA dog that jumps on and off a bed several times a day puts the same impact through its joints every time — and for a senior dog, a dachshund, or a dog recovering from surgery, that jump is the riskiest moment of the day. Bed stairs (or a ramp) turn a jump into a climb. But stairs only help if they are sized to the dog: a rise that is too tall is just a smaller jump, and a tread that is too shallow leaves no room for paws.\n\nUnder sizing guidance used by stair makers and veterinary rehabilitation specialists:\n\n```\nThe Dog Bed Stairs Sizing Rules:\n- Step Rise: 12 cm for dogs up to 10 kg | 15 cm for 10–25 kg | 18 cm for over 25 kg — never above 20 cm\n- Number of Steps: Bed Height ÷ Step Rise, rounded up — the top step lands level with the mattress\n- Tread Depth: 25 cm for small dogs | 28 cm for medium | 30 cm for large — a paw needs its full length plus margin\n- Total Floor Space: Steps × Tread Depth — measure your bedroom floor before you buy\n- Weight Capacity: Dog's Weight × 1.25, rounded up — the margin covers bedding and the dog shifting weight mid-climb\n- Ramp Angle: 22° for healthy dogs | 20° for seniors | 18° for arthritic or recovering dogs — gentler is kinder on joints\n```\n\n### Stairs or a Ramp?\n\n- **Stairs** suit healthy dogs that can lift their legs comfortably. They take less floor space than a ramp and most dogs learn them in a day.\n- **Ramps** suit arthritic, recovering, very small or very heavy dogs: the climb is spread over a slope instead of asking for a lift at each step. A ramp needs more floor space — a gentle 18° ramp for an 80 cm bed is about 2.6 m long — so measure first.\n- **When in doubt, choose the ramp.** A dog that hesitates on stairs will use a ramp, and a ramp never asks a sore joint to lift.\n\n### Choosing and Placing the Stairs\n\nMatch the total height to your bed exactly — the top step should sit level with the mattress, not below it. Pick a width at least as wide as your dog's shoulders, a non-slip tread (carpet or rubber), and a frame rated comfortably above your dog's weight. Place the stairs where your dog naturally approaches the bed, against a wall or the bed frame so they cannot wobble sideways.\n\n### Teaching Your Dog to Use Them\n\nLure your dog up one step at a time with treats, and reward every step — never lift the dog onto the top and expect it to walk down. Most dogs learn within a few sessions. If your dog refuses stairs entirely, try a ramp, or ask your vet to check for pain: refusal is often the first sign of joint discomfort.\n\n> **Note:** This tool gives general sizing guidance, not veterinary advice. If your dog is limping, stiff, or in pain, see your vet — the right aid depends on the diagnosis, and stairs never replace treatment.\n\nSize the rest of your dog's mobility gear with [Dog Stroller Size Calculator](/tools/dog-stroller-size-calculator), find the right crate with [Dog Crate Size Calculator](/tools/dog-crate-size-calculator), and read our [Winter Care for Senior Dogs](/blog/winter-care-senior-dogs) for cold-weather joint care.",
+    "faqs": [
+      {
+        "q": "How high should dog bed stairs be?",
+        "a": "Exactly as high as your bed: the top step should sit level with the mattress. Measure from the floor to the top of the mattress (not the bed frame) and use that height in the calculator."
+      },
+      {
+        "q": "How many steps does my dog need?",
+        "a": "Divide the bed height by the step rise for your dog's size — about 12 cm per step for small dogs, 15 cm for medium, 18 cm for large — and round up. A 60 cm bed needs 4 steps for a medium dog, 5 for a small one."
+      },
+      {
+        "q": "Stairs or a ramp — which is better for my dog?",
+        "a": "Stairs suit healthy dogs and take less floor space. A ramp is gentler for arthritic, recovering, very small or very heavy dogs, because it spreads the climb over a slope instead of asking for a lift at each step. When in doubt, choose the ramp."
+      },
+      {
+        "q": "What step height is safe for a small dog?",
+        "a": "About 10–12 cm per step, with a tread at least 25 cm deep. Small and long-bodied dogs (like dachshunds) struggle most with tall rises, so keep steps low and the tread generous."
+      },
+      {
+        "q": "Are dog stairs good for senior dogs with arthritis?",
+        "a": "Yes — stairs or a ramp remove the daily jump on and off the bed, which is often the most painful moment for an arthritic dog. For moderate to severe arthritis a gentle ramp (18–20°) is usually kinder than stairs. Ask your vet which suits your dog's joints."
+      },
+      {
+        "q": "How wide should each step be?",
+        "a": "The tread should be at least 25 cm deep (30 cm for large dogs) and the stairs at least as wide as your dog's shoulders. A narrow or shallow step leaves paws hanging off the edge and dogs will avoid it."
+      },
+      {
+        "q": "What weight should dog stairs hold?",
+        "a": "At least 25% more than your dog's weight — the margin covers bedding and the dog shifting its weight mid-climb. A 20 kg dog needs stairs rated for at least 25 kg."
+      },
+      {
+        "q": "Can my dog use stairs after surgery?",
+        "a": "Only if your vet says so. After orthopaedic surgery, vets usually restrict jumping and stairs for weeks, and a gentle ramp is often the safer option during recovery. Never guess — follow your vet's post-surgery instructions."
+      },
+      {
+        "q": "How do I train my dog to use bed stairs?",
+        "a": "Lure your dog up one step at a time with treats and reward every step. Never lift the dog to the top and expect it to walk down. Most dogs learn within a few sessions; if yours refuses, try a ramp or ask your vet to check for pain."
+      },
+      {
+        "q": "Do bed stairs work for cats too?",
+        "a": "Most cats prefer to jump and will ignore stairs, but low steps can help senior or arthritic cats reach a favourite bed. This calculator is sized for dogs — cat steps need a much lower rise."
+      }
+    ]
+  },
   "dog-collar-size-calculator": {
     "howItWorks": "### Canine Cervical Biomechanics, Tracheal Anatomy, and Collar Sizing\n\nProper collar sizing is essential for canine safety, airway protection, and effective leash handling. A collar that is too tight causes **cervical lymph node compression, hair breakage, and tracheal cartilage damage**; a collar that is too loose allows the dog to **slip backward out of the collar and bolt into traffic**.\n\nUnder veterinary clinical standards established by the [American Animal Hospital Association (AAHA)](https://www.aaha.org) and the [Fear Free Pets Initiative](https://fearfreepets.com):\n\n```\nThe Standard Collar Sizing & Neck Measurement Rule:\n- Measurement: Use a flexible cloth tape measure around the mid-neck (where the collar sits)\n- The Two-Finger Fit Standard: You must be able to slide TWO flat human fingers easily between the collar and the dog's neck\n- Sizing Range: Buy a collar where your dog's neck measurement falls in the MIDDLE of the adjustment range (e.g., A 15\" neck takes a 12\"–18\" collar)\n- Collar Width: Small dogs 5/8\" | Medium dogs 3/4\" to 1.0\" | Large/Giant dogs 1.5\" to 2.0\" (Wide collars distribute neck pressure safely)\n```\n\n### Specialized Collar Types & Indications\n\n1. **Flat Quick-Release Buckle Collar**: The standard for carrying ID tags and rabies tags for everyday wear.\n2. **Martingale (Limited-Slip) Collar**: Essential for dogs with narrow heads (Greyhounds, Whippets) or anxious rescue dogs; tightens gently when pulled, preventing escape without choking.\n3. **The Danger of Choke Chains & Prong Collars**: Punitive pinch collars concentrate high psi pressure on the delicate thyroid gland, hyoid bone, and laryngeal nerves, increasing intraocular eye pressure and causing cervical disc herniation.\n\nPlan leash handling with [Leash Training Progress](/tools/leash-training-progress), structure recall via [Recall Training Tracker](/tools/recall-training-tracker), calculate walking durations with [Dog Walking Calculator](/tools/dog-walking-calculator), and explore low-stress gear at [Fear Free Pets](https://fearfreepets.com).",
     "faqs": [

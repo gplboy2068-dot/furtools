@@ -3362,6 +3362,35 @@
       }
     }
   },
+  "dog-bed-stairs-calculator": {
+    "name": "Dog Bed Stairs Calculator",
+    "description": "Enter your bed height and your dog's weight and mobility to get the right number of steps, step height and tread depth — or a gentler ramp when stairs are too steep for your dog.",
+    "ui": {
+      "bedHeightCm": "Bed or sofa height, floor to mattress (cm)",
+      "weightKg": "Dog's weight (kg)",
+      "mobility": "Your dog's mobility",
+      "mobilityOption": {
+        "healthy": "healthy — no joint problems",
+        "senior": "senior or a little stiff",
+        "arthritic": "arthritic or recovering"
+      },
+      "recommendedOption": "Best option for your dog",
+      "recommendation": {
+        "stairs": "Stairs",
+        "ramp": "Ramp"
+      },
+      "numberOfSteps": "Number of steps",
+      "stepRise": "Step height (rise)",
+      "treadDepth": "Tread depth (each step)",
+      "totalDepth": "Total floor space needed",
+      "rampLength": "Ramp length needed",
+      "rampAngle": "Ramp angle",
+      "weightCapacity": "Minimum weight capacity",
+      "measureNote": "Measure floor to the top of the mattress. The top step should sit level with the mattress, not below it.",
+      "rampNote": "A ramp is gentler on sore joints than steps. Keep the slope clear and the surface non-slip.",
+      "highBedNote": "High bed: consider a ramp if your dog hesitates on stairs, and place the stairs against the bed frame so they cannot wobble."
+    }
+  },
   "dog-collar-size-calculator": {
     "name": "Dog Collar Size Calculator",
     "description": "Enter your dog's neck circumference and get an adjustable collar range that meets the two-finger rule.",

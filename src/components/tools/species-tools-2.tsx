@@ -164,6 +164,67 @@ export function DogStrollerSize() {
   );
 }
 
+const BED_STAIRS_BAND: { maxKg: number; riseCm: number; treadCm: number }[] = [
+  { maxKg: 10, riseCm: 12, treadCm: 25 },
+  { maxKg: 25, riseCm: 15, treadCm: 28 },
+  { maxKg: 120, riseCm: 18, treadCm: 30 },
+];
+const RAMP_ANGLE: Record<string, number> = {
+  healthy: 22,
+  senior: 20,
+  arthritic: 18,
+};
+export function DogBedStairsCalculator() {
+  const { t } = useTranslation("tools");
+  const [bedHeightCm, setBedHeightCm] = useState(60);
+  const [weightKg, setWeightKg] = useState(12);
+  const [mobility, setMobility] = useState("healthy");
+  // Guard inputs: typed negative/blank values must not render negative sizes.
+  const safeHeight = Number.isFinite(bedHeightCm) ? Math.min(150, Math.max(20, bedHeightCm)) : 60;
+  const safeWeight = Number.isFinite(weightKg) ? Math.min(120, Math.max(0.5, weightKg)) : 12;
+  const band = BED_STAIRS_BAND.find((b) => safeWeight <= b.maxKg) ?? { maxKg: 120, riseCm: 18, treadCm: 30 };
+  // A ramp is gentler than steps: arthritic or recovering dogs, heavy dogs, and
+  // seniors facing a high bed climb more safely on an incline than on steps.
+  const useRamp = mobility === "arthritic" || safeWeight > 30 || (mobility === "senior" && safeHeight > 75);
+  // Steps: rise per step stays at the band limit; the top step lands exactly on the bed.
+  const steps = Math.max(2, Math.ceil(safeHeight / band.riseCm));
+  const rise = safeHeight / steps;
+  const tread = band.treadCm;
+  const totalDepth = steps * tread;
+  // Weight capacity needs a 25% margin for bedding and the dog shifting weight mid-climb.
+  const capacityKg = Math.ceil((safeWeight * 1.25) / 5) * 5;
+  const angle = RAMP_ANGLE[mobility] ?? 22;
+  const rampLength = Math.ceil(safeHeight / Math.sin((angle * Math.PI) / 180) / 5) * 5;
+  const cmToIn = (cm: number) => (cm / 2.54).toFixed(1);
+  const kgToLb = (kg: number) => (kg * 2.20462).toFixed(0);
+  return (
+    <CalculatorLayout
+      form={<div className="space-y-4">
+        <NumberField label={t("dog-bed-stairs-calculator.ui.bedHeightCm")} value={bedHeightCm} onChange={setBedHeightCm} min={20} step={1} />
+        <NumberField label={t("dog-bed-stairs-calculator.ui.weightKg")} value={weightKg} onChange={setWeightKg} min={0.5} step={0.5} />
+        <SelectField label={t("dog-bed-stairs-calculator.ui.mobility")} value={mobility} onChange={setMobility} options={Object.keys(RAMP_ANGLE)} optionLabel={(o) => t(`dog-bed-stairs-calculator.ui.mobilityOption.${o}`)} />
+      </div>}
+      result={<div className="space-y-4">
+        <Big value={t(`dog-bed-stairs-calculator.ui.recommendation.${useRamp ? "ramp" : "stairs"}`)} label={t("dog-bed-stairs-calculator.ui.recommendedOption")} />
+        <Rows items={useRamp ? [
+          { label: t("dog-bed-stairs-calculator.ui.rampLength"), value: `${rampLength} cm (${cmToIn(rampLength)} in)` },
+          { label: t("dog-bed-stairs-calculator.ui.rampAngle"), value: `${angle}°` },
+          { label: t("dog-bed-stairs-calculator.ui.weightCapacity"), value: `${capacityKg} kg (${kgToLb(capacityKg)} lb)` },
+        ] : [
+          { label: t("dog-bed-stairs-calculator.ui.numberOfSteps"), value: `${steps}` },
+          { label: t("dog-bed-stairs-calculator.ui.stepRise"), value: `${rise.toFixed(1)} cm (${cmToIn(rise)} in)` },
+          { label: t("dog-bed-stairs-calculator.ui.treadDepth"), value: `${tread} cm (${cmToIn(tread)} in)` },
+          { label: t("dog-bed-stairs-calculator.ui.totalDepth"), value: `${totalDepth} cm (${cmToIn(totalDepth)} in)` },
+          { label: t("dog-bed-stairs-calculator.ui.weightCapacity"), value: `${capacityKg} kg (${kgToLb(capacityKg)} lb)` },
+        ]} />
+        <Note>{t("dog-bed-stairs-calculator.ui.measureNote")}</Note>
+        {useRamp && <Note>{t("dog-bed-stairs-calculator.ui.rampNote")}</Note>}
+        {!useRamp && safeHeight >= 75 && <Note>{t("dog-bed-stairs-calculator.ui.highBedNote")}</Note>}
+      </div>}
+    />
+  );
+}
+
 export function DogCollarSize() {
   const { t } = useTranslation("tools");
   const [neck, setNeck] = useState(14);

@@ -1307,6 +1307,18 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
     "layout": "calculator"
   },
   {
+    "slug": "dog-bed-stairs-calculator",
+    "name": "Dog Bed Stairs Calculator",
+    "tagline": "The right steps (or ramp) for your bed",
+    "category": "dogs",
+    "keywords": [
+      "dog bed stairs",
+      "dog stairs for bed",
+      "dog ramp"
+    ],
+    "layout": "calculator"
+  },
+  {
     "slug": "dog-collar-size-calculator",
     "name": "Dog Collar Size Calculator",
     "tagline": "Snug but never tight",
