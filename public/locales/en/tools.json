@@ -3391,6 +3391,46 @@
       "highBedNote": "High bed: consider a ramp if your dog hesitates on stairs, and place the stairs against the bed frame so they cannot wobble."
     }
   },
+  "mobile-dog-grooming-cost-calculator": {
+    "name": "Mobile Dog Grooming Cost Calculator",
+    "description": "Enter your dog's weight, coat type and the service you need to get a 2026 mobile grooming price range per session and per year — plus what the same groom would cost at a salon.",
+    "ui": {
+      "weightKg": "Dog's weight (kg)",
+      "coat": "Coat type",
+      "coatOption": {
+        "short": "short — smooth, easy to brush",
+        "medium": "medium — wavy or double coat",
+        "long": "long or curly — doodle, poodle, spaniel"
+      },
+      "service": "Service needed",
+      "serviceOption": {
+        "bath-only": "bath only — wash, dry, brush-out",
+        "full-groom": "full groom — bath, cut, nails, ears",
+        "full-groom-deshed": "full groom + de-shed treatment"
+      },
+      "frequency": "How often will you book?",
+      "frequencyOption": {
+        "every-4-weeks": "every 4 weeks",
+        "every-6-weeks": "every 6 weeks",
+        "every-8-weeks": "every 8 weeks",
+        "one-off": "one-off visit"
+      },
+      "perSession": "Estimated cost per session",
+      "sizeBand": "Size band",
+      "size": {
+        "small": "Small (up to 9 kg)",
+        "medium": "Medium (9–23 kg)",
+        "large": "Large (23–41 kg)",
+        "extra-large": "Extra-large (over 41 kg)"
+      },
+      "recommendedInterval": "Recommended grooming interval",
+      "annualCost": "Estimated cost per year",
+      "salonComparison": "Same groom at a salon, typically",
+      "priceNote": "US 2026 averages — actual quotes vary by city. Tip (usually 15–20%) is not included.",
+      "longCoatNote": "Long or curly coats cost more: they take longer to wash, dry and cut, and matted coats may add a fee.",
+      "oneOffNote": "One-off visit — booking every 4–8 weeks keeps the coat matt-free and usually costs less per visit."
+    }
+  },
   "dog-collar-size-calculator": {
     "name": "Dog Collar Size Calculator",
     "description": "Enter your dog's neck circumference and get an adjustable collar range that meets the two-finger rule.",

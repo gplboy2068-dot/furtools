@@ -1195,6 +1195,51 @@ export const ENRICHED_DOG_TOOLS: Record<string, EnrichedToolContent> = {
       }
     ]
   },
+  "mobile-dog-grooming-cost-calculator": {
+    "howItWorks": "### Mobile Dog Grooming Costs: What You Pay for the Van at Your Door\n\nMobile grooming is the fastest-growing corner of pet grooming in 2026: a groomer drives a van fitted with a bath, dryer and table to your driveway and grooms your dog one-on-one — no cages, no waiting room, no other dogs. Searches for \"mobile dog grooming\" doubled in two years to about 40,500 a month (Exploding Topics, November 2026), and the segment is growing 12–15% a year, roughly twice as fast as salons.\n\n### What mobile grooming costs in 2026 (US averages)\n\n```\nMobile grooming price ranges, per session (US, 2026):\n- Bath only: small $50–$70 | medium $60–$85 | large $80–$110 | extra-large $100–$140\n- Full groom: small $70–$95 | medium $85–$120 | large $110–$160 | extra-large $140–$220\n- Full groom + de-shed: add $15–$25 to the full groom price\n- Coat surcharge: medium coats about +10% | long or curly coats about +20%\n```\n\nPrices come from 2026 mobile grooming pricing guides; your city may run higher or lower.\n\n### Why mobile costs 20–30% more than a salon\n\nA salon spreads its rent, dryers and staff across many dogs a day. A mobile groomer carries the van, fuel, water tank and generator to you, grooms one dog at a time, and loses time driving between appointments. The premium pays for the trip, the one-on-one attention and the calmer setting — not just the haircut.\n\n### What pushes the price up or down\n\n- **Size:** a bigger dog means more shampoo, more drying time and more table time.\n- **Coat:** long, curly and doodle coats take longest to wash, dry and cut — about 20% more than a short coat — and a matted coat can add a dematting fee or need a shave-down. Tell the groomer about matting before you book.\n- **Service:** a bath-only visit is the cheapest; a full groom adds the cut, nails and ears; de-shedding adds $15–$25.\n- **Place:** big-city and metro prices run higher than small towns.\n- **Frequency:** dogs booked every 4–6 weeks stay matt-free and are quicker to groom than a dog seen twice a year.\n\n### How often should you book?\n\n- **Short coats:** about every 8 weeks.\n- **Medium and double coats:** about every 6 weeks.\n- **Long, curly and doodle coats:** every 4–6 weeks, with brushing at home between visits.\n- Nails and ears can be done between full grooms if they grow fast.\n\n### Getting a fair quote\n\nAsk what is included before you book: nails, ear cleaning, teeth, de-shedding, and whether there is a travel fee outside the groomer's usual area. Get the price in writing, ask about the cancellation policy, and check reviews and credentials — look for certification from the National Dog Groomers Association of America (NDGAA) or International Professional Groomers (IPG), and confirm the groomer is insured.\n\n### Is it worth it?\n\nMobile grooming is at its best for anxious or reactive dogs, seniors that struggle with car rides, puppies on their first grooms, and busy households where the trip to the salon is the hardest part. If your dog is calm in a salon and the budget matters, a salon saves roughly 20–30% for the same cut.\n\n> **Note:** Prices are US national averages for 2026 and vary by city — always confirm with a local groomer. This tool estimates grooming costs only, not veterinary care. A tip of 15–20% is customary and is not included in these estimates.\n\nPlan the rest of your dog's care with [Dog Grooming Schedule Generator](/tools/dog-grooming-schedule), estimate the year's spend with [Pet Grooming Cost Estimator](/tools/pet-grooming-cost-estimator), and read our [Winter Care for Senior Dogs](/blog/winter-care-senior-dogs) for cold-weather coat care.",
+    "faqs": [
+      {
+        "q": "How much does mobile dog grooming cost?",
+        "a": "For a full groom in 2026, expect roughly $70–$95 for a small dog, $85–$120 for a medium dog, $110–$160 for a large dog, and $140–$220 for an extra-large dog. A bath-only visit runs about $50–$140 by size, and a de-shed treatment adds $15–$25."
+      },
+      {
+        "q": "Why is mobile grooming more expensive than a salon?",
+        "a": "Mobile groomers typically charge 20–30% more than salons. The premium covers the van, fuel, water and generator, the drive to your door, and grooming one dog at a time instead of spreading costs across many dogs a day."
+      },
+      {
+        "q": "What is included in a full mobile groom?",
+        "a": "Usually a bath, blow-dry, haircut, nail trim and ear cleaning. Teeth brushing and de-shedding are often extras — ask what is included before you book so the quote matches the service."
+      },
+      {
+        "q": "How often should my dog be groomed?",
+        "a": "Short coats about every 8 weeks, medium and double coats about every 6 weeks, and long, curly or doodle coats every 4–6 weeks. Nails and ears can be done between full grooms if they grow fast."
+      },
+      {
+        "q": "Does my dog's coat type change the price?",
+        "a": "Yes. Long, curly and doodle coats cost about 20% more than short coats because they take longer to wash, dry and cut. A matted coat can add a dematting fee or need a shave-down — tell the groomer about matting when you book."
+      },
+      {
+        "q": "Is there a travel fee for mobile grooming?",
+        "a": "Some groomers charge a travel fee outside their usual service area, and a few include it in the session price. Ask when you book, especially if you live outside town."
+      },
+      {
+        "q": "Should I tip a mobile groomer?",
+        "a": "A tip of 15–20% is customary for good service, the same as at a salon. It is not included in this calculator's estimates — budget for it on top of the session price."
+      },
+      {
+        "q": "Is mobile grooming better for anxious dogs?",
+        "a": "Often, yes. The dog is groomed one-on-one with no cages, no waiting room and no other dogs around, which suits anxious, reactive, senior and puppy dogs. Tell the groomer about your dog's temperament in advance."
+      },
+      {
+        "q": "What happens if my dog is matted?",
+        "a": "The groomer may charge a dematting fee or recommend a shave-down if the matting is severe, because brushing out tight mats hurts. Never cut mats out yourself close to the skin — it is easy to nick the skin underneath."
+      },
+      {
+        "q": "How do I find a good mobile groomer near me?",
+        "a": "Check reviews, look for certification from the National Dog Groomers Association of America (NDGAA) or International Professional Groomers (IPG), confirm the groomer is insured, and start with a bath-only visit to see how your dog settles."
+      }
+    ]
+  },
   "dog-collar-size-calculator": {
     "howItWorks": "### Canine Cervical Biomechanics, Tracheal Anatomy, and Collar Sizing\n\nProper collar sizing is essential for canine safety, airway protection, and effective leash handling. A collar that is too tight causes **cervical lymph node compression, hair breakage, and tracheal cartilage damage**; a collar that is too loose allows the dog to **slip backward out of the collar and bolt into traffic**.\n\nUnder veterinary clinical standards established by the [American Animal Hospital Association (AAHA)](https://www.aaha.org) and the [Fear Free Pets Initiative](https://fearfreepets.com):\n\n```\nThe Standard Collar Sizing & Neck Measurement Rule:\n- Measurement: Use a flexible cloth tape measure around the mid-neck (where the collar sits)\n- The Two-Finger Fit Standard: You must be able to slide TWO flat human fingers easily between the collar and the dog's neck\n- Sizing Range: Buy a collar where your dog's neck measurement falls in the MIDDLE of the adjustment range (e.g., A 15\" neck takes a 12\"–18\" collar)\n- Collar Width: Small dogs 5/8\" | Medium dogs 3/4\" to 1.0\" | Large/Giant dogs 1.5\" to 2.0\" (Wide collars distribute neck pressure safely)\n```\n\n### Specialized Collar Types & Indications\n\n1. **Flat Quick-Release Buckle Collar**: The standard for carrying ID tags and rabies tags for everyday wear.\n2. **Martingale (Limited-Slip) Collar**: Essential for dogs with narrow heads (Greyhounds, Whippets) or anxious rescue dogs; tightens gently when pulled, preventing escape without choking.\n3. **The Danger of Choke Chains & Prong Collars**: Punitive pinch collars concentrate high psi pressure on the delicate thyroid gland, hyoid bone, and laryngeal nerves, increasing intraocular eye pressure and causing cervical disc herniation.\n\nPlan leash handling with [Leash Training Progress](/tools/leash-training-progress), structure recall via [Recall Training Tracker](/tools/recall-training-tracker), calculate walking durations with [Dog Walking Calculator](/tools/dog-walking-calculator), and explore low-stress gear at [Fear Free Pets](https://fearfreepets.com).",
     "faqs": [

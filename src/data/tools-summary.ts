@@ -1319,6 +1319,18 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
     "layout": "calculator"
   },
   {
+    "slug": "mobile-dog-grooming-cost-calculator",
+    "name": "Mobile Dog Grooming Cost Calculator",
+    "tagline": "What mobile grooming costs for your dog",
+    "category": "dogs",
+    "keywords": [
+      "mobile dog grooming cost",
+      "mobile dog groomer prices",
+      "dog grooming prices"
+    ],
+    "layout": "calculator"
+  },
+  {
     "slug": "dog-collar-size-calculator",
     "name": "Dog Collar Size Calculator",
     "tagline": "Snug but never tight",

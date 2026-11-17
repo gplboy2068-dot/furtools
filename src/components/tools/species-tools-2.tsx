@@ -225,6 +225,77 @@ export function DogBedStairsCalculator() {
   );
 }
 
+const GROOMING_PRICE: Record<string, Record<string, [number, number]>> = {
+  "bath-only": { small: [50, 70], medium: [60, 85], large: [80, 110], "extra-large": [100, 140] },
+  "full-groom": { small: [70, 95], medium: [85, 120], large: [110, 160], "extra-large": [140, 220] },
+  "full-groom-deshed": { small: [85, 120], medium: [100, 145], large: [125, 185], "extra-large": [155, 245] },
+};
+const GROOMING_SIZE_BAND: { maxKg: number; key: string }[] = [
+  { maxKg: 9, key: "small" },
+  { maxKg: 23, key: "medium" },
+  { maxKg: 41, key: "large" },
+  { maxKg: 120, key: "extra-large" },
+];
+const COAT_MULTIPLIER: Record<string, number> = { short: 1, medium: 1.1, long: 1.2 };
+const COAT_INTERVAL_WEEKS: Record<string, number> = { short: 8, medium: 6, long: 5 };
+const GROOMING_FREQUENCY_WEEKS: Record<string, number> = {
+  "every-4-weeks": 4,
+  "every-6-weeks": 6,
+  "every-8-weeks": 8,
+  "one-off": 0,
+};
+export function MobileDogGroomingCostCalculator() {
+  const { t } = useTranslation("tools");
+  const [weightKg, setWeightKg] = useState(12);
+  const [coat, setCoat] = useState("short");
+  const [service, setService] = useState("full-groom");
+  const [frequency, setFrequency] = useState("every-6-weeks");
+  // Guard inputs: typed negative/blank values must not render negative prices.
+  const safeWeight = Number.isFinite(weightKg) ? Math.min(120, Math.max(0.5, weightKg)) : 12;
+  const band = GROOMING_SIZE_BAND.find((b) => safeWeight <= b.maxKg) ?? { maxKg: 120, key: "extra-large" };
+  // 2026 US mobile prices by size and service; long/curly coats take longer
+  // to wash, dry and cut, so they carry a surcharge. Mobile runs about 25%
+  // above salon prices for the same groom.
+  const mult = COAT_MULTIPLIER[coat] ?? 1;
+  const base = GROOMING_PRICE[service]?.[band.key] ?? [70, 95];
+  const round5 = (n: number) => Math.round(n / 5) * 5;
+  const round10 = (n: number) => Math.round(n / 10) * 10;
+  const low = round5(base[0] * mult);
+  const high = round5(base[1] * mult);
+  const weeks = GROOMING_FREQUENCY_WEEKS[frequency] ?? 6;
+  const visits = weeks > 0 ? 52 / weeks : 1;
+  const annualLow = round10(low * visits);
+  const annualHigh = round10(high * visits);
+  const salonLow = round5(low / 1.25);
+  const salonHigh = round5(high / 1.25);
+  const interval = COAT_INTERVAL_WEEKS[coat] ?? 6;
+  const rows: { label: string; value: string }[] = [
+    { label: t("mobile-dog-grooming-cost-calculator.ui.sizeBand"), value: t(`mobile-dog-grooming-cost-calculator.ui.size.${band.key}`) },
+    { label: t("mobile-dog-grooming-cost-calculator.ui.recommendedInterval"), value: `every ${interval} weeks` },
+  ];
+  if (weeks > 0) {
+    rows.push({ label: t("mobile-dog-grooming-cost-calculator.ui.annualCost"), value: `$${annualLow}–$${annualHigh}` });
+  }
+  rows.push({ label: t("mobile-dog-grooming-cost-calculator.ui.salonComparison"), value: `$${salonLow}–$${salonHigh}` });
+  return (
+    <CalculatorLayout
+      form={<div className="space-y-4">
+        <NumberField label={t("mobile-dog-grooming-cost-calculator.ui.weightKg")} value={weightKg} onChange={setWeightKg} min={0.5} step={0.5} />
+        <SelectField label={t("mobile-dog-grooming-cost-calculator.ui.coat")} value={coat} onChange={setCoat} options={Object.keys(COAT_MULTIPLIER)} optionLabel={(o) => t(`mobile-dog-grooming-cost-calculator.ui.coatOption.${o}`)} />
+        <SelectField label={t("mobile-dog-grooming-cost-calculator.ui.service")} value={service} onChange={setService} options={Object.keys(GROOMING_PRICE)} optionLabel={(o) => t(`mobile-dog-grooming-cost-calculator.ui.serviceOption.${o}`)} />
+        <SelectField label={t("mobile-dog-grooming-cost-calculator.ui.frequency")} value={frequency} onChange={setFrequency} options={Object.keys(GROOMING_FREQUENCY_WEEKS)} optionLabel={(o) => t(`mobile-dog-grooming-cost-calculator.ui.frequencyOption.${o}`)} />
+      </div>}
+      result={<div className="space-y-4">
+        <Big value={`$${low}–$${high}`} label={t("mobile-dog-grooming-cost-calculator.ui.perSession")} />
+        <Rows items={rows} />
+        <Note>{t("mobile-dog-grooming-cost-calculator.ui.priceNote")}</Note>
+        {coat === "long" && <Note>{t("mobile-dog-grooming-cost-calculator.ui.longCoatNote")}</Note>}
+        {weeks === 0 && <Note>{t("mobile-dog-grooming-cost-calculator.ui.oneOffNote")}</Note>}
+      </div>}
+    />
+  );
+}
+
 export function DogCollarSize() {
   const { t } = useTranslation("tools");
   const [neck, setNeck] = useState(14);
