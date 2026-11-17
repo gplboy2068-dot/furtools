@@ -86,6 +86,22 @@ export function SiteFooter() {
           </ul>
         </div>
       </div>
+      {/* Featured-on badges (added 2026-11-17): directories that list FurTools
+          and link back to it. Kept in code so every deploy carries them — a
+          Lovable publish on 17 Nov 2026 briefly served a stale build with
+          these badges but without 11 days of main-branch work; do not let
+          the badges live only outside the repo again. */}
+      <div className="border-t border-border/60">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 py-6 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Featured on</p>
+          <a href="https://twelve.tools" target="_blank" rel="noopener" title="Featured on twelve.tools">
+            <img src="https://twelve.tools/badge0-dark.svg" alt="Featured on Twelve Tools" className="h-6 w-auto opacity-80 hover:opacity-100" loading="lazy" />
+          </a>
+          <a href="https://www.saashub.com/furtools" target="_blank" rel="noopener" title="Approved on SaaSHub">
+            <img src="https://cdn-b.saashub.com/img/badges/approved-color.png?v=1" alt="Approved on SaaSHub" className="h-6 w-auto opacity-80 hover:opacity-100" loading="lazy" />
+          </a>
+        </div>
+      </div>
       <div className="border-t border-border/60">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6">
           <p>© {year} {SITE.name}. {t("footer.madeWith")}</p>
