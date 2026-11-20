@@ -407,6 +407,69 @@ export function FishStocking() {
   );
 }
 
+export function MollyFishTankSize() {
+  const { t } = useTranslation("tools");
+  const [count, setCount] = useState(5);
+  const [type, setType] = useState("common");
+  const [breeding, setBreeding] = useState("no");
+  const [tankGal, setTankGal] = useState(20);
+  // Molly rules: 20 gal minimum for up to 5 common mollies (+3 gal each extra),
+  // 30 gal minimum for up to 4 sailfins (+5 gal each extra). A breeding colony
+  // needs ~50% more room for fry. Guards: count/tank clamped to >= 1 so a
+  // cleared input never renders NaN or a negative percentage.
+  const safeCount = Math.max(1, Math.floor(count || 1));
+  const safeTank = Math.max(1, tankGal || 1);
+  const base = type === "sailfin" ? 30 : 20;
+  const baseCount = type === "sailfin" ? 4 : 5;
+  const perFish = type === "sailfin" ? 5 : 3;
+  let minGal = base + Math.max(0, safeCount - baseCount) * perFish;
+  minGal = breeding === "yes" ? Math.ceil((minGal * 1.5) / 5) * 5 : Math.ceil(minGal / 5) * 5;
+  const stocking = Math.round((minGal / safeTank) * 100);
+  const label = stocking < 80 ? t("molly-fish-tank-size-calculator.ui.comfortable") : stocking <= 100 ? t("molly-fish-tank-size-calculator.ui.fullButOk") : t("molly-fish-tank-size-calculator.ui.overstocked");
+  const males = safeCount <= 2 ? 1 : Math.round(safeCount / 3);
+  const females = safeCount - males;
+  return (
+    <CalculatorLayout
+      form={<div className="space-y-4">
+        <div><Label>{t("molly-fish-tank-size-calculator.ui.mollyCount")}</Label><Input type="number" min={1} value={count} onChange={(e) => setCount(Math.max(1, +e.target.value || 1))} className="mt-1.5" /></div>
+        <div>
+          <Label>{t("molly-fish-tank-size-calculator.ui.mollyType")}</Label>
+          <Select value={type} onValueChange={setType}>
+            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="common">{t("molly-fish-tank-size-calculator.ui.type.common")}</SelectItem>
+              <SelectItem value="sailfin">{t("molly-fish-tank-size-calculator.ui.type.sailfin")}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label>{t("molly-fish-tank-size-calculator.ui.breeding")}</Label>
+          <Select value={breeding} onValueChange={setBreeding}>
+            <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="no">{t("molly-fish-tank-size-calculator.ui.breedingOption.no")}</SelectItem>
+              <SelectItem value="yes">{t("molly-fish-tank-size-calculator.ui.breedingOption.yes")}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div><Label>{t("molly-fish-tank-size-calculator.ui.tankSizeGal")}</Label><Input type="number" min={1} value={tankGal} onChange={(e) => setTankGal(Math.max(1, +e.target.value || 1))} className="mt-1.5" /></div>
+      </div>}
+      result={<div className="space-y-4">
+        <Big value={t("molly-fish-tank-size-calculator.ui.text", { min: minGal })} label={t("molly-fish-tank-size-calculator.ui.minimumTankSize")} unit={t("molly-fish-tank-size-calculator.ui.liters", { v0: Math.round(minGal * 3.785) })} />
+        <Rows items={[
+          { label: t("molly-fish-tank-size-calculator.ui.stockingLevel"), value: `${stocking}% — ${label}` },
+          { label: t("molly-fish-tank-size-calculator.ui.recommendedGroup"), value: t("molly-fish-tank-size-calculator.ui.groupText", { males, females }) },
+          { label: t("molly-fish-tank-size-calculator.ui.weeklyWaterChange"), value: `${(safeTank * 0.25).toFixed(1)} gal` },
+        ]} />
+        {safeCount < 3 && <p className="text-sm text-muted-foreground text-center">{t("molly-fish-tank-size-calculator.ui.socialNote")}</p>}
+        {breeding === "yes" && <p className="text-sm text-muted-foreground text-center">{t("molly-fish-tank-size-calculator.ui.fryNote")}</p>}
+        {type === "sailfin" && <p className="text-sm text-muted-foreground text-center">{t("molly-fish-tank-size-calculator.ui.sailfinNote")}</p>}
+        <p className="text-sm text-muted-foreground text-center">{t("molly-fish-tank-size-calculator.ui.hardWaterNote")}</p>
+      </div>}
+    />
+  );
+}
+
 interface CyclingReading { date: string; nh3: number; no2: number; no3: number; statusKey: string }
 const CYCLING_LOG_KEY = "furtools:cycling-log";
 function cyclingStatusKey(nh3: number, no2: number, no3: number): string {

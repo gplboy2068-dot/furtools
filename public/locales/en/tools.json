@@ -1943,6 +1943,38 @@
       "overstocked": "Overstocked"
     }
   },
+  "molly-fish-tank-size-calculator": {
+    "name": "Molly Fish Tank Size Calculator",
+    "description": "Work out the minimum tank size for common or sailfin mollies — with room for fry if your colony is breeding — and check whether your current tank is big enough.",
+    "ui": {
+      "mollyCount": "How many mollies?",
+      "mollyType": "Molly type",
+      "type": {
+        "common": "common — short-finned, 3–4.5 in adult",
+        "sailfin": "sailfin — up to 5–6 in adult, tall dorsal fin"
+      },
+      "breeding": "Breeding colony?",
+      "breedingOption": {
+        "no": "no — single sex, or fry rehomed",
+        "yes": "yes — mixed sexes, fry expected"
+      },
+      "tankSizeGal": "My tank size (gal)",
+      "minimumTankSize": "Minimum tank size",
+      "text": "{{min}} gal",
+      "liters": "{{v0}} L",
+      "stockingLevel": "Stocking level",
+      "recommendedGroup": "Suggested group",
+      "groupText": "{{males}} male(s), {{females}} female(s)",
+      "weeklyWaterChange": "Weekly water change (25%)",
+      "comfortable": "Comfortable",
+      "fullButOk": "Full but ok",
+      "overstocked": "Overstocked",
+      "socialNote": "Mollies are social — keep at least 3–5 together. A lone molly hides, stops eating and stresses.",
+      "fryNote": "A female molly drops 20–100 fry roughly every month — have dense plants or a grow-out tank ready, or a rehoming plan.",
+      "sailfinNote": "Sailfin mollies grow to 5–6 in and need a longer tank so males can display their tall dorsal fin.",
+      "hardWaterNote": "Mollies do best in hard, alkaline water (pH 7.5–8.5) at 75–80°F — soft, acidic water causes the shimmies."
+    }
+  },
   "tank-cycling-tracker": {
     "name": "Aquarium Cycling Tracker",
     "description": "Log ammonia, nitrite, and nitrate readings to see whether your new tank is cycled.",

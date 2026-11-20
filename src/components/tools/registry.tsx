@@ -26,7 +26,7 @@ import { DogBathFrequencyCalculator } from "@/components/tools/dog-bath-frequenc
 import { AquariumFilterFlowRate } from "@/components/tools/aquarium-filter-flow-rate";
 import {
   BirdCageSize, BirdFood, BirdLifespan, BirdWingClipGuide,
-  AquariumVolume, FishStocking, TankCyclingTracker, WaterChangeScheduler,
+  AquariumVolume, FishStocking, MollyFishTankSize, TankCyclingTracker, WaterChangeScheduler,
   FishFood, HeaterWattage, AquariumLighting, FishTankCost,
   RabbitHay, RabbitCageSize, RabbitFood, RabbitAge,
   HamsterCageSize, HamsterFood, GuineaPigVitaminC, HamsterLifespan,
@@ -166,6 +166,7 @@ export const TOOL_COMPONENTS: Record<string, ComponentType> = {
   "aquarium-volume-calculator": AquariumVolume,
   "aquarium-filter-flow-rate": AquariumFilterFlowRate,
   "fish-stocking-calculator": FishStocking,
+  "molly-fish-tank-size-calculator": MollyFishTankSize,
   "tank-cycling-tracker": TankCyclingTracker,
   "water-change-scheduler": WaterChangeScheduler,
   "fish-food-calculator": FishFood,

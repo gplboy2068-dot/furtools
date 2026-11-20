@@ -809,6 +809,19 @@ export const TOOLS_SUMMARY: ToolSummary[] = [
     "layout": "calculator"
   },
   {
+    "slug": "molly-fish-tank-size-calculator",
+    "name": "Molly Fish Tank Size Calculator",
+    "tagline": "Right tank for your mollies",
+    "category": "fish",
+    "keywords": [
+      "molly fish tank size",
+      "how many mollies in a 20 gallon tank",
+      "molly fish care",
+      "sailfin molly tank size"
+    ],
+    "layout": "calculator"
+  },
+  {
     "slug": "tank-cycling-tracker",
     "name": "Aquarium Cycling Tracker",
     "tagline": "Fishless-cycle status estimator",

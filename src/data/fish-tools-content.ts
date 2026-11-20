@@ -223,6 +223,71 @@ For taxonomy and maximum adult sizes, consult the [FishBase Biodiversity Databas
     ],
   },
 
+  "molly-fish-tank-size-calculator": {
+    howItWorks: `### Comprehensive Guide: Molly Fish Tank Size — Common vs Sailfin, Groups & Fry
+
+Mollies (*Poecilia sphenops*, *P. latipinna* and *P. velifera*) are among the most searched aquarium fish of 2026 — hardy, peaceful livebearers that suit beginners, but only when their tank is big enough. The most common beginner mistake is treating a molly like a guppy: adult mollies are far bigger and produce far more waste, and a mixed-sex group can double in number within months.
+
+#### 1. Minimum Tank Size: The Numbers That Matter
+- **Common / short-finned mollies** (3–4.5 in / 8–12 cm adult): a **20-gallon (76 L) tank is the minimum** for a small group of up to 5 fish. Allow **3 extra gallons per additional molly**.
+- **Sailfin mollies** (up to 5–6 in / 13–15 cm, males with a tall dorsal fin): a **30-gallon (114 L) tank is the minimum** for up to 4 fish. Allow **5 extra gallons per additional sailfin**.
+- **Breeding colonies:** a female molly drops **20–100 fry roughly every 30 days**. A mixed-sex group needs about **50% more tank volume** than the same number of non-breeding fish, plus dense plants or a separate grow-out tank — or the fry will quickly overstock the tank.
+- Always measure your true water volume with our [Aquarium Volume Calculator](/tools/aquarium-volume-calculator): substrate and decor displace 10–20% of a tank's rated size.
+
+#### 2. Group Size & Sex Ratio
+Mollies are social shoaling fish — keep **at least 3–5 together**; a lone molly hides, stops eating and stresses. For a mixed-sex group, aim for **1 male to 2–3 females**: males chase females constantly, and a single female with several males is harassed to exhaustion. An all-female group is the calmest option for a small tank, but note that a female can store sperm and keep producing fry for months after leaving a mixed tank.
+
+#### 3. Water Mollies Actually Want
+Mollies come from hard, alkaline coastal waters in Mexico and Central America, so they do best in **75–80°F (24–27°C), pH 7.5–8.5, moderately hard to hard water**. In soft, acidic water they frequently develop "the shimmies" — rocking in place — and fall ill. Keep ammonia and nitrite at 0 ppm and nitrates under 20 ppm (check with the [Aquarium Nitrate Calculator](/tools/aquarium-nitrate-calculator)), run a filter rated for **4–6× tank volume per hour**, and change **25% of the water weekly** (plan it with the [Water Change Scheduler](/tools/water-change-scheduler)). Mollies tolerate a little aquarium salt and even brackish water, but salt is optional in a freshwater setup — hard, alkaline water matters far more.
+
+#### 4. Tankmates, Plants & Feeding
+Mollies are peaceful community fish: good tankmates are other livebearers (guppies, platies, swordtails), tetras, rasboras and corydoras. Avoid fin-nippers such as tiger barbs and aggressive cichlids. Dense plants (java fern, anubias, hornwort, floating plants) give fry somewhere to hide and help absorb nitrates — size your planting with the [Aquarium Plant Count Calculator](/tools/aquarium-plant-count-calculator). Feed a varied diet of quality flakes or small pellets plus blanched vegetables and occasional algae; mollies graze algae all day. Estimate the generic bioload of any mixed community with our [Fish Stocking Calculator](/tools/fish-stocking-calculator), and keep the heater sized right with the [Aquarium Heater Wattage Calculator](/tools/aquarium-heater-wattage-calculator). Browse related tools in our [Fish & Aquarium Category](/categories/fish).
+
+*This guide is general care information, not veterinary advice. If your mollies show persistent illness signs — clamped fins, white spots, refusal to eat for days — consult an aquatic veterinarian.*`,
+    faqs: [
+      {
+        q: "How many mollies can I keep in a 20-gallon tank?",
+        a: "Five common (short-finned) mollies is a sensible maximum for a 20-gallon tank — that size is the minimum for a small group. Sailfin mollies need a 30-gallon tank for four. If the group is mixed-sex, expect fry and plan for a bigger tank or a rehoming plan.",
+      },
+      {
+        q: "What is the difference between common and sailfin molly tank size?",
+        a: "Common mollies reach 3–4.5 inches and need a 20-gallon minimum (3 gallons per extra fish). Sailfin mollies reach 5–6 inches, need a 30-gallon minimum (5 gallons per extra fish), and appreciate a longer tank because males display their tall dorsal fin.",
+      },
+      {
+        q: "Do mollies need a heater?",
+        a: "Yes, in most homes. Mollies are tropical fish and do best at 75–80°F (24–27°C). Below about 72°F they become sluggish, eat less and are more prone to illness.",
+      },
+      {
+        q: "Do mollies need salt in their water?",
+        a: "No — salt is optional in a freshwater setup. Mollies tolerate a little aquarium salt and even brackish water, but what they truly need is hard, alkaline water (pH 7.5–8.5). In soft, acidic water they often develop the shimmies and fall ill.",
+      },
+      {
+        q: "How fast do mollies breed, and how many fry do they have?",
+        a: "Very fast. A healthy female drops 20–100 fry roughly every 30 days, and she can store sperm and keep producing fry for months after being separated from males. Plan a grow-out tank, dense plants for fry cover, or a rehoming plan before buying a mixed-sex group.",
+      },
+      {
+        q: "What male-to-female ratio should I keep?",
+        a: "One male to two or three females. Males chase females constantly, so a single female with several males is harassed to exhaustion. An all-female group is the calmest choice for a small tank.",
+      },
+      {
+        q: "Can mollies live with guppies and platies?",
+        a: "Yes — they are peaceful livebearers and make good community tankmates alongside guppies, platies, swordtails, tetras, rasboras and corydoras. Avoid fin-nippers like tiger barbs and aggressive cichlids.",
+      },
+      {
+        q: "What is the minimum group size for mollies?",
+        a: "Keep at least 3–5 mollies together. They are social shoaling fish; a lone molly hides, stops eating and stresses, which weakens its immune system.",
+      },
+      {
+        q: "What water parameters do mollies need?",
+        a: "Temperature 75–80°F (24–27°C), pH 7.5–8.5, moderately hard to hard water, ammonia and nitrite at 0 ppm, and nitrates under 20 ppm. Test weekly and change 25% of the water every week.",
+      },
+      {
+        q: "Why is my molly shimmying or staying at the surface?",
+        a: "Shimmying (rocking in place) is a classic stress sign in mollies, most often caused by soft or acidic water, low temperature, poor water quality or low oxygen. Test ammonia, nitrite, pH and temperature, do a partial water change, and increase surface agitation. If symptoms persist for more than a day or two, consult an aquatic veterinarian — this guide cannot diagnose illness.",
+      },
+    ],
+  },
+
   "tank-cycling-tracker": {
     howItWorks: `### Comprehensive Guide: The Science of Aquarium Nitrogen Cycling
 
